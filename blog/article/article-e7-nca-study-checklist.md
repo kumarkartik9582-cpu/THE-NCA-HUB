@@ -1,135 +1,123 @@
-# NCA Study Checklist: 7 Questions to Answer Before You Book Your Exam Date
-
-**SEO Title:** NCA Study Checklist: 7 Questions Before Booking  
-**Meta Description:** Seven essential questions to answer before booking your NCA exam. Ensure you are ready and avoid costly re-sits.  
-**Slug:** /nca-study-checklist  
-**Keyword:** NCA study checklist  
-**Word count:** 2,000+ words
-
+---
+title: "The NCA Study Checklist: Daily, Weekly, Before Exam"
+slug: /nca-study-checklist
+meta_description: "Printable checklists: what to do every day, every week, and the week before your NCA exam. Stay on track, reduce anxiety."
+cluster: strategy
+cta_primary: "Get Complete Checklist PDF →"
+cta_secondary: "Download Now"
 ---
 
-Booking your NCA exam is a commitment. $500. Months of preparation. Before you click "register," answer these seven questions honestly.
+Anxiety comes from uncertainty. These checklists give you certainty — clear daily, weekly, and pre-exam tasks. Print them. Check them off. Know you are ready.
 
----
+## Daily Checklist (Every Study Day)
 
-## Question 1: Have I Covered All Core Syllabus Topics?
+**Before Studying:**
+- [ ] Phone on airplane mode, in another room
+- [ ] Water at desk
+- [ ] Materials organized (yesterday's notes closed, today's open)
+- [ ] Timer set (Pomodoro: 50 min study, 10 min break)
 
-**What to check:**
-- [ ] All essential topics identified
-- [ ] Core frameworks studied
-- [ ] No major gaps remaining
+**During Study:**
+- [ ] One framework reviewed (recited from memory)
+- [ ] One practice question written (or part of one)
+- [ ] Reviewed against model answer (marked gaps)
+- [ ] Note taken of weakest point (to review tomorrow)
 
-**Red flag:** "I will get to that later" or "That probably will not be tested."
+**After Study:**
+- [ ] 10-minute walk or stretch (consolidates memory)
+- [ ] Materials prepared for tomorrow (what topic, which question)
+- [ ] Study log updated (date, hours, topics covered)
 
-**Action:** Close all gaps before booking.
+## Weekly Checklist (Every Weekend)
 
----
+**Review:**
+- [ ] All frameworks recited from memory (no notes)
+- [ ] Flashcards reviewed (spaced repetition)
+- [ ] Weak areas from previous week re-studied
 
-## Question 2: Can I Identify Question Types Instantly?
+**Practice:**
+- [ ] One full mock exam question (45 minutes, timed)
+- [ ] Self-marked against model answer
+- [ ] Pattern errors identified (e.g., "always forget remedies")
 
-**What to check:**
-- [ ] Standard of review questions
-- [ ] Procedural fairness scenarios
-- [ ] Charter analysis questions
-- [ ] Criminal defences
+**Planning:**
+- [ ] Next week's schedule set (which days, which topics)
+- [ ] Materials printed/organized for next week
+- [ ] Progress check: Hours logged vs. target (should be at 18 hours/week if working, 35+ if full-time)
 
-**Test:** Give yourself 10 practice questions. Can you identify the issue in under 60 seconds each?
+## The "One Month Out" Checklist
 
-**Red flag:** Hesitation or misidentification.
+**4 Weeks Before:**
+- [ ] All core frameworks memorized (can write from memory)
+- [ ] 5+ practice questions completed per subject
+- [ ] Weak areas identified and targeted
+- [ ] Mock exam scheduled for 2 weeks out
 
-**Action:** More pattern recognition practice.
+**2 Weeks Before:**
+- [ ] Full mock exam completed under exam conditions
+- [ ] Technical setup tested (ProProctor system check)
+- [ ] All materials tabbed and organized
+- [ ] Weak areas from mock exam addressed
 
----
+**1 Week Before:**
+- [ ] Light review only (no new content)
+- [ ] Readiness score calculated (should be 70+)
+- [ ] Exam day logistics confirmed (time, room, ID ready)
+- [ ] Two full nights of good sleep (no cramming)
 
-## Question 3: Can I Write Answers Within Time Allocation?
+**Day Before:**
+- [ ] Materials prepared and accessible
+- [ ] Devices charged
+- [ ] Room cleared of unauthorized items
+- [ ] Light review only (30 minutes max)
+- [ ] Early bedtime
 
-**What to check:**
-- [ ] 45-minute practice answers completed
-- [ ] Consistently finish on time
-- [ ] Include all required elements
+**Exam Day:**
+- [ ] Alarm set with 30-minute buffer
+- [ ] Breakfast (light, protein)
+- [ ] Arrived at desk/room 15 minutes early
+- [ ] Logged in to ProProctor
+- [ ] 5-minute reading phase before writing
+- [ ] Time checks every 45 minutes
 
-**Test:** Time yourself. Do you finish with time to review?
+## The "Am I Ready?" Final Checklist (Night Before)
 
-**Red flag:** Always rushing the conclusion.
+**Knowledge:**
+- [ ] Can recite Vavilov framework without looking
+- [ ] Can recite Oakes test steps
+- [ ] Can recite Baker factors
+- [ ] Know where each is located in my notes (10-second test)
 
-**Action:** More timed practice. Build writing speed.
+**Materials:**
+- [ ] Notes tabbed with sticky notes
+- [ ] Statutory extracts printed (Charter sections, etc.)
+- [ ] Answer templates in clear sheet protector/folder
+- [ ] No prohibited materials in room
 
----
+**Technical:**
+- [ ] Phone charged to 100%, app installed
+- [ ] Phone stand positioned and tested
+- [ ] Computer restarted and browser updated
+- [ ] Backup device ready (charged)
+- [ ] Internet connection tested
 
-## Question 4: Have I Sat a Full Mock Exam Under Exam Conditions?
+**Physical:**
+- [ ] 7+ hours sleep (if not, do not panic — rest is cumulative)
+- [ ] Clothes laid out (comfortable, layers for temperature)
+- [ ] Water bottle ready (clear, no label)
+- [ ] ID ready (government photo ID)
 
-**What to check:**
-- [ ] 3-hour mock exam completed
-- [ ] Same time of day as real exam
-- [ ] Same materials as real exam
-- [ ] No interruptions
-
-**Red flag:** "I will do one next week."
-
-**Action:** Schedule and complete mock exam this week.
-
----
-
-## Question 5: Are My Materials Exam-Ready?
-
-**What to check:**
-- [ ] Notes tabbed and organised
-- [ ] Key frameworks easily accessible
-- [ ] 10-second access to any core concept
-
-**Test:** Can you find the Vavilov framework in under 10 seconds?
-
-**Red flag:** Unorganised materials you have not practised with.
-
-**Action:** Organise and practise finding key concepts.
-
----
-
-## Question 6: Is My Technical Setup Tested?
-
-**What to check:**
-- [ ] System test completed
-- [ ] Browser updated
-- [ ] Phone configured correctly
-- [ ] Room prepared
-
-**Red flag:** "I will figure it out on exam day."
-
-**Action:** Complete system test 48 hours before exam.
-
----
-
-## Question 7: What Is My Readiness Score?
-
-**What to check:**
-- [ ] Readiness Score assessment completed
-- [ ] Score 70+ (preferably 85+)
-- [ ] Specific gaps identified and addressed
-
-**Red flag:** "I feel ready" without objective measurement.
-
-**Action:** Take the [Readiness Score assessment](/readiness).
-
----
-
-## The Booking Decision
-
-**Book if:**
-- All 7 questions answered positively
-- Readiness Score 70+
-- Mock exam completed successfully
-
-**Wait if:**
-- Any question raises concern
-- Readiness Score below 70
-- Mock exam not yet completed
-
----
+**Mental:**
+- [ ] I have done the work (100+ hours logged)
+- [ ] One exam does not define my legal career
+- [ ] I have a re-sit plan if needed (but I will not need it)
 
 ## Your Next Step
 
-Answer the questions honestly. Book when you are ready.
+Print this. Use it. Trust it.
 
-[Calculate your NCA Readiness Score →](/readiness)
+[Get Printable PDF Version →](/pricing)
 
-[See our subject materials and pricing →](/pricing)
+[Calculate your readiness score →](/readiness)
+
+Check the boxes. Pass the exam.
