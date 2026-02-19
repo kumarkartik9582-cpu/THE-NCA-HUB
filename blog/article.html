@@ -377,7 +377,7 @@ function renderArticle(postName, raw) {
 }
 
 // ════════════════════════════════════════════════
-// LOAD ARTICLE — fetch the .md file from /blog/articles/
+// LOAD ARTICLE — fetch the .md file from /blog/article/
 // ════════════════════════════════════════════════
 function loadArticle() {
   var params   = new URLSearchParams(window.location.search);
@@ -398,7 +398,7 @@ function loadArticle() {
 
   document.getElementById('article-mount').innerHTML = '<div class="loading">Loading article…</div>';
 
-  fetch('/blog/articles/' + postName + '.md')
+  fetch('/blog/article/' + postName + '.md')
     .then(function(res) {
       if (!res.ok) throw new Error('Not found: ' + res.status);
       return res.text();
