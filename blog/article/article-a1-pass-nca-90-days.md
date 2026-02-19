@@ -1,10 +1,10 @@
 ---
-title: How to Pass the NCA Exam in 90 Days: A Step-by-Step System
+title: "How to Pass the NCA Exam in 90 Days: A Step-by-Step System"
 slug: /pass-nca-exam-90-days
-meta_description: The 90-day system for passing NCA exams. Includes daily schedule, subject sequencing, and readiness checkpoints. Built by someone who did it.
+meta_description: "The 90-day system for passing NCA exams. Includes daily schedule, subject sequencing, and readiness checkpoints. Built by someone who did it."
 cluster: strategy
-cta_primary: Calculate My Readiness Score →
-cta_secondary: Download Free Chapter
+cta_primary: "Calculate My Readiness Score →"
+cta_secondary: "Download Free Chapter"
 ---
 
 The first time I opened the NCA syllabus for Administrative Law, I stared at it for ten minutes and thought: *how is this actually possible?*
@@ -14,8 +14,6 @@ Three hundred pages of textbook. Seventy hours of recorded lectures. A 3-hour ex
 That was October 2024. By January 2025, I had passed four NCA subjects and completed the CPLED Legal Research and Writing course. The method I built under that pressure is what became The NCA Hub.
 
 This article gives you that system — adapted for a 90-day window that is realistic for working professionals and focused candidates alike.
-
----
 
 ## Why 90 Days Is the Right Window
 
@@ -28,8 +26,6 @@ The math works like this:
 - **Weeks 9–12:** Exam conditioning, timed practice, readiness scoring (Subject 3 or exam sitting)
 
 This is not guesswork. This is the timeline that produced four passes in three months — including one subject prepared in a single week.
-
----
 
 ## The Four Pillars of NCA Success
 
@@ -68,8 +64,6 @@ Open-book means you do not need to memorise statutes. It also means the exam tes
 Online-proctored means technical setup matters. Your phone is your proctor camera. Your room must be prepared. You must have tested your system 48 hours before the exam.
 
 Timed means you must practise under exam conditions. Not "I'll write a practice answer this weekend." I mean: set a timer, sit at your desk, use only your permitted materials, and write for 45 minutes. Then review. Then do it again.
-
----
 
 ## Week-by-Week 90-Day Calendar
 
@@ -120,8 +114,6 @@ Same daily structure. By now you know the rhythm. The focus shifts from "learnin
 - **Week 11:** Intensive Subject 2 review.
 - **Week 12:** Sit Subject 2.
 
----
-
 ## Subject Sequencing: Which Order to Sit
 
 The order matters. Some subjects build foundations. Others assume that foundation exists.
@@ -137,8 +129,6 @@ The order matters. Some subjects build foundations. Others assume that foundatio
 4. **Professional Responsibility last.** For lawyers with practice experience, much of this is intuitive. The CBA Model Code is comprehensive but logical. Save it for when your exam stamina is highest.
 
 **The exception:** If you have failed a subject before, prioritise it. The psychological weight of a previous failure demands early attention. Do not let it hang over you.
-
----
 
 ## The 2-Hour Daily Framework
 
@@ -159,8 +149,6 @@ For working professionals, this is the realistic minimum. Two focused hours, fiv
 - Detailed review and gap analysis (1–2 hours)
 
 This schedule produced four passes in three months. It can work for you.
-
----
 
 ## Three Readiness Checkpoints
 
@@ -187,8 +175,6 @@ Do not wait until the week before your exam to assess whether you are ready. Che
 - Score 70–84: Add light pattern drills. Do not add new content.
 - Score 55–69: Condensed timeline. Prioritise must-know frameworks only.
 - Score below 55: Consider postponing. Contact us for a diagnostic analysis.
-
----
 
 ## The Five Most Common 90-Day Mistakes
 
@@ -226,8 +212,6 @@ Practising at your kitchen table at 10am on a Saturday is not the same as sittin
 
 **Fix:** Do at least two full mock exams under exam conditions: same time of day, same setup, same time pressure, same materials.
 
----
-
 ## FAQ
 
 **Q: Can I really pass in 90 days while working full-time?**
@@ -249,8 +233,6 @@ Only if you are scoring 70+ on the Readiness Score for each subject. The mental 
 **Q: What is the single most important factor for success?**
 
 Consistent application practice. Everything else supports this. If you do nothing else, write practice answers under time pressure every single day.
-
----
 
 ## Your Next Step
 
