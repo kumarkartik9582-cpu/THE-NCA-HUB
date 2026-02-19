@@ -1,11 +1,10 @@
-# NCA Exam Format Explained: Everything That Happens on Exam Day 2026
-
-**SEO Title:** NCA Exam Format Explained: Everything That Happens on Exam Day 2026  
-**Meta Description:** First NCA exam? Here's exactly what happens — proctoring, question types, time strategy, room setup, what to bring. No surprises.  
-**Slug:** /nca-exam-format-explained  
-**Keyword:** NCA exam format  
-**Word count:** 2,400+ words
-
+---
+title: "NCA Exam Format Explained: Everything That Happens on Exam Day 2026"
+slug: /nca-exam-format-explained
+meta_description: "First NCA exam? Here's exactly what happens — proctoring, question types, time strategy, room setup, what to bring. No surprises."
+cluster: strategy
+cta_primary: "Calculate My Readiness Score →"
+cta_secondary: "Download Free Chapter"
 ---
 
 "Every exam is different."
@@ -18,8 +17,6 @@ These were the three most common phrases in the WhatsApp groups I monitored whil
 
 This article exists to eliminate that uncertainty. By the end, you will know exactly what happens on exam day — from technical setup to time allocation to what you should have prepared before you log in.
 
----
-
 ## The NCA Exam Format — What You Actually Need to Know
 
 The NCA exam is:
@@ -31,8 +28,6 @@ The NCA exam is:
 - **Results timeline:** 10–12 weeks (typically 6–8 weeks in practice)
 
 The open-book nature is the single most important fact to understand. It changes everything about how you should prepare.
-
----
 
 ## Open-Book Does NOT Mean Easy
 
@@ -52,8 +47,6 @@ You cannot read and apply simultaneously under time pressure. If you are searchi
 - You should never need more than 10 seconds to find a key concept
 
 This is why The NCA Hub notes are under 80 pages. Everything you need is accessible. Everything else is noise.
-
----
 
 ## Question Types — What You Will Face
 
@@ -100,8 +93,6 @@ NCA questions fall into three broad categories. Identifying which type you are f
 
 **Time allocation:** 30–35 minutes total
 
----
-
 ## The Online Proctored Setup — Exactly What You Need
 
 The NCA uses ProProctor for remote proctoring. Here is your complete setup checklist:
@@ -144,8 +135,6 @@ This is the part that causes the most anxiety. Here is how it works:
 
 If you are in airplane mode with WiFi on, calls cannot reach you. This is the correct setup. If you receive a notification despite this, ignore it. Do not touch the phone. The proctor will address it if necessary.
 
----
-
 ## Time Allocation — The Formula That Works
 
 Three hours. Three to four questions. Here is the allocation that works:
@@ -167,8 +156,6 @@ Three hours. Three to four questions. Here is the allocation that works:
 4. Noted any time adjustments needed
 
 **Reserve time for review.** The last 10–15 minutes is where you catch incomplete remedies, missed elements, and careless errors. Do not sacrifice this time.
-
----
 
 ## The Open-Book Study Strategy
 
@@ -196,8 +183,6 @@ Your materials must be exam-ready before exam day. Here is how to prepare them:
 ### The 10-Second Test
 
 Before the exam, test yourself: *Can I find the Vavilov framework in under 10 seconds?* If not, your organisation needs work.
-
----
 
 ## Technical Contingency — What If Something Goes Wrong?
 
@@ -227,8 +212,6 @@ Contact the NCA immediately. Explain what happened. Provide documentation. Reque
 
 Do not let technical anxiety stop you. Prepare for it. Then focus on what you can control: your preparation.
 
----
-
 ## After You Submit — What Happens Next
 
 ### Immediate
@@ -256,8 +239,6 @@ Do not let technical anxiety stop you. Prepare for it. Then focus on what you ca
 - There is no limit to attempts
 - Many of our students come to us after failing — our method is designed to break through repeated failures
 
----
-
 ## The Exam Day Checklist
 
 **One week before:**
@@ -283,8 +264,6 @@ Do not let technical anxiety stop you. Prepare for it. Then focus on what you ca
 - [ ] Stick to time allocations
 - [ ] Reserve review time
 - [ ] Stay calm if issues arise
-
----
 
 ## Your Next Step
 
