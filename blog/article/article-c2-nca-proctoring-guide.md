@@ -1,134 +1,149 @@
 ---
-title: "Failed the NCA Exam. What Now?"
-slug: /failed-nca-exam-next-steps
-meta_description: "Failed your NCA exam? The failure autopsy framework: what actually went wrong, what to change, and the retake strategy that works."
+title: "NCA Proctoring: The Complete Technical Setup Guide"
+slug: /nca-proctoring-setup-guide
+meta_description: "Browser, room, phone setup, what to cover, what happens if the connection drops. Everything that causes exam-day anxiety — addressed before exam day."
 cluster: fear
-cta_primary: "Calculate My Readiness Score →"
-cta_secondary: "Get Retake Strategy Call"
+cta_primary: "Download Proctoring Checklist →"
+cta_secondary: "See Exam Format Guide"
 ---
 
-Failure is data, not a verdict. If you failed an NCA exam, you are not alone — and you are not finished. Many successful Canadian lawyers failed at least one NCA subject. The difference between those who ultimately qualify and those who stop trying is not intelligence or legal knowledge. It is the ability to analyse failure accurately and adjust accordingly.
+The NCA uses ProProctor for online proctoring. Technical failures are the most preventable cause of exam disqualification — and the most anxiety-inducing. This guide eliminates that anxiety by giving you the exact technical setup that works.
 
-This article gives you the failure autopsy framework — a systematic way to understand what went wrong and build a retake strategy that works.
+## The Device Setup
 
-## Step 1: The Failure Autopsy (Be Brutally Honest)
+### Computer Requirements
+- **OS:** Windows 10/11 or macOS 10.15+
+- **Browser:** Chrome or Firefox (latest versions — update the day before)
+- **Webcam:** 720p minimum (most laptops are fine)
+- **Microphone:** Required for proctor communication
+- **Internet:** Stable connection, minimum 1 Mbps upload/download
 
-Before studying again, you must understand why you failed. NCA failures typically fall into three categories:
+**Test your system:** Do the ProProctor system test 48 hours before your exam. Do not skip this.
 
-### Category A: Knowledge Gaps
-- Did you not know the legal frameworks (Vavilov, Oakes, etc.)?
-- Did you confuse similar concepts (reasonableness vs. correctness)?
-- Did you miss entire topics (e.g., not studying procedural fairness)?
+### What to Close
+- All applications except your browser
+- VPNs (disable completely)
+- Firewalls (temporarily disable or allow ProProctor)
+- Browser extensions (disable ad blockers, grammar checkers, etc.)
 
-**Signs:** Feedback mentions "lack of legal analysis," "incorrect statement of law," or "missed issues."
+## The Phone Setup (Critical)
 
-### Category B: Application Failure
-- Did you know the law but fail to apply it to the facts?
-- Did you run out of time?
-- Did you structure answers poorly (no headings, no logical flow)?
+Your phone is your second camera. This is where most technical failures occur.
 
-**Signs:** Feedback mentions "conclusory," "missed application," "poor organisation," or "incomplete."
+### Required Settings
+1. **Airplane Mode: ON**
+2. **WiFi: ON** (connects to proctor)
+3. **Bluetooth: OFF**
+4. **Do Not Disturb: OFF** (the app needs to run in foreground)
+5. **Battery: 100%** before starting
+6. **Charging cable:** Plugged in throughout exam
 
-### Category C: Exam Technique
-- Did you misread questions?
-- Did you panic or freeze?
-- Did technical issues affect your performance?
-- Did you not answer the specific question asked?
+### The ProProctor App
+- Download from App Store (iOS) or Play Store (Android) **before exam day**
+- Test the app during your system test
+- Do not update the app on exam day (use the version you tested)
 
-**Signs:** Feedback mentions "did not answer the question," "irrelevant material," or mentions you discussed topics not raised in the problem.
+### Positioning
+- Use a phone stand, stack of books, or cup to hold the phone
+- Position it behind you, showing your face, hands, and screen
+- Test the angle during system test to ensure you are visible
 
-**Most failures are Category B or C**, not Category A. Candidates often study *harder* (more knowledge) when they should study *smarter* (better application).
+## Room Preparation
 
-## Step 2: Analyse the Feedback
+### The Ideal Setup
+- **Desk:** Clear surface with only permitted materials
+- **Chair:** Standard chair without high back (proctor needs to see you)
+- **Walls:** Plain background preferred
+- **Lighting:** Bright enough for facial recognition; avoid backlight from windows
 
-NCA feedback is brief but specific. It typically states which competencies were "Not Demonstrated," "Partially Demonstrated," or "Demonstrated."
+### What Must Be Removed/Covered
+- **Second monitors:** Unplug and turn away from you
+- **Smart watches:** Remove completely
+- **Books/notes:** Only permitted materials allowed (check NCA list)
+- **Mirrors:** Cover if visible to camera
+- **Other people:** Ensure no one enters the room during exam
 
-**If "Not Demonstrated" appears in:**
-- **Knowledge of law:** You missed core frameworks. Return to basics.
-- **Analysis/application:** You knew the law but didn't apply it properly. Focus on practice questions.
-- **Communication/organisation:** Structure was poor. Use templates.
+### Bathroom Access
+You cannot leave the room during the exam. Prepare accordingly:
+- Bathroom immediately before starting
+- Water bottle (clear, no labels) within reach
+- No food during exam
 
-## Step 3: The Retake Strategy
+## Exam Day Protocol
 
-### If You Failed Due to Knowledge Gaps (Category A)
+### 30 Minutes Before
+- Final system check
+- Close all unnecessary applications
+- Open browser, navigate to ProProctor login
+- Have ID ready (government-issued photo ID)
 
-**Timeline:** 4–6 weeks focused study
-**Approach:**
-- Re-read the core frameworks only (ignore fringe topics)
-- Create flashcards for legal tests (Vavilov steps, Oakes test, Baker factors)
-- Do not move to practice questions until you can recite frameworks from memory
+### Login Process
+1. Log in to ProProctor 15 minutes early
+2. Complete identity verification (photo ID, face scan)
+3. Wait for proctor to connect (can take 5–10 minutes)
+4. Proctor will ask you to:
+   - Show your room (360-degree pan with phone/laptop)
+   - Show your desk surface
+   - Confirm your materials are permitted
 
-### If You Failed Due to Application (Category B)
+### During the Exam
+- Keep eyes on screen (looking away frequently triggers review)
+- No talking (unless technical issue)
+- No standing up or leaving camera view
+- Phone must remain positioned and connected
 
-**Timeline:** 3–4 weeks intensive practice
-**Approach:**
-- Do 1–2 practice questions daily under timed conditions
-- Compare your answers against model answers line-by-line
-- Identify where you stopped applying law to facts (the "gap")
+## If Technical Issues Arise
 
-### If You Failed Due to Technique (Category C)
+### Connection Drops
+- Do not panic. The proctor will attempt to reconnect.
+- Do not touch unauthorised materials while waiting.
+- If disconnected >5 minutes, contact NCA technical support immediately after.
+- Document the time and nature of the issue.
 
-**Timeline:** 2–3 weeks exam conditioning
-**Approach:**
-- Mock exams under exact exam conditions (same time, same setup)
-- Practise reading questions carefully (identify the "call" of the question)
-- Technical rehearsal if online proctoring caused issues
+### Proctor Cannot See You
+- Adjust lighting (turn on lights, close blinds if backlit)
+- Reposition phone/laptop camera
+- Proctor may ask you to adjust during exam — comply immediately
 
-## Step 4: Psychological Reset
+### Software Crashes
+- Reopen browser immediately
+- Re-log in to ProProctor
+- The exam timer continues running — do not waste time panicking
+- Contact NCA after exam to report
 
-Failure creates psychological residue: fear of failing again, embarrassment, questioning your ability to practise law in Canada.
+## After a Technical Failure
 
-**This is normal.** But you must not let it affect your retake preparation.
+If your exam is disqualified due to technical issues:
+1. **Document everything** (time, what happened, screenshots if possible)
+2. **Contact NCA immediately** (within 24 hours)
+3. **Request accommodation** for re-sit (usually granted if documented)
+4. **Review your setup** for next time (usually a phone battery or positioning issue)
 
-**Mental reframes:**
-- "This was a practice run that counted." You now know the exam format intimately.
-- "The NCA tests exam technique, not lawyer competence." Many brilliant lawyers fail due to time pressure, not legal ability.
-- "I have a specific gap, not a general deficiency." You are fixing a specific problem, not "learning law."
+## The Night-Before Checklist
 
-## Step 5: When to Sit Again
+- [ ] System test completed successfully
+- [ ] ProProctor app downloaded and tested
+- [ ] Phone charged to 100%
+- [ ] Phone stand/positioning tested
+- [ ] Room cleared of unauthorised items
+- [ ] Backup device ready (charged) in case of primary device failure
+- [ ] NCA technical support number saved: [check NCA website for current number]
 
-**Sooner is usually better.** While the NCA allows multiple attempts, delaying creates knowledge decay and anxiety buildup.
+## Morning-Of Checklist
 
-**Sit the next available session if:**
-- You have identified the specific gap
-- You have corrected it through practice
-- You are scoring 70+ on readiness assessments
-
-**Wait one extra session if:**
-- You need significant time to re-learn core material (Category A failure)
-- Personal circumstances (work, health) prevented proper preparation
-- You have not yet diagnosed the failure cause
-
-## The "Second Attempt" Advantage
-
-Second-attempt candidates often pass with higher scores than first-timers because:
-- You know the exam format and pressure
-- You know exactly what you don't know
-- You are more efficient (no wasted time on low-yield topics)
-- You take it seriously (no complacency)
-
-## Common Retake Mistakes
-
-### 1. Studying the Same Way
-If your method failed once, it will fail again. Change your approach. If you read textbooks last time, do practice questions this time. If you worked alone, join a study group or get structured materials.
-
-### 2. Focusing on What You Know
-It is comforting to review material you already understand. It is useless. Focus relentlessly on the gaps identified in your failure autopsy.
-
-### 3. Waiting Too Long
-Delaying creates anxiety and forgetting. If you are within 60 days of your failure, your knowledge is fresh. Capitalise on this by preparing immediately for the next session.
-
-### 4. Ignoring Mental Health
-Failure is bruising. If you are experiencing significant anxiety or depression, address it before attempting again. A clear mind is essential for exam performance.
+- [ ] Final bathroom break
+- [ ] Phone on airplane mode with WiFi on
+- [ ] Computer restarted and browser opened
+- [ ] Log in 15 minutes early
+- [ ] Water bottle ready
+- [ ] ID within reach
 
 ## Your Next Step
 
-You failed one exam. You have not failed as a lawyer. The path to Canadian qualification is still open.
+Technical preparation is within your control. Do not let preventable errors cost you an exam pass.
 
-[Calculate your NCA Readiness Score →](/readiness)
+[Download the Complete Proctoring Checklist PDF →](/pricing)
 
-[Download the Retake Diagnostic Guide →](/pricing)
+[Read the full Exam Format Guide →](/blog/article?post=article-a2-nca-exam-format)
 
-[Book a strategy call →](/contact)
-
-Failure is data. Use it. Pass next time.
+Prepare the tech. Focus on the law. Pass the exam.
