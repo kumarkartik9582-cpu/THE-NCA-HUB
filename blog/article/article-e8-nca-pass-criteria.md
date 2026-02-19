@@ -1,154 +1,135 @@
-# What Does an NCA Pass Actually Look Like? Inside the Marking Criteria
-
-**SEO Title:** What Does an NCA Pass Actually Look Like?  
-**Meta Description:** Inside the NCA marking criteria. What earns marks, what does not, and what a passing answer actually looks like.  
-**Slug:** /nca-pass-criteria  
-**Keyword:** NCA pass criteria  
-**Word count:** 2,300+ words
-
+---
+title: "How is the NCA Exam Graded? Understanding the Pass Criteria"
+slug: /nca-pass-criteria-explained
+meta_description: "What 50% actually means. How NCA exams are marked, what competencies they test, and why you do not need perfection to pass."
+cluster: strategy
+cta_primary: "Calculate My Readiness →"
+cta_secondary: "Download Scoring Guide"
 ---
 
-The NCA does not publish detailed marking schemes. But patterns emerge from candidate feedback and analysis of what works.
+The pass mark is 50%. But what does that actually mean? How do they calculate it? And what are the "competencies" mentioned in feedback letters? This article demystifies NCA grading so you can aim for the right target.
 
-This article reveals what a passing answer actually looks like.
+## The Competency Framework
 
----
+NCA exams are marked against competencies, not just raw scores. The four competencies are:
 
-## The Passing Mark: 50%
+**1. Knowledge of the Law (25%)**
+- Do you know the correct legal tests?
+- Are your statements of law accurate?
+- Do you cite relevant cases/statutes?
 
-**Critical fact:** The NCA passing mark is 50%. Not 70%. Not 60%. 50%.
+**2. Application and Analysis (50%)**
+- Do you apply the law to the facts?
+- Is your reasoning logical and step-by-step?
+- Do you reach defensible conclusions?
 
-This means:
-- You do not need perfection
-- You can miss elements and still pass
-- A solid, structured answer is sufficient
+**3. Communication and Organisation (15%)**
+- Is your answer structured logically?
+- Can the examiner follow your argument?
+- Is your writing clear and concise?
 
----
+**4. Problem-Solving/Practical Skills (10%)**
+- Do you identify all relevant issues?
+- Do you propose appropriate remedies?
+- Do you consider practical implications?
 
-## What Earns Marks
+## What 50% Means
 
-### 1. Issue Identification
+You do not need 50% on every competency. You need an **overall 50%** across the exam, with no competency "Not Demonstrated" (below 40% in that area).
 
-**What markers look for:**
-- Correct identification of legal issues
-- Recognition of relevant legal frameworks
-- Understanding of what the question is asking
+**Passing profile example:**
+- Knowledge: 55% (Competent)
+- Application: 48% (Competent)
+- Communication: 60% (Competent)
+- Problem-solving: 45% (Competent)
+- **Overall: 52% = PASS**
 
-**How to demonstrate:**
-- State the issue clearly at the start
-- Identify the relevant legal test
-- Show you understand the question type
+## The "Not Demonstrated" Trap
 
-### 2. Framework Application
+If you score below 40% on any single competency, you fail regardless of overall score.
 
-**What markers look for:**
-- Correct application of legal tests
-- Logical progression through analysis
-- Use of relevant cases and statutes
+**Common scenario:**
+- Knowledge: 70%
+- Application: 30% (Not Demonstrated)
+- Communication: 65%
+- Problem-solving: 60%
+- **Overall: 56% but FAIL because Application is "Not Demonstrated"**
 
-**How to demonstrate:**
-- Follow the established framework
-- Apply each element to the facts
-- Reference key cases where relevant
+**Moral:** You cannot bomb one section and make it up elsewhere. You must be minimally competent in all four areas.
 
-### 3. Reasoning and Analysis
+## How They Calculate Scores
 
-**What markers look for:**
-- Logical reasoning
-- Consideration of counter-arguments
-- Balanced analysis
+**Each question** is marked out of 100, then weighted by the exam's question structure.
 
-**How to demonstrate:**
-- Explain your reasoning
-- Consider alternative interpretations
-- Reach reasoned conclusions
+**Typical 3-question exam:**
+- Question 1: 35% of total mark
+- Question 2: 35% of total mark
+- Question 3: 30% of total mark
 
-### 4. Structure and Organisation
+**Within each question:**
+- Issue identification: 10%
+- Legal principle stated: 20%
+- Application to facts: 40%
+- Conclusion: 10%
+- Organisation/communication: 20%
 
-**What markers look for:**
-- Clear structure
-- Logical flow
-- Easy to follow
+## Why You Do Not Need Perfection
 
-**How to demonstrate:**
-- Use headings
-- Follow a logical sequence
-- Signpost your analysis
+To pass (50%), you can:
+- Miss some issues (identify 70% of them)
+- Get some law slightly wrong (minor inaccuracies)
+- Have weaker conclusions (if application is strong)
+- Write competent but not brilliant prose
 
-### 5. Conclusion and Remedies
+**You cannot:**
+- Miss major issues (fail to see obvious conflicts)
+- State law completely wrong (apply wrong test)
+- Write incoherently (no structure)
 
-**What markers look for:**
-- Clear conclusion
-- Appropriate remedies identified
-- Practical advice
+## The "Borderline" Zone (45–55%)
 
-**How to demonstrate:**
-- State your conclusion clearly
-- Identify appropriate remedies
-- Provide practical advice to the client
+If your raw score is 45–55%, senior examiners review it. They look for:
+- Partial credit on application (some good analysis, some missing)
+- Whether communication issues obscure good analysis
+- Whether the answer shows "competent" lawyer thinking despite errors
 
----
+**Tip:** If you are borderline, clear organisation helps. A well-structured weak answer may pass; a disorganised weak answer fails.
 
-## What Does NOT Earn Marks
+## Feedback Letter Decoded
 
-### 1. Extensive Case Summaries
+After results, you get a letter with ratings:
 
-**Do not:** Recite the facts of cases at length.
+**"Demonstrated" (60–100%):** Strong area. Do not change approach here.
 
-**Why:** The exam tests application, not recall. Case facts are background. The legal test is what matters.
+**"Competent" (50–59%):** Adequate but not strong. Minor improvements needed.
 
-### 2. Background Information
+**"Partially Demonstrated" (40–49%):** Weak area. Risk of "Not Demonstrated" next time. Target this area heavily.
 
-**Do not:** Provide extensive background on legal history or theory.
+**"Not Demonstrated" (0–39%):** Failure level. Fundamental misunderstanding or omission. Requires significant re-study.
 
-**Why:** Markers want analysis of the specific question, not a treatise on the subject.
+## Strategy Based on Marking
 
-### 3. Perfection
+**Maximise Application (50% weight):**
+- Spend most time practising "apply law to facts"
+- Use the templates to ensure structure
+- Even if unsure of law, attempt application with best guess
 
-**Do not:** Obsess over getting every detail perfect.
+**Secure Knowledge (25% weight):**
+- Memorise 5 core frameworks cold
+- Do not worry about fringe topics
+- Minor errors here are survivable
 
-**Why:** 50% is the passing mark. A solid, structured answer is sufficient. Perfection is not required.
-
----
-
-## A Passing Answer: Example Structure
-
-**Administrative Law question example:**
-
-```
-1. ISSUE
-The issue is whether the Board's decision is reviewable and, if so, 
-what standard applies.
-
-2. STANDARD OF REVIEW
-Under Vavilov, the presumption is reasonableness. [Apply presumption]
-There is no correctness exception here. [Explain why]
-Therefore, reasonableness applies.
-
-3. REASONABLENESS ANALYSIS
-Internal logic: [Assess decision's reasoning]
-Justification: [Assess engagement with facts and law]
-Conclusion: The decision is [reasonable/unreasonable] because...
-
-4. REMEDIES
-If unreasonable, certiorari to quash and mandamus to reconsider.
-
-5. CONCLUSION
-The decision is [vulnerable/sound]. [Practical advice]
-```
-
-This structure earns marks. It is not perfect. It is sufficient.
-
----
+**Ensure Communication (15% weight):**
+- Always use headings
+- Always IRAC or equivalent structure
+- Neatness counts (if handwritten, but NCA is typed)
 
 ## Your Next Step
 
-Focus on what earns marks. Structure. Framework application. Clear reasoning.
+Aim for 60% to be safe. Do not aim for 90% (wasted effort). Do not aim for 40% (risky).
 
-[Calculate your NCA Readiness Score →](/readiness)
+[Calculate your readiness score →](/readiness)
 
-[See our subject materials and pricing →](/pricing)
+[Get exam strategy materials →](/pricing)
 
-[Download a free chapter →](/sample)
-
-The passing mark is 50%. A solid, structured answer gets you there.
+50% is the line. Cross it.
