@@ -1,11 +1,10 @@
-# How to Pass the NCA Exam in 90 Days: A Step-by-Step System
-
-**SEO Title:** How to Pass the NCA Exam in 90 Days: A Step-by-Step System  
-**Meta Description:** The 90-day system for passing NCA exams. Includes daily schedule, subject sequencing, and readiness checkpoints. Built by someone who did it.  
-**Slug:** /pass-nca-exam-90-days  
-**Keyword:** how to pass NCA exam  
-**Word count:** 2,500+ words
-
+---
+title: How to Pass the NCA Exam in 90 Days: A Step-by-Step System
+slug: /pass-nca-exam-90-days
+meta_description: The 90-day system for passing NCA exams. Includes daily schedule, subject sequencing, and readiness checkpoints. Built by someone who did it.
+cluster: strategy
+cta_primary: Calculate My Readiness Score →
+cta_secondary: Download Free Chapter
 ---
 
 The first time I opened the NCA syllabus for Administrative Law, I stared at it for ten minutes and thought: *how is this actually possible?*
