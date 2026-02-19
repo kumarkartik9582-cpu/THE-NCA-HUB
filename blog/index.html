@@ -175,10 +175,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   </div>
 </div>
 
-<!-- ARTICLES GRID -->
+<!-- ARTICLES GRID: All 25 Articles with Correct Filenames -->
 <main class="articles-section">
   <div class="articles-grid" id="grid">
 
+    <!-- 1. FEATURED: 90 Days (Working Correctly) -->
     <article class="article-card featured" data-cluster="strategy">
       <div class="card-cluster">Exam Strategy</div>
       <h2 class="card-title">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h2>
@@ -189,6 +190,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
     </article>
 
+    <!-- SUBJECT GUIDES (5 articles) -->
     <article class="article-card" data-cluster="subjects">
       <div class="card-cluster">Subject Guide</div>
       <h2 class="card-title">Administrative Law NCA: The Complete 2026 Exam Guide</h2>
@@ -239,6 +241,17 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
     </article>
 
+    <!-- EXAM STRATEGY (7 articles: A2, E1, E3, E4, E7, E8 + E2 moved to Comparison) -->
+    <article class="article-card" data-cluster="strategy">
+      <div class="card-cluster">Exam Strategy</div>
+      <h2 class="card-title">NCA Study Schedule for Working Professionals</h2>
+      <p class="card-excerpt">A realistic study plan for candidates balancing full-time work and NCA prep. Week-by-week breakdown with 2-hour daily schedules.</p>
+      <div class="card-meta">
+        <span class="card-read">11 min read</span>
+        <a href="article.html?post=article-e1-nca-study-schedule-working" class="card-link">Read</a>
+      </div>
+    </article>
+
     <article class="article-card" data-cluster="strategy">
       <div class="card-cluster">Exam Strategy</div>
       <h2 class="card-title">NCA Exam Format Explained: What Happens on Exam Day</h2>
@@ -249,13 +262,54 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
     </article>
 
-    <article class="article-card" data-cluster="readiness">
-      <div class="card-cluster">Readiness</div>
-      <h2 class="card-title">The NCA Readiness Score: Are You Actually Ready to Sit Your Exam?</h2>
-      <p class="card-excerpt">The answer to "is this enough?" — finally objective. Five dimensions of readiness, scored 0–100, with a specific action for each result band.</p>
+    <article class="article-card" data-cluster="strategy">
+      <div class="card-cluster">Exam Strategy</div>
+      <h2 class="card-title">How Many Hours Should You Study for the NCA?</h2>
+      <p class="card-excerpt">Subject-by-subject hour breakdowns. What 100 hours vs 200 hours looks like, and how to tell if you're over-studying or under-prepared.</p>
+      <div class="card-meta">
+        <span class="card-read">9 min read</span>
+        <a href="article.html?post=article-e3-nca-study-hours" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <article class="article-card" data-cluster="strategy">
+      <div class="card-cluster">Exam Strategy</div>
+      <h2 class="card-title">The NCA Process Timeline: From Assessment to Exams</h2>
+      <p class="card-excerpt">How long each stage really takes — NCA assessment, subject allocation, exam registration, and results. Real timelines, not estimates.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-a4-nca-readiness-score" class="card-link">Read</a>
+        <a href="article.html?post=article-e4-nca-process-timeline" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <article class="article-card" data-cluster="strategy">
+      <div class="card-cluster">Exam Strategy</div>
+      <h2 class="card-title">The NCA Study Checklist: What to Complete Before Exam Day</h2>
+      <p class="card-excerpt">A printable, week-by-week checklist covering content review, practice questions, tech setup, and final 48-hour preparation.</p>
+      <div class="card-meta">
+        <span class="card-read">8 min read</span>
+        <a href="article.html?post=article-e7-nca-study-checklist" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <article class="article-card" data-cluster="strategy">
+      <div class="card-cluster">Exam Strategy</div>
+      <h2 class="card-title">NCA Pass Criteria: What Score Do You Actually Need?</h2>
+      <p class="card-excerpt">Understanding the 50% passing threshold, how exams are graded, and what "competent" means in the NCA context.</p>
+      <div class="card-meta">
+        <span class="card-read">7 min read</span>
+        <a href="article.html?post=article-e8-nca-pass-criteria" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <!-- COMMON FEARS (5 articles: C1-C5) -->
+    <article class="article-card" data-cluster="fear">
+      <div class="card-cluster">Common Fears</div>
+      <h2 class="card-title">Failed the NCA Exam. What Now?</h2>
+      <p class="card-excerpt">Failure is data, not a verdict. The failure autopsy framework: what actually went wrong, what to change, and the retake strategy that works.</p>
+      <div class="card-meta">
+        <span class="card-read">10 min read</span>
+        <a href="article.html?post=article-c1-failed-nca-exam" class="card-link">Read</a>
       </div>
     </article>
 
@@ -271,11 +325,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 
     <article class="article-card" data-cluster="fear">
       <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">Failed the NCA Exam. What Now?</h2>
-      <p class="card-excerpt">Failure is data, not a verdict. The failure autopsy framework: what actually went wrong, what to change, and the retake strategy that works.</p>
+      <h2 class="card-title">Is One Month Enough to Prepare for the NCA?</h2>
+      <p class="card-excerpt">Honest answer: for some subjects in the right conditions, yes. Here is exactly what one month looks like day-by-day so you can judge your own situation.</p>
       <div class="card-meta">
-        <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-c1-failed-nca-exam" class="card-link">Read</a>
+        <span class="card-read">9 min read</span>
+        <a href="article.html?post=article-c3-one-month-nca-prep" class="card-link">Read</a>
       </div>
     </article>
 
@@ -289,6 +343,18 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
     </article>
 
+    <!-- C5 - NEW -->
+    <article class="article-card" data-cluster="fear">
+      <div class="card-cluster">Common Fears</div>
+      <h2 class="card-title">Managing NCA Exam Anxiety: Practical Techniques</h2>
+      <p class="card-excerpt">Pre-exam nerves, during-exam panic, and post-exam rumination. Specific techniques for the 72 hours before and the moments during the test.</p>
+      <div class="card-meta">
+        <span class="card-read">9 min read</span>
+        <a href="article.html?post=article-c5-nca-exam-anxiety" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <!-- CAREER PATHWAY (4 articles: D1-D4) -->
     <article class="article-card" data-cluster="pathway">
       <div class="card-cluster">Career Pathway</div>
       <h2 class="card-title">NCA to Bar Exam: The Complete Canadian Lawyer Pathway</h2>
@@ -309,6 +375,17 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
     </article>
 
+    <!-- D4 - NEW -->
+    <article class="article-card" data-cluster="pathway">
+      <div class="card-cluster">Career Pathway</div>
+      <h2 class="card-title">NCA for UK-Qualified Lawyers: Transitioning to Canada</h2>
+      <p class="card-excerpt">Specific guidance for solicitors and barristers from the UK. Which subjects transfer, which require extra attention, and the common pitfalls.</p>
+      <div class="card-meta">
+        <span class="card-read">11 min read</span>
+        <a href="article.html?post=article-d4-nca-uk-based-lawyers" class="card-link">Read</a>
+      </div>
+    </article>
+
     <article class="article-card" data-cluster="comparison">
       <div class="card-cluster">Comparison</div>
       <h2 class="card-title">NCA Prep Materials: What to Look for Before You Buy</h2>
@@ -319,13 +396,48 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
     </article>
 
-    <article class="article-card" data-cluster="fear">
-      <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">Is One Month Enough to Prepare for the NCA?</h2>
-      <p class="card-excerpt">Honest answer: for some subjects in the right conditions, yes. Here is exactly what one month looks like day-by-day so you can judge your own situation.</p>
+    <!-- COMPARISON (3 additional: E2, E5, E6) -->
+    <!-- E2 - NEW -->
+    <article class="article-card" data-cluster="comparison">
+      <div class="card-cluster">Comparison</div>
+      <h2 class="card-title">NCA vs Bar Exam: What's the Difference?</h2>
+      <p class="card-excerpt">How the NCA exams differ from provincial bar exams in format, content, and strategy. What passes the NCA vs what passes the Bar.</p>
       <div class="card-meta">
-        <span class="card-read">9 min read</span>
-        <a href="article.html?post=article-c3-one-month-nca-prep" class="card-link">Read</a>
+        <span class="card-read">10 min read</span>
+        <a href="article.html?post=article-e2-nca-vs-bar-exam" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <!-- E5 - NEW -->
+    <article class="article-card" data-cluster="comparison">
+      <div class="card-cluster">Comparison</div>
+      <h2 class="card-title">Are 300-Page NCA Notes Worth It?</h2>
+      <p class="card-excerpt">The problem with comprehensive notes in an open-book exam. Why shorter, structured templates outperform lengthy textbooks on exam day.</p>
+      <div class="card-meta">
+        <span class="card-read">8 min read</span>
+        <a href="article.html?post=article-e5-300-page-notes-worth-it" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <!-- E6 - NEW -->
+    <article class="article-card" data-cluster="comparison">
+      <div class="card-cluster">Comparison</div>
+      <h2 class="card-title">NCA Live Classes vs Self-Study: Which Works Better?</h2>
+      <p class="card-excerpt">Cost, time, discipline requirements, and learning styles. When to pay for live instruction and when independent study is more effective.</p>
+      <div class="card-meta">
+        <span class="card-read">10 min read</span>
+        <a href="article.html?post=article-e6-nca-live-classes-vs-self-study" class="card-link">Read</a>
+      </div>
+    </article>
+
+    <!-- READINESS (1 article: A4) -->
+    <article class="article-card" data-cluster="readiness">
+      <div class="card-cluster">Readiness</div>
+      <h2 class="card-title">The NCA Readiness Score: Are You Actually Ready to Sit Your Exam?</h2>
+      <p class="card-excerpt">The answer to "is this enough?" — finally objective. Five dimensions of readiness, scored 0–100, with a specific action for each result band.</p>
+      <div class="card-meta">
+        <span class="card-read">10 min read</span>
+        <a href="article.html?post=article-a4-nca-readiness-score" class="card-link">Read</a>
       </div>
     </article>
 
