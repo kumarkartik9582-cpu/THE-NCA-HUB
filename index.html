@@ -172,7 +172,7 @@ ul{list-style:none}
 nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
 nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1)}
 nav.disc-gone{top:0}
-.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1}
+.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1}
 
 .nav-links{display:flex;gap:44px}
 .nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;position:relative;transition:color .3s;overflow:hidden;padding-bottom:2px;}
@@ -304,28 +304,34 @@ nav.disc-gone{top:0}
 .score-item-desc{font-size:var(--sm);color:var(--fog);line-height:1.5;}
 
 /* STORY */
-.story-pin{height:350vh}
-.story-st{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;background:var(--deep)}
-.story-tr{display:flex;width:400%;height:100%;will-change:transform}
-.story-prog{position:absolute;right:40px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:20}
-@media(max-width:640px){.story-prog{right:14px}}
-.sp-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.25);transition:background .4s,transform .4s var(--expo)}
-.sp-dot.on{background:var(--g1);transform:scale(1.5)}
-.story-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:20;opacity:.5;transition:opacity .4s;pointer-events:none}
-.story-hint.hidden{opacity:0}
-.story-hint p{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1)}
-.story-hint-line{width:1px;height:32px;background:linear-gradient(180deg,var(--g1),transparent);animation:sh-pulse 2s ease-in-out infinite}
-@keyframes sh-pulse{0%,100%{opacity:.3}50%{opacity:1}}
-.sp{width:25%;height:100%;flex-shrink:0;display:flex;align-items:center;padding:0 100px 0 72px;position:relative;overflow:hidden}
-@media(max-width:640px){.sp{padding:0 60px 0 24px}}
-.spn{font-family:var(--fd);font-size:clamp(7rem,16vw,15rem);font-weight:300;color:rgba(201,168,76,.04);line-height:1;position:absolute;right:60px;bottom:44px;pointer-events:none;user-select:none;letter-spacing:-.04em;}
-.sp-ch{font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.3);font-weight:500;margin-bottom:18px}
-.spey{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;display:flex;align-items:center;gap:12px}
-.spey::before{content:'';width:24px;height:1px;background:var(--g1)}
-.sph{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.8rem);font-weight:300;line-height:1.08;letter-spacing:-.018em;color:var(--cream);margin-bottom:28px}
-.sph em{font-style:italic;color:var(--g1)}
-.spp{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:580px;font-weight:300}
-.spp+.spp{margin-top:14px}
+#story{position:relative;z-index:1;}
+.story-chapter{min-height:100svh;display:flex;align-items:center;background:var(--deep);position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.06);}
+.story-chapter:last-child{border-bottom:none}
+.story-chapter-inner{max-width:1300px;margin:0 auto;padding:120px 72px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;width:100%;position:relative;z-index:2;}
+@media(max-width:960px){.story-chapter-inner{grid-template-columns:1fr;gap:40px;padding:100px 24px;}}
+.story-ch-left{position:relative;}
+.story-ch-num{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none;transition:color 1s;}
+.story-chapter.vis .story-ch-num{color:rgba(201,168,76,.08);}
+.story-ch-label{font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1;}
+.story-ch-eye{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
+.story-ch-eye::before{content:'';width:0;height:1px;background:var(--g1);transition:width .8s var(--expo);}
+.story-chapter.vis .story-ch-eye::before{width:24px;}
+.story-ch-head{font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1;opacity:0;transform:translateY(30px);transition:opacity .9s var(--expo),transform .9s var(--expo);}
+.story-chapter.vis .story-ch-head{opacity:1;transform:translateY(0);}
+.story-ch-head em{font-style:italic;color:var(--g1);}
+.story-ch-right{opacity:0;transform:translateY(24px);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo);}
+.story-chapter.vis .story-ch-right{opacity:1;transform:translateY(0);}
+.story-ch-body{font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300;}
+.story-ch-body p+p{margin-top:20px;}
+.story-ch-quote{margin-top:32px;padding:24px 28px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03);}
+.story-ch-quote p{font-family:var(--fd);font-size:1.1rem;font-style:italic;color:var(--cream);line-height:1.6;}
+.story-ch-progress{position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:800;opacity:0;transition:opacity .5s;}
+.story-ch-progress.vis{opacity:1;}
+.scp-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.25);transition:background .4s,transform .4s var(--expo);cursor:pointer;}
+.scp-dot.on{background:var(--g1);transform:scale(1.5);}
+.story-ambience{position:absolute;inset:0;pointer-events:none;}
+.story-line-v{position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);}
+@media(max-width:640px){.story-ch-num{font-size:clamp(6rem,22vw,10rem);top:-20px;left:-10px;}}
 
 /* METHOD */
 .msc{background:var(--dark);position:relative;overflow:hidden}
@@ -560,6 +566,29 @@ nav.disc-gone{top:0}
 .ch{font-family:var(--fd);font-size:clamp(4rem,9vw,9rem);font-weight:300;font-style:italic;line-height:.94;letter-spacing:-.028em;color:var(--cream);margin-bottom:32px}
 .ch em{color:var(--g1)}
 .cp{font-size:var(--lead);color:var(--fog);max-width:500px;margin:0 auto 52px;line-height:1.9;font-weight:300}
+
+/* BLOG SECTION */
+.bflt{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--dim);background:transparent;border:1px solid rgba(201,168,76,.12);padding:8px 18px;cursor:pointer;transition:all .3s;font-family:var(--fb);}
+.bflt:hover,.bflt.active{color:var(--void);background:var(--g1);border-color:var(--g1);}
+.blog-featured{display:block;background:var(--glow3);border:1px solid rgba(201,168,76,.16);border-left:3px solid var(--g1);padding:52px 56px;text-decoration:none;transition:border-color .4s,transform .5s var(--expo);position:relative;overflow:hidden;}
+.blog-featured::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo);}
+.blog-featured:hover{border-color:rgba(201,168,76,.4);transform:translateY(-4px);}
+.blog-featured:hover::after{transform:scaleX(1);}
+.bfeat-tag{font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:18px;}
+.bfeat-h{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.8rem);font-weight:400;color:var(--cream);line-height:1.15;margin-bottom:16px;}
+.bfeat-p{font-size:var(--lead);color:var(--fog);line-height:1.8;max-width:680px;margin-bottom:28px;font-weight:300;}
+.bfeat-meta{display:flex;align-items:center;justify-content:space-between;font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
+.bfeat-cta{color:var(--g1);letter-spacing:.22em;}
+.blog-card{display:block;background:var(--glow3);border:1px solid rgba(201,168,76,.07);padding:36px 32px;text-decoration:none;transition:border-color .4s,background .4s,transform .4s var(--expo);position:relative;overflow:hidden;}
+.blog-card:hover{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.04);transform:translateY(-4px);}
+.blog-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .5s var(--expo);}
+.blog-card:hover::after{transform:scaleX(1);}
+.bc-tag{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:12px;}
+.bc-h{font-family:var(--fd);font-size:1.15rem;font-weight:500;color:var(--cream);line-height:1.3;margin-bottom:10px;}
+.bc-p{font-size:var(--sm);color:var(--fog);line-height:1.7;margin-bottom:20px;}
+.bc-meta{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between;align-items:center;}
+.bc-meta span{color:var(--g1);}
+.blog-card.hidden{display:none;}
 
 /* FOOTER */
 footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 52px;position:relative;z-index:1}
@@ -836,41 +865,89 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 
 <!-- STORY -->
 <div id="story">
-  <div class="story-pin" id="SP">
-    <div class="story-st">
-      <div class="sn" style="position:absolute;top:40px;right:72px;z-index:10" aria-hidden="true">03 / 08</div>
-      <div class="story-prog" id="SPROG" role="tablist" aria-label="Story progress">
-        <div class="sp-dot on" role="tab" aria-label="Chapter 1"></div>
-        <div class="sp-dot" role="tab" aria-label="Chapter 2"></div>
-        <div class="sp-dot" role="tab" aria-label="Chapter 3"></div>
-        <div class="sp-dot" role="tab" aria-label="Chapter 4"></div>
+  <!-- Fixed progress dots -->
+  <div class="story-ch-progress" id="STORY_PROG">
+    <div class="scp-dot on" data-ch="0"></div>
+    <div class="scp-dot" data-ch="1"></div>
+    <div class="scp-dot" data-ch="2"></div>
+    <div class="scp-dot" data-ch="3"></div>
+  </div>
+
+  <!-- Chapter 01 -->
+  <div class="story-chapter" id="SCH1">
+    <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
+    <div class="story-chapter-inner">
+      <div class="story-ch-left">
+        <div class="story-ch-num" aria-hidden="true">01</div>
+        <div class="story-ch-label">Chapter 01 / 04</div>
+        <div class="story-ch-eye">The Founder's Story</div>
+        <h2 class="story-ch-head">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
       </div>
-      <div class="story-hint" id="SHINT" aria-hidden="true"><div class="story-hint-line"></div><p>Keep scrolling</p></div>
-      <div class="story-tr" id="STR">
-        <div class="sp"><div>
-          <div class="sp-ch">Chapter 01 / 04</div><div class="spey">The Founder's Story</div>
-          <h2 class="sph">Three UK law firms. A Supreme Court judgment.<br><em>Then nothing.</em></h2>
-          <p class="spp">Kartik Kumar qualified as a lawyer in India and built his career at UK law firms — DWF, Eversheds Sutherland, and Keoghs. He was hired as Legal Executive at a newly established law firm for motor finance undisclosed commission claims.</p>
-          <p class="spp">A Supreme Court judgment (Hopcraft v Close Brothers) changed the motor finance landscape. The project wound down. Kartik was let go — no income, borrowed money from parents. He had already received his NCA assessment prior to the job loss.</p>
-        </div><div class="spn" aria-hidden="true">01</div></div>
-        <div class="sp"><div>
-          <div class="sp-ch">Chapter 02 / 04</div><div class="spey">The Pivot</div>
-          <h2 class="sph">Sit the NCA.<br><em>One week to prepare.</em></h2>
-          <p class="spp">He purchased the industry-standard materials. Found them too dense, too long — built for candidates with months to spare, not one week.</p>
-          <p class="spp">So he built his own system. Distilled notes. Fellow candidates called to understand what was actually tested. A strategic framework for every question type.</p>
-        </div><div class="spn" aria-hidden="true">02</div></div>
-        <div class="sp"><div>
-          <div class="sp-ch">Chapter 03 / 04</div><div class="spey">The Method</div>
-          <h2 class="sph">Four subjects. Three months.<br><em>One technical failure — not a knowledge one.</em></h2>
-          <p class="spp">Administrative Law (first exam, one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed. Foundations of Canadian Law was attempted but not passed due to a technical failure (phone died during proctored session) — not a knowledge failure.</p>
-          <p class="spp">CPLED LRW course completed early with one month remaining on the deadline. Total: 4 NCA subjects passed + LRW completed. The method proved itself across every subject it touched.</p>
-        </div><div class="spn" aria-hidden="true">03</div></div>
-        <div class="sp"><div>
-          <div class="sp-ch">Chapter 04 / 04</div><div class="spey">The Proof</div>
-          <h2 class="sph">The course that<br><em>built itself.</em></h2>
-          <p class="spp">LRW completed early signals system efficiency. The NCA Hub was born from necessity — built for everyone in the same position. Anum had sat Constitutional Law three times before. On her 4th and final attempt — using The NCA Hub method — she passed.</p>
-          <p class="spp">"I passed on my 4th and final attempt. This is the only method that worked for me."</p>
-        </div><div class="spn" aria-hidden="true">04</div></div>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>Kartik Kumar qualified as a lawyer in India and built his career at UK law firms — DWF, Eversheds Sutherland, and Keoghs. He was hired as Legal Executive at a newly established law firm for motor finance undisclosed commission claims.</p>
+          <p>A Supreme Court judgment (Hopcraft v Close Brothers) changed the motor finance landscape. The project wound down. Kartik was let go — no income, borrowed money from parents. He had already received his NCA assessment prior to the job loss.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 02 -->
+  <div class="story-chapter" id="SCH2">
+    <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
+    <div class="story-chapter-inner">
+      <div class="story-ch-left">
+        <div class="story-ch-num" aria-hidden="true">02</div>
+        <div class="story-ch-label">Chapter 02 / 04</div>
+        <div class="story-ch-eye">The Pivot</div>
+        <h2 class="story-ch-head">Sit the NCA.<br><em>One week to prepare.</em></h2>
+      </div>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>He purchased the industry-standard materials. Found them too dense, too long — built for candidates with months to spare, not one week.</p>
+          <p>So he built his own system. Distilled notes. Fellow candidates called to understand what was actually tested. A strategic framework for every question type.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 03 -->
+  <div class="story-chapter" id="SCH3">
+    <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
+    <div class="story-chapter-inner">
+      <div class="story-ch-left">
+        <div class="story-ch-num" aria-hidden="true">03</div>
+        <div class="story-ch-label">Chapter 03 / 04</div>
+        <div class="story-ch-eye">The Method</div>
+        <h2 class="story-ch-head">Four subjects. Three months.<br><em>One technical failure —<br>not a knowledge one.</em></h2>
+      </div>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>Administrative Law (first exam, one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed.</p>
+          <p>Foundations of Canadian Law was attempted but not passed due to a technical failure — phone died during proctored session. Not a knowledge failure. CPLED LRW course completed early with one month remaining. Total: 4 NCA subjects passed + LRW completed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 04 -->
+  <div class="story-chapter" id="SCH4">
+    <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
+    <div class="story-chapter-inner">
+      <div class="story-ch-left">
+        <div class="story-ch-num" aria-hidden="true">04</div>
+        <div class="story-ch-label">Chapter 04 / 04</div>
+        <div class="story-ch-eye">The Proof</div>
+        <h2 class="story-ch-head">The course that<br><em>built itself.</em></h2>
+      </div>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>LRW completed early signals system efficiency. The NCA Hub was born from necessity — built for everyone in the same position.</p>
+          <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt — using The NCA Hub method — she passed.</p>
+        </div>
+        <div class="story-ch-quote">
+          <p>"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1388,6 +1465,214 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   </div>
 </div>
 
+<!-- BLOG / ARTICLES -->
+<section id="blog" aria-label="Free Guides" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:140px 0;position:relative;z-index:1;">
+  <div class="w">
+    <span class="ey fu">Free Guides</span>
+    <div class="sh-mask-wrap">
+      <h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">Everything you need<br><em>to pass. Free.</em></h2>
+    </div>
+    <p class="sl fu" style="transition-delay:.22s;margin-top:24px;max-width:620px;">Written by someone who passed 4 NCA subjects in 3 months — with one week to prepare for the first one. No filler.</p>
+
+    <!-- Category Filter -->
+    <div id="blog-filter" class="fu" style="transition-delay:.3s;display:flex;flex-wrap:wrap;gap:8px;margin-top:48px;margin-bottom:48px;">
+      <button class="bflt active" data-cat="all">All Articles</button>
+      <button class="bflt" data-cat="exam-strategy">Exam Strategy</button>
+      <button class="bflt" data-cat="subject-guide">Subject Guides</button>
+      <button class="bflt" data-cat="common-fears">Common Fears</button>
+      <button class="bflt" data-cat="comparison">Comparisons</button>
+      <button class="bflt" data-cat="career-pathway">Career Pathway</button>
+      <button class="bflt" data-cat="readiness">Readiness</button>
+    </div>
+
+    <!-- Featured Article -->
+    <a href="blog/article.html?post=article-pass-nca-90-days" class="blog-featured fu" style="transition-delay:.32s;" data-cat="exam-strategy">
+      <div class="bfeat-tag">Featured · Exam Strategy</div>
+      <h3 class="bfeat-h">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h3>
+      <p class="bfeat-p">The exact framework used to pass 4 NCA subjects in 3 months. Includes a week-by-week calendar, subject sequencing logic, and the 2-hour daily study formula.</p>
+      <div class="bfeat-meta"><span>12 min read</span><span class="bfeat-cta">Read the guide →</span></div>
+    </a>
+
+    <!-- Article Grid -->
+    <div id="blog-grid" style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+
+      <a href="blog/article.html?post=article-a3-administrative-law-nca" class="blog-card" data-cat="subject-guide">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h">Administrative Law NCA: The Complete 2026 Exam Guide</h4>
+        <p class="bc-p">Vavilov, Baker procedural fairness, judicial review — with the exact answer template.</p>
+        <div class="bc-meta">18 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-b1-constitutional-law-nca" class="blog-card" data-cat="subject-guide">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h">Constitutional Law NCA: The Charter Framework You Must Know</h4>
+        <p class="bc-p">Division of powers, Charter analysis, the Oakes test, and Aboriginal rights under s.35.</p>
+        <div class="bc-meta">16 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-b2-criminal-law-nca" class="blog-card" data-cat="subject-guide">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h">Criminal Law NCA: What the Exam Actually Tests</h4>
+        <p class="bc-p">Actus reus, mens rea, major defences, and the answer structure that separates pass from fail.</p>
+        <div class="bc-meta">15 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-b3-professional-responsibility-nca" class="blog-card" data-cat="subject-guide">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h">Professional Responsibility NCA: Spot Conflicts, Structure Answers</h4>
+        <p class="bc-p">CBA Model Code, duties, conflicts of interest, and withdrawal — with the pre-structuring template.</p>
+        <div class="bc-meta">14 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-b4-foundations-canadian-law-nca" class="blog-card" data-cat="subject-guide">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h">Foundations of Canadian Law NCA: The Subject Candidates Underestimate</h4>
+        <p class="bc-p">Sources of law, statutory interpretation, and Quebec's bijural tradition — broader than it looks.</p>
+        <div class="bc-meta">14 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e1-nca-study-schedule-working" class="blog-card" data-cat="exam-strategy">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h">NCA Study Schedule for Working Professionals</h4>
+        <p class="bc-p">A realistic plan for candidates balancing full-time work and NCA prep.</p>
+        <div class="bc-meta">11 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-a2-nca-exam-format" class="blog-card" data-cat="exam-strategy">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h">NCA Exam Format Explained: What Happens on Exam Day</h4>
+        <p class="bc-p">Open-book, online-proctored, 3 hours. Room setup, question types, time strategy.</p>
+        <div class="bc-meta">12 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e3-nca-study-hours" class="blog-card" data-cat="exam-strategy">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h">How Many Hours Should You Study for the NCA?</h4>
+        <p class="bc-p">Subject-by-subject breakdowns. What 100 hours vs 200 hours looks like.</p>
+        <div class="bc-meta">9 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e4-nca-process-timeline" class="blog-card" data-cat="exam-strategy">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h">The NCA Process Timeline: From Assessment to Exams</h4>
+        <p class="bc-p">How long each stage really takes — assessment, allocation, registration, results.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e7-nca-study-checklist" class="blog-card" data-cat="exam-strategy">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h">The NCA Study Checklist: What to Complete Before Exam Day</h4>
+        <p class="bc-p">Week-by-week checklist: content review, practice questions, tech setup, final 48 hours.</p>
+        <div class="bc-meta">8 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e8-nca-pass-criteria" class="blog-card" data-cat="exam-strategy">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h">NCA Pass Criteria: What Score Do You Actually Need?</h4>
+        <p class="bc-p">The 50% threshold, how exams are graded, and what "competent" means.</p>
+        <div class="bc-meta">7 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-c1-failed-nca-exam" class="blog-card" data-cat="common-fears">
+        <div class="bc-tag">Common Fears</div>
+        <h4 class="bc-h">Failed the NCA Exam. What Now?</h4>
+        <p class="bc-p">The failure autopsy framework: what went wrong, what to change, and the retake strategy.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-c2-nca-proctoring-guide" class="blog-card" data-cat="common-fears">
+        <div class="bc-tag">Common Fears</div>
+        <h4 class="bc-h">NCA Proctoring: The Complete Technical Setup Guide</h4>
+        <p class="bc-p">Browser, room, phone setup, what to cover, what happens if the connection drops.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-c3-one-month-nca-prep" class="blog-card" data-cat="common-fears">
+        <div class="bc-tag">Common Fears</div>
+        <h4 class="bc-h">Is One Month Enough to Prepare for the NCA?</h4>
+        <p class="bc-p">Honest answer: for some subjects in the right conditions, yes. Day-by-day breakdown.</p>
+        <div class="bc-meta">9 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-c4-nca-textbook-necessary" class="blog-card" data-cat="common-fears">
+        <div class="bc-tag">Common Fears</div>
+        <h4 class="bc-h">Do You Actually Need the NCA Textbook?</h4>
+        <p class="bc-p">The honest answer is no — for most candidates. Here is why, and what to use instead.</p>
+        <div class="bc-meta">8 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-c5-nca-exam-anxiety" class="blog-card" data-cat="common-fears">
+        <div class="bc-tag">Common Fears</div>
+        <h4 class="bc-h">Managing NCA Exam Anxiety: Practical Techniques</h4>
+        <p class="bc-p">Pre-exam nerves, during-exam panic, post-exam rumination. Specific techniques.</p>
+        <div class="bc-meta">9 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-d2-nca-to-bar-exam" class="blog-card" data-cat="career-pathway">
+        <div class="bc-tag">Career Pathway</div>
+        <h4 class="bc-h">NCA to Bar Exam: The Complete Canadian Lawyer Pathway</h4>
+        <p class="bc-p">Assessment, sequencing, LRW, articling, provincial bar exams. Full roadmap.</p>
+        <div class="bc-meta">13 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-d3-nca-indian-lawyers" class="blog-card" data-cat="career-pathway">
+        <div class="bc-tag">Career Pathway</div>
+        <h4 class="bc-h">NCA for Indian-Qualified Lawyers: The Complete Guide</h4>
+        <p class="bc-p">Written by an Indian-qualified lawyer who went through it. Specific challenges and advantages.</p>
+        <div class="bc-meta">11 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-d4-nca-uk-based-lawyers" class="blog-card" data-cat="career-pathway">
+        <div class="bc-tag">Career Pathway</div>
+        <h4 class="bc-h">NCA for UK-Qualified Lawyers: Transitioning to Canada</h4>
+        <p class="bc-p">Which subjects transfer, which need extra attention, and the common pitfalls.</p>
+        <div class="bc-meta">11 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-d1-nca-prep-materials-compared" class="blog-card" data-cat="comparison">
+        <div class="bc-tag">Comparison</div>
+        <h4 class="bc-h">NCA Prep Materials: What to Look for Before You Buy</h4>
+        <p class="bc-p">Volume vs precision. Live vs async. An honest evaluation framework.</p>
+        <div class="bc-meta">11 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e2-nca-vs-bar-exam" class="blog-card" data-cat="comparison">
+        <div class="bc-tag">Comparison</div>
+        <h4 class="bc-h">NCA vs Bar Exam: What's the Difference?</h4>
+        <p class="bc-p">Format, content, and strategy differences between NCA and provincial bar exams.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-card" data-cat="comparison">
+        <div class="bc-tag">Comparison</div>
+        <h4 class="bc-h">Are 300-Page NCA Notes Worth It?</h4>
+        <p class="bc-p">The problem with comprehensive notes in an open-book exam. Why shorter wins.</p>
+        <div class="bc-meta">8 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e6-nca-live-classes-vs-self-study" class="blog-card" data-cat="comparison">
+        <div class="bc-tag">Comparison</div>
+        <h4 class="bc-h">NCA Live Classes vs Self-Study: Which Works Better?</h4>
+        <p class="bc-p">Cost, time, discipline requirements. When to pay for live instruction.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-a4-nca-readiness-score" class="blog-card" data-cat="readiness">
+        <div class="bc-tag">Readiness</div>
+        <h4 class="bc-h">The NCA Readiness Score: Are You Actually Ready to Sit?</h4>
+        <p class="bc-p">Five dimensions of readiness, scored 0–100, with a specific action for each band.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+    </div>
+
+    <!-- View All -->
+    <div style="text-align:center;margin-top:56px;" class="fu" style="transition-delay:.4s">
+      <a href="blog/index.html" class="bp"><span>View All 25 Free Guides →</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="ftg">
@@ -1871,23 +2156,62 @@ if(!IS_MOBILE){
   o.observe(el);
 });
 
-/* STORY HORIZONTAL SCROLL */
+/* STORY CHAPTER REVEAL */
 (function(){
-  var STR=document.getElementById('STR'),DOTS=document.querySelectorAll('.sp-dot'),HINT=document.getElementById('SHINT');
-  if(!STR||typeof gsap==='undefined')return;
-  try{
-    gsap.to(STR,{
-      x:function(){return-(STR.scrollWidth-window.innerWidth);},
-      ease:'none',
-      scrollTrigger:{trigger:'#SP',start:'top top',end:'bottom bottom',scrub:1.2,invalidateOnRefresh:true,
-        onUpdate:function(self){
-          var idx=Math.min(Math.floor(self.progress*DOTS.length),DOTS.length-1);
-          DOTS.forEach(function(d,i){d.classList.toggle('on',i===idx);});
-          if(HINT)HINT.classList.toggle('hidden',self.progress>.04);
-        }
+  var chapters = document.querySelectorAll('.story-chapter');
+  var dots = document.querySelectorAll('.scp-dot');
+  var prog = document.getElementById('STORY_PROG');
+  if(!chapters.length) return;
+
+  // Show progress dots when story section is in view
+  var storyEl = document.getElementById('story');
+  var progObs = new IntersectionObserver(function(entries){
+    if(prog) prog.classList.toggle('vis', entries[0].isIntersecting);
+  }, {threshold: 0.05});
+  if(storyEl) progObs.observe(storyEl);
+
+  // Reveal each chapter + update dots
+  var chObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('vis');
+        var idx = Array.prototype.indexOf.call(chapters, entry.target);
+        dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
       }
     });
-  }catch(e){}
+  }, {threshold: 0.35});
+
+  chapters.forEach(function(ch){ chObs.observe(ch); });
+
+  // Dot click scrolls to chapter
+  dots.forEach(function(dot){
+    dot.addEventListener('click', function(){
+      var idx = parseInt(dot.dataset.ch);
+      if(chapters[idx]) chapters[idx].scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+})();
+
+/* BLOG FILTER */
+(function(){
+  var filters = document.querySelectorAll('.bflt');
+  var cards = document.querySelectorAll('.blog-card');
+  var featured = document.querySelector('.blog-featured');
+  if(!filters.length) return;
+  filters.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var cat = btn.dataset.cat;
+      filters.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      if(cat === 'all'){
+        cards.forEach(function(c){ c.classList.remove('hidden'); });
+        if(featured) featured.style.display = '';
+      } else {
+        if(featured) featured.style.display = featured.dataset.cat === cat ? '' : 'none';
+        cards.forEach(function(c){ c.classList.toggle('hidden', c.dataset.cat !== cat); });
+      }
+    });
+  });
 })();
 
 /* MOBILE MENU */
