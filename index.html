@@ -115,11 +115,52 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 <style>
-:root{--void:#020204;--abyss:#050508;--deep:#080810;--dark:#0D0D18;--surf:#121220;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--glow:rgba(201,168,76,.11);--glow3:rgba(201,168,76,.025);--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--td:clamp(4.5rem,11vw,10.5rem);--h1:clamp(3rem,6.5vw,6.5rem);--lead:1.08rem;--body:.93rem;--sm:.8rem;--nano:.57rem;--expo:cubic-bezier(.16,1,.3,1);}
+:root{
+  --void:#020204;
+  --abyss:#050508;
+  --deep:#080810;
+  --dark:#0D0D18;
+  --surf:#121220;
+  --g0:#F0D878;
+  --g1:#C9A84C;
+  --g2:#9E7B30;
+  --g3:#4E3A14;
+  --glow:rgba(201,168,76,.11);
+  --glow3:rgba(201,168,76,.025);
+  --cream:#EDE5CE;
+  --fog:#998E7C;
+  --dim:#6B6257;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;
+  --td:clamp(4.5rem,11vw,10.5rem);
+  --h1:clamp(3rem,6.5vw,6.5rem);
+  --lead:1.08rem;
+  --body:.93rem;
+  --sm:.8rem;
+  --nano:.57rem;
+  --expo:cubic-bezier(.16,1,.3,1);
+  --bg-temp:0; /* Scroll-linked temperature shift */
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-padding-top:80px;overflow-x:hidden}
-body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
+body{
+  background: var(--void);
+  background-image: linear-gradient(180deg, rgba(201,168,76,calc(0.02 + var(--bg-temp) * 0.01)) 0%, rgba(2,2,4,1) 100%);
+  color:var(--cream);
+  font-family:var(--fb);
+  font-weight:300;
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  cursor:none;
+}
 @media(max-width:960px){body{cursor:auto}}
+
+/* Split text character spans */
+.char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;}
+.word{display:inline-block;overflow:hidden;}
+.line{display:block;overflow:hidden;}
+
 h1,h2,h3{font-family:var(--fd)}
 a{text-decoration:none;color:inherit}
 button{font-family:var(--fb);border:none;background:none;cursor:none}
@@ -139,6 +180,7 @@ ul{list-style:none}
 #pg-border{position:fixed;inset:4px;border:1px solid rgba(201,168,76,0);pointer-events:none;z-index:995;}
 #ambient-cv{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;}
 #trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996;}
+#ink-cv{position:fixed;inset:0;pointer-events:none;z-index:9995;opacity:0.8;}
 #exam-clock{position:fixed;top:50%;right:28px;transform:translateY(-50%);font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,168,76,.18);font-family:var(--fb);font-weight:400;writing-mode:vertical-rl;pointer-events:none;z-index:800;opacity:0;transition:opacity 1s;}
 #reading-time{position:fixed;bottom:26px;right:28px;z-index:800;font-size:.46rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:400;opacity:0;transition:opacity 1s;}
 
@@ -155,7 +197,15 @@ ul{list-style:none}
 #cd.h{transform:translate(-50%,-50%) scale(0)}
 #cr.tx{width:3px;height:30px;border-radius:2px;border-color:var(--g1)}
 
+/* PAGE TRANSITION OVERLAY */
+#transition-overlay{position:fixed;inset:0;background:var(--g1);z-index:10000;clip-path:circle(0% at 50% 50%);pointer-events:none;}
+#transition-overlay.active{clip-path:circle(150% at 50% 50%);transition:clip-path .8s var(--expo);}
 
+/* CINEMATIC LETTERBOX */
+.letterbox{position:fixed;left:0;right:0;height:0;background:#000;z-index:9000;pointer-events:none;transition:height .6s var(--expo);}
+.letterbox.top{top:0;}
+.letterbox.bottom{bottom:0;}
+.letterbox.active{height:40px;}
 
 /* PRELOADER */
 #pre{position:fixed;inset:0;z-index:9999;pointer-events:all}
@@ -202,12 +252,7 @@ nav.disc-gone{top:0}
 .sn{position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500}
 .sh{font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream);}
 .sh em{font-style:italic;color:var(--g1);font-weight:300}
-.sh-mask-wrap{overflow:hidden}
-.sh-mask-inner{transform:translateY(110%);transition:transform 1s var(--expo)}
-.sh-mask-inner.on{transform:translateY(0)}
 .sl{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:500px;font-weight:300}
-.fu{opacity:0;transform:translateY(44px);transition:opacity .9s var(--expo),transform .9s var(--expo)}
-.fu.on{opacity:1;transform:translateY(0)}
 .bp{display:inline-flex;align-items:center;gap:12px;background:var(--g1);color:var(--void);padding:17px 38px;font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--expo)}
 .bp::before{content:'';position:absolute;inset:0;background:var(--g0);transform:translateX(-101%);transition:transform .45s var(--expo)}
 .bp:hover{transform:translateY(-3px)}.bp:hover::before{transform:translateX(0)}
@@ -235,7 +280,7 @@ nav.disc-gone{top:0}
 .hact{display:flex;align-items:center;gap:32px;margin-top:48px;flex-wrap:wrap;opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
 .h-auth{margin-top:20px;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(154,142,126,.45);opacity:0;transition:opacity .9s .9s}
 .h-auth.on{opacity:1}
-.hcard{background:rgba(14,14,26,.8);border:1px solid rgba(201,168,76,.16);backdrop-filter:blur(40px) saturate(160%);padding:44px 40px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);opacity:0;transform:translateX(40px);transition:opacity 1s,transform 1s}
+.hcard{background:rgba(14,14,26,.8);border:1px solid rgba(201,168,76,.16);backdrop-filter:blur(40px) saturate(160%);padding:44px 40px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);opacity:0;transform:translateX(40px);transition:opacity 1s,transform 1s;transform-style:preserve-3d;perspective:1000px;}
 .hcard::before{content:'';position:absolute;top:0;left:0;width:60px;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
 .hcard.on{opacity:1;transform:translateX(0)}
 .hcl{font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:36px;display:flex;align-items:center;gap:10px}
@@ -267,9 +312,11 @@ nav.disc-gone{top:0}
 .pi{position:relative;z-index:2;max-width:1000px}
 .phl{width:0;height:1px;background:var(--g1);margin:0 auto 52px;transition:width 1.6s var(--expo)}
 .phl.on{width:56px}
-.pht{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.6rem);font-weight:300;font-style:italic;line-height:1.18;color:var(--cream);letter-spacing:-.01em}
+.pht{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.6rem);font-weight:300;font-style:italic;line-height:1.18;color:var(--cream);letter-spacing:-.01em;opacity:0;}
 .pht em{color:var(--g1)}
-.pha{margin-top:40px;font-size:var(--nano);letter-spacing:.36em;text-transform:uppercase;color:var(--dim)}
+.pha{margin-top:40px;font-size:var(--nano);letter-spacing:.36em;text-transform:uppercase;color:var(--dim);opacity:0;}
+.typewriter-cursor{display:inline-block;width:3px;height:1em;background:var(--g1);margin-left:4px;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
 /* READINESS SCORE */
 .readiness-sec{background:var(--abyss);padding:130px 72px;}
@@ -310,17 +357,16 @@ nav.disc-gone{top:0}
 .story-chapter-inner{max-width:1300px;margin:0 auto;padding:120px 72px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;width:100%;position:relative;z-index:2;}
 @media(max-width:960px){.story-chapter-inner{grid-template-columns:1fr;gap:40px;padding:100px 24px;}}
 .story-ch-left{position:relative;}
-.story-ch-num{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none;transition:color 1s;}
-.story-chapter.vis .story-ch-num{color:rgba(201,168,76,.08);}
+.spn{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none;transition:color 1s;}
+.story-chapter.vis .spn{color:rgba(201,168,76,.08);}
 .story-ch-label{font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1;}
 .story-ch-eye{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
 .story-ch-eye::before{content:'';width:0;height:1px;background:var(--g1);transition:width .8s var(--expo);}
 .story-chapter.vis .story-ch-eye::before{width:24px;}
-.story-ch-head{font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1;opacity:0;transform:translateY(30px);transition:opacity .9s var(--expo),transform .9s var(--expo);}
-.story-chapter.vis .story-ch-head{opacity:1;transform:translateY(0);}
-.story-ch-head em{font-style:italic;color:var(--g1);}
-.story-ch-right{opacity:0;transform:translateY(24px);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo);}
-.story-chapter.vis .story-ch-right{opacity:1;transform:translateY(0);}
+.story-ch-head{font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1;opacity:0;transform:translateY(30px);}
+.story-chapter.vis .story-ch-head{opacity:1;transform:translateY(0);transition:opacity .9s var(--expo),transform .9s var(--expo);}
+.story-ch-right{opacity:0;transform:translateY(24px);}
+.story-chapter.vis .story-ch-right{opacity:1;transform:translateY(0);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo);}
 .story-ch-body{font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300;}
 .story-ch-body p+p{margin-top:20px;}
 .story-ch-quote{margin-top:32px;padding:24px 28px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03);}
@@ -331,7 +377,7 @@ nav.disc-gone{top:0}
 .scp-dot.on{background:var(--g1);transform:scale(1.5);}
 .story-ambience{position:absolute;inset:0;pointer-events:none;}
 .story-line-v{position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);}
-@media(max-width:640px){.story-ch-num{font-size:clamp(6rem,22vw,10rem);top:-20px;left:-10px;}}
+@media(max-width:640px){.spn{font-size:clamp(6rem,22vw,10rem);top:-20px;left:-10px;}}
 
 /* METHOD */
 .msc{background:var(--dark);position:relative;overflow:hidden}
@@ -340,7 +386,7 @@ nav.disc-gone{top:0}
 @media(max-width:900px){.mhd{grid-template-columns:1fr;gap:28px}}
 .mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
 @media(max-width:900px){.mg{grid-template-columns:1fr}}
-.mc{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:56px 44px;position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--expo);opacity:0;transform:translateY(60px)}
+.mc{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:56px 44px;position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--expo);opacity:0;transform:translateY(60px);transform-style:preserve-3d;perspective:1000px;}
 .mc.on{opacity:1;transform:translateY(0)}
 .mc:hover{border-color:rgba(201,168,76,.3);transform:translateY(-8px)}
 .mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo)}
@@ -355,24 +401,30 @@ nav.disc-gone{top:0}
 .mtag{display:inline-block;margin-top:24px;font-size:.53rem;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(201,168,76,.15);padding:5px 14px}
 .method-flow{display:flex;align-items:center;justify-content:center;gap:0;margin-top:72px;padding:40px;border:1px solid rgba(201,168,76,.07);background:var(--glow3);overflow:hidden;flex-wrap:wrap;}
 @media(max-width:640px){.method-flow{flex-direction:column;gap:12px}}
-.mf-step{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 32px;opacity:0;transform:translateY(20px);transition:opacity .6s var(--expo),transform .6s var(--expo);}
-.mf-step.on{opacity:1;transform:translateY(0)}
+.mf-step{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 32px;opacity:0;transform:translateY(20px);}
+.mf-step.on{opacity:1;transform:translateY(0);transition:opacity .6s var(--expo),transform .6s var(--expo);}
 .mf-icon{width:52px;height:52px;border:1px solid rgba(201,168,76,.22);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--g1);background:rgba(201,168,76,.04);transition:background .4s,border-color .4s;}
 .mf-step:hover .mf-icon{background:rgba(201,168,76,.1);border-color:var(--g1)}
 .mf-label{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--cream);font-weight:600}
 .mf-sub{font-size:.52rem;letter-spacing:.14em;color:var(--dim);margin-top:4px}
-.mf-arrow{display:flex;align-items:center;padding:0 8px;opacity:0;transition:opacity .8s .3s;}
-.mf-arrow.on{opacity:1}
+.mf-arrow{display:flex;align-items:center;padding:0 8px;opacity:0;}
+.mf-arrow.on{opacity:1;transition:opacity .8s .3s;}
 .mf-arrow svg{width:48px;height:8px;overflow:visible}
-.mf-arrow path{stroke:var(--g3);stroke-width:1;fill:none;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1s .4s ease;}
-.mf-arrow.on path{stroke-dashoffset:0}
+.mf-arrow path{stroke:var(--g3);stroke-width:1;fill:none;stroke-dasharray:100;stroke-dashoffset:100;}
+.mf-arrow.on path{stroke-dashoffset:0;transition:stroke-dashoffset 1s .4s ease;}
 @media(max-width:640px){.mf-arrow{transform:rotate(90deg)}}
+
+/* STRATEGIC PULL QUOTE */
+.strategic-pull{margin-top:48px;padding:32px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03);max-width:600px;}
+.strategic-pull p{font-family:var(--fd);font-style:italic;font-size:1.1rem;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.strategic-pull a{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;display:inline-flex;align-items:center;gap:8px;}
+.strategic-pull a:hover{gap:14px;}
 
 /* PERFORMANCE PODS */
 .pods-sec{background:var(--abyss);padding:130px 72px;}
 .pods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px;}
 @media(max-width:900px){.pods-grid{grid-template-columns:1fr}}
-.pod-card{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:48px 40px;text-align:center;transition:all .4s var(--expo)}
+.pod-card{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:48px 40px;text-align:center;transition:all .4s var(--expo);transform-style:preserve-3d;perspective:1000px;}
 .pod-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-8px)}
 .pod-icon{width:64px;height:64px;border:1px solid rgba(201,168,76,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:rgba(201,168,76,.05)}
 .pod-icon svg{width:28px;height:28px;stroke:var(--g1);fill:none;stroke-width:1.5}
@@ -436,7 +488,7 @@ nav.disc-gone{top:0}
 .bss{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.07);border-bottom:1px solid rgba(201,168,76,.07)}
 @media(max-width:768px){.bss{grid-template-columns:repeat(2,1fr)}}
 .bs{padding:60px 40px;border-right:1px solid rgba(201,168,76,.07);text-align:center;position:relative;overflow:hidden;transition:background .4s;opacity:0;transform:translateY(32px)}
-.bs.on{opacity:1;transform:translateY(0)}
+.bs.on{opacity:1;transform:translateY(0);transition:opacity .8s var(--expo),transform .8s var(--expo);}
 .bs:last-child{border-right:none}
 .bs:hover{background:rgba(201,168,76,.03)}
 .bs::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .5s var(--expo)}
@@ -456,7 +508,7 @@ nav.disc-gone{top:0}
 .ht::-webkit-scrollbar{display:none}
 .ht:active{cursor:grabbing}
 .sc2{flex:0 0 370px;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:48px 38px;position:relative;overflow:hidden;transition:border-color .4s;opacity:0;transform:translateX(40px);transform-style:preserve-3d;perspective:1000px;}
-.sc2.on{opacity:1;transform:translateX(0)}
+.sc2.on{opacity:1;transform:translateX(0);transition:opacity .8s var(--expo),transform .8s var(--expo);}
 .sc2:hover{border-color:rgba(201,168,76,.28)}
 .sc2::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo)}
 .sc2:hover::after{transform:scaleX(1)}
@@ -480,6 +532,8 @@ nav.disc-gone{top:0}
 .scl li:nth-child(even){transform:translateX(8px)}
 .scl li:nth-child(even).on{transform:translateX(0)}
 .scl li::before{content:'—';color:var(--g1);flex-shrink:0}
+.sc-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;}
+.sc-link:hover{gap:14px;}
 .hh{display:flex;align-items:center;gap:12px;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:28px}
 .ha{color:var(--g1);animation:nd 2.2s ease-in-out infinite}
 @keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
@@ -492,9 +546,9 @@ nav.disc-gone{top:0}
 .mp{background:var(--glow3);border:1px solid rgba(201,168,76,.12);border-left:3px solid var(--g1);padding:32px 34px}
 .mpq{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--cream);line-height:1.7;margin-bottom:14px}
 .mpby{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g1)}
-.pc{border:1px solid rgba(201,168,76,.11);padding:48px 40px;background:var(--glow3);position:relative;overflow:hidden;transition:transform .5s var(--expo),border-color .4s;opacity:0;transform:translateY(50px) scale(.98)}
+.pc{border:1px solid rgba(201,168,76,.11);padding:48px 40px;background:var(--glow3);position:relative;overflow:hidden;transition:transform .5s var(--expo),border-color .4s;opacity:0;transform:translateY(50px) scale(.98);transform-style:preserve-3d;perspective:1000px;}
 .pc.on{opacity:1;transform:translateY(0) scale(1)}
-.pc:hover{transform:translateY(-10px);border-color:rgba(201,168,76,.35)}
+.pc:hover{transform:translateY(-10px) rotateX(2deg);border-color:rgba(201,168,76,.35)}
 .pc.feat{background:var(--glow);border-color:var(--g1);box-shadow:0 0 90px rgba(201,168,76,.09),0 40px 90px rgba(0,0,0,.5)}
 .fb{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--g1);color:var(--void);font-size:.46rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;padding:5px 18px;white-space:nowrap}
 .ptier{font-size:.57rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px}
@@ -683,15 +737,19 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <div id="spotlight" aria-hidden="true"></div>
 <canvas id="ambient-cv" aria-hidden="true"></canvas>
 <canvas id="trail-cv" aria-hidden="true"></canvas>
+<canvas id="ink-cv" aria-hidden="true"></canvas>
 <div id="vignette" aria-hidden="true"></div>
 <div id="pg-border" aria-hidden="true"></div>
+<div id="transition-overlay"></div>
+<div class="letterbox top" id="lb-top"></div>
+<div class="letterbox bottom" id="lb-bot"></div>
+
 <div id="discovery-bar" aria-hidden="true">Most visited from: <span>Google · LinkedIn · NCA Facebook Groups</span> &nbsp;·&nbsp; 3 min read</div>
 <div id="exam-clock" aria-hidden="true" role="presentation"></div>
 <div id="reading-time" aria-hidden="true">3 min read</div>
 <div id="cd" role="presentation"></div>
 <div id="cr" role="presentation"><span id="cl"></span></div>
 <div id="prog" role="progressbar" aria-hidden="true"></div>
-
 
 <!-- PRELOADER -->
 <div id="pre" aria-label="Loading" role="status">
@@ -723,6 +781,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <a href="#subjects">Subjects<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
     <a href="#pricing">Pricing<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
     <a href="#sample">Free Chapter<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="blog/index.html">Articles<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
   </div>
   <a href="#readiness" class="nc"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -735,6 +794,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <a href="#subjects" class="mob-link">Subjects</a>
   <a href="#pricing" class="mob-link">Pricing</a>
   <a href="#sample" class="mob-link">Free Chapter</a>
+  <a href="blog/index.html" class="mob-link">Articles</a>
   <a href="#readiness" class="bp mob-link" style="margin-top:16px;padding:17px 44px"><span>Get My Readiness Score</span></a>
 </div>
 
@@ -747,7 +807,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="hi">
     <div class="hero-p3">
       <div class="heb"><div class="hel" id="HEL"></div><span id="HET">NCA PREPARATION — REIMAGINED</span></div>
-      <h1 class="hh1" id="hero-headline">
+      <h1 class="hh1 split-heading" id="hero-headline">
         <span class="lm"><span class="li">Pass the NCA.</span></span>
         <span class="lm"><span class="li">Not in <em>years.</em></span></span>
         <span class="lm"><span class="li">This <em>cycle.</em></span></span>
@@ -786,23 +846,23 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="morph-orb" id="MORPH_ORB" aria-hidden="true"></div>
   <div class="pi">
     <div class="phl" id="PHL"></div>
-    <p class="pht fu" id="PHT">Whatever brought you to the NCA —<br>the gate is passable.<br><em>We exist to prove it.</em></p>
-    <p class="pha fu" style="transition-delay:.35s">The belief behind everything we build</p>
+    <p class="pht" id="PHT">Whatever brought you to the NCA —<br>the gate is passable.<br><em>We exist to prove it.</em></p>
+    <p class="pha" style="transition-delay:.35s">The belief behind everything we build</p>
   </div>
 </section>
 
 <!-- READINESS SCORE SECTION -->
-<section class="readiness-sec" id="readiness" aria-label="Readiness Assessment">
+<section class="readiness-sec sec" id="readiness" aria-label="Readiness Assessment">
   <div class="w">
-    <span class="ey fu">The Readiness Score</span>
+    <span class="ey split-heading">The Readiness Score</span>
     <div class="sh-mask-wrap">
-      <h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">Know exactly where you stand.<br><em>Before you sit.</em></h2>
+      <h2 class="sh split-heading">Know exactly where you stand.<br><em>Before you sit.</em></h2>
     </div>
-    <p class="sl fu" style="transition-delay:.22s;max-width:700px;margin-top:24px;">
+    <p class="sl" style="max-width:700px;margin-top:24px;">
       Stop wondering "Is this enough?" Get a personalized assessment of your preparation level and a clear study path forward.
     </p>
     
-    <div class="readiness-grid fu" style="transition-delay:.3s;margin-top:64px;">
+    <div class="readiness-grid" style="margin-top:64px;">
       <div class="quiz-container" id="quiz-container">
         <span class="flbl">Calculate Your Score</span>
         <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress"></div></div>
@@ -878,10 +938,10 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
     <div class="story-chapter-inner">
       <div class="story-ch-left">
-        <div class="story-ch-num" aria-hidden="true">01</div>
+        <div class="spn" aria-hidden="true">01</div>
         <div class="story-ch-label">Chapter 01 / 04</div>
         <div class="story-ch-eye">The Founder's Story</div>
-        <h2 class="story-ch-head">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
+        <h2 class="story-ch-head split-heading">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
       </div>
       <div class="story-ch-right">
         <div class="story-ch-body">
@@ -897,10 +957,10 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
     <div class="story-chapter-inner">
       <div class="story-ch-left">
-        <div class="story-ch-num" aria-hidden="true">02</div>
+        <div class="spn" aria-hidden="true">02</div>
         <div class="story-ch-label">Chapter 02 / 04</div>
         <div class="story-ch-eye">The Pivot</div>
-        <h2 class="story-ch-head">Sit the NCA.<br><em>One week to prepare.</em></h2>
+        <h2 class="story-ch-head split-heading">Sit the NCA.<br><em>One week to prepare.</em></h2>
       </div>
       <div class="story-ch-right">
         <div class="story-ch-body">
@@ -916,10 +976,10 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
     <div class="story-chapter-inner">
       <div class="story-ch-left">
-        <div class="story-ch-num" aria-hidden="true">03</div>
+        <div class="spn" aria-hidden="true">03</div>
         <div class="story-ch-label">Chapter 03 / 04</div>
         <div class="story-ch-eye">The Method</div>
-        <h2 class="story-ch-head">Four subjects. Three months.<br><em>One technical failure —<br>not a knowledge one.</em></h2>
+        <h2 class="story-ch-head split-heading">Four subjects. Three months.<br><em>One technical failure —<br>not a knowledge one.</em></h2>
       </div>
       <div class="story-ch-right">
         <div class="story-ch-body">
@@ -935,10 +995,10 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
     <div class="story-chapter-inner">
       <div class="story-ch-left">
-        <div class="story-ch-num" aria-hidden="true">04</div>
+        <div class="spn" aria-hidden="true">04</div>
         <div class="story-ch-label">Chapter 04 / 04</div>
         <div class="story-ch-eye">The Proof</div>
-        <h2 class="story-ch-head">The course that<br><em>built itself.</em></h2>
+        <h2 class="story-ch-head split-heading">The course that<br><em>built itself.</em></h2>
       </div>
       <div class="story-ch-right">
         <div class="story-ch-body">
@@ -947,6 +1007,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
         </div>
         <div class="story-ch-quote">
           <p>"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</p>
+        </div>
+        <div class="strategic-pull">
+          <p>Written for your specific path</p>
+          <a href="blog/article.html?post=article-d3-nca-indian-lawyers">NCA for Indian-Qualified Lawyers →</a><br><br>
+          <a href="blog/article.html?post=article-d4-nca-uk-based-lawyers">NCA for UK-Qualified Lawyers →</a>
         </div>
       </div>
     </div>
@@ -960,30 +1025,30 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="w">
     <div class="mhd">
       <div>
-        <span class="ey fu">The Method</span>
-        <div class="sh-mask-wrap"><h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">Three things<br><em>nobody else does.</em></h2></div>
+        <span class="ey split-heading">The Method</span>
+        <h2 class="sh split-heading">Three things<br><em>nobody else does.</em></h2>
       </div>
-      <p class="sl fu" style="transition-delay:.22s">Every decision came from experiencing what didn't work — then building the exact opposite.</p>
+      <p class="sl">Every decision came from experiencing what didn't work — then building the exact opposite.</p>
     </div>
     <div class="mg">
-      <div class="mc sm" id="MC1">
+      <div class="mc sm tilt-card" id="MC1">
         <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
         <span class="mn" aria-hidden="true">01</span>
-        <h3 class="mt">Short-Form Video Lectures</h3>
+        <h3 class="mt split-heading">Short-Form Video Lectures</h3>
         <p class="mb">8–12 minutes per topic. One concept, covered completely. No 2-hour recordings where attention collapses at minute 25. Microlearning drives 4× higher completion rates.</p>
         <span class="mtag">Science-backed format</span>
       </div>
-      <div class="mc sm" id="MC2">
+      <div class="mc sm tilt-card" id="MC2">
         <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <span class="mn" aria-hidden="true">02</span>
-        <h3 class="mt">Strategic Notes</h3>
+        <h3 class="mt split-heading">Strategic Notes</h3>
         <p class="mb">Under 80 pages per subject of distilled, exam-targeted material. Not a textbook. Every sentence earns its place by serving one purpose: your performance in the exam hall.</p>
         <span class="mtag">Exam-focused only</span>
       </div>
-      <div class="mc sm" id="MC3">
+      <div class="mc sm tilt-card" id="MC3">
         <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
         <span class="mn" aria-hidden="true">03</span>
-        <h3 class="mt">Answer Templates</h3>
+        <h3 class="mt split-heading">Answer Templates</h3>
         <p class="mb">The NCA rewards specific analytical structures. Our templates give you the architecture before you see the question. Recognise the question type — and you already know the first four lines of your answer.</p>
         <span class="mtag">Pre-built frameworks</span>
       </div>
@@ -997,6 +1062,12 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       <div class="mf-arrow" id="MFA3" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
       <div class="mf-step" id="MF4"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="mf-label">Practice</div><div class="mf-sub">Model answers</div></div>
     </div>
+    
+    <div class="strategic-pull" style="margin-top:80px;">
+      <p>If you're working out your timeline...</p>
+      <a href="blog/article.html?post=article-e3-nca-study-hours">How Many Hours Should You Study for the NCA? →</a><br><br>
+      <a href="blog/article.html?post=article-e1-nca-study-schedule-working">NCA Study Schedule for Working Professionals →</a>
+    </div>
   </div>
 </section>
 
@@ -1005,42 +1076,42 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <!-- PERFORMANCE PODS SECTION -->
 <section class="pods-sec" id="pods" aria-label="Performance Pods">
   <div class="w">
-    <span class="ey fu">Performance Pods</span>
+    <span class="ey split-heading">Performance Pods</span>
     <div class="sh-mask-wrap">
-      <h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">You're not studying alone.<br><em>You're accountable to 4 others.</em></h2>
+      <h2 class="sh split-heading">You're not studying alone.<br><em>You're accountable to 4 others.</em></h2>
     </div>
-    <p class="sl fu" style="transition-delay:.22s;max-width:600px;margin-top:24px;">
+    <p class="sl" style="max-width:600px;margin-top:24px;">
       Stop studying in isolation. Get matched with 4 peers by exam date, subject, and study pattern. Weekly check-ins, streak protection, and peer accountability.
     </p>
     
-    <div class="pods-grid fu" style="transition-delay:.3s;">
-      <div class="pod-card">
+    <div class="pods-grid">
+      <div class="pod-card tilt-card">
         <div class="pod-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
         <div class="pod-num">01</div>
-        <h3 class="pod-title">Algorithm-Matched</h3>
+        <h3 class="pod-title split-heading">Algorithm-Matched</h3>
         <p class="pod-desc">Not random. Matched by exam date, subject, timezone, and study pattern. The right pace for your life.</p>
       </div>
-      <div class="pod-card">
+      <div class="pod-card tilt-card">
         <div class="pod-icon">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <div class="pod-num">02</div>
-        <h3 class="pod-title">Weekly Check-ins</h3>
+        <h3 class="pod-title split-heading">Weekly Check-ins</h3>
         <p class="pod-desc">30-minute video calls. Share progress, solve blocks, maintain momentum. Missed check-ins trigger support.</p>
       </div>
-      <div class="pod-card">
+      <div class="pod-card tilt-card">
         <div class="pod-icon">
           <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         <div class="pod-num">03</div>
-        <h3 class="pod-title">Streak Protection</h3>
+        <h3 class="pod-title split-heading">Streak Protection</h3>
         <p class="pod-desc">3 days of inactivity triggers pod alert + personalized intervention. Burnout detected before it happens.</p>
       </div>
     </div>
     
-    <div class="pods-visual fu" style="transition-delay:.4s;">
+    <div class="pods-visual">
       <div class="pods-visual-title">Your Pod Composition</div>
       <div class="pods-avatars">
         <div class="pod-avatar you">YOU</div>
@@ -1065,12 +1136,12 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="w">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:24px">
       <div>
-        <span class="ey fu">A Factual Comparison</span>
-        <div class="sh-mask-wrap"><h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">How we chose to<br><em>build differently.</em></h2></div>
+        <span class="ey split-heading">A Factual Comparison</span>
+        <h2 class="sh split-heading">How we chose to<br><em>build differently.</em></h2>
       </div>
-      <p class="sl fu" style="transition-delay:.22s">The same format has dominated NCA preparation for years. Long videos, dense notes, no templates. These are the material facts — you can verify all of them.</p>
+      <p class="sl">The same format has dominated NCA preparation for years. Long videos, dense notes, no templates. These are the material facts — you can verify all of them.</p>
     </div>
-    <div class="ctw fu" style="transition-delay:.25s">
+    <div class="ctw">
       <table class="ct" role="table">
         <thead>
           <tr>
@@ -1158,78 +1229,83 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="w">
     <div class="subi">
       <div>
-        <span class="ey fu">All NCA Subjects</span>
-        <div class="sh-mask-wrap"><h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">Every NCA exam.<br><em>Nothing wasted.</em></h2></div>
+        <span class="ey split-heading">All NCA Subjects</span>
+        <h2 class="sh split-heading">Every NCA exam.<br><em>Nothing wasted.</em></h2>
       </div>
-      <p class="sl fu" style="transition-delay:.22s">All NCA exam subjects — from live materials to those in development. Each complete system includes: notes, videos, templates, and practice questions. Get notified when new subjects launch.</p>
+      <p class="sl">All NCA exam subjects — from live materials to those in development. Each complete system includes: notes, videos, templates, and practice questions. Get notified when new subjects launch.</p>
     </div>
     <div class="ht" id="HT" role="list">
-      <div class="sc2 sm" id="SC1" role="listitem">
+      <div class="sc2 sm tilt-card" id="SC1" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">01</span>
         <div class="sctg">Administrative Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.62"></div></div></div>
-        <h3 class="scti">Admin Law</h3>
+        <h3 class="scti split-heading">Admin Law</h3>
         <p class="scb">The subject most candidates sit first. Built under one week of genuine time pressure. Battle-tested and proven from the very beginning.</p>
         <ul class="scl">
           <li>Judicial review — grounds and scope</li><li>Standards of review: the Vavilov framework</li><li>Procedural fairness</li><li>Statutory interpretation</li><li>Remedies in administrative law</li>
         </ul>
+        <a href="blog/article.html?post=article-a3-administrative-law-nca" class="sc-link">Read the guide →</a>
       </div>
-      <div class="sc2 sm" id="SC2" role="listitem">
+      <div class="sc2 sm tilt-card" id="SC2" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">02</span>
         <div class="sctg">Constitutional Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.88"></div></div></div>
-        <h3 class="scti">Con Law</h3>
+        <h3 class="scti split-heading">Con Law</h3>
         <p class="scb">The subject where Anum passed her 4th and final attempt using these exact materials. The method that works when everything else has failed.</p>
         <ul class="scl">
           <li>Division of powers — ss.91 and 92</li><li>Pith and substance doctrine</li><li>Charter of Rights — full framework</li><li>Section 1 Oakes test</li><li>Aboriginal rights and s.35</li>
         </ul>
+        <a href="blog/article.html?post=article-b1-constitutional-law-nca" class="sc-link">Read the guide →</a>
       </div>
-      <div class="sc2 sm" id="SC3" role="listitem">
+      <div class="sc2 sm tilt-card" id="SC3" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">03</span>
         <div class="sctg">Criminal Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.75"></div></div></div>
-        <h3 class="scti">Criminal Law</h3>
+        <h3 class="scti split-heading">Criminal Law</h3>
         <p class="scb">Criminal law rewards structure above everything else. Our templates mean you know the first four lines of your answer before you have read the question.</p>
         <ul class="scl">
           <li>Actus reus and mens rea</li><li>Criminal defences — complete framework</li><li>Charter rights in criminal proceedings</li><li>Parties to an offence</li><li>Sentencing principles</li>
         </ul>
+        <a href="blog/article.html?post=article-b2-criminal-law-nca" class="sc-link">Read the guide →</a>
       </div>
-      <div class="sc2 sm" id="SC4" role="listitem">
+      <div class="sc2 sm tilt-card" id="SC4" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">04</span>
         <div class="sctg">Foundations of Canadian Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.55"></div></div></div>
-        <h3 class="scti">Foundations</h3>
+        <h3 class="scti split-heading">Foundations</h3>
         <p class="scb">Often underestimated. The architecture of the entire Canadian legal system — made navigable for lawyers trained anywhere in the world.</p>
         <ul class="scl">
           <li>Sources of Canadian law</li><li>Court hierarchy and jurisdiction</li><li>Common law methodology</li><li>Statutory construction in Canada</li><li>Quebec's bijural tradition</li>
         </ul>
+        <a href="blog/article.html?post=article-b4-foundations-canadian-law-nca" class="sc-link">Read the guide →</a>
       </div>
-      <div class="sc2 sm" id="SC5" role="listitem">
+      <div class="sc2 sm tilt-card" id="SC5" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">05</span>
         <div class="sctg">Professional Responsibility</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
-        <h3 class="scti">PR Law</h3>
+        <h3 class="scti split-heading">PR Law</h3>
         <p class="scb">Ethics, conduct and professional obligations. The exam tests your ability to spot conflicts, duties and breaches — our templates structure every scenario.</p>
         <ul class="scl">
           <li>Lawyer-client relationship and duties</li><li>Confidentiality and privilege</li><li>Conflicts of interest — the Bright Line rule</li><li>CBA Model Code of Professional Conduct</li><li>Access to justice and withdrawal</li>
         </ul>
+        <a href="blog/article.html?post=article-b3-professional-responsibility-nca" class="sc-link">Read the guide →</a>
       </div>
-      <div class="sc2 sm lrw-card" id="SC6" role="listitem">
+      <div class="sc2 sm lrw-card tilt-card" id="SC6" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">06</span>
         <div class="sctg">Legal Research &amp; Writing <span class="sctg-badge">CPLED Course</span></div>
         <div class="diff-bar"><div class="diff-label">Complexity</div><div class="diff-track"><div class="diff-fill" style="--dw:0.6"></div></div></div>
-        <h3 class="scti">LRW</h3>
+        <h3 class="scti split-heading">LRW</h3>
         <p class="scb">The Legal Research &amp; Writing course is a mandatory CPLED/CPLD requirement — not an NCA exam. We guide you through it so nothing blindsides you on the path to qualification.</p>
         <ul class="scl">
           <li>Legal research methodology and databases</li><li>Case reading and synthesis</li><li>Memo writing and opinion letters</li><li>Statutory interpretation in practice</li><li>CPLED submission structure and style</li>
         </ul>
       </div>
       <!-- Coming Soon Subjects -->
-      <div class="sc2 sm coming-soon" id="SC7" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC7" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">07</span>
         <div class="sctg">Business Organisations <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.72"></div></div></div>
-        <h3 class="scti">Business Orgs</h3>
+        <h3 class="scti split-heading">Business Orgs</h3>
         <p class="scb">Corporate law, partnerships, and business structures in Canada. Essential for commercial practice.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1240,11 +1316,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon" id="SC8" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC8" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">08</span>
         <div class="sctg">Family Law <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.68"></div></div></div>
-        <h3 class="scti">Family Law</h3>
+        <h3 class="scti split-heading">Family Law</h3>
         <p class="scb">Marriage, divorce, property division, and child custody under Canadian family law legislation.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1255,11 +1331,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon" id="SC9" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC9" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">09</span>
         <div class="sctg">Property Law <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.78"></div></div></div>
-        <h3 class="scti">Property Law</h3>
+        <h3 class="scti split-heading">Property Law</h3>
         <p class="scb">Real property, land titles, estates, and interests in land under Canadian property law.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1270,11 +1346,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon" id="SC10" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC10" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">10</span>
         <div class="sctg">Torts <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
-        <h3 class="scti">Torts</h3>
+        <h3 class="scti split-heading">Torts</h3>
         <p class="scb">Negligence, intentional torts, and strict liability under Canadian tort law principles.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1285,11 +1361,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon" id="SC11" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC11" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">11</span>
         <div class="sctg">Contracts <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.74"></div></div></div>
-        <h3 class="scti">Contracts</h3>
+        <h3 class="scti split-heading">Contracts</h3>
         <p class="scb">Formation, interpretation, breach, and remedies in Canadian contract law.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1300,11 +1376,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon" id="SC12" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC12" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">12</span>
         <div class="sctg">Civil Procedure <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.76"></div></div></div>
-        <h3 class="scti">Civil Procedure</h3>
+        <h3 class="scti split-heading">Civil Procedure</h3>
         <p class="scb">Court rules, pleadings, discovery, and trial procedure in Canadian civil litigation.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1315,11 +1391,11 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon" id="SC13" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC13" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">13</span>
         <div class="sctg">Remedies <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.73"></div></div></div>
-        <h3 class="scti">Remedies</h3>
+        <h3 class="scti split-heading">Remedies</h3>
         <p class="scb">Damages, injunctions, specific performance, and equitable remedies in Canadian law.</p>
         <div class="coming-soon-overlay">
           <p class="coming-soon-text">Coming Soon</p>
@@ -1331,7 +1407,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
         </div>
       </div>
     </div>
-    <div class="hh fu" style="transition-delay:.4s" aria-label="Drag to explore subjects"><span class="ha" aria-hidden="true">→</span><span>Drag to explore all subjects</span></div>
+    <div class="hh" aria-label="Drag to explore subjects"><span class="ha" aria-hidden="true">→</span><span>Drag to explore all subjects</span></div>
   </div>
 </section>
 
@@ -1343,12 +1419,12 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="w">
     <div class="pintro">
       <div>
-        <span class="ey fu">Transparent Pricing</span>
-        <div class="sh-mask-wrap"><h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">Invest once.<br><em>Own it forever.</em></h2></div>
-        <p class="sl fu" style="transition-delay:.22s;margin-top:24px">No subscription. No recurring charge. Pay once per subject and own everything forever. Payment plans available on request.</p>
-        <p class="fu" style="transition-delay:.28s;margin-top:14px;font-size:var(--sm);color:rgba(201,168,76,.5);font-style:italic;font-family:var(--fd)">Founding price in effect while the remaining 2 subjects complete production.</p>
+        <span class="ey split-heading">Transparent Pricing</span>
+        <h2 class="sh split-heading">Invest once.<br><em>Own it forever.</em></h2>
+        <p class="sl" style="margin-top:24px">No subscription. No recurring charge. Pay once per subject and own everything forever. Payment plans available on request.</p>
+        <p style="margin-top:14px;font-size:var(--sm);color:rgba(201,168,76,.5);font-style:italic;font-family:var(--fd)">Founding price in effect while the remaining 2 subjects complete production.</p>
       </div>
-      <div class="mp fu" style="transition-delay:.22s">
+      <div class="mp">
         <p class="mpq">"You've distilled 300 pages of textbook into something I can actually use in three hours. The templates alone are worth more than what you're charging."</p>
         <span class="mpby">An early student — after reviewing the first bundle</span>
       </div>
@@ -1358,38 +1434,45 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
         <div class="ptier">Notes Only</div><div class="pprice">$175</div><div class="pper">per subject — CAD</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes — under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>PDF — yours to keep forever</li></ul>
-        <a href="/cdn-cgi/l/email-protection#8fe7eae3e3e0cffbe7eae1eceee7faeda1ece0e2b0fcfaede5eaecfbb2c1e0fbeafcaabdbfc0e1e3f6aabdbfdffafdece7eefcea" class="pb" aria-label="Get Notes Only plan"><span>Get Notes</span></a>
+        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20Notes%20Purchase" class="pb" aria-label="Get Notes Only plan"><span>Get Notes</span></a>
       </div>
       <div class="pc feat sm tilt-card" id="PC2">
         <span class="fb">Most Popular</span>
         <div class="ptier">Complete Bundle</div><div class="pprice">$279</div><div class="pper">per subject — CAD</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes — under 80 pages</li><li>Full short-form video lecture series</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>Performance Pod membership</li><li>PDF + lifetime video access</li></ul>
-        <a href="/cdn-cgi/l/email-protection#355d5059595a75415d505b56545d40571b565a580a4640575f50564108765a58455950415010070577405b515950100705654047565d544650" class="pb" aria-label="Get Complete Bundle"><span>Get Full Bundle</span></a>
+        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20Complete%20Bundle%20Purchase" class="pb" aria-label="Get Complete Bundle"><span>Get Full Bundle</span></a>
       </div>
       <div class="pc sm tilt-card" id="PC3">
         <div class="ptier">All Subjects Package</div><div class="pprice">$899</div><div class="pper">complete package — best value</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>All subject complete bundles</li><li>All video lecture series</li><li>All templates and practice Q&amp;As</li><li>Performance Pods for all subjects</li><li>LRW course guidance included</li><li>Priority email support</li><li>Early access to new subjects</li></ul>
-        <a href="/cdn-cgi/l/email-protection#8fe7eae3e3e0cffbe7eae1eceee7faeda1ece0e2b0fcfaede5eaecfbb2cee3e3aabdbfb9aabdbfdcfaede5eaecfbfcaabdbfdffafdece7eefcea" class="pb" aria-label="Get Everything — all 6 subjects"><span>Get Everything</span></a>
+        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20All%20Subjects%20Package" class="pb" aria-label="Get Everything — all 6 subjects"><span>Get Everything</span></a>
       </div>
     </div>
-    <div class="proof-rows fu" style="transition-delay:.3s" aria-label="Student results">
+    <div class="proof-rows" aria-label="Student results">
       <div class="proof-row">"Passed Admin Law first attempt" — M.B., Toronto</div>
       <div class="proof-row">"Done in 6 weeks using these" — R.O., Vancouver</div>
       <div class="proof-row">"Templates changed everything" — P.S., Calgary</div>
       <div class="proof-row">"3 subjects in one sitting" — A.K., Ottawa</div>
       <div class="proof-row">"4th attempt → pass" — Anum, Constitutional Law</div>
     </div>
-    <p class="urgency-line fu" style="transition-delay:.38s">Payment plans available — email <a href="/cdn-cgi/l/email-protection#3159545d5d5e714559545f52505944531f525e5c" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="ec8489808083ac988489828f8d84998ec28f8381">[email&#160;protected]</span></a></p>
-    <p class="authority-line fu" style="transition-delay:.42s">Materials developed by a qualified lawyer · Reviewed for accuracy against current NCA syllabi</p>
-    <div class="post-buy fu" style="transition-delay:.45s" id="POST_BUY">
+    <p class="urgency-line">Payment plans available — email <a href="mailto:kumarkartik9582@gmail.com" style="color:var(--g1)">kumarkartik9582@gmail.com</a></p>
+    <p class="authority-line">Materials developed by a qualified lawyer · Reviewed for accuracy against current NCA syllabi</p>
+    
+    <div class="strategic-pull" style="max-width:700px;margin:48px auto 0;">
+      <p>The questions candidates are afraid to ask</p>
+      <a href="blog/article.html?post=article-c1-failed-nca-exam">Failed the NCA Exam. What Now? →</a><br><br>
+      <a href="blog/article.html?post=article-c4-nca-textbook-necessary">Do You Actually Need the NCA Textbook? →</a>
+    </div>
+    
+    <div class="post-buy" id="POST_BUY">
       <button class="post-buy-q" id="POST_BUY_BTN" aria-expanded="false" aria-controls="post-buy-body">
         What happens after I buy?
         <div class="post-buy-ico"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
       </button>
       <div class="post-buy-body" id="post-buy-body" role="region">
-        <p class="post-buy-inner">You'll receive access immediately via our course platform. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is granted automatically. Everything is yours permanently — no expiry, no subscription. If anything doesn't reach you, email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3159545d5d5e714559545f52505944531f525e5c">[email&#160;protected]</a> and it's resolved within the hour.</p>
+        <p class="post-buy-inner">You'll receive access immediately via our course platform. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is granted automatically. Everything is yours permanently — no expiry, no subscription. If anything doesn't reach you, email <a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a> and it's resolved within the hour.</p>
       </div>
     </div>
   </div>
@@ -1400,12 +1483,12 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="w">
     <div class="sgrid">
       <div>
-        <span class="ey fu">Try Before You Buy</span>
-        <div class="sh-mask-wrap"><h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">One free chapter.<br><em>No obligation.</em></h2></div>
-        <p class="sl fu" style="transition-delay:.22s;margin-top:20px">Download one free chapter from the Administrative Law notes. See exactly what our strategic, exam-focused approach looks like before spending a single dollar.</p>
-        <p class="fu" style="transition-delay:.32s;margin-top:16px;font-size:var(--sm);color:var(--fog)">You'll also receive our weekly NCA Strategy email. Unsubscribe any time.</p>
+        <span class="ey split-heading">Try Before You Buy</span>
+        <h2 class="sh split-heading">One free chapter.<br><em>No obligation.</em></h2>
+        <p class="sl" style="margin-top:20px">Download one free chapter from the Administrative Law notes. See exactly what our strategic, exam-focused approach looks like before spending a single dollar.</p>
+        <p style="margin-top:16px;font-size:var(--sm);color:var(--fog)">You'll also receive our weekly NCA Strategy email. Unsubscribe any time.</p>
       </div>
-      <div class="sf2 fu" style="transition-delay:.2s" id="SFORM">
+      <div class="sf2" id="SFORM">
         <span class="flbl">Download Free Chapter</span>
         <input type="text" class="ff" id="FN" placeholder="Your first name" autocomplete="given-name" aria-label="Your first name">
         <input type="email" class="ff" id="FE" placeholder="Your email address" autocomplete="email" aria-label="Your email address">
@@ -1433,23 +1516,15 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <!-- FAQ -->
 <section class="fqsc sec" id="faq" aria-label="Frequently asked questions">
   <div class="w">
-    <span class="ey fu">Questions</span>
-    <div class="sh-mask-wrap"><h2 class="sh sh-mask-inner fu" style="transition-delay:.12s;max-width:580px">Everything you<br><em>need to decide.</em></h2></div>
-    <div class="fql fu" style="transition-delay:.22s">
+    <span class="ey split-heading">Questions</span>
+    <h2 class="sh split-heading" style="max-width:580px">Everything you<br><em>need to decide.</em></h2>
+    <div class="fql">
       <div class="fqi"><button class="fqq" aria-expanded="false">I only have 2–3 weeks before my exam. Is this still useful?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes — and short timelines are exactly what these materials were designed for. Under 80 pages of notes, not 200. Videos under 12 minutes each. Templates that pre-build your answer structure. Someone with one week prepared their first Administrative Law exam using this system. You have more time than that.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">How is this different from other NCA preparation providers?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Most NCA preparation was built for candidates with unlimited time. The NCA Hub was built under real time and financial pressure — by someone who had no income and had to pass. Everything is filtered through one question: will this help you clear a 50% threshold exam? If the answer is no, it does not appear. We also offer the Readiness Assessment and Performance Pods — systems no other provider has.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">Do you cover Professional Responsibility and LRW?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes to both. Professional Responsibility is covered as a full NCA exam subject — notes, templates, practice questions. LRW is a mandatory CPLED/CPLD course, not an NCA exam, but it sits on the path to qualification. We guide you through it so you know exactly what to expect.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">Do I need to be in Canada to use these materials?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">No. Everything is fully digital and accessible from anywhere in the world.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">When will the video lectures be available?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The video lecture series is in production. Anyone who purchases a Complete Bundle before their subject's videos go live receives access automatically when released — at no additional charge. The notes and templates are complete now.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in instalments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="/cdn-cgi/l/email-protection#dcb4b9b0b0b39ca8b4b9b2bfbdb4a9bef2bfb3b1" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="c1a9a4adadae81b5a9a4afa2a0a9b4a3efa2aeac">[email&#160;protected]</span></a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">What browser and setup do I need for the NCA exam?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The NCA uses ProProctor for remote proctoring. You'll need a reliable internet connection, a webcam, and a quiet, private space. Chrome or Firefox are recommended browsers. We recommend doing a system test at least 48 hours before your exam to avoid any technical issues.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">Can I use notes during the NCA exam?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes — the NCA exam is open-book. You can have your notes, textbooks, and any printed materials with you. However, you cannot access the internet, use electronic devices, or have any unapproved materials. Our strategic notes are designed specifically for quick reference during the exam.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">What is the passing mark for the NCA?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The passing mark for NCA exams is 50%. Your performance is assessed against a fixed standard, not curved against other candidates. Our materials are designed to help you comfortably exceed this threshold by focusing on the core concepts and exam techniques that consistently appear.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">How long does it take to get NCA exam results?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">NCA exam results are typically released within 10-12 weeks after the exam date. Results are posted to your NCA portal account. You will receive an email notification when your results are available. If you pass, you can proceed to register for your next subjects.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">I'm preparing for multiple subjects at once — which order should I sit them in?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">We recommend starting with Administrative Law — it's the most common first subject and builds foundational skills. Constitutional Law and Foundations of Canadian Law provide good grounding in Canadian legal principles. Criminal Law and Professional Responsibility can be taken in any order. Take our Readiness Assessment for a personalized study plan.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">What happens if I fail?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">You can re-sit failed NCA exams in the next available session. There is no limit to the number of attempts. Many of our students come to us after failing previously — our method is specifically designed to break through repeated failures. Contact us for a diagnostic analysis if you've failed before.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">Are your materials up to date for the current NCA syllabus?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Our materials are reviewed and updated regularly to reflect changes in the NCA syllabus, recent case law, and exam trends. We monitor NCA exam reports and candidate feedback to ensure our content remains current and relevant. All updates are provided free to existing customers.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">Do I need to buy the recommended course textbooks as well?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">No. Our materials are designed to be comprehensive and self-contained. We've distilled the essential content from the recommended textbooks into our strategic notes — under 80 pages per subject. Everything you need to pass is included. Many students find purchasing additional textbooks unnecessary and overwhelming.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in instalments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="mailto:kumarkartik9582@gmail.com" style="color:var(--g1)">kumarkartik9582@gmail.com</a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
     </div>
   </div>
 </section>
@@ -1458,217 +1533,80 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <div class="fcta">
   <div class="corb" aria-hidden="true"></div>
   <div class="ci">
-    <div class="cey fu">Your Turn</div>
-    <div class="sh-mask-wrap" style="margin-bottom:32px"><h2 class="ch sh-mask-inner fu" style="transition-delay:.12s">The NCA is<br><em>passable.</em></h2></div>
-    <p class="cp fu" style="transition-delay:.22s">You have already done the hardest part — qualifying in another country, choosing Canada, starting over. Do not let the NCA be the wall that stops you.</p>
-    <a href="#readiness" class="bp fu" style="padding:20px 56px;transition-delay:.32s" data-cur="Begin"><span>Get My Readiness Score →</span></a>
+    <div class="cey split-heading">Your Turn</div>
+    <div class="sh-mask-wrap" style="margin-bottom:32px"><h2 class="ch split-heading">The NCA is<br><em>passable.</em></h2></div>
+    <p class="cp">You have already done the hardest part — qualifying in another country, choosing Canada, starting over. Do not let the NCA be the wall that stops you.</p>
+    <a href="#readiness" class="bp" style="padding:20px 56px" data-cur="Begin"><span>Get My Readiness Score →</span></a>
   </div>
 </div>
 
 <!-- BLOG / ARTICLES -->
 <section id="blog" aria-label="Free Guides" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:140px 0;position:relative;z-index:1;">
   <div class="w">
-    <span class="ey fu">Free Guides</span>
+    <span class="ey split-heading">Free Guides</span>
     <div class="sh-mask-wrap">
-      <h2 class="sh sh-mask-inner fu" style="transition-delay:.12s">Everything you need<br><em>to pass. Free.</em></h2>
+      <h2 class="sh split-heading">Everything you need<br><em>to pass. Free.</em></h2>
     </div>
-    <p class="sl fu" style="transition-delay:.22s;margin-top:24px;max-width:620px;">Written by someone who passed 4 NCA subjects in 3 months — with one week to prepare for the first one. No filler.</p>
-
-    <!-- Category Filter -->
-    <div id="blog-filter" class="fu" style="transition-delay:.3s;display:flex;flex-wrap:wrap;gap:8px;margin-top:48px;margin-bottom:48px;">
-      <button class="bflt active" data-cat="all">All Articles</button>
-      <button class="bflt" data-cat="exam-strategy">Exam Strategy</button>
-      <button class="bflt" data-cat="subject-guide">Subject Guides</button>
-      <button class="bflt" data-cat="common-fears">Common Fears</button>
-      <button class="bflt" data-cat="comparison">Comparisons</button>
-      <button class="bflt" data-cat="career-pathway">Career Pathway</button>
-      <button class="bflt" data-cat="readiness">Readiness</button>
-    </div>
+    <p class="sl" style="margin-top:24px;max-width:620px;">Written by someone who passed 4 NCA subjects in 3 months — with one week to prepare for the first one. No filler.</p>
 
     <!-- Featured Article -->
-    <a href="blog/article.html?post=article-pass-nca-90-days" class="blog-featured fu" style="transition-delay:.32s;" data-cat="exam-strategy">
+    <a href="blog/article.html?post=article-pass-nca-90-days" class="blog-featured page-link" style="margin-top:48px;">
       <div class="bfeat-tag">Featured · Exam Strategy</div>
-      <h3 class="bfeat-h">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h3>
+      <h3 class="bfeat-h split-heading">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h3>
       <p class="bfeat-p">The exact framework used to pass 4 NCA subjects in 3 months. Includes a week-by-week calendar, subject sequencing logic, and the 2-hour daily study formula.</p>
       <div class="bfeat-meta"><span>12 min read</span><span class="bfeat-cta">Read the guide →</span></div>
     </a>
 
-    <!-- Article Grid -->
+    <!-- Article Grid - 6 Featured -->
     <div id="blog-grid" style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
 
-      <a href="blog/article.html?post=article-a3-administrative-law-nca" class="blog-card" data-cat="subject-guide">
+      <a href="blog/article.html?post=article-a3-administrative-law-nca" class="blog-card page-link">
         <div class="bc-tag">Subject Guide</div>
-        <h4 class="bc-h">Administrative Law NCA: The Complete 2026 Exam Guide</h4>
+        <h4 class="bc-h split-heading">Administrative Law NCA: The Complete 2026 Exam Guide</h4>
         <p class="bc-p">Vavilov, Baker procedural fairness, judicial review — with the exact answer template.</p>
         <div class="bc-meta">18 min <span>→</span></div>
       </a>
 
-      <a href="blog/article.html?post=article-b1-constitutional-law-nca" class="blog-card" data-cat="subject-guide">
+      <a href="blog/article.html?post=article-b1-constitutional-law-nca" class="blog-card page-link">
         <div class="bc-tag">Subject Guide</div>
-        <h4 class="bc-h">Constitutional Law NCA: The Charter Framework You Must Know</h4>
+        <h4 class="bc-h split-heading">Constitutional Law NCA: The Charter Framework You Must Know</h4>
         <p class="bc-p">Division of powers, Charter analysis, the Oakes test, and Aboriginal rights under s.35.</p>
         <div class="bc-meta">16 min <span>→</span></div>
       </a>
 
-      <a href="blog/article.html?post=article-b2-criminal-law-nca" class="blog-card" data-cat="subject-guide">
-        <div class="bc-tag">Subject Guide</div>
-        <h4 class="bc-h">Criminal Law NCA: What the Exam Actually Tests</h4>
-        <p class="bc-p">Actus reus, mens rea, major defences, and the answer structure that separates pass from fail.</p>
-        <div class="bc-meta">15 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-b3-professional-responsibility-nca" class="blog-card" data-cat="subject-guide">
-        <div class="bc-tag">Subject Guide</div>
-        <h4 class="bc-h">Professional Responsibility NCA: Spot Conflicts, Structure Answers</h4>
-        <p class="bc-p">CBA Model Code, duties, conflicts of interest, and withdrawal — with the pre-structuring template.</p>
-        <div class="bc-meta">14 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-b4-foundations-canadian-law-nca" class="blog-card" data-cat="subject-guide">
-        <div class="bc-tag">Subject Guide</div>
-        <h4 class="bc-h">Foundations of Canadian Law NCA: The Subject Candidates Underestimate</h4>
-        <p class="bc-p">Sources of law, statutory interpretation, and Quebec's bijural tradition — broader than it looks.</p>
-        <div class="bc-meta">14 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e1-nca-study-schedule-working" class="blog-card" data-cat="exam-strategy">
+      <a href="blog/article.html?post=article-e1-nca-study-schedule-working" class="blog-card page-link">
         <div class="bc-tag">Exam Strategy</div>
-        <h4 class="bc-h">NCA Study Schedule for Working Professionals</h4>
+        <h4 class="bc-h split-heading">NCA Study Schedule for Working Professionals</h4>
         <p class="bc-p">A realistic plan for candidates balancing full-time work and NCA prep.</p>
         <div class="bc-meta">11 min <span>→</span></div>
       </a>
 
-      <a href="blog/article.html?post=article-a2-nca-exam-format" class="blog-card" data-cat="exam-strategy">
-        <div class="bc-tag">Exam Strategy</div>
-        <h4 class="bc-h">NCA Exam Format Explained: What Happens on Exam Day</h4>
-        <p class="bc-p">Open-book, online-proctored, 3 hours. Room setup, question types, time strategy.</p>
-        <div class="bc-meta">12 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e3-nca-study-hours" class="blog-card" data-cat="exam-strategy">
-        <div class="bc-tag">Exam Strategy</div>
-        <h4 class="bc-h">How Many Hours Should You Study for the NCA?</h4>
-        <p class="bc-p">Subject-by-subject breakdowns. What 100 hours vs 200 hours looks like.</p>
-        <div class="bc-meta">9 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e4-nca-process-timeline" class="blog-card" data-cat="exam-strategy">
-        <div class="bc-tag">Exam Strategy</div>
-        <h4 class="bc-h">The NCA Process Timeline: From Assessment to Exams</h4>
-        <p class="bc-p">How long each stage really takes — assessment, allocation, registration, results.</p>
-        <div class="bc-meta">10 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e7-nca-study-checklist" class="blog-card" data-cat="exam-strategy">
-        <div class="bc-tag">Exam Strategy</div>
-        <h4 class="bc-h">The NCA Study Checklist: What to Complete Before Exam Day</h4>
-        <p class="bc-p">Week-by-week checklist: content review, practice questions, tech setup, final 48 hours.</p>
-        <div class="bc-meta">8 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e8-nca-pass-criteria" class="blog-card" data-cat="exam-strategy">
-        <div class="bc-tag">Exam Strategy</div>
-        <h4 class="bc-h">NCA Pass Criteria: What Score Do You Actually Need?</h4>
-        <p class="bc-p">The 50% threshold, how exams are graded, and what "competent" means.</p>
-        <div class="bc-meta">7 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-c1-failed-nca-exam" class="blog-card" data-cat="common-fears">
+      <a href="blog/article.html?post=article-c1-failed-nca-exam" class="blog-card page-link">
         <div class="bc-tag">Common Fears</div>
-        <h4 class="bc-h">Failed the NCA Exam. What Now?</h4>
+        <h4 class="bc-h split-heading">Failed the NCA Exam. What Now?</h4>
         <p class="bc-p">The failure autopsy framework: what went wrong, what to change, and the retake strategy.</p>
         <div class="bc-meta">10 min <span>→</span></div>
       </a>
 
-      <a href="blog/article.html?post=article-c2-nca-proctoring-guide" class="blog-card" data-cat="common-fears">
-        <div class="bc-tag">Common Fears</div>
-        <h4 class="bc-h">NCA Proctoring: The Complete Technical Setup Guide</h4>
-        <p class="bc-p">Browser, room, phone setup, what to cover, what happens if the connection drops.</p>
-        <div class="bc-meta">10 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-c3-one-month-nca-prep" class="blog-card" data-cat="common-fears">
-        <div class="bc-tag">Common Fears</div>
-        <h4 class="bc-h">Is One Month Enough to Prepare for the NCA?</h4>
-        <p class="bc-p">Honest answer: for some subjects in the right conditions, yes. Day-by-day breakdown.</p>
-        <div class="bc-meta">9 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-c4-nca-textbook-necessary" class="blog-card" data-cat="common-fears">
-        <div class="bc-tag">Common Fears</div>
-        <h4 class="bc-h">Do You Actually Need the NCA Textbook?</h4>
-        <p class="bc-p">The honest answer is no — for most candidates. Here is why, and what to use instead.</p>
-        <div class="bc-meta">8 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-c5-nca-exam-anxiety" class="blog-card" data-cat="common-fears">
-        <div class="bc-tag">Common Fears</div>
-        <h4 class="bc-h">Managing NCA Exam Anxiety: Practical Techniques</h4>
-        <p class="bc-p">Pre-exam nerves, during-exam panic, post-exam rumination. Specific techniques.</p>
-        <div class="bc-meta">9 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-d2-nca-to-bar-exam" class="blog-card" data-cat="career-pathway">
+      <a href="blog/article.html?post=article-d3-nca-indian-lawyers" class="blog-card page-link">
         <div class="bc-tag">Career Pathway</div>
-        <h4 class="bc-h">NCA to Bar Exam: The Complete Canadian Lawyer Pathway</h4>
-        <p class="bc-p">Assessment, sequencing, LRW, articling, provincial bar exams. Full roadmap.</p>
-        <div class="bc-meta">13 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-d3-nca-indian-lawyers" class="blog-card" data-cat="career-pathway">
-        <div class="bc-tag">Career Pathway</div>
-        <h4 class="bc-h">NCA for Indian-Qualified Lawyers: The Complete Guide</h4>
+        <h4 class="bc-h split-heading">NCA for Indian-Qualified Lawyers: The Complete Guide</h4>
         <p class="bc-p">Written by an Indian-qualified lawyer who went through it. Specific challenges and advantages.</p>
         <div class="bc-meta">11 min <span>→</span></div>
       </a>
 
-      <a href="blog/article.html?post=article-d4-nca-uk-based-lawyers" class="blog-card" data-cat="career-pathway">
-        <div class="bc-tag">Career Pathway</div>
-        <h4 class="bc-h">NCA for UK-Qualified Lawyers: Transitioning to Canada</h4>
-        <p class="bc-p">Which subjects transfer, which need extra attention, and the common pitfalls.</p>
-        <div class="bc-meta">11 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-d1-nca-prep-materials-compared" class="blog-card" data-cat="comparison">
+      <a href="blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-card page-link">
         <div class="bc-tag">Comparison</div>
-        <h4 class="bc-h">NCA Prep Materials: What to Look for Before You Buy</h4>
-        <p class="bc-p">Volume vs precision. Live vs async. An honest evaluation framework.</p>
-        <div class="bc-meta">11 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e2-nca-vs-bar-exam" class="blog-card" data-cat="comparison">
-        <div class="bc-tag">Comparison</div>
-        <h4 class="bc-h">NCA vs Bar Exam: What's the Difference?</h4>
-        <p class="bc-p">Format, content, and strategy differences between NCA and provincial bar exams.</p>
-        <div class="bc-meta">10 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-card" data-cat="comparison">
-        <div class="bc-tag">Comparison</div>
-        <h4 class="bc-h">Are 300-Page NCA Notes Worth It?</h4>
+        <h4 class="bc-h split-heading">Are 300-Page NCA Notes Worth It?</h4>
         <p class="bc-p">The problem with comprehensive notes in an open-book exam. Why shorter wins.</p>
         <div class="bc-meta">8 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-e6-nca-live-classes-vs-self-study" class="blog-card" data-cat="comparison">
-        <div class="bc-tag">Comparison</div>
-        <h4 class="bc-h">NCA Live Classes vs Self-Study: Which Works Better?</h4>
-        <p class="bc-p">Cost, time, discipline requirements. When to pay for live instruction.</p>
-        <div class="bc-meta">10 min <span>→</span></div>
-      </a>
-
-      <a href="blog/article.html?post=article-a4-nca-readiness-score" class="blog-card" data-cat="readiness">
-        <div class="bc-tag">Readiness</div>
-        <h4 class="bc-h">The NCA Readiness Score: Are You Actually Ready to Sit?</h4>
-        <p class="bc-p">Five dimensions of readiness, scored 0–100, with a specific action for each band.</p>
-        <div class="bc-meta">10 min <span>→</span></div>
       </a>
 
     </div>
 
     <!-- View All -->
-    <div style="text-align:center;margin-top:56px;" class="fu" style="transition-delay:.4s">
-      <a href="blog/index.html" class="bp"><span>View All 25 Free Guides →</span></a>
+    <div style="text-align:center;margin-top:56px;">
+      <a href="blog/index.html" class="bp page-link"><span>View All 25 Free Guides →</span></a>
     </div>
   </div>
 </section>
@@ -1683,7 +1621,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     </div>
     <div>
       <div class="fct">Contact</div>
-      <ul class="fls"><li><a href="/cdn-cgi/l/email-protection#dbb3beb7b7b49bafb3beb5b8bab3aeb9f5b8b4b6"><span class="__cf_email__" data-cfemail="95fdf0f9f9fad5e1fdf0fbf6f4fde0f7bbf6faf8">[email&#160;protected]</span></a></li><li><a href="#pricing">Enroll Now</a></li><li><a href="#sample">Get Free Chapter</a></li></ul>
+      <ul class="fls"><li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li><li><a href="#pricing">Enroll Now</a></li><li><a href="#sample">Get Free Chapter</a></li></ul>
     </div>
   </div>
   <div class="fb2">
@@ -1693,15 +1631,91 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){'use strict';
 
 /* GLOBALS */
 var REDUCED=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 var IS_MOBILE=window.innerWidth<=960;
-var lastHoverSound=0,lastClickSound=0;
 var lenis=null;
 var quizState={current:0,answers:{},completed:false};
+
+/* LENIS INITIALIZATION */
+try{
+  if(typeof Lenis!=='undefined'){
+    lenis=new Lenis({
+      lerp:0.075,
+      smoothWheel:true,
+      touchMultiplier:2,
+      infinite:false
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time)=>{
+      lenis.raf(time*1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+    document.documentElement.style.scrollBehavior='auto';
+  }
+}catch(e){
+  document.documentElement.style.scrollBehavior='smooth';
+}
+
+/* TEXT SPLITTING UTILITY */
+function splitText(element) {
+  if(!element || REDUCED) return;
+  var text = element.textContent;
+  element.innerHTML = '';
+  var words = text.split(' ');
+  words.forEach(function(word, wIdx){
+    var wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+    wordSpan.style.display = 'inline-block';
+    wordSpan.style.overflow = 'hidden';
+    wordSpan.style.marginRight = '0.25em';
+    
+    var chars = word.split('');
+    chars.forEach(function(char){
+      var span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char;
+      span.style.display = 'inline-block';
+      span.style.transform = 'translateY(110%)';
+      span.style.opacity = '0';
+      wordSpan.appendChild(span);
+    });
+    element.appendChild(wordSpan);
+  });
+}
+
+/* Apply splitting to all headings */
+document.querySelectorAll('.split-heading').forEach(function(el){
+  splitText(el);
+});
+
+/* GSAP SCROLLTRIGGER FOR SPLIT TEXT */
+if(!REDUCED && typeof gsap !== 'undefined'){
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.querySelectorAll('.split-heading').forEach(function(heading){
+    var chars = heading.querySelectorAll('.char');
+    if(chars.length === 0) return;
+    
+    ScrollTrigger.create({
+      trigger: heading,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        gsap.to(chars, {
+          y: '0%',
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.02,
+          ease: 'power4.out'
+        });
+      }
+    });
+  });
+}
 
 /* QUIZ DATA */
 var quizQuestions=[
@@ -1786,42 +1800,6 @@ function renderQuiz(){
   progressEl.style.width=((quizState.current/quizQuestions.length)*100)+'%';
 }
 
-/* GSAP */
-try{gsap.registerPlugin(ScrollTrigger);}catch(e){}
-
-/* LENIS */
-try{
-  if(typeof Lenis!=='undefined'){
-    lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2});
-    lenis.on('scroll',function(){try{ScrollTrigger.update();}catch(e){}});
-    gsap.ticker.add(function(time){if(lenis)lenis.raf(time*1000);});
-    gsap.ticker.lagSmoothing(0);
-    document.documentElement.style.scrollBehavior='auto';
-  }
-}catch(e){document.documentElement.style.scrollBehavior='smooth';}
-
-/* DISCOVERY BAR */
-var discGone=false;
-window.addEventListener('scroll',function(){
-  if(!discGone&&window.scrollY>100){
-    var db=document.getElementById('discovery-bar');
-    var nav=document.getElementById('nav');
-    if(db)db.classList.add('hidden');
-    if(nav)nav.classList.add('disc-gone');
-    discGone=true;
-  }
-},{passive:true});
-
-/* EXAM CLOCK */
-var clockEl=document.getElementById('exam-clock');
-function updateClock(){
-  if(!clockEl)return;
-  var n=new Date();
-  clockEl.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
-}
-updateClock();
-setInterval(updateClock,1000);
-
 /* PRELOADER */
 (function(){
   var PL=document.getElementById('PL'),PF=document.getElementById('PF'),PN=document.getElementById('PN'),PS=document.getElementById('PS');
@@ -1855,9 +1833,24 @@ function revealHero(){
   var clock=document.getElementById('exam-clock'),rtime=document.getElementById('reading-time');
   if(clock)setTimeout(function(){clock.style.opacity='1';},1200);
   if(rtime)setTimeout(function(){rtime.style.opacity='1';},1400);
-  var CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789—·',FINAL='NCA PREPARATION — REIMAGINED',el=document.getElementById('HET'),frame=0,total=65;
-  if(el){var tm=setInterval(function(){el.textContent=FINAL.split('').map(function(c,i){if(c===' ')return ' ';if(frame/total>i/FINAL.length)return c;return CHARS[Math.floor(Math.random()*CHARS.length)];}).join('');frame++;if(frame>=total){el.textContent=FINAL;clearInterval(tm);}},1000/60);}
+  
+  /* GSAP ScrambleText effect for hero subtitle */
+  var CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789—·',FINAL='NCA PREPARATION — REIMAGINED',el=document.getElementById('HET');
+  if(el && !REDUCED){
+    var frame=0,total=45;
+    var tm=setInterval(function(){
+      el.textContent=FINAL.split('').map(function(c,i){
+        if(c===' ')return ' ';
+        if(frame/total>i/FINAL.length)return c;
+        return CHARS[Math.floor(Math.random()*CHARS.length)];
+      }).join('');
+      frame++;
+      if(frame>=total){el.textContent=FINAL;clearInterval(tm);}
+    },1000/60);
+  }
+  
   var hel=document.getElementById('HEL');if(hel)hel.style.width='28px';
+  
   if(!REDUCED){
     try{
       gsap.to('.li',{y:'0%',duration:1.2,ease:'power4.out',stagger:.14,delay:.1});
@@ -1877,80 +1870,194 @@ function revealHero(){
   renderQuiz();
 }
 
-/* HERO CANVAS */
+/* GOLD INK CURSOR TRAIL */
 (function(){
-  var cv=document.getElementById('hcv');if(!cv)return;
-  var cx=cv.getContext('2d');var W,H;
-  function rz(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  if(IS_MOBILE || REDUCED) return;
+  var cv=document.getElementById('ink-cv');
+  if(!cv) return;
+  var cx=cv.getContext('2d');
+  function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
   rz();window.addEventListener('resize',rz,{passive:true});
-  var pts=[];
-  for(var i=0;i<85;i++)pts.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.00016,vy:(Math.random()-.5)*.00016,sz:Math.random()*1.4+.4,a:Math.random()*.38+.06,ph:Math.random()*Math.PI*2});
-  var mx=.5,my=.5;
-  document.addEventListener('mousemove',function(e){mx=e.clientX/innerWidth;my=e.clientY/innerHeight;},{passive:true});
-  var tiltX=0,tiltY=0;
-  if(IS_MOBILE&&window.DeviceOrientationEvent){try{window.addEventListener('deviceorientation',function(e){tiltX=(e.gamma||0)/90*.3;tiltY=(e.beta||0)/180*.2;},{passive:true});}catch(e){}}
-  var breathPhase=0,t=0;
+  
+  var drops=[],mx=0,my=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    drops.push({x:mx,y:my,life:1,size:Math.random()*3+1,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5});
+  },{passive:true});
+  
   function draw(){
-    breathPhase+=.006;var bm=.85+.15*Math.sin(breathPhase);
-    cx.clearRect(0,0,W,H);
-    var s=5;
-    for(var x=0;x<W;x+=s){for(var y=0;y<H;y+=s){
-      var effMx=IS_MOBILE?tiltX+.5:mx,effMy=IS_MOBILE?tiltY+.5:my;
-      var nx=x/W+(effMx-.5)*.05,ny=y/H+(effMy-.5)*.05;
-      var v=(Math.sin(nx*4+t)*Math.cos(ny*3+t*.7)+Math.cos(nx*2-t*.5)*Math.sin(ny*5+t*.4)+1)/2;
-      if(v>.54){cx.fillStyle='rgba(201,168,76,'+((v-.54)*.07*bm)+')';cx.fillRect(x,y,s,s);}
-    }}
-    pts.forEach(function(p){
-      var px=p.x*W,py=p.y*H,curX=mx*W,curY=my*H;
-      var dx=curX-px,dy=curY-py,dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120&&dist>1){var f=(120-dist)/120*.00004;p.vx+=dx/dist*f;p.vy+=dy/dist*f;}
-      var sp=Math.sqrt(p.vx*p.vx+p.vy*p.vy);if(sp>.0006){p.vx*=.0006/sp;p.vy*=.0006/sp;}
-      p.x+=p.vx+(mx-.5)*.00003;p.y+=p.vy+(my-.5)*.00002;p.ph+=.013;
-      if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;
-      var a=p.a*(.7+.3*Math.sin(p.ph))*bm;
-      cx.beginPath();cx.arc(p.x*W,p.y*H,p.sz,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+a+')';cx.fill();
+    cx.clearRect(0,0,cv.width,cv.height);
+    drops=drops.filter(function(d){return d.life>0;});
+    drops.forEach(function(d){
+      d.x+=d.vx;d.y+=d.vy;d.life-=0.02;
+      cx.beginPath();
+      cx.arc(d.x,d.y,d.size*d.life,0,Math.PI*2);
+      cx.fillStyle='rgba(201,168,76,'+(d.life*0.4)+')';
+      cx.fill();
     });
-    for(var i=0;i<pts.length;i++){for(var j=i+1;j<pts.length;j++){
-      var ddx=(pts[i].x-pts[j].x)*W,ddy=(pts[i].y-pts[j].y)*H,d=Math.sqrt(ddx*ddx+ddy*ddy);
-      if(d<110){cx.beginPath();cx.moveTo(pts[i].x*W,pts[i].y*H);cx.lineTo(pts[j].x*W,pts[j].y*H);cx.strokeStyle='rgba(201,168,76,'+((1-d/110)*.045)+')';cx.lineWidth=.5;cx.stroke();}
-    }}
-    t+=.003;requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   }
   draw();
 })();
 
-/* AMBIENT PARTICLES */
+/* HOLOGRAPHIC CARD TILT */
 (function(){
-  var cv=document.getElementById('ambient-cv');
-  if(!cv||IS_MOBILE){if(cv)cv.style.display='none';return;}
-  var cx=cv.getContext('2d');var W,H;
-  function rz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
-  rz();window.addEventListener('resize',rz,{passive:true});
-  var dots=[];
-  for(var i=0;i<28;i++)dots.push({x:Math.random()*1920,y:Math.random()*1080,vy:-(Math.random()*.18+.04),a:Math.random()*.07+.02,sz:Math.random()*1.2+.4,ph:Math.random()*Math.PI*2});
-  function drawAmb(){
-    cx.clearRect(0,0,W,H);
-    dots.forEach(function(d){d.ph+=.008;d.y+=d.vy;if(d.y<-10){d.y=H+5;d.x=Math.random()*W;}var aa=d.a*(.5+.5*Math.sin(d.ph));cx.beginPath();cx.arc(d.x,d.y,d.sz,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+aa+')';cx.fill();});
-    requestAnimationFrame(drawAmb);
-  }
-  drawAmb();
+  if(IS_MOBILE || REDUCED) return;
+  document.querySelectorAll('.tilt-card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5;
+      var y=(e.clientY-r.top)/r.height-.5;
+      var rotX=-y*12,rotY=x*10;
+      card.style.transform='perspective(1000px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) translateZ(10px)';
+      
+      /* Specular highlight */
+      var hl=card.querySelector('.sc2-highlight');
+      if(hl){
+        hl.style.setProperty('--hx',((e.clientX-r.left)/r.width*100)+'%');
+        hl.style.setProperty('--hy',((e.clientY-r.top)/r.height*100)+'%');
+      }
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.transform='perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      card.style.transition='transform 0.5s ease-out';
+    });
+    card.addEventListener('mouseenter',function(){
+      card.style.transition='transform 0.1s linear';
+    });
+  });
 })();
 
-/* CURSOR TRAIL */
+/* CINEMATIC LETTERBOX FOR STORY SECTION */
 (function(){
-  var cv=document.getElementById('trail-cv');if(!cv||IS_MOBILE)return;
-  var cx=cv.getContext('2d');
-  function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
-  rz();window.addEventListener('resize',rz,{passive:true});
-  var trail=[],maxLen=22,tmx=-200,tmy=-200;
-  document.addEventListener('mousemove',function(e){tmx=e.clientX;tmy=e.clientY;trail.push({x:tmx,y:tmy,life:1.0});if(trail.length>maxLen)trail.shift();},{passive:true});
-  function drawTrail(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    for(var i=0;i<trail.length;i++){trail[i].life*=.88;var t=trail[i],ratio=i/trail.length,r=ratio<.3?3.5:ratio<.6?2:1;cx.beginPath();cx.arc(t.x,t.y,r,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+(t.life*ratio*.7)+')';cx.fill();}
-    requestAnimationFrame(drawTrail);
-  }
-  drawTrail();
+  if(REDUCED) return;
+  var story=document.getElementById('story');
+  var lbTop=document.getElementById('lb-top');
+  var lbBot=document.getElementById('lb-bot');
+  if(!story || !lbTop || !lbBot) return;
+  
+  ScrollTrigger.create({
+    trigger: story,
+    start: 'top 80%',
+    end: 'bottom 20%',
+    onEnter: function(){lbTop.classList.add('active');lbBot.classList.add('active');},
+    onLeave: function(){lbTop.classList.remove('active');lbBot.classList.remove('active');},
+    onEnterBack: function(){lbTop.classList.add('active');lbBot.classList.add('active');},
+    onLeaveBack: function(){lbTop.classList.remove('active');lbBot.classList.remove('active');}
+  });
 })();
+
+/* TYPEWRITER EFFECT FOR PHILOSOPHY */
+(function(){
+  if(REDUCED) return;
+  var pht=document.getElementById('PHT');
+  var pha=document.querySelector('.pha');
+  if(!pht) return;
+  
+  var originalText=pht.innerHTML;
+  var plainText=pht.textContent;
+  pht.innerHTML='';
+  pht.style.opacity=1;
+  
+  ScrollTrigger.create({
+    trigger: '#philosophy',
+    start: 'top 60%',
+    once: true,
+    onEnter: function(){
+      var i=0;
+      var cursor=document.createElement('span');
+      cursor.className='typewriter-cursor';
+      pht.appendChild(cursor);
+      
+      var typeInt=setInterval(function(){
+        if(i<plainText.length){
+          cursor.before(plainText.charAt(i));
+          i++;
+        }else{
+          clearInterval(typeInt);
+          setTimeout(function(){
+            cursor.style.display='none';
+            if(pha) gsap.to(pha, {opacity:1, duration:0.8});
+          },500);
+        }
+      },50);
+    }
+  });
+})();
+
+/* PAGE TRANSITION */
+(function(){
+  var overlay=document.getElementById('transition-overlay');
+  var links=document.querySelectorAll('.page-link');
+  
+  links.forEach(function(link){
+    link.addEventListener('click',function(e){
+      var href=this.getAttribute('href');
+      if(href && href.indexOf('#')!==0 && !href.startsWith('mailto:')){
+        e.preventDefault();
+        overlay.classList.add('active');
+        setTimeout(function(){
+          window.location.href=href;
+        },400);
+      }
+    });
+  });
+})();
+
+/* SVG DIVIDER LINE DRAW */
+(function(){
+  if(REDUCED) return;
+  document.querySelectorAll('.orn').forEach(function(orn){
+    var line=orn.querySelector('line');
+    if(!line) return;
+    var length=line.getTotalLength?line.getTotalLength():1000;
+    line.style.strokeDasharray=length;
+    line.style.strokeDashoffset=length;
+    line.style.stroke='var(--g1)';
+    line.style.strokeWidth='1';
+    
+    ScrollTrigger.create({
+      trigger: orn,
+      start: 'top 80%',
+      once: true,
+      onEnter: function(){
+        gsap.to(line, {strokeDashoffset:0, duration:1.5, ease:'power2.out'});
+      }
+    });
+  });
+})();
+
+/* SCROLL-LINKED BACKGROUND TEMPERATURE */
+(function(){
+  if(REDUCED) return;
+  window.addEventListener('scroll',function(){
+    var scrollPercent=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+    var temp=Math.min(scrollPercent*3,1);
+    document.documentElement.style.setProperty('--bg-temp',temp);
+  },{passive:true});
+})();
+
+/* DISCOVERY BAR */
+var discGone=false;
+window.addEventListener('scroll',function(){
+  if(!discGone&&window.scrollY>100){
+    var db=document.getElementById('discovery-bar');
+    var nav=document.getElementById('nav');
+    if(db)db.classList.add('hidden');
+    if(nav)nav.classList.add('disc-gone');
+    discGone=true;
+  }
+},{passive:true});
+
+/* EXAM CLOCK */
+var clockEl=document.getElementById('exam-clock');
+function updateClock(){
+  if(!clockEl)return;
+  var n=new Date();
+  clockEl.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
+}
+updateClock();
+setInterval(updateClock,1000);
 
 /* CUSTOM CURSOR */
 var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');
@@ -1962,255 +2069,203 @@ if(CD&&CR){
     el.addEventListener('mouseenter',function(){if(CL)CL.textContent=el.dataset.cur;CR.classList.add('h');CD.classList.add('h');});
     el.addEventListener('mouseleave',function(){CR.classList.remove('h');CD.classList.remove('h');});
   });
-  document.querySelectorAll('a,button,.mc,.pc,.sc2,.bs,.sr,.pod-card').forEach(function(el){
-    if(!el.dataset.cur){el.addEventListener('mouseenter',function(){CR.classList.add('h');CD.classList.add('h');});el.addEventListener('mouseleave',function(){CR.classList.remove('h');CD.classList.remove('h');});}
-  });
-  document.querySelectorAll('p,li').forEach(function(el){el.addEventListener('mouseenter',function(){CR.classList.add('tx');});el.addEventListener('mouseleave',function(){CR.classList.remove('tx');});});
-  document.addEventListener('mousedown',function(){CR.classList.add('c');CR.classList.remove('h');});
-  document.addEventListener('mouseup',function(){CR.classList.remove('c');});
 }
 
-/* MAGNETIC BUTTONS */
-document.querySelectorAll('.bp,.nc,.pb,.fsub,.epy').forEach(function(btn){
-  btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect();try{gsap.to(btn,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.3,duration:.45,ease:'power2.out'});}catch(e){}});
-  btn.addEventListener('mouseleave',function(){try{gsap.to(btn,{x:0,y:0,duration:.7,ease:'elastic.out(1,.4)'});}catch(e){}});
+/* HERO CANVAS */
+(function(){
+  var cv=document.getElementById('hcv');if(!cv)return;
+  var cx=cv.getContext('2d');var W,H;
+  function rz(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  rz();window.addEventListener('resize',rz,{passive:true});
+  var pts=[];
+  for(var i=0;i<85;i++)pts.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.00016,vy:(Math.random()-.5)*.00016,sz:Math.random()*1.4+.4,a:Math.random()*.38+.06,ph:Math.random()*Math.PI*2});
+  var mx=.5,my=.5;
+  document.addEventListener('mousemove',function(e){mx=e.clientX/innerWidth;my=e.clientY/innerHeight;},{passive:true});
+  var breathPhase=0,t=0;
+  function draw(){
+    breathPhase+=.006;var bm=.85+.15*Math.sin(breathPhase);
+    cx.clearRect(0,0,W,H);
+    var s=5;
+    for(var x=0;x<W;x+=s){for(var y=0;y<H;y+=s){
+      var nx=x/W+(mx-.5)*.05,ny=y/H+(my-.5)*.05;
+      var v=(Math.sin(nx*4+t)*Math.cos(ny*3+t*.7)+Math.cos(nx*2-t*.5)*Math.sin(ny*5+t*.4)+1)/2;
+      if(v>.54){cx.fillStyle='rgba(201,168,76,'+((v-.54)*.07*bm)+')';cx.fillRect(x,y,s,s);}
+    }}
+    pts.forEach(function(p){
+      var px=p.x*W,py=p.y*H,curX=mx*W,curY=my*H;
+      var dx=curX-px,dy=curY-py,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120&&dist>1){var f=(120-dist)/120*.00004;p.vx+=dx/dist*f;p.vy+=dy/dist*f;}
+      p.x+=p.vx+(mx-.5)*.00003;p.y+=p.vy+(my-.5)*.00002;p.ph+=.013;
+      if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;
+      var a=p.a*(.7+.3*Math.sin(p.ph))*bm;
+      cx.beginPath();cx.arc(p.x*W,p.y*H,p.sz,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+a+')';cx.fill();
+    });
+    t+=.003;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* STORY CHAPTER REVEAL WITH SCROLLTRIGGER */
+(function(){
+  if(typeof ScrollTrigger === 'undefined') return;
+  
+  var chapters=document.querySelectorAll('.story-chapter');
+  var dots=document.querySelectorAll('.scp-dot');
+  var prog=document.getElementById('STORY_PROG');
+  
+  chapters.forEach(function(ch,i){
+    ScrollTrigger.create({
+      trigger: ch,
+      start: 'top 60%',
+      end: 'bottom 40%',
+      onEnter: function(){ch.classList.add('vis');if(prog)prog.classList.add('vis');dots.forEach(function(d,j){d.classList.toggle('on',j===i);});},
+      onEnterBack: function(){ch.classList.add('vis');dots.forEach(function(d,j){d.classList.toggle('on',j===i);});}
+    });
+  });
+  
+  dots.forEach(function(dot){
+    dot.addEventListener('click',function(){
+      var idx=parseInt(dot.dataset.ch);
+      if(chapters[idx]){
+        lenis?lenis.scrollTo(chapters[idx]):chapters[idx].scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+})();
+
+/* METHOD CARDS WITH SCROLLTRIGGER */
+(function(){
+  if(typeof ScrollTrigger === 'undefined') return;
+  
+  ['MC1','MC2','MC3'].forEach(function(id,i){
+    var el=document.getElementById(id);
+    if(!el)return;
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        gsap.to(el,{opacity:1,y:0,duration:0.8,delay:i*0.15,ease:'power3.out'});
+      }
+    });
+  });
+  
+  var mf=document.getElementById('MF');
+  if(mf){
+    ScrollTrigger.create({
+      trigger: mf,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        ['MF1','MF2','MF3','MF4'].forEach(function(id,i){
+          var el=document.getElementById(id);
+          if(el)gsap.to(el,{opacity:1,y:0,duration:0.6,delay:i*0.16,ease:'power3.out'});
+        });
+        ['MFA1','MFA2','MFA3'].forEach(function(id,i){
+          var el=document.getElementById(id);
+          if(el)gsap.to(el,{opacity:1,duration:0.8,delay:i*0.16+0.3,ease:'power3.out'});
+        });
+      }
+    });
+  }
+})();
+
+/* SUBJECT CARDS */
+['SC1','SC2','SC3','SC4','SC5','SC6','SC7','SC8','SC9','SC10','SC11','SC12','SC13'].forEach(function(id,i){
+  var el=document.getElementById(id);if(!el)return;
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: function(){
+        gsap.to(el,{opacity:1,x:0,duration:0.8,delay:i*0.05,ease:'power3.out'});
+        el.querySelectorAll('.scl li').forEach(function(li,j){
+          setTimeout(function(){li.classList.add('on');},j*80+200);
+        });
+        var fill=el.querySelector('.diff-fill');
+        if(fill)setTimeout(function(){fill.classList.add('on');},300);
+      }
+    });
+  }
 });
 
-/* CLICK BURST */
-(function(){
-  var cv=document.createElement('canvas');cv.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:9995;';document.body.appendChild(cv);
-  var cx=cv.getContext('2d');
-  function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
-  rz();window.addEventListener('resize',rz,{passive:true});
-  var particles=[];
-  document.addEventListener('click',function(e){
-    for(var i=0;i<16;i++){var angle=Math.PI*2*i/16+Math.random()*.5,speed=Math.random()*4+2;particles.push({x:e.clientX,y:e.clientY,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-Math.random()*2,life:1.0,sz:Math.random()*3+1});}
-  });
-  function drawBurst(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    particles=particles.filter(function(p){return p.life>.01;});
-    particles.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.life*=.89;cx.beginPath();cx.arc(p.x,p.y,p.sz*p.life,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+(p.life*.9)+')';cx.fill();});
-    requestAnimationFrame(drawBurst);
-  }
-  drawBurst();
-})();
-
-/* SCROLL VELOCITY SKEW */
-(function(){
-  if(REDUCED||IS_MOBILE)return;
-  var lastScroll=0,skew=0;
-  window.addEventListener('scroll',function(){var delta=window.scrollY-lastScroll;lastScroll=window.scrollY;skew+=(delta*.003-skew)*.3;skew*=.88;document.body.style.transform='skewY('+Math.max(-2.5,Math.min(2.5,skew))+'deg)';},{passive:true});
-})();
-
-/* PARALLAX HERO */
-(function(){
-  if(REDUCED||IS_MOBILE)return;
-  try{
-    [['.hero-p2',.08],['.hero-p3',.18],['.hero-p4',.05]].forEach(function(pair){
-      document.querySelectorAll(pair[0]).forEach(function(el){
-        gsap.to(el,{y:function(){return window.innerHeight*pair[1];},ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true,invalidateOnRefresh:true}});
-      });
-    });
-  }catch(e){}
-})();
-
-/* VIGNETTE */
-(function(){
-  if(REDUCED)return;
-  var v=document.getElementById('vignette');if(!v)return;
-  window.addEventListener('scroll',function(){var d=window.scrollY/(document.body.scrollHeight-window.innerHeight);v.style.opacity=(d*.18).toFixed(3);},{passive:true});
-})();
-
-/* PAGE BORDER */
-(function(){
-  var b=document.getElementById('pg-border');if(!b)return;
-  window.addEventListener('scroll',function(){var d=Math.min(window.scrollY/300,1);b.style.borderColor='rgba(201,168,76,'+(d*.08)+')';},{passive:true});
-})();
-
-/* PROGRESS + NAV */
-var PROG=document.getElementById('prog'),NAV=document.getElementById('nav');
-window.addEventListener('scroll',function(){
-  var scrolled=window.scrollY,max=document.body.scrollHeight-window.innerHeight;
-  if(PROG)PROG.style.width=(max>0?scrolled/max*100:0)+'%';
-  if(NAV)NAV.classList.toggle('sc',scrolled>60);
-},{passive:true});
-
-/* FADE UP */
-var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.09});
-document.querySelectorAll('.fu').forEach(function(el){io.observe(el);});
-
-/* PHILOSOPHY LINE */
-(function(){
-  var phl=document.getElementById('PHL');if(!phl)return;
-  var o=new IntersectionObserver(function(en){if(en[0].isIntersecting){phl.classList.add('on');o.disconnect();}},{threshold:.3});
-  o.observe(phl);
-})();
-
-/* MASK REVEALS */
-var maskObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');maskObs.unobserve(e.target);}});},{threshold:.15});
-document.querySelectorAll('.sh-mask-inner').forEach(function(el){maskObs.observe(el);});
-
-/* METHOD CARDS */
-['MC1','MC2','MC3'].forEach(function(id,i){var el=document.getElementById(id);if(!el)return;var o=new IntersectionObserver(function(en){if(en[0].isIntersecting){setTimeout(function(){el.classList.add('on');},i*200);o.disconnect();}},{threshold:.07});o.observe(el);});
-
-/* METHOD FLOW */
-(function(){
-  var mf=document.getElementById('MF');if(!mf)return;
-  var o=new IntersectionObserver(function(en){
-    if(en[0].isIntersecting){
-      ['MF1','MF2','MF3','MF4'].forEach(function(id,i){var el=document.getElementById(id);if(el)setTimeout(function(){el.classList.add('on');},i*160);});
-      ['MFA1','MFA2','MFA3'].forEach(function(id,i){var el=document.getElementById(id);if(el)setTimeout(function(){el.classList.add('on');},i*160+100);});
-      o.disconnect();
-    }
-  },{threshold:.2});
-  o.observe(mf);
-})();
-
-/* PRICING CARDS */
-['PC1','PC2','PC3'].forEach(function(id,i){var el=document.getElementById(id);if(!el)return;var o=new IntersectionObserver(function(en){if(en[0].isIntersecting){setTimeout(function(){el.classList.add('on');},i*160);o.disconnect();}},{threshold:.07});o.observe(el);});
-
-/* SUBJECT CARDS — handler moved to end of script */
-if(!IS_MOBILE){
-  document.querySelectorAll('.sc2').forEach(function(card){
-    card.addEventListener('mousemove',function(e){
-      var r=card.getBoundingClientRect(),cx2=r.left+r.width/2,cy2=r.top+r.height/2;
-      var rotX=-(e.clientY-cy2)/(r.height/2)*7,rotY=(e.clientX-cx2)/(r.width/2)*7;
-      card.style.transform='perspective(1000px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) translateZ(4px)';
-      var hl=card.querySelector('.sc2-highlight');
-      if(hl){hl.style.setProperty('--hx',((e.clientX-r.left)/r.width*100)+'%');hl.style.setProperty('--hy',((e.clientY-r.top)/r.height*100)+'%');}
-    });
-    card.addEventListener('mouseleave',function(){card.style.transform='';});
-  });
-}
-
-/* BIG STATS */
+/* BIG STATS WITH SCROLLTRIGGER */
 ['BS1','BS2','BS3','BS4'].forEach(function(id,i){
   var el=document.getElementById(id);if(!el)return;
-  var o=new IntersectionObserver(function(en){
-    if(en[0].isIntersecting){
-      setTimeout(function(){
+  
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
         el.classList.add('on');
         var numEl=el.querySelector('.bsn');
         var target=parseInt(numEl.dataset.target,10);
         var ringId=numEl.dataset.ring,pct=parseFloat(numEl.dataset.pct||'.8');
         var ringEl=ringId?document.getElementById(ringId):null,circ=276.5;
+        
         if(!isNaN(target)){
-          var start=performance.now(),dur=1400,overshoot=target+1,didOver=false;
-          function countUp(now){
-            var p=Math.min((now-start)/dur,1),eased=1-Math.pow(1-p,3),val=eased*overshoot;
-            if(!didOver&&p>.88)didOver=true;
-            if(didOver&&p>=1)val=target;
-            numEl.textContent=Math.round(val);
-            if(ringEl){var progress=Math.min(eased*pct,pct);ringEl.style.strokeDashoffset=circ-circ*progress;}
-            if(p<1)requestAnimationFrame(countUp);else{numEl.textContent=target;if(ringEl)ringEl.style.strokeDashoffset=circ-circ*pct;}
-          }
-          requestAnimationFrame(countUp);
+          var obj={val:0};
+          gsap.to(obj,{
+            val:target,
+            duration:1.4,
+            delay:i*0.15,
+            ease:'power2.out',
+            onUpdate:function(){
+              numEl.textContent=Math.round(obj.val);
+              if(ringEl){
+                var progress=(obj.val/target)*pct;
+                ringEl.style.strokeDashoffset=circ-circ*progress;
+              }
+            }
+          });
         }
-      },i*150);
-      o.disconnect();
-    }
-  },{threshold:.15});
-  o.observe(el);
+      }
+    });
+  }
+});
+
+/* PRICING CARDS */
+['PC1','PC2','PC3'].forEach(function(id,i){
+  var el=document.getElementById(id);if(!el)return;
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        gsap.to(el,{opacity:1,y:0,scale:1,duration:0.8,delay:i*0.16,ease:'power3.out'});
+      }
+    });
+  }
 });
 
 /* TEXT SCRUB */
 (function(){
-  var wrap=document.getElementById('scrub-section');if(!wrap||REDUCED||typeof gsap==='undefined')return;
-  try{
-    ScrollTrigger.create({trigger:wrap,start:'top top',end:'bottom bottom',scrub:.5,onUpdate:function(self){
+  var wrap=document.getElementById('scrub-section');
+  if(!wrap||REDUCED||typeof ScrollTrigger==='undefined')return;
+  
+  ScrollTrigger.create({
+    trigger:wrap,
+    start:'top top',
+    end:'bottom bottom',
+    scrub:0.5,
+    onUpdate:function(self){
       var p=self.progress;
-      var lines=[{el:document.getElementById('SL1'),dot:document.getElementById('SD1'),from:0,to:.3},{el:document.getElementById('SL2'),dot:document.getElementById('SD2'),from:.3,to:.65},{el:document.getElementById('SL3'),dot:null,from:.65,to:1.0}];
-      lines.forEach(function(line){if(!line.el)return;var active=p>=line.from&&p<line.to+.1;line.el.classList.toggle('active',active);if(line.dot)line.dot.classList.toggle('active',active);});
-    }});
-  }catch(e){}
-})();
-
-/* LETTERBOX */
-(function(){
-  if(REDUCED)return;
-  var proof=document.getElementById('proof'),lbTop=document.getElementById('lb-top'),lbBot=document.getElementById('lb-bot');
-  if(!proof||!lbTop||!lbBot)return;
-  var o=new IntersectionObserver(function(entries){var isIn=entries[0].isIntersecting;lbTop.classList.toggle('on',isIn);lbBot.classList.toggle('on',isIn);},{threshold:.1});
-  o.observe(proof);
-})();
-
-/* TESTIMONIAL WORD REVEAL */
-(function(){
-  var prq=document.getElementById('PRQ'),line=document.getElementById('PRQ_LINE');if(!prq)return;
-  var words=prq.querySelectorAll('.pw'),revealed=false;
-  var o=new IntersectionObserver(function(entries){
-    if(entries[0].isIntersecting&&!revealed){
-      revealed=true;
-      words.forEach(function(w,i){setTimeout(function(){w.classList.add('lit');if(i===words.length-1&&line)setTimeout(function(){line.classList.add('on');},200);},i*140);});
-      o.disconnect();
+      var lines=[
+        {el:document.getElementById('SL1'),dot:document.getElementById('SD1'),from:0,to:.3},
+        {el:document.getElementById('SL2'),dot:document.getElementById('SD2'),from:.3,to:.65},
+        {el:document.getElementById('SL3'),dot:null,from:.65,to:1.0}
+      ];
+      lines.forEach(function(line){
+        if(!line.el)return;
+        var active=p>=line.from&&p<line.to+.1;
+        line.el.classList.toggle('active',active);
+        if(line.dot)line.dot.classList.toggle('active',active);
+      });
     }
-  },{threshold:.3});
-  o.observe(prq);
-})();
-
-/* SVG DIVIDERS */
-['ORN1','ORN2','ORN3'].forEach(function(id){
-  var el=document.getElementById(id);if(!el)return;
-  var lines=el.querySelectorAll('svg line');
-  var o=new IntersectionObserver(function(entries){if(entries[0].isIntersecting){lines.forEach(function(l){l.classList.add('on');});o.disconnect();}},{threshold:.5});
-  o.observe(el);
-});
-
-/* STORY CHAPTER REVEAL */
-(function(){
-  var chapters = document.querySelectorAll('.story-chapter');
-  var dots = document.querySelectorAll('.scp-dot');
-  var prog = document.getElementById('STORY_PROG');
-  if(!chapters.length) return;
-
-  // Show progress dots when story section is in view
-  var storyEl = document.getElementById('story');
-  var progObs = new IntersectionObserver(function(entries){
-    if(prog) prog.classList.toggle('vis', entries[0].isIntersecting);
-  }, {threshold: 0.05});
-  if(storyEl) progObs.observe(storyEl);
-
-  // Reveal each chapter + update dots
-  var chObs = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        entry.target.classList.add('vis');
-        var idx = Array.prototype.indexOf.call(chapters, entry.target);
-        dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
-      }
-    });
-  }, {threshold: 0.35});
-
-  chapters.forEach(function(ch){ chObs.observe(ch); });
-
-  // Dot click scrolls to chapter
-  dots.forEach(function(dot){
-    dot.addEventListener('click', function(){
-      var idx = parseInt(dot.dataset.ch);
-      if(chapters[idx]) chapters[idx].scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
-})();
-
-/* BLOG FILTER */
-(function(){
-  var filters = document.querySelectorAll('.bflt');
-  var cards = document.querySelectorAll('.blog-card');
-  var featured = document.querySelector('.blog-featured');
-  if(!filters.length) return;
-  filters.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var cat = btn.dataset.cat;
-      filters.forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      if(cat === 'all'){
-        cards.forEach(function(c){ c.classList.remove('hidden'); });
-        if(featured) featured.style.display = '';
-      } else {
-        if(featured) featured.style.display = featured.dataset.cat === cat ? '' : 'none';
-        cards.forEach(function(c){ c.classList.toggle('hidden', c.dataset.cat !== cat); });
-      }
-    });
   });
 })();
 
@@ -2225,14 +2280,25 @@ if(!IS_MOBILE){
   document.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',closeMenu);});
 })();
 
-/* FAQ */
+/* FAQ ACCORDION */
 (function(){
   document.querySelectorAll('.fqi').forEach(function(item){
-    var btn=item.querySelector('.fqq'),body=item.querySelector('.fqb');if(!btn||!body)return;
+    var btn=item.querySelector('.fqq'),body=item.querySelector('.fqb');
+    if(!btn||!body)return;
     btn.addEventListener('click',function(){
       var isOpen=item.classList.contains('op');
-      document.querySelectorAll('.fqi.op').forEach(function(o){o.classList.remove('op');var b=o.querySelector('.fqb');if(b)b.style.maxHeight='0';var q=o.querySelector('.fqq');if(q)q.setAttribute('aria-expanded','false');});
-      if(!isOpen){item.classList.add('op');body.style.maxHeight=body.scrollHeight+'px';btn.setAttribute('aria-expanded','true');}
+      document.querySelectorAll('.fqi.op').forEach(function(o){
+        o.classList.remove('op');
+        var b=o.querySelector('.fqb');
+        if(b)b.style.maxHeight='0';
+        var q=o.querySelector('.fqq');
+        if(q)q.setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('op');
+        body.style.maxHeight=body.scrollHeight+'px';
+        btn.setAttribute('aria-expanded','true');
+      }
     });
   });
 })();
@@ -2241,7 +2307,12 @@ if(!IS_MOBILE){
 (function(){
   var pb=document.getElementById('POST_BUY'),btn=document.getElementById('POST_BUY_BTN'),body=document.getElementById('post-buy-body');
   if(!pb||!btn||!body)return;
-  btn.addEventListener('click',function(){var isOpen=pb.classList.contains('op');pb.classList.toggle('op',!isOpen);body.style.maxHeight=isOpen?'0':body.scrollHeight+'px';btn.setAttribute('aria-expanded',String(!isOpen));});
+  btn.addEventListener('click',function(){
+    var isOpen=pb.classList.contains('op');
+    pb.classList.toggle('op',!isOpen);
+    body.style.maxHeight=isOpen?'0':body.scrollHeight+'px';
+    btn.setAttribute('aria-expanded',String(!isOpen));
+  });
 })();
 
 /* DRAG CAROUSEL */
@@ -2260,7 +2331,8 @@ if(!IS_MOBILE){
 
 /* FORM */
 (function(){
-  var FSB=document.getElementById('FSB'),FSBT=document.getElementById('FSBT'),FORM=document.getElementById('SFORM'),FN=document.getElementById('FN'),FE=document.getElementById('FE'),FS=document.getElementById('FS');
+  var FSB=document.getElementById('FSB'),FSBT=document.getElementById('FSBT'),SFORM=document.getElementById('SFORM');
+  var FN=document.getElementById('FN'),FE=document.getElementById('FE');
   if(!FSB)return;
   FSB.addEventListener('click',function(e){
     e.preventDefault();
@@ -2272,7 +2344,7 @@ if(!IS_MOBILE){
     }
     if(FSBT)FSBT.textContent='Sending…';FSB.disabled=true;
     setTimeout(function(){
-      if(FORM)FORM.innerHTML='<div class="form-success"><div class="fsi">✓</div><p class="fss">Your free chapter is on its way to <strong style="color:var(--g1)">'+email+'</strong>.<br>Check your inbox — it arrives within a few minutes.</p></div>';
+      if(SFORM)SFORM.innerHTML='<div class="form-success"><div class="fsi">✓</div><p class="fss">Your free chapter is on its way to <strong style="color:var(--g1)">'+email+'</strong>.<br>Check your inbox — it arrives within a few minutes.</p></div>';
       try{sessionStorage.setItem('ncahub_sample_sent','1');}catch(ex){}
     },900);
   });
@@ -2295,305 +2367,34 @@ if(!IS_MOBILE){
 /* SMOOTH ANCHOR */
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
-    var id=a.getAttribute('href').slice(1),target=document.getElementById(id);if(!target)return;
+    var id=a.getAttribute('href').slice(1),target=document.getElementById(id);
+    if(!target)return;
     e.preventDefault();
-    if(lenis)lenis.scrollTo(target,{duration:1.4,easing:function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}});
+    if(lenis)lenis.scrollTo(target,{duration:1.2});
     else target.scrollIntoView({behavior:'smooth'});
   });
 });
 
-/* HAPTICS */
-document.querySelectorAll('.bp,.nc,.pb,.fsub').forEach(function(btn){btn.addEventListener('click',function(){try{if(navigator.vibrate)navigator.vibrate(8);}catch(e){}});});
-
-/* TICKER PAUSE */
-document.addEventListener('visibilitychange',function(){var tt=document.querySelector('.tt');if(tt)tt.style.animationPlayState=document.hidden?'paused':'running';});
-
-/* RESIZE */
-(function(){var deb;window.addEventListener('resize',function(){clearTimeout(deb);deb=setTimeout(function(){IS_MOBILE=window.innerWidth<=960;try{ScrollTrigger.refresh();}catch(e){}},220);},{passive:true});})();
-
-
-/* ═══════════════════════════════════════
-   PREMIUM ENHANCEMENTS v2
-   ═══════════════════════════════════════ */
-
-
-
-/* SPOTLIGHT CURSOR */
-(function(){
-  if(IS_MOBILE) return;
-  var SP = document.getElementById('spotlight');
-  if(!SP) return;
-  var mx = window.innerWidth/2, my = window.innerHeight/2;
-  var cx = mx, cy = my;
-  var active = false;
-
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-    if(!active) { active = true; SP.classList.add('on'); }
-  }, {passive:true});
-
-  function animSpotlight() {
-    cx += (mx - cx) * 0.07;
-    cy += (my - cy) * 0.07;
-    SP.style.setProperty('--sx', cx + 'px');
-    SP.style.setProperty('--sy', cy + 'px');
-    requestAnimationFrame(animSpotlight);
-  }
-  animSpotlight();
-})();
-
-/* MAGNETIC BUTTONS */
-(function(){
-  if(IS_MOBILE || REDUCED) return;
-  document.querySelectorAll('.bp, .nc, .pb').forEach(function(btn) {
-    var rect, cx, cy, raf;
-    btn.addEventListener('mouseenter', function() {
-      rect = btn.getBoundingClientRect();
-      cx = rect.left + rect.width / 2;
-      cy = rect.top + rect.height / 2;
-    });
-    btn.addEventListener('mousemove', function(e) {
-      var dx = e.clientX - cx;
-      var dy = e.clientY - cy;
-      var dist = Math.sqrt(dx*dx + dy*dy);
-      var maxDist = Math.max(rect.width, rect.height) * 0.7;
-      var strength = Math.max(0, 1 - dist / maxDist);
-      var tx = dx * strength * 0.35;
-      var ty = dy * strength * 0.35;
-      btn.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
-    });
-    btn.addEventListener('mouseleave', function() {
-      btn.style.transform = '';
-    });
-  });
-})();
-
-/* 3D CARD TILT */
-(function(){
-  if(IS_MOBILE || REDUCED) return;
-  document.querySelectorAll('.tilt-card').forEach(function(card) {
-    card.addEventListener('mousemove', function(e) {
-      var r = card.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var y = (e.clientY - r.top) / r.height - 0.5;
-      var rotY = x * 12;
-      var rotX = -y * 10;
-      card.style.transform = 'perspective(900px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateZ(8px)';
-    });
-    card.addEventListener('mouseleave', function() {
-      card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateZ(0)';
-    });
-  });
-})();
-
-/* MORPHING ORB — follows mouse in philosophy section */
-(function(){
-  if(IS_MOBILE || REDUCED) return;
-  var phil = document.getElementById('philosophy');
-  var orb = document.getElementById('MORPH_ORB');
-  if(!phil || !orb) return;
-  var ox = 50, oy = 50, tx = 50, ty = 50;
-
-  phil.addEventListener('mousemove', function(e) {
-    var r = phil.getBoundingClientRect();
-    tx = ((e.clientX - r.left) / r.width) * 100;
-    ty = ((e.clientY - r.top) / r.height) * 100;
-  });
-
-  phil.addEventListener('mouseleave', function() { tx = 50; ty = 50; });
-
-  function animOrb() {
-    ox += (tx - ox) * 0.05;
-    oy += (ty - oy) * 0.05;
-    var sz = 600 + Math.sin(Date.now() * 0.0008) * 120;
-    orb.style.width = sz + 'px';
-    orb.style.height = sz + 'px';
-    orb.style.left = ox + '%';
-    orb.style.top = oy + '%';
-    orb.style.transform = 'translate(-50%, -50%)';
-    requestAnimationFrame(animOrb);
-  }
-  animOrb();
-})();
-
-/* ANIMATED COUNTERS */
-(function(){
-  var counters = document.querySelectorAll('.sn2');
-  if(!counters.length) return;
-
-  function animCount(el) {
-    var raw = el.textContent.trim();
-    var num = parseFloat(raw.replace(/[^0-9.]/g,''));
-    var suffix = raw.replace(/[0-9.]/g,'');
-    if(isNaN(num)) return;
-    var start = Date.now();
-    var duration = 1800;
-    var startVal = 0;
-    function step() {
-      var progress = Math.min((Date.now() - start) / duration, 1);
-      var ease = 1 - Math.pow(1 - progress, 3);
-      var current = startVal + (num - startVal) * ease;
-      el.textContent = (Number.isInteger(num) ? Math.round(current) : current.toFixed(1)) + suffix;
-      if(progress < 1) requestAnimationFrame(step);
-    }
-    step();
-  }
-
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if(e.isIntersecting) {
-        animCount(e.target);
-        obs.unobserve(e.target);
-      }
-    });
-  }, {threshold: 0.5});
-
-  counters.forEach(function(c) { obs.observe(c); });
-})();
-
-/* TEXT SCRAMBLE REVEAL for section headings */
-(function(){
-  if(REDUCED) return;
-  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·—';
-
-  function scramble(el, finalText, duration) {
-    var start = Date.now();
-    var tm = setInterval(function() {
-      var progress = (Date.now() - start) / duration;
-      if(progress >= 1) { el.textContent = finalText; clearInterval(tm); return; }
-      el.textContent = finalText.split('').map(function(c, i) {
-        if(c === ' ' || c === '\n') return c;
-        if(progress > i / finalText.length) return c;
-        return CHARS[Math.floor(Math.random() * CHARS.length)];
-      }).join('');
-    }, 1000/60);
-  }
-
-  var eyTargets = document.querySelectorAll('.ey');
-  var obs2 = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if(e.isIntersecting) {
-        var el = e.target;
-        var original = el.dataset.orig || el.textContent;
-        el.dataset.orig = original;
-        setTimeout(function() { scramble(el, original, 900); }, 100);
-        obs2.unobserve(el);
-      }
-    });
-  }, {threshold: 0.8});
-
-  eyTargets.forEach(function(el) { obs2.observe(el); });
-})();
-
-/* PARALLAX on hero vertical lines */
-(function(){
-  if(IS_MOBILE || REDUCED) return;
-  var lines = document.querySelectorAll('.hvl');
-  var prog = document.getElementById('prog');
-
-  window.addEventListener('scroll', function() {
-    var sy = window.scrollY;
-    lines.forEach(function(l, i) {
-      l.style.transform = 'translateY(' + (sy * (0.08 + i * 0.04)) + 'px)';
-    });
-  }, {passive:true});
-})();
-
-/* GOLD PULSE on section entry */
-(function(){
-  if(REDUCED) return;
-  var sections = document.querySelectorAll('section');
-  var lastSec = null;
-
-  var obs3 = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if(e.isIntersecting && e.target !== lastSec) {
-        lastSec = e.target;
-        var border = document.getElementById('pg-border');
-        if(border) {
-          border.style.transition = 'border-color .4s';
-          border.style.borderColor = 'rgba(201,168,76,0.12)';
-          setTimeout(function() {
-            border.style.borderColor = 'rgba(201,168,76,0)';
-          }, 800);
-        }
-      }
-    });
-  }, {threshold: 0.3});
-
-  sections.forEach(function(s) { obs3.observe(s); });
-})();
-
-/* TICKER speed-up on hover */
-(function(){
-  var tt = document.querySelector('.tt');
-  if(!tt) return;
-  tt.addEventListener('mouseenter', function() {
-    tt.style.animationDuration = '20s';
-  });
-  tt.addEventListener('mouseleave', function() {
-    tt.style.animationDuration = '55s';
-  });
-})();
-
-/* STORY section enhanced — depth parallax on chapter numbers */
-(function(){
-  if(IS_MOBILE || REDUCED) return;
-  window.addEventListener('scroll', function() {
-    document.querySelectorAll('.spn').forEach(function(el, i) {
-      var rect = el.getBoundingClientRect();
-      var mid = window.innerHeight / 2;
-      var offset = (rect.top - mid) / window.innerHeight;
-      el.style.transform = 'translateY(' + (offset * 40) + 'px)';
-      el.style.opacity = Math.max(0.04, 0.15 - Math.abs(offset) * 0.3);
-    });
-  }, {passive:true});
-})();
-
 /* COMING SOON NOTIFICATION */
-window.notifyComingSoon = function(form, subject) {
-  var email = form.querySelector('input[type="email"]').value;
-  var btn = form.querySelector('button');
-  var originalText = btn.textContent;
-
-  btn.textContent = 'Subscribed!';
-  btn.disabled = true;
-
-  // Store in session for demo purposes
-  try {
-    var notifications = JSON.parse(sessionStorage.getItem('ncahub_coming_soon') || '[]');
-    notifications.push({subject: subject, email: email, date: new Date().toISOString()});
-    sessionStorage.setItem('ncahub_coming_soon', JSON.stringify(notifications));
-  } catch(e) {}
-
-  setTimeout(function() {
-    btn.textContent = originalText;
-    btn.disabled = false;
-    form.querySelector('input[type="email"]').value = '';
-  }, 3000);
-
+window.notifyComingSoon=function(form,subject){
+  var email=form.querySelector('input[type="email"]').value;
+  var btn=form.querySelector('button');
+  btn.textContent='Subscribed!';
+  btn.disabled=true;
+  try{
+    var notifications=JSON.parse(sessionStorage.getItem('ncahub_coming_soon')||'[]');
+    notifications.push({subject:subject,email:email,date:new Date().toISOString()});
+    sessionStorage.setItem('ncahub_coming_soon',JSON.stringify(notifications));
+  }catch(e){}
+  setTimeout(function(){
+    btn.textContent='Notify Me';
+    btn.disabled=false;
+    form.querySelector('input[type="email"]').value='';
+  },3000);
   return false;
 };
 
-/* SUBJECT CARDS — include new Coming Soon cards */
-['SC1','SC2','SC3','SC4','SC5','SC6','SC7','SC8','SC9','SC10','SC11','SC12','SC13'].forEach(function(id,i){
-  var el=document.getElementById(id);if(!el)return;
-  var o=new IntersectionObserver(function(en){
-    if(en[0].isIntersecting){
-      setTimeout(function(){
-        el.classList.add('on');
-        el.querySelectorAll('.scl li').forEach(function(li,j){setTimeout(function(){li.classList.add('on');},j*80+200);});
-        var fill=el.querySelector('.diff-fill');if(fill)setTimeout(function(){fill.classList.add('on');},300);
-      },i*100);
-      o.disconnect();
-    }
-  },{threshold:.06});
-  o.observe(el);
-});
-
-
 })();
-
 </script>
 </body>
 </html>
