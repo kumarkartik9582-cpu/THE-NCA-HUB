@@ -10,7 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 <style>
 :root{
@@ -40,6 +39,7 @@
   --bg-temp:0;
   --mouse-x:50%;
   --mouse-y:50%;
+  --velocity:0;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-padding-top:80px;overflow-x:hidden}
@@ -52,13 +52,9 @@ body{
   line-height:1.75;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  cursor:none;
-  selection-background:rgba(201,168,76,0.3);
-  selection-color:#fff;
 }
-@media(max-width:960px){body{cursor:auto}}
 
-/* SELECTION STYLING */
+/* FIXED: Proper selection styling */
 ::selection{background:rgba(201,168,76,0.3);color:#fff}
 ::-moz-selection{background:rgba(201,168,76,0.3);color:#fff}
 
@@ -81,7 +77,7 @@ body{
   90%{transform:translate(-2%,-1%)}
 }
 
-/* GOLD SHIMMER ANIMATION */
+/* GOLD SHIMMER */
 .gold-shimmer{
   background: linear-gradient(135deg, #C9A84C 0%, #F0D878 50%, #C9A84C 100%);
   background-size: 200% 200%;
@@ -96,34 +92,40 @@ body{
 /* VELOCITY SKEW */
 .velocity-skew{
   transition:transform 0.1s linear;
-  transform:skewY(calc(var(--velocity, 0) * 0.05deg));
+  transform:skewY(calc(var(--velocity) * 0.05deg));
 }
 
-/* CURSOR SYSTEM */
-#cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
-#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s;transition-timing-function:cubic-bezier(0.4, 0.0, 0.2, 1)}
+/* CURSOR - Desktop only */
+@media(min-width:961px){
+  body{cursor:none}
+  #cd,#cr{display:block}
+}
+@media(max-width:960px){
+  body{cursor:auto}
+  #cd,#cr{display:none!important}
+}
+
+#cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s;display:none}
+#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s;display:none}
 #cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
 #cr.h{width:78px;height:78px;border-color:var(--g1);background:rgba(201,168,76,.04)}
 #cr.h #cl{opacity:1}
-#cr.c{width:14px;height:14px;background:rgba(201,168,76,.18)}
-#cd.h{transform:translate(-50%,-50%) scale(0)}
 
-/* BREATHING ANIMATION */
+/* BREATHING */
 .breathing{
   animation:breathe 8s ease-in-out infinite;
 }
 @keyframes breathe{
-  0%,100%{transform:scale(1);box-shadow:0 40px 100px rgba(0,0,0,.8)}
-  50%{transform:scale(1.005);box-shadow:0 45px 110px rgba(0,0,0,.85)}
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.005)}
 }
 
-/* SPLIT TEXT CHARACTERS */
-.char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;filter:blur(10px);opacity:0;transform:translateY(20px)}
-.char.revealed{filter:blur(0);opacity:1;transform:translateY(0);transition:filter 0.8s ease, opacity 0.8s ease, transform 0.8s var(--expo)}
+/* SPLIT TEXT */
+.char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;opacity:1}
 .word{display:inline-block;overflow:hidden;margin-right:0.25em}
 .line{display:block;overflow:hidden}
 
-/* GLASS REFRACTION */
+/* GLASS */
 .glass-card{
   background:rgba(14,14,26,.7);
   border:1px solid rgba(201,168,76,0.15);
@@ -132,36 +134,135 @@ body{
   box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);
 }
 
-/* SPOTLIGHT REVEAL */
-.spotlight-section{
-  position:relative;
-  --spotlight-opacity:1;
+/* PRELOADER - Fixed to auto-hide */
+#pre{
+  position:fixed;inset:0;z-index:9999;background:var(--void);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
+  transition:opacity 0.5s ease, visibility 0.5s;
 }
-.spotlight-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(201,168,76,0.08) 0%, transparent 50%);
-  pointer-events:none;z-index:2;
-  opacity:var(--spotlight-opacity,1);
-  transition:opacity 1s ease;
-}
+#pre.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.pre-l{font-family:var(--fd);font-size:.85rem;font-weight:400;letter-spacing:.5em;text-transform:uppercase;color:var(--g1)}
+.pre-bw{width:220px;height:1px;background:rgba(201,168,76,.1);position:relative;overflow:hidden}
+.pre-bf{position:absolute;inset:0;background:linear-gradient(90deg,var(--g3),var(--g0));transform:translateX(-100%);transition:transform 0.3s}
+.pre-n{font-family:var(--fd);font-size:5.5rem;font-weight:300;color:var(--g1);line-height:1;letter-spacing:-.03em}
 
-/* KINETIC TICKER */
-.kinetic-ticker{
-  display:inline-flex;gap:50px;white-space:nowrap;
-  animation:tk 55s linear infinite;
-  transition:animation-duration 0.3s ease;
-}
-.kinetic-ticker.fast{animation-duration:20s}
-.kinetic-ticker.slow{animation-duration:80s}
-.kinetic-ticker.reverse{animation-direction:reverse}
+/* NAV */
+nav{position:fixed;top:28px;left:0;right:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
+nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1);top:0}
+.nav-links{display:flex;gap:64px;margin-left:48px}
+.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;position:relative;transition:color .3s;text-decoration:none;padding-bottom:2px}
+.nav-links a:hover{color:var(--cream)}
+.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1;text-decoration:none}
+.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;position:relative;overflow:hidden;display:inline-block;transition:transform .3s var(--expo);margin-left:48px;text-decoration:none}
+.nc:hover{transform:translateY(-2px)}
+
+/* HERO */
+.hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;z-index:1;padding:0 72px}
+.hh1{font-family:var(--fd);font-weight:300;line-height:.92;letter-spacing:-.028em;color:var(--cream);margin-bottom:40px;font-size:var(--td)}
+.hh1 em{font-style:italic;color:var(--g1)}
+.lm{overflow:hidden;display:block}
+.li{display:block}
+.hi{max-width:1300px;width:100%;margin:0 auto;padding-top:130px;padding-bottom:80px;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;position:relative;z-index:2}
+@media(max-width:1040px){.hi{grid-template-columns:1fr}.hero{padding:0 24px}}
+
+.heb{display:inline-flex;align-items:center;gap:16px;font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:32px;overflow:hidden}
+.hel{width:28px;height:1px;background:var(--g1)}
+.lm:nth-child(2) .li{font-size:clamp(1.7rem,4.2vw,3.9rem);color:var(--fog);padding-left:.1em}
+.lm:nth-child(3) .li{font-size:var(--td)}
+
+.hsub{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:520px;font-weight:300}
+.hact{display:flex;align-items:center;gap:32px;margin-top:48px;flex-wrap:wrap}
+.hcard{opacity:1;transform:none;padding:44px 40px;position:relative}
+@media(max-width:1040px){.hcard{margin-top:40px}}
+
+.bp{display:inline-flex;align-items:center;gap:12px;background:var(--g1);color:var(--void);padding:17px 38px;font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--expo);text-decoration:none;border:none;cursor:pointer}
+.bp:hover{transform:translateY(-3px)}
+.bg{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--fog);font-weight:500;border-bottom:1px solid rgba(154,142,126,.3);padding-bottom:3px;transition:color .3s,border-color .3s;text-decoration:none}
+.bg:hover{color:var(--g1);border-color:var(--g1)}
+
+/* TICKER */
+.tb{background:var(--g1);padding:12px 0;overflow:hidden;position:relative;z-index:2}
+.tt{display:inline-flex;gap:50px;animation:tk 55s linear infinite;white-space:nowrap}
+.tt:hover{animation-play-state:paused}
+.ti{font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0}
+.td2{width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0}
 @keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* CURTAIN TRANSITION */
-.curtain{position:fixed;top:0;height:100vh;width:50%;background:var(--g1);z-index:10000;pointer-events:none;transition:transform 0.8s var(--expo)}
-.curtain.left{left:0;transform:translateX(0)}
-.curtain.right{right:0;transform:translateX(0)}
-.curtain.up{transform:translateX(-100%)}
-.curtain.down{transform:translateX(100%)}
+/* SECTIONS */
+.sec{padding:160px 0;position:relative;z-index:1}
+.w{max-width:1300px;margin:0 auto;padding:0 72px}
+@media(max-width:640px){.w{padding:0 24px}.sec{padding:90px 0}}
+.ey{display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px}
+.sn{position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500}
+.sh{font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream);}
+.sh em{font-style:italic;color:var(--g1)}
+.sl{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:500px;font-weight:300}
+
+/* STORY */
+.story-chapter{min-height:100svh;display:flex;align-items:center;background:var(--deep);position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.06);padding:120px 72px}
+.story-chapter-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;width:100%}
+@media(max-width:960px){.story-chapter-inner{grid-template-columns:1fr;gap:40px;padding:100px 24px}}
+.spn{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none}
+.story-ch-label{font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1}
+.story-ch-eye{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.story-ch-eye::before{content:'';width:24px;height:1px;background:var(--g1)}
+.story-ch-head{font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1}
+.story-ch-body{font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300}
+.story-ch-body p+p{margin-top:20px}
+.story-ch-quote{margin-top:32px;padding:24px 28px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03)}
+
+/* METHOD */
+.msc{background:var(--dark)}
+.mhd{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px}
+@media(max-width:900px){.mhd{grid-template-columns:1fr;gap:28px}}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+@media(max-width:900px){.mg{grid-template-columns:1fr}}
+.mc{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:56px 44px;position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--expo);opacity:1;transform:none}
+.mc:hover{border-color:rgba(201,168,76,.3);transform:translateY(-8px)}
+.mi{width:48px;height:48px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:rgba(201,168,76,.04)}
+.mn{font-family:var(--fd);font-size:4rem;font-weight:300;color:rgba(201,168,76,.07);line-height:1;margin-bottom:14px;display:block}
+.mt{font-family:var(--fd);font-size:1.55rem;font-weight:500;color:var(--cream);margin-bottom:16px}
+.mb{font-size:var(--body);color:var(--fog);line-height:1.9}
+.mtag{display:inline-block;margin-top:24px;font-size:.53rem;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(201,168,76,.15);padding:5px 14px}
+
+/* SUBJECTS */
+.subsc{background:var(--dark);overflow:hidden}
+.subi{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px}
+@media(max-width:900px){.subi{grid-template-columns:1fr;gap:28px}}
+.ht{display:flex;gap:2px;cursor:grab;user-select:none;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:40px;margin:0 -72px;padding-left:72px;padding-right:72px}
+.ht::-webkit-scrollbar{display:none}
+.ht:active{cursor:grabbing}
+.sc2{flex:0 0 370px;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:48px 38px;position:relative;overflow:hidden;transition:border-color .4s, transform 0.4s ease;scroll-snap-align:start}
+.sc2:hover{border-color:rgba(201,168,76,.28);transform:translateY(-8px)}
+.scnum{font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block}
+.sctg{font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px}
+.scti{font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px}
+.scb{font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px}
+.scl{list-style:none;margin-bottom:24px}
+.scl li{font-size:.78rem;color:var(--fog);display:flex;gap:12px;line-height:1.5;padding:5px 0}
+.scl li::before{content:'—';color:var(--g1);flex-shrink:0}
+.sc-link{display:inline-flex;align-items:center;gap:8px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;text-decoration:none}
+.sc-link:hover{gap:14px}
+.hh{display:flex;align-items:center;gap:12px;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:28px}
+
+/* FAQ */
+.fql{margin-top:64px}
+.fqi{border-bottom:1px solid rgba(201,168,76,.065)}
+.fqq{width:100%;display:flex;align-items:center;justify-content:space-between;padding:26px 0;text-align:left;font-size:var(--lead);color:var(--cream);font-weight:300;gap:28px;transition:color .3s;background:none;border:none;cursor:pointer}
+.fqq:hover{color:var(--g1)}
+.fqico{width:30px;height:30px;min-width:30px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .3s,transform .5s var(--expo),border-color .3s}
+.fqico svg{width:11px;height:11px;stroke:var(--g1);fill:none;stroke-width:2;stroke-linecap:round}
+.fqb{max-height:0;overflow:hidden;transition:max-height .65s var(--expo), transform 0.6s ease;transform-origin:top;transform:perspective(1000px) rotateX(-90deg)}
+.fqi.op .fqico{background:var(--g1);transform:rotate(45deg);border-color:var(--g1)}
+.fqi.op .fqico svg{stroke:var(--void)}
+.fqi.op .fqb{max-height:500px;transform:perspective(1000px) rotateX(0deg)}
+.fqbi{padding:0 0 26px;font-size:var(--body);color:var(--fog);line-height:1.95;max-width:720px}
+
+/* FINAL CTA */
+.fcta{min-height:88svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 72px;background:var(--abyss);position:relative;overflow:hidden}
+.ch{font-family:var(--fd);font-size:clamp(4rem,9vw,9rem);font-weight:300;font-style:italic;line-height:.94;letter-spacing:-.028em;color:var(--cream);margin-bottom:32px}
+.ch em{color:var(--g1)}
+.cp{font-size:var(--lead);color:var(--fog);max-width:500px;margin:0 auto 52px;line-height:1.9;font-weight:300}
 
 /* PANIC BUTTON */
 #panic-btn{
@@ -176,7 +277,7 @@ body{
 }
 #panic-btn:hover{transform:scale(1.1);box-shadow:0 15px 50px rgba(201,168,76,0.5)}
 #panic-modal{
-  position:fixed;inset:0;z-index:9999;background:rgba(2,2,4,0.95);
+  position:fixed;inset:0;z-index:9999;background:rgba(2,2,4,0.98);
   display:none;align-items:center;justify-content:center;flex-direction:column;
   backdrop-filter:blur(20px);
 }
@@ -193,137 +294,54 @@ body{
   50%{transform:scale(1.2);opacity:1}
 }
 
-/* CONSTELLATION CANVAS */
-#constellation-canvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.6;
-}
-
-/* WEBGL BOOKSHELF CONTAINER */
-#library-3d{
-  position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;
-  opacity:0;transition:opacity 1s ease;
-}
-#library-3d.active{opacity:1;pointer-events:all}
-
-/* VARIABLE FONT HOVER */
-.variable-hover{
-  font-variation-settings:'wght' 300;
-  transition:font-variation-settings 0.3s ease;
-}
-.variable-hover:hover{
-  font-variation-settings:'wght' 500;
-}
-
-/* REST OF YOUR CSS (preserved and enhanced) */
-nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
-nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1)}
-.nav-links{display:flex;gap:64px;margin-left:48px}
-.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;position:relative;transition:color .3s, font-variation-settings 0.3s;overflow:hidden;padding-bottom:2px;font-variation-settings:'wght' 300}
-.nav-links a:hover{color:var(--cream);font-variation-settings:'wght' 500}
-.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;position:relative;overflow:hidden;display:inline-block;transition:transform .3s var(--expo);margin-left:48px}
-
-/* HERO SECTION ENHANCED */
-.hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;z-index:1;padding:0 72px}
-.hh1{font-family:var(--fd);font-weight:300;line-height:.92;letter-spacing:-.028em;color:var(--cream);margin-bottom:40px}
-.lm{overflow:hidden;display:block}
-.li{display:block;transform:translateY(112%);transition:transform 1.2s var(--expo)}
-.lm:nth-child(1) .li{font-size:var(--td)}
-.lm:nth-child(2) .li{font-size:clamp(1.7rem,4.2vw,3.9rem);color:var(--fog);padding-left:.1em}
-.lm:nth-child(3) .li{font-size:var(--td)}
-.hcard{
-  background:rgba(14,14,26,.8);border:1px solid rgba(201,168,76,.16);
-  backdrop-filter:blur(40px) saturate(160%);padding:44px 40px;position:relative;
-  box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);
-  opacity:0;transform:translateX(40px);transition:opacity 1s,transform 1s;
-  animation:breathe 8s ease-in-out infinite;
-}
-
-/* STORY SECTION WITH Z-AXIS DEPTH */
-.story-chapter{min-height:100svh;display:flex;align-items:center;background:var(--deep);position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.06);transform-style:preserve-3d}
-.story-chapter-inner{max-width:1300px;margin:0 auto;padding:120px 72px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;width:100%;position:relative;z-index:2}
-.spn{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none;transition:color 1s}
-
-/* SUBJECT CARDS WITH LIQUID EFFECT */
-.sc2{
-  flex:0 0 370px;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);
-  padding:48px 38px;position:relative;overflow:hidden;transition:border-color .4s, transform 0.4s ease;
-  opacity:0;transform:translateX(40px);animation:breathe 8s ease-in-out infinite;
-  animation-delay:calc(var(--index) * 0.5s);
-}
-.sc2:hover{border-color:rgba(201,168,76,.28);transform:translateY(-8px) scale(1.02)}
-.sc2::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--g1),transparent);
-  transform:scaleX(0);transition:transform .6s var(--expo)
-}
-.sc2:hover::after{transform:scaleX(1)}
-
-/* METHOD CARDS */
-.mc{
-  background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:56px 44px;
-  position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--expo);
-  opacity:0;transform:translateY(60px);animation:breathe 8s ease-in-out infinite;
-}
-
-/* FAQ ORIGAMI EFFECT */
-.fqb{
-  max-height:0;overflow:hidden;transition:max-height .65s var(--expo), transform 0.6s ease;
-  transform-origin:top;transform:perspective(1000px) rotateX(-90deg);
-}
-.fqi.op .fqb{
-  max-height:500px;transform:perspective(1000px) rotateX(0deg);
-}
-
-/* READING PROGRESS CURSOR */
-.reading-cursor{
-  position:fixed;pointer-events:none;z-index:9996;
-  width:40px;height:40px;border:2px solid var(--g1);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.5rem;color:var(--g1);opacity:0;transition:opacity 0.3s;
-}
-.reading-cursor.active{opacity:1}
-
-/* GOLDEN HOUR MODE */
-@media (prefers-color-scheme: dark){
-  body.golden-hour{
-    background:linear-gradient(180deg,#1a1025 0%,#020204 100%);
-  }
-}
-
-/* BLOG REFERENCE LINKS */
+/* BLOG REF */
 .blog-ref{
   display:inline-flex;align-items:center;gap:8px;
   font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;
   color:var(--g1);font-weight:600;margin-top:16px;
-  transition:gap 0.3s ease;position:relative;
-}
-.blog-ref::after{
-  content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--g1);
-  transition:width 0.3s ease;
+  transition:gap 0.3s ease;position:relative;text-decoration:none;
 }
 .blog-ref:hover{gap:14px}
-.blog-ref:hover::after{width:100%}
 
-/* RESPONSIVE */
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9100;width:0;transform-origin:left}
+
+/* FOOTER */
+footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 52px;position:relative;z-index:1}
+.ftg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(201,168,76,.055);margin-bottom:44px}
+@media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}
+.flog{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.hub{color:rgba(201,168,76,.6)}
+.fct{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:22px}
+.fls{list-style:none;display:flex;flex-direction:column;gap:13px}
+.fls a{font-size:var(--sm);color:var(--dim);transition:color .3s;text-decoration:none}
+.fls a:hover{color:var(--g1)}
+.f-disc{font-size:.57rem;color:var(--dim);line-height:1.7;text-align:center;font-family:var(--fd);font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(201,168,76,.05)}
+.f-disc strong{color:rgba(201,168,76,.4);font-style:normal;font-family:var(--fb);font-weight:400;letter-spacing:.1em}
+
+/* MOBILE */
+.nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0;cursor:pointer}
+.nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
 @media(max-width:960px){
-  body{cursor:auto}
-  #cd,#cr,.reading-cursor{display:none!important}
   .nav-links,.nc{display:none}
+  .nh{display:flex}
+  nav{padding:18px 24px;top:0}
 }
 </style>
 </head>
 <body>
 
-<!-- CURTAINS FOR PAGE TRANSITION -->
-<div class="curtain left" id="curtain-left"></div>
-<div class="curtain right" id="curtain-right"></div>
+<!-- PRELOADER -->
+<div id="pre">
+  <div class="pre-l">The NCA Hub</div>
+  <div class="pre-bw"><div class="pre-bf" id="pre-bf"></div></div>
+  <div class="pre-n" id="pre-n">0</div>
+</div>
 
 <!-- PANIC BUTTON -->
-<button id="panic-btn" aria-label="I'm feeling overwhelmed">I'm<br>Freaking<br>Out</button>
+<button id="panic-btn">I'm<br>Freaking<br>Out</button>
 <div id="panic-modal">
-  <div class="breathing-circle">
-    <span style="color:var(--g1);font-family:var(--fd);font-size:1.2rem">Breathe</span>
-  </div>
+  <div class="breathing-circle"><span style="color:var(--g1);font-family:var(--fd);font-size:1.2rem">Breathe</span></div>
   <p style="font-family:var(--fd);font-size:1.5rem;color:var(--cream);margin-bottom:20px;text-align:center;max-width:600px;padding:0 40px">
     "You have passed harder things. One question at a time."
   </p>
@@ -332,123 +350,81 @@ nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padd
   </button>
 </div>
 
-<!-- READING PROGRESS CURSOR -->
-<div class="reading-cursor" id="read-cursor">0%</div>
-
-<!-- CONSTELLATION CANVAS -->
-<canvas id="constellation-canvas"></canvas>
-
-<!-- WEBGL LIBRARY CONTAINER -->
-<div id="library-3d"></div>
-
 <!-- OVERLAYS -->
 <div class="grain"></div>
-<div id="spotlight" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0;transition:opacity .6s;background:radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(201,168,76,.055) 0%,rgba(201,168,76,.02) 35%,transparent 70%)"></div>
-<canvas id="ambient-cv" aria-hidden="true"></canvas>
-<canvas id="trail-cv" aria-hidden="true"></canvas>
-<div id="vignette" aria-hidden="true"></div>
-<div id="pg-border" aria-hidden="true"></div>
-
-<div id="discovery-bar" aria-hidden="true" style="position:fixed;top:0;inset-x:0;z-index:9050;height:28px;background:rgba(4,3,6,0.96);border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:center;justify-content:center;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);transition:transform .5s var(--expo)">
-  Most visited from: <span style="color:rgba(201,168,76,.45)">Google · LinkedIn · NCA Facebook Groups</span> &nbsp;·&nbsp; 3 min read
-</div>
-<div id="exam-clock" aria-hidden="true" role="presentation" style="position:fixed;top:50%;right:28px;transform:translateY(-50%);font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,168,76,.18);font-family:var(--fb);font-weight:400;writing-mode:vertical-rl;pointer-events:none;z-index:800;opacity:0;transition:opacity 1s"></div>
-
-<!-- CURSOR -->
-<div id="cd" role="presentation"></div>
-<div id="cr" role="presentation"><span id="cl"></span></div>
-<div id="prog" role="progressbar" aria-hidden="true" style="position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9100;width:0;transform-origin:left"></div>
-
-<!-- PRELOADER -->
-<div id="pre" aria-label="Loading" role="status" style="position:fixed;inset:0;z-index:9999;pointer-events:all">
-  <div style="position:absolute;inset:0;background:var(--void);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px">
-    <div style="font-family:var(--fd);font-size:.85rem;font-weight:400;letter-spacing:.5em;text-transform:uppercase;color:var(--g1)">The NCA Hub</div>
-    <div style="width:220px;height:1px;background:rgba(201,168,76,.1);position:relative;overflow:hidden">
-      <div id="pre-bf" style="position:absolute;inset:0 100% 0 0;background:linear-gradient(90deg,var(--g3),var(--g0));transition:right 0.3s"></div>
-    </div>
-    <div id="pre-n" style="font-family:var(--fd);font-size:5.5rem;font-weight:300;color:var(--g1);line-height:1;letter-spacing:-.03em">0</div>
-  </div>
-</div>
+<div id="cd"></div>
+<div id="cr"><span id="cl"></span></div>
+<div id="prog"></div>
 
 <!-- NAV -->
-<nav id="nav" role="navigation" aria-label="Main navigation">
-  <a href="#" class="nl variable-hover" aria-label="The NCA Hub — home" style="font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1">THE Nca HUB</a>
+<nav id="nav">
+  <a href="#" class="nl">THE Nca HUB</a>
   <div class="nav-links">
-    <a href="#method" class="variable-hover">Method</a>
-    <a href="#story" class="variable-hover">Story</a>
-    <a href="#pods" class="variable-hover">Pods</a>
-    <a href="#library-trigger" class="variable-hover" onclick="enterLibrary()">Library</a>
-    <a href="#subjects" class="variable-hover">Subjects</a>
-    <a href="#pricing" class="variable-hover">Pricing</a>
-    <a href="https://www.thencahub.com/blog/index.html" class="variable-hover" target="_blank">Articles</a>
+    <a href="#method">Method</a>
+    <a href="#story">Story</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://www.thencahub.com/blog/index.html">Articles</a>
   </div>
   <a href="#readiness" class="nc"><span>Get My Score</span></a>
+  <button class="nh" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
-<section class="hero velocity-skew" id="hero" aria-label="Introduction" style="position:relative;z-index:1">
-  <canvas id="hcv" aria-hidden="true" style="position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 2.5s"></canvas>
-  <div class="sn hero-p2" aria-hidden="true" style="position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500">01 / 08</div>
-  <div class="hi" style="max-width:1300px;width:100%;margin:0 auto;padding-top:130px;padding-bottom:80px;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;position:relative;z-index:2">
-    <div class="hero-p3">
-      <div style="display:inline-flex;align-items:center;gap:16px;font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:32px;overflow:hidden">
-        <div style="width:0;height:1px;background:var(--g1);transition:width 1.2s var(--expo)" id="hel"></div>
-        <span id="het">NCA PREPARATION — REIMAGINED</span>
-      </div>
-      <h1 class="hh1 split-heading" id="hero-headline">
+<section class="hero velocity-skew" id="hero">
+  <div class="hi">
+    <div>
+      <div class="heb"><div class="hel"></div><span>NCA PREPARATION — REIMAGINED</span></div>
+      <h1 class="hh1">
         <span class="lm"><span class="li">Pass the NCA.</span></span>
         <span class="lm"><span class="li">Not in <em>years.</em></span></span>
         <span class="lm"><span class="li">This <em>cycle.</em></span></span>
       </h1>
-      <p id="hsub" style="font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:520px;font-weight:300;opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s">
+      <p class="hsub" id="hsub">
         The NCA exam doesn't know you're an experienced lawyer. It grades you the same as everyone else. 
         <a href="https://www.thencahub.com/blog/article.html?post=article-c1-failed-nca-exam" class="blog-ref">Failed before? Read this →</a>
       </p>
-      <div id="hact" style="display:flex;align-items:center;gap:32px;margin-top:48px;flex-wrap:wrap;opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s">
-        <a href="#readiness" class="bp magnetic-btn" data-cur="Score" style="display:inline-flex;align-items:center;gap:12px;background:var(--g1);color:var(--void);padding:17px 38px;font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--expo)"><span>Get My Readiness Score →</span></a>
+      <div class="hact" id="hact">
+        <a href="#readiness" class="bp magnetic-btn" data-cur="Score"><span>Get My Readiness Score →</span></a>
         <a href="#sample" class="bg">Try Free Chapter</a>
       </div>
     </div>
-    <div class="hcard glass-card tilt-card breathing" id="HC" data-cur="Results">
+    <div class="hcard glass-card breathing" id="HC">
       <div style="font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:36px;display:flex;align-items:center;gap:10px">
         <span style="width:18px;height:1px;background:var(--g2)"></span>Your Readiness Score
       </div>
-      <div id="readiness-intro">
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px;">
-          Answer 5 questions. Get personalized feedback on your study plan.
-          <br><br>
-          <a href="https://www.thencahub.com/blog/article.html?post=article-e3-nca-study-hours" style="color:var(--g1);font-size:0.8rem">How many hours do you really need? →</a>
-        </p>
-        <a href="#readiness" class="bp magnetic-btn" style="width:100%;text-align:center;justify-content:center;" data-cur="Assess"><span>Calculate My Score →</span></a>
-      </div>
+      <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px;">
+        Answer 5 questions. Get personalized feedback on your study plan.
+      </p>
+      <a href="#readiness" class="bp magnetic-btn" style="width:100%;text-align:center;justify-content:center;"><span>Calculate My Score →</span></a>
     </div>
   </div>
 </section>
 
 <!-- TICKER -->
-<div style="background:var(--g1);padding:12px 0;overflow:hidden;position:relative;z-index:2" aria-hidden="true">
-  <div class="kinetic-ticker" id="main-ticker">
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">Administrative Law</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">Constitutional Law</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">Criminal Law</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">Foundations of Canadian Law</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">Professional Responsibility</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">NCA Readiness Score</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
-    <span style="font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0">Pass Guarantee</span><span style="width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0"></span>
+<div class="tb">
+  <div class="tt">
+    <span class="ti">Administrative Law</span><span class="td2"></span>
+    <span class="ti">Constitutional Law</span><span class="td2"></span>
+    <span class="ti">Criminal Law</span><span class="td2"></span>
+    <span class="ti">Foundations of Canadian Law</span><span class="td2"></span>
+    <span class="ti">Professional Responsibility</span><span class="td2"></span>
+    <span class="ti">NCA Readiness Score</span><span class="td2"></span>
+    <span class="ti">Pass Guarantee</span><span class="td2"></span>
+    <span class="ti">Built by a Qualified Lawyer</span>
   </div>
 </div>
 
 <!-- PHILOSOPHY -->
-<section class="spotlight-section" id="philosophy" aria-label="Our belief" style="min-height:100svh;background:var(--abyss);display:flex;align-items:center;justify-content:center;padding:120px 72px;text-align:center;position:relative;overflow:hidden">
-  <div style="position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(201,168,76,.046) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:orb 9s ease-in-out infinite alternate;pointer-events:none"></div>
-  <div class="pi" style="position:relative;z-index:2;max-width:1000px">
-    <div style="width:0;height:1px;background:var(--g1);margin:0 auto 52px;transition:width 1.6s var(--expo)" id="phl"></div>
-    <p style="font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.6rem);font-weight:300;font-style:italic;line-height:1.18;color:var(--cream);letter-spacing:-.01em;opacity:0" id="pht">
+<section class="sec velocity-skew" id="philosophy" style="background:var(--abyss);text-align:center;padding:120px 72px">
+  <div class="w">
+    <div style="width:56px;height:1px;background:var(--g1);margin:0 auto 52px"></div>
+    <h2 class="sh" style="font-style:italic">
       Whatever brought you to the NCA —<br>
       the gate is passable.<br>
       <em>We exist to prove it.</em>
-    </p>
-    <p class="pha" style="margin-top:40px;font-size:var(--nano);letter-spacing:.36em;text-transform:uppercase;color:var(--dim);opacity:0;transition-delay:.35s">
+    </h2>
+    <p style="margin-top:40px;font-size:var(--nano);letter-spacing:.36em;text-transform:uppercase;color:var(--dim)">
       <a href="https://www.thencahub.com/blog/article.html?post=article-d3-nca-indian-lawyers" style="color:var(--g1);text-decoration:none">For Indian-qualified lawyers →</a>
       &nbsp;&nbsp;·&nbsp;&nbsp;
       <a href="https://www.thencahub.com/blog/article.html?post=article-d4-nca-uk-based-lawyers" style="color:var(--g1);text-decoration:none">For UK-qualified lawyers →</a>
@@ -456,335 +432,216 @@ nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padd
   </div>
 </section>
 
-<!-- READINESS SCORE -->
-<section class="sec" id="readiness" aria-label="Readiness Assessment" style="padding:160px 0;position:relative;z-index:1;background:var(--abyss)">
-  <div class="w" style="max-width:1300px;margin:0 auto;padding:0 72px">
-    <span class="ey" style="display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px">The Readiness Score</span>
-    <h2 class="sh split-heading" style="font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream)">
-      Know exactly where you stand.<br>
-      <em>Before you sit.</em>
-    </h2>
-    <p class="sl" style="font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:700px;margin-top:24px;font-weight:300">
-      Stop wondering "Is this enough?" Get a personalized assessment of your preparation level.
-      <br><br>
+<!-- READINESS -->
+<section class="sec velocity-skew" id="readiness" style="background:var(--abyss)">
+  <div class="w">
+    <span class="ey">The Readiness Score</span>
+    <h2 class="sh">Know exactly where you stand.<br><em>Before you sit.</em></h2>
+    <p class="sl" style="max-width:700px;margin-top:24px">
+      Stop wondering "Is this enough?" Get a personalized assessment.
+      <br>
       <a href="https://www.thencahub.com/blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-ref">Are 300-page notes actually worth it? →</a>
     </p>
     
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:64px" class="readiness-grid">
-      <div class="glass-card" style="padding:52px;position:relative">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:64px">
+      <div class="glass-card" style="padding:52px">
         <span style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);display:block;margin-bottom:36px;font-weight:600">Calculate Your Score</span>
         <div style="width:100%;height:3px;background:rgba(201,168,76,.1);margin-bottom:32px;position:relative">
           <div style="height:100%;background:var(--g1);width:0%;transition:width .5s var(--expo)" id="quiz-progress"></div>
         </div>
-        <div style="font-size:var(--lead);color:var(--cream);margin-bottom:28px;line-height:1.6;font-family:var(--fd)" id="quiz-question">Loading...</div>
-        <div style="display:flex;flex-direction:column;gap:12px" id="quiz-options"></div>
-        
-        <div style="display:none;padding-top:32px;border-top:1px solid rgba(201,168,76,.1)" id="quiz-result">
-          <div style="display:flex;align-items:center;gap:28px;margin-bottom:32px">
-            <div style="font-family:var(--fd);font-size:6rem;font-weight:300;color:var(--g1);line-height:1" id="result-score">0</div>
-            <div>
-              <div style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:6px">Your Readiness Score</div>
-              <div style="font-size:var(--lead);color:var(--cream)" id="result-title">Calculating...</div>
-            </div>
-          </div>
-          <div style="background:rgba(201,168,76,.05);padding:24px;border:1px solid rgba(201,168,76,.1);margin-bottom:24px">
-            <div style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);margin-bottom:10px">Recommendation</div>
-            <div style="font-size:var(--body);color:var(--cream);line-height:1.7" id="result-rec"></div>
-          </div>
-          <a href="#pricing" class="bp magnetic-btn" style="width:100%;text-align:center;justify-content:center"><span>See Recommended Materials →</span></a>
+        <div style="font-size:var(--lead);color:var(--cream);margin-bottom:28px;line-height:1.6;font-family:var(--fd)" id="quiz-question">Click below to start assessment</div>
+        <div style="display:flex;flex-direction:column;gap:12px" id="quiz-options">
+          <button class="bp" onclick="startQuiz()" style="width:100%;justify-content:center">Start Assessment</button>
         </div>
       </div>
       
-      <div style="display:flex;flex-direction:column;gap:16px;padding:40px;background:var(--glow3);border:1px solid rgba(201,168,76,.1)">
+      <div style="padding:40px;background:var(--glow3);border:1px solid rgba(201,168,76,.1)">
         <h4 style="font-family:var(--fd);font-size:1.3rem;color:var(--cream);margin-bottom:24px">What Your Score Means</h4>
-        <div style="display:flex;gap:16px;align-items:flex-start">
+        <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:16px">
           <div style="width:50px;height:50px;border:2px solid var(--g1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g1);font-size:.65rem;font-weight:700">85+</div>
-          <div>
-            <div style="font-size:var(--body);color:var(--cream);font-weight:500;margin-bottom:4px">Exam Ready</div>
-            <div style="font-size:var(--sm);color:var(--fog);line-height:1.5">Focus on speed drills and mock exams.</div>
-          </div>
+          <div><div style="font-size:var(--body);color:var(--cream);font-weight:500">Exam Ready</div><div style="font-size:var(--sm);color:var(--fog)">Focus on speed drills.</div></div>
         </div>
         <div style="display:flex;gap:16px;align-items:flex-start">
           <div style="width:50px;height:50px;border:2px solid rgba(201,168,76,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--fog);font-size:.65rem;font-weight:700">70-84</div>
-          <div>
-            <div style="font-size:var(--body);color:var(--cream);font-weight:500;margin-bottom:4px">On Track</div>
-            <div style="font-size:var(--sm);color:var(--fog);line-height:1.5">Add 1-2 weeks of pattern drills.</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:16px;align-items:flex-start">
-          <div style="width:50px;height:50px;border:2px solid rgba(201,168,76,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--dim);font-size:.65rem;font-weight:700">55-69</div>
-          <div>
-            <div style="font-size:var(--body);color:var(--cream);font-weight:500;margin-bottom:4px">Needs Focus</div>
-            <div style="font-size:var(--sm);color:var(--fog);line-height:1.5">Condensed timeline recommended.</div>
-          </div>
+          <div><div style="font-size:var(--body);color:var(--cream);font-weight:500">On Track</div><div style="font-size:var(--sm);color:var(--fog)">Add 1-2 weeks of drills.</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STORY SECTION WITH Z-AXIS -->
-<div id="story" style="position:relative;z-index:1">
-  <div style="position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:800" id="story-prog">
-    <div style="width:6px;height:6px;border-radius:50%;background:var(--g1);transform:scale(1.5);cursor:pointer" onclick="scrollToChapter(0)"></div>
-    <div style="width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.25);cursor:pointer" onclick="scrollToChapter(1)"></div>
-    <div style="width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.25);cursor:pointer" onclick="scrollToChapter(2)"></div>
-    <div style="width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.25);cursor:pointer" onclick="scrollToChapter(3)"></div>
-  </div>
-
-  <!-- Chapter 01 -->
-  <div class="story-chapter velocity-skew" id="SCH1" style="transform:translateZ(0)">
-    <div style="position:absolute;inset:0;pointer-events:none">
-      <div style="position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);left:18%"></div>
-    </div>
+<!-- STORY -->
+<div id="story">
+  <div class="story-chapter velocity-skew" id="SCH1">
     <div class="story-chapter-inner">
       <div style="position:relative">
-        <div class="spn" aria-hidden="true">01</div>
-        <div style="font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1">Chapter 01 / 04</div>
-        <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1">
-          <span style="width:24px;height:1px;background:var(--g1)"></span>The Founder's Story
-        </div>
-        <h2 class="story-ch-head split-heading" style="font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1">
-          Three UK law firms.<br>
-          A Supreme Court judgment.<br>
-          <em>Then nothing.</em>
-        </h2>
+        <div class="spn">01</div>
+        <div class="story-ch-label">Chapter 01 / 04</div>
+        <div class="story-ch-eye"><span></span>The Founder's Story</div>
+        <h2 class="story-ch-head">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
       </div>
-      <div style="opacity:0;transform:translateY(24px);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo)" class="story-ch-right">
-        <div style="font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300">
-          <p style="margin-bottom:20px">Kartik Kumar qualified as a lawyer in India and built his career at UK law firms — DWF, Eversheds Sutherland, and Keoghs. He was hired as Legal Executive at a newly established law firm for motor finance undisclosed commission claims.</p>
-          <p>A Supreme Court judgment (Hopcraft v Close Brothers) changed the motor finance landscape. The project wound down. Kartik was let go — no income, borrowed money from parents.</p>
-          <a href="https://www.thencahub.com/blog/article.html?post=article-c1-failed-nca-exam" class="blog-ref">Read: When the project ends →</a>
-        </div>
+      <div class="story-ch-body">
+        <p>Kartik Kumar qualified as a lawyer in India and built his career at UK law firms — DWF, Eversheds Sutherland, and Keoghs.</p>
+        <p>A Supreme Court judgment changed the landscape. The project wound down. Kartik was let go — no income, borrowed money from parents.</p>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-c1-failed-nca-exam" class="blog-ref">Read: When the project ends →</a>
       </div>
     </div>
   </div>
 
-  <!-- Chapter 02 -->
-  <div class="story-chapter velocity-skew" id="SCH2" style="transform:translateZ(-100px)">
-    <div style="position:absolute;inset:0;pointer-events:none">
-      <div style="position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);left:22%"></div>
-    </div>
+  <div class="story-chapter velocity-skew" id="SCH2" style="background:var(--void)">
     <div class="story-chapter-inner">
       <div style="position:relative">
-        <div class="spn" aria-hidden="true">02</div>
-        <div style="font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1">Chapter 02 / 04</div>
-        <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1">
-          <span style="width:24px;height:1px;background:var(--g1)"></span>The Pivot
-        </div>
-        <h2 class="story-ch-head split-heading" style="font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1">
-          Sit the NCA.<br>
-          <em>One week to prepare.</em>
-        </h2>
+        <div class="spn">02</div>
+        <div class="story-ch-label">Chapter 02 / 04</div>
+        <div class="story-ch-eye"><span></span>The Pivot</div>
+        <h2 class="story-ch-head">Sit the NCA.<br><em>One week to prepare.</em></h2>
       </div>
-      <div style="opacity:0;transform:translateY(24px);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo)" class="story-ch-right">
-        <div style="font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300">
-          <p style="margin-bottom:20px">He purchased the industry-standard materials. Found them too dense, too long — built for candidates with months to spare, not one week.</p>
-          <p>So he built his own system. Distilled notes. Fellow candidates called to understand what was actually tested.</p>
-          <a href="https://www.thencahub.com/blog/article.html?post=article-pass-nca-90-days" class="blog-ref">The 90-day system →</a>
-        </div>
+      <div class="story-ch-body">
+        <p>He purchased the industry-standard materials. Found them too dense, too long — built for candidates with months to spare, not one week.</p>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-pass-nca-90-days" class="blog-ref">The 90-day system →</a>
       </div>
     </div>
   </div>
 
-  <!-- Chapter 03 -->
-  <div class="story-chapter velocity-skew" id="SCH3" style="transform:translateZ(-200px)">
-    <div style="position:absolute;inset:0;pointer-events:none">
-      <div style="position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);left:18%"></div>
-    </div>
+  <div class="story-chapter velocity-skew" id="SCH3">
     <div class="story-chapter-inner">
       <div style="position:relative">
-        <div class="spn" aria-hidden="true">03</div>
-        <div style="font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1">Chapter 03 / 04</div>
-        <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1">
-          <span style="width:24px;height:1px;background:var(--g1)"></span>The Method
-        </div>
-        <h2 class="story-ch-head split-heading" style="font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1">
-          Four subjects. Three months.<br>
-          <em>One technical failure —<br>
-          not a knowledge one.</em>
-        </h2>
+        <div class="spn">03</div>
+        <div class="story-ch-label">Chapter 03 / 04</div>
+        <div class="story-ch-eye"><span></span>The Method</div>
+        <h2 class="story-ch-head">Four subjects. Three months.<br><em>One technical failure —<br>not a knowledge one.</em></h2>
       </div>
-      <div style="opacity:0;transform:translateY(24px);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo)" class="story-ch-right">
-        <div style="font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300">
-          <p style="margin-bottom:20px">Administrative Law (first exam, one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed.</p>
-          <p>Foundations of Canadian Law was attempted but not passed due to a technical failure — phone died during proctored session. Not a knowledge failure.</p>
-          <a href="https://www.thencahub.com/blog/article.html?post=article-c4-nca-textbook-necessary" class="blog-ref">Do you need the textbook? →</a>
-        </div>
+      <div class="story-ch-body">
+        <p>Administrative Law (one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed.</p>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-c4-nca-textbook-necessary" class="blog-ref">Do you need the textbook? →</a>
       </div>
     </div>
   </div>
 
-  <!-- Chapter 04 -->
-  <div class="story-chapter velocity-skew" id="SCH4" style="transform:translateZ(-300px)">
-    <div style="position:absolute;inset:0;pointer-events:none">
-      <div style="position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);left:22%"></div>
-    </div>
+  <div class="story-chapter velocity-skew" id="SCH4" style="background:var(--void)">
     <div class="story-chapter-inner">
       <div style="position:relative">
-        <div class="spn" aria-hidden="true">04</div>
-        <div style="font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1">Chapter 04 / 04</div>
-        <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1">
-          <span style="width:24px;height:1px;background:var(--g1)"></span>The Proof
-        </div>
-        <h2 class="story-ch-head split-heading" style="font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1">
-          The course that <br>
-          <em>built itself.</em>
-        </h2>
+        <div class="spn">04</div>
+        <div class="story-ch-label">Chapter 04 / 04</div>
+        <div class="story-ch-eye"><span></span>The Proof</div>
+        <h2 class="story-ch-head">The course that <em>built itself.</em></h2>
       </div>
-      <div style="opacity:0;transform:translateY(24px);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo)" class="story-ch-right">
-        <div style="font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300">
-          <p style="margin-bottom:20px">LRW completed early signals system efficiency. The NCA Hub was born from necessity — built for everyone in the same position.</p>
-          <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt — using The NCA Hub method — she passed.</p>
-          <div style="margin-top:32px;padding:24px 28px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03)">
-            <p style="font-family:var(--fd);font-size:1.1rem;font-style:italic;color:var(--cream);line-height:1.6">"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</p>
-          </div>
-          <a href="https://www.thencahub.com/blog/article.html?post=article-b1-constitutional-law-nca" class="blog-ref">Read Anum's subject guide →</a>
-        </div>
+      <div class="story-ch-body">
+        <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt — using The NCA Hub method — she passed.</p>
+        <div class="story-ch-quote">"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</div>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-b1-constitutional-law-nca" class="blog-ref">Read Anum's subject guide →</a>
       </div>
     </div>
   </div>
 </div>
 
 <!-- METHOD -->
-<section class="sec velocity-skew" id="method" aria-label="The method" style="padding:160px 0;position:relative;z-index:1;background:var(--dark)">
-  <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 65%);top:-200px;right:-180px;border-radius:50%;filter:blur(100px);pointer-events:none"></div>
-  <div class="sn" aria-hidden="true" style="position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500">04 / 08</div>
-  <div class="w" style="max-width:1300px;margin:0 auto;padding:0 72px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px">
+<section class="sec msc velocity-skew" id="method">
+  <div class="w">
+    <div class="mhd">
       <div>
-        <span class="ey" style="display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px">The Method</span>
-        <h2 class="sh split-heading" style="font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream)">
-          Three things <br>
-          <em>nobody else does.</em>
-        </h2>
+        <span class="ey">The Method</span>
+        <h2 class="sh">Three things <em>nobody else does.</em></h2>
       </div>
-      <p class="sl" style="font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300">
-        Every decision came from experiencing what didn't work — then building the exact opposite.
-        <br><br>
+      <p class="sl">
+        Every decision came from experiencing what didn't work.
+        <br>
         <a href="https://www.thencahub.com/blog/article.html?post=article-e1-nca-study-schedule-working" class="blog-ref">Schedule for working professionals →</a>
       </p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px">
-      <div class="mc glass-card breathing tilt-card">
-        <div style="width:48px;height:48px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:rgba(201,168,76,.04)">
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-        </div>
-        <span style="font-family:var(--fd);font-size:4rem;font-weight:300;color:rgba(201,168,76,.07);line-height:1;margin-bottom:14px;display:block">01</span>
-        <h3 style="font-family:var(--fd);font-size:1.55rem;font-weight:500;color:var(--cream);margin-bottom:16px">Short-Form Video Lectures</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.9">8–12 minutes per topic. One concept, covered completely. No 2-hour recordings where attention collapses at minute 25.</p>
-        <span style="display:inline-block;margin-top:24px;font-size:.53rem;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(201,168,76,.15);padding:5px 14px">Science-backed format</span>
+    <div class="mg">
+      <div class="mc glass-card breathing">
+        <div class="mi"><svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <span class="mn">01</span>
+        <h3 class="mt">Short-Form Video Lectures</h3>
+        <p class="mb">8–12 minutes per topic. No 2-hour recordings where attention collapses.</p>
+        <span class="mtag">Science-backed format</span>
       </div>
-      <div class="mc glass-card breathing tilt-card">
-        <div style="width:48px;height:48px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:rgba(201,168,76,.04)">
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <span style="font-family:var(--fd);font-size:4rem;font-weight:300;color:rgba(201,168,76,.07);line-height:1;margin-bottom:14px;display:block">02</span>
-        <h3 style="font-family:var(--fd);font-size:1.55rem;font-weight:500;color:var(--cream);margin-bottom:16px">Strategic Notes</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.9">Under 80 pages per subject of distilled, exam-targeted material. Not a textbook. Every sentence earns its place.</p>
-        <span style="display:inline-block;margin-top:24px;font-size:.53rem;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(201,168,76,.15);padding:5px 14px">Exam-focused only</span>
+      <div class="mc glass-card breathing">
+        <div class="mi"><svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <span class="mn">02</span>
+        <h3 class="mt">Strategic Notes</h3>
+        <p class="mb">Under 80 pages per subject. Every sentence earns its place.</p>
+        <span class="mtag">Exam-focused only</span>
       </div>
-      <div class="mc glass-card breathing tilt-card">
-        <div style="width:48px;height:48px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:rgba(201,168,76,.04)">
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        </div>
-        <span style="font-family:var(--fd);font-size:4rem;font-weight:300;color:rgba(201,168,76,.07);line-height:1;margin-bottom:14px;display:block">03</span>
-        <h3 style="font-family:var(--fd);font-size:1.55rem;font-weight:500;color:var(--cream);margin-bottom:16px">Answer Templates</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.9">The NCA rewards specific analytical structures. Our templates give you the architecture before you see the question.</p>
-        <span style="display:inline-block;margin-top:24px;font-size:.53rem;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(201,168,76,.15);padding:5px 14px">Pre-built frameworks</span>
+      <div class="mc glass-card breathing">
+        <div class="mi"><svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div>
+        <span class="mn">03</span>
+        <h3 class="mt">Answer Templates</h3>
+        <p class="mb">The NCA rewards specific structures. Know the architecture before the question.</p>
+        <span class="mtag">Pre-built frameworks</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SUBJECTS WITH HOVER EFFECTS -->
-<section class="subsc sec velocity-skew" id="subjects" aria-label="Subjects covered" style="padding:160px 0;position:relative;z-index:1;background:var(--dark);overflow:hidden">
-  <div class="sn" aria-hidden="true" style="position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500">06 / 08</div>
-  <div class="w" style="max-width:1300px;margin:0 auto;padding:0 72px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px">
+<!-- SUBJECTS -->
+<section class="sec subsc velocity-skew" id="subjects">
+  <div class="w">
+    <div class="subi">
       <div>
-        <span class="ey" style="display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px">All NCA Subjects</span>
-        <h2 class="sh split-heading" style="font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream)">
-          Every NCA exam.<br>
-          <em>Nothing wasted.</em>
-        </h2>
+        <span class="ey">All NCA Subjects</span>
+        <h2 class="sh">Every NCA exam.<br><em>Nothing wasted.</em></h2>
       </div>
-      <p class="sl" style="font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300">
-        All NCA exam subjects — from live materials to those in development. 
+      <p class="sl">
         <a href="https://www.thencahub.com/blog/index.html" class="blog-ref">View all 25 free guides →</a>
       </p>
     </div>
-    
-    <div style="display:flex;gap:2px;cursor:grab;user-select:none;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:4px" id="subject-scroll">
-      <div class="sc2 breathing tilt-card" style="--index:0">
-        <span style="font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block">01</span>
-        <div style="font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px">Administrative Law</div>
-        <h3 style="font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px">Admin Law</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px">The subject most candidates sit first. Built under one week of genuine time pressure.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-a3-administrative-law-nca" class="blog-ref">Read the guide →</a>
+    <div class="ht" id="subject-scroll">
+      <div class="sc2 breathing">
+        <span class="scnum">01</span>
+        <div class="sctg">Administrative Law</div>
+        <h3 class="scti">Admin Law</h3>
+        <p class="scb">Built under one week of genuine time pressure.</p>
+        <ul class="scl"><li>Judicial review</li><li>Vavilov framework</li><li>Procedural fairness</li></ul>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-a3-administrative-law-nca" class="sc-link">Read the guide →</a>
       </div>
-      
-      <div class="sc2 breathing tilt-card" style="--index:1">
-        <span style="font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block">02</span>
-        <div style="font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px">Constitutional Law</div>
-        <h3 style="font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px">Con Law</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px">Where Anum passed her 4th and final attempt using these exact materials.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-b1-constitutional-law-nca" class="blog-ref">Read the guide →</a>
+      <div class="sc2 breathing">
+        <span class="scnum">02</span>
+        <div class="sctg">Constitutional Law</div>
+        <h3 class="scti">Con Law</h3>
+        <p class="scb">Where Anum passed her 4th attempt.</p>
+        <ul class="scl"><li>Division of powers</li><li>Charter framework</li><li>Oakes test</li></ul>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-b1-constitutional-law-nca" class="sc-link">Read the guide →</a>
       </div>
-      
-      <div class="sc2 breathing tilt-card" style="--index:2">
-        <span style="font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block">03</span>
-        <div style="font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px">Criminal Law</div>
-        <h3 style="font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px">Criminal Law</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px">Criminal law rewards structure above everything else. Our templates mean you know the first four lines before you read the question.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-b2-criminal-law-nca" class="blog-ref">Read the guide →</a>
-      </div>
-      
-      <div class="sc2 breathing tilt-card" style="--index:3">
-        <span style="font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block">04</span>
-        <div style="font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px">Foundations</div>
-        <h3 style="font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px">Foundations</h3>
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px">Often underestimated. The architecture of the entire Canadian legal system.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-b4-foundations-canadian-law-nca" class="blog-ref">Read the guide →</a>
+      <div class="sc2 breathing">
+        <span class="scnum">03</span>
+        <div class="sctg">Criminal Law</div>
+        <h3 class="scti">Criminal Law</h3>
+        <p class="scb">Structure above everything else.</p>
+        <ul class="scl"><li>Actus reus & mens rea</li><li>Criminal defences</li><li>Charter rights</li></ul>
+        <a href="https://www.thencahub.com/blog/article.html?post=article-b2-criminal-law-nca" class="sc-link">Read the guide →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ WITH ORIGAMI EFFECT -->
-<section class="fqsc sec velocity-skew" id="faq" aria-label="Frequently asked questions" style="padding:160px 0;position:relative;z-index:1;background:var(--dark)">
-  <div class="w" style="max-width:1300px;margin:0 auto;padding:0 72px">
-    <span class="ey" style="display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px">Questions</span>
-    <h2 class="sh split-heading" style="font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream);max-width:580px">
-      Everything you <br>
-      <em>need to decide.</em>
-    </h2>
-    <div style="margin-top:64px">
-      <div class="fqi" style="border-bottom:1px solid rgba(201,168,76,.065)">
-        <button class="fqq variable-hover" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:26px 0;text-align:left;font-size:var(--lead);color:var(--cream);font-weight:300;gap:28px;transition:color .3s;background:none;border:none;cursor:pointer" onclick="toggleFaq(this)">
+<!-- FAQ -->
+<section class="sec velocity-skew" id="faq" style="background:var(--dark)">
+  <div class="w">
+    <span class="ey">Questions</span>
+    <h2 class="sh">Everything you <em>need to decide.</em></h2>
+    <div class="fql">
+      <div class="fqi">
+        <button class="fqq" onclick="toggleFaq(this)">
           I only have 2–3 weeks before my exam. Is this still useful?
-          <span style="width:30px;height:30px;min-width:30px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .3s,transform .5s var(--expo),border-color .3s">
-            <svg viewBox="0 0 10 10" width="11" height="11" stroke="var(--g1)" fill="none" stroke-width="2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg>
-          </span>
+          <span class="fqico"><svg viewBox="0 0 10 10" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
         </button>
-        <div class="fqb" style="max-height:0;overflow:hidden;transition:max-height .65s var(--expo), transform 0.6s ease;transform-origin:top;transform:perspective(1000px) rotateX(-90deg)">
-          <p style="padding:0 0 26px;font-size:var(--body);color:var(--fog);line-height:1.95;max-width:720px">
-            Yes — and short timelines are exactly what these materials were designed for. Under 80 pages of notes, not 200. 
-            <a href="https://www.thencahub.com/blog/article.html?post=article-e3-nca-study-hours" class="blog-ref">How many hours should you study? →</a>
+        <div class="fqb">
+          <p class="fqbi">
+            Yes — short timelines are exactly what these materials were designed for. Under 80 pages.
+            <a href="https://www.thencahub.com/blog/article.html?post=article-e3-nca-study-hours" class="blog-ref">How many hours? →</a>
           </p>
         </div>
       </div>
-      
-      <div class="fqi" style="border-bottom:1px solid rgba(201,168,76,.065)">
-        <button class="fqq variable-hover" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:26px 0;text-align:left;font-size:var(--lead);color:var(--cream);font-weight:300;gap:28px;transition:color .3s;background:none;border:none;cursor:pointer" onclick="toggleFaq(this)">
-          How is this different from other NCA preparation providers?
-          <span style="width:30px;height:30px;min-width:30px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .3s,transform .5s var(--expo),border-color .3s">
-            <svg viewBox="0 0 10 10" width="11" height="11" stroke="var(--g1)" fill="none" stroke-width="2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg>
-          </span>
+      <div class="fqi">
+        <button class="fqq" onclick="toggleFaq(this)">
+          How is this different from other providers?
+          <span class="fqico"><svg viewBox="0 0 10 10" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
         </button>
-        <div class="fqb" style="max-height:0;overflow:hidden;transition:max-height .65s var(--expo), transform 0.6s ease;transform-origin:top;transform:perspective(1000px) rotateX(-90deg)">
-          <p style="padding:0 0 26px;font-size:var(--body);color:var(--fog);line-height:1.95;max-width:720px">
-            Most NCA preparation was built for candidates with unlimited time. The NCA Hub was built under real time pressure.
+        <div class="fqb">
+          <p class="fqbi">
+            Built under real time pressure. 
             <a href="https://www.thencahub.com/blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-ref">Why we don't do 300 pages →</a>
           </p>
         </div>
@@ -794,367 +651,230 @@ nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padd
 </section>
 
 <!-- FINAL CTA -->
-<div class="fcta velocity-skew" style="min-height:88svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 72px;background:var(--abyss);position:relative;overflow:hidden">
-  <div style="position:absolute;width:1000px;height:1000px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 60%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:orb 11s ease-in-out infinite alternate;pointer-events:none"></div>
-  <div style="position:relative;z-index:2;max-width:900px">
-    <div style="display:inline-flex;align-items:center;gap:16px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);margin-bottom:32px">Your Turn</div>
-    <h2 class="ch split-heading" style="font-family:var(--fd);font-size:clamp(4rem,9vw,9rem);font-weight:300;font-style:italic;line-height:.94;letter-spacing:-.028em;color:var(--cream);margin-bottom:32px">
-      The NCA is <br>
-      <em>passable.</em>
-    </h2>
-    <p style="font-size:var(--lead);color:var(--fog);max-width:500px;margin:0 auto 52px;line-height:1.9;font-weight:300">
-      You have already done the hardest part — qualifying in another country, choosing Canada, starting over.
-    </p>
-    <a href="#readiness" class="bp magnetic-btn" style="padding:20px 56px;display:inline-flex;align-items:center;gap:12px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--expo)" data-cur="Begin"><span>Get My Readiness Score →</span></a>
+<div class="fcta velocity-skew">
+  <div class="ci">
+    <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);margin-bottom:32px">Your Turn</div>
+    <h2 class="ch">The NCA is <em>passable.</em></h2>
+    <p class="cp">You have already done the hardest part — qualifying in another country, choosing Canada, starting over.</p>
+    <a href="#readiness" class="bp magnetic-btn" data-cur="Begin"><span>Get My Readiness Score →</span></a>
   </div>
 </div>
 
 <!-- FOOTER -->
-<footer style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 52px;position:relative;z-index:1">
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(201,168,76,.055);margin-bottom:44px">
+<footer>
+  <div class="ftg">
     <div>
-      <div style="font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px">NCA <span style="color:rgba(201,168,76,.6)">Hub</span></div>
-      <p style="font-size:var(--body);color:var(--dim);line-height:1.75;max-width:270px;font-family:var(--fd);font-style:italic">Strategic preparation for lawyers who had to start over — and refused to stop.</p>
+      <div class="flog">NCA <span class="hub">Hub</span></div>
+      <p class="ftag">Strategic preparation for lawyers who had to start over.</p>
     </div>
     <div>
-      <div style="font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:22px">Navigate</div>
-      <ul style="display:flex;flex-direction:column;gap:13px;list-style:none">
-        <li><a href="#method" style="font-size:var(--sm);color:var(--dim);transition:color .3s;text-decoration:none">The Method</a></li>
-        <li><a href="https://www.thencahub.com/blog/index.html" style="font-size:var(--sm);color:var(--dim);transition:color .3s;text-decoration:none">Free Articles</a></li>
-        <li><a href="#subjects" style="font-size:var(--sm);color:var(--dim);transition:color .3s;text-decoration:none">Subjects</a></li>
+      <div class="fct">Navigate</div>
+      <ul class="fls">
+        <li><a href="#method">The Method</a></li>
+        <li><a href="https://www.thencahub.com/blog/index.html">Free Articles</a></li>
+        <li><a href="#subjects">Subjects</a></li>
       </ul>
     </div>
     <div>
-      <div style="font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:22px">Contact</div>
-      <ul style="display:flex;flex-direction:column;gap:13px;list-style:none">
-        <li><a href="mailto:kumarkartik9582@gmail.com" style="font-size:var(--sm);color:var(--dim);transition:color .3s;text-decoration:none">kumarkartik9582@gmail.com</a></li>
+      <div class="fct">Contact</div>
+      <ul class="fls">
+        <li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li>
       </ul>
     </div>
   </div>
-  <p style="border-top:1px solid rgba(201,168,76,.05);padding-top:20px;font-size:.57rem;color:var(--dim);line-height:1.7;text-align:center;font-family:var(--fd);font-style:italic">
-    <strong style="color:rgba(201,168,76,.4);font-style:normal;font-family:var(--fb);font-weight:400;letter-spacing:.1em">NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource.
-  </p>
+  <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource.</p>
 </footer>
 
 <script>
-// Initialize Lenis Smooth Scroll
-const lenis = new Lenis({
-  lerp:0.075,
-  smoothWheel:true,
-  touchMultiplier:2
-});
-function raf(time){
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// GSAP & ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-
-// TEXT SPLITTING WITH BLUR REVEAL
-function splitText(){
-  document.querySelectorAll('.split-heading').forEach(el=>{
-    const text = el.innerHTML;
-    el.innerHTML = '';
-    const words = text.split(' ');
-    words.forEach(word=>{
-      const wordSpan = document.createElement('span');
-      wordSpan.className = 'word';
-      const cleanWord = word.replace(/<[^>]*>/g, '');
-      cleanWord.split('').forEach(char=>{
-        const span = document.createElement('span');
-        span.className = 'char';
-        span.textContent = char;
-        wordSpan.appendChild(span);
-      });
-      el.appendChild(wordSpan);
-    });
-  });
-}
-splitText();
-
-// REVEAL ANIMATIONS
-ScrollTrigger.batch('.char', {
-  onEnter: batch => {
-    batch.forEach((char, i) => {
-      setTimeout(() => char.classList.add('revealed'), i * 20);
-    });
-  },
-  start: 'top 85%',
-  once: true
-});
-
-// VELOCITY SKEW
-let lastScroll = 0;
-let velocity = 0;
-lenis.on('scroll', ({scroll}) => {
-  velocity = (scroll - lastScroll) * 0.01;
-  velocity = Math.max(-2, Math.min(2, velocity));
-  document.body.style.setProperty('--velocity', velocity);
-  lastScroll = scroll;
-  
-  // Kinetic ticker speed
-  const ticker = document.getElementById('main-ticker');
-  if(ticker){
-    if(velocity > 0.5) ticker.classList.add('fast');
-    else if(velocity < -0.5) ticker.classList.add('reverse');
-    else {
-      ticker.classList.remove('fast', 'reverse');
-    }
-  }
-});
-
-// MAGNETIC CURSOR
-const cursor = document.getElementById('cd');
-const cursorRing = document.getElementById('cr');
-const cursorLabel = document.getElementById('cl');
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
-
-document.addEventListener('mousemove', (e)=>{
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  document.body.style.setProperty('--mouse-x', mouseX + 'px');
-  document.body.style.setProperty('--mouse-y', mouseY + 'px');
-});
-
-function animateCursor(){
-  cursorX += (mouseX - cursorX) * 0.1;
-  cursorY += (mouseY - cursorY) * 0.1;
-  cursor.style.left = cursorX + 'px';
-  cursor.style.top = cursorY + 'px';
-  cursorRing.style.left = cursorX + 'px';
-  cursorRing.style.top = cursorY + 'px';
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-// MAGNETIC BUTTONS
-document.querySelectorAll('.magnetic-btn').forEach(btn=>{
-  btn.addEventListener('mouseenter', ()=>{
-    cursorRing.classList.add('h');
-    cursorLabel.textContent = btn.dataset.cur || '';
-  });
-  btn.addEventListener('mouseleave', ()=>{
-    cursorRing.classList.remove('h');
-  });
-  btn.addEventListener('mousemove', (e)=>{
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width/2;
-    const y = e.clientY - rect.top - rect.height/2;
-    btn.style.transform = `translate(${x*0.2}px, ${y*0.2}px)`;
-  });
-  btn.addEventListener('mouseleave', ()=>{
-    btn.style.transform = '';
-  });
-});
-
-// PANIC BUTTON
-document.getElementById('panic-btn').addEventListener('click', ()=>{
-  document.getElementById('panic-modal').classList.add('active');
-});
-
-// FAQ ORIGAMI TOGGLE
-function toggleFaq(btn){
-  const item = btn.parentElement;
-  const body = item.querySelector('.fqb');
-  const isOpen = item.classList.contains('op');
-  
-  // Close all
-  document.querySelectorAll('.fqi').forEach(el=>{
-    el.classList.remove('op');
-    el.querySelector('.fqb').style.maxHeight = '0';
-    el.querySelector('.fqb').style.transform = 'perspective(1000px) rotateX(-90deg)';
-  });
-  
-  if(!isOpen){
-    item.classList.add('op');
-    body.style.maxHeight = body.scrollHeight + 'px';
-    body.style.transform = 'perspective(1000px) rotateX(0deg)';
-  }
-}
-
-// STORY CHAPTER SCROLL
-function scrollToChapter(idx){
-  const chapters = ['SCH1', 'SCH2', 'SCH3', 'SCH4'];
-  const target = document.getElementById(chapters[idx]);
-  if(target) lenis.scrollTo(target);
-}
-
-// SCROLL PROGRESS
-window.addEventListener('scroll', ()=>{
-  const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-  document.getElementById('prog').style.width = (scrolled * 100) + '%';
-  document.getElementById('read-cursor').textContent = Math.round(scrolled * 100) + '%';
-}, {passive:true});
-
-// GOLDEN HOUR CHECK
-const hour = new Date().getHours();
-if(hour >= 18 && hour <= 20){
-  document.body.classList.add('golden-hour');
-}
-
-// CONSTELLATION CANVAS
-const constCanvas = document.getElementById('constellation-canvas');
-const constCtx = constCanvas.getContext('2d');
-let constWidth, constHeight;
-function resizeConst(){
-  constWidth = constCanvas.width = window.innerWidth;
-  constHeight = constCanvas.height = window.innerHeight;
-}
-resizeConst();
-window.addEventListener('resize', resizeConst);
-
-const nodes = [
-  {x: 0.3, y: 0.4, name: 'Vavilov', connections: [1, 2]},
-  {x: 0.5, y: 0.3, name: 'Baker', connections: [2]},
-  {x: 0.7, y: 0.5, name: 'Dunsmuir', connections: []},
-  {x: 0.4, y: 0.6, name: 'Chieu', connections: [0]}
-];
-
-let constAlpha = 0;
-document.addEventListener('mousemove', (e)=>{
-  if(e.clientY < 100) constAlpha = 0.3;
-  else constAlpha = 0;
-});
-
-function drawConstellation(){
-  constCtx.clearRect(0, 0, constWidth, constHeight);
-  if(constAlpha <= 0.01){
-    requestAnimationFrame(drawConstellation);
-    return;
-  }
-  
-  constCtx.globalAlpha = constAlpha;
-  constCtx.strokeStyle = 'rgba(201,168,76,0.2)';
-  constCtx.fillStyle = 'rgba(201,168,76,0.8)';
-  constCtx.lineWidth = 1;
-  
-  // Draw connections
-  nodes.forEach((node, i)=>{
-    node.connections.forEach(targetIdx=>{
-      const target = nodes[targetIdx];
-      constCtx.beginPath();
-      constCtx.moveTo(node.x * constWidth, node.y * constHeight);
-      constCtx.lineTo(target.x * constWidth, target.y * constHeight);
-      constCtx.stroke();
-    });
-  });
-  
-  // Draw nodes
-  nodes.forEach(node=>{
-    constCtx.beginPath();
-    constCtx.arc(node.x * constWidth, node.y * constHeight, 3, 0, Math.PI * 2);
-    constCtx.fill();
-    
-    constCtx.font = '12px Cormorant Garamond';
-    constCtx.fillText(node.name, node.x * constWidth + 10, node.y * constHeight + 4);
-  });
-  
-  requestAnimationFrame(drawConstellation);
-}
-drawConstellation();
-
-// 3D LIBRARY (SIMPLIFIED THREE.JS)
-let libraryScene, libraryCamera, libraryRenderer, books = [];
-function initLibrary(){
-  const container = document.getElementById('library-3d');
-  if(!container || window.innerWidth < 960) return;
-  
-  libraryScene = new THREE.Scene();
-  libraryCamera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  libraryRenderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
-  libraryRenderer.setSize(window.innerWidth, window.innerHeight);
-  container.appendChild(libraryRenderer.domElement);
-  
-  // Create books
-  const geometry = new THREE.BoxGeometry(0.3, 1.5, 0.1);
-  const material = new THREE.MeshBasicMaterial({color: 0xC9A84C, transparent: true, opacity: 0.8});
-  
-  for(let i=0; i<10; i++){
-    const book = new THREE.Mesh(geometry, material);
-    book.position.set(-2 + i*0.4, 0, -5);
-    book.userData = {originalZ: -5, id: i};
-    libraryScene.add(book);
-    books.push(book);
-  }
-  
-  libraryCamera.position.z = 5;
-  
-  // Mouse interaction
-  document.addEventListener('mousemove', (e)=>{
-    const x = (e.clientX / window.innerWidth) * 2 - 1;
-    const y = -(e.clientY / window.innerHeight) * 2 + 1;
-    
-    books.forEach(book=>{
-      const dist = Math.sqrt(Math.pow(x - book.position.x/5, 2) + Math.pow(y - book.position.y/5, 2));
-      if(dist < 0.3){
-        book.position.z = -4;
-        book.material.opacity = 1;
-      } else {
-        book.position.z = book.userData.originalZ;
-        book.material.opacity = 0.8;
-      }
-    });
-  });
-  
-  animateLibrary();
-}
-
-function animateLibrary(){
-  if(!libraryRenderer) return;
-  requestAnimationFrame(animateLibrary);
-  libraryRenderer.render(libraryScene, libraryCamera);
-}
-
-function enterLibrary(){
-  document.getElementById('library-3d').classList.add('active');
-  if(!libraryRenderer) initLibrary();
-}
-
-// TILT CARDS
-document.querySelectorAll('.tilt-card').forEach(card=>{
-  card.addEventListener('mousemove', (e)=>{
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(1000px) rotateY(${x*10}deg) rotateX(${-y*10}deg)`;
-  });
-  card.addEventListener('mouseleave', ()=>{
-    card.style.transform = '';
-  });
-});
-
-// PRELOADER
-window.addEventListener('load', ()=>{
+// PRELOADER - Auto hide after 2 seconds max
+window.addEventListener('load', () => {
   const pre = document.getElementById('pre');
   const bar = document.getElementById('pre-bf');
   const num = document.getElementById('pre-n');
   let progress = 0;
   
-  const interval = setInterval(()=>{
-    progress += Math.random() * 15;
-    if(progress >= 100){
+  const interval = setInterval(() => {
+    progress += Math.random() * 30;
+    if(progress >= 100) {
       progress = 100;
       clearInterval(interval);
-      setTimeout(()=>{
-        pre.style.opacity = '0';
-        setTimeout(()=>pre.remove(), 500);
+      bar.style.transform = 'translateX(0)';
+      num.textContent = '100';
+      setTimeout(() => {
+        pre.classList.add('hidden');
       }, 500);
+    } else {
+      bar.style.transform = `translateX(-${100 - progress}%)`;
+      num.textContent = Math.floor(progress);
     }
-    bar.style.right = (100 - progress) + '%';
-    num.textContent = Math.floor(progress);
   }, 100);
+  
+  // Safety timeout - force hide after 3 seconds
+  setTimeout(() => {
+    pre.classList.add('hidden');
+  }, 3000);
 });
 
-// HAPTIC CLICK
-document.querySelectorAll('button, a').forEach(el=>{
-  el.addEventListener('click', ()=>{
-    document.body.style.transform = 'scale(0.99)';
-    setTimeout(()=> document.body.style.transform = '', 50);
+// LENIS SMOOTH SCROLL
+const lenis = new Lenis({ lerp: 0.075, smoothWheel: true });
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// GSAP SCROLL TRIGGER
+gsap.registerPlugin(ScrollTrigger);
+
+// VELOCITY SKEW
+let lastScroll = 0;
+lenis.on('scroll', ({ scroll }) => {
+  const velocity = (scroll - lastScroll) * 0.01;
+  document.body.style.setProperty('--velocity', Math.max(-2, Math.min(2, velocity)));
+  lastScroll = scroll;
+});
+
+// PROGRESS BAR
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  document.getElementById('prog').style.width = (scrolled * 100) + '%';
+}, { passive: true });
+
+// CURSOR SYSTEM (Desktop only)
+if(window.innerWidth > 960) {
+  const cd = document.getElementById('cd');
+  const cr = document.getElementById('cr');
+  const cl = document.getElementById('cl');
+  let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+  
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cd.style.left = mouseX + 'px';
+    cd.style.top = mouseY + 'px';
+  });
+  
+  function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.1;
+    cursorY += (mouseY - cursorY) * 0.1;
+    cr.style.left = cursorX + 'px';
+    cr.style.top = cursorY + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  
+  // Magnetic buttons
+  document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      cr.classList.add('h');
+      cl.textContent = btn.dataset.cur || '';
+    });
+    btn.addEventListener('mouseleave', () => {
+      cr.classList.remove('h');
+      cl.textContent = '';
+    });
+  });
+}
+
+// PANIC BUTTON
+document.getElementById('panic-btn').addEventListener('click', () => {
+  document.getElementById('panic-modal').classList.add('active');
+});
+
+// FAQ TOGGLE
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('op');
+  
+  // Close all
+  document.querySelectorAll('.fqi').forEach(el => {
+    el.classList.remove('op');
+  });
+  
+  if (!isOpen) {
+    item.classList.add('op');
+  }
+}
+
+// MOBILE NAV
+function toggleMobileNav() {
+  // Simple scroll to top for mobile as basic implementation
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// SCROLL REVEALS
+gsap.utils.toArray('.story-chapter').forEach((chapter, i) => {
+  gsap.from(chapter.querySelector('.story-ch-head'), {
+    scrollTrigger: {
+      trigger: chapter,
+      start: 'top 80%',
+    },
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
   });
 });
+
+// NAV SCROLL EFFECT
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if(window.scrollY > 100) {
+    nav.classList.add('sc');
+  } else {
+    nav.classList.remove('sc');
+  }
+}, { passive: true });
+
+// QUIZ FUNCTIONALITY
+const quizQuestions = [
+  { text: 'How many weeks until your exam?', options: ['Less than 1 week', '1-2 weeks', '2-4 weeks', '1-2 months'] },
+  { text: 'How many hours can you study per day?', options: ['Less than 1 hour', '1-2 hours', '2-3 hours', '3-4 hours'] },
+  { text: 'Is this your first attempt?', options: ['First attempt', 'Second attempt', 'Third or more'] }
+];
+let currentQ = 0;
+let score = 0;
+
+function startQuiz() {
+  currentQ = 0;
+  score = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  if(currentQ >= quizQuestions.length) {
+    showResult();
+    return;
+  }
+  const q = quizQuestions[currentQ];
+  document.getElementById('quiz-question').textContent = q.text;
+  const opts = document.getElementById('quiz-options');
+  opts.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'bp';
+    btn.style.cssText = 'width:100%;justify-content:center;margin-bottom:8px;background:transparent;border:1px solid var(--g1);color:var(--g1)';
+    btn.textContent = opt;
+    btn.onclick = () => {
+      score += (idx + 1) * 20;
+      currentQ++;
+      showQuestion();
+    };
+    opts.appendChild(btn);
+  });
+  document.getElementById('quiz-progress').style.width = ((currentQ / quizQuestions.length) * 100) + '%';
+}
+
+function showResult() {
+  document.getElementById('quiz-progress').style.width = '100%';
+  document.getElementById('quiz-question').innerHTML = `<div style="font-size:3rem;color:var(--g1);margin-bottom:10px">${score}</div>Your Readiness Score`;
+  const opts = document.getElementById('quiz-options');
+  let msg = '';
+  if(score >= 85) msg = 'Exam Ready. Focus on speed drills.';
+  else if(score >= 70) msg = 'On Track. Add 1-2 weeks of pattern drills.';
+  else msg = 'Needs Focus. Condensed timeline recommended.';
+  opts.innerHTML = `<p style="color:var(--fog);margin-bottom:20px">${msg}</p><a href="#pricing" class="bp" style="width:100%;justify-content:center">See Recommended Materials →</a>`;
+}
 </script>
 </body>
 </html>
