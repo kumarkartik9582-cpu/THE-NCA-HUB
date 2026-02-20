@@ -31,10 +31,6 @@ body:hover #cd{opacity:1}
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0),var(--g1),var(--g3));background-size:200% 100%;z-index:9100;width:0;transform-origin:left;transition:width .1s;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* PAGE TRANSITION OVERLAY */
-#trans{position:fixed;inset:0;background:var(--void);z-index:9999;pointer-events:none;opacity:0;transform:translateY(100%);transition:transform .8s var(--expo),opacity .6s;}
-#trans.active{opacity:1;transform:translateY(0);pointer-events:all}
-
 /* NAV */
 nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
 .nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1}
@@ -186,30 +182,27 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <div id="cr"></div>
 <div id="prog"></div>
 
-<!-- Page Transition Overlay -->
-<div id="trans"></div>
-
 <nav id="nav" role="navigation">
-  <a href="/" class="nl trans-link">NCA<span class="sep"> · </span><span class="hub">Hub</span></a>
+  <a href="/" class="nl">NCA<span class="sep"> · </span><span class="hub">Hub</span></a>
   <div class="nav-links">
-    <a href="/#method" class="trans-link">Method</a>
-    <a href="/#subjects" class="trans-link">Subjects</a>
-    <a href="/#pricing" class="trans-link">Pricing</a>
-    <a href="/blog/" class="active trans-link">Articles</a>
-    <a href="/#sample" class="trans-link">Free Chapter</a>
+    <a href="/#method">Method</a>
+    <a href="/#subjects">Subjects</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/blog/" class="active">Articles</a>
+    <a href="/#sample">Free Chapter</a>
   </div>
-  <a href="/#readiness" class="nc trans-link"><span>Get My Score</span></a>
+  <a href="/#readiness" class="nc"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mob" id="mob">
   <button class="mob-x" id="mobx">✕</button>
-  <a href="/#method" class="mob-link trans-link">Method</a>
-  <a href="/#subjects" class="mob-link trans-link">Subjects</a>
-  <a href="/#pricing" class="mob-link trans-link">Pricing</a>
-  <a href="/blog/" class="mob-link trans-link">Articles</a>
-  <a href="/#sample" class="mob-link trans-link">Free Chapter</a>
-  <a href="/#readiness" class="mob-link trans-link" style="color:var(--g1)">Get My Score →</a>
+  <a href="/#method" class="mob-link">Method</a>
+  <a href="/#subjects" class="mob-link">Subjects</a>
+  <a href="/#pricing" class="mob-link">Pricing</a>
+  <a href="/blog/" class="mob-link">Articles</a>
+  <a href="/#sample" class="mob-link">Free Chapter</a>
+  <a href="/#readiness" class="mob-link" style="color:var(--g1)">Get My Score →</a>
 </div>
 
 <!-- LOADING STATE -->
@@ -221,7 +214,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <!-- ERROR STATE -->
 <div id="state-error">
   <p class="state-msg">Article not found.</p>
-  <a href="/blog/" class="back-btn trans-link">← Back to all articles</a>
+  <a href="/blog/" class="back-btn">← Back to all articles</a>
 </div>
 
 <!-- ARTICLE CONTENT -->
@@ -229,7 +222,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <article>
     <header class="art-hero">
       <div class="art-breadcrumb">
-        <a href="/blog/" class="trans-link">Articles</a>
+        <a href="/blog/">Articles</a>
         <span>›</span>
         <span id="art-cluster-crumb"></span>
       </div>
@@ -256,9 +249,9 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       <p class="art-cta-eyelet">Ready to prepare?</p>
       <h2 class="art-cta-title">Get the notes that passed 4 NCA subjects in 3 months.</h2>
       <p class="art-cta-sub">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers.</p>
-      <a href="/#pricing" class="art-cta-btn trans-link">See the Package →</a>
+      <a href="/#pricing" class="art-cta-btn">See the Package →</a>
     </div>
-    <a href="/blog/" class="art-back trans-link">Back to all articles</a>
+    <a href="/blog/" class="art-back">Back to all articles</a>
   </div>
 </div>
 
@@ -272,19 +265,19 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div>
       <div class="fct">Navigate</div>
       <ul class="fls">
-        <li><a href="/#method" class="trans-link">The Method</a></li>
-        <li><a href="/#subjects" class="trans-link">Subjects</a></li>
-        <li><a href="/#pricing" class="trans-link">Pricing</a></li>
-        <li><a href="/blog/" class="trans-link">Articles</a></li>
-        <li><a href="/#sample" class="trans-link">Free Chapter</a></li>
+        <li><a href="/#method">The Method</a></li>
+        <li><a href="/#subjects">Subjects</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/blog/">Articles</a></li>
+        <li><a href="/#sample">Free Chapter</a></li>
       </ul>
     </div>
     <div>
       <div class="fct">Contact</div>
       <ul class="fls">
         <li><a href="mailto:hello@thencahub.com">hello@thencahub.com</a></li>
-        <li><a href="/#pricing" class="trans-link">Enroll Now</a></li>
-        <li><a href="/#readiness" class="trans-link">Get My Score</a></li>
+        <li><a href="/#pricing">Enroll Now</a></li>
+        <li><a href="/#readiness">Get My Score</a></li>
       </ul>
     </div>
   </div>
@@ -325,23 +318,6 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   if(nh)nh.addEventListener('click',function(){mob.classList.add('op');nh.setAttribute('aria-expanded','true')});
   if(mobx)mobx.addEventListener('click',function(){mob.classList.remove('op');nh.setAttribute('aria-expanded','false')});
   if(mob)mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mob.classList.remove('op')})});
-})();
-
-// ── PAGE TRANSITIONS ─────────────────────────────────────
-(function(){
-  var trans=document.getElementById('trans');
-  document.querySelectorAll('.trans-link').forEach(function(link){
-    link.addEventListener('click',function(e){
-      var href=this.getAttribute('href');
-      if(href && !href.startsWith('#') && !href.startsWith('mailto:')){
-        e.preventDefault();
-        trans.classList.add('active');
-        setTimeout(function(){
-          window.location.href=href;
-        },600);
-      }
-    });
-  });
 })();
 
 // ── YAML FRONT MATTER PARSER ─────────────────────────────
@@ -450,20 +426,14 @@ function renderRelatedArticles(currentSlug, cluster) {
   container.style.display = 'block';
   
   related.forEach(function(art, idx){
-    var card = document.createElement('div');
+    var card = document.createElement('a');
     card.className = 'related-card';
+    card.href = 'article.html?post=' + art.slug;
     card.innerHTML = 
       '<div class="related-card-cluster">' + clusterLabels[art.cluster] + '</div>' +
       '<h3 class="related-card-title">' + art.title + '</h3>' +
       '<p class="related-card-desc">' + art.desc + '</p>' +
       '<div class="related-card-meta">' + art.read + ' read</div>';
-    
-    card.addEventListener('click', function(){
-      document.getElementById('trans').classList.add('active');
-      setTimeout(function(){
-        window.location.href = 'article.html?post=' + art.slug;
-      }, 600);
-    });
     
     grid.appendChild(card);
     
