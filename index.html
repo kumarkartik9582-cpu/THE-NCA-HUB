@@ -5,11 +5,114 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The NCA Hub — Pass the NCA. Strategically.</title>
 <meta name="description" content="Pass the NCA strategically with precision notes, short-form videos, and answer templates. Built by an Indian-qualified lawyer who passed 4 NCA subjects in 3 months.">
+<meta name="keywords" content="NCA exam, NCA prep, NCA notes, National Committee on Accreditation, pass NCA Canada, NCA preparation, Canadian law qualification, NCA study materials">
+<meta name="author" content="The NCA Hub">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.thencahub.com">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.thencahub.com">
+<meta property="og:title" content="The NCA Hub — Pass the NCA. Strategically.">
+<meta property="og:description" content="Pass the NCA strategically with precision notes, short-form videos, and answer templates. Built by an Indian-qualified lawyer who passed 4 NCA subjects in 3 months.">
+<meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
+<meta property="og:site_name" content="The NCA Hub">
+
+<!-- Twitter Card -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.thencahub.com">
+<meta property="twitter:title" content="The NCA Hub — Pass the NCA. Strategically.">
+<meta property="twitter:description" content="Pass the NCA strategically with precision notes, short-form videos, and answer templates. Built by an Indian-qualified lawyer who passed 4 NCA subjects in 3 months.">
+<meta property="twitter:image" content="https://www.thencahub.com/twitter-image.jpg">
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "The NCA Hub",
+  "description": "Strategic NCA exam preparation for internationally qualified lawyers seeking Canadian qualification. Built by an Indian-qualified lawyer who passed 4 NCA subjects in 3 months.",
+  "url": "https://www.thencahub.com",
+  "logo": "https://www.thencahub.com/logo.png",
+  "founder": {
+    "@type": "Person",
+    "name": "Kartik Kumar",
+    "jobTitle": "Founder",
+    "description": "Indian-qualified lawyer who built his career at UK law firms (DWF, Eversheds Sutherland, Keoghs) and passed 4 NCA subjects in 3 months.",
+    "alumniOf": [
+      {
+        "@type": "Organization",
+        "name": "DWF"
+      },
+      {
+        "@type": "Organization",
+        "name": "Eversheds Sutherland"
+      },
+      {
+        "@type": "Organization",
+        "name": "Keoghs"
+      }
+    ]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "CA"
+  },
+  "sameAs": [],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "NCA Exam Preparation Materials",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Administrative Law Notes",
+          "description": "Strategic notes for NCA Administrative Law exam"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Constitutional Law Notes",
+          "description": "Strategic notes for NCA Constitutional Law exam"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Criminal Law Notes",
+          "description": "Strategic notes for NCA Criminal Law exam"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Foundations of Canadian Law Notes",
+          "description": "Strategic notes for NCA Foundations of Canadian Law exam"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Professional Responsibility Notes",
+          "description": "Strategic notes for NCA Professional Responsibility exam"
+        }
+      }
+    ]
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 <style>
 :root{
@@ -37,9 +140,7 @@
   --nano:.57rem;
   --expo:cubic-bezier(.16,1,.3,1);
   --bg-temp:0;
-  --mouse-x:50%;
-  --mouse-y:50%;
-  --velocity:0;
+  --ticker-duration:55s;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-padding-top:80px;overflow-x:hidden}
@@ -52,418 +153,823 @@ body{
   line-height:1.75;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  cursor:none;
+}
+@media(max-width:960px){body{cursor:auto}}
+
+/* CRITICAL: Text Selection Color */
+::selection {
+  background: rgba(201,168,76,0.3);
+  color: #fff;
+  text-shadow: 0 0 10px rgba(201,168,76,0.5);
 }
 
-/* FIXED: Proper selection styling */
-::selection{background:rgba(201,168,76,0.3);color:#fff}
-::-moz-selection{background:rgba(201,168,76,0.3);color:#fff}
+/* Split text character spans */
+.char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;}
+.word{display:inline-block;overflow:hidden;}
+.line{display:block;overflow:hidden;}
 
-/* ANIMATED GRAIN */
-.grain{
-  position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  animation:grainShift 100ms steps(10) infinite;
-}
-@keyframes grainShift{
-  0%,100%{transform:translate(0,0)}
-  10%{transform:translate(-2%,-2%)}
-  20%{transform:translate(2%,2%)}
-  30%{transform:translate(-1%,1%)}
-  40%{transform:translate(1%,-1%)}
-  50%{transform:translate(-2%,2%)}
-  60%{transform:translate(2%,-2%)}
-  70%{transform:translate(-1%,-1%)}
-  80%{transform:translate(1%,1%)}
-  90%{transform:translate(-2%,-1%)}
-}
+h1,h2,h3{font-family:var(--fd)}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--fb);border:none;background:none;cursor:none}
+ul{list-style:none}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:var(--g3)}
 
-/* GOLD SHIMMER */
-.gold-shimmer{
-  background: linear-gradient(135deg, #C9A84C 0%, #F0D878 50%, #C9A84C 100%);
-  background-size: 200% 200%;
-  animation: shimmer 8s ease infinite;
-}
-@keyframes shimmer{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+/* DISCOVERY BAR */
+#discovery-bar{position:fixed;top:0;inset-x:0;z-index:9050;height:28px;background:rgba(4,3,6,0.96);border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:center;justify-content:center;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);transition:transform .5s var(--expo);}
+#discovery-bar span{color:rgba(201,168,76,.45)}
+#discovery-bar.hidden{transform:translateY(-100%)}
 
-/* VELOCITY SKEW */
-.velocity-skew{
-  transition:transform 0.1s linear;
-  transform:skewY(calc(var(--velocity) * 0.05deg));
+/* OVERLAYS */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");animation:grain 12s steps(10) infinite;}
+@keyframes grain {
+  0%, 100% { transform:translate(0,0); }
+  10% { transform:translate(-5%,-5%); }
+  20% { transform:translate(-10%,5%); }
+  30% { transform:translate(5%,-10%); }
+  40% { transform:translate(-5%,15%); }
+  50% { transform:translate(-10%,5%); }
+  60% { transform:translate(15%,0); }
+  70% { transform:translate(0,10%); }
+  80% { transform:translate(-15%,0); }
+  90% { transform:translate(10%,5%); }
 }
+#vignette{position:fixed;inset:0;pointer-events:none;z-index:996;background:radial-gradient(ellipse 70% 60% at 50% 40%,transparent 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.5) 100%);opacity:0;}
+#pg-border{position:fixed;inset:4px;border:1px solid rgba(201,168,76,0);pointer-events:none;z-index:995;}
+#ambient-cv{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;}
+#trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996;}
+#ink-cv{position:fixed;inset:0;pointer-events:none;z-index:9995;opacity:0.8;}
+#exam-clock{position:fixed;top:50%;right:28px;transform:translateY(-50%);font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,168,76,.18);font-family:var(--fb);font-weight:400;writing-mode:vertical-rl;pointer-events:none;z-index:800;opacity:0;transition:opacity 1s;}
+#reading-time{position:fixed;bottom:26px;right:28px;z-index:800;font-size:.46rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:400;opacity:0;transition:opacity 1s;}
 
-/* CURSOR - Desktop only */
-@media(min-width:961px){
-  body{cursor:none}
-  #cd,#cr{display:block}
-}
-@media(max-width:960px){
-  body{cursor:auto}
-  #cd,#cr{display:none!important}
-}
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9100;width:0;transform-origin:left}
 
-#cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s;display:none}
-#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s;display:none}
+/* CURSOR */
+#cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
+#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
 #cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
 #cr.h{width:78px;height:78px;border-color:var(--g1);background:rgba(201,168,76,.04)}
 #cr.h #cl{opacity:1}
+#cr.c{width:14px;height:14px;background:rgba(201,168,76,.18)}
+#cd.h{transform:translate(-50%,-50%) scale(0)}
+#cr.tx{width:3px;height:30px;border-radius:2px;border-color:var(--g1)}
 
-/* BREATHING */
-.breathing{
-  animation:breathe 8s ease-in-out infinite;
-}
-@keyframes breathe{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.005)}
-}
+/* PAGE TRANSITION OVERLAY */
+#transition-overlay{position:fixed;inset:0;background:var(--g1);z-index:10000;clip-path:circle(0% at 50% 50%);pointer-events:none;}
+#transition-overlay.active{clip-path:circle(150% at 50% 50%);transition:clip-path .8s var(--expo);}
 
-/* SPLIT TEXT */
-.char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;opacity:1}
-.word{display:inline-block;overflow:hidden;margin-right:0.25em}
-.line{display:block;overflow:hidden}
+/* CINEMATIC LETTERBOX */
+.letterbox{position:fixed;left:0;right:0;height:0;background:#000;z-index:9000;pointer-events:none;transition:height .6s var(--expo);}
+.letterbox.top{top:0;}
+.letterbox.bottom{bottom:0;}
+.letterbox.active{height:40px;}
 
-/* GLASS */
-.glass-card{
-  background:rgba(14,14,26,.7);
-  border:1px solid rgba(201,168,76,0.15);
-  border-top:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(40px) saturate(160%);
-  box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);
-}
-
-/* PRELOADER - Fixed to auto-hide */
-#pre{
-  position:fixed;inset:0;z-index:9999;background:var(--void);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
-  transition:opacity 0.5s ease, visibility 0.5s;
-}
-#pre.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.pre-l{font-family:var(--fd);font-size:.85rem;font-weight:400;letter-spacing:.5em;text-transform:uppercase;color:var(--g1)}
+/* PRELOADER */
+#pre{position:fixed;inset:0;z-index:9999;pointer-events:all}
+.pre-half{position:absolute;left:0;right:0;background:var(--void);z-index:2}
+.pre-half.top{top:0;height:50%}.pre-half.bot{bottom:0;height:50%}
+.pre-content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.pre-l{font-family:var(--fd);font-size:.85rem;font-weight:400;letter-spacing:.5em;text-transform:uppercase;color:var(--g1);opacity:0}
 .pre-bw{width:220px;height:1px;background:rgba(201,168,76,.1);position:relative;overflow:hidden}
-.pre-bf{position:absolute;inset:0;background:linear-gradient(90deg,var(--g3),var(--g0));transform:translateX(-100%);transition:transform 0.3s}
-.pre-n{font-family:var(--fd);font-size:5.5rem;font-weight:300;color:var(--g1);line-height:1;letter-spacing:-.03em}
+.pre-bf{position:absolute;inset:0 100% 0 0;background:linear-gradient(90deg,var(--g3),var(--g0))}
+.pre-n{font-family:var(--fd);font-size:5.5rem;font-weight:300;color:var(--g1);line-height:1;letter-spacing:-.03em;opacity:0}
+.pre-s{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--dim);opacity:0}
 
 /* NAV */
-nav{position:fixed;top:28px;left:0;right:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
-nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1);top:0}
+nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
+nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1)}
+nav.disc-gone{top:0}
+.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1}
+
+/* INCREASED GAP BETWEEN NAV ITEMS + UNIFORM SPACING FROM LOGO */
 .nav-links{display:flex;gap:64px;margin-left:48px}
-.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;position:relative;transition:color .3s;text-decoration:none;padding-bottom:2px}
-.nav-links a:hover{color:var(--cream)}
-.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1;text-decoration:none}
-.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;position:relative;overflow:hidden;display:inline-block;transition:transform .3s var(--expo);margin-left:48px;text-decoration:none}
-.nc:hover{transform:translateY(-2px)}
+.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;position:relative;transition:color .3s;overflow:hidden;padding-bottom:2px;transition:font-variation-settings .3s;}
+.nav-links a:hover{color:var(--cream);font-variation-settings:'wght' 500;}
+.nav-links a svg.nav-underline{position:absolute;bottom:-2px;left:0;width:100%;height:3px;overflow:visible;pointer-events:none;}
+.nav-links a svg.nav-underline path{stroke:var(--g1);stroke-width:1;fill:none;stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset .5s var(--expo);}
+.nav-links a:hover svg.nav-underline path{stroke-dashoffset:0}
+
+/* ADDED MARGIN-LEFT TO SEPARATE FROM ARTICLES */
+.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;position:relative;overflow:hidden;display:inline-block;transition:transform .3s var(--expo);margin-left:48px;background:linear-gradient(135deg, var(--g1) 0%, var(--g0) 50%, var(--g1) 100%);background-size:200% 200%;animation:shimmer 8s ease infinite;}
+.nc::before{content:'';position:absolute;inset:0;background:var(--g0);transform:translateX(-101%);transition:transform .4s var(--expo)}
+.nc:hover{transform:translateY(-2px)}.nc:hover::before{transform:translateX(0)}
+.nc span{position:relative;z-index:1}
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0}
+.nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
+@media(max-width:960px){.nav-links,.nc{display:none}.nh{display:flex}nav,nav.sc{padding:18px 24px}nav{top:0}}
+.mob{position:fixed;inset:0;background:var(--void);z-index:870;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--expo)}
+.mob.op{clip-path:inset(0 0 0% 0)}
+.mob a{font-family:var(--fd);font-size:2.8rem;font-weight:400;font-style:italic;color:var(--cream);transition:color .3s}
+.mob a:hover{color:var(--g1)}
+.mob-x{position:absolute;top:22px;right:24px;font-size:1.1rem;color:var(--fog);background:none;border:none;padding:8px}
+
+/* LAYOUT */
+.sec{padding:160px 0;position:relative;z-index:1}
+.w{max-width:1300px;margin:0 auto;padding:0 72px}
+@media(max-width:640px){.w{padding:0 24px}.sec{padding:90px 0}}
+.ey{display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px}
+.ey::before{content:'';width:28px;height:1px;background:var(--g1);flex-shrink:0}
+.sn{position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500}
+.sh{font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream);}
+.sh em{font-style:italic;color:var(--g1);font-weight:300}
+.sl{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:500px;font-weight:300}
+.bp{display:inline-flex;align-items:center;gap:12px;background:var(--g1);color:var(--void);padding:17px 38px;font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--expo);background:linear-gradient(135deg, var(--g1) 0%, var(--g0) 50%, var(--g1) 100%);background-size:200% 200%;animation:shimmer 8s ease infinite;}
+.bp::before{content:'';position:absolute;inset:0;background:var(--g0);transform:translateX(-101%);transition:transform .45s var(--expo)}
+.bp:hover{transform:translateY(-3px)}.bp:hover::before{transform:translateX(0)}
+.bp span{position:relative;z-index:1}
+.bg{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--fog);font-weight:500;border-bottom:1px solid rgba(154,142,126,.3);padding-bottom:3px;transition:color .3s,border-color .3s}
+.bg:hover{color:var(--g1);border-color:var(--g1)}
 
 /* HERO */
 .hero{min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;z-index:1;padding:0 72px}
-.hh1{font-family:var(--fd);font-weight:300;line-height:.92;letter-spacing:-.028em;color:var(--cream);margin-bottom:40px;font-size:var(--td)}
-.hh1 em{font-style:italic;color:var(--g1)}
-.lm{overflow:hidden;display:block}
-.li{display:block}
+#hcv{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 2.5s}
+#hcv.on{opacity:1}
+.hvl{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(201,168,76,.12) 50%,transparent);pointer-events:none}
 .hi{max-width:1300px;width:100%;margin:0 auto;padding-top:130px;padding-bottom:80px;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;position:relative;z-index:2}
 @media(max-width:1040px){.hi{grid-template-columns:1fr}.hero{padding:0 24px}}
-
 .heb{display:inline-flex;align-items:center;gap:16px;font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:32px;overflow:hidden}
-.hel{width:28px;height:1px;background:var(--g1)}
+.hel{width:0;height:1px;background:var(--g1);transition:width 1.2s var(--expo)}
+.hh1{font-family:var(--fd);font-weight:300;line-height:.92;letter-spacing:-.028em;color:var(--cream);margin-bottom:40px}
+.hh1 em{font-style:italic;color:var(--g1)}
+.lm{overflow:hidden;display:block}
+.li{display:block;transform:translateY(112%);transition:transform 1.2s var(--expo)}
+.lm:nth-child(1) .li{font-size:var(--td)}
 .lm:nth-child(2) .li{font-size:clamp(1.7rem,4.2vw,3.9rem);color:var(--fog);padding-left:.1em}
 .lm:nth-child(3) .li{font-size:var(--td)}
-
-.hsub{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:520px;font-weight:300}
-.hact{display:flex;align-items:center;gap:32px;margin-top:48px;flex-wrap:wrap}
-.hcard{opacity:1;transform:none;padding:44px 40px;position:relative}
-@media(max-width:1040px){.hcard{margin-top:40px}}
-
-.bp{display:inline-flex;align-items:center;gap:12px;background:var(--g1);color:var(--void);padding:17px 38px;font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--expo);text-decoration:none;border:none;cursor:pointer}
-.bp:hover{transform:translateY(-3px)}
-.bg{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--fog);font-weight:500;border-bottom:1px solid rgba(154,142,126,.3);padding-bottom:3px;transition:color .3s,border-color .3s;text-decoration:none}
-.bg:hover{color:var(--g1);border-color:var(--g1)}
+.hsub{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:520px;font-weight:300;opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s}
+.hact{display:flex;align-items:center;gap:32px;margin-top:48px;flex-wrap:wrap;opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.h-auth{margin-top:20px;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(154,142,126,.45);opacity:0;transition:opacity .9s .9s}
+.h-auth.on{opacity:1}
+.hcard{background:rgba(14,14,26,.8);border:1px solid rgba(201,168,76,.16);backdrop-filter:blur(40px) saturate(160%);padding:44px 40px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);opacity:0;transform:translateX(40px);transition:opacity 1s,transform 1s;transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);}
+.hcard::before{content:'';position:absolute;top:0;left:0;width:60px;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
+.hcard.on{opacity:1;transform:translateX(0)}
+.hcl{font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:36px;display:flex;align-items:center;gap:10px}
+.hcl::before{content:'';width:18px;height:1px;background:var(--g2)}
+.sr{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:16px 6px;border-bottom:1px solid rgba(201,168,76,.055);transition:background .3s}
+.sr:last-of-type{border-bottom:none}.sr:hover{background:rgba(201,168,76,.025)}
+.sn2{font-family:var(--fd);font-size:3.2rem;font-weight:300;color:var(--g1);line-height:1}
+.sl2{font-size:var(--sm);color:var(--fog);text-align:right;line-height:1.4;max-width:140px}
+.hcq{margin-top:28px;padding-top:24px;border-top:1px solid rgba(201,168,76,.08);font-family:var(--fd);font-style:italic;font-size:.88rem;color:var(--fog);line-height:1.65}
+.scr-ind{position:absolute;bottom:44px;left:72px;display:flex;align-items:center;gap:18px;font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.st{width:56px;height:1px;background:rgba(90,82,72,.25);position:relative;overflow:hidden}
+.stf{position:absolute;inset:0;background:var(--g1);transform:translateX(-100%);animation:ss 3.5s ease-in-out 3s infinite}
+@keyframes ss{0%{transform:translateX(-100%)}50%{transform:translateX(0)}100%{transform:translateX(100%)}}
+@media(max-width:1040px){.scr-ind{display:none}}
 
 /* TICKER */
 .tb{background:var(--g1);padding:12px 0;overflow:hidden;position:relative;z-index:2}
-.tt{display:inline-flex;gap:50px;animation:tk 55s linear infinite;white-space:nowrap}
+.tt{display:inline-flex;gap:50px;animation:tk var(--ticker-duration) linear infinite;white-space:nowrap}
 .tt:hover{animation-play-state:paused}
 .ti{font-size:var(--nano);font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--void);flex-shrink:0}
 .td2{width:3px;height:3px;background:rgba(2,2,4,.25);border-radius:50%;align-self:center;flex-shrink:0}
 @keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* SECTIONS */
-.sec{padding:160px 0;position:relative;z-index:1}
-.w{max-width:1300px;margin:0 auto;padding:0 72px}
-@media(max-width:640px){.w{padding:0 24px}.sec{padding:90px 0}}
-.ey{display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px}
-.sn{position:absolute;top:40px;right:72px;font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--dim);font-weight:500}
-.sh{font-family:var(--fd);font-size:var(--h1);font-weight:400;line-height:1.04;letter-spacing:-.015em;color:var(--cream);}
-.sh em{font-style:italic;color:var(--g1)}
-.sl{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:500px;font-weight:300}
+/* PHILOSOPHY */
+.phil{min-height:100svh;background:var(--abyss);display:flex;align-items:center;justify-content:center;padding:120px 72px;text-align:center;position:relative;overflow:hidden}
+.porb{position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(201,168,76,.046) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:orb 9s ease-in-out infinite alternate;pointer-events:none}
+.porb2{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.03) 0%,transparent 65%);border-radius:50%;top:30%;left:25%;animation:orb 13s ease-in-out 2s infinite alternate;pointer-events:none}
+@keyframes orb{0%{transform:translate(-50%,-50%) scale(.85);opacity:.5}100%{transform:translate(-50%,-50%) scale(1.2);opacity:1}}
+.pi{position:relative;z-index:2;max-width:1000px}
+.phl{width:0;height:1px;background:var(--g1);margin:0 auto 52px;transition:width 1.6s var(--expo)}
+.phl.on{width:56px}
+.pht{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.6rem);font-weight:300;font-style:italic;line-height:1.18;color:var(--cream);letter-spacing:-.01em;opacity:0;}
+.pht em{color:var(--g1)}
+.pha{margin-top:40px;font-size:var(--nano);letter-spacing:.36em;text-transform:uppercase;color:var(--dim);opacity:0;}
+.typewriter-cursor{display:inline-block;width:3px;height:1em;background:var(--g1);margin-left:4px;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* READINESS SCORE */
+.readiness-sec{background:var(--abyss);padding:130px 72px;}
+.readiness-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+@media(max-width:900px){.readiness-grid{grid-template-columns:1fr}}
+.quiz-container{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.14);padding:52px;position:relative;border-top:1px solid rgba(255,255,255,0.05);}
+.quiz-container::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
+.flbl{font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);display:block;margin-bottom:36px;font-weight:600}
+.quiz-progress-bar{width:100%;height:3px;background:rgba(201,168,76,.1);margin-bottom:32px;position:relative;}
+.quiz-progress-fill{height:100%;background:var(--g1);width:0%;transition:width .5s var(--expo);}
+.quiz-question{font-size:var(--lead);color:var(--cream);margin-bottom:28px;line-height:1.6;font-family:var(--fd);}
+.quiz-options{display:flex;flex-direction:column;gap:12px;}
+.quiz-option{width:100%;padding:18px 20px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);color:var(--cream);font-family:var(--fb);font-size:var(--body);text-align:left;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:14px;}
+.quiz-option:hover{background:rgba(201,168,76,.1);border-color:var(--g1);transform:translateX(6px);}
+.quiz-option.selected{background:var(--g1);color:var(--void);border-color:var(--g1);}
+.quiz-nav{display:flex;gap:16px;margin-top:28px;}
+.quiz-result{display:none;padding-top:32px;border-top:1px solid rgba(201,168,76,.1);}
+.result-score-wrap{display:flex;align-items:center;gap:28px;margin-bottom:32px;}
+.result-score{font-family:var(--fd);font-size:6rem;font-weight:300;color:var(--g1);line-height:1;}
+.result-label{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:6px;}
+.result-title{font-size:var(--lead);color:var(--cream);}
+.result-rec{background:rgba(201,168,76,.05);padding:24px;border:1px solid rgba(201,168,76,.1);margin-bottom:24px;}
+.result-rec-title{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);margin-bottom:10px;}
+.result-rec-text{font-size:var(--body);color:var(--cream);line-height:1.7;}
+.score-legend{display:flex;flex-direction:column;gap:16px;padding:40px;background:var(--glow3);border:1px solid rgba(201,168,76,.1);}
+.score-item{display:flex;gap:16px;align-items:flex-start;}
+.score-badge{width:50px;height:50px;border:2px solid var(--g1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g1);font-size:.65rem;font-weight:700;}
+.score-badge.med{border-color:rgba(201,168,76,.5);color:var(--fog);}
+.score-badge.low{border-color:rgba(201,168,76,.3);color:var(--dim);}
+.score-badge.crit{border-color:rgba(201,168,76,.15);color:var(--dim);}
+.score-item-title{font-size:var(--body);color:var(--cream);font-weight:500;margin-bottom:4px;}
+.score-item-desc{font-size:var(--sm);color:var(--fog);line-height:1.5;}
 
 /* STORY */
-.story-chapter{min-height:100svh;display:flex;align-items:center;background:var(--deep);position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.06);padding:120px 72px}
-.story-chapter-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;width:100%}
-@media(max-width:960px){.story-chapter-inner{grid-template-columns:1fr;gap:40px;padding:100px 24px}}
-.spn{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none}
-.story-ch-label{font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1}
-.story-ch-eye{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.story-ch-eye::before{content:'';width:24px;height:1px;background:var(--g1)}
-.story-ch-head{font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1}
-.story-ch-body{font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300}
-.story-ch-body p+p{margin-top:20px}
-.story-ch-quote{margin-top:32px;padding:24px 28px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03)}
+#story{position:relative;z-index:1;}
+.story-chapter{min-height:100svh;display:flex;align-items:center;background:var(--deep);position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.06);}
+.story-chapter:last-child{border-bottom:none}
+.story-chapter-inner{max-width:1300px;margin:0 auto;padding:120px 72px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;width:100%;position:relative;z-index:2;}
+@media(max-width:960px){.story-chapter-inner{grid-template-columns:1fr;gap:40px;padding:100px 24px;}}
+.story-ch-left{position:relative;}
+.spn{font-family:var(--fd);font-size:clamp(8rem,18vw,16rem);font-weight:300;color:rgba(201,168,76,.05);line-height:1;letter-spacing:-.04em;position:absolute;top:-40px;left:-20px;pointer-events:none;user-select:none;transition:color 1s;}
+.story-chapter.vis .spn{color:rgba(201,168,76,.08);}
+.story-ch-label{font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:rgba(201,168,76,.4);font-weight:500;margin-bottom:10px;position:relative;z-index:1;}
+.story-ch-eye{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
+.story-ch-eye::before{content:'';width:0;height:1px;background:var(--g1);transition:width .8s var(--expo);}
+.story-chapter.vis .story-ch-eye::before{width:24px;}
+.story-ch-head{font-family:var(--fd);font-size:clamp(2rem,4vw,4rem);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1;opacity:0;transform:translateY(30px);}
+.story-chapter.vis .story-ch-head{opacity:1;transform:translateY(0);transition:opacity .9s var(--expo),transform .9s var(--expo);}
+.story-ch-right{opacity:0;transform:translateY(24px);}
+.story-chapter.vis .story-ch-right{opacity:1;transform:translateY(0);transition:opacity .9s .2s var(--expo),transform .9s .2s var(--expo);}
+.story-ch-body{font-size:var(--lead);color:var(--fog);line-height:1.9;font-weight:300;}
+.story-ch-body p+p{margin-top:20px;}
+.story-ch-quote{margin-top:32px;padding:24px 28px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03);}
+.story-ch-quote p{font-family:var(--fd);font-size:1.1rem;font-style:italic;color:var(--cream);line-height:1.6;}
+.story-ch-progress{position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:800;opacity:0;transition:opacity .5s;}
+.story-ch-progress.vis{opacity:1;}
+.scp-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.25);transition:background .4s,transform .4s var(--expo);cursor:pointer;}
+.scp-dot.on{background:var(--g1);transform:scale(1.5);}
+.story-ambience{position:absolute;inset:0;pointer-events:none;}
+.story-line-v{position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.08) 40%,rgba(201,168,76,.08) 60%,transparent);}
+@media(max-width:640px){.spn{font-size:clamp(6rem,22vw,10rem);top:-20px;left:-10px;}}
 
 /* METHOD */
-.msc{background:var(--dark)}
+.msc{background:var(--dark);position:relative;overflow:hidden}
+.mamb{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 65%);top:-200px;right:-180px;border-radius:50%;filter:blur(100px);pointer-events:none}
 .mhd{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:80px}
 @media(max-width:900px){.mhd{grid-template-columns:1fr;gap:28px}}
 .mg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
 @media(max-width:900px){.mg{grid-template-columns:1fr}}
-.mc{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:56px 44px;position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--expo);opacity:1;transform:none}
-.mc:hover{border-color:rgba(201,168,76,.3);transform:translateY(-8px)}
-.mi{width:48px;height:48px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:rgba(201,168,76,.04)}
-.mn{font-family:var(--fd);font-size:4rem;font-weight:300;color:rgba(201,168,76,.07);line-height:1;margin-bottom:14px;display:block}
+.mc{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:56px 44px;position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--expo);opacity:0;transform:translateY(60px);transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);animation:breathe 8s ease-in-out infinite;}
+.mc.on{opacity:1;transform:translateY(0)}
+.mc:hover{border-color:rgba(201,168,76,.3);transform:translateY(-8px);animation-play-state:paused;}
+.mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo)}
+.mc:hover::after{transform:scaleX(1)}
+.mi{width:48px;height:48px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:rgba(201,168,76,.04);transition:border-color .4s,background .4s}
+.mc:hover .mi{border-color:var(--g1);background:var(--glow)}
+.mi svg{width:20px;height:20px;stroke:var(--g1);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.mn{font-family:var(--fd);font-size:4rem;font-weight:300;color:rgba(201,168,76,.07);line-height:1;margin-bottom:14px;display:block;transition:color .4s}
+.mc:hover .mn{color:rgba(201,168,76,.28)}
 .mt{font-family:var(--fd);font-size:1.55rem;font-weight:500;color:var(--cream);margin-bottom:16px}
 .mb{font-size:var(--body);color:var(--fog);line-height:1.9}
 .mtag{display:inline-block;margin-top:24px;font-size:.53rem;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);border:1px solid rgba(201,168,76,.15);padding:5px 14px}
+.method-flow{display:flex;align-items:center;justify-content:center;gap:0;margin-top:72px;padding:40px;border:1px solid rgba(201,168,76,.07);background:var(--glow3);overflow:hidden;flex-wrap:wrap;}
+@media(max-width:640px){.method-flow{flex-direction:column;gap:12px}}
+.mf-step{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 32px;opacity:0;transform:translateY(20px);}
+.mf-step.on{opacity:1;transform:translateY(0);transition:opacity .6s var(--expo),transform .6s var(--expo);}
+.mf-icon{width:52px;height:52px;border:1px solid rgba(201,168,76,.22);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--g1);background:rgba(201,168,76,.04);transition:background .4s,border-color .4s;}
+.mf-step:hover .mf-icon{background:rgba(201,168,76,.1);border-color:var(--g1)}
+.mf-label{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--cream);font-weight:600}
+.mf-sub{font-size:.52rem;letter-spacing:.14em;color:var(--dim);margin-top:4px}
+.mf-arrow{display:flex;align-items:center;padding:0 8px;opacity:0;}
+.mf-arrow.on{opacity:1;transition:opacity .8s .3s;}
+.mf-arrow svg{width:48px;height:8px;overflow:visible}
+.mf-arrow path{stroke:var(--g3);stroke-width:1;fill:none;stroke-dasharray:100;stroke-dashoffset:100;}
+.mf-arrow.on path{stroke-dashoffset:0;transition:stroke-dashoffset 1s .4s ease;}
+@media(max-width:640px){.mf-arrow{transform:rotate(90deg)}}
+
+/* STRATEGIC PULL QUOTE */
+.strategic-pull{margin-top:48px;padding:32px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03);max-width:600px;}
+.strategic-pull p{font-family:var(--fd);font-style:italic;font-size:1.1rem;color:var(--cream);line-height:1.7;margin-bottom:12px;}
+.strategic-pull a{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;display:inline-flex;align-items:center;gap:8px;}
+.strategic-pull a:hover{gap:14px;}
+
+/* PERFORMANCE PODS */
+.pods-sec{background:var(--abyss);padding:130px 72px;}
+.pods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px;}
+@media(max-width:900px){.pods-grid{grid-template-columns:1fr}}
+.pod-card{background:var(--glow3);border:1px solid rgba(201,168,76,.1);padding:48px 40px;text-align:center;transition:all .4s var(--expo);transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);animation:breathe 8s ease-in-out infinite 2s;}
+.pod-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-8px);animation-play-state:paused;}
+.pod-icon{width:64px;height:64px;border:1px solid rgba(201,168,76,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;background:rgba(201,168,76,.05)}
+.pod-icon svg{width:28px;height:28px;stroke:var(--g1);fill:none;stroke-width:1.5}
+.pod-num{font-family:var(--fd);font-size:3rem;font-weight:300;color:rgba(201,168,76,.15);margin-bottom:16px}
+.pod-title{font-family:var(--fd);font-size:1.4rem;color:var(--cream);margin-bottom:16px}
+.pod-desc{font-size:var(--body);color:var(--fog);line-height:1.8}
+.pods-visual{max-width:800px;margin:64px auto 0;padding:48px;border:1px solid rgba(201,168,76,.12);background:var(--glow3);text-align:center;border-top:1px solid rgba(255,255,255,0.05);}
+.pods-visual-title{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);margin-bottom:32px}
+.pods-avatars{display:flex;justify-content:center;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.pod-avatar{width:80px;height:80px;border-radius:50%;border:2px solid var(--g1);display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,.1);color:var(--g1);font-size:var(--nano);font-weight:600}
+.pod-avatar.you{background:var(--g1);color:var(--void)}
+.pod-avatar.peer{border-style:solid;border-color:rgba(201,168,76,.4);color:var(--fog)}
+.pod-avatar.mentor{border-style:dashed;border-color:var(--g2);color:var(--g2)}
+
+/* COMPARISON */
+.csc{background:var(--abyss);position:relative;overflow:hidden}
+.ctw{overflow-x:auto;margin-top:64px;-webkit-overflow-scrolling:touch}
+.ct{width:100%;min-width:700px;border-collapse:collapse;border:1px solid rgba(201,168,76,.07)}
+.ct th{padding:18px 24px;text-align:left;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;font-weight:600;font-family:var(--fb);border-bottom:1px solid rgba(201,168,76,.1)}
+.ct th:first-child{color:var(--fog)}
+.ct th.cu{background:var(--glow);color:var(--g1);border-left:1px solid rgba(201,168,76,.22);border-right:1px solid rgba(201,168,76,.22)}
+.ct th.cm{color:var(--dim)}
+.ct td{padding:16px 24px;border-bottom:1px solid rgba(201,168,76,.035);font-size:var(--body);color:var(--fog);vertical-align:middle;transition:background .3s}
+.ct tr:hover td{background:rgba(201,168,76,.013)}
+.ct td.ft{color:var(--cream);font-weight:400}
+.ct td.cu{background:var(--glow3);color:var(--cream);font-weight:500;border-left:1px solid rgba(201,168,76,.12);border-right:1px solid rgba(201,168,76,.12)}
+.ct tr:last-child td{border-bottom:none}
+.ck{color:var(--g1)}.cx{color:var(--dim)}
+.cbadge{display:inline-block;background:var(--g1);color:var(--void);font-size:.44rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:3px 8px;margin-left:8px;vertical-align:middle}
+.ct-disc{font-size:.58rem;color:var(--dim);font-style:italic;font-family:var(--fd);margin-top:18px;line-height:1.65;padding:0 2px}
+
+/* PROOF */
+.prf{background:linear-gradient(135deg,#A87820 0%,#C9A84C 45%,#D4B460 75%,#A87820 100%);padding:130px 72px;position:relative;overflow:hidden}
+.prd{position:absolute;top:-80px;left:32px;font-family:var(--fd);font-size:26rem;color:rgba(2,2,4,.07);line-height:1;pointer-events:none;user-select:none}
+.pri{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:80px;align-items:center;position:relative;z-index:1}
+@media(max-width:900px){.pri{grid-template-columns:1fr;gap:48px}.prf{padding:80px 24px}}
+.prq{font-family:var(--fd);font-size:clamp(1.9rem,3.8vw,3.5rem);font-weight:400;font-style:italic;line-height:1.2;color:var(--void)}
+.prq .pw{display:inline;color:rgba(2,2,4,.25);transition:color .4s,text-shadow .4s;}
+.prq .pw.lit{color:rgba(2,2,4,1)}
+.prq-underline{display:block;width:0;height:2px;background:rgba(2,2,4,0.35);margin-top:12px;transition:width 1.2s var(--expo);}
+.prq-underline.on{width:100%}
+.prw{font-size:var(--sm);letter-spacing:.18em;text-transform:uppercase;color:rgba(2,2,4,.5);font-weight:600;margin-top:28px;display:flex;align-items:center;gap:14px}
+.prw::before{content:'';width:20px;height:1px;background:rgba(2,2,4,.4)}
+.psg{display:grid;grid-template-columns:1fr 1fr;gap:3px;min-width:210px}
+.ps{background:rgba(2,2,4,.1);padding:22px 20px;text-align:center}
+.psn{font-family:var(--fd);font-size:2.4rem;font-weight:400;color:var(--void);line-height:1;display:block;margin-bottom:4px}
+.psl{font-size:.67rem;color:rgba(2,2,4,.55);line-height:1.3}
+
+/* TEXT SCRUB */
+.scrub-wrap{height:180vh;position:relative}
+.scrub-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--void);overflow:hidden;}
+.scrub-bg-text{position:absolute;font-family:var(--fd);font-size:clamp(8rem,20vw,18rem);font-weight:300;color:rgba(201,168,76,.025);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;letter-spacing:-.04em;}
+.scrub-inner{text-align:center;max-width:900px;padding:0 48px;position:relative;z-index:2;}
+.scrub-label{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:rgba(201,168,76,.3);margin-bottom:40px;}
+.scrub-line{font-family:var(--fd);font-size:clamp(2rem,4.5vw,4.5rem);font-weight:300;line-height:1.1;letter-spacing:-.018em;color:rgba(201,168,76,.12);transition:color .5s;margin:0;display:block;}
+.scrub-line.active{color:var(--cream)}
+.scrub-dot{color:var(--g1);font-size:clamp(2rem,4.5vw,4.5rem);display:inline;opacity:.3;transition:opacity .4s;}
+.scrub-dot.active{opacity:1}
+
+/* BIG STATS */
+.bss{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.07);border-bottom:1px solid rgba(201,168,76,.07)}
+@media(max-width:768px){.bss{grid-template-columns:repeat(2,1fr)}}
+.bs{padding:60px 40px;border-right:1px solid rgba(201,168,76,.07);text-align:center;position:relative;overflow:hidden;transition:background .4s;opacity:0;transform:translateY(32px)}
+.bs.on{opacity:1;transform:translateY(0);transition:opacity .8s var(--expo),transform .8s var(--expo);}
+.bs:last-child{border-right:none}
+.bs:hover{background:rgba(201,168,76,.03)}
+.bs::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .5s var(--expo)}
+.bs:hover::after{transform:scaleX(1)}
+.ring-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:110px;height:110px;margin-bottom:16px}
+.ring-svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(201,168,76,.07);stroke-width:2}
+.ring-fg{fill:none;stroke:var(--g1);stroke-width:2;stroke-linecap:round}
+.bsn{font-family:var(--fd);font-size:clamp(3.6rem,5.2vw,5.5rem);font-weight:300;color:var(--g1);line-height:1;display:block}
+.bsl{font-size:var(--sm);color:var(--fog);line-height:1.55}
 
 /* SUBJECTS */
-.subsc{background:var(--dark);overflow:hidden}
+.subsc{background:var(--dark);overflow:hidden;position:relative}
 .subi{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px}
 @media(max-width:900px){.subi{grid-template-columns:1fr;gap:28px}}
-.ht{display:flex;gap:2px;cursor:grab;user-select:none;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:40px;margin:0 -72px;padding-left:72px;padding-right:72px}
+.ht{display:flex;gap:2px;cursor:grab;user-select:none;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
 .ht::-webkit-scrollbar{display:none}
 .ht:active{cursor:grabbing}
-.sc2{flex:0 0 370px;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:48px 38px;position:relative;overflow:hidden;transition:border-color .4s, transform 0.4s ease;scroll-snap-align:start}
-.sc2:hover{border-color:rgba(201,168,76,.28);transform:translateY(-8px)}
-.scnum{font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block}
-.sctg{font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px}
+.sc2{flex:0 0 370px;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:48px 38px;position:relative;overflow:hidden;transition:border-color .4s;opacity:0;transform:translateX(40px);transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);animation:breathe 8s ease-in-out infinite;}
+.sc2.on{opacity:1;transform:translateX(0);transition:opacity .8s var(--expo),transform .8s var(--expo);}
+.sc2:hover{border-color:rgba(201,168,76,.28);animation-play-state:paused;}
+.sc2::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo)}
+.sc2:hover::after{transform:scaleX(1)}
+.sc2.lrw-card{border-color:rgba(201,168,76,.18);background:rgba(201,168,76,.03)}
+.sc2.lrw-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
+.sc2-highlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 80px at var(--hx,50%) var(--hy,0%),rgba(201,168,76,.06),transparent);opacity:0;transition:opacity .3s}
+.sc2:hover .sc2-highlight{opacity:1}
+.scnum{font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block;transition:color .4s}
+.sc2:hover .scnum{color:rgba(201,168,76,.25)}
+.sctg{font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sctg-badge{background:rgba(201,168,76,.12);color:var(--g1);font-size:.45rem;padding:2px 8px;letter-spacing:.18em}
 .scti{font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px}
 .scb{font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px}
-.scl{list-style:none;margin-bottom:24px}
-.scl li{font-size:.78rem;color:var(--fog);display:flex;gap:12px;line-height:1.5;padding:5px 0}
+.diff-bar{margin-bottom:20px}
+.diff-label{font-size:.45rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.diff-track{height:2px;background:rgba(201,168,76,.08);width:100%;overflow:hidden}
+.diff-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transform-origin:left;transform:scaleX(0);transition:transform 1s var(--expo)}
+.diff-fill.on{transform:scaleX(var(--dw))}
+.scl li{font-size:.78rem;color:var(--fog);display:flex;gap:12px;line-height:1.5;padding:5px 0;opacity:0;transform:translateX(-8px);transition:opacity .5s,transform .5s}
+.scl li.on{opacity:1;transform:translateX(0)}
+.scl li:nth-child(even){transform:translateX(8px)}
+.scl li:nth-child(even).on{transform:translateX(0)}
 .scl li::before{content:'—';color:var(--g1);flex-shrink:0}
-.sc-link{display:inline-flex;align-items:center;gap:8px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;text-decoration:none}
-.sc-link:hover{gap:14px}
+.sc-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;}
+.sc-link:hover{gap:14px;}
 .hh{display:flex;align-items:center;gap:12px;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:28px}
+.ha{color:var(--g1);animation:nd 2.2s ease-in-out infinite}
+@keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+
+/* BREATHING ANIMATION */
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 40px 100px rgba(0,0,0,.8); }
+  50% { transform: translateY(-4px) scale(1.005); box-shadow: 0 50px 110px rgba(0,0,0,.85), 0 0 30px rgba(201,168,76,.05); }
+}
+
+/* PRICING */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:768px){.pgrid{grid-template-columns:1fr;max-width:380px}}
+.pintro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:72px}
+@media(max-width:900px){.pintro{grid-template-columns:1fr;gap:32px}}
+.mp{background:var(--glow3);border:1px solid rgba(201,168,76,.12);border-left:3px solid var(--g1);padding:32px 34px;border-top:1px solid rgba(255,255,255,0.05);}
+.mpq{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--cream);line-height:1.7;margin-bottom:14px}
+.mpby{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g1)}
+.pc{border:1px solid rgba(201,168,76,.11);padding:48px 40px;background:var(--glow3);position:relative;overflow:hidden;transition:transform .5s var(--expo),border-color .4s;opacity:0;transform:translateY(50px) scale(.98);transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);animation:breathe 8s ease-in-out infinite 4s;}
+.pc.on{opacity:1;transform:translateY(0) scale(1)}
+.pc:hover{transform:translateY(-10px) rotateX(2deg);border-color:rgba(201,168,76,.35);animation-play-state:paused;}
+.pc.feat{background:var(--glow);border-color:var(--g1);box-shadow:0 0 90px rgba(201,168,76,.09),0 40px 90px rgba(0,0,0,.5)}
+.fb{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--g1);color:var(--void);font-size:.46rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;padding:5px 18px;white-space:nowrap}
+.ptier{font-size:.57rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px}
+.pprice{font-family:var(--fd);font-size:3.8rem;font-weight:400;color:var(--cream);line-height:1;margin-bottom:4px}
+.pper{font-size:var(--sm);color:var(--fog);margin-bottom:32px}
+.pdiv{height:1px;background:rgba(201,168,76,.09);margin:24px 0}
+.pfts{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.pfts li{font-size:var(--body);color:var(--fog);display:flex;align-items:flex-start;gap:10px;line-height:1.45}
+.pfts li::before{content:'';width:15px;height:15px;flex-shrink:0;margin-top:2px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Ccircle cx='7.5' cy='7.5' r='7' stroke='%23C9A84C' fill='none'/%3E%3Cpath d='M4.5 7.5l2 2L10.5 5' stroke='%23C9A84C' stroke-width='1.3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")center/contain no-repeat}
+.pb{display:block;width:100%;padding:16px;border:1px solid var(--g1);color:var(--g1);font-family:var(--fb);font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-align:center;position:relative;overflow:hidden;transition:color .3s, transform .1s;}
+.pb:active{transform:scale(0.98);}
+.pb::before{content:'';position:absolute;inset:0;background:var(--g1);transform:translateX(-101%);transition:transform .4s var(--expo)}
+.pb:hover::before,.pc.feat .pb::before{transform:translateX(0)}
+.pb:hover,.pc.feat .pb{color:var(--void)}
+.pb span{position:relative;z-index:1}
+.proof-rows{display:flex;flex-wrap:wrap;gap:14px 24px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(201,168,76,.07);}
+.proof-row{font-size:.57rem;letter-spacing:.12em;color:var(--dim);display:flex;align-items:center;gap:8px;}
+.proof-row::before{content:'·';color:var(--g3)}
+.urgency-line{text-align:center;margin-top:28px;font-size:var(--sm);color:var(--dim);font-family:var(--fd);font-style:italic;}
+.authority-line{text-align:center;margin-top:14px;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(154,142,126,.35);}
+.post-buy{max-width:600px;margin:28px auto 0;border:1px solid rgba(201,168,76,.07);}
+.post-buy-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);background:none;border:none;cursor:pointer;transition:color .3s;gap:12px;}
+.post-buy-q:hover{color:var(--g1)}
+.post-buy-ico{width:16px;height:16px;border:1px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .4s var(--expo)}
+.post-buy-ico svg{width:7px;height:7px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .4s var(--expo)}
+.post-buy.op .post-buy-ico{transform:rotate(45deg)}
+.post-buy-body{max-height:0;overflow:hidden;transition:max-height .5s var(--expo)}
+.post-buy-inner{padding:0 20px 20px;font-size:var(--body);color:var(--fog);line-height:1.9}
+
+/* SAMPLE FORM */
+.sampl{background:var(--dark)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:900px){.sgrid{grid-template-columns:1fr;gap:48px}}
+.sf2{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.14);padding:52px;position:relative;backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,0.05);}
+.sf2::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
+.ff{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.18);padding:14px 0;color:var(--cream);font-family:var(--fb);font-size:var(--body);font-weight:300;outline:none;display:block;margin-bottom:20px;transition:border-color .3s}
+.ff::placeholder{color:var(--dim)}
+.ff:focus{border-bottom-color:var(--g1)}
+.fs{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.18);padding:14px 0;color:var(--dim);font-family:var(--fb);font-size:var(--body);outline:none;display:block;margin-bottom:28px;transition:border-bottom-color .3s;-webkit-appearance:none}
+.fs:focus{border-bottom-color:var(--g1);color:var(--cream)}
+.fs option{background:var(--surf);color:var(--cream)}
+.fsub{width:100%;padding:17px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.68rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .3s var(--expo);display:block;cursor:pointer}
+.fsub:active{transform:scale(0.98);}
+.fsub::before{content:'';position:absolute;inset:0;background:var(--g0);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--expo)}
+.fsub:hover{transform:translateY(-2px)}.fsub:hover::before{transform:scaleX(1)}
+.fsub span{position:relative;z-index:1}
+.ffine{font-size:.6rem;color:var(--dim);margin-top:14px;line-height:1.55;font-family:var(--fd);font-style:italic}
+.form-success{text-align:center;padding:32px 0}
+.form-success .fsi{font-size:2.2rem;color:var(--g1);margin-bottom:16px;font-family:var(--fd)}
+.form-success .fss{font-size:var(--body);color:var(--fog);line-height:1.8}
 
 /* FAQ */
+.fqsc{background:var(--dark)}
 .fql{margin-top:64px}
 .fqi{border-bottom:1px solid rgba(201,168,76,.065)}
 .fqq{width:100%;display:flex;align-items:center;justify-content:space-between;padding:26px 0;text-align:left;font-size:var(--lead);color:var(--cream);font-weight:300;gap:28px;transition:color .3s;background:none;border:none;cursor:pointer}
 .fqq:hover{color:var(--g1)}
 .fqico{width:30px;height:30px;min-width:30px;border:1px solid rgba(201,168,76,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .3s,transform .5s var(--expo),border-color .3s}
-.fqico svg{width:11px;height:11px;stroke:var(--g1);fill:none;stroke-width:2;stroke-linecap:round}
-.fqb{max-height:0;overflow:hidden;transition:max-height .65s var(--expo), transform 0.6s ease;transform-origin:top;transform:perspective(1000px) rotateX(-90deg)}
+.fqico svg{width:11px;height:11px;stroke:var(--g1);fill:none;stroke-width:2;stroke-linecap:round;transition:transform .5s var(--expo)}
 .fqi.op .fqico{background:var(--g1);transform:rotate(45deg);border-color:var(--g1)}
 .fqi.op .fqico svg{stroke:var(--void)}
-.fqi.op .fqb{max-height:500px;transform:perspective(1000px) rotateX(0deg)}
+.fqb{max-height:0;overflow:hidden;transition:max-height .65s var(--expo)}
 .fqbi{padding:0 0 26px;font-size:var(--body);color:var(--fog);line-height:1.95;max-width:720px}
 
 /* FINAL CTA */
 .fcta{min-height:88svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 72px;background:var(--abyss);position:relative;overflow:hidden}
+.corb{position:absolute;width:1000px;height:1000px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 60%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:orb 11s ease-in-out infinite alternate;pointer-events:none}
+.ci{position:relative;z-index:2;max-width:900px}
+.cey{display:inline-flex;align-items:center;gap:16px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);margin-bottom:32px}
+.cey::before,.cey::after{content:'';width:28px;height:1px;background:var(--g1)}
 .ch{font-family:var(--fd);font-size:clamp(4rem,9vw,9rem);font-weight:300;font-style:italic;line-height:.94;letter-spacing:-.028em;color:var(--cream);margin-bottom:32px}
 .ch em{color:var(--g1)}
 .cp{font-size:var(--lead);color:var(--fog);max-width:500px;margin:0 auto 52px;line-height:1.9;font-weight:300}
 
-/* PANIC BUTTON */
-#panic-btn{
-  position:fixed;bottom:32px;left:32px;z-index:9000;
-  width:64px;height:64px;border-radius:50%;
-  background:var(--g1);color:var(--void);
-  border:none;cursor:pointer;font-family:var(--fd);font-size:0.7rem;
-  letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
-  box-shadow:0 10px 40px rgba(201,168,76,0.3);
-  transition:transform 0.3s ease, box-shadow 0.3s ease;
-  display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;
-}
-#panic-btn:hover{transform:scale(1.1);box-shadow:0 15px 50px rgba(201,168,76,0.5)}
-#panic-modal{
-  position:fixed;inset:0;z-index:9999;background:rgba(2,2,4,0.98);
-  display:none;align-items:center;justify-content:center;flex-direction:column;
-  backdrop-filter:blur(20px);
-}
-#panic-modal.active{display:flex}
-.breathing-circle{
-  width:200px;height:200px;border-radius:50%;
-  border:2px solid var(--g1);
-  animation:breatheCircle 4s ease-in-out infinite;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:40px;
-}
-@keyframes breatheCircle{
-  0%,100%{transform:scale(1);opacity:0.3}
-  50%{transform:scale(1.2);opacity:1}
-}
-
-/* BLOG REF */
-.blog-ref{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;
-  color:var(--g1);font-weight:600;margin-top:16px;
-  transition:gap 0.3s ease;position:relative;text-decoration:none;
-}
-.blog-ref:hover{gap:14px}
-
-/* PROGRESS */
-#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9100;width:0;transform-origin:left}
+/* BLOG SECTION */
+.bflt{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--dim);background:transparent;border:1px solid rgba(201,168,76,.12);padding:8px 18px;cursor:pointer;transition:all .3s;font-family:var(--fb);}
+.bflt:hover,.bflt.active{color:var(--void);background:var(--g1);border-color:var(--g1);}
+.blog-featured{display:block;background:var(--glow3);border:1px solid rgba(201,168,76,.16);border-left:3px solid var(--g1);padding:52px 56px;text-decoration:none;transition:border-color .4s,transform .5s var(--expo);position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,0.05);}
+.blog-featured::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo);}
+.blog-featured:hover{border-color:rgba(201,168,76,.4);transform:translateY(-4px);}
+.blog-featured:hover::after{transform:scaleX(1);}
+.bfeat-tag{font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:18px;}
+.bfeat-h{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.8rem);font-weight:400;color:var(--cream);line-height:1.15;margin-bottom:16px;}
+.bfeat-p{font-size:var(--lead);color:var(--fog);line-height:1.8;max-width:680px;margin-bottom:28px;font-weight:300;}
+.bfeat-meta{display:flex;align-items:center;justify-content:space-between;font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);}
+.bfeat-cta{color:var(--g1);letter-spacing:.22em;}
+.blog-card{display:block;background:var(--glow3);border:1px solid rgba(201,168,76,.07);padding:36px 32px;text-decoration:none;transition:border-color .4s,background .4s,transform .4s var(--expo);position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,0.05);}
+.blog-card:hover{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.04);transform:translateY(-4px);}
+.blog-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .5s var(--expo);}
+.blog-card:hover::after{transform:scaleX(1);}
+.bc-tag{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:12px;}
+.bc-h{font-family:var(--fd);font-size:1.15rem;font-weight:500;color:var(--cream);line-height:1.3;margin-bottom:10px;}
+.bc-p{font-size:var(--sm);color:var(--fog);line-height:1.7;margin-bottom:20px;}
+.bc-meta{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between;align-items:center;}
+.bc-meta span{color:var(--g1);}
+.blog-card.hidden{display:none;}
 
 /* FOOTER */
 footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 52px;position:relative;z-index:1}
+@media(max-width:640px){footer{padding:52px 24px}}
 .ftg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(201,168,76,.055);margin-bottom:44px}
 @media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}
 .flog{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
-.hub{color:rgba(201,168,76,.6)}
+.flog .hub{color:rgba(201,168,76,.6)}
+.ftag{font-size:var(--body);color:var(--dim);line-height:1.75;max-width:270px;font-family:var(--fd);font-style:italic}
 .fct{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:22px}
-.fls{list-style:none;display:flex;flex-direction:column;gap:13px}
-.fls a{font-size:var(--sm);color:var(--dim);transition:color .3s;text-decoration:none}
-.fls a:hover{color:var(--g1)}
-.f-disc{font-size:.57rem;color:var(--dim);line-height:1.7;text-align:center;font-family:var(--fd);font-style:italic;margin-top:20px;padding-top:20px;border-top:1px solid rgba(201,168,76,.05)}
+.fls{display:flex;flex-direction:column;gap:13px}
+.fls a{font-size:var(--sm);color:var(--dim);transition:color .3s;display:inline-flex;align-items:center;gap:8px}
+.fls a::before{content:'—';color:transparent;transition:color .3s}
+.fls a:hover{color:var(--g1)}.fls a:hover::before{color:var(--g1)}
+.fb2{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.fcl{font-family:var(--fd);font-style:italic;font-size:clamp(1.1rem,2vw,1.7rem);font-weight:300;color:rgba(201,168,76,.3);line-height:1.35;max-width:580px;transition:color .5s}
+.fcl:hover{color:var(--g1)}
+.fleg{font-size:.57rem;color:var(--dim);line-height:1.75;max-width:400px;text-align:right}
+.f-disc{border-top:1px solid rgba(201,168,76,.05);padding-top:20px;font-size:.57rem;color:var(--dim);line-height:1.7;text-align:center;font-family:var(--fd);font-style:italic}
 .f-disc strong{color:rgba(201,168,76,.4);font-style:normal;font-family:var(--fb);font-weight:400;letter-spacing:.1em}
 
-/* MOBILE */
-.nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0;cursor:pointer}
-.nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
-@media(max-width:960px){
-  .nav-links,.nc{display:none}
-  .nh{display:flex}
-  nav{padding:18px 24px;top:0}
+/* EXIT PANEL */
+#ep{position:fixed;bottom:-120%;left:50%;transform:translateX(-50%);width:min(520px,90vw);background:var(--surf);border:1px solid rgba(201,168,76,.2);border-bottom:none;padding:40px 48px;z-index:9000;transition:bottom .65s var(--expo);box-shadow:0 -24px 80px rgba(0,0,0,.7)}
+#ep.on{bottom:0}
+#ep::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent)}
+.epx{position:absolute;top:18px;right:22px;font-size:1rem;color:var(--dim);transition:color .3s;background:none;border:none;padding:4px;cursor:pointer}
+.epx:hover{color:var(--g1)}
+.ept{font-family:var(--fd);font-style:italic;font-size:1.3rem;color:var(--cream);margin-bottom:8px;line-height:1.35}
+.eps{font-size:var(--sm);color:var(--fog);margin-bottom:28px}
+.epa{display:flex;gap:16px;align-items:center}
+.epy{display:inline-flex;background:var(--g1);color:var(--void);padding:13px 30px;font-family:var(--fb);font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:background .3s}
+.epy:hover{background:var(--g0)}
+.epn{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);transition:color .3s;background:none;border:none;padding:4px;cursor:pointer}
+.epn:hover{color:var(--fog)}
+
+/* SPOTLIGHT */
+#spotlight{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0;transition:opacity .6s;background:radial-gradient(600px circle at var(--sx,50%) var(--sy,50%),rgba(201,168,76,.055) 0%,rgba(201,168,76,.02) 35%,transparent 70%);}
+#spotlight.on{opacity:1}
+
+/* MAGNETIC BUTTON WRAPPER */
+.mag-wrap{display:inline-block;position:relative}
+
+/* 3D TILT */
+.tilt-card{transform-style:preserve-3d;transition:transform .1s linear,box-shadow .3s}
+.tilt-card:hover{box-shadow:0 60px 120px rgba(0,0,0,.9),0 0 60px rgba(201,168,76,.07),inset 0 1px 0 rgba(201,168,76,.18)!important}
+
+/* COUNTER */
+.count-num{display:inline-block}
+
+/* SCRAMBLE */
+.scramble-head{will-change:contents}
+
+/* CLIP REVEAL */
+.clip-reveal{clip-path:inset(0 100% 0 0);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1)}
+.clip-reveal.on{clip-path:inset(0 0% 0 0)}
+
+/* MORPHING ORB */
+.morph-orb{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;transition:transform .8s cubic-bezier(.16,1,.3,1),width .8s,height .8s}
+
+/* GOLD FLASH on preloader complete */
+@keyframes goldFlash{0%{opacity:0}30%{opacity:.08}100%{opacity:0}}
+.gold-flash{position:fixed;inset:0;background:var(--g1);pointer-events:none;z-index:9990;animation:goldFlash .8s ease-out forwards}
+
+/* SECTION UNDERLINE DRAW */
+.draw-line{width:0;height:1px;background:linear-gradient(90deg,var(--g1),transparent);transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.draw-line.on{width:100%}
+
+/* HAPTIC FEEDBACK */
+@keyframes hapticClick {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
 }
+
+/* GOLDEN HOUR MODE */
+body.golden-hour {
+  --void: #0a0810;
+  --abyss: #0f0c18;
+  --deep: #141020;
+  background-image: linear-gradient(180deg, rgba(201,168,76,calc(0.04 + var(--bg-temp) * 0.02)) 0%, rgba(10,8,16,1) 100%);
+}
+
+/* REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
+  .li{transform:none!important}.fu{opacity:1!important;transform:none!important}.sh-mask-inner{transform:none!important}
+  .grain{animation:none!important;}
+  .sc2, .mc, .pc, .pod-card{animation:none!important;}
+}
+
+/* COMING SOON SUBJECT CARDS */
+.sc2.coming-soon{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.04);position:relative;}
+.sc2.coming-soon::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),var(--g0),var(--g1));}
+.sc2.coming-soon .sctg-badge{background:rgba(201,168,76,.25);color:var(--g0);}
+.coming-soon-overlay{position:absolute;inset:0;background:rgba(2,2,4,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;z-index:10;backdrop-filter:blur(2px);}
+.coming-soon-text{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px;}
+.coming-soon-desc{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:20px;}
+.coming-soon-form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:240px;}
+.coming-soon-input{width:100%;background:transparent;border:1px solid rgba(201,168,76,.3);padding:12px 16px;color:var(--cream);font-family:var(--fb);font-size:var(--sm);outline:none;transition:border-color .3s;text-align:center;}
+.coming-soon-input:focus{border-color:var(--g1);}
+.coming-soon-input::placeholder{color:var(--dim);}
+.coming-soon-btn{width:100%;padding:12px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;}
+.coming-soon-btn:hover{background:var(--g0);}
+.sc2.coming-soon:hover{border-color:rgba(201,168,76,.5);}
 </style>
 </head>
 <body>
+<div class="grain"></div>
+<div id="spotlight" aria-hidden="true"></div>
+<canvas id="ambient-cv" aria-hidden="true"></canvas>
+<canvas id="trail-cv" aria-hidden="true"></canvas>
+<canvas id="ink-cv" aria-hidden="true"></canvas>
+<div id="vignette" aria-hidden="true"></div>
+<div id="pg-border" aria-hidden="true"></div>
+<div id="transition-overlay"></div>
+<div class="letterbox top" id="lb-top"></div>
+<div class="letterbox bottom" id="lb-bot"></div>
+
+<div id="discovery-bar" aria-hidden="true">Most visited from: <span>Google · LinkedIn · NCA Facebook Groups</span> &nbsp;·&nbsp; 3 min read</div>
+<div id="exam-clock" aria-hidden="true" role="presentation"></div>
+<div id="reading-time" aria-hidden="true">3 min read</div>
+<div id="cd" role="presentation"></div>
+<div id="cr" role="presentation"><span id="cl"></span></div>
+<div id="prog" role="progressbar" aria-hidden="true"></div>
 
 <!-- PRELOADER -->
-<div id="pre">
-  <div class="pre-l">The NCA Hub</div>
-  <div class="pre-bw"><div class="pre-bf" id="pre-bf"></div></div>
-  <div class="pre-n" id="pre-n">0</div>
+<div id="pre" aria-label="Loading" role="status">
+  <div class="pre-half top" id="PRE_TOP"></div>
+  <div class="pre-half bot" id="PRE_BOT"></div>
+  <div class="pre-content">
+    <div class="pre-l" id="PL">The NCA Hub</div>
+    <div class="pre-bw"><div class="pre-bf" id="PF"></div></div>
+    <div class="pre-n" id="PN">0</div>
+    <div class="pre-s" id="PS">Initialising</div>
+  </div>
 </div>
 
-<!-- PANIC BUTTON -->
-<button id="panic-btn">I'm<br>Freaking<br>Out</button>
-<div id="panic-modal">
-  <div class="breathing-circle"><span style="color:var(--g1);font-family:var(--fd);font-size:1.2rem">Breathe</span></div>
-  <p style="font-family:var(--fd);font-size:1.5rem;color:var(--cream);margin-bottom:20px;text-align:center;max-width:600px;padding:0 40px">
-    "You have passed harder things. One question at a time."
-  </p>
-  <button onclick="document.getElementById('panic-modal').classList.remove('active')" style="background:transparent;border:1px solid var(--g1);color:var(--g1);padding:12px 32px;font-family:var(--fb);font-size:var(--nano);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer">
-    I'm Ready to Continue
-  </button>
+<!-- EXIT PANEL -->
+<div id="ep" role="dialog" aria-labelledby="ep-title">
+  <button class="epx" id="epx" aria-label="Close">✕</button>
+  <p class="ept" id="ep-title">Before you leave — know where you stand.</p>
+  <p class="eps">Take the 60-second Readiness Assessment. Get personalized feedback on your study plan.</p>
+  <div class="epa"><a href="#readiness" class="epy" id="epy">Get My Score</a><button class="epn" id="epn">No thanks</button></div>
 </div>
-
-<!-- OVERLAYS -->
-<div class="grain"></div>
-<div id="cd"></div>
-<div id="cr"><span id="cl"></span></div>
-<div id="prog"></div>
 
 <!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nl">THE Nca HUB</a>
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#" class="nl" aria-label="The NCA Hub — home">THE Nca HUB</a>
   <div class="nav-links">
-    <a href="#method">Method</a>
-    <a href="#story">Story</a>
-    <a href="#subjects">Subjects</a>
-    <a href="#pricing">Pricing</a>
-    <a href="https://www.thencahub.com/blog/index.html">Articles</a>
+    <a href="#method">Method<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="#story">Story<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="#pods">Pods<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="#subjects">Subjects<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="#pricing">Pricing<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="#sample">Free Chapter<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="blog/index.html">Articles<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
   </div>
   <a href="#readiness" class="nc"><span>Get My Score</span></a>
-  <button class="nh" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+  <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
+<div class="mob" id="mob" role="dialog" aria-label="Navigation menu">
+  <button class="mob-x" id="mobx" aria-label="Close menu">✕</button>
+  <a href="#method" class="mob-link">Method</a>
+  <a href="#story" class="mob-link">Story</a>
+  <a href="#pods" class="mob-link">Pods</a>
+  <a href="#subjects" class="mob-link">Subjects</a>
+  <a href="#pricing" class="mob-link">Pricing</a>
+  <a href="#sample" class="mob-link">Free Chapter</a>
+  <a href="blog/index.html" class="mob-link">Articles</a>
+  <a href="#readiness" class="bp mob-link" style="margin-top:16px;padding:17px 44px"><span>Get My Readiness Score</span></a>
+</div>
 
 <!-- HERO -->
-<section class="hero velocity-skew" id="hero">
+<section class="hero" id="hero" aria-label="Introduction">
+  <canvas id="hcv" aria-hidden="true"></canvas>
+  <div class="hvl" style="right:32%" aria-hidden="true"></div>
+  <div class="hvl" style="right:65%" aria-hidden="true"></div>
+  <div class="sn hero-p2" aria-hidden="true">01 / 08</div>
   <div class="hi">
-    <div>
-      <div class="heb"><div class="hel"></div><span>NCA PREPARATION — REIMAGINED</span></div>
-      <h1 class="hh1">
+    <div class="hero-p3">
+      <div class="heb"><div class="hel" id="HEL"></div><span id="HET">NCA PREPARATION — REIMAGINED</span></div>
+      <h1 class="hh1 split-heading" id="hero-headline">
         <span class="lm"><span class="li">Pass the NCA.</span></span>
         <span class="lm"><span class="li">Not in <em>years.</em></span></span>
         <span class="lm"><span class="li">This <em>cycle.</em></span></span>
       </h1>
-      <p class="hsub" id="hsub">
-        The NCA exam doesn't know you're an experienced lawyer. It grades you the same as everyone else. 
-        <a href="https://www.thencahub.com/blog/article.html?post=article-c1-failed-nca-exam" class="blog-ref">Failed before? Read this →</a>
-      </p>
-      <div class="hact" id="hact">
-        <a href="#readiness" class="bp magnetic-btn" data-cur="Score"><span>Get My Readiness Score →</span></a>
+      <p class="hsub" id="HSUB">The NCA exam doesn't know you're an experienced lawyer. It grades you the same as everyone else. These notes are the difference between sitting it again next cycle — or not. Built by someone who passed 4 NCA subjects in 3 months, starting with just one week to prepare.</p>
+      <div class="h-auth" id="HAUTH">Materials reviewed for accuracy · Accepted at every Canadian law society</div>
+      <div class="hact" id="HACT">
+        <a href="#readiness" class="bp" data-cur="Score"><span>Get My Readiness Score →</span></a>
         <a href="#sample" class="bg">Try Free Chapter</a>
       </div>
     </div>
-    <div class="hcard glass-card breathing" id="HC">
-      <div style="font-size:var(--nano);letter-spacing:.32em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:36px;display:flex;align-items:center;gap:10px">
-        <span style="width:18px;height:1px;background:var(--g2)"></span>Your Readiness Score
+    <div class="hcard sm hero-p4 tilt-card" id="HC" data-cur="Results">
+      <div class="hcl">Your Readiness Score</div>
+      <div id="readiness-intro">
+        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px;">
+          Answer 5 questions. Get personalized feedback on your study plan and timeline.
+        </p>
+        <a href="#readiness" class="bp" style="width:100%;text-align:center;justify-content:center;" data-cur="Assess"><span>Calculate My Score →</span></a>
       </div>
-      <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px;">
-        Answer 5 questions. Get personalized feedback on your study plan.
-      </p>
-      <a href="#readiness" class="bp magnetic-btn" style="width:100%;text-align:center;justify-content:center;"><span>Calculate My Score →</span></a>
+      <div class="hcq">"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</div>
     </div>
   </div>
+  <div class="scr-ind" aria-hidden="true"><div class="st"><div class="stf"></div></div>Scroll to explore</div>
 </section>
 
 <!-- TICKER -->
-<div class="tb">
-  <div class="tt">
-    <span class="ti">Administrative Law</span><span class="td2"></span>
-    <span class="ti">Constitutional Law</span><span class="td2"></span>
-    <span class="ti">Criminal Law</span><span class="td2"></span>
-    <span class="ti">Foundations of Canadian Law</span><span class="td2"></span>
-    <span class="ti">Professional Responsibility</span><span class="td2"></span>
-    <span class="ti">NCA Readiness Score</span><span class="td2"></span>
-    <span class="ti">Pass Guarantee</span><span class="td2"></span>
-    <span class="ti">Built by a Qualified Lawyer</span>
+<div class="tb" aria-hidden="true">
+  <div class="tt" id="ticker-track">
+    <span class="ti">Administrative Law</span><span class="td2"></span><span class="ti">Constitutional Law</span><span class="td2"></span><span class="ti">Criminal Law</span><span class="td2"></span><span class="ti">Foundations of Canadian Law</span><span class="td2"></span><span class="ti">Professional Responsibility</span><span class="td2"></span><span class="ti">Legal Research &amp; Writing</span><span class="td2"></span><span class="ti">NCA Readiness Score</span><span class="td2"></span><span class="ti">Pass Guarantee</span><span class="td2"></span><span class="ti">80-Page Precision Notes</span><span class="td2"></span><span class="ti">Built by a Qualified Lawyer</span><span class="td2"></span><span class="ti">Subject-Specific Drills</span><span class="td2"></span><span class="ti">CPLED LRW Guidance</span>
   </div>
 </div>
 
 <!-- PHILOSOPHY -->
-<section class="sec velocity-skew" id="philosophy" style="background:var(--abyss);text-align:center;padding:120px 72px">
-  <div class="w">
-    <div style="width:56px;height:1px;background:var(--g1);margin:0 auto 52px"></div>
-    <h2 class="sh" style="font-style:italic">
-      Whatever brought you to the NCA —<br>
-      the gate is passable.<br>
-      <em>We exist to prove it.</em>
-    </h2>
-    <p style="margin-top:40px;font-size:var(--nano);letter-spacing:.36em;text-transform:uppercase;color:var(--dim)">
-      <a href="https://www.thencahub.com/blog/article.html?post=article-d3-nca-indian-lawyers" style="color:var(--g1);text-decoration:none">For Indian-qualified lawyers →</a>
-      &nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="https://www.thencahub.com/blog/article.html?post=article-d4-nca-uk-based-lawyers" style="color:var(--g1);text-decoration:none">For UK-qualified lawyers →</a>
-    </p>
+<section class="phil" id="philosophy" aria-label="Our belief">
+  <div class="porb" aria-hidden="true"></div><div class="porb2" aria-hidden="true"></div>
+  <div class="morph-orb" id="MORPH_ORB" aria-hidden="true"></div>
+  <div class="pi">
+    <div class="phl" id="PHL"></div>
+    <p class="pht" id="PHT">Whatever brought you to the NCA —<br>the gate is passable.<br><em>We exist to prove it.</em></p>
+    <p class="pha" style="transition-delay:.35s">The belief behind everything we build</p>
   </div>
 </section>
 
-<!-- READINESS -->
-<section class="sec velocity-skew" id="readiness" style="background:var(--abyss)">
+<!-- READINESS SCORE SECTION -->
+<section class="readiness-sec sec" id="readiness" aria-label="Readiness Assessment">
   <div class="w">
-    <span class="ey">The Readiness Score</span>
-    <h2 class="sh">Know exactly where you stand.<br><em>Before you sit.</em></h2>
-    <p class="sl" style="max-width:700px;margin-top:24px">
-      Stop wondering "Is this enough?" Get a personalized assessment.
-      <br>
-      <a href="https://www.thencahub.com/blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-ref">Are 300-page notes actually worth it? →</a>
+    <span class="ey split-heading">The Readiness Score</span>
+    <div class="sh-mask-wrap">
+      <h2 class="sh split-heading">Know exactly where you stand.<br><em>Before you sit.</em></h2>
+    </div>
+    <p class="sl" style="max-width:700px;margin-top:24px;">
+      Stop wondering "Is this enough?" Get a personalized assessment of your preparation level and a clear study path forward.
     </p>
     
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:64px">
-      <div class="glass-card" style="padding:52px">
-        <span style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);display:block;margin-bottom:36px;font-weight:600">Calculate Your Score</span>
-        <div style="width:100%;height:3px;background:rgba(201,168,76,.1);margin-bottom:32px;position:relative">
-          <div style="height:100%;background:var(--g1);width:0%;transition:width .5s var(--expo)" id="quiz-progress"></div>
+    <div class="readiness-grid" style="margin-top:64px;">
+      <div class="quiz-container" id="quiz-container">
+        <span class="flbl">Calculate Your Score</span>
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress"></div></div>
+        <div class="quiz-question" id="quiz-question">Loading...</div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-nav" id="quiz-nav" style="display:none;">
+          <button class="bg" id="quiz-prev" style="display:none;">← Back</button>
         </div>
-        <div style="font-size:var(--lead);color:var(--cream);margin-bottom:28px;line-height:1.6;font-family:var(--fd)" id="quiz-question">Click below to start assessment</div>
-        <div style="display:flex;flex-direction:column;gap:12px" id="quiz-options">
-          <button class="bp" onclick="startQuiz()" style="width:100%;justify-content:center">Start Assessment</button>
+        
+        <div class="quiz-result" id="quiz-result">
+          <div class="result-score-wrap">
+            <div class="result-score" id="result-score">0</div>
+            <div>
+              <div class="result-label">Your Readiness Score</div>
+              <div class="result-title" id="result-title">Calculating...</div>
+            </div>
+          </div>
+          <div class="result-rec">
+            <div class="result-rec-title">Recommendation</div>
+            <div class="result-rec-text" id="result-rec"></div>
+          </div>
+          <a href="#pricing" class="bp" style="width:100%;text-align:center;justify-content:center;"><span>See Recommended Materials →</span></a>
         </div>
       </div>
       
-      <div style="padding:40px;background:var(--glow3);border:1px solid rgba(201,168,76,.1)">
-        <h4 style="font-family:var(--fd);font-size:1.3rem;color:var(--cream);margin-bottom:24px">What Your Score Means</h4>
-        <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:16px">
-          <div style="width:50px;height:50px;border:2px solid var(--g1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g1);font-size:.65rem;font-weight:700">85+</div>
-          <div><div style="font-size:var(--body);color:var(--cream);font-weight:500">Exam Ready</div><div style="font-size:var(--sm);color:var(--fog)">Focus on speed drills.</div></div>
+      <div class="score-legend">
+        <h4 style="font-family:var(--fd);font-size:1.3rem;color:var(--cream);margin-bottom:24px;">What Your Score Means</h4>
+        <div class="score-item">
+          <div class="score-badge">85+</div>
+          <div>
+            <div class="score-item-title">Exam Ready</div>
+            <div class="score-item-desc">Focus on speed drills and mock exams. You're on track.</div>
+          </div>
         </div>
-        <div style="display:flex;gap:16px;align-items:flex-start">
-          <div style="width:50px;height:50px;border:2px solid rgba(201,168,76,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--fog);font-size:.65rem;font-weight:700">70-84</div>
-          <div><div style="font-size:var(--body);color:var(--cream);font-weight:500">On Track</div><div style="font-size:var(--sm);color:var(--fog)">Add 1-2 weeks of drills.</div></div>
+        <div class="score-item">
+          <div class="score-badge med">70-84</div>
+          <div>
+            <div class="score-item-title">On Track</div>
+            <div class="score-item-desc">Add 1-2 weeks of pattern drills. Prioritize key frameworks.</div>
+          </div>
+        </div>
+        <div class="score-item">
+          <div class="score-badge low">55-69</div>
+          <div>
+            <div class="score-item-title">Needs Focus</div>
+            <div class="score-item-desc">Condensed timeline recommended. Consider intensive support.</div>
+          </div>
+        </div>
+        <div class="score-item">
+          <div class="score-badge crit">&lt;55</div>
+          <div>
+            <div class="score-item-title">Critical Path</div>
+            <div class="score-item-desc">Custom scheduling needed. Contact for personalized plan.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -472,409 +978,1526 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 
 <!-- STORY -->
 <div id="story">
-  <div class="story-chapter velocity-skew" id="SCH1">
+  <!-- Fixed progress dots -->
+  <div class="story-ch-progress" id="STORY_PROG">
+    <div class="scp-dot on" data-ch="0"></div>
+    <div class="scp-dot" data-ch="1"></div>
+    <div class="scp-dot" data-ch="2"></div>
+    <div class="scp-dot" data-ch="3"></div>
+  </div>
+
+  <!-- Chapter 01 -->
+  <div class="story-chapter" id="SCH1">
+    <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
     <div class="story-chapter-inner">
-      <div style="position:relative">
-        <div class="spn">01</div>
+      <div class="story-ch-left">
+        <div class="spn" aria-hidden="true">01</div>
         <div class="story-ch-label">Chapter 01 / 04</div>
-        <div class="story-ch-eye"><span></span>The Founder's Story</div>
-        <h2 class="story-ch-head">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
+        <div class="story-ch-eye">The Founder's Story</div>
+        <h2 class="story-ch-head split-heading">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
       </div>
-      <div class="story-ch-body">
-        <p>Kartik Kumar qualified as a lawyer in India and built his career at UK law firms — DWF, Eversheds Sutherland, and Keoghs.</p>
-        <p>A Supreme Court judgment changed the landscape. The project wound down. Kartik was let go — no income, borrowed money from parents.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-c1-failed-nca-exam" class="blog-ref">Read: When the project ends →</a>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>Kartik Kumar qualified as a lawyer in India and built his career at UK law firms — DWF, Eversheds Sutherland, and Keoghs. He was hired as Legal Executive at a newly established law firm for motor finance undisclosed commission claims.</p>
+          <p>A Supreme Court judgment (Hopcraft v Close Brothers) changed the motor finance landscape. The project wound down. Kartik was let go — no income, borrowed money from parents. He had already received his NCA assessment prior to the job loss.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="story-chapter velocity-skew" id="SCH2" style="background:var(--void)">
+  <!-- Chapter 02 -->
+  <div class="story-chapter" id="SCH2">
+    <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
     <div class="story-chapter-inner">
-      <div style="position:relative">
-        <div class="spn">02</div>
+      <div class="story-ch-left">
+        <div class="spn" aria-hidden="true">02</div>
         <div class="story-ch-label">Chapter 02 / 04</div>
-        <div class="story-ch-eye"><span></span>The Pivot</div>
-        <h2 class="story-ch-head">Sit the NCA.<br><em>One week to prepare.</em></h2>
+        <div class="story-ch-eye">The Pivot</div>
+        <h2 class="story-ch-head split-heading">Sit the NCA. <br><em>One week to prepare.</em></h2>
       </div>
-      <div class="story-ch-body">
-        <p>He purchased the industry-standard materials. Found them too dense, too long — built for candidates with months to spare, not one week.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-pass-nca-90-days" class="blog-ref">The 90-day system →</a>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>He purchased the industry-standard materials. Found them too dense, too long — built for candidates with months to spare, not one week.</p>
+          <p>So he built his own system. Distilled notes. Fellow candidates called to understand what was actually tested. A strategic framework for every question type.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="story-chapter velocity-skew" id="SCH3">
+  <!-- Chapter 03 -->
+  <div class="story-chapter" id="SCH3">
+    <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
     <div class="story-chapter-inner">
-      <div style="position:relative">
-        <div class="spn">03</div>
+      <div class="story-ch-left">
+        <div class="spn" aria-hidden="true">03</div>
         <div class="story-ch-label">Chapter 03 / 04</div>
-        <div class="story-ch-eye"><span></span>The Method</div>
-        <h2 class="story-ch-head">Four subjects. Three months.<br><em>One technical failure —<br>not a knowledge one.</em></h2>
+        <div class="story-ch-eye">The Method</div>
+        <h2 class="story-ch-head split-heading">Four subjects. Three months.<br><em>One technical failure —<br>not a knowledge one.</em></h2>
       </div>
-      <div class="story-ch-body">
-        <p>Administrative Law (one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed.</p>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-c4-nca-textbook-necessary" class="blog-ref">Do you need the textbook? →</a>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>Administrative Law (first exam, one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed.</p>
+          <p>Foundations of Canadian Law was attempted but not passed due to a technical failure — phone died during proctored session. Not a knowledge failure. CPLED LRW course completed early with one month remaining. Total: 4 NCA subjects passed + LRW completed.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="story-chapter velocity-skew" id="SCH4" style="background:var(--void)">
+  <!-- Chapter 04 -->
+  <div class="story-chapter" id="SCH4">
+    <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
     <div class="story-chapter-inner">
-      <div style="position:relative">
-        <div class="spn">04</div>
+      <div class="story-ch-left">
+        <div class="spn" aria-hidden="true">04</div>
         <div class="story-ch-label">Chapter 04 / 04</div>
-        <div class="story-ch-eye"><span></span>The Proof</div>
-        <h2 class="story-ch-head">The course that <em>built itself.</em></h2>
+        <div class="story-ch-eye">The Proof</div>
+        <h2 class="story-ch-head split-heading">The course that <br><em>built itself.</em></h2>
       </div>
-      <div class="story-ch-body">
-        <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt — using The NCA Hub method — she passed.</p>
-        <div class="story-ch-quote">"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</div>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-b1-constitutional-law-nca" class="blog-ref">Read Anum's subject guide →</a>
+      <div class="story-ch-right">
+        <div class="story-ch-body">
+          <p>LRW completed early signals system efficiency. The NCA Hub was born from necessity — built for everyone in the same position.</p>
+          <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt — using The NCA Hub method — she passed.</p>
+        </div>
+        <div class="story-ch-quote">
+          <p>"I passed on my 4th and final attempt. This is the only method that worked for me." — Anum</p>
+        </div>
+        <div class="strategic-pull">
+          <p>Written for your specific path</p>
+          <a href="blog/article.html?post=article-d3-nca-indian-lawyers">NCA for Indian-Qualified Lawyers →</a><br><br>
+          <a href="blog/article.html?post=article-d4-nca-uk-based-lawyers">NCA for UK-Qualified Lawyers →</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- METHOD -->
-<section class="sec msc velocity-skew" id="method">
+<section class="msc sec" id="method" aria-label="The method">
+  <div class="mamb" aria-hidden="true"></div>
+  <div class="sn" aria-hidden="true">04 / 08</div>
   <div class="w">
     <div class="mhd">
       <div>
-        <span class="ey">The Method</span>
-        <h2 class="sh">Three things <em>nobody else does.</em></h2>
+        <span class="ey split-heading">The Method</span>
+        <h2 class="sh split-heading">Three things <br><em>nobody else does.</em></h2>
       </div>
-      <p class="sl">
-        Every decision came from experiencing what didn't work.
-        <br>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-e1-nca-study-schedule-working" class="blog-ref">Schedule for working professionals →</a>
-      </p>
+      <p class="sl">Every decision came from experiencing what didn't work — then building the exact opposite.</p>
     </div>
     <div class="mg">
-      <div class="mc glass-card breathing">
-        <div class="mi"><svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-        <span class="mn">01</span>
-        <h3 class="mt">Short-Form Video Lectures</h3>
-        <p class="mb">8–12 minutes per topic. No 2-hour recordings where attention collapses.</p>
+      <div class="mc sm tilt-card" id="MC1">
+        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <span class="mn" aria-hidden="true">01</span>
+        <h3 class="mt split-heading">Short-Form Video Lectures</h3>
+        <p class="mb">8–12 minutes per topic. One concept, covered completely. No 2-hour recordings where attention collapses at minute 25. Microlearning drives 4× higher completion rates.</p>
         <span class="mtag">Science-backed format</span>
       </div>
-      <div class="mc glass-card breathing">
-        <div class="mi"><svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <span class="mn">02</span>
-        <h3 class="mt">Strategic Notes</h3>
-        <p class="mb">Under 80 pages per subject. Every sentence earns its place.</p>
+      <div class="mc sm tilt-card" id="MC2">
+        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <span class="mn" aria-hidden="true">02</span>
+        <h3 class="mt split-heading">Strategic Notes</h3>
+        <p class="mb">Under 80 pages per subject of distilled, exam-targeted material. Not a textbook. Every sentence earns its place by serving one purpose: your performance in the exam hall.</p>
         <span class="mtag">Exam-focused only</span>
       </div>
-      <div class="mc glass-card breathing">
-        <div class="mi"><svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--g1)" fill="none" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div>
-        <span class="mn">03</span>
-        <h3 class="mt">Answer Templates</h3>
-        <p class="mb">The NCA rewards specific structures. Know the architecture before the question.</p>
+      <div class="mc sm tilt-card" id="MC3">
+        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <span class="mn" aria-hidden="true">03</span>
+        <h3 class="mt split-heading">Answer Templates</h3>
+        <p class="mb">The NCA rewards specific analytical structures. Our templates give you the architecture before you see the question. Recognise the question type — and you already know the first four lines of your answer.</p>
         <span class="mtag">Pre-built frameworks</span>
+      </div>
+    </div>
+    <div class="method-flow" id="MF">
+      <div class="mf-step" id="MF1"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="9"/></svg></div><div class="mf-label">Notes</div><div class="mf-sub">Under 80 pages</div></div>
+      <div class="mf-arrow" id="MFA1" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
+      <div class="mf-step" id="MF2"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div><div class="mf-label">Videos</div><div class="mf-sub">8–12 min each</div></div>
+      <div class="mf-arrow" id="MFA2" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
+      <div class="mf-step" id="MF3"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><div class="mf-label">Templates</div><div class="mf-sub">Pre-built answers</div></div>
+      <div class="mf-arrow" id="MFA3" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
+      <div class="mf-step" id="MF4"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="mf-label">Practice</div><div class="mf-sub">Model answers</div></div>
+    </div>
+    
+    <div class="strategic-pull" style="margin-top:80px;">
+      <p>If you're working out your timeline...</p>
+      <a href="blog/article.html?post=article-e3-nca-study-hours">How Many Hours Should You Study for the NCA? →</a><br><br>
+      <a href="blog/article.html?post=article-e1-nca-study-schedule-working">NCA Study Schedule for Working Professionals →</a>
+    </div>
+  </div>
+</section>
+
+<div class="orn" id="ORN1"><div class="ol"><svg><line x1="0" y1="0" x2="100%" y2="0"/></svg></div><div class="od" aria-hidden="true"></div><div class="od" style="opacity:.35" aria-hidden="true"></div><div class="od" aria-hidden="true"></div><div class="ol"><svg><line x1="0" y1="0" x2="100%" y2="0"/></svg></div></div>
+
+<!-- PERFORMANCE PODS SECTION -->
+<section class="pods-sec" id="pods" aria-label="Performance Pods">
+  <div class="w">
+    <span class="ey split-heading">Performance Pods</span>
+    <div class="sh-mask-wrap">
+      <h2 class="sh split-heading">You're not studying alone.<br><em>You're accountable to 4 others.</em></h2>
+    </div>
+    <p class="sl" style="max-width:600px;margin-top:24px;">
+      Stop studying in isolation. Get matched with 4 peers by exam date, subject, and study pattern. Weekly check-ins, streak protection, and peer accountability.
+    </p>
+    
+    <div class="pods-grid">
+      <div class="pod-card tilt-card">
+        <div class="pod-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="pod-num">01</div>
+        <h3 class="pod-title split-heading">Algorithm-Matched</h3>
+        <p class="pod-desc">Not random. Matched by exam date, subject, timezone, and study pattern. The right pace for your life.</p>
+      </div>
+      <div class="pod-card tilt-card">
+        <div class="pod-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="pod-num">02</div>
+        <h3 class="pod-title split-heading">Weekly Check-ins</h3>
+        <p class="pod-desc">30-minute video calls. Share progress, solve blocks, maintain momentum. Missed check-ins trigger support.</p>
+      </div>
+      <div class="pod-card tilt-card">
+        <div class="pod-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="pod-num">03</div>
+        <h3 class="pod-title split-heading">Streak Protection</h3>
+        <p class="pod-desc">3 days of inactivity triggers pod alert + personalized intervention. Burnout detected before it happens.</p>
+      </div>
+    </div>
+    
+    <div class="pods-visual">
+      <div class="pods-visual-title">Your Pod Composition</div>
+      <div class="pods-avatars">
+        <div class="pod-avatar you">YOU</div>
+        <div class="pod-avatar peer">Peer</div>
+        <div class="pod-avatar peer">Peer</div>
+        <div class="pod-avatar mentor">Mentor</div>
+        <div class="pod-avatar mentor" style="border-style:dashed;">Guide</div>
+      </div>
+      <p style="font-size:var(--body);color:var(--fog);max-width:600px;margin:0 auto;line-height:1.8;">
+        Based on your Readiness Score and exam date, we compose your optimal accountability group. 
+        <strong style="color:var(--cream);">Commitment drives results.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="orn" id="ORN2"><div class="ol"><svg><line x1="0" y1="0" x2="100%" y2="0"/></svg></div><div class="od" aria-hidden="true"></div><div class="od" style="opacity:.35" aria-hidden="true"></div><div class="od" aria-hidden="true"></div><div class="ol"><svg><line x1="0" y1="0" x2="100%" y2="0"/></svg></div></div>
+
+<!-- COMPARISON -->
+<section class="csc sec" id="compare" aria-label="Comparison">
+  <div class="sn" aria-hidden="true">05 / 08</div>
+  <div class="w">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:24px">
+      <div>
+        <span class="ey split-heading">A Factual Comparison</span>
+        <h2 class="sh split-heading">How we chose to <br><em>build differently.</em></h2>
+      </div>
+      <p class="sl">The same format has dominated NCA preparation for years. Long videos, dense notes, no templates. These are the material facts — you can verify all of them.</p>
+    </div>
+    <div class="ctw">
+      <table class="ct" role="table">
+        <thead>
+          <tr>
+            <th scope="col" style="width:26%">Feature</th>
+            <th scope="col" class="cu">The NCA Hub <span class="cbadge">You</span></th>
+            <th scope="col" class="cm">NCA Mentor</th>
+            <th scope="col" class="cm">NCA Tutor</th>
+            <th scope="col" class="cm">Exam Guru</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="ft">Notes length</td><td class="cu">Under 80 pages</td><td>175–304 pages</td><td>Dense PDFs</td><td>Bundled only</td></tr>
+          <tr><td class="ft">Video format</td><td class="cu">8–12 min modules</td><td>2–3 hr recordings</td><td>Group sessions</td><td>Full class only</td></tr>
+          <tr><td class="ft">Readiness Assessment</td><td class="cu"><span class="ck">✓ Included</span></td><td><span class="cx">✗ Not offered</span></td><td><span class="cx">✗ Not offered</span></td><td><span class="cx">✗ Not offered</span></td></tr>
+          <tr><td class="ft">Performance Pods</td><td class="cu"><span class="ck">✓ Included</span></td><td><span class="cx">✗ WhatsApp only</span></td><td><span class="cx">✗ Not offered</span></td><td><span class="cx">✗ Not offered</span></td></tr>
+          <tr><td class="ft">Answer templates</td><td class="cu"><span class="ck">✓ Included</span></td><td><span class="cx">✗ Not offered</span></td><td><span class="cx">✗ Not offered</span></td><td><span class="cx">✗ Not offered</span></td></tr>
+          <tr><td class="ft">Price per subject</td><td class="cu">$175–$279 CAD</td><td>$150–$350 CAD</td><td>$65–$350 CAD</td><td>Variable</td></tr>
+        </tbody>
+      </table>
+      <p class="ct-disc">All claims are factual and verifiable as of publication date. Provider names are used for descriptive comparison only. The NCA Hub is not affiliated with any of the above providers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<div class="prf" id="proof">
+  <div class="prd" aria-hidden="true">"</div>
+  <div class="pri">
+    <div>
+      <blockquote class="prq" id="PRQ">
+        <span class="pw">"I</span> <span class="pw">passed</span> <span class="pw">on</span> <span class="pw">my</span> <span class="pw">4th</span> <span class="pw">and</span> <span class="pw">final</span> <span class="pw">attempt.</span> <span class="pw">This</span> <span class="pw">is</span> <span class="pw">the</span> <span class="pw">only</span> <span class="pw">method</span> <span class="pw">that</span> <span class="pw">worked</span> <span class="pw">for</span> <span class="pw">me."</span>
+        <span class="prq-underline" id="PRQ_LINE"></span>
+      </blockquote>
+      <p class="prw">Anum — passed Constitutional Law on her 4th and final attempt</p>
+    </div>
+    <div class="psg">
+      <div class="ps"><span class="psn">7</span><span class="psl">Days of prep<br>for exam one</span></div>
+      <div class="ps"><span class="psn">8+</span><span class="psl">Hours per day<br>Anum's sprint</span></div>
+      <div class="ps"><span class="psn">4th</span><span class="psl">Attempt — last chance</span></div>
+      <div class="ps"><span class="psn">Pass</span><span class="psl">Constitutional Law</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TEXT SCRUB -->
+<div class="scrub-wrap" id="scrub-section" aria-label="Key results">
+  <div class="scrub-pin" id="SCRUB_PIN">
+    <div class="scrub-bg-text" aria-hidden="true">METHOD</div>
+    <div class="scrub-inner">
+      <div class="scrub-label">The proof in numbers</div>
+      <p>
+        <span class="scrub-line" id="SL1">Four subjects</span>
+        <span class="scrub-dot" id="SD1"> ·</span>
+        <span class="scrub-line" id="SL2"> Three months</span>
+        <span class="scrub-dot" id="SD2"> ·</span>
+        <span class="scrub-line" id="SL3"> One week for the first exam.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- BIG STATS -->
+<div class="bss" role="list">
+  <div class="bs" id="BS1" role="listitem">
+    <div class="ring-wrap"><svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-bg" cx="50" cy="50" r="44"/><circle class="ring-fg" id="RF1" cx="50" cy="50" r="44" style="stroke-dasharray:276.5;stroke-dashoffset:276.5"/></svg><span class="bsn" data-target="4" data-ring="RF1" data-pct="0.85">4</span></div>
+    <span class="bsl">Subjects cleared<br>in one sprint</span>
+  </div>
+  <div class="bs" id="BS2" role="listitem">
+    <div class="ring-wrap"><svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-bg" cx="50" cy="50" r="44"/><circle class="ring-fg" id="RF2" cx="50" cy="50" r="44" style="stroke-dasharray:276.5;stroke-dashoffset:276.5"/></svg><span class="bsn" data-target="3" data-ring="RF2" data-pct="0.65">3</span></div>
+    <span class="bsl">Months total<br>start to finish</span>
+  </div>
+  <div class="bs" id="BS3" role="listitem">
+    <div class="ring-wrap"><svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-bg" cx="50" cy="50" r="44"/><circle class="ring-fg" id="RF3" cx="50" cy="50" r="44" style="stroke-dasharray:276.5;stroke-dashoffset:276.5"/></svg><span class="bsn" data-target="7" data-ring="RF3" data-pct="0.5">7</span></div>
+    <span class="bsl">Days to prepare<br>for the first exam</span>
+  </div>
+  <div class="bs" id="BS4" role="listitem">
+    <div class="ring-wrap"><svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-bg" cx="50" cy="50" r="44"/><circle class="ring-fg" id="RF4" cx="50" cy="50" r="44" style="stroke-dasharray:276.5;stroke-dashoffset:276.5"/></svg><span class="bsn" data-target="80" data-ring="RF4" data-pct="0.5">80</span></div>
+    <span class="bsl">Pages max per subject<br>vs 200+ elsewhere</span>
+  </div>
+</div>
+
+<!-- SUBJECTS -->
+<section class="subsc sec" id="subjects" aria-label="Subjects covered">
+  <div class="sn" aria-hidden="true">06 / 08</div>
+  <div class="w">
+    <div class="subi">
+      <div>
+        <span class="ey split-heading">All NCA Subjects</span>
+        <h2 class="sh split-heading">Every NCA exam.<br><em>Nothing wasted.</em></h2>
+      </div>
+      <p class="sl">All NCA exam subjects — from live materials to those in development. Each complete system includes: notes, videos, templates, and practice questions. Get notified when new subjects launch.</p>
+    </div>
+    <div class="ht" id="HT" role="list">
+      <div class="sc2 sm tilt-card" id="SC1" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">01</span>
+        <div class="sctg">Administrative Law</div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.62"></div></div></div>
+        <h3 class="scti split-heading">Admin Law</h3>
+        <p class="scb">The subject most candidates sit first. Built under one week of genuine time pressure. Battle-tested and proven from the very beginning.</p>
+        <ul class="scl">
+          <li>Judicial review — grounds and scope</li><li>Standards of review: the Vavilov framework</li><li>Procedural fairness</li><li>Statutory interpretation</li><li>Remedies in administrative law</li>
+        </ul>
+        <a href="blog/article.html?post=article-a3-administrative-law-nca" class="sc-link">Read the guide →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC2" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">02</span>
+        <div class="sctg">Constitutional Law</div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.88"></div></div></div>
+        <h3 class="scti split-heading">Con Law</h3>
+        <p class="scb">The subject where Anum passed her 4th and final attempt using these exact materials. The method that works when everything else has failed.</p>
+        <ul class="scl">
+          <li>Division of powers — ss.91 and 92</li><li>Pith and substance doctrine</li><li>Charter of Rights — full framework</li><li>Section 1 Oakes test</li><li>Aboriginal rights and s.35</li>
+        </ul>
+        <a href="blog/article.html?post=article-b1-constitutional-law-nca" class="sc-link">Read the guide →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC3" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">03</span>
+        <div class="sctg">Criminal Law</div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.75"></div></div></div>
+        <h3 class="scti split-heading">Criminal Law</h3>
+        <p class="scb">Criminal law rewards structure above everything else. Our templates mean you know the first four lines of your answer before you have read the question.</p>
+        <ul class="scl">
+          <li>Actus reus and mens rea</li><li>Criminal defences — complete framework</li><li>Charter rights in criminal proceedings</li><li>Parties to an offence</li><li>Sentencing principles</li>
+        </ul>
+        <a href="blog/article.html?post=article-b2-criminal-law-nca" class="sc-link">Read the guide →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC4" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">04</span>
+        <div class="sctg">Foundations of Canadian Law</div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.55"></div></div></div>
+        <h3 class="scti split-heading">Foundations</h3>
+        <p class="scb">Often underestimated. The architecture of the entire Canadian legal system — made navigable for lawyers trained anywhere in the world.</p>
+        <ul class="scl">
+          <li>Sources of Canadian law</li><li>Court hierarchy and jurisdiction</li><li>Common law methodology</li><li>Statutory construction in Canada</li><li>Quebec's bijural tradition</li>
+        </ul>
+        <a href="blog/article.html?post=article-b4-foundations-canadian-law-nca" class="sc-link">Read the guide →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC5" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">05</span>
+        <div class="sctg">Professional Responsibility</div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
+        <h3 class="scti split-heading">PR Law</h3>
+        <p class="scb">Ethics, conduct and professional obligations. The exam tests your ability to spot conflicts, duties and breaches — our templates structure every scenario.</p>
+        <ul class="scl">
+          <li>Lawyer-client relationship and duties</li><li>Confidentiality and privilege</li><li>Conflicts of interest — the Bright Line rule</li><li>CBA Model Code of Professional Conduct</li><li>Access to justice and withdrawal</li>
+        </ul>
+        <a href="blog/article.html?post=article-b3-professional-responsibility-nca" class="sc-link">Read the guide →</a>
+      </div>
+      <div class="sc2 sm lrw-card tilt-card" id="SC6" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">06</span>
+        <div class="sctg">Legal Research &amp; Writing <span class="sctg-badge">CPLED Course</span></div>
+        <div class="diff-bar"><div class="diff-label">Complexity</div><div class="diff-track"><div class="diff-fill" style="--dw:0.6"></div></div></div>
+        <h3 class="scti split-heading">LRW</h3>
+        <p class="scb">The Legal Research &amp; Writing course is a mandatory CPLED/CPLD requirement — not an NCA exam. We guide you through it so nothing blindsides you on the path to qualification.</p>
+        <ul class="scl">
+          <li>Legal research methodology and databases</li><li>Case reading and synthesis</li><li>Memo writing and opinion letters</li><li>Statutory interpretation in practice</li><li>CPLED submission structure and style</li>
+        </ul>
+      </div>
+      <!-- Coming Soon Subjects -->
+      <div class="sc2 sm coming-soon tilt-card" id="SC7" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">07</span>
+        <div class="sctg">Business Organisations <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.72"></div></div></div>
+        <h3 class="scti split-heading">Business Orgs</h3>
+        <p class="scb">Corporate law, partnerships, and business structures in Canada. Essential for commercial practice.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Business Organisations');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC8" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">08</span>
+        <div class="sctg">Family Law <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.68"></div></div></div>
+        <h3 class="scti split-heading">Family Law</h3>
+        <p class="scb">Marriage, divorce, property division, and child custody under Canadian family law legislation.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Family Law');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC9" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">09</span>
+        <div class="sctg">Property Law <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.78"></div></div></div>
+        <h3 class="scti split-heading">Property Law</h3>
+        <p class="scb">Real property, land titles, estates, and interests in land under Canadian property law.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Property Law');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC10" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">10</span>
+        <div class="sctg">Torts <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
+        <h3 class="scti split-heading">Torts</h3>
+        <p class="scb">Negligence, intentional torts, and strict liability under Canadian tort law principles.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Torts');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC11" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">11</span>
+        <div class="sctg">Contracts <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.74"></div></div></div>
+        <h3 class="scti split-heading">Contracts</h3>
+        <p class="scb">Formation, interpretation, breach, and remedies in Canadian contract law.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Contracts');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC12" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">12</span>
+        <div class="sctg">Civil Procedure <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.76"></div></div></div>
+        <h3 class="scti split-heading">Civil Procedure</h3>
+        <p class="scb">Court rules, pleadings, discovery, and trial procedure in Canadian civil litigation.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Civil Procedure');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC13" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">13</span>
+        <div class="sctg">Remedies <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.73"></div></div></div>
+        <h3 class="scti split-heading">Remedies</h3>
+        <p class="scb">Damages, injunctions, specific performance, and equitable remedies in Canadian law.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Materials in development</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Remedies');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required>
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="hh" aria-label="Drag to explore subjects"><span class="ha" aria-hidden="true">→</span><span>Drag to explore all subjects</span></div>
+  </div>
+</section>
+
+<div class="orn" id="ORN3"><div class="ol"><svg><line x1="0" y1="0" x2="100%" y2="0"/></svg></div><div class="od" aria-hidden="true"></div><div class="od" style="opacity:.35" aria-hidden="true"></div><div class="od" aria-hidden="true"></div><div class="ol"><svg><line x1="0" y1="0" x2="100%" y2="0"/></svg></div></div>
+
+<!-- PRICING -->
+<section class="sec" id="pricing" style="background:var(--dark)" aria-label="Pricing">
+  <div class="sn" aria-hidden="true">07 / 08</div>
+  <div class="w">
+    <div class="pintro">
+      <div>
+        <span class="ey split-heading">Transparent Pricing</span>
+        <h2 class="sh split-heading">Invest once.<br><em>Own it forever.</em></h2>
+        <p class="sl" style="margin-top:24px">No subscription. No recurring charge. Pay once per subject and own everything forever. Payment plans available on request.</p>
+        <p style="margin-top:14px;font-size:var(--sm);color:rgba(201,168,76,.5);font-style:italic;font-family:var(--fd)">Founding price in effect while the remaining 2 subjects complete production.</p>
+      </div>
+      <div class="mp">
+        <p class="mpq">"You've distilled 300 pages of textbook into something I can actually use in three hours. The templates alone are worth more than what you're charging."</p>
+        <span class="mpby">An early student — after reviewing the first bundle</span>
+      </div>
+    </div>
+    <div class="pgrid">
+      <div class="pc sm tilt-card" id="PC1">
+        <div class="ptier">Notes Only</div><div class="pprice">$175</div><div class="pper">per subject — CAD</div>
+        <div class="pdiv"></div>
+        <ul class="pfts"><li>Strategic notes — under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>PDF — yours to keep forever</li></ul>
+        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20Notes%20Purchase" class="pb" aria-label="Get Notes Only plan"><span>Get Notes</span></a>
+      </div>
+      <div class="pc feat sm tilt-card" id="PC2">
+        <span class="fb">Most Popular</span>
+        <div class="ptier">Complete Bundle</div><div class="pprice">$279</div><div class="pper">per subject — CAD</div>
+        <div class="pdiv"></div>
+        <ul class="pfts"><li>Strategic notes — under 80 pages</li><li>Full short-form video lecture series</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>Performance Pod membership</li><li>PDF + lifetime video access</li></ul>
+        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20Complete%20Bundle%20Purchase" class="pb" aria-label="Get Complete Bundle"><span>Get Full Bundle</span></a>
+      </div>
+      <div class="pc sm tilt-card" id="PC3">
+        <div class="ptier">All Subjects Package</div><div class="pprice">$899</div><div class="pper">complete package — best value</div>
+        <div class="pdiv"></div>
+        <ul class="pfts"><li>All subject complete bundles</li><li>All video lecture series</li><li>All templates and practice Q&amp;As</li><li>Performance Pods for all subjects</li><li>LRW course guidance included</li><li>Priority email support</li><li>Early access to new subjects</li></ul>
+        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20All%20Subjects%20Package" class="pb" aria-label="Get Everything — all 6 subjects"><span>Get Everything</span></a>
+      </div>
+    </div>
+    <div class="proof-rows" aria-label="Student results">
+      <div class="proof-row">"Passed Admin Law first attempt" — M.B., Toronto</div>
+      <div class="proof-row">"Done in 6 weeks using these" — R.O., Vancouver</div>
+      <div class="proof-row">"Templates changed everything" — P.S., Calgary</div>
+      <div class="proof-row">"3 subjects in one sitting" — A.K., Ottawa</div>
+      <div class="proof-row">"4th attempt → pass" — Anum, Constitutional Law</div>
+    </div>
+    <p class="urgency-line">Payment plans available — email <a href="mailto:kumarkartik9582@gmail.com" style="color:var(--g1)">kumarkartik9582@gmail.com</a></p>
+    <p class="authority-line">Materials developed by a qualified lawyer · Reviewed for accuracy against current NCA syllabi</p>
+    
+    <div class="strategic-pull" style="max-width:700px;margin:48px auto 0;">
+      <p>The questions candidates are afraid to ask</p>
+      <a href="blog/article.html?post=article-c1-failed-nca-exam">Failed the NCA Exam. What Now? →</a><br><br>
+      <a href="blog/article.html?post=article-c4-nca-textbook-necessary">Do You Actually Need the NCA Textbook? →</a>
+    </div>
+    
+    <div class="post-buy" id="POST_BUY">
+      <button class="post-buy-q" id="POST_BUY_BTN" aria-expanded="false" aria-controls="post-buy-body">
+        What happens after I buy?
+        <div class="post-buy-ico"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
+      </button>
+      <div class="post-buy-body" id="post-buy-body" role="region">
+        <p class="post-buy-inner">You'll receive access immediately via our course platform. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is granted automatically when released — at no additional charge. Everything is yours permanently — no expiry, no subscription. If anything doesn't reach you, email <a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a> and it's resolved within the hour.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SUBJECTS -->
-<section class="sec subsc velocity-skew" id="subjects">
+<!-- SAMPLE FORM -->
+<section class="sampl sec" id="sample" aria-label="Get free chapter">
   <div class="w">
-    <div class="subi">
+    <div class="sgrid">
       <div>
-        <span class="ey">All NCA Subjects</span>
-        <h2 class="sh">Every NCA exam.<br><em>Nothing wasted.</em></h2>
+        <span class="ey split-heading">Try Before You Buy</span>
+        <h2 class="sh split-heading">One free chapter.<br><em>No obligation.</em></h2>
+        <p class="sl" style="margin-top:20px">Download one free chapter from the Administrative Law notes. See exactly what our strategic, exam-focused approach looks like before spending a single dollar.</p>
+        <p style="margin-top:16px;font-size:var(--sm);color:var(--fog)">You'll also receive our weekly NCA Strategy email. Unsubscribe any time.</p>
       </div>
-      <p class="sl">
-        <a href="https://www.thencahub.com/blog/index.html" class="blog-ref">View all 25 free guides →</a>
-      </p>
-    </div>
-    <div class="ht" id="subject-scroll">
-      <div class="sc2 breathing">
-        <span class="scnum">01</span>
-        <div class="sctg">Administrative Law</div>
-        <h3 class="scti">Admin Law</h3>
-        <p class="scb">Built under one week of genuine time pressure.</p>
-        <ul class="scl"><li>Judicial review</li><li>Vavilov framework</li><li>Procedural fairness</li></ul>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-a3-administrative-law-nca" class="sc-link">Read the guide →</a>
-      </div>
-      <div class="sc2 breathing">
-        <span class="scnum">02</span>
-        <div class="sctg">Constitutional Law</div>
-        <h3 class="scti">Con Law</h3>
-        <p class="scb">Where Anum passed her 4th attempt.</p>
-        <ul class="scl"><li>Division of powers</li><li>Charter framework</li><li>Oakes test</li></ul>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-b1-constitutional-law-nca" class="sc-link">Read the guide →</a>
-      </div>
-      <div class="sc2 breathing">
-        <span class="scnum">03</span>
-        <div class="sctg">Criminal Law</div>
-        <h3 class="scti">Criminal Law</h3>
-        <p class="scb">Structure above everything else.</p>
-        <ul class="scl"><li>Actus reus & mens rea</li><li>Criminal defences</li><li>Charter rights</li></ul>
-        <a href="https://www.thencahub.com/blog/article.html?post=article-b2-criminal-law-nca" class="sc-link">Read the guide →</a>
+      <div class="sf2" id="SFORM">
+        <span class="flbl">Download Free Chapter</span>
+        <input type="text" class="ff" id="FN" placeholder="Your first name" autocomplete="given-name" aria-label="Your first name">
+        <input type="email" class="ff" id="FE" placeholder="Your email address" autocomplete="email" aria-label="Your email address">
+        <select class="fs" id="FS" aria-label="Which subject are you preparing for?">
+          <option value="" disabled selected>Which subject are you preparing for?</option>
+          <option>Administrative Law</option><option>Constitutional Law</option><option>Criminal Law</option>
+          <option>Foundations of Canadian Law</option><option>Professional Responsibility</option>
+          <option>Legal Research &amp; Writing (LRW)</option>
+          <option>Business Organisations (notify when available)</option>
+          <option>Family Law (notify when available)</option>
+          <option>Property Law (notify when available)</option>
+          <option>Torts (notify when available)</option>
+          <option>Contracts (notify when available)</option>
+          <option>Civil Procedure (notify when available)</option>
+          <option>Remedies (notify when available)</option>
+          <option>Multiple subjects</option>
+        </select>
+        <button class="fsub" id="FSB" aria-label="Submit and send free chapter"><span id="FSBT">Send Me the Free Chapter →</span></button>
+        <p class="ffine">Your email is never shared or sold. One-click unsubscribe any time.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="sec velocity-skew" id="faq" style="background:var(--dark)">
+<section class="fqsc sec" id="faq" aria-label="Frequently asked questions">
   <div class="w">
-    <span class="ey">Questions</span>
-    <h2 class="sh">Everything you <em>need to decide.</em></h2>
+    <span class="ey split-heading">Questions</span>
+    <h2 class="sh split-heading" style="max-width:580px">Everything you <br><em>need to decide.</em></h2>
     <div class="fql">
-      <div class="fqi">
-        <button class="fqq" onclick="toggleFaq(this)">
-          I only have 2–3 weeks before my exam. Is this still useful?
-          <span class="fqico"><svg viewBox="0 0 10 10" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
-        </button>
-        <div class="fqb">
-          <p class="fqbi">
-            Yes — short timelines are exactly what these materials were designed for. Under 80 pages.
-            <a href="https://www.thencahub.com/blog/article.html?post=article-e3-nca-study-hours" class="blog-ref">How many hours? →</a>
-          </p>
-        </div>
-      </div>
-      <div class="fqi">
-        <button class="fqq" onclick="toggleFaq(this)">
-          How is this different from other providers?
-          <span class="fqico"><svg viewBox="0 0 10 10" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
-        </button>
-        <div class="fqb">
-          <p class="fqbi">
-            Built under real time pressure. 
-            <a href="https://www.thencahub.com/blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-ref">Why we don't do 300 pages →</a>
-          </p>
-        </div>
-      </div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">I only have 2–3 weeks before my exam. Is this still useful?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes — and short timelines are exactly what these materials were designed for. Under 80 pages of notes, not 200. Videos under 12 minutes each. Templates that pre-build your answer structure. Someone with one week prepared their first Administrative Law exam using this system. You have more time than that.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">How is this different from other NCA preparation providers?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Most NCA preparation was built for candidates with unlimited time. The NCA Hub was built under real time and financial pressure — by someone who had no income and had to pass. Everything is filtered through one question: will this help you clear a 50% threshold exam? If the answer is no, it does not appear. We also offer the Readiness Assessment and Performance Pods — systems no other provider has.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Do you cover Professional Responsibility and LRW?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes to both. Professional Responsibility is covered as a full NCA exam subject — notes, templates, practice questions. LRW is a mandatory CPLED/CPLD course, not an NCA exam, but it sits on the path to qualification. We guide you through it so you know exactly what to expect.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Do I need to be in Canada to use these materials?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">No. Everything is fully digital and accessible from anywhere in the world.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">When will the video lectures be available?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The video lecture series is in production. Anyone who purchases a Complete Bundle before their subject's videos go live receives access automatically when released — at no additional charge. The notes and templates are complete now.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in instalments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="mailto:kumarkartik9582@gmail.com" style="color:var(--g1)">kumarkartik9582@gmail.com</a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<div class="fcta velocity-skew">
+<div class="fcta">
+  <div class="corb" aria-hidden="true"></div>
   <div class="ci">
-    <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);margin-bottom:32px">Your Turn</div>
-    <h2 class="ch">The NCA is <em>passable.</em></h2>
-    <p class="cp">You have already done the hardest part — qualifying in another country, choosing Canada, starting over.</p>
-    <a href="#readiness" class="bp magnetic-btn" data-cur="Begin"><span>Get My Readiness Score →</span></a>
+    <div class="cey split-heading">Your Turn</div>
+    <div class="sh-mask-wrap" style="margin-bottom:32px"><h2 class="ch split-heading">The NCA is <br><em>passable.</em></h2></div>
+    <p class="cp">You have already done the hardest part — qualifying in another country, choosing Canada, starting over. Do not let the NCA be the wall that stops you.</p>
+    <a href="#readiness" class="bp" style="padding:20px 56px" data-cur="Begin"><span>Get My Readiness Score →</span></a>
   </div>
 </div>
+
+<!-- BLOG / ARTICLES -->
+<section id="blog" aria-label="Free Guides" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:140px 0;position:relative;z-index:1;">
+  <div class="w">
+    <span class="ey split-heading">Free Guides</span>
+    <div class="sh-mask-wrap">
+      <h2 class="sh split-heading">Everything you need<br><em>to pass. Free.</em></h2>
+    </div>
+    <p class="sl" style="margin-top:24px;max-width:620px;">Written by someone who passed 4 NCA subjects in 3 months — with one week to prepare for the first one. No filler.</p>
+
+    <!-- Featured Article -->
+    <a href="blog/article.html?post=article-pass-nca-90-days" class="blog-featured page-link" style="margin-top:48px;">
+      <div class="bfeat-tag">Featured · Exam Strategy</div>
+      <h3 class="bfeat-h split-heading">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h3>
+      <p class="bfeat-p">The exact framework used to pass 4 NCA subjects in 3 months. Includes a week-by-week calendar, subject sequencing logic, and the 2-hour daily study formula.</p>
+      <div class="bfeat-meta"><span>12 min read</span><span class="bfeat-cta">Read the guide →</span></div>
+    </a>
+
+    <!-- Article Grid - 6 Featured -->
+    <div id="blog-grid" style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+
+      <a href="blog/article.html?post=article-a3-administrative-law-nca" class="blog-card page-link">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h split-heading">Administrative Law NCA: The Complete 2026 Exam Guide</h4>
+        <p class="bc-p">Vavilov, Baker procedural fairness, judicial review — with the exact answer template.</p>
+        <div class="bc-meta">18 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-b1-constitutional-law-nca" class="blog-card page-link">
+        <div class="bc-tag">Subject Guide</div>
+        <h4 class="bc-h split-heading">Constitutional Law NCA: The Charter Framework You Must Know</h4>
+        <p class="bc-p">Division of powers, Charter analysis, the Oakes test, and Aboriginal rights under s.35.</p>
+        <div class="bc-meta">16 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e1-nca-study-schedule-working" class="blog-card page-link">
+        <div class="bc-tag">Exam Strategy</div>
+        <h4 class="bc-h split-heading">NCA Study Schedule for Working Professionals</h4>
+        <p class="bc-p">A realistic plan for candidates balancing full-time work and NCA prep.</p>
+        <div class="bc-meta">11 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-c1-failed-nca-exam" class="blog-card page-link">
+        <div class="bc-tag">Common Fears</div>
+        <h4 class="bc-h split-heading">Failed the NCA Exam. What Now?</h4>
+        <p class="bc-p">The failure autopsy framework: what went wrong, what to change, and the retake strategy.</p>
+        <div class="bc-meta">10 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-d3-nca-indian-lawyers" class="blog-card page-link">
+        <div class="bc-tag">Career Pathway</div>
+        <h4 class="bc-h split-heading">NCA for Indian-Qualified Lawyers: The Complete Guide</h4>
+        <p class="bc-p">Written by an Indian-qualified lawyer who went through it. Specific challenges and advantages.</p>
+        <div class="bc-meta">11 min <span>→</span></div>
+      </a>
+
+      <a href="blog/article.html?post=article-e5-300-page-notes-worth-it" class="blog-card page-link">
+        <div class="bc-tag">Comparison</div>
+        <h4 class="bc-h split-heading">Are 300-Page NCA Notes Worth It?</h4>
+        <p class="bc-p">The problem with comprehensive notes in an open-book exam. Why shorter wins.</p>
+        <div class="bc-meta">8 min <span>→</span></div>
+      </a>
+
+    </div>
+
+    <!-- View All -->
+    <div style="text-align:center;margin-top:56px;">
+      <a href="blog/index.html" class="bp page-link"><span>View All 25 Free Guides →</span></a>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="ftg">
-    <div>
-      <div class="flog">NCA <span class="hub">Hub</span></div>
-      <p class="ftag">Strategic preparation for lawyers who had to start over.</p>
-    </div>
+    <div><div class="flog">NCA <span class="hub">Hub</span></div><p class="ftag">Strategic preparation for lawyers who had to start over — and refused to stop.</p></div>
     <div>
       <div class="fct">Navigate</div>
-      <ul class="fls">
-        <li><a href="#method">The Method</a></li>
-        <li><a href="https://www.thencahub.com/blog/index.html">Free Articles</a></li>
-        <li><a href="#subjects">Subjects</a></li>
-      </ul>
+      <ul class="fls"><li><a href="#method">The Method</a></li><li><a href="#story">The Story</a></li><li><a href="#pods">Performance Pods</a></li><li><a href="#subjects">Subjects</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#sample">Free Sample</a></li></ul>
     </div>
     <div>
       <div class="fct">Contact</div>
-      <ul class="fls">
-        <li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li>
-      </ul>
+      <ul class="fls"><li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li><li><a href="#pricing">Enroll Now</a></li><li><a href="#sample">Get Free Chapter</a></li></ul>
     </div>
   </div>
-  <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource.</p>
+  <div class="fb2">
+    <p class="fcl">"Built for the lawyers who had to start over — and refused to stop."</p>
+    <p class="fleg">© 2025 The NCA Hub. All rights reserved. All content is original work.</p>
+  </div>
+  <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
 
 <script>
-// PRELOADER - Auto hide after 2 seconds max
-window.addEventListener('load', () => {
-  const pre = document.getElementById('pre');
-  const bar = document.getElementById('pre-bf');
-  const num = document.getElementById('pre-n');
-  let progress = 0;
-  
-  const interval = setInterval(() => {
-    progress += Math.random() * 30;
-    if(progress >= 100) {
-      progress = 100;
-      clearInterval(interval);
-      bar.style.transform = 'translateX(0)';
-      num.textContent = '100';
-      setTimeout(() => {
-        pre.classList.add('hidden');
-      }, 500);
-    } else {
-      bar.style.transform = `translateX(-${100 - progress}%)`;
-      num.textContent = Math.floor(progress);
-    }
-  }, 100);
-  
-  // Safety timeout - force hide after 3 seconds
-  setTimeout(() => {
-    pre.classList.add('hidden');
-  }, 3000);
-});
+(function(){'use strict';
 
-// LENIS SMOOTH SCROLL
-const lenis = new Lenis({ lerp: 0.075, smoothWheel: true });
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
+/* GLOBALS */
+var REDUCED=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+var IS_MOBILE=window.innerWidth<=960;
+var lenis=null;
+var quizState={current:0,answers:{},completed:false};
 
-// GSAP SCROLL TRIGGER
-gsap.registerPlugin(ScrollTrigger);
-
-// VELOCITY SKEW
-let lastScroll = 0;
-lenis.on('scroll', ({ scroll }) => {
-  const velocity = (scroll - lastScroll) * 0.01;
-  document.body.style.setProperty('--velocity', Math.max(-2, Math.min(2, velocity)));
-  lastScroll = scroll;
-});
-
-// PROGRESS BAR
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-  document.getElementById('prog').style.width = (scrolled * 100) + '%';
-}, { passive: true });
-
-// CURSOR SYSTEM (Desktop only)
-if(window.innerWidth > 960) {
-  const cd = document.getElementById('cd');
-  const cr = document.getElementById('cr');
-  const cl = document.getElementById('cl');
-  let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-  
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cd.style.left = mouseX + 'px';
-    cd.style.top = mouseY + 'px';
-  });
-  
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.1;
-    cursorY += (mouseY - cursorY) * 0.1;
-    cr.style.left = cursorX + 'px';
-    cr.style.top = cursorY + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-  
-  // Magnetic buttons
-  document.querySelectorAll('.magnetic-btn').forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-      cr.classList.add('h');
-      cl.textContent = btn.dataset.cur || '';
+/* LENIS INITIALIZATION */
+try{
+  if(typeof Lenis!=='undefined'){
+    lenis=new Lenis({
+      lerp:0.075,
+      smoothWheel:true,
+      touchMultiplier:2,
+      infinite:false
     });
-    btn.addEventListener('mouseleave', () => {
-      cr.classList.remove('h');
-      cl.textContent = '';
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time)=>{
+      lenis.raf(time*1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+    document.documentElement.style.scrollBehavior='auto';
+  }
+}catch(e){
+  document.documentElement.style.scrollBehavior='smooth';
+}
+
+/* GOLDEN HOUR MODE - Safe Addition */
+(function(){
+  function checkGoldenHour(){
+    var hour=new Date().getHours();
+    var isGolden=hour>=18&&hour<20;
+    document.body.classList.toggle('golden-hour',isGolden);
+  }
+  checkGoldenHour();
+  setInterval(checkGoldenHour,60000); // Check every minute
+})();
+
+/* TEXT SPLITTING UTILITY */
+function splitText(element) {
+  if(!element || REDUCED) return;
+  var text = element.textContent;
+  element.innerHTML = '';
+  var words = text.split(' ');
+  words.forEach(function(word, wIdx){
+    var wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+    wordSpan.style.display = 'inline-block';
+    wordSpan.style.overflow = 'hidden';
+    wordSpan.style.marginRight = '0.25em';
+    
+    var chars = word.split('');
+    chars.forEach(function(char){
+      var span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char;
+      span.style.display = 'inline-block';
+      span.style.transform = 'translateY(110%)';
+      span.style.opacity = '0';
+      wordSpan.appendChild(span);
+    });
+    element.appendChild(wordSpan);
+  });
+}
+
+/* Apply splitting to all headings */
+document.querySelectorAll('.split-heading').forEach(function(el){
+  splitText(el);
+});
+
+/* GSAP SCROLLTRIGGER FOR SPLIT TEXT */
+if(!REDUCED && typeof gsap !== 'undefined'){
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.querySelectorAll('.split-heading').forEach(function(heading){
+    var chars = heading.querySelectorAll('.char');
+    if(chars.length === 0) return;
+    
+    ScrollTrigger.create({
+      trigger: heading,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        gsap.to(chars, {
+          y: '0%',
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.02,
+          ease: 'power4.out'
+        });
+      }
     });
   });
 }
 
-// PANIC BUTTON
-document.getElementById('panic-btn').addEventListener('click', () => {
-  document.getElementById('panic-modal').classList.add('active');
-});
-
-// FAQ TOGGLE
-function toggleFaq(btn) {
-  const item = btn.parentElement;
-  const isOpen = item.classList.contains('op');
-  
-  // Close all
-  document.querySelectorAll('.fqi').forEach(el => {
-    el.classList.remove('op');
-  });
-  
-  if (!isOpen) {
-    item.classList.add('op');
-  }
-}
-
-// MOBILE NAV
-function toggleMobileNav() {
-  // Simple scroll to top for mobile as basic implementation
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// SCROLL REVEALS
-gsap.utils.toArray('.story-chapter').forEach((chapter, i) => {
-  gsap.from(chapter.querySelector('.story-ch-head'), {
-    scrollTrigger: {
-      trigger: chapter,
-      start: 'top 80%',
-    },
-    y: 50,
-    opacity: 0,
-    duration: 1,
-    ease: 'power3.out'
-  });
-});
-
-// NAV SCROLL EFFECT
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('nav');
-  if(window.scrollY > 100) {
-    nav.classList.add('sc');
-  } else {
-    nav.classList.remove('sc');
-  }
-}, { passive: true });
-
-// QUIZ FUNCTIONALITY
-const quizQuestions = [
-  { text: 'How many weeks until your exam?', options: ['Less than 1 week', '1-2 weeks', '2-4 weeks', '1-2 months'] },
-  { text: 'How many hours can you study per day?', options: ['Less than 1 hour', '1-2 hours', '2-3 hours', '3-4 hours'] },
-  { text: 'Is this your first attempt?', options: ['First attempt', 'Second attempt', 'Third or more'] }
+/* QUIZ DATA */
+var quizQuestions=[
+  {id:'time_available',text:'How many hours can you study per day?',options:[{val:1,label:'Less than 1 hour',score:15},{val:2,label:'1-2 hours',score:35},{val:3,label:'2-3 hours',score:55},{val:4,label:'3-4 hours',score:75},{val:5,label:'4+ hours',score:90}]},
+  {id:'weeks_until_exam',text:'How many weeks until your exam?',options:[{val:1,label:'Less than 1 week',score:10,flag:'urgent'},{val:2,label:'1-2 weeks',score:25,flag:'urgent'},{val:3,label:'2-4 weeks',score:50},{val:4,label:'1-2 months',score:75},{val:5,label:'2-3 months',score:90}]},
+  {id:'attempt_number',text:'Is this your first attempt at this subject?',options:[{val:1,label:'First attempt',score:60},{val:2,label:'Second attempt',score:50,flag:'retake'},{val:3,label:'Third or more',score:40,flag:'retake'}]},
+  {id:'work_schedule',text:'Are you working while studying?',options:[{val:1,label:'Full-time (40+ hrs)',score:20,modifier:-10},{val:2,label:'Part-time',score:20,modifier:0},{val:3,label:'Not working',score:20,modifier:10}]},
+  {id:'previous_prep',text:'Have you used other NCA prep materials?',options:[{val:1,label:'No, starting fresh',score:20},{val:2,label:'Yes, but still preparing',score:15},{val:3,label:'Yes, and I failed before',score:10,flag:'retake'}]}
 ];
-let currentQ = 0;
-let score = 0;
 
-function startQuiz() {
-  currentQ = 0;
-  score = 0;
-  showQuestion();
+function calculateScore(){
+  var base=0,modifiers=[],flags=[];
+  for(var key in quizState.answers){
+    var q=quizQuestions.find(function(q){return q.id===key;});
+    var ans=q.options.find(function(o){return o.val===quizState.answers[key];});
+    base+=ans.score||0;
+    if(ans.modifier)modifiers.push(ans.modifier);
+    if(ans.flag)flags.push(ans.flag);
+  }
+  var totalMod=modifiers.reduce(function(a,b){return a+b;},0);
+  return Math.min(100,Math.max(0,base+totalMod));
 }
 
-function showQuestion() {
-  if(currentQ >= quizQuestions.length) {
-    showResult();
+function getScoreLabel(score){
+  if(score>=85)return'Exam Ready';
+  if(score>=70)return'On Track';
+  if(score>=55)return'Needs Focus';
+  return'Critical Path';
+}
+
+function getRecommendation(score,flags){
+  if(flags.includes('retake'))return'Retake Recovery: Diagnostic analysis included with Complete Bundle. Focus on what failed before.';
+  if(score>=85)return'Focus on speed drills and mock exams. Schedule your exam when ready.';
+  if(score>=70)return'Strong position. Add 1-2 weeks of pattern drills before sitting.';
+  if(score>=55)return'Condensed timeline. Prioritize must-know frameworks over nice-to-know details.';
+  return'Critical path needed. Consider extended preparation or intensive support.';
+}
+
+function renderQuiz(){
+  var container=document.getElementById('quiz-container');
+  var questionEl=document.getElementById('quiz-question');
+  var optionsEl=document.getElementById('quiz-options');
+  var progressEl=document.getElementById('quiz-progress');
+  var resultEl=document.getElementById('quiz-result');
+  
+  if(quizState.current>=quizQuestions.length){
+    var score=calculateScore();
+    var flags=[];
+    for(var key in quizState.answers){
+      var q=quizQuestions.find(function(q){return q.id===key;});
+      var ans=q.options.find(function(o){return o.val===quizState.answers[key];});
+      if(ans.flag)flags.push(ans.flag);
+    }
+    questionEl.style.display='none';
+    optionsEl.style.display='none';
+    document.getElementById('quiz-nav').style.display='none';
+    resultEl.style.display='block';
+    document.getElementById('result-score').textContent=score;
+    document.getElementById('result-title').textContent=getScoreLabel(score);
+    document.getElementById('result-rec').textContent=getRecommendation(score,flags);
+    try{sessionStorage.setItem('ncahub_readiness_score',score);}catch(e){}
     return;
   }
-  const q = quizQuestions[currentQ];
-  document.getElementById('quiz-question').textContent = q.text;
-  const opts = document.getElementById('quiz-options');
-  opts.innerHTML = '';
-  q.options.forEach((opt, idx) => {
-    const btn = document.createElement('button');
-    btn.className = 'bp';
-    btn.style.cssText = 'width:100%;justify-content:center;margin-bottom:8px;background:transparent;border:1px solid var(--g1);color:var(--g1)';
-    btn.textContent = opt;
-    btn.onclick = () => {
-      score += (idx + 1) * 20;
-      currentQ++;
-      showQuestion();
+  
+  var q=quizQuestions[quizState.current];
+  questionEl.textContent=q.text;
+  optionsEl.innerHTML='';
+  
+  q.options.forEach(function(opt){
+    var btn=document.createElement('button');
+    btn.className='quiz-option';
+    btn.innerHTML='<span style="width:20px;height:20px;border:1px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;">'+(quizState.answers[q.id]===opt.val?'✓':'')+'</span>'+opt.label;
+    if(quizState.answers[q.id]===opt.val)btn.classList.add('selected');
+    btn.onclick=function(){
+      quizState.answers[q.id]=opt.val;
+      quizState.current++;
+      renderQuiz();
     };
-    opts.appendChild(btn);
+    optionsEl.appendChild(btn);
   });
-  document.getElementById('quiz-progress').style.width = ((currentQ / quizQuestions.length) * 100) + '%';
+  
+  progressEl.style.width=((quizState.current/quizQuestions.length)*100)+'%';
 }
 
-function showResult() {
-  document.getElementById('quiz-progress').style.width = '100%';
-  document.getElementById('quiz-question').innerHTML = `<div style="font-size:3rem;color:var(--g1);margin-bottom:10px">${score}</div>Your Readiness Score`;
-  const opts = document.getElementById('quiz-options');
-  let msg = '';
-  if(score >= 85) msg = 'Exam Ready. Focus on speed drills.';
-  else if(score >= 70) msg = 'On Track. Add 1-2 weeks of pattern drills.';
-  else msg = 'Needs Focus. Condensed timeline recommended.';
-  opts.innerHTML = `<p style="color:var(--fog);margin-bottom:20px">${msg}</p><a href="#pricing" class="bp" style="width:100%;justify-content:center">See Recommended Materials →</a>`;
+/* PRELOADER */
+(function(){
+  var PL=document.getElementById('PL'),PF=document.getElementById('PF'),PN=document.getElementById('PN'),PS=document.getElementById('PS');
+  var PRE=document.getElementById('pre'),PTOP=document.getElementById('PRE_TOP'),PBOT=document.getElementById('PRE_BOT');
+  var statuses=['Initialising','Loading materials','Building frameworks','Almost ready'];
+  var si=0,n=0;
+  if(PL)gsap.to(PL,{opacity:1,duration:.7,ease:'power3.out',delay:.15});
+  if(PN)gsap.to(PN,{opacity:1,duration:.5,delay:.4});
+  if(PS)gsap.to(PS,{opacity:1,duration:.5,delay:.6});
+  function step(){
+    n+=Math.random()*3.5+1;if(n>=100)n=100;
+    if(PF)PF.style.right=(100-n)+'%';
+    if(PN)PN.textContent=Math.floor(n);
+    if(n>=25*(si+1)&&si<statuses.length-1){si++;if(PS)PS.textContent=statuses[si];}
+    if(n<100){setTimeout(step,22+Math.random()*18);}
+    else{
+      setTimeout(function(){
+        if(REDUCED){if(PRE)PRE.style.display='none';revealHero();return;}
+        try{
+          gsap.to(PTOP,{yPercent:-100,duration:1.0,ease:'power4.inOut'});
+          gsap.to(PBOT,{yPercent:100,duration:1.0,ease:'power4.inOut',delay:.04,onComplete:function(){if(PRE)PRE.style.display='none';revealHero();}});
+        }catch(e){if(PRE)PRE.style.display='none';revealHero();}
+      },340);
+    }
+  }
+  setTimeout(step,700);
+})();
+
+/* HERO REVEAL */
+function revealHero(){
+  var clock=document.getElementById('exam-clock'),rtime=document.getElementById('reading-time');
+  if(clock)setTimeout(function(){clock.style.opacity='1';},1200);
+  if(rtime)setTimeout(function(){rtime.style.opacity='1';},1400);
+  
+  /* GSAP ScrambleText effect for hero subtitle */
+  var CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789—·',FINAL='NCA PREPARATION — REIMAGINED',el=document.getElementById('HET');
+  if(el && !REDUCED){
+    var frame=0,total=45;
+    var tm=setInterval(function(){
+      el.textContent=FINAL.split('').map(function(c,i){
+        if(c===' ')return ' ';
+        if(frame/total>i/FINAL.length)return c;
+        return CHARS[Math.floor(Math.random()*CHARS.length)];
+      }).join('');
+      frame++;
+      if(frame>=total){el.textContent=FINAL;clearInterval(tm);}
+    },1000/60);
+  }
+  
+  var hel=document.getElementById('HEL');if(hel)hel.style.width='28px';
+  
+  if(!REDUCED){
+    try{
+      gsap.to('.li',{y:'0%',duration:1.2,ease:'power4.out',stagger:.14,delay:.1});
+      gsap.to('#HSUB',{opacity:1,y:0,duration:1,ease:'power3.out',delay:.75});
+      gsap.to('#HACT',{opacity:1,y:0,duration:1,ease:'power3.out',delay:.95});
+      gsap.to('#HC',{opacity:1,x:0,duration:1.1,ease:'power3.out',delay:.55});
+      gsap.to('#HAUTH',{opacity:1,duration:1,delay:1.1});
+    }catch(e){
+      document.querySelectorAll('.li').forEach(function(el){el.style.transform='none';});
+      ['HSUB','HACT','HC','HAUTH'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.opacity='1';});
+    }
+  }else{
+    document.querySelectorAll('.li').forEach(function(el){el.style.transform='none';});
+    ['HSUB','HACT','HC','HAUTH'].forEach(function(id){var e=document.getElementById(id);if(e){e.style.opacity='1';e.style.transform='none';}});
+  }
+  setTimeout(function(){var cv=document.getElementById('hcv');if(cv)cv.classList.add('on');},300);
+  renderQuiz();
 }
+
+/* GOLD INK CURSOR TRAIL - Existing (Preserved) */
+(function(){
+  if(IS_MOBILE || REDUCED) return;
+  var cv=document.getElementById('ink-cv');
+  if(!cv) return;
+  var cx=cv.getContext('2d');
+  function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
+  rz();window.addEventListener('resize',rz,{passive:true});
+  
+  var drops=[],mx=0,my=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    drops.push({x:mx,y:my,life:1,size:Math.random()*3+1,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5});
+  },{passive:true});
+  
+  function draw(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    drops=drops.filter(function(d){return d.life>0;});
+    drops.forEach(function(d){
+      d.x+=d.vx;d.y+=d.vy;d.life-=0.02;
+      cx.beginPath();
+      cx.arc(d.x,d.y,d.size*d.life,0,Math.PI*2);
+      cx.fillStyle='rgba(201,168,76,'+(d.life*0.4)+')';
+      cx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* HOLOGRAPHIC CARD TILT - Existing (Preserved) */
+(function(){
+  if(IS_MOBILE || REDUCED) return;
+  document.querySelectorAll('.tilt-card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5;
+      var y=(e.clientY-r.top)/r.height-.5;
+      var rotX=-y*12,rotY=x*10;
+      card.style.transform='perspective(1000px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) translateZ(10px)';
+      
+      /* Specular highlight */
+      var hl=card.querySelector('.sc2-highlight');
+      if(hl){
+        hl.style.setProperty('--hx',((e.clientX-r.left)/r.width*100)+'%');
+        hl.style.setProperty('--hy',((e.clientY-r.top)/r.height*100)+'%');
+      }
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.transform='perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      card.style.transition='transform 0.5s ease-out';
+    });
+    card.addEventListener('mouseenter',function(){
+      card.style.transition='transform 0.1s linear';
+    });
+  });
+})();
+
+/* CINEMATIC LETTERBOX FOR STORY SECTION - Existing (Preserved) */
+(function(){
+  if(REDUCED) return;
+  var story=document.getElementById('story');
+  var lbTop=document.getElementById('lb-top');
+  var lbBot=document.getElementById('lb-bot');
+  if(!story || !lbTop || !lbBot) return;
+  
+  ScrollTrigger.create({
+    trigger: story,
+    start: 'top 80%',
+    end: 'bottom 20%',
+    onEnter: function(){lbTop.classList.add('active');lbBot.classList.add('active');},
+    onLeave: function(){lbTop.classList.remove('active');lbBot.classList.remove('active');},
+    onEnterBack: function(){lbTop.classList.add('active');lbBot.classList.add('active');},
+    onLeaveBack: function(){lbTop.classList.remove('active');lbBot.classList.remove('active');}
+  });
+})();
+
+/* TYPEWRITER EFFECT FOR PHILOSOPHY - Existing (Preserved) */
+(function(){
+  if(REDUCED) return;
+  var pht=document.getElementById('PHT');
+  var pha=document.querySelector('.pha');
+  if(!pht) return;
+  
+  var originalText=pht.innerHTML;
+  var plainText=pht.textContent;
+  pht.innerHTML='';
+  pht.style.opacity=1;
+  
+  ScrollTrigger.create({
+    trigger: '#philosophy',
+    start: 'top 60%',
+    once: true,
+    onEnter: function(){
+      var i=0;
+      var cursor=document.createElement('span');
+      cursor.className='typewriter-cursor';
+      pht.appendChild(cursor);
+      
+      var typeInt=setInterval(function(){
+        if(i<plainText.length){
+          cursor.before(plainText.charAt(i));
+          i++;
+        }else{
+          clearInterval(typeInt);
+          setTimeout(function(){
+            cursor.style.display='none';
+            if(pha) gsap.to(pha, {opacity:1, duration:0.8});
+          },500);
+        }
+      },50);
+    }
+  });
+})();
+
+/* PAGE TRANSITION - Existing (Preserved) */
+(function(){
+  var overlay=document.getElementById('transition-overlay');
+  var links=document.querySelectorAll('.page-link');
+  
+  links.forEach(function(link){
+    link.addEventListener('click',function(e){
+      var href=this.getAttribute('href');
+      if(href && href.indexOf('#')!==0 && !href.startsWith('mailto:')){
+        e.preventDefault();
+        overlay.classList.add('active');
+        setTimeout(function(){
+          window.location.href=href;
+        },400);
+      }
+    });
+  });
+})();
+
+/* SVG DIVIDER LINE DRAW - Existing (Preserved) */
+(function(){
+  if(REDUCED) return;
+  document.querySelectorAll('.orn').forEach(function(orn){
+    var line=orn.querySelector('line');
+    if(!line) return;
+    var length=line.getTotalLength?line.getTotalLength():1000;
+    line.style.strokeDasharray=length;
+    line.style.strokeDashoffset=length;
+    line.style.stroke='var(--g1)';
+    line.style.strokeWidth='1';
+    
+    ScrollTrigger.create({
+      trigger: orn,
+      start: 'top 80%',
+      once: true,
+      onEnter: function(){
+        gsap.to(line, {strokeDashoffset:0, duration:1.5, ease:'power2.out'});
+      }
+    });
+  });
+})();
+
+/* SCROLL-LINKED BACKGROUND TEMPERATURE - Existing (Preserved) */
+(function(){
+  if(REDUCED) return;
+  window.addEventListener('scroll',function(){
+    var scrollPercent=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+    var temp=Math.min(scrollPercent*3,1);
+    document.documentElement.style.setProperty('--bg-temp',temp);
+  },{passive:true});
+})();
+
+/* TICKER SCROLL VELOCITY - Safe Addition */
+(function(){
+  if(REDUCED || !lenis) return;
+  var tickerTrack=document.getElementById('ticker-track');
+  if(!tickerTrack) return;
+  
+  var baseSpeed=55; // seconds
+  lenis.on('scroll',function(e){
+    var velocity=Math.abs(e.velocity);
+    var newDuration=Math.max(20,baseSpeed-(velocity*2));
+    tickerTrack.style.setProperty('--ticker-duration',newDuration+'s');
+  });
+})();
+
+/* DISCOVERY BAR - Existing (Preserved) */
+var discGone=false;
+window.addEventListener('scroll',function(){
+  if(!discGone&&window.scrollY>100){
+    var db=document.getElementById('discovery-bar');
+    var nav=document.getElementById('nav');
+    if(db)db.classList.add('hidden');
+    if(nav)nav.classList.add('disc-gone');
+    discGone=true;
+  }
+},{passive:true});
+
+/* EXAM CLOCK - Existing (Preserved) */
+var clockEl=document.getElementById('exam-clock');
+function updateClock(){
+  if(!clockEl)return;
+  var n=new Date();
+  clockEl.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
+}
+updateClock();
+setInterval(updateClock,1000);
+
+/* CUSTOM CURSOR with Magnetic Enhancement - Modified Safely */
+var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');
+if(CD&&CR){
+  var cmx=-200,cmy=-200,crx=-200,cry=-200;
+  document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});
+  (function animC(){
+    crx+=(cmx-crx)*.1;
+    cry+=(cmy-cry)*.1;
+    CR.style.left=crx+'px';
+    CR.style.top=cry+'px';
+    
+    /* Magnetic Button Effect - Safe Addition */
+    if(!IS_MOBILE){
+      document.querySelectorAll('.bp, .nc').forEach(function(btn){
+        var r=btn.getBoundingClientRect();
+        var cx=r.left+r.width/2,cy=r.top+r.height/2;
+        var dx=crx-cx,dy=cry-cy;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<80){
+          var pull=(80-dist)/80;
+          var pullX=dx*pull*0.3;
+          var pullY=dy*pull*0.3;
+          btn.style.transform='translate('+pullX+'px,'+pullY+'px)';
+        }else{
+          btn.style.transform='';
+        }
+      });
+    }
+    
+    requestAnimationFrame(animC);
+  })();
+  document.querySelectorAll('[data-cur]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){if(CL)CL.textContent=el.dataset.cur;CR.classList.add('h');CD.classList.add('h');});
+    el.addEventListener('mouseleave',function(){CR.classList.remove('h');CD.classList.remove('h');});
+  });
+}
+
+/* HERO CANVAS - Existing (Preserved) */
+(function(){
+  var cv=document.getElementById('hcv');if(!cv)return;
+  var cx=cv.getContext('2d');var W,H;
+  function rz(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  rz();window.addEventListener('resize',rz,{passive:true});
+  var pts=[];
+  for(var i=0;i<85;i++)pts.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.00016,vy:(Math.random()-.5)*.00016,sz:Math.random()*1.4+.4,a:Math.random()*.38+.06,ph:Math.random()*Math.PI*2});
+  var mx=.5,my=.5;
+  document.addEventListener('mousemove',function(e){mx=e.clientX/innerWidth;my=e.clientY/innerHeight;},{passive:true});
+  var breathPhase=0,t=0;
+  function draw(){
+    breathPhase+=.006;var bm=.85+.15*Math.sin(breathPhase);
+    cx.clearRect(0,0,W,H);
+    var s=5;
+    for(var x=0;x<W;x+=s){for(var y=0;y<H;y+=s){
+      var nx=x/W+(mx-.5)*.05,ny=y/H+(my-.5)*.05;
+      var v=(Math.sin(nx*4+t)*Math.cos(ny*3+t*.7)+Math.cos(nx*2-t*.5)*Math.sin(ny*5+t*.4)+1)/2;
+      if(v>.54){cx.fillStyle='rgba(201,168,76,'+((v-.54)*.07*bm)+')';cx.fillRect(x,y,s,s);}
+    }}
+    pts.forEach(function(p){
+      var px=p.x*W,py=p.y*H,curX=mx*W,curY=my*H;
+      var dx=curX-px,dy=curY-py,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120&&dist>1){var f=(120-dist)/120*.00004;p.vx+=dx/dist*f;p.vy+=dy/dist*f;}
+      p.x+=p.vx+(mx-.5)*.00003;p.y+=p.vy+(my-.5)*.00002;p.ph+=.013;
+      if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;
+      var a=p.a*(.7+.3*Math.sin(p.ph))*bm;
+      cx.beginPath();cx.arc(p.x*W,p.y*H,p.sz,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+a+')';cx.fill();
+    });
+    t+=.003;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* STORY CHAPTER REVEAL WITH SCROLLTRIGGER - Existing (Preserved) */
+(function(){
+  if(typeof ScrollTrigger === 'undefined') return;
+  
+  var chapters=document.querySelectorAll('.story-chapter');
+  var dots=document.querySelectorAll('.scp-dot');
+  var prog=document.getElementById('STORY_PROG');
+  
+  chapters.forEach(function(ch,i){
+    ScrollTrigger.create({
+      trigger: ch,
+      start: 'top 60%',
+      end: 'bottom 40%',
+      onEnter: function(){ch.classList.add('vis');if(prog)prog.classList.add('vis');dots.forEach(function(d,j){d.classList.toggle('on',j===i);});},
+      onEnterBack: function(){ch.classList.add('vis');dots.forEach(function(d,j){d.classList.toggle('on',j===i);});}
+    });
+  });
+  
+  dots.forEach(function(dot){
+    dot.addEventListener('click',function(){
+      var idx=parseInt(dot.dataset.ch);
+      if(chapters[idx]){
+        lenis?lenis.scrollTo(chapters[idx]):chapters[idx].scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+})();
+
+/* METHOD CARDS WITH SCROLLTRIGGER - Existing (Preserved) */
+(function(){
+  if(typeof ScrollTrigger === 'undefined') return;
+  
+  ['MC1','MC2','MC3'].forEach(function(id,i){
+    var el=document.getElementById(id);
+    if(!el)return;
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        gsap.to(el,{opacity:1,y:0,duration:0.8,delay:i*0.15,ease:'power3.out'});
+      }
+    });
+  });
+  
+  var mf=document.getElementById('MF');
+  if(mf){
+    ScrollTrigger.create({
+      trigger: mf,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        ['MF1','MF2','MF3','MF4'].forEach(function(id,i){
+          var el=document.getElementById(id);
+          if(el)gsap.to(el,{opacity:1,y:0,duration:0.6,delay:i*0.16,ease:'power3.out'});
+        });
+        ['MFA1','MFA2','MFA3'].forEach(function(id,i){
+          var el=document.getElementById(id);
+          if(el)gsap.to(el,{opacity:1,duration:0.8,delay:i*0.16+0.3,ease:'power3.out'});
+        });
+      }
+    });
+  }
+})();
+
+/* SUBJECT CARDS - Existing (Preserved) */
+['SC1','SC2','SC3','SC4','SC5','SC6','SC7','SC8','SC9','SC10','SC11','SC12','SC13'].forEach(function(id,i){
+  var el=document.getElementById(id);if(!el)return;
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 90%',
+      once: true,
+      onEnter: function(){
+        gsap.to(el,{opacity:1,x:0,duration:0.8,delay:i*0.05,ease:'power3.out'});
+        el.querySelectorAll('.scl li').forEach(function(li,j){
+          setTimeout(function(){li.classList.add('on');},j*80+200);
+        });
+        var fill=el.querySelector('.diff-fill');
+        if(fill)setTimeout(function(){fill.classList.add('on');},300);
+      }
+    });
+  }
+});
+
+/* BIG STATS WITH SCROLLTRIGGER - Existing (Preserved) */
+['BS1','BS2','BS3','BS4'].forEach(function(id,i){
+  var el=document.getElementById(id);if(!el)return;
+  
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        el.classList.add('on');
+        var numEl=el.querySelector('.bsn');
+        var target=parseInt(numEl.dataset.target,10);
+        var ringId=numEl.dataset.ring,pct=parseFloat(numEl.dataset.pct||'.8');
+        var ringEl=ringId?document.getElementById(ringId):null,circ=276.5;
+        
+        if(!isNaN(target)){
+          var obj={val:0};
+          gsap.to(obj,{
+            val:target,
+            duration:1.4,
+            delay:i*0.15,
+            ease:'power2.out',
+            onUpdate:function(){
+              numEl.textContent=Math.round(obj.val);
+              if(ringEl){
+                var progress=(obj.val/target)*pct;
+                ringEl.style.strokeDashoffset=circ-circ*progress;
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+/* PRICING CARDS - Existing (Preserved) */
+['PC1','PC2','PC3'].forEach(function(id,i){
+  var el=document.getElementById(id);if(!el)return;
+  if(typeof ScrollTrigger !== 'undefined'){
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        gsap.to(el,{opacity:1,y:0,scale:1,duration:0.8,delay:i*0.16,ease:'power3.out'});
+      }
+    });
+  }
+});
+
+/* TEXT SCRUB - Existing (Preserved) */
+(function(){
+  var wrap=document.getElementById('scrub-section');
+  if(!wrap||REDUCED||typeof ScrollTrigger==='undefined')return;
+  
+  ScrollTrigger.create({
+    trigger:wrap,
+    start:'top top',
+    end:'bottom bottom',
+    scrub:0.5,
+    onUpdate:function(self){
+      var p=self.progress;
+      var lines=[
+        {el:document.getElementById('SL1'),dot:document.getElementById('SD1'),from:0,to:.3},
+        {el:document.getElementById('SL2'),dot:document.getElementById('SD2'),from:.3,to:.65},
+        {el:document.getElementById('SL3'),dot:null,from:.65,to:1.0}
+      ];
+      lines.forEach(function(line){
+        if(!line.el)return;
+        var active=p>=line.from&&p<line.to+.1;
+        line.el.classList.toggle('active',active);
+        if(line.dot)line.dot.classList.toggle('active',active);
+      });
+    }
+  });
+})();
+
+/* MOBILE MENU - Existing (Preserved) */
+(function(){
+  var NH=document.getElementById('nh'),MOB=document.getElementById('mob'),MOBX=document.getElementById('mobx');
+  if(!NH||!MOB)return;
+  function openMenu(){MOB.classList.add('op');NH.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+  function closeMenu(){MOB.classList.remove('op');NH.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  NH.addEventListener('click',openMenu);
+  if(MOBX)MOBX.addEventListener('click',closeMenu);
+  document.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',closeMenu);});
+})();
+
+/* FAQ ACCORDION - Existing (Preserved) */
+(function(){
+  document.querySelectorAll('.fqi').forEach(function(item){
+    var btn=item.querySelector('.fqq'),body=item.querySelector('.fqb');
+    if(!btn||!body)return;
+    btn.addEventListener('click',function(){
+      var isOpen=item.classList.contains('op');
+      document.querySelectorAll('.fqi.op').forEach(function(o){
+        o.classList.remove('op');
+        var b=o.querySelector('.fqb');
+        if(b)b.style.maxHeight='0';
+        var q=o.querySelector('.fqq');
+        if(q)q.setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('op');
+        body.style.maxHeight=body.scrollHeight+'px';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+})();
+
+/* POST-BUY ACCORDION - Existing (Preserved) */
+(function(){
+  var pb=document.getElementById('POST_BUY'),btn=document.getElementById('POST_BUY_BTN'),body=document.getElementById('post-buy-body');
+  if(!pb||!btn||!body)return;
+  btn.addEventListener('click',function(){
+    var isOpen=pb.classList.contains('op');
+    pb.classList.toggle('op',!isOpen);
+    body.style.maxHeight=isOpen?'0':body.scrollHeight+'px';
+    btn.setAttribute('aria-expanded',String(!isOpen));
+  });
+})();
+
+/* DRAG CAROUSEL - Existing (Preserved) */
+(function(){
+  var HT=document.getElementById('HT');if(!HT)return;
+  var isDown=false,startX=0,scrollLeft=0;
+  HT.addEventListener('mousedown',function(e){isDown=true;HT.style.cursor='grabbing';startX=e.pageX-HT.offsetLeft;scrollLeft=HT.scrollLeft;});
+  document.addEventListener('mouseup',function(){isDown=false;if(HT)HT.style.cursor='grab';});
+  document.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();HT.scrollLeft=scrollLeft-(e.pageX-HT.offsetLeft-startX)*1.4;});
+  var tStartX=0,tScroll=0;
+  HT.addEventListener('touchstart',function(e){tStartX=e.touches[0].pageX;tScroll=HT.scrollLeft;},{passive:true});
+  HT.addEventListener('touchmove',function(e){HT.scrollLeft=tScroll+(tStartX-e.touches[0].pageX);},{passive:true});
+  HT.setAttribute('tabindex','0');
+  HT.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){HT.scrollLeft+=380;e.preventDefault();}if(e.key==='ArrowLeft'){HT.scrollLeft-=380;e.preventDefault();}});
+})();
+
+/* FORM - Existing (Preserved) */
+(function(){
+  var FSB=document.getElementById('FSB'),FSBT=document.getElementById('FSBT'),SFORM=document.getElementById('SFORM');
+  var FN=document.getElementById('FN'),FE=document.getElementById('FE');
+  if(!FSB)return;
+  FSB.addEventListener('click',function(e){
+    e.preventDefault();
+    var name=FN?FN.value.trim():'',email=FE?FE.value.trim():'',emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!name||!emailOk){
+      if(!name&&FN){FN.style.borderBottomColor='rgba(220,80,80,.7)';setTimeout(function(){if(FN)FN.style.borderBottomColor='';},1800);}
+      if(!emailOk&&FE){FE.style.borderBottomColor='rgba(220,80,80,.7)';setTimeout(function(){if(FE)FE.style.borderBottomColor='';},1800);}
+      return;
+    }
+    if(FSBT)FSBT.textContent='Sending…';FSB.disabled=true;
+    setTimeout(function(){
+      if(SFORM)SFORM.innerHTML='<div class="form-success"><div class="fsi">✓</div><p class="fss">Your free chapter is on its way to <strong style="color:var(--g1)">'+email+'</strong>.<br>Check your inbox — it arrives within a few minutes.</p></div>';
+      try{sessionStorage.setItem('ncahub_sample_sent','1');}catch(ex){}
+    },900);
+  });
+})();
+
+/* EXIT INTENT - Existing (Preserved) */
+(function(){
+  var EP=document.getElementById('ep'),EPX=document.getElementById('epx'),EPN=document.getElementById('epn');
+  if(!EP)return;
+  var shown=false;
+  try{if(sessionStorage.getItem('ncahub_exit_shown'))shown=true;}catch(ex){}
+  function showExit(){if(shown)return;shown=true;EP.classList.add('on');try{sessionStorage.setItem('ncahub_exit_shown','1');}catch(ex){}}
+  function hideExit(){EP.classList.remove('on');}
+  document.addEventListener('mouseleave',function(e){if(e.clientY<5&&!shown)setTimeout(showExit,200);});
+  setTimeout(function(){if(!shown)showExit();},45000);
+  if(EPX)EPX.addEventListener('click',hideExit);
+  if(EPN)EPN.addEventListener('click',hideExit);
+})();
+
+/* SMOOTH ANCHOR - Existing (Preserved) */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=a.getAttribute('href').slice(1),target=document.getElementById(id);
+    if(!target)return;
+    e.preventDefault();
+    if(lenis)lenis.scrollTo(target,{duration:1.2});
+    else target.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* COMING SOON NOTIFICATION - Existing (Preserved) */
+window.notifyComingSoon=function(form,subject){
+  var email=form.querySelector('input[type="email"]').value;
+  var btn=form.querySelector('button');
+  btn.textContent='Subscribed!';
+  btn.disabled=true;
+  try{
+    var notifications=JSON.parse(sessionStorage.getItem('ncahub_coming_soon')||'[]');
+    notifications.push({subject:subject,email:email,date:new Date().toISOString()});
+    sessionStorage.setItem('ncahub_coming_soon',JSON.stringify(notifications));
+  }catch(e){}
+  setTimeout(function(){
+    btn.textContent='Notify Me';
+    btn.disabled=false;
+    form.querySelector('input[type="email"]').value='';
+  },3000);
+  return false;
+};
+
+})();
 </script>
 </body>
 </html>
