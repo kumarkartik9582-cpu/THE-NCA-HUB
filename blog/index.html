@@ -6,41 +6,64 @@
 <title>NCA Exam Preparation Articles — The NCA Hub</title>
 <meta name="description" content="Free guides, strategy articles and subject breakdowns for NCA exam candidates. Written by someone who passed 4 subjects in 3 months.">
 <meta property="og:title" content="NCA Exam Articles — The NCA Hub">
+<meta property="og:title" content="NCA Exam Articles — The NCA Hub">
 <meta property="og:description" content="Strategy guides, subject breakdowns, and exam tips for internationally trained lawyers preparing for NCA exams.">
 <meta property="og:url" content="https://www.thencahub.com/blog/">
 <link rel="canonical" href="https://www.thencahub.com/blog/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
 <style>
 :root{--void:#020204;--abyss:#050508;--dark:#0D0D18;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--nano:.57rem;--sm:.8rem;--body:.93rem;--lead:1.08rem;--expo:cubic-bezier(.16,1,.3,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
+/* Split text character spans */
+.char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;}
+.word{display:inline-block;overflow:hidden;margin-right:0.25em;}
+
+/* Page Transition Overlay */
+#transition-overlay{position:fixed;inset:0;background:var(--g1);z-index:10000;clip-path:circle(150% at 50% 50%);pointer-events:none;}
+#transition-overlay.exit{clip-path:circle(0% at 50% 50%);transition:clip-path .8s var(--expo);}
+
 /* CURSOR */
 #cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
-#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .4s var(--expo),height .4s var(--expo),border-color .3s}
-#cr.h{width:64px;height:64px;border-color:var(--g1);}
+#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
+#cr.h{width:64px;height:64px;border-color:var(--g1);background:rgba(201,168,76,.04)}
+#cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
+#cr.h #cl{opacity:1}
 body:hover #cd{opacity:1}
+
+/* Gold Ink Canvas */
+#ink-cv{position:fixed;inset:0;pointer-events:none;z-index:9995;opacity:0.6;}
 
 /* GRAIN */
 .grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 
 /* PROGRESS BAR */
-#prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9100;width:0;transform-origin:left;transition:width .1s}
+#prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9100;width:0;transform-origin:left}
 
 /* NAV */
 nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
 .nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1}
 .nl .hub{color:rgba(201,168,76,.65)}.nl .sep{color:rgba(201,168,76,.2);margin:0 2px;font-weight:300}
 .nav-links{display:flex;gap:44px}
-.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;}
+.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;position:relative;}
 .nav-links a:hover,.nav-links a.active{color:var(--cream)}
-.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;display:inline-block;transition:transform .3s var(--expo)}
-.nc:hover{transform:translateY(-2px);background:var(--g0)}
+.nav-links a svg.nav-underline{position:absolute;bottom:-4px;left:0;width:100%;height:3px;overflow:visible;pointer-events:none;}
+.nav-links a svg.nav-underline path{stroke:var(--g1);stroke-width:1;fill:none;stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset .5s var(--expo);}
+.nav-links a:hover svg.nav-underline path{stroke-dashoffset:0}
+.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;display:inline-block;transition:transform .3s var(--expo);position:relative;overflow:hidden;}
+.nc::before{content:'';position:absolute;inset:0;background:var(--g0);transform:translateX(-101%);transition:transform .4s var(--expo)}
+.nc:hover{transform:translateY(-2px);}
+.nc:hover::before{transform:translateX(0)}
+.nc span{position:relative;z-index:1}
 .nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0;cursor:pointer}
 .nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
 @media(max-width:960px){.nav-links,.nc{display:none}.nh{display:flex}nav{padding:18px 24px}}
@@ -53,21 +76,21 @@ nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;al
 .mob-x{position:absolute;top:22px;right:24px;font-size:1.1rem;color:var(--fog);background:none;border:none;padding:8px;cursor:pointer}
 
 /* HERO */
-.blog-hero{padding:160px 72px 80px;border-bottom:1px solid rgba(201,168,76,.07)}
+.blog-hero{padding:160px 72px 80px;border-bottom:1px solid rgba(201,168,76,.07);position:relative;overflow:hidden;}
 @media(max-width:640px){.blog-hero{padding:120px 24px 60px}}
-.blog-hero-inner{max-width:1200px;margin:0 auto}
-.ey{display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px}
+.blog-hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;}
+.ey{display:inline-flex;align-items:center;gap:14px;font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:20px;opacity:0;transform:translateY(20px);}
 .ey::before{content:'';width:28px;height:1px;background:var(--g1);flex-shrink:0}
 .blog-h1{font-family:var(--fd);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:.95;letter-spacing:-.02em;color:var(--cream);margin-bottom:28px}
 .blog-h1 em{font-style:italic;color:var(--g1)}
-.blog-sub{font-size:var(--lead);color:var(--fog);max-width:520px;line-height:1.8;font-weight:300}
+.blog-sub{font-size:var(--lead);color:var(--fog);max-width:520px;line-height:1.8;font-weight:300;opacity:0;transform:translateY(20px);}
 
 /* FILTER */
 .filter-bar{max-width:1200px;margin:0 auto;padding:40px 72px 0;}
 @media(max-width:640px){.filter-bar{padding:32px 24px 0}}
-.filter-label{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
-.filters{display:flex;gap:12px;flex-wrap:wrap}
-.filter-btn{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;font-weight:500;padding:8px 18px;border:1px solid rgba(201,168,76,.2);background:none;color:var(--dim);cursor:pointer;transition:all .3s}
+.filter-label{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;opacity:0;}
+.filters{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(20px);}
+.filter-btn{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;font-weight:500;padding:8px 18px;border:1px solid rgba(201,168,76,.2);background:none;color:var(--dim);cursor:pointer;transition:all .3s;font-family:var(--fb);}
 .filter-btn:hover,.filter-btn.active{border-color:var(--g1);color:var(--g1);background:rgba(201,168,76,.04)}
 
 /* ARTICLE GRID */
@@ -78,10 +101,9 @@ nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;al
 @media(max-width:600px){.articles-grid{grid-template-columns:1fr}}
 
 /* ARTICLE CARD */
-.article-card{background:rgba(14,14,26,.5);border:1px solid rgba(201,168,76,.08);padding:40px 36px;position:relative;overflow:hidden;transition:border-color .4s,transform .4s var(--expo);display:flex;flex-direction:column;}
-.article-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent);transition:width .5s var(--expo)}
+.article-card{background:rgba(14,14,26,.5);border:1px solid rgba(201,168,76,.08);padding:40px 36px;position:relative;overflow:hidden;transition:border-color .4s,transform .4s var(--expo);display:flex;flex-direction:column;transform-style:preserve-3d;perspective:1000px;}
+.article-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent);z-index:10;}
 .article-card:hover{border-color:rgba(201,168,76,.22);transform:translateY(-4px)}
-.article-card:hover::before{width:100%}
 .article-card[style*="display:none"]{display:none!important}
 
 .card-cluster{font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--g2);margin-bottom:20px;display:flex;align-items:center;gap:8px}
@@ -98,6 +120,10 @@ nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;al
 .article-card.featured{grid-column:span 2;background:rgba(201,168,76,.03);border-color:rgba(201,168,76,.16);}
 @media(max-width:600px){.article-card.featured{grid-column:span 1}}
 .article-card.featured .card-title{font-size:clamp(1.5rem,3vw,2.1rem)}
+
+/* Card highlight for tilt */
+.card-highlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 120px at var(--hx,50%) var(--hy,50%),rgba(201,168,76,.08),transparent);opacity:0;transition:opacity .3s;z-index:1;}
+.article-card:hover .card-highlight{opacity:1;}
 
 /* EMPTY STATE */
 .no-results{padding:80px 0;text-align:center;color:var(--dim);font-size:var(--lead);display:none}
@@ -120,25 +146,30 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .fleg{font-size:.5rem;color:var(--dim);line-height:1.75;max-width:400px;text-align:right}
 .f-disc{font-size:.5rem;color:rgba(109,98,87,.5);line-height:1.75;padding-top:20px;border-top:1px solid rgba(201,168,76,.04)}
 .f-disc strong{color:rgba(201,168,76,.35)}
+
+/* Magnetic buttons */
+.magnetic{transition:transform .3s var(--expo);}
 </style>
 </head>
 <body>
 
+<div id="transition-overlay"></div>
 <div class="grain"></div>
+<canvas id="ink-cv" aria-hidden="true"></canvas>
 <div id="cd"></div>
-<div id="cr"></div>
+<div id="cr"><span id="cl"></span></div>
 <div id="prog"></div>
 
 <nav id="nav" role="navigation">
-  <a href="/" class="nl">NCA<span class="sep"> · </span><span class="hub">Hub</span></a>
+  <a href="/" class="nl magnetic">NCA<span class="sep"> · </span><span class="hub">Hub</span></a>
   <div class="nav-links">
-    <a href="/#method">Method</a>
-    <a href="/#subjects">Subjects</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/blog/" class="active">Articles</a>
-    <a href="/#sample">Free Chapter</a>
+    <a href="/#method" class="magnetic">Method<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="/#subjects" class="magnetic">Subjects<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="/#pricing" class="magnetic">Pricing<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="/blog/" class="active magnetic">Articles<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="/#sample" class="magnetic">Free Chapter<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
   </div>
-  <a href="/#readiness" class="nc"><span>Get My Score</span></a>
+  <a href="/#readiness" class="nc magnetic" data-cur="Score"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -156,7 +187,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <header class="blog-hero">
   <div class="blog-hero-inner">
     <div class="ey">NCA Strategy & Guides</div>
-    <h1 class="blog-h1">Everything you need<br>to <em>pass.</em></h1>
+    <h1 class="blog-h1 split-heading">Everything you need<br>to <em>pass.</em></h1>
     <p class="blog-sub">Free guides written by someone who passed 4 NCA subjects in 3 months — with one week to prepare for the first one.</p>
   </div>
 </header>
@@ -180,264 +211,289 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="articles-grid" id="grid">
 
     <!-- 1. FEATURED: 90 Days (Working Correctly) -->
-    <article class="article-card featured" data-cluster="strategy">
+    <article class="article-card featured tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h2>
+      <h2 class="card-title split-heading">How to Pass the NCA Exam in 90 Days: A Step-by-Step System</h2>
       <p class="card-excerpt">The exact framework used to pass 4 NCA subjects in 3 months. Includes a week-by-week calendar, subject sequencing logic, and the 2-hour daily study formula.</p>
       <div class="card-meta">
         <span class="card-read">12 min read</span>
-        <a href="article.html?post=article-pass-nca-90-days" class="card-link">Read</a>
+        <a href="article.html?post=article-pass-nca-90-days" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- SUBJECT GUIDES (5 articles) -->
-    <article class="article-card" data-cluster="subjects">
+    <article class="article-card tilt-card" data-cluster="subjects">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Subject Guide</div>
-      <h2 class="card-title">Administrative Law NCA: The Complete 2026 Exam Guide</h2>
+      <h2 class="card-title split-heading">Administrative Law NCA: The Complete 2026 Exam Guide</h2>
       <p class="card-excerpt">Vavilov standard of review, Baker procedural fairness, judicial review — with the exact answer template that structures every Admin Law question.</p>
       <div class="card-meta">
         <span class="card-read">18 min read</span>
-        <a href="article.html?post=article-a3-administrative-law-nca" class="card-link">Read</a>
+        <a href="article.html?post=article-a3-administrative-law-nca" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="subjects">
+    <article class="article-card tilt-card" data-cluster="subjects">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Subject Guide</div>
-      <h2 class="card-title">Constitutional Law NCA: The Charter Framework You Must Know</h2>
+      <h2 class="card-title split-heading">Constitutional Law NCA: The Charter Framework You Must Know</h2>
       <p class="card-excerpt">Division of powers, Charter analysis sequence, the Oakes test, and Aboriginal rights under s.35. With a complete answer template for Charter questions.</p>
       <div class="card-meta">
         <span class="card-read">16 min read</span>
-        <a href="article.html?post=article-b1-constitutional-law-nca" class="card-link">Read</a>
+        <a href="article.html?post=article-b1-constitutional-law-nca" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="subjects">
+    <article class="article-card tilt-card" data-cluster="subjects">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Subject Guide</div>
-      <h2 class="card-title">Criminal Law NCA: What the Exam Actually Tests</h2>
+      <h2 class="card-title split-heading">Criminal Law NCA: What the Exam Actually Tests</h2>
       <p class="card-excerpt">Actus reus, mens rea, the major defences under the Criminal Code, and the answer structure that separates pass from fail answers.</p>
       <div class="card-meta">
         <span class="card-read">15 min read</span>
-        <a href="article.html?post=article-b2-criminal-law-nca" class="card-link">Read</a>
+        <a href="article.html?post=article-b2-criminal-law-nca" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="subjects">
+    <article class="article-card tilt-card" data-cluster="subjects">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Subject Guide</div>
-      <h2 class="card-title">Professional Responsibility NCA: Spot Conflicts, Structure Answers</h2>
+      <h2 class="card-title split-heading">Professional Responsibility NCA: Spot Conflicts, Structure Answers</h2>
       <p class="card-excerpt">The CBA Model Code, duties, conflicts of interest, and withdrawal — with the template that pre-structures every PR question before you've read the scenario.</p>
       <div class="card-meta">
         <span class="card-read">14 min read</span>
-        <a href="article.html?post=article-b3-professional-responsibility-nca" class="card-link">Read</a>
+        <a href="article.html?post=article-b3-professional-responsibility-nca" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="subjects">
+    <article class="article-card tilt-card" data-cluster="subjects">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Subject Guide</div>
-      <h2 class="card-title">Foundations of Canadian Law NCA: The Subject Candidates Underestimate</h2>
+      <h2 class="card-title split-heading">Foundations of Canadian Law NCA: The Subject Candidates Underestimate</h2>
       <p class="card-excerpt">Sources of law, common law methodology, statutory interpretation, and Quebec's bijural tradition — broader than it looks, and it needs a specific strategy.</p>
       <div class="card-meta">
         <span class="card-read">14 min read</span>
-        <a href="article.html?post=article-b4-foundations-canadian-law-nca" class="card-link">Read</a>
+        <a href="article.html?post=article-b4-foundations-canadian-law-nca" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- EXAM STRATEGY (7 articles: A2, E1, E3, E4, E7, E8 + E2 moved to Comparison) -->
-    <article class="article-card" data-cluster="strategy">
+    <article class="article-card tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">NCA Study Schedule for Working Professionals</h2>
+      <h2 class="card-title split-heading">NCA Study Schedule for Working Professionals</h2>
       <p class="card-excerpt">A realistic study plan for candidates balancing full-time work and NCA prep. Week-by-week breakdown with 2-hour daily schedules.</p>
       <div class="card-meta">
         <span class="card-read">11 min read</span>
-        <a href="article.html?post=article-e1-nca-study-schedule-working" class="card-link">Read</a>
+        <a href="article.html?post=article-e1-nca-study-schedule-working" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="strategy">
+    <article class="article-card tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">NCA Exam Format Explained: What Happens on Exam Day</h2>
+      <h2 class="card-title split-heading">NCA Exam Format Explained: What Happens on Exam Day</h2>
       <p class="card-excerpt">Open-book, online-proctored, 3 hours. Here is exactly what happens — room setup, question types, time strategy, and what to do if something goes wrong.</p>
       <div class="card-meta">
         <span class="card-read">12 min read</span>
-        <a href="article.html?post=article-a2-nca-exam-format" class="card-link">Read</a>
+        <a href="article.html?post=article-a2-nca-exam-format" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="strategy">
+    <article class="article-card tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">How Many Hours Should You Study for the NCA?</h2>
+      <h2 class="card-title split-heading">How Many Hours Should You Study for the NCA?</h2>
       <p class="card-excerpt">Subject-by-subject hour breakdowns. What 100 hours vs 200 hours looks like, and how to tell if you're over-studying or under-prepared.</p>
       <div class="card-meta">
         <span class="card-read">9 min read</span>
-        <a href="article.html?post=article-e3-nca-study-hours" class="card-link">Read</a>
+        <a href="article.html?post=article-e3-nca-study-hours" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="strategy">
+    <article class="article-card tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">The NCA Process Timeline: From Assessment to Exams</h2>
+      <h2 class="card-title split-heading">The NCA Process Timeline: From Assessment to Exams</h2>
       <p class="card-excerpt">How long each stage really takes — NCA assessment, subject allocation, exam registration, and results. Real timelines, not estimates.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-e4-nca-process-timeline" class="card-link">Read</a>
+        <a href="article.html?post=article-e4-nca-process-timeline" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="strategy">
+    <article class="article-card tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">The NCA Study Checklist: What to Complete Before Exam Day</h2>
+      <h2 class="card-title split-heading">The NCA Study Checklist: What to Complete Before Exam Day</h2>
       <p class="card-excerpt">A printable, week-by-week checklist covering content review, practice questions, tech setup, and final 48-hour preparation.</p>
       <div class="card-meta">
         <span class="card-read">8 min read</span>
-        <a href="article.html?post=article-e7-nca-study-checklist" class="card-link">Read</a>
+        <a href="article.html?post=article-e7-nca-study-checklist" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="strategy">
+    <article class="article-card tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Exam Strategy</div>
-      <h2 class="card-title">NCA Pass Criteria: What Score Do You Actually Need?</h2>
+      <h2 class="card-title split-heading">NCA Pass Criteria: What Score Do You Actually Need?</h2>
       <p class="card-excerpt">Understanding the 50% passing threshold, how exams are graded, and what "competent" means in the NCA context.</p>
       <div class="card-meta">
         <span class="card-read">7 min read</span>
-        <a href="article.html?post=article-e8-nca-pass-criteria" class="card-link">Read</a>
+        <a href="article.html?post=article-e8-nca-pass-criteria" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- COMMON FEARS (5 articles: C1-C5) -->
-    <article class="article-card" data-cluster="fear">
+    <article class="article-card tilt-card" data-cluster="fear">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">Failed the NCA Exam. What Now?</h2>
+      <h2 class="card-title split-heading">Failed the NCA Exam. What Now?</h2>
       <p class="card-excerpt">Failure is data, not a verdict. The failure autopsy framework: what actually went wrong, what to change, and the retake strategy that works.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-c1-failed-nca-exam" class="card-link">Read</a>
+        <a href="article.html?post=article-c1-failed-nca-exam" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="fear">
+    <article class="article-card tilt-card" data-cluster="fear">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">NCA Proctoring: The Complete Technical Setup Guide</h2>
+      <h2 class="card-title split-heading">NCA Proctoring: The Complete Technical Setup Guide</h2>
       <p class="card-excerpt">Browser, room, phone setup, what to cover, what happens if the connection drops. Everything that causes exam-day anxiety — addressed before exam day.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-c2-nca-proctoring-guide" class="card-link">Read</a>
+        <a href="article.html?post=article-c2-nca-proctoring-guide" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="fear">
+    <article class="article-card tilt-card" data-cluster="fear">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">Is One Month Enough to Prepare for the NCA?</h2>
+      <h2 class="card-title split-heading">Is One Month Enough to Prepare for the NCA?</h2>
       <p class="card-excerpt">Honest answer: for some subjects in the right conditions, yes. Here is exactly what one month looks like day-by-day so you can judge your own situation.</p>
       <div class="card-meta">
         <span class="card-read">9 min read</span>
-        <a href="article.html?post=article-c3-one-month-nca-prep" class="card-link">Read</a>
+        <a href="article.html?post=article-c3-one-month-nca-prep" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="fear">
+    <article class="article-card tilt-card" data-cluster="fear">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">Do You Actually Need the NCA Textbook?</h2>
+      <h2 class="card-title split-heading">Do You Actually Need the NCA Textbook?</h2>
       <p class="card-excerpt">The honest answer is no — for most candidates. Here is why, and what to use instead that fits inside an open-book 3-hour exam.</p>
       <div class="card-meta">
         <span class="card-read">8 min read</span>
-        <a href="article.html?post=article-c4-nca-textbook-necessary" class="card-link">Read</a>
+        <a href="article.html?post=article-c4-nca-textbook-necessary" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- C5 - NEW -->
-    <article class="article-card" data-cluster="fear">
+    <article class="article-card tilt-card" data-cluster="fear">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Common Fears</div>
-      <h2 class="card-title">Managing NCA Exam Anxiety: Practical Techniques</h2>
+      <h2 class="card-title split-heading">Managing NCA Exam Anxiety: Practical Techniques</h2>
       <p class="card-excerpt">Pre-exam nerves, during-exam panic, and post-exam rumination. Specific techniques for the 72 hours before and the moments during the test.</p>
       <div class="card-meta">
         <span class="card-read">9 min read</span>
-        <a href="article.html?post=article-c5-nca-exam-anxiety" class="card-link">Read</a>
+        <a href="article.html?post=article-c5-nca-exam-anxiety" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- CAREER PATHWAY (4 articles: D1-D4) -->
-    <article class="article-card" data-cluster="pathway">
+    <article class="article-card tilt-card" data-cluster="pathway">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Career Pathway</div>
-      <h2 class="card-title">NCA to Bar Exam: The Complete Canadian Lawyer Pathway</h2>
+      <h2 class="card-title split-heading">NCA to Bar Exam: The Complete Canadian Lawyer Pathway</h2>
       <p class="card-excerpt">The full roadmap — NCA assessment, exam sequencing, LRW, articling, provincial bar exams. From foreign qualification to Call to the Bar.</p>
       <div class="card-meta">
         <span class="card-read">13 min read</span>
-        <a href="article.html?post=article-d2-nca-to-bar-exam" class="card-link">Read</a>
+        <a href="article.html?post=article-d2-nca-to-bar-exam" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="pathway">
+    <article class="article-card tilt-card" data-cluster="pathway">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Career Pathway</div>
-      <h2 class="card-title">NCA for Indian-Qualified Lawyers: The Complete Guide</h2>
+      <h2 class="card-title split-heading">NCA for Indian-Qualified Lawyers: The Complete Guide</h2>
       <p class="card-excerpt">Written by an Indian-qualified lawyer who went through it. The specific challenges, the advantages, and the preparation strategy that works.</p>
       <div class="card-meta">
         <span class="card-read">11 min read</span>
-        <a href="article.html?post=article-d3-nca-indian-lawyers" class="card-link">Read</a>
+        <a href="article.html?post=article-d3-nca-indian-lawyers" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- D4 - NEW -->
-    <article class="article-card" data-cluster="pathway">
+    <article class="article-card tilt-card" data-cluster="pathway">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Career Pathway</div>
-      <h2 class="card-title">NCA for UK-Qualified Lawyers: Transitioning to Canada</h2>
+      <h2 class="card-title split-heading">NCA for UK-Qualified Lawyers: Transitioning to Canada</h2>
       <p class="card-excerpt">Specific guidance for solicitors and barristers from the UK. Which subjects transfer, which require extra attention, and the common pitfalls.</p>
       <div class="card-meta">
         <span class="card-read">11 min read</span>
-        <a href="article.html?post=article-d4-nca-uk-based-lawyers" class="card-link">Read</a>
+        <a href="article.html?post=article-d4-nca-uk-based-lawyers" class="card-link page-link">Read</a>
       </div>
     </article>
 
-    <article class="article-card" data-cluster="comparison">
+    <article class="article-card tilt-card" data-cluster="comparison">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Comparison</div>
-      <h2 class="card-title">NCA Prep Materials: What to Look for Before You Buy</h2>
+      <h2 class="card-title split-heading">NCA Prep Materials: What to Look for Before You Buy</h2>
       <p class="card-excerpt">Volume vs precision. Live class vs async. Objective readiness metric vs guesswork. An honest evaluation framework before you spend money.</p>
       <div class="card-meta">
         <span class="card-read">11 min read</span>
-        <a href="article.html?post=article-d1-nca-prep-materials-compared" class="card-link">Read</a>
+        <a href="article.html?post=article-d1-nca-prep-materials-compared" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- COMPARISON (3 additional: E2, E5, E6) -->
     <!-- E2 - NEW -->
-    <article class="article-card" data-cluster="comparison">
+    <article class="article-card tilt-card" data-cluster="comparison">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Comparison</div>
-      <h2 class="card-title">NCA vs Bar Exam: What's the Difference?</h2>
+      <h2 class="card-title split-heading">NCA vs Bar Exam: What's the Difference?</h2>
       <p class="card-excerpt">How the NCA exams differ from provincial bar exams in format, content, and strategy. What passes the NCA vs what passes the Bar.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-e2-nca-vs-bar-exam" class="card-link">Read</a>
+        <a href="article.html?post=article-e2-nca-vs-bar-exam" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- E5 - NEW -->
-    <article class="article-card" data-cluster="comparison">
+    <article class="article-card tilt-card" data-cluster="comparison">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Comparison</div>
-      <h2 class="card-title">Are 300-Page NCA Notes Worth It?</h2>
+      <h2 class="card-title split-heading">Are 300-Page NCA Notes Worth It?</h2>
       <p class="card-excerpt">The problem with comprehensive notes in an open-book exam. Why shorter, structured templates outperform lengthy textbooks on exam day.</p>
       <div class="card-meta">
         <span class="card-read">8 min read</span>
-        <a href="article.html?post=article-e5-300-page-notes-worth-it" class="card-link">Read</a>
+        <a href="article.html?post=article-e5-300-page-notes-worth-it" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- E6 - NEW -->
-    <article class="article-card" data-cluster="comparison">
+    <article class="article-card tilt-card" data-cluster="comparison">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Comparison</div>
-      <h2 class="card-title">NCA Live Classes vs Self-Study: Which Works Better?</h2>
+      <h2 class="card-title split-heading">NCA Live Classes vs Self-Study: Which Works Better?</h2>
       <p class="card-excerpt">Cost, time, discipline requirements, and learning styles. When to pay for live instruction and when independent study is more effective.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-e6-nca-live-classes-vs-self-study" class="card-link">Read</a>
+        <a href="article.html?post=article-e6-nca-live-classes-vs-self-study" class="card-link page-link">Read</a>
       </div>
     </article>
 
     <!-- READINESS (1 article: A4) -->
-    <article class="article-card" data-cluster="readiness">
+    <article class="article-card tilt-card" data-cluster="readiness">
+      <div class="card-highlight"></div>
       <div class="card-cluster">Readiness</div>
-      <h2 class="card-title">The NCA Readiness Score: Are You Actually Ready to Sit Your Exam?</h2>
+      <h2 class="card-title split-heading">The NCA Readiness Score: Are You Actually Ready to Sit Your Exam?</h2>
       <p class="card-excerpt">The answer to "is this enough?" — finally objective. Five dimensions of readiness, scored 0–100, with a specific action for each result band.</p>
       <div class="card-meta">
         <span class="card-read">10 min read</span>
-        <a href="article.html?post=article-a4-nca-readiness-score" class="card-link">Read</a>
+        <a href="article.html?post=article-a4-nca-readiness-score" class="card-link page-link">Read</a>
       </div>
     </article>
 
@@ -465,7 +521,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div>
       <div class="fct">Contact</div>
       <ul class="fls">
-        <li><a href="mailto:hello@thencahub.com">hello@thencahub.com</a></li>
+        <li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li>
         <li><a href="/#pricing">Enroll Now</a></li>
         <li><a href="/#readiness">Get My Score</a></li>
       </ul>
@@ -479,19 +535,256 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 </footer>
 
 <script>
-// Cursor
+// Lenis Smooth Scroll
+var lenis;
+try{
+  lenis=new Lenis({
+    lerp:0.075,
+    smoothWheel:true,
+    touchMultiplier:2
+  });
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add((time)=>{
+    lenis.raf(time*1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+}catch(e){console.log('Lenis not loaded');}
+
+// Page Transition In (Gold Sweep Reveal)
 (function(){
-  var cd=document.getElementById('cd'),cr=document.getElementById('cr');
+  var overlay=document.getElementById('transition-overlay');
+  if(overlay){
+    // Check if coming from landing page
+    if(document.referrer.includes('thencahub.com') || window.location.hash === '#from-landing'){
+      overlay.style.clipPath='circle(150% at 50% 50%)';
+      setTimeout(function(){
+        overlay.classList.add('exit');
+        setTimeout(function(){
+          overlay.style.display='none';
+        },800);
+      },100);
+    } else {
+      overlay.style.display='none';
+    }
+  }
+})();
+
+// Text Splitting Utility
+function splitText(element) {
+  if(!element) return;
+  var text = element.textContent;
+  element.innerHTML = '';
+  var words = text.split(' ');
+  words.forEach(function(word){
+    var wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+    
+    var chars = word.split('');
+    chars.forEach(function(char){
+      var span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char;
+      span.style.display = 'inline-block';
+      span.style.transform = 'translateY(110%)';
+      span.style.opacity = '0';
+      wordSpan.appendChild(span);
+    });
+    element.appendChild(wordSpan);
+  });
+}
+
+// Apply splitting to headings
+document.querySelectorAll('.split-heading').forEach(function(el){
+  splitText(el);
+});
+
+// GSAP Animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero ScrambleText Effect for Subtitle
+(function(){
+  var el=document.querySelector('.ey');
+  if(!el)return;
+  var original=el.textContent;
+  var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789—·';
+  var frame=0,total=45;
+  
+  ScrollTrigger.create({
+    trigger:'.blog-hero',
+    start:'top 80%',
+    once:true,
+    onEnter:function(){
+      var tm=setInterval(function(){
+        el.textContent=original.split('').map(function(c,i){
+          if(c===' ')return ' ';
+          if(frame/total>i/original.length)return c;
+          return chars[Math.floor(Math.random()*chars.length)];
+        }).join('');
+        frame++;
+        if(frame>=total){el.textContent=original;clearInterval(tm);}
+      },1000/60);
+      
+      // Animate subtitle
+      gsap.to('.blog-sub',{opacity:1,y:0,duration:1,delay:0.3,ease:'power3.out'});
+    }
+  });
+})();
+
+// Hero Heading SplitText Animation
+ScrollTrigger.batch('.split-heading',{
+  onEnter:function(elements){
+    elements.forEach(function(heading){
+      var chars=heading.querySelectorAll('.char');
+      gsap.to(chars,{
+        y:'0%',
+        opacity:1,
+        duration:1.2,
+        stagger:0.02,
+        ease:'power4.out'
+      });
+    });
+  },
+  once:true,
+  start:'top 85%'
+});
+
+// Filter buttons animation
+ScrollTrigger.create({
+  trigger:'.filter-bar',
+  start:'top 85%',
+  once:true,
+  onEnter:function(){
+    gsap.to('.filter-label',{opacity:1,duration:0.8});
+    gsap.to('.filters',{opacity:1,y:0,duration:0.8,delay:0.1});
+  }
+});
+
+// Gold Ink Cursor Trail
+(function(){
+  if(window.innerWidth<=960)return;
+  var cv=document.getElementById('ink-cv');
+  if(!cv)return;
+  var cx=cv.getContext('2d');
+  function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
+  rz();window.addEventListener('resize',rz,{passive:true});
+  
+  var drops=[],mx=0,my=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    drops.push({x:mx,y:my,life:1,size:Math.random()*3+1,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5});
+  },{passive:true});
+  
+  function draw(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    drops=drops.filter(function(d){return d.life>0;});
+    drops.forEach(function(d){
+      d.x+=d.vx;d.y+=d.vy;d.life-=0.02;
+      cx.beginPath();
+      cx.arc(d.x,d.y,d.size*d.life,0,Math.PI*2);
+      cx.fillStyle='rgba(201,168,76,'+(d.life*0.4)+')';
+      cx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// Custom Cursor with Text Labels
+(function(){
+  var cd=document.getElementById('cd'),cr=document.getElementById('cr'),cl=document.getElementById('cl');
   if(!cd||!cr)return;
   var mx=0,my=0,cx=0,cy=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY},{passive:true});
-  document.querySelectorAll('a,button').forEach(function(el){
-    el.addEventListener('mouseenter',function(){cr.classList.add('h')});
-    el.addEventListener('mouseleave',function(){cr.classList.remove('h')});
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;},{passive:true});
+  
+  document.querySelectorAll('.magnetic').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      cr.classList.add('h');
+      if(el.dataset.cur && cl)cl.textContent=el.dataset.cur;
+    });
+    el.addEventListener('mouseleave',function(){cr.classList.remove('h');});
   });
-  function loop(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;cd.style.left=mx+'px';cd.style.top=my+'px';cr.style.left=cx+'px';cr.style.top=cy+'px';requestAnimationFrame(loop);}
+  
+  function loop(){
+    cx+=(mx-cx)*.18;cy+=(my-cy)*.18;
+    cd.style.left=mx+'px';cd.style.top=my+'px';
+    cr.style.left=cx+'px';cr.style.top=cy+'px';
+    requestAnimationFrame(loop);
+  }
   loop();
 })();
+
+// Magnetic Buttons
+(function(){
+  if(window.innerWidth<=960)return;
+  document.querySelectorAll('.magnetic').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var r=btn.getBoundingClientRect();
+      var x=e.clientX-r.left-r.width/2;
+      var y=e.clientY-r.top-r.height/2;
+      btn.style.transform='translate('+x*0.3+'px,'+y*0.3+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){
+      btn.style.transform='translate(0,0)';
+    });
+  });
+})();
+
+// 3D Card Tilt Effect
+(function(){
+  if(window.innerWidth<=960)return;
+  document.querySelectorAll('.tilt-card').forEach(function(card){
+    var highlight=card.querySelector('.card-highlight');
+    
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5;
+      var y=(e.clientY-r.top)/r.height-.5;
+      var rotX=-y*10,rotY=x*8;
+      card.style.transform='perspective(1000px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) translateY(-4px)';
+      
+      if(highlight){
+        highlight.style.setProperty('--hx',((e.clientX-r.left)/r.width*100)+'%');
+        highlight.style.setProperty('--hy',((e.clientY-r.top)/r.height*100)+'%');
+      }
+    });
+    
+    card.addEventListener('mouseleave',function(){
+      card.style.transform='perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+      card.style.transition='transform 0.5s ease-out';
+    });
+    
+    card.addEventListener('mouseenter',function(){
+      card.style.transition='transform 0.1s linear';
+      // GSAP Line Draw Animation
+      var line=card.querySelector('::before');
+      // Animate the ::before pseudo element via GSAP by animating a CSS variable or direct style
+      // Since ::before can't be directly selected, we'll use the card's style
+      card.style.setProperty('--line-width','100%');
+    });
+  });
+})();
+
+// Card Top Line Draw Animation on Hover using GSAP
+document.querySelectorAll('.article-card').forEach(function(card){
+  card.addEventListener('mouseenter',function(){
+    gsap.to(card,{'--line-width':'100%',duration:0.5,ease:'power2.out'});
+    // Direct animation of pseudo element via inline style injection isn't possible
+    // Instead, we'll animate a real element if needed, but here we use the CSS transition
+    // The CSS already has transition:width .5s var(--expo) on ::before
+  });
+});
+
+// Article Cards Stagger Animation
+ScrollTrigger.batch('.article-card',{
+  onEnter:function(elements){
+    gsap.fromTo(elements,
+      {opacity:0,y:60},
+      {opacity:1,y:0,duration:0.8,stagger:0.08,ease:'power3.out'}
+    );
+  },
+  once:true,
+  start:'top 85%'
+});
 
 // Progress bar on scroll
 (function(){
@@ -510,7 +803,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   if(mob)mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mob.classList.remove('op')})});
 })();
 
-// Filter
+// Filter functionality
 (function(){
   var btns=document.querySelectorAll('.filter-btn');
   var cards=document.querySelectorAll('.article-card');
@@ -524,6 +817,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       cards.forEach(function(card){
         if(filter==='all'||card.dataset.cluster===filter){
           card.style.display='';visible++;
+          gsap.fromTo(card,{opacity:0,y:20},{opacity:1,y:0,duration:0.5,delay:visible*0.05});
         } else {
           card.style.display='none';
         }
@@ -532,6 +826,27 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     });
   });
 })();
+
+// Page Transitions for Links
+document.querySelectorAll('.page-link').forEach(function(link){
+  link.addEventListener('click',function(e){
+    var href=this.getAttribute('href');
+    if(href && !href.startsWith('#') && !href.startsWith('mailto:')){
+      e.preventDefault();
+      var overlay=document.getElementById('transition-overlay');
+      if(overlay){
+        overlay.style.display='block';
+        overlay.classList.remove('exit');
+        overlay.style.clipPath='circle(150% at 50% 50%)';
+        setTimeout(function(){
+          window.location.href=href;
+        },400);
+      } else {
+        window.location.href=href;
+      }
+    }
+  });
+});
 </script>
 </body>
 </html>
