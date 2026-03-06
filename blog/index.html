@@ -843,3 +843,17 @@ document.querySelectorAll('.page-link').forEach(function(link){
       if(overlay){
         overlay.style.display='block';
         overlay.classList.rem
+ove('exit');
+        overlay.style.clipPath='circle(150% at 50% 50%)';
+        setTimeout(function(){
+          window.location.href=href;
+        },400);
+      } else {
+        window.location.href=href;
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
