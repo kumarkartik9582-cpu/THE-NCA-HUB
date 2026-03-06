@@ -506,7 +506,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <div class="ftg">
     <div>
       <div class="flog">NCA <span class="hub">Hub</span></div>
-      <p class="ftag">Strategic preparation for lawyers who had to start over — and refused to stop.</p>
+      <p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p>
     </div>
     <div>
       <div class="fct">Navigate</div>
@@ -521,20 +521,20 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div>
       <div class="fct">Contact</div>
       <ul class="fls">
-        <li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#8be0fee6eaf9e0eaf9ffe2e0b2beb3b9cbece6eae2e7a5e8e4e6"><span class="__cf_email__" data-cfemail="e18a948c80938a809395888ad8d4d9d3a1868c80888dcf828e8c">[email&#160;protected]</span></a></li>
         <li><a href="/#pricing">Enroll Now</a></li>
         <li><a href="/#readiness">Get My Score</a></li>
       </ul>
     </div>
   </div>
   <div class="fb2">
-    <p class="fcl">"Built for the lawyers who had to start over — and refused to stop."</p>
-    <p class="fleg">© 2025 The NCA Hub. All rights reserved.</p>
+    <p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p>
+    <p class="fleg">© 2026 The NCA Hub. All rights reserved.</p>
   </div>
   <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Lenis Smooth Scroll
 var lenis;
 try{
@@ -822,7 +822,13 @@ ScrollTrigger.batch('.article-card',{
           card.style.display='none';
         }
       });
-      if(noResults){noResults.classList.toggle('show',visible===0);}
+      if(noResults){
+        if(visible===0){
+          noResults.classList.add('show');
+        } else {
+          noResults.classList.remove('show');
+        }
+      }
     });
   });
 })();
@@ -836,17 +842,4 @@ document.querySelectorAll('.page-link').forEach(function(link){
       var overlay=document.getElementById('transition-overlay');
       if(overlay){
         overlay.style.display='block';
-        overlay.classList.remove('exit');
-        overlay.style.clipPath='circle(150% at 50% 50%)';
-        setTimeout(function(){
-          window.location.href=href;
-        },400);
-      } else {
-        window.location.href=href;
-      }
-    }
-  });
-});
-</script>
-</body>
-</html>
+        overlay.classList.rem
