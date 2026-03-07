@@ -13,7 +13,7 @@ The NCA is not the destination. It is the first gate. This article maps the comp
 
 **Stage 1:** NCA Assessment (8–12 weeks)
 **Stage 2:** NCA Exams (6–24 months, variable)
-**Stage 3:** Legal Research and Writing (CPLED) (6–10 months)
+**Stage 3:** Legal Research and Writing (6–10 months)
 **Stage 4:** Articling (10–12 months) OR Bar Admission Course (varies by province)
 **Stage 5:** Provincial Bar Exam (if applicable)
 **Stage 6:** Call to the Bar
@@ -29,7 +29,7 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 
 **Timeline:** 8–12 weeks from complete application
 
-**Cost:** ~$450 CAD assessment fee + $175 per subject exam fee
+**Cost:** ~$450 CAD assessment fee + ~$500 per subject exam fee
 
 **Decision point:** If assigned 9+ subjects, consider whether to challenge any assignments (requires additional evidence of equivalency).
 
@@ -60,9 +60,11 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 
 **What it is:** Mandatory pre-articling course on Canadian legal writing, research, and analysis.
 
-**Providers:**
-- **CPLED** (Common Law): Used by most provinces (BC, AB, SK, MB, NS, etc.)
-- **Ontario:** Law Society of Ontario has separate requirements (Licensing Examination)
+**Providers vary by province:**
+- **CPLED:** Used in Alberta, Saskatchewan, and Manitoba. Check your target province for confirmation.
+- **British Columbia:** Professional Legal Training Course (PLTC), administered by the Law Society of BC
+- **Nova Scotia:** See the Nova Scotia Barristers' Society for current requirements
+- **Ontario:** Law Society of Ontario has separate requirements (see Stage 4)
 
 **CPLED Structure:**
 - 6–10 months part-time
@@ -70,7 +72,7 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 - Major research paper
 - Some synchronous components
 
-**Cost:** ~$3,000–$4,000 CAD
+**Cost:** ~$3,000–$4,000 CAD (varies by provider)
 
 **When to start:** Can begin after completing some NCA exams (check specific provincial requirements). Many start LRW while finishing last NCA subjects.
 
@@ -85,18 +87,18 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 - Smaller markets and regional firms often more flexible with NCA candidates
 - Government positions (Crown, legal aid) may have structured programs
 
-**Cost:** You are paid (articling student salaries vary: $35k–$70k+ depending on firm/location)
+**Salary:** Articling student salaries vary by firm, practice area, and market — typically $40,000–$85,000+ CAD (Bay Street and large national firms pay considerably higher).
 
 **Pros:** Practical experience, networking, often leads to associate position
-**Cons:** Competitive to obtain, low pay relative to lawyer rates, long hours
+**Cons:** Competitive to obtain, lower pay relative to lawyer rates, long hours
 
 ### Bar Admission Course (Alternative Route)
-**Available in:** Some provinces offer alternatives to articling (e.g., Law Practice Program in Ontario, Bar Admission Course in some Maritime provinces).
+**Ontario:** The Law Society of Ontario has introduced the Integrated Practice Curriculum (IPC), which replaced and updated the previous Law Practice Program (LPP). The IPC provides a structured alternative to traditional articling. Verify current requirements and eligibility at lso.ca, as these are subject to change.
 
-**Structure:** Course-based + practical components, shorter than articling.
+**Other provinces:** Some provinces offer their own structured alternatives. Check your specific law society for current options.
 
-**Pros:** Guaranteed placement, structured
-**Cons:** Less practical experience, may be viewed differently by employers
+**Pros:** Structured placement, defined pathway
+**Cons:** Less flexible than articling in some respects; employer perceptions vary
 
 ## Stage 5: Provincial Bar Exams
 
@@ -104,10 +106,11 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 - Barrister Exam (litigation procedure)
 - Solicitor Exam (transactions procedure)
 - Both multiple-choice, open-book
-- Taken after articling/LPP
+- Pass mark: 65% (verify at lso.ca as this is subject to change)
+- Taken after articling/IPC
 
 **BC:**
-- Bar exam after articling (combination of CPLED and provincial requirements)
+- Bar exam after articling (PLTC and provincial requirements)
 
 **Alberta:**
 - CPLED bar admission course includes examination components
@@ -125,7 +128,7 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 
 **The Ceremony:** Formal admission to the provincial law society. You can then practise as a lawyer in that province.
 
-## The "NCA Hub" Timeline (Optimised)
+## The Optimised Timeline
 
 **Months 1–2:** Assessment period. Begin studying for Admin Law.
 
@@ -140,21 +143,23 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 ## Financial Planning
 
 **Estimated costs (excluding living expenses):**
-- NCA Assessment + 5 exams: ~$1,300 CAD
-- Additional NCA subjects (if assigned): ~$175 each
+- NCA Assessment: ~$450 CAD
+- 5 NCA exam fees: ~$2,500 CAD (~$500/subject)
+- Additional NCA subjects (if assigned): ~$500 each
 - NCA prep materials: ~$800–$1,500
 - LRW course: ~$3,500
-- Articling (income): -$35,000 to -$70,000 (negative because you earn)
 - Provincial bar exams: ~$1,000–$2,000
-- **Total net cost:** ~$3,000–$6,000 (excluding lost income from study time)
+- **Total gross cost: ~$8,000–$10,000** (before articling income)
 
-**Note:** If you fail subjects and re-sit, costs increase by $500 per failure.
+**Articling salary (income received): +$40,000 to +$85,000+ CAD**
+
+Note: Your articling income significantly offsets total costs. The net path to Call costs considerably less than the gross figures suggest — most candidates more than recover their total investment during the articling period alone.
 
 ## Common Bottlenecks
 
 1. **Articling positions:** Start networking in Month 3, not Month 12.
 2. **LRW timing:** Cannot article until LRW is complete (in most provinces).
-3. **NCA failures:** Each failure delays timeline by 3–4 months.
+3. **NCA failures:** Each failure delays timeline by 3–4 months and adds ~$500 in re-sit fees.
 4. **Good character review:** If you have disciplinary history in home jurisdiction, start this process early.
 
 ## Your Next Step
