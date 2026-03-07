@@ -26,6 +26,8 @@ The NCA Criminal Law exam focuses on core criminal law principles rather than pr
 | Parties to offences | 50% | Medium |
 | Regulatory offences (strict liability) | 40% | Medium |
 
+*Note: Frequency estimates are based on analysis of past exams and candidate reports, not official NCA data.*
+
 ## Actus Reus — The Physical Element
 
 Every Criminal Law answer starts with actus reus analysis.
@@ -65,18 +67,23 @@ The mental element distinguishes criminal from civil liability. The NCA exam tes
 
 **General intent:** Simply intending to do the prohibited act (e.g., common assault).
 
-**Important:** Intoxication may negate specific intent but generally not general intent.
+**Important:** Intoxication may negate specific intent but generally not general intent — subject to the new s. 33.1 framework described below.
 
 ## Major Defences
 
 The defences most commonly tested are:
 
-### Self-Defence (s. 34)
+### Self-Defence and Defence of Others (s. 34)
 
-The modern self-defence provision requires:
-1. **Reasonable grounds** to believe force is being used against the person
-2. **Defensive purpose** — acting to protect oneself
-3. **Reasonable response** — the force used must be proportionate
+The modern self-defence provision under s. 34 of the *Criminal Code* requires:
+
+1. **Reasonable grounds** to believe that force **or a threat of force** is being used against the person **or another person**
+2. **Defensive purpose** — the act was done to protect themselves or the other person
+3. **Reasonable response** — the act and force used were reasonable in the circumstances
+
+**Two important points:**
+- Section 34 is triggered by a **threat of force**, not only actual force already underway. A candidate who applies this framework only to scenarios involving actual force will miss the defence in threat situations.
+- Section 34 covers **defence of others**, not just self-defence. Identify whose safety triggered the defensive act when applying the section.
 
 The "reasonable person" standard incorporates the circumstances, including the accused's personal characteristics relevant to whether the response was reasonable.
 
@@ -90,13 +97,23 @@ The "reasonable person" standard incorporates the circumstances, including the a
 
 ### Intoxication
 
-The law on intoxication changed significantly with *R v Brown*, 2022 SCC 18.
+The law on intoxication requires careful attention to both the Supreme Court's 2022 decision and Parliament's immediate legislative response.
 
 **General rule:** Intoxication is not a defence to general intent crimes.
 
-**Exception:** Extreme intoxication akin to automatism may negate voluntariness for any crime, but the threshold is extremely high.
+**Specific intent crimes:** Intoxication may negate the specific intent element (e.g., breaking and entering with intent, theft over $5,000).
 
-**Specific intent crimes:** Intoxication may negate the specific intent element.
+**R v Brown, 2022 SCC 18:** The Supreme Court held that extreme intoxication akin to automatism could negate voluntariness and therefore serve as a defence. Parliament responded immediately.
+
+**Legislative response — new s. 33.1 CC (Bill C-28, Royal Assent June 23, 2022):** Parliament enacted s. 33.1 to address the gap left by the Brown decision. Under the new provision:
+
+- Where a person **voluntarily consumed intoxicants** in circumstances constituting a **marked departure from the standard of a reasonable person**
+- And their resulting state of extreme intoxication caused the commission of a violent prohibited act
+- That person **may be convicted** of the offence
+
+The marked departure standard must be established by the Crown. The threshold remains extremely high, but the new s. 33.1 framework means that voluntary extreme intoxication is not a complete defence to any offence when the voluntariness of consumption constitutes a marked departure from reasonable conduct.
+
+**For NCA exam purposes:** When intoxication is in issue, candidates should address both (1) the specific/general intent distinction and (2) the s. 33.1 marked departure framework. The s. 33.1 analysis applies to all offences, not only general intent crimes.
 
 ## The Criminal Law Answer Structure
 
@@ -121,6 +138,7 @@ Unlike Administrative or Constitutional Law, Criminal Law answers follow a seque
 **4. DEFENCES** (if raised by facts)
 - Identify potential defences
 - Apply elements of each defence to facts
+- For intoxication: apply both the specific/general intent distinction AND the s. 33.1 marked departure test
 - Conclude on availability
 
 **5. CONCLUSION**
@@ -138,8 +156,11 @@ Self-defence, necessity, and duress have distinct elements. Do not conflate them
 ### 3. Ignoring Causation
 For result crimes, causation is often the dispositive issue. Do not assume it is established just because the accused hit the victim.
 
-### 4. Outdated Law
-Ensure you know the current law on intoxication post-*Brown* (2022).
+### 4. Applying an Incomplete Self-Defence Framework
+Section 34 covers threats of force and defence of others — not only actual force against the accused personally. Check both triggers before concluding the defence is unavailable.
+
+### 5. Outdated Intoxication Law
+Ensure you address both the Brown framework AND the new s. 33.1 CC (Bill C-28, 2022) when intoxication is in issue. Presenting only one part of the current law is incomplete.
 
 ## 30-Day Criminal Law Study Plan
 
@@ -155,9 +176,9 @@ Ensure you know the current law on intoxication post-*Brown* (2022).
 - Day 14: Integrated practice
 
 **Week 3: Defences**
-- Days 15–17: Self-defence and defence of others
+- Days 15–17: Self-defence (s. 34) and defence of others
 - Days 18–19: Necessity and duress
-- Days 20–21: Intoxication and other defences
+- Days 20–21: Intoxication — Brown and s. 33.1 CC framework
 
 **Week 4: Integration and Exam Practice**
 - Days 22–24: Full problem questions
