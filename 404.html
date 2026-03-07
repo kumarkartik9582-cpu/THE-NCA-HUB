@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page Not Found — The NCA Hub</title>
+<meta name="description" content="The page you were looking for could not be found.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.thencahub.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#020204;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--expo:cubic-bezier(.16,1,.3,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px;text-align:center;-webkit-font-smoothing:antialiased;}
+.num{font-family:var(--fd);font-size:clamp(6rem,20vw,12rem);font-weight:300;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(201,168,76,.25);letter-spacing:-.04em;margin-bottom:8px;animation:fadeUp 1s var(--expo) forwards;opacity:0}
+.line{width:40px;height:1px;background:var(--g1);margin:0 auto 32px;animation:fadeUp 1s var(--expo) .15s forwards;opacity:0}
+h1{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2rem);font-weight:300;color:var(--cream);margin-bottom:16px;letter-spacing:-.01em;animation:fadeUp 1s var(--expo) .25s forwards;opacity:0}
+p{font-size:.85rem;color:var(--fog);line-height:1.7;max-width:380px;margin-bottom:40px;animation:fadeUp 1s var(--expo) .35s forwards;opacity:0}
+.links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;animation:fadeUp 1s var(--expo) .45s forwards;opacity:0}
+.btn-primary{font-size:.57rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:14px 32px;transition:transform .3s var(--expo),background .2s;display:inline-block}
+.btn-primary:hover{transform:translateY(-2px);background:var(--g0)}
+.btn-ghost{font-size:.57rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--fog);border:1px solid rgba(201,168,76,.2);padding:14px 32px;transition:all .3s;display:inline-block}
+.btn-ghost:hover{border-color:var(--g1);color:var(--cream)}
+a{color:inherit;text-decoration:none}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(20px)}}
+</style>
+</head>
+<body>
+<div class="num">404</div>
+<div class="line"></div>
+<h1>This page doesn't exist.</h1>
+<p>The URL you followed may be broken, or the page may have been moved. Let's get you back on track.</p>
+<div class="links">
+  <a href="/" class="btn-primary">Back to Home</a>
+  <a href="/blog/" class="btn-ghost">Browse Articles</a>
+</div>
+</body>
+</html>
