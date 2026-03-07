@@ -107,12 +107,12 @@ Can you maintain concentration for a full 3-hour exam?
   - Accept you are taking a risk
 
 ### If You Scored Below 60 (Underprepared)
-**Do not sit the exam.** The NCA charges $500 per subject. Failing costs:
-- $500 re-sit fee
+**Do not sit the exam.** The NCA charges approximately $500 per subject. Failing costs:
+- ~$500 re-sit fee
 - 3–4 months delay
 - Confidence damage
 
-Better to postpone, study properly, and pass first time.
+Better to postpone, study properly, and pass first time. [Contact us for a diagnostic analysis →](/contact)
 
 ## The "Readiness Checklist" Quick Version
 
