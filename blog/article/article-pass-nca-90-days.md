@@ -11,7 +11,7 @@ The first time I opened the NCA syllabus for Administrative Law, I stared at it 
 
 Three hundred pages of textbook. Seventy hours of recorded lectures. A 3-hour exam that would determine whether I could continue my legal career in Canada. And I had one week.
 
-That was October 2024. By January 2025, I had passed four NCA subjects and completed the CPLED Legal Research and Writing course — the LRW program used in Alberta, Saskatchewan, and Manitoba. Ontario candidates use the Law Society of Ontario's separate licensing process instead; the preparation strategy in this article applies regardless of which provincial route you follow. The method I built under that pressure is what became The NCA Hub.
+That was September 2025. By November 2025, I had passed four NCA subjects and completed the CPLED Legal Research and Writing course — the LRW program used in Alberta, Saskatchewan, and Manitoba. Ontario candidates use the Law Society of Ontario's separate licensing process instead; the preparation strategy in this article applies regardless of which provincial route you follow. The method I built under that pressure is what became The NCA Hub.
 
 This article gives you that system — adapted for a 90-day window that is realistic for working professionals and focused candidates alike.
 
