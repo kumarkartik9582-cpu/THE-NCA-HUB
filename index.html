@@ -346,37 +346,98 @@ nav.disc-gone{top:0}
 .typewriter-cursor{display:inline-block;width:3px;height:1em;background:var(--g1);margin-left:4px;animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-/* READINESS SCORE */
-.readiness-sec{background:var(--abyss);padding:130px 72px;}
-.readiness-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-@media(max-width:900px){.readiness-grid{grid-template-columns:1fr}}
-.quiz-container{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.14);padding:52px;position:relative;border-top:1px solid rgba(255,255,255,0.05);}
-.quiz-container::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
-.flbl{font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);display:block;margin-bottom:36px;font-weight:600}
-.quiz-progress-bar{width:100%;height:3px;background:rgba(201,168,76,.1);margin-bottom:32px;position:relative;}
-.quiz-progress-fill{height:100%;background:var(--g1);width:0%;transition:width .5s var(--expo);}
-.quiz-question{font-size:var(--lead);color:var(--cream);margin-bottom:28px;line-height:1.6;font-family:var(--fd);}
-.quiz-options{display:flex;flex-direction:column;gap:12px;}
-.quiz-option{width:100%;padding:18px 20px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);color:var(--cream);font-family:var(--fb);font-size:var(--body);text-align:left;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:14px;}
-.quiz-option:hover{background:rgba(201,168,76,.1);border-color:var(--g1);transform:translateX(6px);}
-.quiz-option.selected{background:var(--g1);color:var(--void);border-color:var(--g1);}
-.quiz-nav{display:flex;gap:16px;margin-top:28px;}
-.quiz-result{display:none;padding-top:32px;border-top:1px solid rgba(201,168,76,.1);}
-.result-score-wrap{display:flex;align-items:center;gap:28px;margin-bottom:32px;}
-.result-score{font-family:var(--fd);font-size:6rem;font-weight:300;color:var(--g1);line-height:1;}
-.result-label{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:6px;}
-.result-title{font-size:var(--lead);color:var(--cream);}
-.result-rec{background:rgba(201,168,76,.05);padding:24px;border:1px solid rgba(201,168,76,.1);margin-bottom:24px;}
-.result-rec-title{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);margin-bottom:10px;}
-.result-rec-text{font-size:var(--body);color:var(--cream);line-height:1.7;}
-.score-legend{display:flex;flex-direction:column;gap:16px;padding:40px;background:var(--glow3);border:1px solid rgba(201,168,76,.1);}
-.score-item{display:flex;gap:16px;align-items:flex-start;}
-.score-badge{width:50px;height:50px;border:2px solid var(--g1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g1);font-size:.65rem;font-weight:700;}
-.score-badge.med{border-color:rgba(201,168,76,.5);color:var(--fog);}
-.score-badge.low{border-color:rgba(201,168,76,.3);color:var(--dim);}
-.score-badge.crit{border-color:rgba(201,168,76,.15);color:var(--dim);}
-.score-item-title{font-size:var(--body);color:var(--cream);font-weight:500;margin-bottom:4px;}
-.score-item-desc{font-size:var(--sm);color:var(--fog);line-height:1.5;}
+/* READINESS SCORE — NEW SYSTEM */
+.readiness-sec{background:var(--abyss);padding:130px 0;}
+@media(max-width:640px){.readiness-sec{padding:90px 0;}}
+
+/* Quiz shell — full width within .w */
+.quiz-shell{width:100%}
+.quiz-lbl{font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);display:block;margin-bottom:20px;font-weight:600}
+.quiz-heading{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2rem);font-weight:300;color:var(--cream);margin-bottom:8px;line-height:1.3}
+.quiz-sub{font-size:.9rem;color:var(--fog);line-height:1.6;margin-bottom:32px}
+
+/* Progress */
+.rq-progress-wrap{margin-bottom:28px}
+.rq-progress-meta{display:flex;justify-content:space-between;font-size:.68rem;color:var(--fog);margin-bottom:8px;letter-spacing:.06em}
+.rq-progress-bar{height:3px;background:rgba(201,168,76,.12);overflow:hidden}
+.rq-progress-fill{height:100%;background:linear-gradient(90deg,var(--g1),var(--g0));transition:width .6s var(--expo);width:0%}
+
+/* Question cards */
+.q-card{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.14);border-top:2px solid var(--g1);padding:40px;transition:opacity .3s}
+@media(max-width:640px){.q-card{padding:24px 20px}}
+.q-number{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g1);margin-bottom:16px}
+.q-text{font-family:var(--fd);font-size:1.15rem;color:var(--cream);line-height:1.65;margin-bottom:28px}
+.q-note{font-size:.8rem;color:var(--fog);margin-bottom:24px;padding:12px 16px;border-left:2px solid rgba(201,168,76,.3);background:rgba(201,168,76,.04)}
+
+/* Subject grid */
+.subj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.subj-grid{grid-template-columns:1fr}}
+.subj-btn{padding:18px 20px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);color:var(--cream);font-family:var(--fb);font-size:.85rem;text-align:left;cursor:none;transition:all .25s;display:flex;flex-direction:column;gap:4px}
+@media(max-width:960px){.subj-btn{cursor:pointer}}
+.subj-btn:hover{background:rgba(201,168,76,.09);border-color:var(--g1)}
+.subj-btn.selected{background:rgba(201,168,76,.18);border-color:var(--g1);color:var(--g0)}
+.subj-name{font-weight:600}
+.subj-hint{font-size:.72rem;color:var(--fog);line-height:1.4}
+.subj-btn.selected .subj-hint{color:rgba(201,168,76,.7)}
+
+/* Options */
+.rq-options{display:flex;flex-direction:column;gap:10px}
+.opt-btn{width:100%;padding:16px 20px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);color:var(--cream);font-family:var(--fb);font-size:.88rem;text-align:left;cursor:none;transition:all .25s;display:flex;align-items:flex-start;gap:14px;line-height:1.55}
+@media(max-width:960px){.opt-btn{cursor:pointer}}
+.opt-btn:hover{background:rgba(201,168,76,.09);border-color:var(--g1);transform:translateX(4px)}
+.opt-btn.rq-selected{background:rgba(201,168,76,.18);border-color:var(--g1);color:var(--g0)}
+.opt-btn.rq-correct{background:rgba(80,180,100,.12);border-color:#50b464;color:#a0e0a8}
+.opt-btn.rq-wrong{background:rgba(220,80,80,.08);border-color:rgba(220,80,80,.4);color:rgba(240,160,160,.9)}
+.opt-letter{width:22px;height:22px;border:1px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;flex-shrink:0;margin-top:1px;opacity:.7}
+.opt-text{flex:1}
+
+/* Feedback chip */
+.feedback-chip{display:none;margin-top:16px;padding:14px 18px;font-size:.8rem;line-height:1.5;border-left:2px solid rgba(201,168,76,.35);background:rgba(201,168,76,.05);color:var(--fog)}
+.feedback-chip.show{display:block}
+.feedback-chip.fc-good{border-left-color:#50b464;background:rgba(80,180,100,.06);color:#a0e0a8}
+.feedback-chip.fc-bad{border-left-color:rgba(220,80,80,.5);background:rgba(220,80,80,.05);color:rgba(240,160,160,.9)}
+
+/* Quiz nav buttons */
+.rq-nav{display:flex;gap:12px;margin-top:24px}
+.btn-rq-next{padding:14px 36px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.82rem;font-weight:600;letter-spacing:.08em;border:none;cursor:none;transition:all .25s;display:none;align-items:center;gap:8px;text-transform:uppercase}
+@media(max-width:960px){.btn-rq-next{cursor:pointer}}
+.btn-rq-next:hover{background:var(--g0);transform:translateY(-1px)}
+.btn-rq-next.rq-show{display:inline-flex}
+.btn-rq-back{padding:14px 20px;background:transparent;border:1px solid rgba(201,168,76,.2);color:var(--fog);font-family:var(--fb);font-size:.82rem;cursor:none;transition:all .25s}
+@media(max-width:960px){.btn-rq-back{cursor:pointer}}
+.btn-rq-back:hover{border-color:var(--g1);color:var(--cream)}
+
+/* Results panel */
+.rq-result-panel{display:none;background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.14);border-top:2px solid var(--g1);padding:48px}
+@media(max-width:640px){.rq-result-panel{padding:28px 20px}}
+.rq-result-panel.rq-show{display:block}
+.rq-score-row{display:flex;align-items:flex-end;gap:24px;margin-bottom:12px}
+.rq-score-num{font-family:var(--fd);font-size:5.5rem;font-weight:300;color:var(--g1);line-height:1}
+@media(max-width:640px){.rq-score-num{font-size:3.8rem}}
+.rq-score-meta{padding-bottom:10px}
+.rq-result-label{font-family:var(--fd);font-size:1.4rem;color:var(--cream);margin-bottom:4px}
+.rq-subject-tag{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fog)}
+.rq-rec{font-size:.93rem;color:var(--cream);line-height:1.75;margin:24px 0;padding:20px 24px;border-left:3px solid var(--g1);background:rgba(201,168,76,.04)}
+
+/* Breakdown */
+.rq-breakdown{margin-top:32px}
+.rq-breakdown-title{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g1);margin-bottom:16px}
+.rq-bi{padding:14px 0;border-bottom:1px solid rgba(201,168,76,.08);display:flex;align-items:flex-start;gap:14px}
+.rq-bi:last-child{border-bottom:none}
+.rq-bi-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0;margin-top:1px}
+.rq-bi-icon.bi-pass{background:rgba(80,180,100,.15);color:#50b464}
+.rq-bi-icon.bi-fail{background:rgba(220,80,80,.1);color:rgba(220,100,100,.9)}
+.rq-bi-q{font-size:.78rem;color:var(--fog);margin-bottom:3px}
+.rq-bi-action{font-size:.82rem;color:var(--cream);line-height:1.5}
+
+/* Result action row */
+.rq-action-row{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.btn-rq-primary{padding:16px 36px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.82rem;font-weight:600;letter-spacing:.08em;border:none;cursor:none;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;text-transform:uppercase}
+@media(max-width:960px){.btn-rq-primary{cursor:pointer}}
+.btn-rq-primary:hover{background:var(--g0)}
+.btn-rq-ghost{padding:16px 24px;background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:var(--fb);font-size:.82rem;cursor:none;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center}
+@media(max-width:960px){.btn-rq-ghost{cursor:pointer}}
+.btn-rq-ghost:hover{border-color:var(--g1)}
 
 /* STORY */
 #story{position:relative;z-index:1;}
@@ -912,67 +973,136 @@ body.golden-hour {
       <h2 class="sh split-heading">Know exactly where you stand.<br><em>Before you sit.</em></h2>
     </div>
     <p class="sl" style="max-width:700px;margin-top:24px;">
-      Stop wondering "Is this enough?" Get a personalized assessment of your preparation level and a clear study path forward.
+      Six questions built on real exam criteria — not guesswork. Your score reflects whether you are ready to sit, not whether you've studied long enough.
     </p>
-    
-    <div class="readiness-grid" style="margin-top:64px;">
-      <div class="quiz-container" id="quiz-container">
-        <span class="flbl">Calculate Your Score</span>
-        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress"></div></div>
-        <div class="quiz-question" id="quiz-question">Loading...</div>
-        <div class="quiz-options" id="quiz-options"></div>
-        <div class="quiz-nav" id="quiz-nav" style="display:none;">
-          <button class="bg" id="quiz-prev" style="display:none;">← Back</button>
+
+    <div class="quiz-shell" id="rq-shell" style="margin-top:64px;">
+
+      <!-- PROGRESS -->
+      <div class="rq-progress-wrap" id="rq-progress-wrap">
+        <div class="rq-progress-meta">
+          <span id="rq-prog-label">Select your subject</span>
+          <span id="rq-prog-frac">0 / 6</span>
         </div>
-        
-        <div class="quiz-result" id="quiz-result">
-          <div class="result-score-wrap">
-            <div class="result-score" id="result-score">0</div>
-            <div>
-              <div class="result-label">Your Readiness Score</div>
-              <div class="result-title" id="result-title">Calculating...</div>
-            </div>
-          </div>
-          <div class="result-rec">
-            <div class="result-rec-title">Recommendation</div>
-            <div class="result-rec-text" id="result-rec"></div>
-          </div>
-          <a href="#pricing" class="bp" style="width:100%;text-align:center;justify-content:center;"><span>See Recommended Materials →</span></a>
+        <div class="rq-progress-bar"><div class="rq-progress-fill" id="rq-prog-fill"></div></div>
+      </div>
+
+      <!-- STEP: SUBJECT SELECTION -->
+      <div class="q-card" id="rq-step-subject">
+        <div class="q-number">Step 1 of 6 — Subject</div>
+        <div class="q-text">Which subject are you preparing for?</div>
+        <div class="subj-grid" id="rq-subj-grid">
+          <button class="subj-btn" data-subj="admin">
+            <span class="subj-name">Administrative Law</span>
+            <span class="subj-hint">Vavilov, Baker, Knight — procedural and substantive review</span>
+          </button>
+          <button class="subj-btn" data-subj="crim">
+            <span class="subj-name">Criminal Law</span>
+            <span class="subj-hint">Actus reus, mens rea, defences, Charter procedure</span>
+          </button>
+          <button class="subj-btn" data-subj="con">
+            <span class="subj-name">Constitutional Law</span>
+            <span class="subj-hint">Division of powers, Charter, Aboriginal rights</span>
+          </button>
+          <button class="subj-btn" data-subj="fcl">
+            <span class="subj-name">Foundations of Canadian Law</span>
+            <span class="subj-hint">Sources of law, Indigenous law, legal theory, statutory interpretation</span>
+          </button>
+          <button class="subj-btn" data-subj="pr">
+            <span class="subj-name">Professional Responsibility</span>
+            <span class="subj-hint">Conflicts, confidentiality, duty of loyalty, Model Code</span>
+          </button>
+        </div>
+        <div class="rq-nav" style="margin-top:20px;">
+          <button class="btn-rq-next" id="rq-btn-subj-next">Continue →</button>
         </div>
       </div>
-      
-      <div class="score-legend">
-        <h4 style="font-family:var(--fd);font-size:1.3rem;color:var(--cream);margin-bottom:24px;">What Your Score Means</h4>
-        <div class="score-item">
-          <div class="score-badge">85+</div>
-          <div>
-            <div class="score-item-title">Exam Ready</div>
-            <div class="score-item-desc">Focus on speed drills and mock exams. You're on track.</div>
-          </div>
-        </div>
-        <div class="score-item">
-          <div class="score-badge med">70-84</div>
-          <div>
-            <div class="score-item-title">On Track</div>
-            <div class="score-item-desc">Add 1-2 weeks of pattern drills. Prioritize key frameworks.</div>
-          </div>
-        </div>
-        <div class="score-item">
-          <div class="score-badge low">55-69</div>
-          <div>
-            <div class="score-item-title">Needs Focus</div>
-            <div class="score-item-desc">Condensed timeline recommended. Consider intensive support.</div>
-          </div>
-        </div>
-        <div class="score-item">
-          <div class="score-badge crit">&lt;55</div>
-          <div>
-            <div class="score-item-title">Critical Path</div>
-            <div class="score-item-desc">Custom scheduling needed. Contact for personalized plan.</div>
-          </div>
+
+      <!-- STEP 0: Execution Q1 — Answer Speed -->
+      <div class="q-card" id="rq-step-0" style="display:none">
+        <div class="q-number">Step 2 of 6 — Answer Speed</div>
+        <div class="q-text">Have you written a complete timed practice answer — 45 minutes, no stopping, for this subject?</div>
+        <div class="rq-options" id="rq-opts-0"></div>
+        <div class="feedback-chip" id="rq-fb-0"></div>
+        <div class="rq-nav">
+          <button class="btn-rq-back" id="rq-back-0">← Back</button>
+          <button class="btn-rq-next" id="rq-btn-next-0">Continue →</button>
         </div>
       </div>
-    </div>
+
+      <!-- STEP 1: Execution Q2 — Mock Exam -->
+      <div class="q-card" id="rq-step-1" style="display:none">
+        <div class="q-number">Step 3 of 6 — Exam Conditioning</div>
+        <div class="q-text">Have you sat a full 3-hour mock exam under real exam conditions — no interruptions, same materials you'll bring, timer running?</div>
+        <div class="rq-options" id="rq-opts-1"></div>
+        <div class="feedback-chip" id="rq-fb-1"></div>
+        <div class="rq-nav">
+          <button class="btn-rq-back" id="rq-back-1">← Back</button>
+          <button class="btn-rq-next" id="rq-btn-next-1">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Knowledge Q1 -->
+      <div class="q-card" id="rq-step-2" style="display:none">
+        <div class="q-number">Step 4 of 6 — Knowledge Check</div>
+        <div class="q-note" id="rq-note-2">Read carefully — select the most accurate answer.</div>
+        <div class="q-text" id="rq-qtext-2"></div>
+        <div class="rq-options" id="rq-opts-2"></div>
+        <div class="feedback-chip" id="rq-fb-2"></div>
+        <div class="rq-nav">
+          <button class="btn-rq-back" id="rq-back-2">← Back</button>
+          <button class="btn-rq-next" id="rq-btn-next-2">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Knowledge Q2 -->
+      <div class="q-card" id="rq-step-3" style="display:none">
+        <div class="q-number">Step 5 of 6 — Knowledge Check</div>
+        <div class="q-note" id="rq-note-3">Read carefully — select the most accurate answer.</div>
+        <div class="q-text" id="rq-qtext-3"></div>
+        <div class="rq-options" id="rq-opts-3"></div>
+        <div class="feedback-chip" id="rq-fb-3"></div>
+        <div class="rq-nav">
+          <button class="btn-rq-back" id="rq-back-3">← Back</button>
+          <button class="btn-rq-next" id="rq-btn-next-3">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Knowledge Q3 -->
+      <div class="q-card" id="rq-step-4" style="display:none">
+        <div class="q-number">Step 6 of 6 — Knowledge Check</div>
+        <div class="q-note" id="rq-note-4">Read carefully — select the most accurate answer.</div>
+        <div class="q-text" id="rq-qtext-4"></div>
+        <div class="rq-options" id="rq-opts-4"></div>
+        <div class="feedback-chip" id="rq-fb-4"></div>
+        <div class="rq-nav">
+          <button class="btn-rq-back" id="rq-back-4">← Back</button>
+          <button class="btn-rq-next" id="rq-btn-next-4">See My Score →</button>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="rq-result-panel" id="rq-result-panel">
+        <span class="quiz-lbl">Your Result</span>
+        <div class="rq-score-row">
+          <div class="rq-score-num" id="rq-res-score">0</div>
+          <div class="rq-score-meta">
+            <div class="rq-result-label" id="rq-res-label">—</div>
+            <div class="rq-subject-tag" id="rq-res-subject">—</div>
+          </div>
+        </div>
+        <div class="rq-rec" id="rq-res-rec"></div>
+        <div class="rq-breakdown">
+          <div class="rq-breakdown-title">What your answers reveal</div>
+          <div id="rq-res-breakdown"></div>
+        </div>
+        <div class="rq-action-row">
+          <a href="#pricing" class="btn-rq-primary">See Recommended Materials →</a>
+          <button class="btn-rq-ghost" id="rq-retake-btn">Retake Assessment</button>
+        </div>
+      </div>
+
+    </div><!-- /quiz-shell -->
   </div>
 </section>
 
@@ -1487,20 +1617,20 @@ body.golden-hour {
         <div class="ptier">Notes Only</div><div class="pprice">$175</div><div class="pper">per subject (CAD)</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>PDF: yours to keep forever</li></ul>
-        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20Notes%20Purchase" class="pb" aria-label="Get Notes Only plan"><span>Get Notes</span></a>
+        <a href="/cdn-cgi/l/email-protection#305b455d51425b514244595b0905080270575d51595c1e535f5d0f4345525a5553440d7e73711502007e5f4455431502006045425358514355" class="pb" aria-label="Get Notes Only plan"><span>Get Notes</span></a>
       </div>
       <div class="pc feat sm tilt-card" id="PC2">
         <span class="fb">Most Popular</span>
         <div class="ptier">Complete Bundle</div><div class="pprice">$279</div><div class="pper">per subject (CAD)</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Full short-form video lecture series</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>Performance Pod membership</li><li>PDF + lifetime video access</li></ul>
-        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20Complete%20Bundle%20Purchase" class="pb" aria-label="Get Complete Bundle"><span>Get Full Bundle</span></a>
+        <a href="/cdn-cgi/l/email-protection#d2b9a7bfb3a0b9b3a0a6bbb9ebe7eae092b5bfb3bbbefcb1bdbfeda1a7b0b8b7b1a6ef9c9193f7e0e291bdbfa2beb7a6b7f7e0e290a7bcb6beb7f7e0e282a7a0b1bab3a1b7" class="pb" aria-label="Get Complete Bundle"><span>Get Full Bundle</span></a>
       </div>
       <div class="pc sm tilt-card" id="PC3">
         <div class="ptier">All Subjects Package</div><div class="pprice">$899</div><div class="pper">complete package (best value)</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>All subject complete bundles</li><li>All video lecture series</li><li>All templates and practice Q&amp;As</li><li>Performance Pods for all subjects</li><li>LRW course guidance included</li><li>Priority email support</li><li>Early access to new subjects</li></ul>
-        <a href="mailto:kumarkartik9582@gmail.com?subject=NCA%20All%20Subjects%20Package" class="pb" aria-label="Get Everything — all 6 subjects"><span>Get Everything</span></a>
+        <a href="/cdn-cgi/l/email-protection#8fe4fae2eefde4eefdfbe6e4b6bab7bdcfe8e2eee6e3a1ece0e2b0fcfaede5eaecfbb2c1ccceaabdbfcee3e3aabdbfdcfaede5eaecfbfcaabdbfdfeeece4eee8ea" class="pb" aria-label="Get Everything — all 6 subjects"><span>Get Everything</span></a>
       </div>
     </div>
     <div class="proof-rows" aria-label="Student results">
@@ -1510,7 +1640,7 @@ body.golden-hour {
       <div class="proof-row">"3 subjects in one sitting" · A.K., Ottawa</div>
       <div class="proof-row">"4th attempt. Finally a pass." · Anum, Constitutional Law</div>
     </div>
-    <p class="urgency-line">Payment plans available — email <a href="mailto:kumarkartik9582@gmail.com" style="color:var(--g1)">kumarkartik9582@gmail.com</a></p>
+    <p class="urgency-line">Payment plans available — email <a href="/cdn-cgi/l/email-protection#6f041a020e1d040e1d1b0604565a575d2f08020e0603410c0002" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="315a445c50435a504345585a0804090371565c50585d1f525e5c">[email&#160;protected]</span></a></p>
     <p class="authority-line">Materials developed by a qualified lawyer · Reviewed for accuracy against current NCA syllabi</p>
     
     <div class="strategic-pull" style="max-width:700px;margin:48px auto 0;">
@@ -1525,7 +1655,7 @@ body.golden-hour {
         <div class="post-buy-ico"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
       </button>
       <div class="post-buy-body" id="post-buy-body" role="region">
-        <p class="post-buy-inner">You'll receive access immediately via our course platform. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is granted automatically when released at no additional charge. Everything is yours permanently, with no expiry, no subscription. If anything doesn't reach you, email <a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a> and it's resolved within the hour.</p>
+        <p class="post-buy-inner">You'll receive access immediately via our course platform. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is granted automatically when released at no additional charge. Everything is yours permanently, with no expiry, no subscription. If anything doesn't reach you, email <a href="/cdn-cgi/l/email-protection#69021c04081b02081b1d0002505c515b290e04080005470a0604"><span class="__cf_email__" data-cfemail="fe958b939f8c959f8c8a9795c7cbc6ccbe99939f9792d09d9193">[email&#160;protected]</span></a> and it's resolved within the hour.</p>
       </div>
     </div>
   </div>
@@ -1577,7 +1707,7 @@ body.golden-hour {
       <div class="fqi"><button class="fqq" aria-expanded="false">Do you cover Professional Responsibility and LRW?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes to both. Professional Responsibility is covered as a full NCA exam subject: notes, templates, practice questions. LRW is a mandatory CPLED course, not an NCA exam, but it sits on the path to qualification. We guide you through it so you know exactly what to expect.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">Do I need to be in Canada to use these materials?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">No. Everything is fully digital and accessible from anywhere in the world.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">When will the video lectures be available?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The video lecture series is in production. Anyone who purchases a Complete Bundle gets access automatically when videos go live, at no extra cost. The notes and templates are available now.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in installments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="mailto:kumarkartik9582@gmail.com" style="color:var(--g1)">kumarkartik9582@gmail.com</a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in installments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="/cdn-cgi/l/email-protection#b1dac4dcd0c3dad0c3c5d8da88848983f1d6dcd0d8dd9fd2dedc" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="305b455d51425b514244595b0905080270575d51595c1e535f5d">[email&#160;protected]</span></a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
     </div>
   </div>
 </section>
@@ -1674,7 +1804,7 @@ body.golden-hour {
     </div>
     <div>
       <div class="fct">Contact</div>
-      <ul class="fls"><li><a href="mailto:kumarkartik9582@gmail.com">kumarkartik9582@gmail.com</a></li><li><a href="#pricing">Enroll Now</a></li><li><a href="#sample">Get Free Chapter</a></li></ul>
+      <ul class="fls"><li><a href="/cdn-cgi/l/email-protection#c9a2bca4a8bba2a8bbbda0a2f0fcf1fb89aea4a8a0a5e7aaa6a4"><span class="__cf_email__" data-cfemail="1f746a727e6d747e6d6b7674262a272d5f78727e7673317c7072">[email&#160;protected]</span></a></li><li><a href="#pricing">Enroll Now</a></li><li><a href="#sample">Get Free Chapter</a></li></ul>
     </div>
   </div>
   <div class="fb2">
@@ -1684,14 +1814,15 @@ body.golden-hour {
   <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){'use strict';
 
 /* GLOBALS */
 var REDUCED=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 var IS_MOBILE=window.innerWidth<=960;
 var lenis=null;
-var quizState={current:0,answers:{},completed:false};
+/* READINESS QUIZ STATE (new system) */
+var rqState={subject:null,answers:{},scores:{}};
 
 /* LENIS INITIALIZATION */
 try{
@@ -1796,88 +1927,504 @@ if(!REDUCED && typeof gsap !== 'undefined'){
   });
 }
 
-/* QUIZ DATA */
-var quizQuestions=[
-  {id:'time_available',text:'How many hours can you study per day?',options:[{val:1,label:'Less than 1 hour',score:15},{val:2,label:'1-2 hours',score:35},{val:3,label:'2-3 hours',score:55},{val:4,label:'3-4 hours',score:75},{val:5,label:'4+ hours',score:90}]},
-  {id:'weeks_until_exam',text:'How many weeks until your exam?',options:[{val:1,label:'Less than 1 week',score:10,flag:'urgent'},{val:2,label:'1-2 weeks',score:25,flag:'urgent'},{val:3,label:'2-4 weeks',score:50},{val:4,label:'1-2 months',score:75},{val:5,label:'2-3 months',score:90}]},
-  {id:'attempt_number',text:'Is this your first attempt at this subject?',options:[{val:1,label:'First attempt',score:60},{val:2,label:'Second attempt',score:50,flag:'retake'},{val:3,label:'Third or more',score:40,flag:'retake'}]},
-  {id:'work_schedule',text:'Are you working while studying?',options:[{val:1,label:'Full-time (40+ hrs)',score:20,modifier:-10},{val:2,label:'Part-time',score:20,modifier:0},{val:3,label:'Not working',score:20,modifier:10}]},
-  {id:'previous_prep',text:'Have you used other NCA prep materials?',options:[{val:1,label:'No, starting fresh',score:20},{val:2,label:'Yes, but still preparing',score:15},{val:3,label:'Yes, and I failed before',score:10,flag:'retake'}]}
+/* ═══════════════════════════════════════════════
+   READINESS QUIZ — NEW ENGINE
+   Replaces the old 5-question input-based system.
+   Now: subject-specific knowledge questions + execution
+   scoring. Score is out of 100 (40 exec + 60 knowledge).
+═══════════════════════════════════════════════ */
+
+/* EXECUTION QUESTIONS (shared across all subjects) */
+var rqLogisticsQ=[
+  {
+    opts:[
+      {label:'I have not written a timed practice answer yet',pts:0,fb:'This is the highest-risk gap in your preparation. You can know the law cold and still fail because you cannot execute under time pressure. The exam is 45 minutes per question. Without timed practice you have no idea whether your written speed matches that window. Start today — one timed answer, 45 minutes, no stopping.'},
+      {label:'I have tried timed practice but consistently run out of time before completing the answer',pts:5,fb:'You have started, which matters. Running out of time consistently signals one of two things: your framework deployment is too slow, or you are writing too much per element. The fix is template drilling — memorise the analytical structure so you are not deciding how to organise while writing. Aim for 3–5 more timed answers before sitting.'},
+      {label:'I have completed 1–2 timed answers and finished within the 45-minute window',pts:10,fb:'Solid start. 1–2 timed completions is enough to know you can finish — but not enough to know you can do it consistently under pressure. The third and fourth timed answers are where the technique becomes automatic. Keep going.'},
+      {label:'I have completed 3–5 timed answers and finish consistently with a few minutes to review',pts:15,fb:'Strong. Consistent completion with review time is the target. The remaining risk is stamina across a full 3-hour exam — which is what the mock exam question addresses. You are close to exam-ready on execution speed.'},
+      {label:'I have completed 5+ timed answers and finish every one with time to review conclusions and remedies',pts:20,fb:'Excellent. This is exam-ready execution speed. Your written output is calibrated to the time window. The knowledge questions are the remaining variable.'}
+    ]
+  },
+  {
+    opts:[
+      {label:'No — I have not sat a full 3-hour mock exam yet',pts:0,fb:'A 3-hour exam under pressure is a different physical and mental experience from studying. Most candidates underestimate how much their quality drops between question one and question three. Sitting the exam for the first time on exam day is a serious risk. Schedule a full mock — same time of day, same materials, no interruptions — before you book.'},
+      {label:'I have done a partial mock (1–2 questions timed, not a full sitting)',pts:5,fb:'Better than nothing, but partial mocks do not test the stamina dimension. The critical failure point for most candidates is question three — when mental fatigue sets in and conclusions get rushed. You need at least one full 3-hour sitting to know whether your quality holds across the entire paper.'},
+      {label:'I have sat one full 3-hour mock under exam conditions',pts:10,fb:'Good. One full mock means you know what the mental load feels like. The question now is what you learned from it. Did you review it carefully? Did you identify where your quality dropped? A second mock addressing those gaps is the ideal next step.'},
+      {label:'I have sat two full 3-hour mocks and reviewed both carefully',pts:15,fb:'Strong preparation. Two reviewed mocks means you have identified and addressed your stamina and quality-drop patterns. The main remaining variable is the knowledge questions — which the next section tests.'},
+      {label:'I have sat three or more full mock exams and know exactly where my answers are strong and weak',pts:20,fb:'Excellent exam conditioning. Multiple reviewed mocks is the gold standard. You know the format, you know your own patterns, and you have addressed them. Your knowledge score will determine the final result.'}
+    ]
+  }
 ];
 
-function calculateScore(){
-  var base=0,modifiers=[],flags=[];
-  for(var key in quizState.answers){
-    var q=quizQuestions.find(function(q){return q.id===key;});
-    var ans=q.options.find(function(o){return o.val===quizState.answers[key];});
-    base+=ans.score||0;
-    if(ans.modifier)modifiers.push(ans.modifier);
-    if(ans.flag)flags.push(ans.flag);
-  }
-  var totalMod=modifiers.reduce(function(a,b){return a+b;},0);
-  return Math.min(100,Math.max(0,base+totalMod));
-}
-
-function getScoreLabel(score){
-  if(score>=85)return'Exam Ready';
-  if(score>=70)return'On Track';
-  if(score>=55)return'Needs Focus';
-  return'Critical Path';
-}
-
-function getRecommendation(score,flags){
-  if(flags.includes('retake'))return'Retake Recovery: Diagnostic analysis included with Complete Bundle. Focus on what failed before.';
-  if(score>=85)return'Focus on speed drills and mock exams. Schedule your exam when ready.';
-  if(score>=70)return'Strong position. Add 1-2 weeks of pattern drills before sitting.';
-  if(score>=55)return'Condensed timeline. Prioritize must-know frameworks over nice-to-know details.';
-  return'Critical path needed. Consider extended preparation or intensive support.';
-}
-
-function renderQuiz(){
-  var container=document.getElementById('quiz-container');
-  var questionEl=document.getElementById('quiz-question');
-  var optionsEl=document.getElementById('quiz-options');
-  var progressEl=document.getElementById('quiz-progress');
-  var resultEl=document.getElementById('quiz-result');
-  
-  if(quizState.current>=quizQuestions.length){
-    var score=calculateScore();
-    var flags=[];
-    for(var key in quizState.answers){
-      var q=quizQuestions.find(function(q){return q.id===key;});
-      var ans=q.options.find(function(o){return o.val===quizState.answers[key];});
-      if(ans.flag)flags.push(ans.flag);
+/* SUBJECT-SPECIFIC KNOWLEDGE QUESTIONS */
+var rqKnowledgeQ={
+  admin:[
+    {
+      q:'An immigration officer refuses a permanent residence application. The applicant seeks judicial review. Which standard of review applies and why?',
+      opts:[
+        {label:'Correctness — because the decision affects the applicant\'s rights and interests',pts:0,fb:'Incorrect. Affecting rights triggers the Knight duty of fairness analysis, not correctness review under Vavilov. Vavilov\'s correctness exceptions are narrow: statutory right of appeal on questions of law, or questions of central importance to the legal system.',tag:'Vavilov standard selection'},
+        {label:'Reasonableness — the presumptive standard under Vavilov applies to an immigration officer interpreting their enabling statute',pts:20,fb:'Correct. Vavilov establishes reasonableness as the presumptive standard for all administrative decisions. There is no statutory right of appeal here, and this is not a constitutional question or general question of central importance. The officer\'s interpretation of the immigration statute attracts deference.',tag:'Vavilov standard selection'},
+        {label:'Correctness — because the officer\'s decision involves a question of statutory interpretation',pts:0,fb:'Incorrect. Statutory interpretation by an administrative decision-maker of their own enabling statute is precisely the type of question Vavilov assigns to reasonableness review. Correctness applies only to the narrow rule-of-law exceptions.',tag:'Vavilov standard selection'},
+        {label:'The Dunsmuir four-factor contextual approach applies to this type of administrative decision',pts:0,fb:'Incorrect. Dunsmuir is no longer good law. Vavilov [2019] SCC 65 completely replaced the Dunsmuir framework. Applying Dunsmuir to an Admin Law question will receive zero marks on the standard of review component.',tag:'Vavilov vs Dunsmuir'}
+      ]
+    },
+    {
+      q:'A municipal council revokes a restaurant\'s liquor licence without giving the owner advance notice or an opportunity to respond. Before analyzing what procedural protections were required, you must first ask:',
+      opts:[
+        {label:'What standard of review applies to the council\'s decision under Vavilov',pts:0,fb:'Incorrect. Standard of review governs substantive review. It has no role in the procedural fairness trigger analysis. Always work through the three pillars in sequence: procedural fairness first, then substantive review.',tag:'Three Pillars Framework'},
+        {label:'Whether the duty of procedural fairness is triggered — applying the Knight three-prong test to determine if the decision is public, affects rights or interests, and is final',pts:20,fb:'Correct. The Knight test is always the first step in procedural fairness analysis. You must establish that the duty is triggered before you can analyze what content it requires under Baker. Skipping the trigger analysis is a common exam error.',tag:'Knight trigger analysis'},
+        {label:'Whether the council\'s decision was reasonable under the Vavilov framework',pts:0,fb:'Incorrect. This jumps to substantive review without completing the procedural fairness analysis. The Three Pillars Framework requires procedural fairness to be addressed first and completely before moving to substantive review.',tag:'Three Pillars Framework'},
+        {label:'What procedural content was required — applying the five Baker factors immediately',pts:5,fb:'Partially correct in that Baker is the right test for content — but you cannot apply Baker without first establishing that the Knight trigger is satisfied. Jumping to Baker content without confirming the trigger is technically incomplete and loses the trigger marks.',tag:'Knight trigger analysis'}
+      ]
+    },
+    {
+      q:'A tribunal\'s written decision is four paragraphs long. The applicant made three specific legal arguments. The decision states only that the tribunal was "satisfied the criteria were met" without addressing any of the three arguments. Under Vavilov, this decision is best characterized as:',
+      opts:[
+        {label:'Valid — tribunals have discretion over how much reasoning to provide, and the conclusion is within the range of acceptable outcomes',pts:0,fb:'Incorrect. Vavilov paras 127–128 explicitly requires that reasons must be responsive to the core of the parties\' arguments. A decision that ignores central submissions is unreasonable regardless of the outcome.',tag:'Vavilov reasonableness — responsive reasoning'},
+        {label:'Unreasonable — the reasons fail to engage with the applicant\'s central arguments, violating the responsiveness requirement in Vavilov paras 127–128',pts:20,fb:'Correct. Vavilov requires that a reasonable decision must be justified in relation to the facts and law constraining the decision-maker, and must respond to the parties\' core submissions. Conclusory reasons that ignore central arguments are unreasonable — not merely inadequate.',tag:'Vavilov reasonableness — responsive reasoning'},
+        {label:'A breach of procedural fairness, because the applicant was not given a meaningful opportunity to be heard',pts:10,fb:'Partially correct — the failure to address arguments could raise procedural fairness issues as well. However, under Vavilov, the primary characterization is unreasonableness of the decision itself, which is the stronger and more complete analysis for this fact pattern.',tag:'Procedural fairness vs unreasonableness'},
+        {label:'Reviewable for correctness, because adequate reasons are required by the rule of law',pts:0,fb:'Incorrect. The standard of review for this substantive decision remains reasonableness under Vavilov. The adequacy of reasons is assessed as part of the reasonableness analysis, not as a separate correctness question.',tag:'Vavilov standard selection'}
+      ]
     }
-    questionEl.style.display='none';
-    optionsEl.style.display='none';
-    document.getElementById('quiz-nav').style.display='none';
-    resultEl.style.display='block';
-    document.getElementById('result-score').textContent=score;
-    document.getElementById('result-title').textContent=getScoreLabel(score);
-    document.getElementById('result-rec').textContent=getRecommendation(score,flags);
-    try{sessionStorage.setItem('ncahub_readiness_score',score);}catch(e){}
-    return;
-  }
-  
-  var q=quizQuestions[quizState.current];
-  questionEl.textContent=q.text;
-  optionsEl.innerHTML='';
-  
-  q.options.forEach(function(opt){
-    var btn=document.createElement('button');
-    btn.className='quiz-option';
-    btn.innerHTML='<span style="width:20px;height:20px;border:1px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;">'+(quizState.answers[q.id]===opt.val?'✓':'')+'</span>'+opt.label;
-    if(quizState.answers[q.id]===opt.val)btn.classList.add('selected');
-    btn.onclick=function(){
-      quizState.answers[q.id]=opt.val;
-      quizState.current++;
-      renderQuiz();
-    };
-    optionsEl.appendChild(btn);
-  });
-  
-  progressEl.style.width=((quizState.current/quizQuestions.length)*100)+'%';
+  ],
+  crim:[
+    {
+      q:'Marcus dies after Jordan strikes him once in the head with a wrench during an argument. Jordan says he "just wanted to hurt him, not kill him." Under section 229 of the Criminal Code, what is the most supportable charge and why?',
+      opts:[
+        {label:'Murder under s.229(a)(i) — because death resulted from Jordan\'s deliberate act',pts:0,fb:'Incorrect. Section 229(a)(i) requires that Jordan subjectively intended to cause death. Intent to hurt is not the same as intent to kill. Applying this section without evidence of subjective intent to cause death would violate the constitutional minimum established in Martineau.',tag:'Murder mens rea — Martineau'},
+        {label:'Murder under s.229(a)(ii) — because Jordan intended bodily harm and must have known a wrench blow to the head was likely to cause death',pts:20,fb:'Correct. Section 229(a)(ii) applies where the accused intended to cause bodily harm that they knew was likely to cause death and was reckless whether death resulted. A deliberate wrench blow to the head supports the inference of both intended bodily harm and knowledge of likely fatal consequences.',tag:'Murder mens rea — s.229(a)(ii)'},
+        {label:'Manslaughter — because Jordan lacked the specific intent to cause death required for murder',pts:10,fb:'Partly correct that manslaughter is available, but s.229(a)(ii) murder is the stronger charge. Jordan\'s deliberate use of a lethal weapon on a vulnerable body part strongly supports the inference that he knew death was likely. Manslaughter would apply if even this inference cannot be drawn.',tag:'Murder vs manslaughter'},
+        {label:'No offence — because Jordan did not intend to kill and criminal liability requires proof of intention',pts:0,fb:'Incorrect. Criminal liability does not require intent to kill. Manslaughter requires only objective foreseeability of bodily harm. Murder under s.229(a)(ii) requires subjective knowledge that the act was likely to cause death. Neither requires an explicit intent to kill.',tag:'Mens rea fundamentals'}
+      ]
+    },
+    {
+      q:'Alex is charged with assault causing bodily harm under s.267. Alex was severely intoxicated and claims he had no awareness of what he was doing. Which statement is correct?',
+      opts:[
+        {label:'Intoxication is a complete defence because it negates the required mental element',pts:0,fb:'Incorrect. Assault is a general intent offence. Intoxication is not available as a defence to general intent offences. The accused need only intend the act of applying force — not the specific outcome or harm.',tag:'General vs specific intent'},
+        {label:'Intoxication is not a defence. Assault is a general intent offence requiring only that the accused intended the act of applying force — intoxication does not negate this minimal mental element',pts:20,fb:'Correct. The general intent / specific intent distinction is critical. General intent offences require only the intent to do the act itself. Intoxication, unless extreme enough to cause automatism, is not a defence to general intent offences. This is one of the most tested distinctions in NCA Criminal Law.',tag:'General vs specific intent'},
+        {label:'Intoxication reduces the charge from assault causing bodily harm to simple assault',pts:0,fb:'Incorrect. Intoxication does not reduce the level of an assault charge. It is not a partial defence to any tier of assault offence under ss.265–268. The bodily harm aspect concerns consequences, not intent.',tag:'General vs specific intent'},
+        {label:'Intoxication is available as a defence only if the Crown fails to prove Alex was reckless',pts:0,fb:'Incorrect. Recklessness is not the relevant mens rea for assault. Assault requires only intention to apply force. The general/specific intent categorization, not recklessness analysis, determines whether intoxication is available.',tag:'General vs specific intent'}
+      ]
+    },
+    {
+      q:'Elena\'s client James has confessed to her that he committed the assault he is charged with. He now wants to testify at trial that he was elsewhere that night. Elena\'s professional obligations require her to:',
+      opts:[
+        {label:'Present James\'s false alibi testimony because his right to a full defence takes priority over all other obligations',pts:0,fb:'Incorrect. A lawyer cannot knowingly present false testimony. This would constitute a fraud on the court and a violation of the duty to the administration of justice. The client\'s right to a defence does not override the lawyer\'s duty of candour to the tribunal.',tag:'Criminal defence ethics — guilty client'},
+        {label:'Withdraw from representation if James insists on testifying falsely — she cannot call a witness she knows will lie, nor can she argue facts she knows to be false',pts:20,fb:'Correct. Where a client confesses guilt and insists on presenting false testimony, the lawyer faces an irreconcilable conflict between loyalty to the client and duty to the court. The ethical path is: advise James of the ethical constraints, refuse to call false testimony, and withdraw if he insists. She can still vigorously test the Crown\'s case without asserting false facts.',tag:'Criminal defence ethics — guilty client'},
+        {label:'Advise James not to testify and make no closing argument about the alibi, but continue to represent him otherwise',pts:10,fb:'This partial answer is closer to correct — she must not assert the false alibi in closing. However, the more complete answer addresses the withdrawal obligation if James insists on presenting false testimony. The lawyer cannot stay in the case and allow James to testify falsely even by omission.',tag:'Criminal defence ethics — guilty client'},
+        {label:'Report James\'s confession to the Crown, as her duty to the administration of justice overrides solicitor-client confidentiality',pts:0,fb:'Incorrect. The duty to the court does not permit — and certainly does not require — disclosure of a client\'s confidential confession. Confidentiality and privilege survive even after the lawyer withdraws. The solution is withdrawal and silence, not disclosure.',tag:'Criminal defence ethics — confidentiality'}
+      ]
+    }
+  ],
+  con:[
+    {
+      q:'Ontario enacts a law prohibiting technology companies from collecting personal data on users under 16 without verified parental consent, with fines up to $500,000. The first analytical step in any constitutional challenge to this law is:',
+      opts:[
+        {label:'Determine whether the Charter applies to private actors under s.32 of the Constitution Act, 1982',pts:5,fb:'This is relevant if a Charter argument is raised — but it is not the first step. The first step in any constitutional challenge is always the division of powers analysis: pith and substance. Only once validity is established do you move to Charter and other grounds.',tag:'Analytical sequence — DOP first'},
+        {label:'Determine the pith and substance of the legislation — its dominant purpose and practical effects — and classify it under a head of power in ss.91–92',pts:20,fb:'Correct. Pith and substance is always the starting point for any division of powers challenge. You must characterize the dominant purpose and effects of the impugned law before classifying it and before applying any overlap doctrines (paramountcy, IJI) or Charter analysis.',tag:'Pith and substance — first step'},
+        {label:'Apply the Oakes test to assess whether the fines are a proportionate limitation on s.8 privacy rights',pts:0,fb:'Incorrect. The Oakes test applies only after a Charter breach is established — it cannot be the first analytical step. And s.8 of the Charter protects against unreasonable search and seizure, not data collection by private companies.',tag:'Analytical sequence — DOP first'},
+        {label:'Determine whether there is an operational conflict with the federal Privacy Act, requiring application of federal paramountcy',pts:5,fb:'Paramountcy analysis is relevant but premature. You can only apply paramountcy after establishing that both the federal and provincial laws are independently valid — which requires pith and substance analysis first.',tag:'Analytical sequence — DOP first'}
+      ]
+    },
+    {
+      q:'A federal law validly enacted under the criminal law power prohibits a category of conduct and imposes penalties. An Ontario law also addresses the same conduct but imposes stricter requirements. When does federal paramountcy render the Ontario law inoperative?',
+      opts:[
+        {label:'Whenever both laws address the same subject matter',pts:0,fb:'Incorrect. This would eliminate the double aspect doctrine. The mere fact that two laws address the same subject does not create a conflict. Both federal and provincial governments can validly legislate on the same matter from different aspects.',tag:'Federal paramountcy — test'},
+        {label:'Only when it is impossible to comply with both laws simultaneously (operational conflict), OR when the provincial law frustrates the purpose of the federal law',pts:20,fb:'Correct. This is the two-branch paramountcy test from Multiple Access and Rothmans. Presumption is against conflict. The provincial law is inoperative only to the extent of actual impossibility of compliance or demonstrated frustration of federal purpose.',tag:'Federal paramountcy — test'},
+        {label:'Whenever the provincial law was enacted after the federal law',pts:0,fb:'Incorrect. Timing of enactment is irrelevant to paramountcy analysis. Paramountcy applies based on the content of the laws and whether they conflict — not when they were passed.',tag:'Federal paramountcy — test'},
+        {label:'Whenever the provincial law imposes stricter obligations than the federal law',pts:5,fb:'Stricter provincial requirements are not automatically inoperative. If a driver can comply with the stricter provincial standard without violating federal law, there is no operational conflict. Rothmans is the key case: a provincial law permitting less advertising than the federal law allowed was not in conflict.',tag:'Federal paramountcy — Rothmans'}
+      ]
+    },
+    {
+      q:'A court finds that a provincial curriculum law infringes s.2(a) freedom of religion of a religious school board. The government argues the law is justified. The correct framework for assessing this justification is:',
+      opts:[
+        {label:'The government must demonstrate the law is within provincial jurisdiction under s.92 of the Constitution Act, 1867',pts:0,fb:'Incorrect. Jurisdiction under s.92 determines whether the provincial government had the power to enact the law at all — it is a separate, threshold question. Once a Charter breach is found, justification is analyzed under s.1 Oakes, not under division of powers.',tag:'Oakes test — s.1 justification'},
+        {label:'The Oakes test: the government must show a pressing and substantial objective, rational connection, minimal impairment of the right, and proportionate effects',pts:20,fb:'Correct. Once a Charter breach is established, the burden shifts to the government under s.1 to demonstrate the limit is reasonable and demonstrably justified in a free and democratic society. The Oakes test has four sequential steps — failure at any one step ends the analysis.',tag:'Oakes test — four steps'},
+        {label:'The reasonableness standard — courts defer to the legislature\'s policy judgment on matters involving competing rights',pts:0,fb:'Incorrect. Vavilov reasonableness review applies to administrative decisions, not to constitutional analysis of Charter rights. The Oakes test is the required framework under s.1 — it is not a deference standard, and the government bears the full burden of justification.',tag:'Oakes test vs Vavilov'},
+        {label:'The government must show the law does not impair the core of the religious institution\'s constitutional status',pts:5,fb:'This language echoes interjurisdictional immunity doctrine from division of powers — it is not the correct framework for s.1 Charter justification. The Oakes test is the only applicable framework once a Charter breach is found.',tag:'Oakes test — s.1 justification'}
+      ]
+    }
+  ],
+  fcl:[
+    {
+      q:'The Supreme Court of Canada denies leave to appeal a 2024 Ontario Court of Appeal decision on stare decisis. A trial judge must now decide the same legal issue. The correct statement about the effect of the leave denial is:',
+      opts:[
+        {label:'The SCC has implicitly affirmed the Ontario Court of Appeal\'s reasoning and it now has near-SCC authority',pts:0,fb:'Incorrect. This is one of the most common stare decisis errors. A denial of leave is a procedural decision about whether the SCC will hear the appeal — it is not a decision on the merits. The SCC does not endorse, affirm, or adopt the lower court\'s reasoning by declining to grant leave.',tag:'Stare decisis — leave denial'},
+        {label:'The leave denial has no effect on the binding authority of the Ontario Court of Appeal decision — it remains binding on the trial judge and the Ontario Court of Appeal',pts:20,fb:'Correct. Under the hierarchy of stare decisis, an Ontario Court of Appeal decision is binding on all Ontario trial judges regardless of whether the SCC was asked to hear it. A leave denial leaves the decision intact and unchanged in its authority.',tag:'Stare decisis — binding authority'},
+        {label:'The Ontario Court of Appeal decision becomes persuasive authority only, since the SCC had an opportunity to affirm it and declined',pts:0,fb:'Incorrect. The binding authority of a court decision derives from the court\'s position in the hierarchy, not from SCC endorsement. An Ontario Court of Appeal decision binds Ontario trial judges whether or not the SCC reviewed it.',tag:'Stare decisis — binding authority'},
+        {label:'The trial judge has discretion to depart from the Ontario Court of Appeal decision since the SCC declined to settle the issue',pts:0,fb:'Incorrect. Trial judges do not gain discretion to depart from binding appellate authority because of a leave denial. Departure from binding precedent is only permissible through the overruling process at the appellate level, not at the trial level.',tag:'Stare decisis — binding authority'}
+      ]
+    },
+    {
+      q:'An FCL exam question reads: "Write an essay discussing whether the duty to consult has meaningfully advanced Indigenous rights in Canada." Which answer format is required and why?',
+      opts:[
+        {label:'IRAC problem question format — identify the legal issues and apply Haida Nation to the facts',pts:0,fb:'Incorrect. IRAC applies to fact patterns where you are advising a client or deciding a case. This question has no facts — it asks you to critically engage with a legal proposition. Deploying IRAC where there are no facts signals a fundamental format recognition error.',tag:'Format recognition — essay vs IRAC'},
+        {label:'Essay format — thesis statement, engagement with assigned academic readings, counter-argument, and synthesis/conclusion',pts:20,fb:'Correct. The trigger phrase "write an essay" combined with no fact pattern signals Essay Format B. FCL is unique among NCA subjects in using three distinct answer formats. The key differentiator is the requirement to engage named academic authors — not just case law — in the body of the essay.',tag:'Format recognition — essay vs IRAC'},
+        {label:'Legal memorandum format — issues, law, analysis per issue, and recommendations to a client',pts:0,fb:'Incorrect. Legal memorandum format applies when you are advising a named client. An academic essay question does not have a client. Format confusion in FCL is a structural error that affects your entire answer, not just a minor stylistic issue.',tag:'Format recognition — memo vs essay'},
+        {label:'Short-answer format — define the duty to consult and list the key cases',pts:0,fb:'Incorrect. A question worth significant marks requiring an essay cannot be answered in short-answer form. More importantly, listing cases without engaging academic arguments earns minimal marks in FCL. Examiners explicitly reward candidates who engage with named authors\' positions.',tag:'FCL essay format'}
+      ]
+    },
+    {
+      q:'A court must interpret a provision that could mean either "motor vehicle" broadly (including bicycles) or narrowly (only engine-powered vehicles). The Driedger modern purposive approach requires the court to:',
+      opts:[
+        {label:'Apply the plain meaning of "motor vehicle" — if the literal text is unambiguous, inquiry ends there',pts:5,fb:'This describes the older plain meaning rule, which has been replaced by the Driedger modern purposive approach. Even apparently clear language must be read in its statutory context and in light of the scheme and purpose of the Act. Plain meaning is a starting point, not an end point.',tag:'Driedger modern purposive approach'},
+        {label:'Read the language in its ordinary sense, harmoniously with the scheme and object of the Act, and consistently with Parliament\'s intention — considering text, context, and purpose together',pts:20,fb:'Correct. This is the Driedger formulation: "the words of an Act are to be read in their entire context and in their grammatical and ordinary sense harmoniously with the scheme of the Act, the object of the Act, and the intention of Parliament." All three elements — text, context, purpose — must be considered together.',tag:'Driedger modern purposive approach'},
+        {label:'Resolve the ambiguity in favour of the regulated party — strict construction applies when the meaning is unclear',pts:5,fb:'Strict construction is a residual principle of last resort in criminal law contexts. It does not govern statutory interpretation generally and is not the starting point under the Driedger approach.',tag:'Driedger modern purposive approach'},
+        {label:'Adopt the broader interpretation as this advances the remedial purpose of most legislation',pts:5,fb:'Reading language broadly is not a universal rule — it applies when a broad reading advances the provision\'s purpose. The Driedger approach requires purposive analysis to determine which reading to adopt, not a presumption in favour of breadth.',tag:'Driedger modern purposive approach'}
+      ]
+    }
+  ],
+  pr:[
+    {
+      q:'Priya represented Angela in a divorce in 2022–2023 and learned confidential details about Marco\'s business finances. In 2026, Marco asks Priya to defend him in commercial litigation where the allegations directly overlap with what she learned from Angela. Priya\'s situation is governed by:',
+      opts:[
+        {label:'The Neil bright-line rule — Marco and Angela are now directly adverse current clients',pts:0,fb:'Incorrect. Neil governs concurrent representation — where both clients are current. Angela is a former client. The applicable framework for successive representation is MacDonald Estate v. Martin, which uses the three-part substantially related test with an irrebuttable presumption of misuse.',tag:'Neil vs MacDonald Estate'},
+        {label:'MacDonald Estate v. Martin — the matters are substantially related, Priya possesses relevant confidential information from Angela, and the irrebuttable presumption of misuse arises regardless of Marco\'s consent',pts:20,fb:'Correct. MacDonald Estate applies to former client conflicts. Three elements must be satisfied: (1) prior representation; (2) substantially related matters; (3) confidential information attributable to the former relationship that is relevant to the new matter. Here all three are satisfied — and importantly, Marco\'s consent is legally irrelevant because the right belongs to Angela, not Marco.',tag:'MacDonald Estate three-part test'},
+        {label:'No conflict arises — the divorce concluded over two years ago and commercial litigation is a different legal category',pts:0,fb:'Incorrect. The duty of confidentiality survives the termination of the retainer indefinitely (Rule 3.3-1). The passage of time does not reduce the relevance of confidential information.',tag:'Confidentiality — duration'},
+        {label:'McKercher v. CN — a balancing test applies, weighing the former client\'s confidentiality against Marco\'s right to counsel of choice',pts:10,fb:'McKercher refined the disqualification analysis for successive representation, but it does not eliminate the MacDonald Estate presumption when the confidential information is directly relevant to the new matter.',tag:'MacDonald Estate vs McKercher'}
+      ]
+    },
+    {
+      q:'A client tells his lawyer in confidence that he plans to seriously injure a named individual "next Thursday." The lawyer\'s obligation under the Model Code is:',
+      opts:[
+        {label:'She must report this to police immediately — her duty to the administration of justice overrides confidentiality',pts:0,fb:'Incorrect. The public safety exception under Rule 3.3-3 is permissive, not mandatory. A lawyer may disclose — she is not required to. There is no mandatory reporting obligation in the Model Code for this type of threat. The distinction between "may" and "must" is tested directly in the NCA PR exam.',tag:'Public safety exception — may vs must'},
+        {label:'She may disclose confidential information to prevent the harm, but only if the threat is clear, serious, and imminent — all three criteria from Smith v. Jones must be satisfied',pts:20,fb:'Correct. Rule 3.3-3 and Smith v. Jones establish a permissive (not mandatory) public safety exception. All three criteria must be met: (1) clear risk to an identifiable person or group; (2) risk of serious bodily harm or death; (3) danger is imminent. Here all three appear satisfied — but the disclosure is still discretionary, not required.',tag:'Public safety exception — Smith v Jones'},
+        {label:'She cannot disclose anything — solicitor-client privilege is absolute and no exception exists for future threats',pts:0,fb:'Incorrect. Solicitor-client privilege is near-absolute but not absolute. The public safety exception exists in both the Model Code (confidentiality, Rule 3.3-3) and the common law (privilege, Smith v. Jones). A clear, serious, imminent threat to an identifiable person can displace both.',tag:'Public safety exception — privilege'},
+        {label:'She must withdraw from representation immediately and refer the client to another lawyer',pts:5,fb:'Withdrawal may be appropriate in some circumstances, but it is not the primary obligation here and does not prevent the harm. The Model Code question is specifically about whether disclosure is permitted — and the answer is yes, under the Smith v. Jones criteria.',tag:'Public safety exception — withdrawal vs disclosure'}
+      ]
+    },
+    {
+      q:'Samira is jointly representing brothers Tariq and Farid in selling their company. Tariq calls her privately and discloses an undisclosed $400,000 loan that will reduce Farid\'s proceeds. The correct statement about Samira\'s obligations is:',
+      opts:[
+        {label:'Samira can keep this confidential — it was given in a private communication and confidentiality applies to all information learned through the professional relationship',pts:0,fb:'Incorrect. This fundamentally misunderstands the joint retainer rule. In a joint retainer, the no-selective-confidentiality rule means Samira cannot maintain confidentiality between the jointly represented clients. Rules 3.4-5 to 3.4-9 are unambiguous.',tag:'Joint retainer — no selective confidentiality'},
+        {label:'Samira must tell Tariq she cannot keep this from Farid in a joint retainer — if Tariq refuses to allow disclosure, she must withdraw from representing both brothers',pts:20,fb:'Correct. The no-selective-confidentiality rule in joint retainers is absolute. Samira should have reminded Tariq at the outset of the call. Now she must: (1) advise Tariq of the obligation to disclose to Farid; (2) if Tariq refuses, withdraw from both representations.',tag:'Joint retainer — no selective confidentiality'},
+        {label:'Samira should disclose to Farid immediately without telling Tariq — her duty to Farid as a joint client takes priority',pts:5,fb:'While disclosure is ultimately required, immediate disclosure without first advising Tariq is procedurally incomplete. She should first inform Tariq of her obligation and give him the opportunity to authorize disclosure. If he refuses, then she withdraws.',tag:'Joint retainer — procedure for disclosure'},
+        {label:'Samira can continue representing both as long as she does not use Tariq\'s information to actively harm him',pts:0,fb:'Incorrect. The joint retainer obligation is not about actively harming Tariq — it is about the structural requirement of candour with all jointly represented clients. By withholding material information from Farid, Samira is failing in her duty to Farid.',tag:'Joint retainer — duty to all clients'}
+      ]
+    }
+  ]
+};
+
+var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility'};
+
+/* ── PROGRESS HELPER ── */
+function rqUpdateProgress(stepNum){
+  var total=6;
+  var pct=Math.round((stepNum/total)*100);
+  var fill=document.getElementById('rq-prog-fill');
+  var frac=document.getElementById('rq-prog-frac');
+  var lbl=document.getElementById('rq-prog-label');
+  if(fill) fill.style.width=pct+'%';
+  if(frac) frac.textContent=stepNum+' / '+total;
+  var labels=['Select your subject','Answer speed','Exam conditioning','Knowledge check 1','Knowledge check 2','Knowledge check 3'];
+  if(lbl) lbl.textContent=labels[stepNum]||'Complete';
 }
+
+/* ── HIDE ALL STEPS ── */
+function rqHideAll(){
+  var subj=document.getElementById('rq-step-subject');
+  if(subj) subj.style.display='none';
+  for(var i=0;i<5;i++){
+    var el=document.getElementById('rq-step-'+i);
+    if(el) el.style.display='none';
+  }
+  var rp=document.getElementById('rq-result-panel');
+  if(rp) rp.classList.remove('rq-show');
+}
+
+/* ── RENDER EXECUTION QUESTION ── */
+function rqRenderLogisticsQ(qIdx,optsId,fbId,btnId){
+  var q=rqLogisticsQ[qIdx];
+  if(!q) return;
+  var container=document.getElementById(optsId);
+  if(!container) return;
+  var savedAns=rqState.answers['log'+qIdx];
+  var letters=['A','B','C','D','E'];
+  container.innerHTML='';
+  q.opts.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.className='opt-btn'+(savedAns===i?' rq-selected':'');
+    btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span><span class="opt-text">'+opt.label+'</span>';
+    btn.addEventListener('click',function(){
+      container.querySelectorAll('.opt-btn').forEach(function(b){b.classList.remove('rq-selected');});
+      btn.classList.add('rq-selected');
+      rqState.answers['log'+qIdx]=i;
+      rqState.scores['log'+qIdx]=opt.pts;
+      var fb=document.getElementById(fbId);
+      if(fb){
+        fb.textContent=opt.fb;
+        fb.className='feedback-chip show';
+        fb.style.borderLeftColor='rgba(201,168,76,.35)';
+        fb.style.background='rgba(201,168,76,.05)';
+        fb.style.color='var(--fog)';
+      }
+      var nextBtn=document.getElementById(btnId);
+      if(nextBtn) nextBtn.classList.add('rq-show');
+    });
+    container.appendChild(btn);
+  });
+  var nextBtn=document.getElementById(btnId);
+  if(nextBtn){
+    if(savedAns!==undefined) nextBtn.classList.add('rq-show');
+    else nextBtn.classList.remove('rq-show');
+  }
+}
+
+/* ── RENDER KNOWLEDGE QUESTION ── */
+function rqRenderKnowledgeQ(kIdx,optsId,fbId,textId,btnId,isFinal){
+  var subj=rqState.subject;
+  if(!subj||!rqKnowledgeQ[subj]) return;
+  var q=rqKnowledgeQ[subj][kIdx];
+  if(!q) return;
+  var textEl=document.getElementById(textId);
+  if(textEl) textEl.textContent=q.q;
+  var container=document.getElementById(optsId);
+  if(!container) return;
+  var savedAns=rqState.answers['k'+kIdx];
+  var letters=['A','B','C','D'];
+  container.innerHTML='';
+  q.opts.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.className='opt-btn';
+    if(savedAns!==undefined){
+      if(i===savedAns){ btn.classList.add(opt.pts>=18?'rq-correct':'rq-wrong'); }
+    }
+    btn.innerHTML='<span class="opt-letter">'+letters[i]+'</span><span class="opt-text">'+opt.label+'</span>';
+    btn.addEventListener('click',function(){
+      if(rqState.answers['k'+kIdx]!==undefined) return; // lock after answer
+      rqState.answers['k'+kIdx]=i;
+      rqState.scores['k'+kIdx]=opt.pts;
+      container.querySelectorAll('.opt-btn').forEach(function(b,bi){
+        if(bi===i){ b.classList.add(opt.pts>=18?'rq-correct':'rq-wrong'); }
+      });
+      var fb=document.getElementById(fbId);
+      if(fb){
+        fb.textContent=opt.fb;
+        fb.className='feedback-chip show '+(opt.pts>=18?'fc-good':'fc-bad');
+        fb.style.cssText='';
+      }
+      var nextBtn=document.getElementById(btnId);
+      if(nextBtn){
+        nextBtn.classList.add('rq-show');
+        if(isFinal) nextBtn.textContent='See My Score →';
+      }
+    });
+    container.appendChild(btn);
+  });
+  var nextBtn=document.getElementById(btnId);
+  if(nextBtn){
+    if(savedAns!==undefined){
+      nextBtn.classList.add('rq-show');
+      if(isFinal) nextBtn.textContent='See My Score →';
+    } else {
+      nextBtn.classList.remove('rq-show');
+    }
+  }
+}
+
+/* ── NAVIGATE TO STEP ── */
+function rqGoToStep(stepNum){
+  rqHideAll();
+  rqUpdateProgress(stepNum);
+  if(stepNum===1){
+    var s0=document.getElementById('rq-step-0'); if(s0) s0.style.display='block';
+    rqRenderLogisticsQ(0,'rq-opts-0','rq-fb-0','rq-btn-next-0');
+  } else if(stepNum===2){
+    var s1=document.getElementById('rq-step-1'); if(s1) s1.style.display='block';
+    rqRenderLogisticsQ(1,'rq-opts-1','rq-fb-1','rq-btn-next-1');
+  } else if(stepNum===3){
+    var s2=document.getElementById('rq-step-2'); if(s2) s2.style.display='block';
+    rqRenderKnowledgeQ(0,'rq-opts-2','rq-fb-2','rq-qtext-2','rq-btn-next-2',false);
+  } else if(stepNum===4){
+    var s3=document.getElementById('rq-step-3'); if(s3) s3.style.display='block';
+    rqRenderKnowledgeQ(1,'rq-opts-3','rq-fb-3','rq-qtext-3','rq-btn-next-3',false);
+  } else if(stepNum===5){
+    var s4=document.getElementById('rq-step-4'); if(s4) s4.style.display='block';
+    rqRenderKnowledgeQ(2,'rq-opts-4','rq-fb-4','rq-qtext-4','rq-btn-next-4',true);
+  }
+  window.scrollTo({top:document.getElementById('readiness')?document.getElementById('readiness').offsetTop-80:0,behavior:'smooth'});
+}
+
+/* ── CALCULATE SCORE ── */
+function rqCalcScore(){
+  var logScore=(rqState.scores['log0']||0)+(rqState.scores['log1']||0);
+  var kScore=(rqState.scores['k0']||0)+(rqState.scores['k1']||0)+(rqState.scores['k2']||0);
+  return Math.min(100,Math.max(0,logScore+kScore));
+}
+
+function rqGetLabel(score){
+  if(score>=85) return 'Exam Ready';
+  if(score>=70) return 'On Track';
+  if(score>=55) return 'Needs Focus';
+  return 'Critical Path';
+}
+
+/* ── SHOW RESULTS ── */
+function rqShowResults(){
+  rqHideAll();
+  var rp=document.getElementById('rq-result-panel');
+  if(!rp) return;
+  rp.classList.add('rq-show');
+
+  var score=rqCalcScore();
+  var label=rqGetLabel(score);
+  var subj=rqState.subject;
+  var subjName=rqSubjectNames[subj]||subj||'NCA';
+
+  /* Animate score number */
+  var scoreEl=document.getElementById('rq-res-score');
+  if(scoreEl){
+    var dur=1200,startTime=null;
+    function animS(ts){
+      if(!startTime) startTime=ts;
+      var pct=Math.min((ts-startTime)/dur,1);
+      var ease=1-Math.pow(1-pct,3);
+      scoreEl.textContent=Math.round(score*ease);
+      if(pct<1) requestAnimationFrame(animS);
+    }
+    requestAnimationFrame(animS);
+  }
+
+  var labelEl=document.getElementById('rq-res-label');
+  var subjEl=document.getElementById('rq-res-subject');
+  if(labelEl) labelEl.textContent=label;
+  if(subjEl) subjEl.textContent=subjName+' · NCA Readiness Assessment';
+
+  /* Recommendations */
+  var recs={
+    'Exam Ready':'Your knowledge foundations are solid and your execution practice is strong. The remaining task is logistics — organise your materials, test your technical setup, and book. You are ready to sit.',
+    'On Track':'Your core knowledge is largely in place. The gaps your answers reveal are the areas to close. If your execution score is also strong, you are 1–2 weeks away from exam-ready. If you have not yet completed multiple timed answers and a full mock, prioritise those over any further content review.',
+    'Needs Focus':'Knowledge gaps and/or execution gaps are showing up together — this is the pattern that produces failures even in candidates who have studied hard. Pick one: close the knowledge gap that showed up in your answers, OR sit a full mock exam this weekend. One of those actions will tell you more about your real readiness than any further note-reading.',
+    'Critical Path':'Your answers suggest foundational knowledge gaps in the areas the exam tests most heavily, and your execution practice may be limited. A systematic rebuild is needed: frameworks first, then timed application, then a full mock before sitting. Consider whether your current exam date gives you enough time to do this properly.'
+  };
+  var recEl=document.getElementById('rq-res-rec');
+  if(recEl) recEl.textContent=recs[label]||'';
+
+  /* Breakdown */
+  var bd=document.getElementById('rq-res-breakdown');
+  if(bd){
+    bd.innerHTML='';
+    var kqs=rqKnowledgeQ[subj];
+    if(kqs){
+      for(var i=0;i<3;i++){
+        var q=kqs[i];
+        var ans=rqState.answers['k'+i];
+        var pts=rqState.scores['k'+i]||0;
+        var passed=pts>=18;
+        var chosenOpt=ans!==undefined?q.opts[ans]:null;
+        var item=document.createElement('div');
+        item.className='rq-bi';
+        item.innerHTML=
+          '<div class="rq-bi-icon '+(passed?'bi-pass':'bi-fail')+'">'+(passed?'✓':'✗')+'</div>'+
+          '<div>'+
+            '<div class="rq-bi-q">Knowledge area: '+(q.opts[0].tag||'')+'</div>'+
+            '<div class="rq-bi-action">'+(passed?
+              'Solid — you identified the correct principle and its application.'
+              :(chosenOpt?chosenOpt.fb:'Review this topic before sitting.'))+
+            '</div>'+
+          '</div>';
+        bd.appendChild(item);
+      }
+    }
+    /* Execution breakdown */
+    var execPts=(rqState.scores['log0']||0)+(rqState.scores['log1']||0);
+    var timedAns=rqState.answers['log0'];
+    var mockAns=rqState.answers['log1'];
+    var timedLabel='',mockLabel='';
+    if(timedAns===undefined||timedAns===0){
+      timedLabel='You have not yet written a timed practice answer. This is the single most important thing to fix before sitting.';
+    } else if(timedAns===1){
+      timedLabel='You are running out of time on practice answers. Drill the answer template until the structure is automatic — that recovers 10–15 minutes per question.';
+    } else if(timedAns>=4){
+      timedLabel='Answer speed is strong. You are finishing with review time consistently.';
+    } else {
+      timedLabel='Answer speed is developing. 2–3 more timed answers will confirm your pace is exam-ready.';
+    }
+    if(mockAns===undefined||mockAns===0){
+      mockLabel='You have not yet sat a full mock exam. Mental fatigue across 3 hours is different from 45-minute sessions — schedule one before exam day.';
+    } else if(mockAns===1){
+      mockLabel='A partial mock is a start but does not test stamina. Book a full 3-hour sitting before your exam date.';
+    } else if(mockAns>=3){
+      mockLabel='Exam conditioning is strong. Multiple reviewed mocks means you know exactly what to expect.';
+    } else {
+      mockLabel='Good — one full mock completed. A second mock addressing the gaps you found will sharpen your execution further.';
+    }
+    var execItem=document.createElement('div');
+    execItem.className='rq-bi';
+    execItem.innerHTML=
+      '<div class="rq-bi-icon '+(execPts>=25?'bi-pass':'bi-fail')+'">'+(execPts>=25?'✓':'!')+'</div>'+
+      '<div>'+
+        '<div class="rq-bi-q">Execution readiness: timed practice + exam conditioning</div>'+
+        '<div class="rq-bi-action" style="display:flex;flex-direction:column;gap:6px">'+
+          '<span>⏱ '+timedLabel+'</span>'+
+          '<span>📋 '+mockLabel+'</span>'+
+        '</div>'+
+      '</div>';
+    bd.appendChild(execItem);
+  }
+
+  rqUpdateProgress(6);
+  try{sessionStorage.setItem('ncahub_readiness_score',score);}catch(e){}
+  window.scrollTo({top:document.getElementById('readiness')?document.getElementById('readiness').offsetTop-80:0,behavior:'smooth'});
+}
+
+/* ── RESET QUIZ ── */
+function rqReset(){
+  rqState={subject:null,answers:{},scores:{}};
+  rqHideAll();
+  var subj=document.getElementById('rq-step-subject');
+  if(subj) subj.style.display='block';
+  document.querySelectorAll('.subj-btn').forEach(function(b){b.classList.remove('selected');});
+  var subjNext=document.getElementById('rq-btn-subj-next');
+  if(subjNext) subjNext.classList.remove('rq-show');
+  rqUpdateProgress(0);
+}
+
+/* ── INITIALIZE QUIZ ── */
+(function(){
+  /* Subject buttons */
+  document.querySelectorAll('.subj-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      rqState.subject=btn.getAttribute('data-subj');
+      document.querySelectorAll('.subj-btn').forEach(function(b){b.classList.remove('selected');});
+      btn.classList.add('selected');
+      var nextBtn=document.getElementById('rq-btn-subj-next');
+      if(nextBtn) nextBtn.classList.add('rq-show');
+    });
+  });
+
+  /* Subject next */
+  var subjNext=document.getElementById('rq-btn-subj-next');
+  if(subjNext) subjNext.addEventListener('click',function(){ if(rqState.subject) rqGoToStep(1); });
+
+  /* Back buttons */
+  var back0=document.getElementById('rq-back-0');
+  if(back0) back0.addEventListener('click',function(){ rqHideAll(); var ss=document.getElementById('rq-step-subject'); if(ss) ss.style.display='block'; rqUpdateProgress(0); });
+  var back1=document.getElementById('rq-back-1');
+  if(back1) back1.addEventListener('click',function(){ rqGoToStep(1); });
+  var back2=document.getElementById('rq-back-2');
+  if(back2) back2.addEventListener('click',function(){ rqGoToStep(2); });
+  var back3=document.getElementById('rq-back-3');
+  if(back3) back3.addEventListener('click',function(){ rqGoToStep(3); });
+  var back4=document.getElementById('rq-back-4');
+  if(back4) back4.addEventListener('click',function(){ rqGoToStep(4); });
+
+  /* Next buttons */
+  var n0=document.getElementById('rq-btn-next-0');
+  if(n0) n0.addEventListener('click',function(){ rqGoToStep(2); });
+  var n1=document.getElementById('rq-btn-next-1');
+  if(n1) n1.addEventListener('click',function(){ rqGoToStep(3); });
+  var n2=document.getElementById('rq-btn-next-2');
+  if(n2) n2.addEventListener('click',function(){ rqGoToStep(4); });
+  var n3=document.getElementById('rq-btn-next-3');
+  if(n3) n3.addEventListener('click',function(){ rqGoToStep(5); });
+  var n4=document.getElementById('rq-btn-next-4');
+  if(n4) n4.addEventListener('click',function(){ rqShowResults(); });
+
+  /* Retake */
+  var retake=document.getElementById('rq-retake-btn');
+  if(retake) retake.addEventListener('click',rqReset);
+})();
 
 /* PRELOADER */
 (function(){
@@ -1946,7 +2493,7 @@ function revealHero(){
     ['HSUB','HACT','HC','HAUTH'].forEach(function(id){var e=document.getElementById(id);if(e){e.style.opacity='1';e.style.transform='none';}});
   }
   setTimeout(function(){var cv=document.getElementById('hcv');if(cv)cv.classList.add('on');},300);
-  renderQuiz();
+  // Quiz is initialized via its own IIFE below
 }
 
 /* GOLD INK CURSOR TRAIL - Existing (Preserved) */
@@ -2511,34 +3058,4 @@ if(CD&&CR){
 /* SMOOTH ANCHOR - Existing (Preserved) */
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){
-    var id=a.getAttribute('href').slice(1),target=document.getElementById(id);
-    if(!target)return;
-    e.preventDefault();
-    if(lenis)lenis.scrollTo(target,{duration:1.2});
-    else target.scrollIntoView({behavior:'smooth'});
-  });
-});
-
-/* COMING SOON NOTIFICATION - Existing (Preserved) */
-window.notifyComingSoon=function(form,subject){
-  var email=form.querySelector('input[type="email"]').value;
-  var btn=form.querySelector('button');
-  btn.textContent='Subscribed!';
-  btn.disabled=true;
-  try{
-    var notifications=JSON.parse(sessionStorage.getItem('ncahub_coming_soon')||'[]');
-    notifications.push({subject:subject,email:email,date:new Date().toISOString()});
-    sessionStorage.setItem('ncahub_coming_soon',JSON.stringify(notifications));
-  }catch(e){}
-  setTimeout(function(){
-    btn.textContent='Notify Me';
-    btn.disabled=false;
-    form.querySelector('input[type="email"]').value='';
-  },3000);
-  return false;
-};
-
-})();
-</script>
-</body>
-</html>
+    var id=a.getAtt
