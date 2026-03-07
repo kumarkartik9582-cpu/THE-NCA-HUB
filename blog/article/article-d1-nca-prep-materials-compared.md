@@ -80,7 +80,7 @@ Prioritise materials that:
 ## Cost-Benefit Reality
 
 **Total cost of failing once:**
-- Exam fee: $500 CAD
+- Exam fee: ~$500 CAD per subject
 - Rescheduling delay: 3–4 months
 - Study time lost: 40–60 hours (opportunity cost)
 - Psychological toll: High
