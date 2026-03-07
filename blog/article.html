@@ -33,7 +33,7 @@ body:hover #cd{opacity:1}
 
 /* NAV */
 nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
-.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1}
+.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;word-spacing:-.05em;text-transform:uppercase;color:var(--g1);line-height:1}
 .nl .hub{color:rgba(201,168,76,.65)}.nl .sep{color:rgba(201,168,76,.2);margin:0 2px;font-weight:300}
 .nav-links{display:flex;gap:44px}
 .nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;}
@@ -161,7 +161,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 @media(max-width:640px){footer{padding:52px 24px}}
 .ftg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(201,168,76,.055);margin-bottom:44px}
 @media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}
-.flog{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.flog{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);letter-spacing:.18em;word-spacing:-.05em;text-transform:uppercase;margin-bottom:14px}
 .flog .hub{color:rgba(201,168,76,.6)}
 .ftag{font-size:var(--sm);color:var(--dim);line-height:1.7;max-width:240px}
 .fct{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:22px}
@@ -183,7 +183,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <div id="prog"></div>
 
 <nav id="nav" role="navigation">
-  <a href="/" class="nl">NCA<span class="sep"> · </span><span class="hub">Hub</span></a>
+  <a href="/" class="nl">The NCA Hub</a>
   <div class="nav-links">
     <a href="/#method">Method</a>
     <a href="/#subjects">Subjects</a>
@@ -259,7 +259,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <footer>
   <div class="ftg">
     <div>
-      <div class="flog">NCA <span class="hub">Hub</span></div>
+      <div class="flog">The NCA Hub</div>
       <p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p>
     </div>
     <div>
@@ -475,7 +475,7 @@ function renderRelatedArticles(currentSlug, cluster) {
     return;
   }
 
-  fetch(post + '.md')
+  fetch('article/' + post + '.md')
     .then(function(res) {
       if (!res.ok) throw new Error('Not found');
       return res.text();
