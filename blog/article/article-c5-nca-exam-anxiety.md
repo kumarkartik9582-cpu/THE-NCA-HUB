@@ -23,13 +23,13 @@ If all boxes are ticked, you are objectively ready. The anxiety is emotional, no
 
 ### The Night-Before Protocol
 - **No new content after 6pm.** You will not learn it; you will just panic about what you do not know.
-- **Prepare materials** (lay out clothes, organize desk, charge devices). Physical preparation reduces mental load.
+- **Prepare materials** (lay out clothes, organise desk, charge devices). Physical preparation reduces mental load.
 - **Sleep ritual:** Same time as usual. No alcohol (disrupts REM sleep). If you cannot sleep, rest with eyes closed — it is 70% as restorative.
 
 ## During-Exam Anxiety (The Freeze)
 
 ### If Your Mind Goes Blank
-**Step 1:** Write your template. If you forget the Oakes test, write "Pressing objective? Rational connection? Minimal impairment? Proportionality?" Seeing the structure joggs memory.
+**Step 1:** Write your template. If you forget the Oakes test, write "Pressing objective? Rational connection? Minimal impairment? Proportionality?" Seeing the structure jogs memory.
 
 **Step 2:** Start with what you know. Write the easy part first (the issue identification). Momentum returns.
 
@@ -76,7 +76,7 @@ If anxiety is:
 - Causing physical symptoms (vomiting, migraines)
 - Making you consider withdrawing from exams you are prepared for
 
-**Seek professional help.** A GP can provide short-term beta-blockers (reduce physical anxiety without sedation). A therapist can provide CBT techniques specific to performance anxiety.
+**Seek professional help.** A GP can provide short-term beta-blockers, which reduce the physical symptoms of anxiety (racing heart, trembling) without sedating you cognitively. Note: beta-blockers are not suitable for everyone and have contraindications including asthma and certain cardiac conditions. Discuss your full medical history with your GP before requesting them. A therapist can provide CBT techniques specific to performance anxiety.
 
 **Do not suffer silently.** The NCA is hard enough without untreated anxiety.
 
