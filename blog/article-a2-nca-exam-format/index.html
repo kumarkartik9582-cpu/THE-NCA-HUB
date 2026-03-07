@@ -65,8 +65,8 @@ body:hover #cd{opacity:1}
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0),var(--g1),var(--g3));background-size:200% 100%;z-index:9100;width:0;transform-origin:left;transition:width .1s;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
-.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}
-.nl .hub{color:var(--g1)}.nl .sep{color:rgba(201,168,76,.15);margin:0 4px;font-weight:300}
+.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1}
+.nl .hub{color:var(--g1)}
 .nav-links{display:flex;gap:44px}
 .nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;}
 .nav-links a:hover,.nav-links a.active{color:var(--cream)}
@@ -151,7 +151,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <div id="cr" aria-hidden="true"></div>
 
 <nav aria-label="Site navigation">
-  <a href="/" class="nl" aria-label="The NCA Hub home">The <span class="sep">·</span> NCA <span class="hub">Hub</span></a>
+  <a href="/" class="nl" aria-label="The NCA Hub home">The NCA <span class="hub">Hub</span></a>
   <div class="nav-links">
     <a href="/#method">Method</a>
     <a href="/#subjects">Subjects</a>
@@ -361,7 +361,7 @@ This is why The NCA Hub notes are under 80 pages. Everything you need is accessi
 <footer>
   <div class="ftg">
     <div>
-      <div class="flog">The <span style="color:rgba(201,168,76,.2);margin:0 3px;font-weight:300">·</span> NCA Hub</div>
+      <div class="flog">The NCA Hub</div>
       <p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p>
     </div>
     <div>
