@@ -121,12 +121,9 @@ The order matters. Some subjects build foundations. Others assume that foundatio
 **Recommended sequence:**
 
 1. **Administrative Law first.** It is the most predictable subject. The frameworks are clear. The exam format is consistent. It builds your confidence and your study discipline.
-
 2. **Constitutional Law OR Foundations of Canadian Law second.** Both provide broad grounding in Canadian legal principles. Constitutional is more structured; Foundations is broader and more theoretical. Choose based on your background — if you have public law experience, Constitutional. If you need to understand the Canadian system from scratch, Foundations.
-
 3. **Criminal Law third.** It rewards structure above everything. By this point, your pattern recognition is strong. Criminal Law becomes an application of that skill.
-
-4. **Professional Responsibility last.** For lawyers with practice experience, much of this is intuitive. The CBA Model Code is comprehensive but logical. Save it for when your exam stamina is highest.
+4. **Professional Responsibility last.** For lawyers with practice experience, much of this is intuitive. The FLSC Model Code of Professional Conduct is comprehensive but logical. Save it for when your exam stamina is highest.
 
 **The exception:** If you have failed a subject before, prioritise it. The psychological weight of a previous failure demands early attention. Do not let it hang over you.
 
