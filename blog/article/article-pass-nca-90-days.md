@@ -11,7 +11,7 @@ The first time I opened the NCA syllabus for Administrative Law, I stared at it 
 
 Three hundred pages of textbook. Seventy hours of recorded lectures. A 3-hour exam that would determine whether I could continue my legal career in Canada. And I had one week.
 
-That was October 2024. By January 2025, I had passed four NCA subjects and completed the CPLED Legal Research and Writing course. The method I built under that pressure is what became The NCA Hub.
+That was October 2024. By January 2025, I had passed four NCA subjects and completed the CPLED Legal Research and Writing course — the LRW program used in Alberta, Saskatchewan, and Manitoba. Ontario candidates use the Law Society of Ontario's separate licensing process instead; the preparation strategy in this article applies regardless of which provincial route you follow. The method I built under that pressure is what became The NCA Hub.
 
 This article gives you that system — adapted for a 90-day window that is realistic for working professionals and focused candidates alike.
 
@@ -171,10 +171,10 @@ Do not wait until the week before your exam to assess whether you are ready. Che
 ### Checkpoint 3: Day 85 (One Week Before Exam)
 
 - Take the [NCA Readiness Score assessment](/readiness).
-- Score 85+: You are exam-ready. Focus on logistics and rest.
-- Score 70–84: Add light pattern drills. Do not add new content.
-- Score 55–69: Condensed timeline. Prioritise must-know frameworks only.
-- Score below 55: Consider postponing. Contact us for a diagnostic analysis.
+- Score 90+: You are exam-ready. Focus on logistics and rest.
+- Score 75–89: Add light pattern drills. Do not add new content.
+- Score 60–74: Condensed timeline. Prioritise must-know frameworks only.
+- Score below 60: Consider postponing. [Contact us for a diagnostic analysis →](/contact)
 
 ## The Five Most Common 90-Day Mistakes
 
