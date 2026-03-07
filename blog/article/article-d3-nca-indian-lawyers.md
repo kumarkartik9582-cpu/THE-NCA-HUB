@@ -7,7 +7,7 @@ cta_primary: "Get Materials for Indian Lawyers →"
 cta_secondary: "Download Free Chapter"
 ---
 
-I qualified as a lawyer in India (Delhi University, enrolled with the Bar Council of Delhi), practised at the Punjab and Haryana High Court, then moved to the UK to work at DWF, Eversheds Sutherland, and Keoghs. In 2024, I passed four NCA subjects in three months and founded The NCA Hub.
+I graduated from National Law University with a BA LLB (Hons) between 2017 and 2022, and enrolled with the Bar Council of Delhi in 2023. I never practised in India — after graduating, I moved straight to an LLM in International Commercial Law at the University of Bristol, starting in September 2022. After completing my LLM, I worked in the UK at DWF LLP, Eversheds Sutherland International LLP, Keoghs, and MCS Legal Limited. I then began the NCA process and founded The NCA Hub.
 
 This guide is for Indian-qualified lawyers considering or preparing for the NCA. It covers the specific challenges we face and the advantages we have.
 
