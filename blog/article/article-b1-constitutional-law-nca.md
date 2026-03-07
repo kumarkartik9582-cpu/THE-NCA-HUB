@@ -25,6 +25,8 @@ The NCA Constitutional Law exam tests four main areas:
 | Aboriginal Rights (s. 35) | 60% | High |
 | Constitutional Amendment | 30% | Medium |
 
+*Note: Frequency estimates are based on analysis of past exams and candidate reports, not official NCA data.*
+
 The exam typically includes 3–4 questions, often combining multiple topics. A single fact pattern might raise division of powers issues, Charter questions, and s.1 justification.
 
 ## Division of Powers — The Core Framework
@@ -64,10 +66,16 @@ Every Charter question follows the same three-step analysis.
 
 ### Step 1: Does a Right Exist?
 
-Identify the Charter right potentially engaged:
+Identify the Charter right potentially engaged. The most commonly tested rights include:
+- **Section 2:** Fundamental freedoms (expression, religion, association, peaceful assembly)
 - **Section 7:** Life, liberty, and security of the person
+- **Section 8:** Unreasonable search and seizure
+- **Section 9:** Arbitrary detention
+- **Section 10:** Right to counsel
 - **Section 11(d):** Presumption of innocence
 - **Section 15:** Equality before the law
+
+Do not assume only one section can apply. Read the facts carefully and identify all potentially engaged rights before committing to your analysis.
 
 Assess whether the facts engage the right. This requires understanding the scope of each right as interpreted by the courts.
 
@@ -108,6 +116,8 @@ Section 35 of the *Constitution Act, 1982* recognises and affirms Aboriginal rig
 
 ### The Test for Establishing an Aboriginal Right
 
+The test was established in *R v Van der Peet*, [1996] 2 SCR 507:
+
 1. **Identify the practice:** What activity is claimed as a right?
 2. **Establish continuity:** Was the practice integral to the distinctive culture pre-contact?
 3. **Establish connection:** Is there a connection between the historical practice and the modern claim?
@@ -130,7 +140,7 @@ When the Crown contemplates conduct that might adversely affect Aboriginal right
 - Consider double aspect, interjurisdictional immunity, paramountcy
 
 **3. CHARTER ANALYSIS** (if applicable)
-- Right engaged (s. 7, 11(d), 15)
+- Right engaged — identify which Charter right(s) the facts engage. Most common: ss. 2, 7, 8, 9, 10, 11(d), 15. Check all potentially applicable sections before committing.
 - Infringement analysis
 - Section 1 justification (Oakes test)
 
@@ -157,7 +167,7 @@ When the Crown contemplates conduct that might adversely affect Aboriginal right
 
 **Week 3: Oakes Test and Aboriginal Rights**
 - Days 15–17: Oakes test — each step in detail
-- Days 18–19: Section 35 — Aboriginal rights
+- Days 18–19: Section 35 — Aboriginal rights (Van der Peet)
 - Days 20–21: Duty to consult
 
 **Week 4: Integration and Exam Conditioning**
