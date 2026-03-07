@@ -1,0 +1,38 @@
+name: Build & Deploy NCA Hub
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:         # lets you trigger manually from GitHub UI
+
+permissions:
+  contents: write            # needed to push built files back to repo
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repo
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Set up Node (no npm install needed — build.js uses zero dependencies)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Run the static site generator
+      - name: Build static article pages
+        run: node build.js
+
+      # 4. Commit the generated files back to the repo
+      #    GitHub Pages will then serve them automatically
+      - name: Commit built pages
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add blog/*/index.html sitemap.xml
+          git diff --staged --quiet || git commit -m "chore: rebuild static article pages [skip ci]"
+          git push
