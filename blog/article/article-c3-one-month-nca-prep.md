@@ -37,8 +37,8 @@ One month works if you:
 
 ### The Math
 - 30 days × 3 hours = 90 hours total study time
-- NCA subjects typically require 100–150 hours for comfortable pass
-- **You have a 10–60 hour deficit**
+- NCA subjects typically require 100–120 hours for a comfortable pass (100 hours is the realistic minimum for most candidates — see our [Study Hours Guide](/blog/article?post=article-e3-nca-study-hours) for the full breakdown)
+- **You have a 10–30 hour deficit**
 
 This means you must study **efficiently**, not comprehensively. You cannot learn everything. You must learn the high-frequency topics only.
 
