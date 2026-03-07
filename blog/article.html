@@ -475,7 +475,7 @@ function renderRelatedArticles(currentSlug, cluster) {
     return;
   }
 
-  fetch('article/' + post + '.md')
+  fetch(post + '.md')
     .then(function(res) {
       if (!res.ok) throw new Error('Not found');
       return res.text();
@@ -488,7 +488,7 @@ function renderRelatedArticles(currentSlug, cluster) {
       var title = meta.title || 'NCA Article';
       document.title = title + ' — The NCA Hub';
 
-      var desc = meta.description || meta.excerpt || '';
+      var desc = meta.meta_description || meta.description || meta.excerpt || '';
       if (desc) {
         document.querySelector('meta[name="description"]').setAttribute('content', desc);
       }
@@ -530,4 +530,14 @@ function renderRelatedArticles(currentSlug, cluster) {
       // Re-attach cursor listeners to newly added links
       document.querySelectorAll('#article-wrap a, #article-wrap button, .related-card').forEach(function(el) {
         var cr = document.getElementById('cr');
-        el.addEventListener('mouseen
+        el.addEventListener('mouseenter', function(){ cr.classList.add('h'); });
+        el.addEventListener('mouseleave', function(){ cr.classList.remove('h'); });
+      });
+    })
+    .catch(function() {
+      showError();
+    });
+})();
+</script>
+</body>
+</html>
