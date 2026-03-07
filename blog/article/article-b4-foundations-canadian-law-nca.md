@@ -33,13 +33,16 @@ The subject covers:
 | Indigenous law and constitutional recognition | 60% | High |
 | Legal professionalism and ethics | 40% | Medium |
 
+*Note: Frequency estimates are based on analysis of past exams and candidate reports, not official NCA data.*
+
 ## Statutory Interpretation — The Core Skill
 
 This is the most practical and most tested element of Foundations. Every Canadian lawyer must interpret statutes, and the NCA exam tests whether you can apply the "modern principle" of statutory interpretation.
 
-### The Modern Principle (Rizzo & Rizzo Shoes)
+### The Modern Principle (*Rizzo & Rizzo Shoes Ltd (Re)*, [1998] 1 SCR 27)
 
-Statutes must be read:
+In *Rizzo & Rizzo Shoes Ltd (Re)*, [1998] 1 SCR 27 (per Iacobucci J), the Supreme Court of Canada affirmed that statutes must be read:
+
 1. **Textually** — Ordinary meaning of the words in context
 2. **Contextually** — Within the statute as a whole and related statutes
 3. **Purposively** — In light of the legislative purpose and social context
@@ -76,9 +79,9 @@ Statutes must be read:
 
 Canada has two legal systems operating simultaneously:
 
-**Common law provinces (9 provinces):** Based on English law; judge-made precedent is primary source; adversarial court procedures.
+**Common law provinces and territories (9 provinces — all except Quebec — plus Yukon, Northwest Territories, and Nunavut):** Based on English law; judge-made precedent is a primary source; adversarial court procedures.
 
-**Quebec (civil law):** Based on French *Code civil*; legislation is primary source; codified rules; some procedural differences.
+**Quebec (civil law):** Based on French *Code civil*; legislation is the primary source; codified rules; some procedural differences.
 
 **Federal jurisdiction:** Must apply both traditions depending on the matter (common law for federal matters, civil law for Quebec property/family matters).
 
@@ -86,11 +89,11 @@ Canada has two legal systems operating simultaneously:
 
 The NCA increasingly tests awareness of Indigenous legal orders and constitutional recognition.
 
-**Section 35 Constitution Act, 1982:** Recognizes and affirms existing Aboriginal and treaty rights.
+**Section 35 Constitution Act, 1982:** Recognises and affirms existing Aboriginal and treaty rights.
 
 **Indigenous law:** Distinct from Canadian common/civil law; includes customary laws of First Nations, Métis, and Inuit.
 
-**United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP):** Now incorporated into Canadian federal law (2021); relevant to interpreting Crown obligations.
+**United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP):** Incorporated into Canadian federal law through Bill C-15 (United Nations Declaration on the Rights of Indigenous Peoples Act), S.C. 2021, c. 14, which received Royal Assent on June 21, 2021. Now relevant to interpreting Crown obligations.
 
 ## The Foundations Answer Approach
 
@@ -106,12 +109,12 @@ Unlike other subjects, Foundations answers require **comparative analysis** and 
 - Compare with other systems if the question asks for comparison
 
 **3. APPLY TO SPECIFIC CONTEXT**
-- If statutory interpretation: Apply the modern principle (text, context, purpose)
+- If statutory interpretation: Apply the modern principle (text, context, purpose) per *Rizzo & Rizzo Shoes*
 - If precedent: Analyse binding authority and distinguishing factors
 - If bijural: Identify which tradition applies and why
 
 **4. CONCLUSION**
-- Synthesize the role of the source in the Canadian legal landscape
+- Synthesise the role of the source in the Canadian legal landscape
 
 ## Common Mistakes in Foundations
 
@@ -121,7 +124,7 @@ Foundations is not a history exam. Do not write essays about the evolution of Ca
 ### 2. Ignoring Quebec Civil Law
 Even if you plan to practise in Ontario or BC, you must understand the bijural nature of Canada and how federal law accommodates both traditions.
 
-### 3. Memorizing Without Understanding
+### 3. Memorising Without Understanding
 Do not memorise lists of sources. Understand *how* they interact: when statute overrides common law, when constitutional law overrides statute, etc.
 
 ### 4. Neglecting Statutory Interpretation
@@ -131,7 +134,7 @@ This is the most practical skill tested. Ensure you can apply the modern princip
 
 **Week 1: Sources and Hierarchy**
 - Days 1–2: Common law and precedent
-- Days 3–4: Legislation and statutory interpretation (modern principle)
+- Days 3–4: Legislation and statutory interpretation (modern principle — *Rizzo & Rizzo Shoes*)
 - Days 5–6: Constitutional law as supreme law
 - Day 7: Indigenous law and Section 35
 
