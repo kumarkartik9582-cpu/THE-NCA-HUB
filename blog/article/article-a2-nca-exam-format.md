@@ -13,7 +13,7 @@ cta_secondary: "Download Free Chapter"
 
 "The format keeps changing."
 
-These were the three most common phrases in the WhatsApp groups I monitored while preparing for my own NCA exams. They appeared more than 38 times across 15,000 messages. Exam format uncertainty is real, and it is one of the biggest sources of anxiety for NCA candidates.
+These were the three most common phrases in the WhatsApp groups I monitored while preparing for my own NCA exams. They appeared dozens of times across thousands of messages. Exam format uncertainty is real, and it is one of the biggest sources of anxiety for NCA candidates.
 
 This article exists to eliminate that uncertainty. By the end, you will know exactly what happens on exam day — from technical setup to time allocation to what you should have prepared before you log in.
 
@@ -104,7 +104,7 @@ The NCA uses ProProctor for remote proctoring. Here is your complete setup check
 - **Browser:** Chrome or Firefox (latest versions)
 - **Webcam:** Built-in or external, 720p minimum
 - **Microphone:** Required (for proctor communication)
-- **Internet:** Stable connection, minimum 1 Mbps upload/download
+- **Internet:** Stable connection, minimum 3–5 Mbps upload/download recommended. Test your speed at speedtest.net before exam day. If below 3 Mbps, use a wired (ethernet) connection rather than WiFi.
 
 ### Room Requirements
 
@@ -127,17 +127,19 @@ This is the part that causes the most anxiety. Here is how it works:
 
 - **Airplane mode ON** — this prevents calls and notifications
 - **WiFi ON** — the app needs internet to connect to proctor
-- **Do Not Disturb OFF** — the app needs to run in foreground
+- **Do Not Disturb: ON** — this suppresses all notifications and calls during the exam. The ProProctor app runs independently of DND status.
 - **Battery:** Charge to 100% before starting
 - **Position:** Use a phone stand or stack of books — do not hold it
 
 **What happens if a call comes through:**
 
-If you are in airplane mode with WiFi on, calls cannot reach you. This is the correct setup. If you receive a notification despite this, ignore it. Do not touch the phone. The proctor will address it if necessary.
+With airplane mode on and WiFi on, calls cannot reach you. This is the correct setup. The ProProctor app functions normally regardless of Do Not Disturb status.
 
 ## Time Allocation — The Formula That Works
 
 Three hours. Three to four questions. Here is the allocation that works:
+
+**For a 3-question exam:**
 
 | Phase | Time | Activity |
 |-------|------|----------|
@@ -145,8 +147,18 @@ Three hours. Three to four questions. Here is the allocation that works:
 | Question 1 | 45 minutes | Write complete answer. Include all required elements. |
 | Question 2 | 45 minutes | Same structure. Same rigour. |
 | Question 3 | 45 minutes | Maintain quality. Do not rush. |
-| Question 4 (if present) | 40 minutes | Adjusted for four-question format. |
-| Review | 10–15 minutes | Check for completeness. Add missing elements. |
+| Review | 20 minutes | Check for completeness. Add missing elements. |
+
+**For a 4-question exam:**
+
+| Phase | Time | Activity |
+|-------|------|----------|
+| Reading | 5 minutes | Read all questions. Identify types. Plan order. |
+| Question 1 | 40 minutes | Write complete answer. |
+| Question 2 | 40 minutes | Same structure. |
+| Question 3 | 40 minutes | Maintain quality. |
+| Question 4 | 40 minutes | Final question — do not rush the conclusion. |
+| Review | 15 minutes | Check for completeness. Add missing elements. |
 
 **The 5-minute reading phase is non-negotiable.** Do not start writing until you have:
 
@@ -155,7 +167,7 @@ Three hours. Three to four questions. Here is the allocation that works:
 3. Decided which order to tackle them (easiest first builds momentum)
 4. Noted any time adjustments needed
 
-**Reserve time for review.** The last 10–15 minutes is where you catch incomplete remedies, missed elements, and careless errors. Do not sacrifice this time.
+**Reserve time for review.** The last 15–20 minutes is where you catch incomplete remedies, missed elements, and careless errors. Do not sacrifice this time.
 
 ## The Open-Book Study Strategy
 
@@ -194,7 +206,7 @@ Here is what to do:
 
 - **System test:** Do the ProProctor system test at least 48 hours before
 - **Backup plan:** Have a second device ready (charged, app installed)
-- **Contact info:** Save the NCA technical support number
+- **Contact info:** Save the NCA technical support contact (see nca.legal/contact for current information)
 - **Documentation:** Know how to screenshot/record if issues arise
 
 ### During the Exam — If Issues Arise
@@ -246,10 +258,11 @@ Do not let technical anxiety stop you. Prepare for it. Then focus on what you ca
 - [ ] Room prepared and tested
 - [ ] Materials tabbed and organised
 - [ ] Mock exam under exam conditions completed
+- [ ] Internet speed tested and confirmed above 3 Mbps
 
 **Night before:**
 - [ ] Materials ready and accessible
-- [ ] Devices charged
+- [ ] Devices charged (including phone to 100%)
 - [ ] Alarm set (allow 30 minutes buffer)
 - [ ] Light review only — no new content
 
@@ -261,7 +274,7 @@ Do not let technical anxiety stop you. Prepare for it. Then focus on what you ca
 
 **During exam:**
 - [ ] 5-minute reading phase
-- [ ] Stick to time allocations
+- [ ] Stick to time allocations (45 min/question for 3Q; 40 min/question for 4Q)
 - [ ] Reserve review time
 - [ ] Stay calm if issues arise
 
