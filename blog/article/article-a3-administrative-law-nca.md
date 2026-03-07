@@ -45,6 +45,8 @@ Based on analysis of past exams and candidate reports, the Administrative Law ex
 | Charter Overlap | 30% | Low |
 | Statutory Interpretation | 25% | Low |
 
+*Note: Frequency estimates are based on analysis of past exams and candidate reports, not official NCA data.*
+
 **Study accordingly.** Do not spend equal time on all topics. Spend 70% of your time on the essential topics, 20% on high priority, and 10% on the rest.
 
 ## Standard of Review — The Vavilov Framework
@@ -62,28 +64,34 @@ Since *Canada (Minister of Citizenship and Immigration) v Vavilov*, 2019 SCC 65,
 3. **Check for correctness exceptions** — Does the question fall into one of the categories where correctness applies?
 4. **Apply the appropriate standard** — Reasonableness or correctness.
 
-### When Correctness Applies — The Exceptions
+### When Correctness Applies — The Four Exceptions
 
-The Vavilov framework identifies categories where correctness review applies:
+The Vavilov framework identifies four categories where correctness review applies:
 
-**Category 1: Questions of Constitutional Law**
+**Category 1: Constitutional Questions** (Vavilov para 69)
 - Division of powers (federalism)
 - Charter questions  
 - Other constitutional issues
 
-**Category 2: Questions of Jurisdictional Importance**
-- Questions that have "general importance to the legal system as a whole"
-- Questions that are "central to the legal system"
+**Category 2: Questions of General Importance to the Legal System as a Whole** (Vavilov para 58)
+- Questions whose resolution will have significant precedential value beyond the specific context
+- True questions of law that are "of central importance to the legal system"
 
-**Category 3: Questions Where the Legislature Has Indicated Correctness**
-- Statutory appeal mechanisms
-- Privative clauses (which trigger correctness analysis)
+**Category 3: Questions Regarding Jurisdictional Lines Between Two or More Administrative Bodies** (Vavilov para 63)
+- Where the question concerns the boundary between the jurisdiction of two administrative decision-makers
+- These require a single correct answer binding on both bodies
+
+**Category 4: Statutory Appeal Mechanism** (Vavilov para 52)
+- Where the legislature has provided a right of appeal to a court on a question of law
+- This signals legislative intent toward correctness review
+
+> **Important:** Privative clauses — statutory provisions that limit or exclude judicial review — have the **opposite** effect. They signal that the legislature intended to protect the tribunal's decision from judicial intervention, and therefore **support reasonableness review**, not correctness. Do not confuse privative clauses with appeal mechanisms.
 
 ### What Reasonableness Review Means in Practice
 
 Reasonableness is not perfection. It is a defensible outcome based on the legal and factual constraints before the decision-maker.
 
-The Vavilov framework identifies two ways to assess reasonableness:
+The Vavilov framework identifies two dimensions for assessing reasonableness:
 
 **1. Internal Logic of the Decision**
 - Does the decision make sense on its own terms?
@@ -94,6 +102,7 @@ The Vavilov framework identifies two ways to assess reasonableness:
 - Does the decision engage with the relevant legal constraints?
 - Does it address the factual record?
 - Are the findings supported by evidence?
+- Has the decision-maker genuinely grappled with the key issues and arguments raised by the parties? (Vavilov para 128)
 
 ## Procedural Fairness — The Baker Framework
 
@@ -136,14 +145,14 @@ This is the structure for a standard Administrative Law question. Memorise it. U
 - Note the decision-maker and type of decision
 
 **2. STANDARD OF REVIEW**
-- Apply Vavilov presumption (reasonableness)
-- Check for correctness exceptions
+- Apply Vavilov presumption (reasonableness is the default)
+- Check for the four correctness exceptions
 - State the applicable standard
 
 **3. APPLICABLE STANDARD ANALYSIS**
 - If **REASONABLENESS**:
   - Internal logic assessment
-  - Justification assessment
+  - Justification assessment (engagement with facts, law, and parties' arguments)
   - Conclusion on reasonableness
 - If **CORRECTNESS**:
   - State the correct legal test
