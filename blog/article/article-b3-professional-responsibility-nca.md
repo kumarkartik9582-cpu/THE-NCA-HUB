@@ -7,7 +7,7 @@ cta_primary: "Get PR Notes →"
 cta_secondary: "Download Free Chapter"
 ---
 
-Professional Responsibility is often the subject candidates leave until last, assuming their practice experience has prepared them. This is a mistake. The NCA exam tests the CBA Model Code of Professional Conduct specifically, and the ethical frameworks differ from those in other jurisdictions.
+Professional Responsibility is often the subject candidates leave until last, assuming their practice experience has prepared them. This is a mistake. The NCA exam tests the Federation of Law Societies' Model Code of Professional Conduct specifically, and the ethical frameworks differ from those in other jurisdictions.
 
 This guide gives you the structure to approach any PR question with confidence.
 
@@ -26,13 +26,19 @@ The Professional Responsibility exam focuses on lawyer-client relationships and 
 | Retainers and fees | 40% | Medium |
 | Advertising and marketing | 30% | Low |
 
-## The CBA Model Code Framework
+## The Model Code Framework
 
-The NCA tests the Federation of Law Societies' Model Code of Professional Conduct. You must know:
-- Chapter 2: Relationship with clients
-- Chapter 3: Relationship with the administration of justice  
-- Chapter 4: Relationship with the profession
-- Chapter 5: Relationship with the public
+The NCA tests the **Federation of Law Societies' Model Code of Professional Conduct** — a national document. This is distinct from provincial Rules of Professional Conduct (such as the Law Society of Ontario's Rules), which may use different numbering and framing. Always refer to the Federation Model Code for NCA exam purposes.
+
+**Key topics covered in the Model Code:**
+- Integrity and good faith
+- Competence and quality of service
+- Confidentiality and disclosure
+- Conflicts of interest (concurrent and successive)
+- Duties to the administration of justice
+- Candour to tribunals and courts
+- Withdrawal from representation
+- Relations with other lawyers and parties
 
 ## Conflicts of Interest — The Most Tested Topic
 
@@ -67,10 +73,10 @@ If a conflict arises mid-representation and cannot be resolved:
 
 **1. ISSUE IDENTIFICATION**
 - Identify the ethical dilemma (conflict, competence issue, withdrawal scenario)
-- Note the specific Model Code rule implicated
+- Note the specific Model Code topic implicated
 
 **2. APPLICABLE RULE ANALYSIS**
-- State the relevant rule from the Model Code
+- State the relevant principle from the Federation Model Code
 - Explain the purpose of the rule (protecting client interests, maintaining public confidence)
 
 **3. APPLICATION TO FACTS**
@@ -90,9 +96,9 @@ If a conflict arises mid-representation and cannot be resolved:
 
 ## Competence and Confidentiality
 
-### Competence (Rule 3.1)
+### Competence
 
-Competence requires:
+The duty of competence under the Federation Model Code requires:
 - Knowledge of relevant law/procedure
 - Skill in applying that knowledge
 - Thoroughness in preparation
@@ -100,20 +106,26 @@ Competence requires:
 
 **Common exam scenario:** Lawyer takes on matter outside their expertise without consulting senior counsel or referring out.
 
-### Confidentiality (Rule 3.3)
+### Confidentiality
 
-Confidentiality is absolute (with limited exceptions like imminent harm).
+The duty of confidentiality is near-absolute. It extends to all client information regardless of source or whether it is relevant to litigation, and continues after the retainer ends.
 
-**Key distinction:** Confidentiality (all client information) vs. solicitor-client privilege (communications for legal advice).
+**Exceptions include:**
+- Disclosure required by law
+- Disclosure authorised by the client
+- To prevent imminent death or serious bodily harm
 
-**Exceptions:** Required by law, authorised by client, or to prevent imminent harm (varies by jurisdiction).
+**Key distinction:** Confidentiality (all client information) vs. solicitor-client privilege (communications made for the purpose of legal advice — narrower but stronger protection).
 
 ## Withdrawal — When and How
 
 ### Mandatory Withdrawal
 
 Must withdraw if:
-- Client persists in illegal/fraudulent course
+- Client persists in **criminal or fraudulent** conduct
+
+  *Note: The threshold is criminal or fraudulent conduct specifically — not regulatory breaches or civil wrongs, which may give rise only to permissive withdrawal grounds.*
+
 - Client uses lawyer's services to commit a crime
 - Lawyer is incompetent to handle the matter
 
@@ -142,7 +154,7 @@ May withdraw if:
 **Week 2: Conflicts and Withdrawal**
 - Days 8–9: Successive conflicts
 - Days 10–11: Imputed conflicts
-- Days 12–13: Withdrawal procedures
+- Days 12–13: Withdrawal procedures (mandatory vs. permissive)
 - Day 14: Integrated practice
 
 **Week 3: Duties to Courts and Profession**
@@ -159,7 +171,7 @@ May withdraw if:
 
 ## Your Next Step
 
-Professional Responsibility is manageable because the rules are clear. The exam tests whether you can identify the issue and apply the correct rule.
+Professional Responsibility is manageable because the rules are clear. The exam tests whether you can identify the issue and apply the correct Model Code provision.
 
 [Get the complete PR bundle →](/pricing)
 
