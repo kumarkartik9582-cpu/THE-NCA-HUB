@@ -41,12 +41,23 @@ Before studying again, you must understand why you failed. NCA failures typicall
 
 ## Step 2: Analyse the Feedback
 
-NCA feedback is brief but specific. It typically states which competencies were "Not Demonstrated," "Partially Demonstrated," or "Demonstrated."
+NCA feedback describes your performance across four competency tiers:
+
+| Tier | Percentage Range | What It Means |
+|------|------------------|---------------|
+| **Not Demonstrated** | 0–39% | Core legal framework or skill was absent from the answer |
+| **Partially Demonstrated** | 40–49% | Present but incomplete or partially incorrect — a warning level result |
+| **Competent** | 50–59% | Demonstrated at a passing standard |
+| **Demonstrated** | 60–100% | Strong performance — framework applied correctly and thoroughly |
 
 **If "Not Demonstrated" appears in:**
 - **Knowledge of law:** You missed core frameworks. Return to basics.
 - **Analysis/application:** You knew the law but didn't apply it properly. Focus on practice questions.
 - **Communication/organisation:** Structure was poor. Use templates.
+
+**If "Competent" appears:** You are performing at a marginal passing standard in that competency. It passed, but it is a risk area for the retake.
+
+**If "Partially Demonstrated" appears:** This is your primary focus area — you were below the pass threshold in that competency.
 
 ## Step 3: The Retake Strategy
 
