@@ -16,7 +16,7 @@ The NCA uses ProProctor for online proctoring. Technical failures are the most p
 - **Browser:** Chrome or Firefox (latest versions — update the day before)
 - **Webcam:** 720p minimum (most laptops are fine)
 - **Microphone:** Required for proctor communication
-- **Internet:** Stable connection, minimum 1 Mbps upload/download
+- **Internet:** Stable connection, minimum 3–5 Mbps upload and download recommended for ProProctor. Test your speed at speedtest.net before exam day. If below 3 Mbps, use a wired (ethernet) connection rather than WiFi — video proctoring requires simultaneous HD webcam feed and screen sharing, which 1 Mbps will not reliably support.
 
 **Test your system:** Do the ProProctor system test 48 hours before your exam. Do not skip this.
 
@@ -34,7 +34,7 @@ Your phone is your second camera. This is where most technical failures occur.
 1. **Airplane Mode: ON**
 2. **WiFi: ON** (connects to proctor)
 3. **Bluetooth: OFF**
-4. **Do Not Disturb: OFF** (the app needs to run in foreground)
+4. **Do Not Disturb: ON** — this suppresses all notifications and interruptions during the exam. The ProProctor app functions normally regardless of DND status.
 5. **Battery: 100%** before starting
 6. **Charging cable:** Plugged in throughout exam
 
@@ -126,13 +126,14 @@ If your exam is disqualified due to technical issues:
 - [ ] Phone charged to 100%
 - [ ] Phone stand/positioning tested
 - [ ] Room cleared of unauthorised items
+- [ ] Internet speed tested and confirmed above 3 Mbps
 - [ ] Backup device ready (charged) in case of primary device failure
-- [ ] NCA technical support number saved: [check NCA website for current number]
+- [ ] NCA technical support contact saved (see nca.legal/contact for current information)
 
 ## Morning-Of Checklist
 
 - [ ] Final bathroom break
-- [ ] Phone on airplane mode with WiFi on
+- [ ] Phone on airplane mode with WiFi on and Do Not Disturb ON
 - [ ] Computer restarted and browser opened
 - [ ] Log in 15 minutes early
 - [ ] Water bottle ready
