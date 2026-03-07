@@ -7,7 +7,7 @@ cta_primary: "Get Strategic Notes →"
 cta_secondary: "Download Free Chapter"
 ---
 
-The NCA sells textbooks for each subject. They are comprehensive, well-written, and 300–600 pages each. Many candidates assume they are required reading. They are not — and for most candidates, they are actually counterproductive.
+The NCA sells textbooks for each subject. They are comprehensive, well-written, and 300–600 pages each. Many candidates assume sthey are required reading. They are not — and for most candidates, they are actually counterproductive.
 
 This article explains when you need the textbook, when you do not, and what to use instead.
 
