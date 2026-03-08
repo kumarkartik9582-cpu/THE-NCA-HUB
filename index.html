@@ -3036,7 +3036,7 @@ function notifyComingSoon(form, subjectName) {
   }
   btn.textContent = 'Sending\u2026';
   btn.disabled = true;
-  fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+  fetch('https://formspree.io/f/mkoqgvqd', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({ email: email, subject: subjectName, _subject: 'NCA Hub \u2014 Notify Me: ' + subjectName })
@@ -3068,7 +3068,7 @@ function notifyComingSoon(form, subjectName) {
       return;
     }
     if(FSBT)FSBT.textContent='Sending\u2026';FSB.disabled=true;
-    fetch('https://formspree.io/f/YOUR_FORMSPREE_ID',{
+    fetch('https://formspree.io/f/mkoqgvqd',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({name:name,email:email,subject:subj,_subject:'NCA Hub Free Chapter: '+subj,_replyto:email})
