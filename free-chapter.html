@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Free Chapter — The NCA Hub</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --navy:#1B2A4A;
+    --gold:#C9A84C;
+    --void:#05050A;
+    --fog:#9898A8;
+    --dim:#6A6A7A;
+    --fb:'Arial',sans-serif;
+  }
+  body{background:var(--void);color:#E8E8F0;font-family:var(--fb);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+  .logo{font-size:.65rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:48px;text-decoration:none;display:block;text-align:center;}
+  .card{background:#0D0D16;border:1px solid rgba(201,168,76,.15);border-radius:4px;max-width:600px;width:100%;padding:52px 48px;text-align:center;}
+  .icon{font-size:3rem;margin-bottom:24px;display:block;}
+  h1{font-size:1.65rem;font-weight:700;color:#fff;letter-spacing:-.01em;margin-bottom:12px;line-height:1.25;}
+  .sub{font-size:.9rem;color:var(--fog);line-height:1.7;margin-bottom:36px;}
+  .subject-badge{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:6px 18px;border-radius:2px;margin-bottom:32px;}
+  .dl-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#0D0D16;font-family:var(--fb);font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:18px 40px;text-decoration:none;border-radius:2px;transition:opacity .2s;}
+  .dl-btn:hover{opacity:.88}
+  .dl-btn svg{width:16px;height:16px;fill:currentColor;}
+  .divider{border:none;border-top:1px solid rgba(201,168,76,.12);margin:40px 0;}
+  .upsell-title{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .upsell-body{font-size:.82rem;color:var(--fog);line-height:1.7;margin-bottom:24px;}
+  .upsell-btn{display:inline-block;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:var(--fb);font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 30px;text-decoration:none;border-radius:2px;transition:all .2s;}
+  .upsell-btn:hover{background:rgba(201,168,76,.08);}
+  .footer{margin-top:48px;font-size:.6rem;color:var(--dim);text-align:center;}
+  .footer a{color:var(--fog);text-decoration:none;}
+  @media(max-width:520px){.card{padding:36px 24px;}}
+</style>
+</head>
+<body>
+
+<a href="/" class="logo">The NCA Hub</a>
+
+<div class="card" id="main-card">
+  <span class="icon">✓</span>
+  <div class="subject-badge" id="subject-badge">Loading…</div>
+  <h1>Your free chapter is ready.</h1>
+  <p class="sub" id="sub-text">Click below to download your free sample chapter. It opens as a PDF — save it to your device so you have it offline during exam prep.</p>
+
+  <a href="#" class="dl-btn" id="dl-btn" download>
+    <svg viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v9.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V3a1 1 0 011-1z"/><path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg>
+    Download Free Chapter (PDF)
+  </a>
+
+  <hr class="divider">
+
+  <div class="upsell-title">Want the complete notes?</div>
+  <p class="upsell-body" id="upsell-body">
+    This sample is one chapter. The full bundle includes every exam topic —
+    IRAC frameworks, IF→THEN trigger tables, decision trees, and EXAM TRAP warnings
+    for every high-yield issue on the NCA syllabus.
+  </p>
+  <a href="https://payhip.com/THENCAHUB" class="upsell-btn" target="_blank" rel="noopener">
+    Get the Full Notes Bundle →
+  </a>
+</div>
+
+<div class="footer">
+  <a href="/">thencahub.com</a> &nbsp;·&nbsp;
+  <a href="mailto:hello@thencahub.com">hello@thencahub.com</a> &nbsp;·&nbsp;
+  <a href="/privacy.html">Privacy</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// MAP FORM SUBJECT VALUES → PDF DOWNLOAD PATHS
+// Upload these PDFs to your site root /free-chapters/
+// ═══════════════════════════════════════════════════
+var SUBJECT_MAP = {
+  'administrative law':             { file: 'admin_free_chapter.pdf',  label: 'Administrative Law',          payhip: 'https://payhip.com/b/UNbgM' },
+  'constitutional law':             { file: 'con_free_chapter.pdf',    label: 'Constitutional Law',          payhip: 'https://payhip.com/b/d5AzB' },
+  'criminal law':                   { file: 'crim_free_chapter.pdf',   label: 'Criminal Law',                payhip: 'https://payhip.com/b/6TnbH' },
+  'foundations of canadian law':    { file: 'fcl_free_chapter.pdf',    label: 'Foundations of Canadian Law', payhip: 'https://payhip.com/b/tCd8i' },
+  'professional responsibility':    { file: 'pr_free_chapter.pdf',     label: 'Professional Responsibility', payhip: 'https://payhip.com/b/3n4jK' },
+  'legal research & writing (lrw)': { file: 'admin_free_chapter.pdf',  label: 'Administrative Law (closest match)', payhip: 'https://payhip.com/THENCAHUB' },
+  'multiple subjects':              { file: 'admin_free_chapter.pdf',  label: 'Administrative Law (sample)',  payhip: 'https://payhip.com/THENCAHUB' },
+};
+
+function getSubjectFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  return (params.get('subject') || '').trim().toLowerCase();
+}
+
+function init() {
+  var subject = getSubjectFromUrl();
+  var data = SUBJECT_MAP[subject];
+
+  // Fallback: admin law sample for unknown or notify-me subjects
+  if (!data) {
+    data = { file: 'admin_free_chapter.pdf', label: 'Administrative Law (sample)', payhip: 'https://payhip.com/THENCAHUB' };
+  }
+
+  var badge  = document.getElementById('subject-badge');
+  var dlBtn  = document.getElementById('dl-btn');
+  var upsell = document.getElementById('upsell-body');
+
+  badge.textContent = data.label;
+  dlBtn.href = '/free-chapters/' + data.file;
+  dlBtn.setAttribute('download', data.label.replace(/\s+/g,'-') + '-Free-Sample-NCA-Hub.pdf');
+
+  // Personalise upsell link to exact subject product
+  var upsellBtn = document.querySelector('.upsell-btn');
+  if (upsellBtn) upsellBtn.href = data.payhip;
+
+  // Auto-trigger download after 1.5s
+  setTimeout(function() {
+    var a = document.createElement('a');
+    a.href = dlBtn.href;
+    a.download = dlBtn.getAttribute('download');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }, 1500);
+}
+
+init();
+</script>
+</body>
+</html>
