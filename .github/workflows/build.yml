@@ -17,17 +17,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Set up Node (no npm install needed — build.js uses zero dependencies)
+      # 2. Set up Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # 3. Run the static site generator
+      # 3. Install dependencies (build.js requires the 'marked' package)
+      - name: Install dependencies
+        run: npm install marked
+
+      # 4. Run the static site generator
       - name: Build static article pages
         run: node build.js
 
-      # 4. Commit the generated files back to the repo
+      # 5. Commit the generated files back to the repo
       #    GitHub Pages will then serve them automatically
       - name: Commit built pages
         run: |
