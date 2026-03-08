@@ -1687,24 +1687,33 @@ body.golden-hour {
       </div>
       <div class="sf2" id="SFORM">
         <span class="flbl">Download Free Chapter</span>
-        <input type="text" class="ff" id="FN" placeholder="Your first name" autocomplete="given-name" aria-label="Your first name">
-        <input type="email" class="ff" id="FE" placeholder="Your email address" autocomplete="email" aria-label="Your email address">
-        <select class="fs" id="FS" aria-label="Which subject are you preparing for?">
-          <option value="" disabled selected>Which subject are you preparing for?</option>
-          <option>Administrative Law</option><option>Constitutional Law</option><option>Criminal Law</option>
-          <option>Foundations of Canadian Law</option><option>Professional Responsibility</option>
-          <option>Legal Research &amp; Writing (LRW)</option>
-          <option>Business Organisations (notify when available)</option>
-          <option>Family Law (notify when available)</option>
-          <option>Property Law (notify when available)</option>
-          <option>Torts (notify when available)</option>
-          <option>Contracts (notify when available)</option>
-          <option>Civil Procedure (notify when available)</option>
-          <option>Remedies (notify when available)</option>
-          <option>Multiple subjects</option>
-        </select>
-        <button class="fsub" id="FSB" aria-label="Submit and send free chapter"><span id="FSBT">Send Me the Free Chapter →</span></button>
-        <p class="ffine">Your email is never shared or sold. One-click unsubscribe any time.</p>
+        <form
+          action="https://formspree.io/f/mkoqgvqd"
+          method="POST"
+          id="free-chapter-form"
+          onsubmit="ncaFormSubmit(event)"
+        >
+          <input type="text"  class="ff" name="name"    id="FN" placeholder="Your first name"         autocomplete="given-name" aria-label="Your first name"    required>
+          <input type="email" class="ff" name="email"   id="FE" placeholder="Your email address"       autocomplete="email"      aria-label="Your email address" required>
+          <input type="hidden" name="_subject" value="NCA Hub — Free Chapter Request">
+          <input type="hidden" name="_next" value="https://www.thencahub.com/?sent=1">
+          <select class="fs" name="subject" id="FS" aria-label="Which subject are you preparing for?" required>
+            <option value="" disabled selected>Which subject are you preparing for?</option>
+            <option>Administrative Law</option><option>Constitutional Law</option><option>Criminal Law</option>
+            <option>Foundations of Canadian Law</option><option>Professional Responsibility</option>
+            <option>Legal Research &amp; Writing (LRW)</option>
+            <option>Business Organisations (notify when available)</option>
+            <option>Family Law (notify when available)</option>
+            <option>Property Law (notify when available)</option>
+            <option>Torts (notify when available)</option>
+            <option>Contracts (notify when available)</option>
+            <option>Civil Procedure (notify when available)</option>
+            <option>Remedies (notify when available)</option>
+            <option>Multiple subjects</option>
+          </select>
+          <button class="fsub" type="submit" id="FSB" aria-label="Submit and send free chapter"><span id="FSBT">Send Me the Free Chapter →</span></button>
+          <p class="ffine">Your email is never shared or sold. One-click unsubscribe any time.</p>
+        </form>
       </div>
     </div>
   </div>
@@ -1828,7 +1837,7 @@ body.golden-hour {
   <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){'use strict';
 
 /* GLOBALS */
@@ -3023,6 +3032,15 @@ if(CD&&CR){
 })();
 
 
+/* FREE CHAPTER FORM SUBMIT HELPER */
+function ncaFormSubmit(e){
+  var btn=document.getElementById('FSB');
+  var lbl=document.getElementById('FSBT');
+  if(btn)btn.disabled=true;
+  if(lbl)lbl.textContent='Sending…';
+  return true; /* allow native submit to proceed */
+}
+
 /* NOTIFY COMING SOON — captures email for unreleased subjects via Formspree */
 function notifyComingSoon(form, subjectName) {
   var input = form.querySelector('.coming-soon-input');
@@ -3121,31 +3139,4 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   <p style="font-size:.65rem;color:var(--fog);line-height:1.65;margin:0;max-width:680px;">This site uses session storage to improve your experience. By continuing you accept our <a href="/privacy.html" style="color:var(--g1);text-decoration:underline">Privacy Policy</a>. We do not sell or share your data.</p>
   <div style="display:flex;gap:12px;flex-shrink:0;flex-wrap:wrap;">
     <button id="cookie-accept" style="background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:none;padding:11px 26px;cursor:pointer;">Accept</button>
-    <button id="cookie-decline" style="background:transparent;color:var(--dim);font-family:var(--fb);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(201,168,76,.2);padding:11px 20px;cursor:pointer;">Decline</button>
-  </div>
-</div>
-<script>
-(function(){
-  try{
-    if(!localStorage.getItem('ncahub_consent')){
-      var b=document.getElementById('cookie-banner');
-      if(b){b.style.display='flex';}
-    }
-  }catch(e){}
-  var acc=document.getElementById('cookie-accept');
-  var dec=document.getElementById('cookie-decline');
-  if(acc)acc.addEventListener('click',function(){
-    try{localStorage.setItem('ncahub_consent','accepted');}catch(e){}
-    var b=document.getElementById('cookie-banner');
-    if(b)b.style.display='none';
-  });
-  if(dec)dec.addEventListener('click',function(){
-    try{localStorage.setItem('ncahub_consent','declined');}catch(e){}
-    var b=document.getElementById('cookie-banner');
-    if(b)b.style.display='none';
-  });
-})();
-</script>
-
-</body>
-</html>
+    <button id="cookie-decline" style="background:transparent;color:var(--dim);font-family:var(--fb);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(201,168,76,.2);paddin
