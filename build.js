@@ -295,7 +295,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p class="art-cta-eyelet">Ready to prepare?</p>
       <h2 class="art-cta-title">Get the notes that passed 4 NCA subjects in 3 months.</h2>
       <p class="art-cta-sub">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers.</p>
-      <a href="/#pricing" class="art-cta-btn">See the Package →</a>
+      <a href="https://payhip.com/THENCAHUB" class="art-cta-btn" target="_blank" rel="noopener">Get Your Notes →</a>
     </div>
     <a href="/blog/" class="art-back">← Back to all articles</a>
   </div>
@@ -312,7 +312,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <ul class="fls">
         <li><a href="/#method">The Method</a></li>
         <li><a href="/#subjects">Subjects</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop</a></li>
         <li><a href="/blog/">Articles</a></li>
         <li><a href="/#sample">Free Chapter</a></li>
       </ul>
@@ -321,7 +321,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <div class="fct">Contact</div>
       <ul class="fls">
         <li><a href="mailto:hello@thencahub.com">hello@thencahub.com</a></li>
-        <li><a href="/#pricing">Enroll Now</a></li>
+        <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li>
         <li><a href="/#readiness">Get My Score</a></li>
       </ul>
     </div>
@@ -411,8 +411,8 @@ function build() {
   console.log(`\n🔨  Building ${mdFiles.length} articles...\n`);
 
   const sitemapURLs = [
-    { loc: `${BASE_URL}/`,       priority: '1.0', changefreq: 'weekly'  },
-    { loc: `${BASE_URL}/blog/`,  priority: '0.8', changefreq: 'weekly'  },
+    { loc: `${BASE_URL}/`,       priority: '1.0', changefreq: 'weekly',  lastmod: new Date().toISOString().slice(0,10) },
+    { loc: `${BASE_URL}/blog/`,  priority: '0.8', changefreq: 'weekly',  lastmod: new Date().toISOString().slice(0,10) },
   ];
 
   let built = 0, skipped = 0;
@@ -467,6 +467,7 @@ function build() {
       loc:        canonicalURL,
       priority:   '0.9',
       changefreq: 'monthly',
+      lastmod:    new Date().toISOString().slice(0,10),
     });
   });
 
@@ -475,6 +476,7 @@ function build() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapURLs.map(u => `  <url>
     <loc>${u.loc}</loc>
+    <lastmod>${u.lastmod || new Date().toISOString().slice(0,10)}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
   </url>`).join('\n')}
