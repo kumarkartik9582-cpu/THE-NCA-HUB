@@ -130,6 +130,6 @@ What changes is the overall completion pathway. You now have one additional mand
 
 ---
 
-*Kartik Kumar is the founder of The NCA Hub. He qualified as a lawyer in India and the UK, passed 4 NCA subjects in under 4 months, and completed CPLED LRW early. He built The NCA Hub because no resource existed that matched the way he needed to study.*
+*Kartik Kumar is the founder of The NCA Hub. He qualified as a lawyer in India and built his career at UK law firms DWF, Eversheds Sutherland, and Keoghs. He passed all 5 NCA subjects — clearing 4 in under 3 months, with one week to prepare for the first — and has requested the Certificate of Qualification. He built The NCA Hub because no concise, strategic resource existed for internationally trained lawyers.*
 
 *[Read all NCA guides →](/blog/) · [Get NCA study notes →](https://payhip.com/THENCAHUB)*
