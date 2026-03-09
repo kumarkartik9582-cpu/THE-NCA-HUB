@@ -93,7 +93,7 @@ function parseFrontMatter(raw) {
 // Uses identical CSS to article.html so pages look exactly the same.
 // The key SEO difference: all content is in the HTML response —
 // no JavaScript fetch needed for Googlebot to read every word.
-function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL }) {
+function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified }) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,25 +116,47 @@ function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, 
 <meta property="twitter:title"       content="${escHtml(title)} — The NCA Hub">
 <meta property="twitter:description" content="${escHtml(description)}">
 
-<!-- Schema.org Article -->
+<!-- Schema.org Article + BreadcrumbList -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "${escJson(title)}",
-  "description": "${escJson(description)}",
-  "url": "${canonicalURL}",
-  "author": {
-    "@type": "Person",
-    "name": "Kartik Kumar",
-    "jobTitle": "Founder, The NCA Hub"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The NCA Hub",
-    "url": "https://www.thencahub.com"
-  },
-  "mainEntityOfPage": "${canonicalURL}"
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "${escJson(title)}",
+      "description": "${escJson(description)}",
+      "url": "${canonicalURL}",
+      "datePublished": "${datePublished}",
+      "dateModified": "${dateModified}",
+      "author": {
+        "@type": "Person",
+        "name": "Kartik Kumar",
+        "url": "https://www.thencahub.com/about/",
+        "jobTitle": "Founder, The NCA Hub",
+        "description": "Qualified lawyer in India and the UK (DWF, Eversheds Sutherland, Keoghs). Passed 4 NCA subjects in under 4 months."
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The NCA Hub",
+        "url": "https://www.thencahub.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.thencahub.com/favicon.svg"
+        }
+      },
+      "mainEntityOfPage": "${canonicalURL}",
+      "image": "https://www.thencahub.com/og-image.svg",
+      "inLanguage": "en-CA"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.thencahub.com" },
+        { "@type": "ListItem", "position": 2, "name": "Free Guides", "item": "https://www.thencahub.com/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "${escJson(title)}", "item": "${canonicalURL}" }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -280,7 +302,10 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <div class="art-cluster" aria-label="Category">${escHtml(clusterLabel)}</div>
       <h1 class="art-title">${escHtml(title)}</h1>
       <div class="art-meta">
-        ${readTime ? '<span class="art-read">' + escHtml(readTime) + ' read</span>' : ''}
+        <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
+        ${readTime ? '<span class="art-read" style="color:var(--dim);">·</span><span class="art-read">' + escHtml(readTime) + ' read</span>' : ''}
+        <span class="art-read" style="color:var(--dim);">·</span>
+        <span class="art-read" style="color:var(--dim);">Updated: <time datetime="${dateModified}">${dateModified}</time></span>
       </div>
       <p class="art-desc">${escHtml(description)}</p>
     </header>
@@ -429,6 +454,8 @@ function build() {
     const cluster     = meta.cluster || meta.category || 'strategy';
     const clusterLabel = clusterLabels[cluster] || cluster;
     const readTime    = meta.readTime || meta.read_time || '';
+    const datePublished  = meta.date || meta.datePublished || new Date().toISOString().slice(0,10);
+    const dateModified   = meta.lastModified || meta.dateModified || meta.date || new Date().toISOString().slice(0,10);
 
     if (!title) {
       console.warn(`  ⚠️  Skipping ${file} — no title in frontmatter`);
@@ -456,7 +483,7 @@ function build() {
     }
 
     // Write HTML
-    const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL });
+    const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified });
     fs.writeFileSync(outFile, html, 'utf8');
 
     console.log(`  ✅  ${slug}/index.html`);
