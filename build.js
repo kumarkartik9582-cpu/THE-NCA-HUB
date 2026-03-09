@@ -72,28 +72,309 @@ const BASE_URL    = 'https://www.thencahub.com';
 
 // ── PARSE YAML FRONTMATTER ─────────────────────────────────
 function parseFrontMatter(raw) {
-  const result = { meta: {}, content: raw };
-  if (!raw.startsWith('---')) return result;
-  const end = raw.indexOf('\n---', 3);
-  if (end === -1) return result;
-  const block   = raw.slice(3, end).trim();
-  const content = raw.slice(end + 4).trim();
-  const meta    = {};
-  block.split('\n').forEach(line => {
-    const colon = line.indexOf(':');
-    if (colon === -1) return;
-    const key = line.slice(0, colon).trim();
-    const val = line.slice(colon + 1).trim().replace(/^["']|["']$/g, '');
-    meta[key] = val;
-  });
-  return { meta, content };
+  // Try YAML --- block first
+  if (raw.startsWith('---')) {
+    const end = raw.indexOf('\n---', 3);
+    if (end !== -1) {
+      const block   = raw.slice(3, end).trim();
+      const content = raw.slice(end + 4).trim();
+      const meta    = {};
+      block.split('\n').forEach(line => {
+        const colon = line.indexOf(':');
+        if (colon === -1) return;
+        const key = line.slice(0, colon).trim();
+        const val = line.slice(colon + 1).trim().replace(/^["']|["']$/g, '');
+        meta[key] = val;
+      });
+      return { meta, content };
+    }
+  }
+  // Fall back: parse **Key:** Value bold frontmatter (NCA Hub article format)
+  return parseBoldFrontMatter(raw);
+}
+
+// ── PARSE BOLD FRONTMATTER ─────────────────────────────────
+// Handles the **SEO Title:** / **Meta Description:** format used by all articles
+function parseBoldFrontMatter(raw) {
+  const lines = raw.split('\n');
+  const meta  = {};
+  const bodyLines = [];
+  let pastFrontMatter = false;
+
+  for (const line of lines) {
+    if (!pastFrontMatter) {
+      const m = line.match(/^\*\*([^*]+)\*\*:\s*(.+)$/);
+      if (m) {
+        const key = m[1].trim().toLowerCase().replace(/\s+/g, '_');
+        meta[key] = m[2].trim();
+        continue;
+      }
+      // Once we hit a non-bold-frontmatter line that isn't blank, we're in body
+      if (line.trim() !== '' && line.trim() !== '---') {
+        pastFrontMatter = true;
+      }
+    }
+    if (pastFrontMatter) bodyLines.push(line);
+  }
+
+  // Map NCA Hub bold-format keys to standard keys
+  if (meta['seo_title'])        meta['title']            = meta['seo_title'];
+  if (meta['meta_description']) meta['meta_description'] = meta['meta_description'];
+
+  return { meta, content: bodyLines.join('\n').trim() };
+}
+
+// ── SEO META OVERRIDES ─────────────────────────────────────
+// Optimised titles, descriptions, clusters and dates for every article.
+// These override whatever is in the markdown frontmatter.
+const SEO_META = {
+  'article-pass-nca-90-days': {
+    title:       'How to Pass the NCA Exam in 90 Days: Week-by-Week Plan (2026)',
+    description: 'The exact framework used to pass 4 NCA subjects in 3 months. Week-by-week calendar, subject sequencing logic, and the 2-hour daily study formula for internationally trained lawyers.',
+    cluster:     'strategy',
+    readTime:    '12 min',
+    datePublished: '2025-11-01',
+  },
+  'article-a2-nca-exam-format': {
+    title:       'NCA Exam Format Explained: What Happens on Exam Day (2026)',
+    description: 'Open-book, online-proctored, 3 hours. Exactly what happens on NCA exam day — room setup, question types, time strategy, and what to do if something goes wrong.',
+    cluster:     'strategy',
+    readTime:    '12 min',
+    datePublished: '2025-11-01',
+  },
+  'article-a3-administrative-law-nca': {
+    title:       'NCA Administrative Law Exam Guide 2026: Vavilov, Baker & Full Answer Template',
+    description: 'Complete NCA Administrative Law exam guide. Vavilov standard of review, Baker procedural fairness, judicial review — with the exact answer template for every Admin Law question.',
+    cluster:     'subjects',
+    readTime:    '18 min',
+    datePublished: '2025-11-01',
+  },
+  'article-a4-nca-readiness-score': {
+    title:       'NCA Readiness Score: Are You Actually Ready to Sit Your Exam? (2026)',
+    description: 'Five dimensions of NCA exam readiness, scored 0–100. The objective answer to "is this enough?" — with a specific action plan for every result band.',
+    cluster:     'readiness',
+    readTime:    '10 min',
+    datePublished: '2025-11-01',
+  },
+  'article-b1-constitutional-law-nca': {
+    title:       'NCA Constitutional Law 2026: Charter Analysis, Division of Powers & Oakes Test Guide',
+    description: 'Complete NCA Constitutional Law exam guide. Charter analysis sequence, division of powers, the Oakes test, and Aboriginal rights under s.35 — with a full answer template.',
+    cluster:     'subjects',
+    readTime:    '16 min',
+    datePublished: '2025-11-01',
+  },
+  'article-b2-criminal-law-nca': {
+    title:       'NCA Criminal Law Exam Guide 2026: Actus Reus, Defences & Charter Framework',
+    description: 'Complete NCA Criminal Law exam guide. Actus reus, mens rea, major defences under the Criminal Code, and the answer structure that separates pass from fail answers.',
+    cluster:     'subjects',
+    readTime:    '15 min',
+    datePublished: '2025-11-01',
+  },
+  'article-b3-professional-responsibility-nca': {
+    title:       'NCA Professional Responsibility Exam Guide 2026: Model Code, Conflicts & Confidentiality',
+    description: 'Complete NCA Professional Responsibility exam guide. CBA Model Code, duties to clients, conflicts of interest, withdrawal — with the answer template that pre-structures every PR question.',
+    cluster:     'subjects',
+    readTime:    '14 min',
+    datePublished: '2025-11-01',
+  },
+  'article-b4-foundations-canadian-law-nca': {
+    title:       'NCA Foundations of Canadian Law: The Complete Guide to the Hardest Core Exam (2026)',
+    description: 'Complete NCA Foundations of Canadian Law exam guide. Sources of law, common law methodology, statutory interpretation, and Quebec\'s bijural tradition — the subject most candidates underestimate.',
+    cluster:     'subjects',
+    readTime:    '14 min',
+    datePublished: '2025-11-01',
+  },
+  'article-c1-failed-nca-exam': {
+    title:       'Failed the NCA Exam? The Complete Retake Strategy & Recovery Plan',
+    description: 'Failed an NCA exam? Failure is data, not a verdict. The failure autopsy framework: what actually went wrong, what to change, and the retake strategy that works.',
+    cluster:     'fear',
+    readTime:    '10 min',
+    datePublished: '2025-11-01',
+  },
+  'article-c2-nca-proctoring-guide': {
+    title:       'NCA Exam Proctoring: The Complete Technical Setup Guide (2026)',
+    description: 'Browser, room, phone setup for NCA remote proctoring. What to cover, what happens if the connection drops, and everything that causes exam-day anxiety — resolved before exam day.',
+    cluster:     'fear',
+    readTime:    '10 min',
+    datePublished: '2025-11-01',
+  },
+  'article-c3-one-month-nca-prep': {
+    title:       'Is One Month Enough to Prepare for the NCA? Day-by-Day Breakdown (2026)',
+    description: 'Can you prepare for an NCA exam in one month? Honest answer with a day-by-day schedule. For some subjects, in the right conditions — yes.',
+    cluster:     'fear',
+    readTime:    '9 min',
+    datePublished: '2025-11-01',
+  },
+  'article-c4-nca-textbook-necessary': {
+    title:       'Do You Need the NCA Textbook? The Honest Answer (It Could Save You $400)',
+    description: 'Do you actually need the NCA textbook? For most candidates, no. Here is why — and what to use instead that fits inside an open-book 3-hour exam and actually helps you pass.',
+    cluster:     'fear',
+    readTime:    '8 min',
+    datePublished: '2025-11-01',
+  },
+  'article-c5-nca-exam-anxiety': {
+    title:       'NCA Exam Anxiety: What It Actually Is and What to Do (2026)',
+    description: 'NCA exam anxiety explained — the real causes, the rational responses, and how to replace uncertainty with precision. Specific techniques for the 72 hours before and during the exam.',
+    cluster:     'fear',
+    readTime:    '9 min',
+    datePublished: '2025-11-01',
+  },
+  'article-d1-nca-prep-materials-compared': {
+    title:       'NCA Prep Materials Compared 2026: What to Look for Before You Buy',
+    description: 'Honest evaluation framework for NCA preparation materials. Volume vs precision, live class vs async, objective readiness vs guesswork — before you spend money on any NCA course.',
+    cluster:     'comparison',
+    readTime:    '11 min',
+    datePublished: '2025-11-01',
+  },
+  'article-d2-nca-to-bar-exam': {
+    title:       'NCA to Bar Exam: The Complete Canadian Lawyer Pathway (2026)',
+    description: 'Full roadmap from NCA assessment to Call to the Bar. NCA exams, LRW, articling, provincial bar exams — every stage mapped with realistic timelines for internationally trained lawyers.',
+    cluster:     'pathway',
+    readTime:    '13 min',
+    datePublished: '2025-11-01',
+  },
+  'article-d3-nca-indian-lawyers': {
+    title:       'How Indian Lawyers Qualify in Canada: Complete NCA Guide 2026 (Written by an Indian Lawyer)',
+    description: 'NCA exam guide for Indian-qualified lawyers. Specific challenges, subject advantages, and the preparation strategy that works — written by an Indian lawyer who passed 4 NCA subjects.',
+    cluster:     'pathway',
+    readTime:    '11 min',
+    datePublished: '2025-11-01',
+  },
+  'article-d4-nca-uk-based-lawyers': {
+    title:       'How UK Lawyers Qualify in Canada via NCA: The Complete 2026 Guide',
+    description: 'NCA exam guide for UK-qualified lawyers — solicitors and barristers. Which subjects transfer, which require attention, common pitfalls, and the UK to Canada transition strategy.',
+    cluster:     'pathway',
+    readTime:    '11 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e1-nca-study-schedule-working': {
+    title:       'NCA Study Schedule for Working Professionals: The 2-Hour Daily Formula (2026)',
+    description: 'Realistic NCA study plan for candidates balancing full-time work. Week-by-week breakdown built around a 2-hour daily study window — for internationally trained lawyers who cannot quit their job.',
+    cluster:     'strategy',
+    readTime:    '11 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e2-nca-vs-bar-exam': {
+    title:       'NCA vs Bar Exam: Key Differences in Format, Content & Strategy (2026)',
+    description: 'How NCA exams differ from provincial bar exams in Canada. Different formats, different content, different strategies — what passes the NCA is not what passes the Bar.',
+    cluster:     'comparison',
+    readTime:    '10 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e3-nca-study-hours': {
+    title:       'How Many Hours to Study for the NCA Exam? The Evidence-Based Answer (2026)',
+    description: 'Subject-by-subject NCA study hour breakdowns. What 80 hours vs 200 hours actually looks like — and how to tell if you are over-studying or under-prepared for your NCA exam.',
+    cluster:     'strategy',
+    readTime:    '9 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e4-nca-process-timeline': {
+    title:       'The NCA Process Timeline: From Assessment to Certificate of Qualification (2026)',
+    description: 'How long each NCA stage really takes — assessment, subject allocation, exam registration, sitting, and results. Real timelines for internationally trained lawyers, not best-case estimates.',
+    cluster:     'strategy',
+    readTime:    '10 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e5-300-page-notes-worth-it': {
+    title:       '300-Page NCA Notes vs Short Notes: Why Shorter Wins in an Open-Book Exam',
+    description: 'Are 300-page NCA notes worth it? Volume is a liability in a 3-hour open-book exam. Why shorter, structured templates outperform lengthy notes on NCA exam day.',
+    cluster:     'comparison',
+    readTime:    '8 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e6-nca-live-classes-vs-self-study': {
+    title:       'NCA Live Classes vs Self-Study: Which Works Better? (2026 Comparison)',
+    description: 'NCA live classes or self-study? Cost, time, discipline requirements, and learning styles compared. When to pay for live instruction — and when independent study is more effective.',
+    cluster:     'comparison',
+    readTime:    '10 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e7-nca-study-checklist': {
+    title:       'NCA Study Checklist: What to Complete Before Exam Day (2026)',
+    description: 'Week-by-week NCA study checklist covering content review, practice questions, tech setup, and the final 48-hour preparation sequence. Everything to complete before you sit your NCA exam.',
+    cluster:     'strategy',
+    readTime:    '8 min',
+    datePublished: '2025-11-01',
+  },
+  'article-e8-nca-pass-criteria': {
+    title:       'NCA Pass Criteria: What Score Do You Actually Need to Pass? (2026)',
+    description: 'Understanding the NCA 50% passing threshold, how exams are graded, and what "competent" means in the NCA marking context. What you actually need to pass — clearly explained.',
+    cluster:     'strategy',
+    readTime:    '7 min',
+    datePublished: '2025-11-01',
+  },
+  'article-f1-nca-policy-changes-2026': {
+    title:       'NCA Policy Changes 2026: Indigenous Law Requirement & Language Screening Explained',
+    description: 'NCA policy changes effective March 1, 2026 — the new mandatory Indigenous Law competency, language screening before assessment, and the 2029 in-person education change.',
+    cluster:     'pathway',
+    readTime:    '9 min',
+    datePublished: '2026-03-01',
+  },
+  'article-f2-nca-nigerian-lawyers': {
+    title:       'NCA for Nigerian Lawyers: The Complete Canada Qualification Guide (2026)',
+    description: 'Complete NCA guide for Nigerian-qualified lawyers. Assessment timelines, typical subject assignments, common law advantages, and the fastest strategy to complete the NCA process.',
+    cluster:     'pathway',
+    readTime:    '10 min',
+    datePublished: '2026-03-01',
+  },
+  'article-f3-nca-philippine-lawyers': {
+    title:       'NCA for Philippine Lawyers: Hybrid Jurisdiction Guide to Qualifying in Canada (2026)',
+    description: 'Complete NCA guide for Philippine-qualified lawyers. How the hybrid civil/common law background is assessed, typical subject requirements, and the preparation strategy that works.',
+    cluster:     'pathway',
+    readTime:    '10 min',
+    datePublished: '2026-03-01',
+  },
+  'nca-exam-complete-guide': {
+    title:       'NCA Exams Canada: The Complete Guide for Internationally Trained Lawyers (2026)',
+    description: 'Everything internationally trained lawyers need to know about NCA exams in Canada — who qualifies, required subjects, exam format, study strategy, timelines, and the full path to the Canadian Bar.',
+    cluster:     'strategy',
+    readTime:    '20 min',
+    datePublished: '2026-03-01',
+  },
+};
+
+// ── EXTRACT FAQ SCHEMA FROM MARKDOWN ──────────────────────
+// Reads the ## FAQ section of any article and returns JSON-LD
+// FAQPage schema. Returns null if no FAQ section found.
+function extractFAQSchema(markdown) {
+  const faqIdx = markdown.search(/^## FAQ/m);
+  if (faqIdx === -1) return null;
+
+  const faqSection = markdown.slice(faqIdx);
+  const pairs = [];
+
+  // Matches: **Q: question text**\n\nanswer text (up to next **Q: or end)
+  const re = /\*\*Q:\s*([^*]+)\*\*\n+([\s\S]+?)(?=\n\*\*Q:|$)/g;
+  let m;
+  while ((m = re.exec(faqSection)) !== null) {
+    const question = m[1].trim();
+    // Strip markdown from answer: bold, links, newlines
+    const answer = m[2].trim()
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/\n+/g, ' ')
+      .trim();
+    if (question && answer) pairs.push({ question, answer });
+  }
+
+  if (pairs.length === 0) return null;
+
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': pairs.map(p => ({
+      '@type': 'Question',
+      'name': p.question,
+      'acceptedAnswer': { '@type': 'Answer', 'text': p.answer }
+    }))
+  }, null, 2);
 }
 
 // ── HTML TEMPLATE ──────────────────────────────────────────
 // Uses identical CSS to article.html so pages look exactly the same.
 // The key SEO difference: all content is in the HTML response —
 // no JavaScript fetch needed for Googlebot to read every word.
-function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified }) {
+function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema }) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,6 +440,11 @@ function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, 
   ]
 }
 </script>
+
+${faqSchema ? `<!-- FAQ Schema -->
+<script type="application/ld+json">
+${faqSchema}
+</script>` : ''}
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:image" content="https://www.thencahub.com/og-image.svg">
@@ -449,13 +735,16 @@ function build() {
     const parsed   = parseFrontMatter(raw);
     const meta     = parsed.meta;
 
-    const title       = meta.title || slug;
-    const description = meta.meta_description || meta.description || meta.excerpt || '';
-    const cluster     = meta.cluster || meta.category || 'strategy';
+    const title       = (SEO_META[slug] && SEO_META[slug].title)       || meta.title            || meta.seo_title || slug;
+    const description = (SEO_META[slug] && SEO_META[slug].description) || meta.meta_description || meta.description || meta.excerpt || '';
+    const cluster     = (SEO_META[slug] && SEO_META[slug].cluster)     || meta.cluster          || meta.category   || 'strategy';
     const clusterLabel = clusterLabels[cluster] || cluster;
-    const readTime    = meta.readTime || meta.read_time || '';
-    const datePublished  = meta.date || meta.datePublished || new Date().toISOString().slice(0,10);
-    const dateModified   = meta.lastModified || meta.dateModified || meta.date || new Date().toISOString().slice(0,10);
+    const readTime    = (SEO_META[slug] && SEO_META[slug].readTime)    || meta.readTime         || meta.read_time  || '';
+    const datePublished  = (SEO_META[slug] && SEO_META[slug].datePublished) || meta.date || meta.datePublished || new Date().toISOString().slice(0,10);
+    const dateModified   = meta.lastModified || meta.dateModified || (SEO_META[slug] && SEO_META[slug].datePublished) || meta.date || new Date().toISOString().slice(0,10);
+
+    // Extract FAQ schema from article markdown (if ## FAQ section exists)
+    const faqSchema = extractFAQSchema(parsed.content);
 
     if (!title) {
       console.warn(`  ⚠️  Skipping ${file} — no title in frontmatter`);
@@ -483,7 +772,7 @@ function build() {
     }
 
     // Write HTML
-    const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified });
+    const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema });
     fs.writeFileSync(outFile, html, 'utf8');
 
     console.log(`  ✅  ${slug}/index.html`);
