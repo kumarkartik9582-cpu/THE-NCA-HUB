@@ -158,6 +158,6 @@ Finding an articling position is a significant challenge for internationally tra
 
 ---
 
-*The NCA Hub was built by Kartik Kumar — an internationally trained lawyer who passed 4 NCA subjects in under 4 months. Study notes under 80 pages, answer templates, and the only Readiness Assessment in the NCA prep market.*
+*The NCA Hub was built by Kartik Kumar — an internationally trained lawyer who passed all 5 NCA subjects and has requested the Certificate of Qualification. Study notes under 80 pages, answer templates, and the only Readiness Assessment in the NCA prep market.*
 
 *[Get NCA study notes →](https://payhip.com/THENCAHUB) · [Take the Readiness Assessment →](/#readiness)*
