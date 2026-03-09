@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
 
-# Disallow the old query-param URLs — Google should use clean URLs only
-Disallow: /blog/article.html
-
 Sitemap: https://www.thencahub.com/sitemap.xml
