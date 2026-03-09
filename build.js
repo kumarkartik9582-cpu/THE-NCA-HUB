@@ -804,6 +804,52 @@ ${sitemapURLs.map(u => `  <url>
   console.log(`\n✨  Done — ${built} pages built${skipped ? `, ${skipped} skipped` : ''}`);
   console.log(`    Static pages are at:  blog/[slug]/index.html`);
   console.log(`    Clean URLs will be:   ${BASE_URL}/blog/[slug]/\n`);
+
+  // ── INDEXNOW BULK PING ───────────────────────────────────
+  // Notifies Bing (+ Yandex, Seznam) of all URLs on every build.
+  // Pages get crawled within hours instead of weeks.
+  pingIndexNow(sitemapURLs.map(u => u.loc));
+}
+
+// ── INDEXNOW ───────────────────────────────────────────────
+const INDEXNOW_KEY      = '679ea90259474fdb89ba975b64b7ec6a';
+const INDEXNOW_KEY_FILE = `https://www.thencahub.com/${INDEXNOW_KEY}.txt`;
+
+function pingIndexNow(urls) {
+  const https = require('https');
+
+  const payload = JSON.stringify({
+    host:        'www.thencahub.com',
+    key:         INDEXNOW_KEY,
+    keyLocation: INDEXNOW_KEY_FILE,
+    urlList:     urls,
+  });
+
+  const options = {
+    hostname: 'api.indexnow.org',
+    path:     '/IndexNow',
+    method:   'POST',
+    headers:  {
+      'Content-Type':   'application/json; charset=utf-8',
+      'Content-Length': Buffer.byteLength(payload),
+    },
+  };
+
+  const req = https.request(options, (res) => {
+    if (res.statusCode === 200) {
+      console.log(`🚀  IndexNow: ${urls.length} URLs submitted successfully`);
+    } else {
+      console.warn(`⚠️   IndexNow: responded with HTTP ${res.statusCode}`);
+    }
+  });
+
+  req.on('error', (e) => {
+    // Non-fatal — build succeeded, ping just didn't fire
+    console.warn(`⚠️   IndexNow ping failed (non-fatal): ${e.message}`);
+  });
+
+  req.write(payload);
+  req.end();
 }
 
 build();
