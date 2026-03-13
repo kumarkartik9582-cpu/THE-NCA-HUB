@@ -28,8 +28,7 @@ img{max-width:100%;display:block}
 .word{display:inline-block;overflow:hidden;margin-right:0.25em;}
 
 /* Page Transition Overlay */
-#transition-overlay{position:fixed;inset:0;background:var(--g1);z-index:10000;clip-path:circle(150% at 50% 50%);pointer-events:none;}
-#transition-overlay.exit{clip-path:circle(0% at 50% 50%);transition:clip-path .8s var(--expo);}
+
 
 /* CURSOR */
 #cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
@@ -154,7 +153,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 </head>
 <body>
 
-<div id="transition-overlay"></div>
+
 <div class="grain"></div>
 <canvas id="ink-cv" aria-hidden="true"></canvas>
 <div id="cd"></div>
@@ -600,15 +599,15 @@ try{
   gsap.ticker.lagSmoothing(0);
 }catch(e){console.log('Lenis not loaded');}
 
-// Fix golden screen on browser back
+
 window.addEventListener('pageshow',function(e){
-  var overlay=document.getElementById('transition-overlay');
+
   if(overlay){overlay.style.display='none';overlay.style.clipPath='circle(0% at 50% 50%)';}
 });
 
-// Page Transition In (Gold Sweep Reveal)
+
 (function(){
-  var overlay=document.getElementById('transition-overlay');
+
   if(overlay){
     // Check if coming from landing page
     if(document.referrer.includes('thencahub.com') || window.location.hash === '#from-landing'){
@@ -715,7 +714,7 @@ ScrollTrigger.create({
   }
 });
 
-// Gold Ink Cursor Trail
+
 (function(){
   if(window.innerWidth<=960)return;
   var cv=document.getElementById('ink-cv');
@@ -825,8 +824,8 @@ document.querySelectorAll('.article-card').forEach(function(card){
   card.addEventListener('mouseenter',function(){
     gsap.to(card,{'--line-width':'100%',duration:0.5,ease:'power2.out'});
     // Direct animation of pseudo element via inline style injection isn't possible
-    // Instead, we'll animate a real element if needed, but here we use the CSS transition
-    // The CSS already has transition:width .5s var(--expo) on ::before
+    
+    
   });
 });
 
@@ -889,13 +888,13 @@ ScrollTrigger.batch('.article-card',{
   });
 })();
 
-// Page Transitions for Links
+
 document.querySelectorAll('.page-link').forEach(function(link){
   link.addEventListener('click',function(e){
     var href=this.getAttribute('href');
     if(href && !href.startsWith('#') && !href.startsWith('mailto:')){
       e.preventDefault();
-      var overlay=document.getElementById('transition-overlay');
+
       if(overlay){
         overlay.style.display='block';
         overlay.classList.remove('exit');
