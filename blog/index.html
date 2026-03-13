@@ -213,6 +213,19 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 <main class="articles-section">
   <div class="articles-grid" id="grid">
 
+    
+    <!-- NCA Complete Guide -->
+    <article class="article-card featured tilt-card" data-cluster="strategy">
+      <div class="card-highlight"></div>
+      <div class="card-cluster">Exam Strategy</div>
+      <h2 class="card-title split-heading">NCA Exams Canada: The Complete Guide for Internationally Trained Lawyers</h2>
+      <p class="card-excerpt">Everything you need to know about NCA exams — who qualifies, required subjects, exam format, study strategy, timelines, and the full path to the Canadian Bar.</p>
+      <div class="card-meta">
+        <span class="card-read">20 min read</span>
+        <a href="/blog/nca-exam-complete-guide/" class="card-link">Read</a>
+      </div>
+    </article>
+
     <!-- 1. FEATURED: 90 Days (Working Correctly) -->
     <article class="article-card featured tilt-card" data-cluster="strategy">
       <div class="card-highlight"></div>
@@ -586,6 +599,12 @@ try{
   });
   gsap.ticker.lagSmoothing(0);
 }catch(e){console.log('Lenis not loaded');}
+
+// Fix golden screen on browser back
+window.addEventListener('pageshow',function(e){
+  var overlay=document.getElementById('transition-overlay');
+  if(overlay){overlay.style.display='none';overlay.style.clipPath='circle(0% at 50% 50%)';}
+});
 
 // Page Transition In (Gold Sweep Reveal)
 (function(){

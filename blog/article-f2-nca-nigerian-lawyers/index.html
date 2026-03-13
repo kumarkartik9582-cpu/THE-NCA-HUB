@@ -402,6 +402,11 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       obs.observe(el);
     });
   }
+  // Fix golden screen on browser back button
+  window.addEventListener('pageshow',function(e){
+    var overlay=document.getElementById('transition-overlay');
+    if(overlay){overlay.style.display='none';overlay.style.clipPath='circle(0% at 50% 50%)';}
+  });
 })();
 </script>
 </body>
