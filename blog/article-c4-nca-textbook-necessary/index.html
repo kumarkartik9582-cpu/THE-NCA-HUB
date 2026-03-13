@@ -555,6 +555,12 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         i.classList.remove('open');
         i.querySelector('.faq-q').setAttribute('aria-expanded','false');
       });
-      if(!isOpen){
-        item.classList.add('open');
-        q.setAttribu
+      if(!isOpen){item.classList.add('open');q.setAttribute('aria-expanded','true');}
+    }
+    q.addEventListener('click',toggle);
+    q.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+  });
+})();
+</script>
+</body>
+</html>
