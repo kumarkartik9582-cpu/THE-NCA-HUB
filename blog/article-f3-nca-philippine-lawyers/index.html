@@ -272,7 +272,16 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <h3>Constitutional Law</h3>
 <p>The Philippine Constitution (1987) and the Canadian Constitution (Constitution Act 1867 + Charter 1982) share structural similarities — both have bills of rights, both have federal/national structures. However, the Canadian Charter analysis, the Oakes test, the division of powers under sections 91/92, and section 35 Aboriginal rights are completely Canada-specific. Common constitutional law instincts transfer; the specific Canadian framework does not.</p>
 <h3>Criminal Law</h3>
-<p>The Philippine Revised Penal Code has Spanish civil law origins but American common law procedural  official language includes English and Filipino. English-medium Philippine law graduates are typically not required to submit additional English language testing, but confirm this with the NCA when applying.</p>
+<p>The Philippine Revised Penal Code has Spanish civil law origins but American common law procedural overlay. Canadian criminal law (Criminal Code, Charter rights in criminal proceedings) is common law. The foundational concepts — actus reus, mens rea, parties, defences — are common law concepts you likely covered in Philippine criminal law. The key gaps are Charter rights (sections 8, 9, 10, 24) and Canadian-specific sentencing under sections 718–718.2.</p>
+<h3>Administrative Law</h3>
+<p>The Philippine Administrative Code and judicial review principles differ significantly from Canada post-Vavilov. The Vavilov framework for selecting the standard of review and applying reasonableness review is Canada-specific. Budget time for this regardless of your Philippine administrative law background.</p>
+<hr>
+<h2>The 2026 NCA Policy Changes — What Philippine Lawyers Must Know</h2>
+<p><strong>Indigenous Law and Peoples — New mandatory competency (effective March 1, 2026)</strong></p>
+<p>All NCA applicants must now complete a standalone Indigenous Law and Peoples competency before receiving their Certificate of Qualification. This is completed through a CPLED online module (approximately 8–12 hours). It is not an exam subject — it is a separate mandatory requirement.</p>
+<p>There is no Philippine equivalent of this competency. Complete the CPLED module early — in parallel with your NCA exams.</p>
+<p><strong>Language screening</strong></p>
+<p>The Philippines&#39; official language includes English and Filipino. English-medium Philippine law graduates are typically not required to submit additional English language testing, but confirm this with the NCA when applying.</p>
 <hr>
 <h2>Study Strategy for Philippine NCA Candidates</h2>
 <h3>Treat civil law subjects as a fresh start</h3>
@@ -393,7 +402,10 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     });
   }
   // Fix golden screen on browser back button
-  
+  window.addEventListener('pageshow',function(e){
+    var overlay=document.getElementById('transition-overlay');
+    if(overlay){overlay.style.display='none';overlay.style.clipPath='circle(0% at 50% 50%)';}
+  });
 })();
 </script>
 </body>
