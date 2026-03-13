@@ -343,8 +343,8 @@ ul{list-style:none}
 #cr.tx{width:3px;height:30px;border-radius:2px;border-color:var(--g1)}
 
 /* PAGE TRANSITION OVERLAY */
-#transition-overlay{position:fixed;inset:0;background:var(--g1);z-index:10000;clip-path:circle(0% at 50% 50%);pointer-events:none;}
-#transition-overlay.active{clip-path:circle(150% at 50% 50%);transition:clip-path .8s var(--expo);}
+
+#transition-transition:clip-path .8s var(--expo);}
 
 /* CINEMATIC LETTERBOX */
 .letterbox{position:fixed;left:0;right:0;height:0;background:#000;z-index:9000;pointer-events:none;transition:height .6s var(--expo);}
@@ -924,7 +924,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .morph-orb{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;transition:transform .8s cubic-bezier(.16,1,.3,1),width .8s,height .8s}
 
 /* GOLD FLASH on preloader complete */
-@keyframes goldFlash{0%{opacity:0}30%{opacity:.08}100%{opacity:0}}
+30%{opacity:.08}100%{opacity:0}}
 .gold-flash{position:fixed;inset:0;background:var(--g1);pointer-events:none;z-index:9990;animation:goldFlash .8s ease-out forwards}
 
 /* SECTION UNDERLINE DRAW */
@@ -958,7 +958,7 @@ body.golden-hour {
 .sc2.coming-soon{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.04);position:relative;}
 .sc2.coming-soon::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),var(--g0),var(--g1));}
 .sc2.coming-soon .sctg-badge{background:rgba(201,168,76,.25);color:var(--g0);}
-.coming-soon-overlay{position:absolute;inset:0;background:rgba(2,2,4,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;z-index:10;backdrop-filter:blur(2px);}
+.coming-soon-inset:0;background:rgba(2,2,4,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;z-index:10;backdrop-filter:blur(2px);}
 .coming-soon-text{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px;}
 .coming-soon-desc{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:20px;}
 .coming-soon-form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:240px;}
@@ -986,7 +986,7 @@ body.golden-hour {
 <canvas id="ink-cv" aria-hidden="true"></canvas>
 <div id="vignette" aria-hidden="true"></div>
 <div id="pg-border" aria-hidden="true"></div>
-<div id="transition-overlay"></div>
+
 <div class="letterbox top" id="lb-top"></div>
 <div class="letterbox bottom" id="lb-bot"></div>
 
@@ -1628,10 +1628,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.72"></div></div></div>
         <h3 class="scti split-heading">Business Orgs</h3>
         <p class="scb">Corporate law, partnerships, and business structures in Canada. Essential for commercial practice.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Business Organisations');">
+        <div class="coming-soon- notifyComingSoon(this, 'Business Organisations');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -1643,10 +1640,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.68"></div></div></div>
         <h3 class="scti split-heading">Family Law</h3>
         <p class="scb">Marriage, divorce, property division, and child custody under Canadian family law legislation.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Family Law');">
+        <div class="coming-soon- notifyComingSoon(this, 'Family Law');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -1658,10 +1652,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.78"></div></div></div>
         <h3 class="scti split-heading">Property Law</h3>
         <p class="scb">Real property, land titles, estates, and interests in land under Canadian property law.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Property Law');">
+        <div class="coming-soon- notifyComingSoon(this, 'Property Law');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -1673,10 +1664,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
         <h3 class="scti split-heading">Torts</h3>
         <p class="scb">Negligence, intentional torts, and strict liability under Canadian tort law principles.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Torts');">
+        <div class="coming-soon- notifyComingSoon(this, 'Torts');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -1688,10 +1676,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.74"></div></div></div>
         <h3 class="scti split-heading">Contracts</h3>
         <p class="scb">Formation, interpretation, breach, and remedies in Canadian contract law.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Contracts');">
+        <div class="coming-soon- notifyComingSoon(this, 'Contracts');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -1703,10 +1688,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.76"></div></div></div>
         <h3 class="scti split-heading">Civil Procedure</h3>
         <p class="scb">Court rules, pleadings, discovery, and trial procedure in Canadian civil litigation.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Civil Procedure');">
+        <div class="coming-soon- notifyComingSoon(this, 'Civil Procedure');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -1718,10 +1700,7 @@ body.golden-hour {
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.73"></div></div></div>
         <h3 class="scti split-heading">Remedies</h3>
         <p class="scb">Damages, injunctions, specific performance, and equitable remedies in Canadian law.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Remedies');">
+        <div class="coming-soon- notifyComingSoon(this, 'Remedies');">
             <input type="email" class="coming-soon-input" placeholder="Your email" required>
             <button type="submit" class="coming-soon-btn">Notify Me</button>
           </form>
@@ -2807,15 +2786,14 @@ function revealHero(){
 
 /* PAGE TRANSITION - Existing (Preserved) */
 (function(){
-  var overlay=document.getElementById('transition-overlay');
-  var links=document.querySelectorAll('.page-link');
+  
   
   links.forEach(function(link){
     link.addEventListener('click',function(e){
       var href=this.getAttribute('href');
       if(href && href.indexOf('#')!==0 && !href.startsWith('mailto:')){
         e.preventDefault();
-        overlay.classList.add('active');
+        
         setTimeout(function(){
           window.location.href=href;
         },400);
