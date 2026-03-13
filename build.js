@@ -771,11 +771,16 @@ function build() {
       fs.mkdirSync(outDir, { recursive: true });
     }
 
-    // Write HTML
+   // Skip if HTML already exists — never overwrite manual edits
+    if (fs.existsSync(outFile)) {
+      console.log(`  ⏭️   ${slug}/index.html — skipped`);
+      skipped++;
+      return;
+    }
     const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema });
     fs.writeFileSync(outFile, html, 'utf8');
 
-    console.log(`  ✅  ${slug}/index.html`);
+    console.log(`  ✅  ${slug}/index.html — built`);
     built++;
 
     // Add to sitemap
