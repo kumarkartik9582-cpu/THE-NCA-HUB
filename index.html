@@ -2775,6 +2775,8 @@ function rqReset(){
     }
   }
   setTimeout(step,700);
+  /* Safety net: if preloader is still visible after 8s (e.g. CDN failure), force-remove it */
+  setTimeout(function(){var PRE=document.getElementById('pre');if(PRE&&PRE.style.display!=='none'){PRE.style.display='none';try{revealHero();}catch(e){}}},8000);
 })();
 
 /* HERO REVEAL */
