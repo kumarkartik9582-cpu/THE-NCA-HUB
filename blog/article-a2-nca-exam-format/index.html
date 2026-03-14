@@ -230,6 +230,24 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;max-width:800px}
 .f-disc strong{color:rgba(107,98,87,.7)}
 .f-disc a{color:rgba(107,98,87,.6)}
+
+/* Subject-specific notes CTA */
+.art-notes-cta{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:44px 48px;margin:56px 0 48px;text-align:center}
+@media(max-width:640px){.art-notes-cta{padding:32px 24px;margin:40px 0 36px}}
+.art-notes-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:14px}
+.art-notes-title{font-family:var(--fd);font-size:clamp(1.3rem,2.8vw,2rem);font-weight:300;color:var(--cream);line-height:1.25;margin-bottom:14px}
+.art-notes-sub{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.art-notes-btn{display:inline-block;padding:14px 40px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:transform .3s var(--expo),background .3s;border-radius:2px}
+.art-notes-btn:hover{transform:translateY(-2px);background:var(--g0)}
+/* Related articles */
+.related-articles{padding:48px 72px 0}
+@media(max-width:640px){.related-articles{padding:36px 24px 0}}
+.rel-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:24px}
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rel-card{display:block;padding:24px;border:1px solid rgba(201,168,76,.12);transition:border-color .3s,transform .3s}
+.rel-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-2px)}
+.rel-card-title{font-family:var(--fd);font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:10px;font-weight:400}
+.rel-card-desc{font-size:.78rem;color:var(--fog);line-height:1.6}
 </style>
 </head>
 <body>
@@ -566,6 +584,14 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         <li><input disabled type="checkbox"> Stay calm if issues arise; follow proctor instructions exactly</li>
       </ul>
 
+      
+      <!-- Subject CTA -->
+      <div class="art-notes-cta">
+        <p class="art-notes-eyelet">Study Notes</p>
+        <h3 class="art-notes-title">Notes built to clear every NCA subject.</h3>
+        <p class="art-notes-sub">Precision study notes for all 5 NCA subjects — Administrative Law, Constitutional Law, Criminal Law, Foundations of Canadian Law, and Professional Responsibility. Built for internationally trained lawyers.</p>
+        <a href="/notes/" class="art-notes-btn">Browse All Notes →</a>
+      </div>
       <h2>Frequently Asked Questions</h2>
       <div class="faq-section">
 
@@ -639,6 +665,24 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     </div>
     <a href="/blog/" class="art-back">← Back to all articles</a>
   </div>
+  <div class="related-articles" style="max-width:720px;margin:0 auto;padding:48px 72px 0;">
+    <p class="rel-eyelet">Related Guides</p>
+    <div class="rel-grid">
+        <a href="/blog/article-c2-nca-proctoring-guide/" class="rel-card">
+          <div class="rel-card-title">NCA Exam Proctoring: Complete Technical Setup Guide 2026</div>
+          <div class="rel-card-desc">MonitorEDU, secure browser, Google Meet phone connection, systems test deadline, and the full exam-day checklist.</div>
+        </a>
+        <a href="/blog/article-e7-nca-study-checklist/" class="rel-card">
+          <div class="rel-card-title">NCA Study Checklist: Complete Pre-Exam Guide 2026</div>
+          <div class="rel-card-desc">Daily study habits, weekly reviews, MonitorEDU technical setup, exam day sequence, and the 48-hour protocol.</div>
+        </a>
+        <a href="/blog/article-e8-nca-pass-criteria/" class="rel-card">
+          <div class="rel-card-title">NCA Pass Criteria 2026: Pass Mark, Results & Re-sits</div>
+          <div class="rel-card-desc">NCA exams pass at 50%. Results take 10–12 weeks. You get 3 attempts per subject. Everything confirmed from nca.legal.</div>
+        </a>
+    </div>
+  </div>
+
 </div>
 
 <footer>

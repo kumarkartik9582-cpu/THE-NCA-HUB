@@ -248,6 +248,24 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;max-width:800px}
 .f-disc strong{color:rgba(107,98,87,.7)}
 .f-disc a{color:rgba(107,98,87,.6)}
+
+/* Subject-specific notes CTA */
+.art-notes-cta{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:44px 48px;margin:56px 0 48px;text-align:center}
+@media(max-width:640px){.art-notes-cta{padding:32px 24px;margin:40px 0 36px}}
+.art-notes-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:14px}
+.art-notes-title{font-family:var(--fd);font-size:clamp(1.3rem,2.8vw,2rem);font-weight:300;color:var(--cream);line-height:1.25;margin-bottom:14px}
+.art-notes-sub{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.art-notes-btn{display:inline-block;padding:14px 40px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:transform .3s var(--expo),background .3s;border-radius:2px}
+.art-notes-btn:hover{transform:translateY(-2px);background:var(--g0)}
+/* Related articles */
+.related-articles{padding:48px 72px 0}
+@media(max-width:640px){.related-articles{padding:36px 24px 0}}
+.rel-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:24px}
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.rel-card{display:block;padding:24px;border:1px solid rgba(201,168,76,.12);transition:border-color .3s,transform .3s}
+.rel-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-2px)}
+.rel-card-title{font-family:var(--fd);font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:10px;font-weight:400}
+.rel-card-desc{font-size:.78rem;color:var(--fog);line-height:1.6}
 </style>
 </head>
 <body>
@@ -405,6 +423,14 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p><strong>The fix:</strong> Reduce to 1.5 hours on weekdays for one week only, then return to the full schedule. Do not abandon the schedule entirely — the habit is harder to rebuild than the hour is to sacrifice temporarily.</p>
       <p>A 12-week NCA preparation period is a sprint, not a marathon. But it is a sprint with a job, a family, and a life running simultaneously. Sustainable beats aggressive every time.</p>
 
+      
+      <!-- Subject CTA -->
+      <div class="art-notes-cta">
+        <p class="art-notes-eyelet">Study Notes</p>
+        <h3 class="art-notes-title">Notes built to clear every NCA subject.</h3>
+        <p class="art-notes-sub">Precision study notes for all 5 NCA subjects — Administrative Law, Constitutional Law, Criminal Law, Foundations of Canadian Law, and Professional Responsibility. Built for internationally trained lawyers.</p>
+        <a href="/notes/" class="art-notes-btn">Browse All Notes →</a>
+      </div>
       <h2>Frequently Asked Questions</h2>
       <div class="faq-section">
 
@@ -467,6 +493,24 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     </div>
     <a href="/blog/" class="art-back">← Back to all articles</a>
   </div>
+  <div class="related-articles" style="max-width:720px;margin:0 auto;padding:48px 72px 0;">
+    <p class="rel-eyelet">Related Guides</p>
+    <div class="rel-grid">
+        <a href="/blog/article-e3-nca-study-hours/" class="rel-card">
+          <div class="rel-card-title">How Many Hours to Study for the NCA Exam?</div>
+          <div class="rel-card-desc">Subject-by-subject NCA study hour breakdowns. What 80 hours vs 200 hours actually looks like.</div>
+        </a>
+        <a href="/blog/article-c3-one-month-nca-prep/" class="rel-card">
+          <div class="rel-card-title">Is One Month Enough to Prepare for the NCA? (2026)</div>
+          <div class="rel-card-desc">Honest answer and a day-by-day 30-day schedule. For the right subjects, in the right conditions — yes.</div>
+        </a>
+        <a href="/blog/article-pass-nca-90-days/" class="rel-card">
+          <div class="rel-card-title">How to Pass the NCA Exam in 90 Days: Week-by-Week Plan</div>
+          <div class="rel-card-desc">The exact framework used to pass 4 NCA subjects in under 3 months — week-by-week calendar and subject sequencing.</div>
+        </a>
+    </div>
+  </div>
+
 </div>
 
 <footer>

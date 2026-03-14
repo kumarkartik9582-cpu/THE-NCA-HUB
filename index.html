@@ -617,7 +617,9 @@ nav.disc-gone{top:0}
 
 /* COMPARISON */
 .csc{background:var(--abyss);position:relative;overflow:hidden}
-.ctw{overflow-x:auto;margin-top:64px;-webkit-overflow-scrolling:touch}
+.ctw{overflow-x:auto;margin-top:64px;-webkit-overflow-scrolling:touch;position:relative}
+.ctw-hint{display:none;text-align:center;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:10px 0 0;opacity:.7}
+@media(max-width:760px){.ctw-hint{display:block}}
 .ct{width:100%;min-width:700px;border-collapse:collapse;border:1px solid rgba(201,168,76,.07)}
 .ct th{padding:18px 24px;text-align:left;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;font-weight:600;font-family:var(--fb);border-bottom:1px solid rgba(201,168,76,.1)}
 .ct th:first-child{color:var(--fog)}
@@ -850,6 +852,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 
 /* EXIT PANEL */
 #ep{position:fixed;bottom:-120%;left:50%;transform:translateX(-50%);width:min(520px,90vw);background:var(--surf);border:1px solid rgba(201,168,76,.2);border-bottom:none;padding:40px 48px;z-index:9000;transition:bottom .65s var(--expo);box-shadow:0 -24px 80px rgba(0,0,0,.7)}
+@media(max-width:960px){#ep{display:none!important;}}
 #ep.on{bottom:0}
 #ep::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent)}
 .epx{position:absolute;top:18px;right:22px;font-size:1rem;color:var(--dim);transition:color .3s;background:none;border:none;padding:4px;cursor:pointer}
@@ -1166,9 +1169,9 @@ body.golden-hour {
 <!-- EXIT PANEL -->
 <div id="ep" role="dialog" aria-labelledby="ep-title">
   <button class="epx" id="epx" aria-label="Close">✕</button>
-  <p class="ept" id="ep-title">Before you leave. Know where you stand.</p>
+  <p class="ept" id="ep-title">Before you leave — free chapter.</p>
   <p class="eps">Take the 60-second Readiness Assessment. Get personalized feedback on your study plan.</p>
-  <div class="epa"><a href="https://payhip.com/THENCAHUB" class="epy" id="epy" target="_blank" rel="noopener">Get the Notes</a><button class="epn" id="epn">No, thanks</button></div>
+  <div class="epa"><a href="/free-chapter.html" class="epy" id="epy">Get Free Chapter</a><button class="epn" id="epn">No, thanks</button></div>
 </div>
 
 <!-- NAV -->
@@ -1181,6 +1184,7 @@ body.golden-hour {
     <a href="#subjects">Subjects<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
     <a href="#pricing">Pricing<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
     <a href="#sample">Free Chapter<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="/notes/" style="color:var(--g1);font-weight:600">Notes<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
     <a href="blog/index.html">Articles<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
   </div>
   <a href="#readiness" class="nc"><span>Get My Score</span></a>
@@ -1214,8 +1218,8 @@ body.golden-hour {
         <span class="lm"><span class="li">Not in <em>years.</em></span></span>
         <span class="lm"><span class="li">This <em>cycle.</em></span></span>
       </h2>
-      <p class="hsub" id="HSUB">The NCA exam doesn't care that you trained in India, the UK, Nigeria, or anywhere else. It grades you the same as everyone. These notes are the difference between sitting it again next cycle and not — built by an internationally trained lawyer who passed all 5 NCA subjects and has requested the Certificate of Qualification, starting with just 7 days to prepare for the first exam.</p>
-      <div class="h-auth" id="HAUTH">Built by a UK &amp; India-qualified lawyer · All 5 NCA subjects passed · Certificate of Qualification requested</div>
+      <p class="hsub" id="HSUB">The NCA exam doesn't care that you trained in India, the UK, Nigeria, or anywhere else. It grades you the same as everyone. These notes are the difference between sitting it again next cycle and not — built by an internationally trained lawyer who passed all 5 NCA subjects and has requested the Certificate of Qualification, starting with just 7 days to prepare for the first exam. <a href="/nca-for-indian-lawyers/" style="color:var(--g1)">Indian lawyers guide →</a></p>
+      <div class="h-auth" id="HAUTH">Built by a UK &amp; India-qualified lawyer · All 5 NCA subjects passed · Certificate of Qualification requested · Candidates from 12+ countries</div>
       <div class="hact" id="HACT">
         <a href="#readiness" class="bp" data-cur="Score"><span>Get My Readiness Score →</span></a>
         <a href="#sample" class="bg">Try Free Chapter</a>
@@ -1632,6 +1636,7 @@ body.golden-hour {
           <tr><td class="ft">Price per subject</td><td class="cu">$175–$279 CAD</td><td>From $55.50 CAD</td><td>From $55.50 CAD</td><td>Variable</td></tr>
         </tbody>
       </table>
+      <p class="ctw-hint">← Swipe to compare →</p>
       <p class="ct-disc">All claims are factual and verifiable as of publication date. Provider names are used for descriptive comparison only. The NCA Hub is not affiliated with any of the above providers.</p>
     </div>
   </div>
@@ -1716,7 +1721,7 @@ body.golden-hour {
           <li>Judicial review — grounds and scope</li><li>Standards of review: the Vavilov framework</li><li>Procedural fairness</li><li>Statutory interpretation</li><li>Remedies in administrative law</li>
         </ul>
         <a href="blog/article-a3-administrative-law-nca/" class="sc-link">Read the guide →</a>
-        <a href="https://payhip.com/b/UNbgM" class="sc-link" style="color:var(--g0);margin-left:20px" target="_blank" rel="noopener">Get Notes →</a>
+        <a href="/notes/administrative-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC2" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">02</span>
@@ -1728,7 +1733,7 @@ body.golden-hour {
           <li>Division of powers — ss. 91 and 92</li><li>Pith and substance doctrine</li><li>Charter of Rights — full framework</li><li>Section 1 Oakes test</li><li>Aboriginal rights and s.35</li>
         </ul>
         <a href="blog/article-b1-constitutional-law-nca/" class="sc-link">Read the guide →</a>
-        <a href="https://payhip.com/b/d5AzB" class="sc-link" style="color:var(--g0);margin-left:20px" target="_blank" rel="noopener">Get Notes →</a>
+        <a href="/notes/constitutional-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC3" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">03</span>
@@ -1740,7 +1745,7 @@ body.golden-hour {
           <li>Actus reus and mens rea</li><li>Criminal defences — complete framework</li><li>Charter rights in criminal proceedings</li><li>Parties to an offence</li><li>Sentencing principles</li>
         </ul>
         <a href="blog/article-b2-criminal-law-nca/" class="sc-link">Read the guide →</a>
-        <a href="https://payhip.com/b/6TnbH" class="sc-link" style="color:var(--g0);margin-left:20px" target="_blank" rel="noopener">Get Notes →</a>
+        <a href="/notes/criminal-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC4" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">04</span>
@@ -1752,7 +1757,7 @@ body.golden-hour {
           <li>Sources of Canadian law</li><li>Court hierarchy and jurisdiction</li><li>Common law methodology</li><li>Statutory construction in Canada</li><li>Quebec's bijural tradition</li>
         </ul>
         <a href="blog/article-b4-foundations-canadian-law-nca/" class="sc-link">Read the guide →</a>
-        <a href="https://payhip.com/b/tCd8i" class="sc-link" style="color:var(--g0);margin-left:20px" target="_blank" rel="noopener">Get Notes →</a>
+        <a href="/notes/foundations-of-canadian-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC5" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">05</span>
@@ -1764,7 +1769,7 @@ body.golden-hour {
           <li>Lawyer-client relationship and duties</li><li>Confidentiality and privilege</li><li>Conflicts of interest — the Bright Line rule</li><li>CBA Model Code of Professional Conduct</li><li>Access to justice and withdrawal</li>
         </ul>
         <a href="blog/article-b3-professional-responsibility-nca/" class="sc-link">Read the guide →</a>
-        <a href="https://payhip.com/b/3n4jK" class="sc-link" style="color:var(--g0);margin-left:20px" target="_blank" rel="noopener">Get Notes →</a>
+        <a href="/notes/professional-responsibility/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
       <div class="sc2 sm lrw-card tilt-card" id="SC6" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">06</span>
@@ -1897,7 +1902,7 @@ body.golden-hour {
       <div>
         <span class="ey split-heading">Transparent Pricing</span>
         <h2 class="sh split-heading">Invest once.<br><em>Own it forever.</em></h2>
-        <p class="sl" style="margin-top:24px">No subscription. No recurring charge. Pay once per subject and own everything forever. Payment plans available on request.</p>
+        <p class="sl" style="margin-top:24px">No subscription. No recurring charge. Pay once per subject and own everything forever. Payment plans available on request. <a href="/nca-cost-calculator/" style="color:var(--g1)">Estimate your total NCA cost →</a></p>
         <p style="margin-top:14px;font-size:var(--sm);color:rgba(201,168,76,.5);font-style:italic;font-family:var(--fd)">Founding price in effect while the video lecture series is in production.</p>
       </div>
       <div class="mp">
@@ -1907,7 +1912,7 @@ body.golden-hour {
     </div>
     <div class="pgrid">
       <div class="pc sm tilt-card" id="PC1">
-        <div class="ptier">Notes Only</div><div class="pprice">$175</div><div class="pper">per subject (CAD)</div>
+        <div class="ptier">Notes Only</div><div class="pprice">$175</div><div class="pper">per subject (CAD) <span style="font-size:.65rem;color:rgba(201,168,76,.6);display:block;margin-top:4px;font-style:italic">vs $500 if you fail and resit</span></div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>PDF: yours to keep forever</li></ul>
         <a href="https://payhip.com/THENCAHUB" class="pb" aria-label="Get Notes Only plan" target="_blank" rel="noopener"><span>Get Notes</span></a>
@@ -3413,6 +3418,7 @@ function notifyComingSoon(form, subjectName) {
 
 /* EXIT INTENT - Existing (Preserved) */
 (function(){
+  if(window.innerWidth<=960)return;
   var EP=document.getElementById('ep'),EPX=document.getElementById('epx'),EPN=document.getElementById('epn');
   if(!EP)return;
   var shown=false;
