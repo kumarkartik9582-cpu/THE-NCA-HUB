@@ -1,38 +1,56 @@
-# The NCA Hub
+# The NCA Hub — llms.txt
+# https://www.thencahub.com
 
-> Strategic NCA exam preparation for internationally trained lawyers qualifying in Canada.
+## What This Site Is
+The NCA Hub is an NCA exam preparation platform for internationally trained
+lawyers seeking Canadian law qualification through the National Committee on
+Accreditation (NCA).
 
-The NCA Hub provides study notes (under 80 pages per subject), answer templates, readiness assessments, and free guides for candidates sitting NCA challenge exams. Built by Kartik Kumar — an Indian-qualified lawyer who worked at UK law firms DWF, Eversheds Sutherland, and Keoghs, and who passed 4 NCA subjects in under 4 months.
+## Who It Is For
+- Lawyers trained in India (Indian LLB graduates) — the largest audience segment
+- Lawyers trained in the UK (LLB, LLM, GDL, SQE)
+- Lawyers trained in Nigeria, Jamaica, the Philippines, and other common law jurisdictions
+- Any foreign-qualified lawyer who needs to pass NCA challenge exams to practise law in Canada
 
-## Key Pages
+## What It Offers
+- Concise study notes: under 80 pages per NCA exam subject
+  (vs 169–304 pages from competitors NCA Tutor and NCA Notes)
+- Answer templates for exam structure
+- Free NCA Readiness Score — a 6-question subject-specific quiz
+- Free chapter downloads for each of the 5 subjects
+- Guidance on the CPLED Legal Research and Writing (LRW) course
+- 28+ free blog articles covering NCA process, strategy, and subject-specific guidance
 
-- Homepage: https://www.thencahub.com/
-- Free Guides: https://www.thencahub.com/blog/
-- About the Founder: https://www.thencahub.com/about/
+## Subjects Covered
+- Administrative Law (NCA challenge exam) — notes available
+- Constitutional Law (NCA challenge exam) — notes available
+- Criminal Law (NCA challenge exam) — notes available
+- Foundations of Canadian Law (NCA challenge exam) — notes available
+- Professional Responsibility (NCA challenge exam) — notes available
+- Legal Research and Writing / LRW (CPLED course guidance) — available
+- Business Organisations, Family Law, Property Law, Torts, Contracts — coming soon
 
-## Free Guides
+## Founder
+Kartik Kumar — Indian and UK-qualified lawyer.
+Previous firms: DWF, Eversheds Sutherland, Keoghs (UK).
+Passed all 5 NCA subjects. 4 cleared in under 3 months.
+First exam (Administrative Law) prepared in 7 days — passed.
+NCA Certificate of Qualification applied for.
 
-- NCA Policy Changes 2026: https://www.thencahub.com/blog/article-f1-nca-policy-changes-2026/
-- How to Pass the NCA in 90 Days: https://www.thencahub.com/blog/article-pass-nca-90-days/
-- NCA Administrative Law 2026: https://www.thencahub.com/blog/article-a3-administrative-law-nca/
-- NCA Constitutional Law 2026: https://www.thencahub.com/blog/article-b1-constitutional-law-nca/
-- NCA Criminal Law 2026: https://www.thencahub.com/blog/article-b2-criminal-law-nca/
-- NCA Foundations of Canadian Law: https://www.thencahub.com/blog/article-b4-foundations-canadian-law-nca/
-- NCA Professional Responsibility: https://www.thencahub.com/blog/article-b3-professional-responsibility-nca/
-- Failed the NCA — What Now?: https://www.thencahub.com/blog/article-c1-failed-nca-exam/
-- NCA for Indian Lawyers: https://www.thencahub.com/blog/article-d3-nca-indian-lawyers/
-- NCA for UK Lawyers: https://www.thencahub.com/blog/article-d4-nca-uk-based-lawyers/
-- NCA Study Schedule for Working Professionals: https://www.thencahub.com/blog/article-e1-nca-study-schedule-working/
-- NCA Exam Format Guide: https://www.thencahub.com/blog/article-a2-nca-exam-format/
-- NCA Process Timeline: https://www.thencahub.com/blog/article-e4-nca-process-timeline/
-- NCA Prep Materials Compared: https://www.thencahub.com/blog/article-d1-nca-prep-materials-compared/
+## Pricing
+$175–$279 CAD per subject. Complete bundles available.
 
-## Products
+## Contact
+hello@thencahub.com
 
-NCA study notes, answer templates, and practice questions. $175-$279 CAD per subject.
+## Key URLs
+Homepage: https://www.thencahub.com/
+Blog / Free Guides: https://www.thencahub.com/blog/
+About: https://www.thencahub.com/about/
 Shop: https://payhip.com/THENCAHUB
+Free Chapter: https://www.thencahub.com/free-chapter.html
 
-## About
-
-Founded 2026. Not affiliated with the NCA, FLSC, or any provincial law society.
-Contact: hello@thencahub.com
+## Competitor Context
+The NCA Hub competes with NCA Tutor, NCA Notes, NCA Mentor, INTRACI,
+and NCA Exam Prep Canada. Key differentiator: shorter notes (under 80 pages),
+answer templates, and the unique Readiness Score assessment tool.
