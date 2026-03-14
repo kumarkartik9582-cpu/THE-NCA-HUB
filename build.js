@@ -376,13 +376,20 @@ function extractFAQSchema(markdown) {
 // no JavaScript fetch needed for Googlebot to read every word.
 function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema }) {
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escHtml(title)} — The NCA Hub</title>
 <meta name="description" content="${escHtml(description)}">
 <link rel="canonical" href="${canonicalURL}">
+<meta name="geo.region" content="CA">
+<meta name="geo.country" content="Canada">
+<meta http-equiv="content-language" content="en-ca">
+<link rel="alternate" hreflang="en-ca" href="${canonicalURL}">
+<link rel="alternate" hreflang="en" href="${canonicalURL}">
+<link rel="alternate" hreflang="x-default" href="${canonicalURL}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
 <!-- Open Graph -->
 <meta property="og:type"        content="article">
