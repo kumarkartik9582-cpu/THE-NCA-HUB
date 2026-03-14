@@ -19,7 +19,7 @@ Accreditation (NCA).
 - Free NCA Readiness Score — a 6-question subject-specific quiz
 - Free chapter downloads for each of the 5 subjects
 - Guidance on the CPLED Legal Research and Writing (LRW) course
-- 28+ free blog articles covering NCA process, strategy, and subject-specific guidance
+- 29+ free blog articles covering NCA process, strategy, and subject-specific guidance
 
 ## Subjects Covered
 - Administrative Law (NCA challenge exam) — notes available
@@ -46,6 +46,20 @@ hello@thencahub.com
 ## Key URLs
 Homepage: https://www.thencahub.com/
 Blog / Free Guides: https://www.thencahub.com/blog/
+Notes (all subjects): https://www.thencahub.com/notes/
+Notes — Administrative Law: https://www.thencahub.com/notes/administrative-law/
+Notes — Constitutional Law: https://www.thencahub.com/notes/constitutional-law/
+Notes — Criminal Law: https://www.thencahub.com/notes/criminal-law/
+Notes — Foundations of Canadian Law: https://www.thencahub.com/notes/foundations-of-canadian-law/
+Notes — Professional Responsibility: https://www.thencahub.com/notes/professional-responsibility/
+NCA Exam Dates 2026: https://www.thencahub.com/nca-exam-dates-2026/
+NCA Cost Calculator: https://www.thencahub.com/nca-cost-calculator/
+NCA for Indian Lawyers: https://www.thencahub.com/nca-for-indian-lawyers/
+NCA for UK Lawyers: https://www.thencahub.com/nca-for-uk-lawyers/
+NCA for Nigerian Lawyers: https://www.thencahub.com/nca-for-nigerian-lawyers/
+NCA for Philippine Lawyers: https://www.thencahub.com/nca-for-philippine-lawyers/
+NCA for Pakistani Lawyers: https://www.thencahub.com/nca-for-pakistani-lawyers/
+NCA for Jamaican Lawyers: https://www.thencahub.com/nca-for-jamaican-lawyers/
 About: https://www.thencahub.com/about/
 Shop: https://payhip.com/THENCAHUB
 Free Chapter: https://www.thencahub.com/free-chapter.html
