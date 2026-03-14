@@ -577,6 +577,23 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 </main>
 
 <!-- FOOTER -->
+
+<!-- COUNTRY GUIDES SUBSECTION -->
+<section style="padding:80px 0;border-top:1px solid rgba(201,168,76,.07)">
+  <div style="max-width:1200px;margin:0 auto;padding:0 72px">
+    <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:14px"><span style="width:28px;height:1px;background:var(--g1);display:inline-block"></span>By Country</div>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,4vw,3rem);font-weight:300;color:var(--cream);margin-bottom:12px">Your Country, <em style="font-style:italic;color:var(--g1)">Your Guide.</em></h2>
+    <p style="font-size:var(--sm);color:var(--fog);margin-bottom:48px">Dedicated guides for each jurisdiction — subjects assigned, timeline, and exam strategy.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <a href="/nca-for-indian-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇮🇳</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Indian Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+      <a href="/nca-for-uk-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇬🇧</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">UK Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+      <a href="/nca-for-nigerian-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇳🇬</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Nigerian Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+      <a href="/nca-for-philippine-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇵🇭</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Philippine Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+      <a href="/nca-for-pakistani-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇵🇰</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Pakistani Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+      <a href="/nca-for-jamaican-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇯🇲</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Jamaican Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+    </div>
+  </div>
+</section>
 <footer>
   <div class="ftg">
     <div>
@@ -934,6 +951,24 @@ document.querySelectorAll('.page-link').forEach(function(link){
     }
   });
 });
+</script>
+<script>
+/* CUSTOM CURSOR */
+(function(){
+  var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');
+  if(!CD||!CR)return;
+  var cmx=-200,cmy=-200,crx=-200,cry=-200;
+  document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});
+  (function animC(){
+    crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;
+    CR.style.left=crx+'px';CR.style.top=cry+'px';
+    requestAnimationFrame(animC);
+  })();
+  document.querySelectorAll('[data-cur]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){if(CL)CL.textContent=el.dataset.cur;CR.classList.add('h');CD.classList.add('h');});
+    el.addEventListener('mouseleave',function(){CR.classList.remove('h');CD.classList.remove('h');});
+  });
+})();
 </script>
 </body>
 </html>
