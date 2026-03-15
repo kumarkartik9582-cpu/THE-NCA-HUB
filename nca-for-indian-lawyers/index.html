@@ -67,65 +67,16 @@ body{background:var(--void);color:var(--fog);font-family:var(--fb);line-height:1
 a{color:var(--g1);text-decoration:none;transition:color .3s}
 a:hover{color:var(--cream)}
 img{max-width:100%}
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:20px 64px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(rgba(2,2,4,.95),transparent)}
-@media(max-width:760px){nav{padding:16px 24px}}
-.nlog{font-family:var(--fd);font-size:1.15rem;color:var(--cream);letter-spacing:.06em}
-.nlinks{display:flex;gap:32px;list-style:none}
-@media(max-width:760px){.nlinks{display:none}}
-.nlinks a{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-.nlinks a:hover{color:var(--cream)}
-/* HERO */
-.hub-hero{min-height:60vh;display:flex;align-items:center;padding:120px 64px 80px;background:linear-gradient(160deg,var(--abyss) 0%,var(--void) 60%)}
-@media(max-width:760px){.hub-hero{padding:100px 24px 60px}}
-.hub-eyelet{font-size:var(--nano);letter-spacing:.35em;text-transform:uppercase;color:var(--g2);margin-bottom:20px;font-weight:600}
-.hub-h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3.8rem);font-weight:300;color:var(--cream);line-height:1.15;max-width:820px;margin-bottom:24px}
-.hub-sub{font-size:1rem;color:var(--fog);line-height:1.8;max-width:620px;margin-bottom:40px}
-.hub-btn{display:inline-block;padding:16px 44px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:transform .3s var(--expo)}
-.hub-btn:hover{transform:translateY(-2px);color:var(--void)}
-/* SECTIONS */
-.hub-sec{max-width:860px;margin:0 auto;padding:80px 64px}
-@media(max-width:760px){.hub-sec{padding:60px 24px}}
-.hub-sec-title{font-family:var(--fd);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.2}
-.hub-sec p{color:var(--fog);line-height:1.9;margin-bottom:20px}
-.hub-sec ul{color:var(--fog);line-height:1.9;padding-left:20px;margin-bottom:20px}
-.hub-sec li{margin-bottom:10px}
-/* SUBJECTS TABLE */
-.subj-table{width:100%;border-collapse:collapse;margin:32px 0;overflow-x:auto;display:block}
-.subj-table th{padding:14px 20px;text-align:left;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;font-weight:600;font-family:var(--fb);border-bottom:1px solid rgba(201,168,76,.15);color:var(--g1)}
-.subj-table td{padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);font-size:var(--body);vertical-align:top}
-.subj-table td:first-child{color:var(--cream);font-family:var(--fd);font-size:1rem}
-/* FAQ */
-.faq-item{border-top:1px solid rgba(201,168,76,.1);padding:24px 0}
-.faq-q{font-family:var(--fd);font-size:1.1rem;color:var(--cream);margin-bottom:12px;font-weight:400}
-.faq-a{color:var(--fog);line-height:1.8}
-/* CTA SECTION */
-.hub-cta-sec{background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);padding:80px 64px;text-align:center}
-@media(max-width:760px){.hub-cta-sec{padding:60px 24px}}
-.hub-cta-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);margin-bottom:16px;font-weight:600}
-.hub-cta-title{font-family:var(--fd);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:300;color:var(--cream);margin-bottom:16px;line-height:1.2}
-.hub-cta-sub{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
-/* FOOTER */
-footer{background:var(--surf);border-top:1px solid rgba(201,168,76,.07);padding:60px 64px 40px}
-@media(max-width:760px){footer{padding:48px 24px 32px}}
-.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
-@media(max-width:760px){.ftg{grid-template-columns:1fr}}
-.flog{font-family:var(--fd);font-size:1.1rem;color:var(--cream);margin-bottom:12px}
-.ftag{font-size:var(--nano);color:var(--dim);line-height:1.6;max-width:280px}
-.fhead{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:16px}
-.fls{list-style:none}
-.fls li{margin-bottom:10px}
-.fls a{font-size:var(--body);color:var(--dim)}
-.fls a:hover{color:var(--cream)}
-.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:24px;font-size:var(--nano);color:var(--dim)}
-
-
+.w{max-width:1300px;margin:0 auto;padding:0 72px}
+@media(max-width:768px){.w{padding:0 24px!important}}
+@media(max-width:768px){section{padding:80px 0!important}}
 body{cursor:none}
 #cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
 #cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
 #cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
 #cr.h{width:78px;height:78px;border-color:var(--g1);background:rgba(201,168,76,.04)}#cr.h #cl{opacity:1}
 #cr.c{width:14px;height:14px;background:rgba(201,168,76,.18)}#cd.h{transform:translate(-50%,-50%) scale(0)}
+#spotlight{position:fixed;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:998;transform:translate(-50%,-50%);transition:opacity .3s;opacity:0;}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 #discovery-bar{position:fixed;top:0;left:0;right:0;z-index:9050;height:28px;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g0);font-weight:500}#discovery-bar span{color:var(--g1)}
 nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
@@ -165,6 +116,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 </head>
 <body>
 <div class="grain"></div>
+<div id="spotlight" aria-hidden="true"></div>
 <div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;·&nbsp; <span>Internationally qualified lawyers qualifying in Canada</span></div>
 <div id="cd" role="presentation"></div>
 <div id="cr" role="presentation"><span id="cl"></span></div>
@@ -196,136 +148,191 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <a href="https://www.thencahub.com/#readiness" class="mob-link" style="margin-top:16px;color:var(--g1);font-weight:600"><span>Get My Readiness Score</span></a>
 </div>
 
-<div class="hub-hero">
-  <div>
-    <p class="hub-eyelet">Indian Lawyers · Canada Qualification Guide</p>
-    <h1 class="hub-h1">NCA for Indian-Qualified Lawyers: The Complete 2026 Guide</h1>
-    <p class="hub-sub">Most Indian LLB graduates are assigned 5–7 NCA challenge exams. Here is exactly what to expect — which subjects, the full process, and how to prepare for open-book exams that reward templates over memory.</p>
-    <a href="/notes/" class="hub-btn">Browse Study Notes →</a>
+<section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:70vh;display:flex;align-items:center;padding:160px 0 120px;position:relative;z-index:1;" aria-label="Introduction">
+  <div class="w" style="max-width:1300px;">
+    <div style="max-width:900px;">
+      <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">🇮🇳 Indian Lawyers · Canada Qualification Guide</p>
+      <h1 style="font-family:var(--fd);font-size:clamp(2.8rem,6vw,6rem);font-weight:300;color:var(--cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px;">NCA for Indian-Qualified Lawyers:<br><em style="font-style:italic;color:var(--g1);">The Complete 2026 Guide</em></h1>
+      <p style="font-size:var(--lead);color:var(--fog);max-width:680px;line-height:1.9;font-family:var(--fb);font-weight:300;margin-bottom:48px;">Most Indian LLB graduates are assigned 5–7 NCA challenge exams. Here is exactly what to expect — which subjects, the full process, and how to prepare for open-book exams that reward templates over memory.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Browse Study Notes →</a>
+        <a href="https://www.thencahub.com/#readiness" style="display:inline-flex;align-items:center;border:1px solid rgba(201,168,76,.25);color:var(--cream);padding:16px 32px;font-family:var(--fb);font-size:.82rem;letter-spacing:.08em;text-decoration:none;">Take Readiness Score</a>
+      </div>
+    </div>
   </div>
-</div>
-
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">What subjects do Indian LLB graduates need to write?</h2>
-  <p>The NCA assesses Indian LLB degrees as a common law jurisdiction with significant differences from Canadian law. Most Indian-qualified lawyers are assigned <strong>5 to 7 NCA challenge exams</strong> depending on their specific degree and any postgraduate qualifications.</p>
-  <p>The five mandatory NCA subjects for all internationally trained lawyers are:</p>
-  <table class="subj-table">
-    <thead><tr><th>Subject</th><th>Typical difficulty</th><th>Study time</th></tr></thead>
-    <tbody>
-      <tr><td>Administrative Law</td><td>High — Vavilov framework new to most</td><td>100–140 hrs</td></tr>
-      <tr><td>Constitutional Law</td><td>High — Charter analysis differs significantly</td><td>100–140 hrs</td></tr>
-      <tr><td>Criminal Law</td><td>Moderate — conceptually familiar, details differ</td><td>80–120 hrs</td></tr>
-      <tr><td>Foundations of Canadian Law</td><td>High — sources of law, statutory interpretation</td><td>100–140 hrs</td></tr>
-      <tr><td>Professional Responsibility</td><td>Moderate — Federation Model Code</td><td>60–100 hrs</td></tr>
-    </tbody>
-  </table>
-  <p>Many Indian LLB graduates are also assigned <strong>Property Law</strong> and/or <strong>Contracts</strong>, bringing the total to 7 subjects. The NCA assessment letter specifies exactly which subjects you must write.</p>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">The NCA process for Indian lawyers — step by step</h2>
-  <p>Here is the complete process from NCA application to Certificate of Qualification:</p>
-  <ul>
-    <li><strong>Step 1 — Apply for NCA assessment</strong> (nca.legal). Submit degree transcripts, syllabi, and work experience. Processing takes 8–16 weeks.</li>
-    <li><strong>Step 2 — Receive your assessment letter</strong> listing mandatory challenge exams.</li>
-    <li><strong>Step 3 — Complete Indigenous Law and Peoples competency</strong> (mandatory since March 2026). Take an approved course before or alongside your NCA exams.</li>
-    <li><strong>Step 4 — Register for and write NCA challenge exams</strong>. Exams are offered in January, April, June, and November (2026 schedule).</li>
-    <li><strong>Step 5 — Complete LRW (Legal Research and Writing)</strong> if required. Most internationally trained lawyers are assigned this.</li>
-    <li><strong>Step 6 — Apply for Certificate of Qualification (COQ)</strong> once all requirements are met.</li>
-    <li><strong>Step 7 — Articling and bar exams</strong> in your chosen province.</li>
-  </ul>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">How long does it take Indian lawyers to qualify in Canada?</h2>
-  <p>The realistic timeline for an Indian-qualified lawyer, assuming 5–7 NCA exams:</p>
-  <ul>
-    <li><strong>NCA assessment:</strong> 8–16 weeks after application</li>
-    <li><strong>NCA exams (5–7 subjects):</strong> 1.5–3 years (2–3 subjects per session is aggressive but achievable)</li>
-    <li><strong>COQ processing:</strong> 4–8 weeks</li>
-    <li><strong>Articling:</strong> 10 months (Ontario), 9 months (BC)</li>
-    <li><strong>Bar exams:</strong> Barrister and Solicitor exams; results within weeks</li>
-  </ul>
-  <p>Total: approximately <strong>3–5 years from application to call</strong>, depending on pace and province. Candidates who write 3 subjects per session and pass first time can complete in under 3 years.</p>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Key differences between Indian law and Canadian law</h2>
-  <p>Indian-qualified lawyers find the following differences most significant:</p>
-  <ul>
-    <li><strong>Standard of review (Administrative Law):</strong> Canada's Vavilov framework (2019) has no direct Indian equivalent. Most Indian lawyers need to learn this from scratch.</li>
-    <li><strong>Charter of Rights and Freedoms (Constitutional Law):</strong> India's fundamental rights framework shares structural similarities but differs substantially in application — particularly the Oakes test and s.1 justification.</li>
-    <li><strong>Foundations of Canadian Law:</strong> The bijural Canadian legal system (common law + Civil Code of Québec) and the modern principle of statutory interpretation are different from Indian statutory interpretation doctrine.</li>
-    <li><strong>Professional Responsibility:</strong> The Federation of Law Societies of Canada Model Code applies. Materially different from Bar Council of India rules.</li>
-    <li><strong>Indigenous law (mandatory since March 2026):</strong> No equivalent context in Indian legal training. All NCA candidates must now complete an approved Indigenous Law and Peoples competency.</li>
-  </ul>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">NCA exam format for 2026</h2>
-  <p>Each NCA challenge exam is:</p>
-  <ul>
-    <li><strong>3 hours</strong> — no extensions</li>
-    <li><strong>Open-book</strong> — hard copy materials only (no electronic devices, no internet)</li>
-    <li><strong>Online-proctored</strong> via MonitorEDU — requires a working webcam, microphone, and secure browser</li>
-    <li><strong>Written answers</strong> (not multiple choice) — you are expected to identify issues, apply law, and reach conclusions</li>
-    <li><strong>Pass mark: 50%</strong></li>
-    <li><strong>Results: 10–12 weeks</strong> after the exam date</li>
-    <li><strong>3 attempts</strong> per subject before a formal re-assessment is required</li>
-  </ul>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Why open-book format changes how you need to study</h2>
-  <p>Most Indian-qualified lawyers are accustomed to closed-book exams requiring memorisation. The NCA's open-book format rewards <em>speed and structure</em>, not raw memory.</p>
-  <p>In a 3-hour open-book exam, you do not have time to read and search 300-page notes. You need pre-built answer templates that let you immediately identify the legal issue, reach for the right framework, and write a structured answer.</p>
-  <p>This is the core design principle behind The NCA Hub's notes — under 80 pages per subject, structured around exam answer templates, with every major case and rule you need in a format you can find in under 30 seconds.</p>
-  <a href="/notes/" class="hub-btn" style="margin-top:16px;display:inline-block">See the Notes →</a>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Further reading</h2>
-  <ul>
-    <li><a href="/blog/article-d3-nca-indian-lawyers/">How many NCA exams do Indian LLB graduates need? (complete guide)</a></li>
-    <li><a href="/blog/article-e4-nca-process-timeline/">NCA process timeline 2026</a></li>
-    <li><a href="/blog/article-a2-nca-exam-format/">NCA exam format explained</a></li>
-    <li><a href="/blog/article-f1-nca-policy-changes-2026/">NCA policy changes 2026</a></li>
-  </ul>
 </section>
 
 
-<section class="hub-cta-sec">
-  <p class="hub-cta-eyelet">Ready to prepare?</p>
-  <h2 class="hub-cta-title">Get the notes used to pass all 5 NCA subjects — 4 cleared in under 3 months.</h2>
-  <p class="hub-cta-sub">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers preparing for NCA exams in Canada.</p>
-  <a href="/notes/" class="hub-btn">Browse All Notes →</a>
-</section>
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Frequently Asked Questions</h2>
-
-  <div class="faq-item">
-    <p class="faq-q">How many NCA exams do Indian LLB graduates typically need?</p>
-    <p class="faq-a">Most Indian LLB graduates are assigned 5 to 7 NCA challenge exams. The five mandatory subjects apply to all internationally trained lawyers. Indian degrees are often assessed as requiring additional exams in Property Law and/or Contracts depending on the specific degree and transcripts.</p>
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Subject Assessment</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">What subjects do Indian LLB graduates need to write?</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">The NCA assesses Indian LLB degrees as a common law jurisdiction with significant differences from Canadian law. Most Indian-qualified lawyers are assigned <strong>5 to 7 NCA challenge exams</strong> depending on their specific degree and any postgraduate qualifications.</p>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">The five mandatory NCA subjects for all internationally trained lawyers are:</p>
+    <table style="width:100%;border-collapse:collapse;margin:40px 0;">
+      <thead><tr>
+        <th style="background:var(--dark);color:var(--cream);font-family:var(--fb);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;padding:16px 20px;text-align:left;border-bottom:1px solid rgba(201,168,76,.15);">Subject</th>
+        <th style="background:var(--dark);color:var(--cream);font-family:var(--fb);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;padding:16px 20px;text-align:left;border-bottom:1px solid rgba(201,168,76,.15);">Typical difficulty</th>
+        <th style="background:var(--dark);color:var(--cream);font-family:var(--fb);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;padding:16px 20px;text-align:left;border-bottom:1px solid rgba(201,168,76,.15);">Study time</th>
+      </tr></thead>
+      <tbody>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Administrative Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">High — Vavilov framework new to most</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">100–140 hrs</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Constitutional Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">High — Charter analysis differs significantly</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">100–140 hrs</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Criminal Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Moderate — conceptually familiar, details differ</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">80–120 hrs</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Foundations of Canadian Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">High — sources of law, statutory interpretation</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">100–140 hrs</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Professional Responsibility</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Moderate — Federation Model Code</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">60–100 hrs</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Many Indian LLB graduates are also assigned <strong>Property Law</strong> and/or <strong>Contracts</strong>, bringing the total to 7 subjects. The NCA assessment letter specifies exactly which subjects you must write.</p>
   </div>
-  <div class="faq-item">
-    <p class="faq-q">Is an Indian LLB degree recognised by the NCA?</p>
-    <p class="faq-a">Yes. The NCA assesses all internationally trained lawyers regardless of jurisdiction. An Indian LLB is assessed as a common law degree. The NCA will specify which subjects you must write after reviewing your transcripts and syllabi.</p>
-  </div>
-  <div class="faq-item">
-    <p class="faq-q">Can I write multiple NCA exams in one session?</p>
-    <p class="faq-a">Yes. There is no formal limit on how many subjects you register for in a single session. However, each exam requires significant preparation. Most candidates write 2–3 subjects per session. Writing more than 3 in one sitting significantly increases the risk of failing.</p>
-  </div>
-  <div class="faq-item">
-    <p class="faq-q">What is the Indigenous Law and Peoples requirement?</p>
-    <p class="faq-a">Effective March 1, 2026, all NCA candidates must complete a mandatory Indigenous Law and Peoples competency from an NCA-approved provider. This can be completed before or alongside your NCA challenge exams. It is a separate requirement from the five core subjects.</p>
-  </div>
-  <div class="faq-item">
-    <p class="faq-q">How much does the NCA process cost for Indian lawyers?</p>
-    <p class="faq-a">The NCA assessment fee is $500 CAD. Each challenge exam costs approximately $500 CAD per subject. With 5–7 subjects, exam fees alone total $2,500–$3,500 CAD. Add study materials, articling fees, and bar exam fees and the total cost to qualification exceeds $20,000 CAD for most candidates.</p>
-  </div>
+</section>
 
+<section style="background:var(--deep);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Process Overview</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">The NCA process for Indian lawyers — step by step</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Here is the complete process from NCA application to Certificate of Qualification:</p>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 1 — Apply for NCA assessment</strong> (nca.legal). Submit degree transcripts, syllabi, and work experience. Processing takes 8–16 weeks.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 2 — Receive your assessment letter</strong> listing mandatory challenge exams.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 3 — Complete Indigenous Law and Peoples competency</strong> (mandatory since March 2026). Take an approved course before or alongside your NCA exams.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 4 — Register for and write NCA challenge exams</strong>. Exams are offered in January, April, June, and November (2026 schedule).</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 5 — Complete LRW (Legal Research and Writing)</strong> if required. Most internationally trained lawyers are assigned this.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 6 — Apply for Certificate of Qualification (COQ)</strong> once all requirements are met.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Step 7 — Articling and bar exams</strong> in your chosen province.</li>
+    </ul>
+  </div>
+</section>
+
+<section style="background:var(--dark);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Timeline</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">How long does it take Indian lawyers to qualify in Canada?</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">The realistic timeline for an Indian-qualified lawyer, assuming 5–7 NCA exams:</p>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>NCA assessment:</strong> 8–16 weeks after application</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>NCA exams (5–7 subjects):</strong> 1.5–3 years (2–3 subjects per session is aggressive but achievable)</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>COQ processing:</strong> 4–8 weeks</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Articling:</strong> 10 months (Ontario), 9 months (BC)</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Bar exams:</strong> Barrister and Solicitor exams; results within weeks</li>
+    </ul>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;margin-top:20px;">Total: approximately <strong>3–5 years from application to call</strong>, depending on pace and province. Candidates who write 3 subjects per session and pass first time can complete in under 3 years.</p>
+  </div>
+</section>
+
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Key Differences</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">Key differences between Indian law and Canadian law</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Indian-qualified lawyers find the following differences most significant:</p>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Standard of review (Administrative Law):</strong> Canada's Vavilov framework (2019) has no direct Indian equivalent. Most Indian lawyers need to learn this from scratch.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Charter of Rights and Freedoms (Constitutional Law):</strong> India's fundamental rights framework shares structural similarities but differs substantially in application — particularly the Oakes test and s.1 justification.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Foundations of Canadian Law:</strong> The bijural Canadian legal system (common law + Civil Code of Québec) and the modern principle of statutory interpretation are different from Indian statutory interpretation doctrine.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Professional Responsibility:</strong> The Federation of Law Societies of Canada Model Code applies. Materially different from Bar Council of India rules.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Indigenous law (mandatory since March 2026):</strong> No equivalent context in Indian legal training. All NCA candidates must now complete an approved Indigenous Law and Peoples competency.</li>
+    </ul>
+  </div>
+</section>
+
+<section style="background:var(--deep);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Exam Format</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">NCA exam format for 2026</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Each NCA challenge exam is:</p>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>3 hours</strong> — no extensions</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Open-book</strong> — hard copy materials only (no electronic devices, no internet)</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Online-proctored</strong> via MonitorEDU — requires a working webcam, microphone, and secure browser</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Written answers</strong> (not multiple choice) — you are expected to identify issues, apply law, and reach conclusions</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Pass mark: 50%</strong></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Results: 10–12 weeks</strong> after the exam date</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>3 attempts</strong> per subject before a formal re-assessment is required</li>
+    </ul>
+  </div>
+</section>
+
+<section style="background:var(--dark);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Study Strategy</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">Why open-book format changes how you need to study</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Most Indian-qualified lawyers are accustomed to closed-book exams requiring memorisation. The NCA's open-book format rewards <em>speed and structure</em>, not raw memory.</p>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">In a 3-hour open-book exam, you do not have time to read and search 300-page notes. You need pre-built answer templates that let you immediately identify the legal issue, reach for the right framework, and write a structured answer.</p>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">This is the core design principle behind The NCA Hub's notes — under 80 pages per subject, structured around exam answer templates, with every major case and rule you need in a format you can find in under 30 seconds.</p>
+    <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-top:16px;">See the Notes →</a>
+  </div>
+</section>
+
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Resources</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">Further reading</h2>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/article-d3-nca-indian-lawyers/">How many NCA exams do Indian LLB graduates need? (complete guide)</a></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/article-e4-nca-process-timeline/">NCA process timeline 2026</a></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/article-a2-nca-exam-format/">NCA exam format explained</a></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/article-f1-nca-policy-changes-2026/">NCA policy changes 2026</a></li>
+    </ul>
+  </div>
+</section>
+
+
+<section style="background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);padding:100px 0;text-align:center;position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:20px;font-family:var(--fb);">Ready to prepare?</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:20px;line-height:1.1;">Get the notes used to pass all 5 NCA subjects<br><em style="font-style:italic;color:var(--g1);">4 cleared in under 3 months.</em></h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto;font-family:var(--fb);">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers preparing for NCA exams in Canada.</p>
+    <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Browse All Notes →</a>
+  </div>
+</section>
+
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">FAQ</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1;letter-spacing:-.01em;">Frequently Asked Questions</h2>
+    <div style="max-width:800px;">
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">How many NCA exams do Indian LLB graduates typically need?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Most Indian LLB graduates are assigned 5 to 7 NCA challenge exams. The five mandatory subjects apply to all internationally trained lawyers. Indian degrees are often assessed as requiring additional exams in Property Law and/or Contracts depending on the specific degree and transcripts.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Is an Indian LLB degree recognised by the NCA?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Yes. The NCA assesses all internationally trained lawyers regardless of jurisdiction. An Indian LLB is assessed as a common law degree. The NCA will specify which subjects you must write after reviewing your transcripts and syllabi.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Can I write multiple NCA exams in one session?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Yes. There is no formal limit on how many subjects you register for in a single session. However, each exam requires significant preparation. Most candidates write 2–3 subjects per session. Writing more than 3 in one sitting significantly increases the risk of failing.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">What is the Indigenous Law and Peoples requirement?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Effective March 1, 2026, all NCA candidates must complete a mandatory Indigenous Law and Peoples competency from an NCA-approved provider. This can be completed before or alongside your NCA challenge exams. It is a separate requirement from the five core subjects.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">How much does the NCA process cost for Indian lawyers?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">The NCA assessment fee is $500 CAD. Each challenge exam costs approximately $500 CAD per subject. With 5–7 subjects, exam fees alone total $2,500–$3,500 CAD. Add study materials, articling fees, and bar exam fees and the total cost to qualification exceeds $20,000 CAD for most candidates.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -420,6 +427,27 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   var nav=document.getElementById('nav');
   if(!nav)return;
   window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});
+})();
+
+/* SPOTLIGHT */
+(function(){
+  var sp=document.getElementById('spotlight');
+  if(!sp)return;
+  document.addEventListener('mousemove',function(e){sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';sp.style.opacity='1';},{passive:true});
+})();
+
+/* SCROLL REVEAL */
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:.1});
+  document.querySelectorAll('section h2,section p,section table').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(24px)';
+    el.style.transition='opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)';
+    obs.observe(el);
+  });
 })();
 </script>
 <div id="cookie-banner" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9200;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">

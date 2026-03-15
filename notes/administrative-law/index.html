@@ -85,63 +85,12 @@ html{scroll-behavior:smooth}
 body{background:var(--void);color:var(--fog);font-family:var(--fb);line-height:1.7;overflow-x:hidden}
 a{color:var(--g1);text-decoration:none;transition:color .3s}
 a:hover{color:var(--cream)}
-nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:20px 64px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(rgba(2,2,4,.95),transparent)}
-@media(max-width:760px){nav{padding:16px 24px}}
-.nlog{font-family:var(--fd);font-size:1.15rem;color:var(--cream);letter-spacing:.06em}
-.nlinks{display:flex;gap:32px;list-style:none}
-@media(max-width:760px){.nlinks{display:none}}
-.nlinks a{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-.nlinks a:hover{color:var(--cream)}
-.page-hero{padding:140px 64px 80px;max-width:860px;margin:0 auto}
-@media(max-width:760px){.page-hero{padding:110px 24px 60px}}
-.page-eyelet{font-size:var(--nano);letter-spacing:.35em;text-transform:uppercase;color:var(--g2);margin-bottom:20px;font-weight:600}
-.page-h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3.4rem);font-weight:300;color:var(--cream);line-height:1.15;margin-bottom:20px}
-.page-sub{font-size:1rem;color:var(--fog);line-height:1.8;max-width:640px;margin-bottom:36px}
-.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
-.hub-btn{display:inline-block;padding:16px 44px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:transform .3s var(--expo)}
-.hub-btn:hover{transform:translateY(-2px);color:var(--void)}
-.hub-btn-ghost{display:inline-block;padding:15px 36px;border:1px solid rgba(201,168,76,.3);color:var(--g1);font-family:var(--fb);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;transition:border-color .3s}
-.hub-btn-ghost:hover{border-color:var(--g1)}
-.hub-sec{max-width:860px;margin:0 auto;padding:0 64px 60px}
-@media(max-width:760px){.hub-sec{padding:0 24px 48px}}
-.hub-sec h2{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;color:var(--cream);margin-bottom:24px}
-.hub-sec p{color:var(--fog);line-height:1.9;margin-bottom:14px}
-.hub-sec ul,.hub-sec ol{color:var(--fog);padding-left:20px;line-height:1.9;margin-bottom:16px}
-.hub-sec li{margin-bottom:8px}
-.faq-sec{max-width:860px;margin:0 auto;padding:0 64px 60px}
-@media(max-width:760px){.faq-sec{padding:0 24px 48px}}
-.faq-sec h2{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;color:var(--cream);margin-bottom:28px}
-.faq-item{border-top:1px solid rgba(201,168,76,.1);padding:24px 0}
-.faq-q{font-family:var(--fd);font-size:1.1rem;color:var(--cream);margin-bottom:10px}
-.faq-a{color:var(--fog);line-height:1.8}
-.rel-sec{max-width:860px;margin:0 auto;padding:0 64px 80px}
-@media(max-width:760px){.rel-sec{padding:0 24px 60px}}
-.rel-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:24px}
-.rel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.rel-card{display:block;padding:24px;border:1px solid rgba(201,168,76,.12);transition:border-color .3s,transform .3s}
-.rel-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-2px)}
-.rel-card-title{font-family:var(--fd);font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:10px}
-.rel-card-desc{font-size:.78rem;color:var(--fog);line-height:1.6}
-.page-cta{background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);padding:80px 64px;text-align:center}
-@media(max-width:760px){.page-cta{padding:60px 24px}}
-.page-cta-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);margin-bottom:16px;font-weight:600}
-.page-cta-title{font-family:var(--fd);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:300;color:var(--cream);margin-bottom:16px;line-height:1.2}
-.page-cta-sub{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
-footer{background:var(--surf);border-top:1px solid rgba(201,168,76,.07);padding:60px 64px 40px}
-@media(max-width:760px){footer{padding:48px 24px 32px}}
-.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
-@media(max-width:760px){.ftg{grid-template-columns:1fr}}
-.flog{font-family:var(--fd);font-size:1.1rem;color:var(--cream);margin-bottom:12px}
-.ftag{font-size:var(--nano);color:var(--dim);line-height:1.6;max-width:280px}
-.fhead{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:16px}
-.fls{list-style:none}
-.fls li{margin-bottom:10px}
-.fls a{font-size:var(--body);color:var(--dim)}
-.fls a:hover{color:var(--cream)}
-.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:24px;font-size:var(--nano);color:var(--dim)}
-
-
-body{cursor:none}
+.w{margin:0 auto;padding:0 72px;max-width:1300px}
+@media(max-width:760px){.w{padding:0 24px}}
+body{cursor:none;}
+@media(max-width:960px){body{cursor:auto}}
+#spotlight{position:fixed;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:998;transform:translate(-50%,-50%);transition:opacity .3s;opacity:0;}
+@media(max-width:768px){.w{padding:0 24px!important}section{padding:80px 0!important}}
 #cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
 #cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
 #cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
@@ -181,11 +130,18 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .fcl{font-family:var(--fd);font-style:italic;font-size:.88rem;color:var(--fog);line-height:1.65}
 .fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}
 .f-disc{font-size:.62rem;color:rgba(107,98,87,.4);line-height:1.8;margin-top:24px;max-width:800px}
+/* rel cards */
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px}
+.rel-card{display:block;padding:24px;border:1px solid rgba(201,168,76,.12);transition:border-color .3s,transform .3s}
+.rel-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-2px)}
+.rel-card-title{font-family:var(--fd);font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:10px}
+.rel-card-desc{font-size:.78rem;color:var(--fog);line-height:1.6}
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 </head>
 <body>
 <div class="grain"></div>
+<div id="spotlight" aria-hidden="true"></div>
 <div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;·&nbsp; <span>Internationally qualified lawyers qualifying in Canada</span></div>
 <div id="cd" role="presentation"></div>
 <div id="cr" role="presentation"><span id="cl"></span></div>
@@ -218,75 +174,97 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <a href="https://www.thencahub.com/#readiness" class="mob-link" style="margin-top:16px;color:var(--g1);font-weight:600"><span>Get My Readiness Score</span></a>
 </div>
 
-<div class="page-hero">
-  <p class="page-eyelet">Mandatory NCA Subject · NCA Study Notes</p>
-  <h1 class="page-h1">Administrative Law Notes — precision-built for NCA.</h1>
-  <p class="page-sub">Vavilov, Baker, Dore, and every standard of review variation — structured for 3-hour open-book conditions. The same notes used to clear Administrative Law.</p>
-  <div class="hero-ctas">
-    <a href="https://payhip.com/THENCAHUB" class="hub-btn">Get These Notes — $175–$279 CAD →</a>
-    <a href="/notes/" class="hub-btn-ghost">Browse All 5 Subjects</a>
+<section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:70vh;display:flex;align-items:center;padding:160px 0 120px;position:relative;z-index:1;" aria-label="Product">
+  <div class="w" style="max-width:1300px;">
+    <div style="max-width:900px;">
+      <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">NCA Study Notes · Instant PDF Download</p>
+      <h1 style="font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:300;color:var(--cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:20px;">Administrative Law NCA Notes</h1>
+      <div style="font-family:var(--fd);font-size:clamp(2rem,4vw,3.5rem);font-weight:300;color:var(--g1);line-height:1;margin-bottom:8px;">$175 <span style="font-size:1.2rem;color:var(--fog);">CAD</span></div>
+      <p style="font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:40px;font-family:var(--fb);">Instant PDF download · One-time purchase</p>
+      <p style="font-size:var(--lead);color:var(--fog);max-width:680px;line-height:1.9;font-family:var(--fb);font-weight:300;margin-bottom:48px;">Vavilov, Baker, Dore, and every standard of review variation — structured for 3-hour open-book conditions. The same notes used to clear Administrative Law.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="https://payhip.com/THENCAHUB" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Get Instant Access →</a>
+        <a href="/free-chapter.html" style="display:inline-flex;align-items:center;border:1px solid rgba(201,168,76,.25);color:var(--cream);padding:16px 32px;font-family:var(--fb);font-size:.82rem;letter-spacing:.08em;text-decoration:none;">Get Free Chapter First</a>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-
-<div class="hub-sec">
-  <h2>What these notes cover</h2>
-  <p>Every rule, test, and framework that appears in NCA Administrative Law exams — organised around the answer structure the exam demands:</p>
-  <ul>
-    <li><strong>Standard of review (Vavilov framework):</strong> The presumption of reasonableness, all 5 correctness exceptions (constitutional questions, jurisdiction, law of general importance, central importance to rule of law, conflicting jurisprudence), and the full Vavilov analysis structure.</li>
-    <li><strong>Procedural fairness (Baker factors):</strong> All 6 Baker factors, triggering events, and the content of procedural fairness (right to hearing, right to reasons).</li>
-    <li><strong>Dore Charter distinction:</strong> When Dore applies vs. the s.24 Charter remedies framework, and how to handle a hybrid problem.</li>
-    <li><strong>Judicial review availability:</strong> Standing, prematurity, privative clauses, statutory appeals as alternative remedies.</li>
-    <li><strong>Remedies:</strong> Certiorari, mandamus, prohibition, declaration — when each applies.</li>
-    <li><strong>Full answer template:</strong> Structured answer framework for any NCA Administrative Law question.</li>
-  </ul>
-</div>
-<div class="hub-sec">
-  <h2>Why Vavilov is the hardest part for most candidates</h2>
-  <p>Administrative Law is consistently rated among the most challenging NCA subjects by internationally trained lawyers. The Vavilov standard of review framework (2019 SCC 65) has no direct equivalent in most common law jurisdictions.</p>
-  <p>These notes are built specifically for candidates who need to learn Vavilov from scratch — not just understand it conceptually, but apply it at speed in a 3-hour open-book exam.</p>
-</div>
-
-
-<div class="faq-sec">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq-item">
-    <p class="faq-q">Is Administrative Law the hardest NCA subject?</p>
-    <p class="faq-a">Administrative Law and Foundations of Canadian Law are consistently rated the most challenging. Vavilov has no direct equivalent in most foreign legal systems. Candidates who prepare specifically for Vavilov and Baker tend to find the exam more manageable.</p>
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">What's Inside</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">What these notes cover</h2>
+    <p style="color:var(--fog);line-height:1.9;font-family:var(--fb);font-size:var(--body);margin-bottom:24px;">Every rule, test, and framework that appears in NCA Administrative Law exams — organised around the answer structure the exam demands:</p>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;display:flex;align-items:flex-start;gap:12px;"><span style="color:var(--g1);flex-shrink:0;margin-top:2px;">→</span><span><strong style="color:var(--cream);">Standard of review (Vavilov framework):</strong> The presumption of reasonableness, all 5 correctness exceptions (constitutional questions, jurisdiction, law of general importance, central importance to rule of law, conflicting jurisprudence), and the full Vavilov analysis structure.</span></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;display:flex;align-items:flex-start;gap:12px;"><span style="color:var(--g1);flex-shrink:0;margin-top:2px;">→</span><span><strong style="color:var(--cream);">Procedural fairness (Baker factors):</strong> All 6 Baker factors, triggering events, and the content of procedural fairness (right to hearing, right to reasons).</span></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;display:flex;align-items:flex-start;gap:12px;"><span style="color:var(--g1);flex-shrink:0;margin-top:2px;">→</span><span><strong style="color:var(--cream);">Dore Charter distinction:</strong> When Dore applies vs. the s.24 Charter remedies framework, and how to handle a hybrid problem.</span></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;display:flex;align-items:flex-start;gap:12px;"><span style="color:var(--g1);flex-shrink:0;margin-top:2px;">→</span><span><strong style="color:var(--cream);">Judicial review availability:</strong> Standing, prematurity, privative clauses, statutory appeals as alternative remedies.</span></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;display:flex;align-items:flex-start;gap:12px;"><span style="color:var(--g1);flex-shrink:0;margin-top:2px;">→</span><span><strong style="color:var(--cream);">Remedies:</strong> Certiorari, mandamus, prohibition, declaration — when each applies.</span></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;display:flex;align-items:flex-start;gap:12px;"><span style="color:var(--g1);flex-shrink:0;margin-top:2px;">→</span><span><strong style="color:var(--cream);">Full answer template:</strong> Structured answer framework for any NCA Administrative Law question.</span></li>
+    </ul>
   </div>
-  <div class="faq-item">
-    <p class="faq-q">How long should I study for NCA Administrative Law?</p>
-    <p class="faq-a">Most candidates require 100-140 study hours for Administrative Law. Candidates with some administrative law background may need less.</p>
-  </div>
-  <div class="faq-item">
-    <p class="faq-q">Is Administrative Law open-book?</p>
-    <p class="faq-a">Yes. All NCA exams are open-book — hard copy materials only. No digital notes, no internet access during the exam.</p>
-  </div>
-</div>
+</section>
 
-<div class="rel-sec">
-  <p class="rel-eyelet">Related Guides</p>
-  <div class="rel-grid">
-    <a href="/blog/article-a3-administrative-law-nca/" class="rel-card">
-      <div class="rel-card-title">NCA Canadian Administrative Law Guide 2026</div>
-      <div class="rel-card-desc">Vavilov, Baker, Dore, judicial review — with the exact answer template for every question type.</div>
-    </a>
-    <a href="/blog/article-e3-nca-study-hours/" class="rel-card">
-      <div class="rel-card-title">How Many Hours to Study for the NCA Exam?</div>
-      <div class="rel-card-desc">Subject-by-subject study hour breakdowns — Administrative Law included.</div>
-    </a>
-    <a href="/blog/article-c4-nca-textbook-necessary/" class="rel-card">
-      <div class="rel-card-title">Do You Need the NCA Textbook?</div>
-      <div class="rel-card-desc">For most candidates, no. Here is why — and what to use instead.</div>
-    </a>
+<section style="background:var(--deep);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Why It Matters</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">Why Vavilov is the hardest part for most candidates</h2>
+    <div style="background:rgba(201,168,76,.05);border-left:3px solid var(--g1);padding:24px 28px;margin:32px 0;">
+      <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;">Administrative Law is consistently rated among the most challenging NCA subjects by internationally trained lawyers. The Vavilov standard of review framework (2019 SCC 65) has no direct equivalent in most common law jurisdictions.</p>
+    </div>
+    <p style="color:var(--fog);line-height:1.9;font-family:var(--fb);font-size:var(--body);">These notes are built specifically for candidates who need to learn Vavilov from scratch — not just understand it conceptually, but apply it at speed in a 3-hour open-book exam.</p>
   </div>
-</div>
+</section>
 
-<section class="page-cta">
-  <p class="page-cta-eyelet">Ready to prepare?</p>
-  <h2 class="page-cta-title">Get the Administrative Law Notes — precision-built for NCA.</h2>
-  <p class="page-cta-sub">Under 80 pages. Answer templates. Structured for open-book 3-hour conditions.</p>
-  <a href="https://payhip.com/THENCAHUB" class="hub-btn">Get Your Notes on Payhip →</a>
+<section style="background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);padding:80px 0;text-align:center;position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:20px;font-family:var(--fb);">Ready to start?</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;"><em style="font-style:italic;color:var(--g1);">$175 CAD</em> · Instant access.</h2>
+    <a href="https://payhip.com/THENCAHUB" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Get the Notes →</a>
+  </div>
+</section>
+
+<section style="background:var(--deep);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">FAQ</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1;letter-spacing:-.01em;">Frequently Asked Questions</h2>
+    <div style="max-width:800px;">
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Is Administrative Law the hardest NCA subject?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Administrative Law and Foundations of Canadian Law are consistently rated the most challenging. Vavilov has no direct equivalent in most foreign legal systems. Candidates who prepare specifically for Vavilov and Baker tend to find the exam more manageable.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">How long should I study for NCA Administrative Law?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Most candidates require 100-140 study hours for Administrative Law. Candidates with some administrative law background may need less.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Is Administrative Law open-book?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Yes. All NCA exams are open-book — hard copy materials only. No digital notes, no internet access during the exam.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Related Guides</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:16px;line-height:1.1;letter-spacing:-.01em;">Further reading</h2>
+    <div class="rel-grid">
+      <a href="/blog/article-a3-administrative-law-nca/" class="rel-card">
+        <div class="rel-card-title">NCA Canadian Administrative Law Guide 2026</div>
+        <div class="rel-card-desc">Vavilov, Baker, Dore, judicial review — with the exact answer template for every question type.</div>
+      </a>
+      <a href="/blog/article-e3-nca-study-hours/" class="rel-card">
+        <div class="rel-card-title">How Many Hours to Study for the NCA Exam?</div>
+        <div class="rel-card-desc">Subject-by-subject study hour breakdowns — Administrative Law included.</div>
+      </a>
+      <a href="/blog/article-c4-nca-textbook-necessary/" class="rel-card">
+        <div class="rel-card-title">Do You Need the NCA Textbook?</div>
+        <div class="rel-card-desc">For most candidates, no. Here is why — and what to use instead.</div>
+      </a>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -381,6 +359,26 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   var nav=document.getElementById('nav');
   if(!nav)return;
   window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});
+})();
+
+/* SPOTLIGHT */
+(function(){
+  var sp=document.getElementById('spotlight');
+  if(!sp)return;
+  document.addEventListener('mousemove',function(e){sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';sp.style.opacity='1';},{passive:true});
+})();
+/* SCROLL REVEAL */
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:.1});
+  document.querySelectorAll('section h2,section p').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(24px)';
+    el.style.transition='opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)';
+    obs.observe(el);
+  });
 })();
 </script>
 <div id="cookie-banner" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9200;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
