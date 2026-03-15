@@ -355,35 +355,8 @@ nav.disc-gone{top:0}
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-.nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0;margin-left:20px}
-.nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
 @media(max-width:1100px){.nav-links a{font-size:.75rem;margin:0 10px;}}
-@media(max-width:960px){.nav-links,.nc{display:none}.nh{display:flex}nav,nav.sc{padding:18px 24px}nav{top:28px}}
-.mob{position:fixed;top:0;right:0;bottom:0;width:min(360px,100vw);background:rgba(5,5,8,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-left:1px solid rgba(201,168,76,0.12);z-index:9100;display:flex;flex-direction:column;justify-content:center;padding:60px 48px;transform:translateX(100%);transition:transform .6s cubic-bezier(.16,1,.3,1);overflow-y:auto;}
-.mob.op{transform:translateX(0);}
-.mob-backdrop{position:fixed;inset:0;background:rgba(2,2,4,0.7);z-index:9090;opacity:0;pointer-events:none;transition:opacity .4s ease;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
-.mob-backdrop.op{opacity:1;pointer-events:all;}
-.mob-link{display:block;font-family:var(--fd);font-size:clamp(1.3rem,4vw,1.8rem);font-weight:300;color:var(--fog);text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(201,168,76,0.07);transition:color .3s,transform .3s;transform:translateX(20px);opacity:0;}
-.mob.op .mob-link{transform:translateX(0);opacity:1;}
-.mob.op .mob-link:nth-child(2){transition-delay:.08s;}
-.mob.op .mob-link:nth-child(3){transition-delay:.12s;}
-.mob.op .mob-link:nth-child(4){transition-delay:.16s;}
-.mob.op .mob-link:nth-child(5){transition-delay:.20s;}
-.mob.op .mob-link:nth-child(6){transition-delay:.24s;}
-.mob.op .mob-link:nth-child(7){transition-delay:.28s;}
-.mob.op .mob-link:nth-child(8){transition-delay:.32s;}
-.mob.op .mob-link:nth-child(9){transition-delay:.36s;}
-.mob-link:hover{color:var(--g1);transform:translateX(4px);}
-.mob-link:last-child{border-bottom:none;}
-.mob-x{position:absolute;top:24px;right:28px;font-size:1.1rem;color:var(--dim);background:none;border:none;cursor:pointer;transition:color .3s;font-family:var(--fb);padding:8px;}
-.mob-x:hover{color:var(--g1);}
-.mob-footer{margin-top:32px;padding-top:24px;border-top:1px solid rgba(201,168,76,0.07);display:flex;flex-direction:column;gap:10px;}
-.mob-footer a{font-size:var(--nano);color:var(--dim);text-decoration:none;font-family:var(--fb);letter-spacing:.06em;transition:color .3s;}
-.mob-footer a:hover{color:var(--g1);}
-.mob-sub{margin-top:28px;padding-top:20px;border-top:1px solid rgba(201,168,76,.1);display:flex;flex-direction:column;gap:10px;}
-.mob-sub a{font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .3s;font-family:var(--fb);}
-.mob-sub a:hover{color:var(--g1);}
-
+@media(max-width:960px){.nav-links,.nc{display:none}nav,nav.sc{padding:18px 24px}nav{top:28px}}
 /* LAYOUT */
 .sec{padding:160px 0;position:relative;z-index:1}
 .w{max-width:1300px;margin:0 auto;padding:0 72px}
@@ -960,6 +933,50 @@ body.golden-hour {
 .coming-soon-btn{width:100%;padding:12px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;}
 .coming-soon-btn:hover{background:var(--g0);}
 .sc2.coming-soon:hover{border-color:rgba(201,168,76,.5);}
+
+.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:20px;z-index:9200;flex-shrink:0;}
+@media(max-width:960px){.nh{display:flex;}}
+.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s ease,width .4s cubic-bezier(.16,1,.3,1),background .3s ease;}
+.nh span:nth-child(2){width:16px;}
+.nh.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg);width:24px;background:var(--g1);}
+.nh.active span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nh.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);width:24px;background:var(--g1);}
+/* ═══ MOBILE MENU OVERLAY ═══ */
+.mob-overlay{position:fixed;inset:0;z-index:9100;pointer-events:none;overflow:hidden;}
+.mob-ink{position:absolute;inset:0;background:rgba(2,2,4,.97);clip-path:circle(0% at calc(100% - 44px) 44px);transition:clip-path .7s cubic-bezier(.16,1,.3,1);will-change:clip-path;}
+.mob-overlay.open .mob-ink{clip-path:circle(150% at calc(100% - 44px) 44px);}
+.mob-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1) .3s;}
+.mob-overlay.open .mob-line{transform:scaleX(1);}
+.mob-glow{position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 60%);border-radius:50%;opacity:0;transition:opacity .8s ease .2s;pointer-events:none;}
+.mob-overlay.open .mob-glow{opacity:1;}
+.mob-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:80px 48px 48px;opacity:0;transition:opacity .2s ease;overflow-y:auto;}
+.mob-overlay.open .mob-content{opacity:1;transition:opacity .3s ease .35s;pointer-events:all;}
+.mob-item{position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.07);}
+.mob-item:last-of-type{border-bottom:none;}
+.mob-link{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;letter-spacing:-.01em;transform:translateY(40px);opacity:0;transition:color .3s ease,transform .6s cubic-bezier(.16,1,.3,1),opacity .6s ease;cursor:pointer;background:none;border:none;width:100%;text-align:left;}
+.mob-link::after{content:'→';font-family:var(--fb);font-size:.9rem;color:rgba(201,168,76,0);transition:color .3s,transform .3s;transform:translateX(-8px);}
+.mob-link:hover{color:var(--cream);}
+.mob-link:hover::after{color:var(--g1);transform:translateX(0);}
+.mob-overlay.open .mob-link{transform:translateY(0);opacity:1;}
+.mob-overlay.open .mob-item:nth-child(1) .mob-link{transition-delay:.38s;}
+.mob-overlay.open .mob-item:nth-child(2) .mob-link{transition-delay:.44s;}
+.mob-overlay.open .mob-item:nth-child(3) .mob-link{transition-delay:.50s;}
+.mob-overlay.open .mob-item:nth-child(4) .mob-link{transition-delay:.56s;}
+.mob-overlay.open .mob-item:nth-child(5) .mob-link{transition-delay:.62s;}
+.mob-overlay.open .mob-item:nth-child(6) .mob-link{transition-delay:.68s;}
+.mob-overlay.open .mob-item:nth-child(7) .mob-link{transition-delay:.74s;}
+.mob-overlay.open .mob-item:nth-child(8) .mob-link{transition-delay:.80s;}
+.mob-cta{display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:16px 40px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transform:translateY(30px);opacity:0;transition:transform .6s cubic-bezier(.16,1,.3,1) .86s,opacity .6s ease .86s,background .3s;align-self:flex-start;}
+.mob-cta:hover{background:var(--g0);}
+.mob-overlay.open .mob-cta{transform:translateY(0);opacity:1;}
+.mob-utils{display:flex;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(201,168,76,.07);flex-wrap:wrap;transform:translateY(20px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1) .9s,opacity .5s ease .9s;}
+.mob-overlay.open .mob-utils{transform:translateY(0);opacity:1;}
+.mob-utils a{font-size:var(--sm);color:var(--dim);text-decoration:none;font-family:var(--fb);transition:color .3s;letter-spacing:.04em;}
+.mob-utils a:hover{color:var(--g1);}
+.mob-deco{position:absolute;bottom:40px;right:48px;font-family:var(--fd);font-size:clamp(4rem,10vw,7rem);font-weight:300;color:rgba(201,168,76,.04);line-height:1;pointer-events:none;user-select:none;transform:translateY(20px);opacity:0;transition:transform .8s ease .5s,opacity .8s ease .5s;}
+.mob-overlay.open .mob-deco{transform:translateY(0);opacity:1;}
+.mob-counter{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:var(--nano);letter-spacing:.2em;color:rgba(201,168,76,.3);font-family:var(--fb);opacity:0;transition:opacity .2s;pointer-events:none;}
+.mob-item:hover .mob-counter{opacity:1;}
 </style>
 <script type="application/ld+json">
 {
@@ -1218,25 +1235,6 @@ body.golden-hour {
   <a href="#readiness" class="nc"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob-backdrop" id="mob-backdrop" aria-hidden="true"></div>
-<div class="mob" id="mob" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <button class="mob-x" id="mobx" aria-label="Close menu">✕</button>
-  <a href="#method" class="mob-link">Method</a>
-  <a href="#story" class="mob-link">Story</a>
-  <a href="#pods" class="mob-link">Pods</a>
-  <a href="#subjects" class="mob-link">Subjects</a>
-  <a href="#pricing" class="mob-link">Pricing</a>
-  <a href="#sample" class="mob-link">Free Chapter</a>
-  <a href="blog/index.html" class="mob-link">Articles</a>
-  <a href="https://payhip.com/THENCAHUB" class="mob-link" style="color:var(--g1);font-weight:600" target="_blank" rel="noopener">Shop Now</a>
-  <a href="#readiness" class="bp mob-link" style="margin-top:16px;padding:17px 44px"><span>Get My Readiness Score</span></a>
-  <div class="mob-sub">
-    <a href="/nca-cost-calculator/">Cost Calculator</a>
-    <a href="/nca-exam-dates-2026/">Exam Dates 2026</a>
-    <a href="/notes/">Study Notes</a>
-  </div>
-</div>
-
 <!-- HERO -->
 <h1 class="seo-h1">NCA Exam Preparation Canada — Study Notes and Answer Templates for Internationally Trained Lawyers Qualifying Through the National Committee on Accreditation</h1>
 <section class="hero" id="hero" aria-label="Introduction">
@@ -1956,13 +1954,13 @@ body.golden-hour {
         <div class="ptier">Complete Bundle</div><div class="pprice">$279</div><div class="pper">per subject (CAD)</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Full short-form video lecture series</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>Performance Pod membership</li><li>PDF + lifetime video access</li></ul>
-        <a href="/cdn-cgi/l/email-protection#bad2dfd6d6d5faced2dfd4d9dbd2cfd894d9d5d785c9cfd8d0dfd9ce87f9d5d7cad6dfcedf9f888af8cfd4ded6df9f888affd4cbcfd3c8c3" class="pb" aria-label="Enquire about Complete Bundle"><span>Get Full Bundle</span></a>
+        <a href="mailto:hello@thencahub.com" class="pb" aria-label="Enquire about Complete Bundle"><span>Get Full Bundle</span></a>
       </div>
       <div class="pc sm tilt-card" id="PC3">
         <div class="ptier">All Subjects Package</div><div class="pprice">$899</div><div class="pper">complete package (best value)</div>
         <div class="pdiv"></div>
         <ul class="pfts"><li>All subject complete bundles</li><li>All video lecture series</li><li>All templates and practice Q&amp;As</li><li>Performance Pods for all subjects</li><li>LRW course guidance included</li><li>Priority email support</li><li>Early access to new subjects</li></ul>
-        <a href="/cdn-cgi/l/email-protection#6008050c0c0f201408050e03010815024e030f0d5f1315020a0503145d210c0c4552503315020a050314134552503001030b010705455250250e1115091219" class="pb" aria-label="Enquire about All Subjects Package"><span>Get Everything</span></a>
+        <a href="mailto:hello@thencahub.com" class="pb" aria-label="Enquire about All Subjects Package"><span>Get Everything</span></a>
       </div>
     </div>
     <div class="proof-rows" aria-label="Student results">
@@ -1972,7 +1970,7 @@ body.golden-hour {
       <div class="proof-row">"3 subjects in one sitting" · A.K., Ottawa</div>
       <div class="proof-row">"4th attempt. Finally a pass." · Anum, Constitutional Law</div>
     </div>
-    <p class="urgency-line">Payment plans available — email <a href="/cdn-cgi/l/email-protection#cca4a9a0a0a38cb8a4a9a2afada4b9aee2afa3a1" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="b7dfd2dbdbd8f7c3dfd2d9d4d6dfc2d599d4d8da">[email&#160;protected]</span></a></p>
+    <p class="urgency-line">Payment plans available — email <a href="mailto:hello@thencahub.com" style="color:var(--g1)">hello@thencahub.com</a></p>
     <p class="authority-line">Materials developed by a qualified lawyer · Reviewed for accuracy against current NCA syllabi</p>
     
     <div class="strategic-pull" style="max-width:700px;margin:48px auto 0;">
@@ -1987,7 +1985,7 @@ body.golden-hour {
         <div class="post-buy-ico"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
       </button>
       <div class="post-buy-body" id="post-buy-body" role="region">
-        <p class="post-buy-inner">You'll receive an email from Payhip with your download link immediately after purchase. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is added to your Payhip library automatically when released — at no extra charge. Everything is yours permanently, no expiry, no subscription. If your download link doesn't arrive within 5 minutes, email <a href="/cdn-cgi/l/email-protection#90f8f5fcfcffd0e4f8f5fef3f1f8e5f2bef3fffd" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="d5bdb0b9b9ba95a1bdb0bbb6b4bda0b7fbb6bab8">[email&#160;protected]</span></a> and it will be resolved within the hour.</p>
+        <p class="post-buy-inner">You'll receive an email from Payhip with your download link immediately after purchase. Your PDF notes and templates are available for instant download. Video lecture access (for Complete Bundles) is added to your Payhip library automatically when released — at no extra charge. Everything is yours permanently, no expiry, no subscription. If your download link doesn't arrive within 5 minutes, email <a href="mailto:hello@thencahub.com" style="color:var(--g1)">hello@thencahub.com</a> and it will be resolved within the hour.</p>
       </div>
     </div>
   </div>
@@ -2048,7 +2046,7 @@ body.golden-hour {
       <div class="fqi"><button class="fqq" aria-expanded="false">Do you cover Professional Responsibility and LRW?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes to both. Professional Responsibility is covered as a full NCA exam subject: notes, templates, practice questions. LRW is a mandatory CPLED course, not an NCA exam, but it sits on the path to qualification. We guide you through it so you know exactly what to expect.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">Do I need to be in Canada to use these materials?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">No. Everything is fully digital and accessible from anywhere in the world.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">When will the video lectures be available?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The video lecture series is in production. Anyone who purchases a Complete Bundle gets access automatically when videos go live, at no extra cost. The notes and templates are available now.</p></div></div>
-      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in installments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="/cdn-cgi/l/email-protection#95fdf0f9f9fad5e1fdf0fbf6f4fde0f7bbf6faf8" style="color:var(--g1)"><span class="__cf_email__" data-cfemail="6d05080101022d190508030e0c05180f430e0200">[email&#160;protected]</span></a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in installments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="mailto:hello@thencahub.com" style="color:var(--g1)">hello@thencahub.com</a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
     </div>
   </div>
 </section>
@@ -2225,7 +2223,7 @@ body.golden-hour {
     </div>
     <div>
       <div class="fct">Contact</div>
-      <ul class="fls"><li><a href="/cdn-cgi/l/email-protection#80e8e5ececefc0f4e8e5eee3e1e8f5e2aee3efed"><span class="__cf_email__" data-cfemail="bad2dfd6d6d5faced2dfd4d9dbd2cfd894d9d5d7">[email&#160;protected]</span></a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="#sample">Get Free Chapter</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul>
+      <ul class="fls"><li><a href="mailto:hello@thencahub.com" style="color:var(--g1)">hello@thencahub.com</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="#sample">Get Free Chapter</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul>
     </div>
   </div>
   <div class="fb2">
@@ -2235,7 +2233,7 @@ body.golden-hour {
   <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){'use strict';
 
 /* GLOBALS */
@@ -3373,19 +3371,41 @@ if(CD&&CR){
 
 /* MOBILE MENU */
 (function(){
-  var NH=document.getElementById('nh'),MOB=document.getElementById('mob'),MOBX=document.getElementById('mobx'),BACK=document.getElementById('mob-backdrop');
-  if(!NH||!MOB)return;
-  function openMenu(){MOB.classList.add('op');if(BACK)BACK.classList.add('op');NH.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
-  function closeMenu(){MOB.classList.remove('op');if(BACK)BACK.classList.remove('op');NH.setAttribute('aria-expanded','false');document.body.style.overflow='';}
-  NH.addEventListener('click',openMenu);
-  if(MOBX)MOBX.addEventListener('click',closeMenu);
-  if(BACK)BACK.addEventListener('click',closeMenu);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
-  document.querySelectorAll('.mob-link').forEach(function(a){
-    a.addEventListener('click',function(){
-      if(!a.getAttribute('href')||a.getAttribute('href').charAt(0)==='#'||a.getAttribute('href').startsWith('/')||a.getAttribute('href').startsWith('blog'))closeMenu();
-    });
+  var BTN=document.getElementById('nh');
+  var OVERLAY=document.getElementById('mob-overlay');
+  if(!BTN||!OVERLAY)return;
+  var isOpen=false;
+  function openMenu(){isOpen=true;OVERLAY.classList.add('open');OVERLAY.setAttribute('aria-hidden','false');BTN.classList.add('active');BTN.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';if(navigator.vibrate)navigator.vibrate(10);}
+  function closeMenu(){isOpen=false;OVERLAY.classList.remove('open');OVERLAY.setAttribute('aria-hidden','true');BTN.classList.remove('active');BTN.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  BTN.addEventListener('click',function(){isOpen?closeMenu():openMenu();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen)closeMenu();});
+  OVERLAY.querySelectorAll('.mob-link').forEach(function(a){
+    a.addEventListener('click',function(){var href=a.getAttribute('href')||'';if(!href.startsWith('http'))closeMenu();else setTimeout(closeMenu,100);});
   });
+  OVERLAY.addEventListener('click',function(e){if(e.target===OVERLAY||e.target.classList.contains('mob-ink'))closeMenu();});
+  OVERLAY.querySelectorAll('.mob-link').forEach(function(link){
+    link.addEventListener('mousemove',function(e){var rect=link.getBoundingClientRect();var x=((e.clientX-rect.left)/rect.width-.5)*8;var y=((e.clientY-rect.top)/rect.height-.5)*4;link.style.transform='translate('+x+'px,'+y+'px)';});
+    link.addEventListener('mouseleave',function(){link.style.transform='';});
+  });
+})();
+/* MOBILE MENU PARTICLES */
+(function(){
+  var canvas=document.getElementById('mob-particles');
+  var overlay=document.getElementById('mob-overlay');
+  if(!canvas||!overlay)return;
+  var ctx=canvas.getContext('2d');
+  var particles=[];
+  var animId;
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  function Particle(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*1.5+.3;this.speedX=(Math.random()-.5)*.4;this.speedY=(Math.random()-.5)*.4;this.opacity=Math.random()*.5+.1;this.gold=Math.random()>.7;}
+  Particle.prototype.update=function(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0)this.x=canvas.width;if(this.x>canvas.width)this.x=0;if(this.y<0)this.y=canvas.height;if(this.y>canvas.height)this.y=0;};
+  Particle.prototype.draw=function(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle=this.gold?'rgba(201,168,76,'+this.opacity+')':'rgba(237,229,206,'+(this.opacity*.3)+')';ctx.fill();};
+  for(var i=0;i<60;i++)particles.push(new Particle());
+  function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(function(p){p.update();p.draw();});animId=requestAnimationFrame(animate);}
+  var observer=new MutationObserver(function(){if(overlay.classList.contains('open')){animate();}else{cancelAnimationFrame(animId);ctx.clearRect(0,0,canvas.width,canvas.height);}});
+  observer.observe(overlay,{attributes:true,attributeFilter:['class']});
 })();
 
 /* FAQ ACCORDION - Existing (Preserved) */
