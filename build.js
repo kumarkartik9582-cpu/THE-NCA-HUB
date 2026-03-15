@@ -457,12 +457,12 @@ ${faqSchema}
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=MEASUREMENT_ID"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'MEASUREMENT_ID');
+  gtag('config', 'G-CFFP8T95DZ');
 </script>
 <meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
