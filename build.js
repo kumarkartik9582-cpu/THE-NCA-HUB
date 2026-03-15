@@ -521,7 +521,15 @@ nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;al
 .mob-utils a{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);transition:color .3s}
 .mob-utils a:hover{color:var(--g1)}
 .mob-deco{position:absolute;bottom:40px;right:48px;font-family:var(--fd);font-size:clamp(4rem,14vw,8rem);font-weight:300;color:rgba(201,168,76,.04);letter-spacing:.1em;pointer-events:none;user-select:none;line-height:1}
+.mob-x{position:absolute;top:20px;right:20px;width:44px;height:44px;background:none;border:none;color:var(--fog);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .3s;z-index:10;}.mob-x:hover{color:var(--g1);}
 .mob-counter{font-family:var(--fb);font-size:.62rem;letter-spacing:.2em;color:var(--g2);margin-right:18px;font-weight:500}
+@supports not (clip-path: circle(0%)){
+  .mob-ink{clip-path:none!important;opacity:0;transition:opacity .5s ease;}
+  .mob-overlay.open .mob-ink{opacity:1;}
+}
+@supports not (backdrop-filter: blur(1px)){
+  .mob-overlay .mob-ink{background:rgba(2,2,4,0.99);}
+}
 #article-wrap{padding-top:100px}
 .art-hero{padding:60px 72px 56px;border-bottom:1px solid rgba(201,168,76,.07);max-width:900px;margin:0 auto;}
 @media(max-width:640px){.art-hero{padding:40px 24px 40px}}
@@ -632,6 +640,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   <canvas id="mob-particles" style="position:absolute;inset:0;pointer-events:none;opacity:.4;"></canvas>
   <div class="mob-deco" aria-hidden="true">NCA</div>
   <div class="mob-content">
+    <button class="mob-x" id="mobx" aria-label="Close navigation menu">&#x2715;</button>
     <nav aria-label="Mobile navigation">
       <div class="mob-item"><span class="mob-counter">01</span><a href="/#method" class="mob-link">Method</a></div>
       <div class="mob-item"><span class="mob-counter">02</span><a href="/#subjects" class="mob-link">Subjects</a></div>
@@ -768,21 +777,18 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   },{passive:true});
   // Mobile menu
   var BTN=document.getElementById('nh');
-  var OVERLAY=document.getElementById('mob-overlay');
-  if(BTN&&OVERLAY){
+  var OV=document.getElementById('mob-overlay');
+  var MOBX=document.getElementById('mobx');
+  if(BTN&&OV){
     var isOpen=false;
-    function openMenu(){isOpen=true;OVERLAY.classList.add('open');OVERLAY.setAttribute('aria-hidden','false');BTN.classList.add('active');BTN.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';if(navigator.vibrate)navigator.vibrate(10);}
-    function closeMenu(){isOpen=false;OVERLAY.classList.remove('open');OVERLAY.setAttribute('aria-hidden','true');BTN.classList.remove('active');BTN.setAttribute('aria-expanded','false');document.body.style.overflow='';}
-    BTN.addEventListener('click',function(){isOpen?closeMenu():openMenu();});
+    function openMenu(){isOpen=true;OV.classList.add('open');OV.setAttribute('aria-hidden','false');BTN.classList.add('active');BTN.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';if(navigator.vibrate)navigator.vibrate(10);}
+    function closeMenu(){isOpen=false;OV.classList.remove('open');OV.setAttribute('aria-hidden','true');BTN.classList.remove('active');BTN.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+    BTN.addEventListener('click',function(e){e.stopPropagation();isOpen?closeMenu():openMenu();});
+    if(MOBX)MOBX.addEventListener('click',closeMenu);
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen)closeMenu();});
-    OVERLAY.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',function(){var href=a.getAttribute('href')||'';if(!href.startsWith('http'))closeMenu();else setTimeout(closeMenu,100);});});
-    OVERLAY.addEventListener('click',function(e){if(e.target===OVERLAY||e.target.classList.contains('mob-ink'))closeMenu();});
-    OVERLAY.querySelectorAll('.mob-link').forEach(function(link){link.addEventListener('mousemove',function(e){var rect=link.getBoundingClientRect();var x=((e.clientX-rect.left)/rect.width-.5)*8;var y=((e.clientY-rect.top)/rect.height-.5)*4;link.style.transform='translate('+x+'px,'+y+'px)';});link.addEventListener('mouseleave',function(){link.style.transform='';});});
-  }
-  // Scroll reveal for article body
-  if('IntersectionObserver' in window){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';obs.unobserve(e.target);}});
+    OV.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',function(){var href=a.getAttribute('href')||'';if(!href.startsWith('http'))closeMenu();else setTimeout(closeMenu,100);});});
+    OV.querySelectorAll('.mob-link').forEach(function(link){link.addEventListener('mousemove',function(e){var r=link.getBoundingClientRect();var x=((e.clientX-r.left)/r.width-.5)*8;var y=((e.clientY-r.top)/r.height-.5)*4;link.style.transform='translate('+x+'px,'+y+'px)';});link.addEventListener('mouseleave',function(){link.style.transform='';});});
+  });
     },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.art-body > *').forEach(function(el){
       el.style.opacity='0';el.style.transform='translateY(24px)';

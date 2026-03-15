@@ -98,6 +98,13 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
 .mob-deco{position:absolute;bottom:40px;right:48px;font-family:var(--fd);font-size:clamp(4rem,10vw,7rem);font-weight:300;color:rgba(201,168,76,.04);line-height:1;pointer-events:none;user-select:none;transform:translateY(20px);opacity:0;transition:transform .8s ease .5s,opacity .8s ease .5s;}
 .mob-overlay.open .mob-deco{transform:translateY(0);opacity:1;}
 .mob-counter{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:var(--nano);letter-spacing:.2em;color:rgba(201,168,76,.3);font-family:var(--fb);opacity:0;transition:opacity .2s;pointer-events:none;}
+@supports not (clip-path: circle(0%)){
+  .mob-ink{clip-path:none!important;opacity:0;transition:opacity .5s ease;}
+  .mob-overlay.open .mob-ink{opacity:1;}
+}
+@supports not (backdrop-filter: blur(1px)){
+  .mob-overlay .mob-ink{background:rgba(2,2,4,0.99);}
+}
 .mob-item:hover .mob-counter{opacity:1;}
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -241,6 +248,7 @@ function submitNotify(e,formId,subject){e.preventDefault();var form=document.get
   <canvas id="mob-particles" style="position:absolute;inset:0;pointer-events:none;opacity:.4;"></canvas>
   <div class="mob-deco" aria-hidden="true">NCA</div>
   <div class="mob-content">
+    <button class="mob-x" id="mobx" aria-label="Close navigation menu">&#x2715;</button>
     <nav aria-label="Mobile navigation">
       <div class="mob-item">
         <span class="mob-counter">01</span>
