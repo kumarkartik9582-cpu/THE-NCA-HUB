@@ -39,6 +39,26 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.06em}
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
+<style id="search-overlay-css">
+#srch-btn{background:none;border:none;cursor:pointer;color:var(--fog);padding:6px;display:flex;align-items:center;transition:color .2s;margin-left:8px;}
+#srch-btn:hover{color:var(--cream);}
+#srch-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+#srch-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,8,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:80px 24px 24px;overflow-y:auto;}
+#srch-overlay.open{display:block;}
+#srch-box{max-width:640px;margin:0 auto;}
+#srch-wrap{position:relative;margin-bottom:24px;}
+#srch-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:var(--fb);font-size:1rem;padding:14px 48px 14px 18px;letter-spacing:.02em;outline:none;}
+#srch-input:focus{border-color:rgba(201,168,76,.5);}
+#srch-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--fog);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px;}
+#srch-results{list-style:none;margin:0;padding:0;}
+#srch-results li{border-bottom:1px solid rgba(255,255,255,.05);}
+#srch-results a{display:block;padding:14px 18px;text-decoration:none;transition:background .15s;}
+#srch-results a:hover,#srch-results a:focus{background:rgba(201,168,76,.07);}
+#srch-results .sr-title{display:block;font-size:.88rem;color:var(--cream);font-family:var(--fb);font-weight:600;margin-bottom:3px;}
+#srch-results .sr-desc{display:block;font-size:.75rem;color:var(--dim);line-height:1.5;}
+#srch-empty{text-align:center;color:var(--dim);font-size:.82rem;padding:32px;display:none;}
+#srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
+</style>
 </head>
 <body>
 <div class="grain"></div>
@@ -87,6 +107,78 @@ window.addEventListener('load', function(){
   var cmx=-200,cmy=-200,crx=-200,cry=-200;
   document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});
   (function a(){crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;CR.style.left=crx+'px';CR.style.top=cry+'px';requestAnimationFrame(a);})();
+})();
+</script>
+<!-- Site Search Overlay -->
+<div id="srch-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+  <div id="srch-box">
+    <div id="srch-wrap">
+      <input id="srch-input" type="search" placeholder="Search NCA Hub…" autocomplete="off" aria-label="Search">
+      <button id="srch-close" aria-label="Close search" onclick="closeSearch()">&#x2715;</button>
+    </div>
+    <ul id="srch-results" role="listbox"></ul>
+    <p id="srch-empty">No results found. Try different keywords.</p>
+    <p id="srch-hint">Press <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">/</kbd> to search · <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">ESC</kbd> to close</p>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('srch-overlay');
+  var input = document.getElementById('srch-input');
+  var resultsList = document.getElementById('srch-results');
+  var emptyMsg = document.getElementById('srch-empty');
+  var fuse, indexLoaded = false;
+
+  window.openSearch = function(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    input.focus();
+    loadIndex();
+  };
+  window.closeSearch = function(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    resultsList.innerHTML = '';
+    emptyMsg.style.display = 'none';
+    input.value = '';
+  };
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === '/' && !overlay.classList.contains('open') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA'){
+      e.preventDefault(); window.openSearch();
+    }
+    if(e.key === 'Escape' && overlay.classList.contains('open')){ window.closeSearch(); }
+  });
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) window.closeSearch(); });
+
+  function loadIndex(){
+    if(indexLoaded) return;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+    s.onload = function(){
+      fetch('/search-index.json').then(function(r){ return r.json(); }).then(function(data){
+        fuse = new Fuse(data, {keys:['title','desc','h1'],threshold:0.35,minMatchCharLength:2});
+        indexLoaded = true;
+        if(input.value) doSearch(input.value);
+      });
+    };
+    document.head.appendChild(s);
+  }
+
+  function doSearch(q){
+    if(!fuse){ return; }
+    var results = fuse.search(q, {limit:10});
+    resultsList.innerHTML = '';
+    emptyMsg.style.display = results.length ? 'none' : 'block';
+    results.forEach(function(r){
+      var item = r.item;
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="'+item.url+'"><span class="sr-title">'+item.title+'</span><span class="sr-desc">'+item.desc+'</span></a>';
+      resultsList.appendChild(li);
+    });
+  }
+
+  input.addEventListener('input', function(){ doSearch(this.value.trim()); });
 })();
 </script>
 </body>

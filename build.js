@@ -456,11 +456,16 @@ ${faqSchema}
 </script>` : ''}
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<link rel="manifest" href="/manifest.json">
+<link rel="search" type="application/opensearchdescription+xml" title="The NCA Hub" href="/opensearch.xml">
+<!-- Google Analytics 4 — consent mode -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied', 'ad_storage': 'denied', 'wait_for_update': 500});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-CFFP8T95DZ');
 </script>
@@ -828,6 +833,27 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   observer.observe(overlay,{attributes:true,attributeFilter:['class']});
 })();
 </script>
+<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
+  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy/" style="color:var(--g1)">Privacy Policy</a>.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <button id="ck-necessary" style="background:transparent;color:var(--fog);border:1px solid rgba(201,168,76,.25);padding:9px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Necessary only</button>
+    <button id="ck-all" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept all</button>
+  </div>
+</div>
+<script>
+(function(){
+  var CONSENT_KEY='nca_cookie_consent';
+  var consent=localStorage.getItem(CONSENT_KEY);
+  var banner=document.getElementById('cookie-banner');
+  function hideBanner(){if(banner)banner.style.display='none';}
+  if(consent==='all'){if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted'});hideBanner();return;}
+  if(consent==='necessary'){hideBanner();return;}
+  if(banner)banner.style.display='block';
+  document.getElementById('ck-necessary').addEventListener('click',function(){localStorage.setItem(CONSENT_KEY,'necessary');hideBanner();});
+  document.getElementById('ck-all').addEventListener('click',function(){localStorage.setItem(CONSENT_KEY,'all');if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted'});hideBanner();});
+})();
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>`;
 }
