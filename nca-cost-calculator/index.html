@@ -173,6 +173,14 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .fcl{font-family:var(--fd);font-style:italic;font-size:.88rem;color:var(--fog);line-height:1.65}
 .fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}
 .f-disc{font-size:.62rem;color:rgba(107,98,87,.4);line-height:1.8;margin-top:24px;max-width:800px}
+
+/* SPOTLIGHT + RESPONSIVE */
+body{cursor:none;}
+@media(max-width:960px){body{cursor:auto}}
+#spotlight{position:fixed;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:998;transform:translate(-50%,-50%);transition:opacity .3s;opacity:0;}
+@media(max-width:768px){.w{padding:0 24px!important}section{padding:80px 0!important}}
+/* WIDTH CONTAINER */
+.w{max-width:860px;margin:0 auto;padding:0 64px}
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 </head>
@@ -211,13 +219,17 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <a href="https://www.thencahub.com/#readiness" class="mob-link" style="margin-top:16px;color:var(--g1);font-weight:600"><span>Get My Readiness Score</span></a>
 </div>
 
-<div class="page-hero">
-  <p class="page-eyelet">NCA Process · Cost Estimator 2026</p>
-  <h1 class="page-h1">NCA Cost Calculator: Total Cost to Qualify as a Lawyer in Canada</h1>
-  <p class="page-sub">Use this calculator to estimate the real total cost of the NCA process — from assessment through to call to the bar. All fees are in Canadian dollars and verified against official sources.</p>
-</div>
+<section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:60vh;display:flex;align-items:center;padding:160px 0 100px;position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">NCA Cost · 2026 Calculator</p>
+    <h1 style="font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:300;color:var(--cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px;">NCA Cost Calculator: Total Cost to Qualify as a Lawyer in Canada</h1>
+    <p style="font-size:var(--lead);color:var(--fog);max-width:680px;line-height:1.9;font-family:var(--fb);font-weight:300;">Use this calculator to estimate the real total cost of the NCA process — from assessment through to call to the bar. All fees are in Canadian dollars and verified against official sources.</p>
+  </div>
+</section>
 
-<div class="calc-wrap">
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+<div class="calc-wrap" style="max-width:none;margin:0;padding:0">
 
   <!-- SECTION 1: NCA ASSESSMENT -->
   <div class="calc-section">
@@ -352,6 +364,8 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   </div>
 
 </div><!-- /.calc-wrap -->
+  </div>
+</section>
 
 <!-- CONTEXT NOTES -->
 <div class="notes-sec">
@@ -554,6 +568,26 @@ recalc();
   var nav=document.getElementById('nav');
   if(!nav)return;
   window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});
+})();
+
+/* SPOTLIGHT */
+(function(){
+  var sp=document.getElementById('spotlight');
+  if(!sp)return;
+  document.addEventListener('mousemove',function(e){sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';sp.style.opacity='1';},{passive:true});
+})();
+/* SCROLL REVEAL */
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:.1});
+  document.querySelectorAll('section h2,section p').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(24px)';
+    el.style.transition='opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)';
+    obs.observe(el);
+  });
 })();
 </script>
 <div id="cookie-banner" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9200;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
