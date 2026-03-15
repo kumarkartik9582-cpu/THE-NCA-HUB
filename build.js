@@ -375,6 +375,8 @@ function extractFAQSchema(markdown) {
 // The key SEO difference: all content is in the HTML response —
 // no JavaScript fetch needed for Googlebot to read every word.
 function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema }) {
+  const encodedURL = encodeURIComponent(canonicalURL);
+  const encodedTitle = encodeURIComponent(title);
   return `<!DOCTYPE html>
 <html lang="en-CA">
 <head>
@@ -433,7 +435,7 @@ function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, 
         }
       },
       "mainEntityOfPage": "${canonicalURL}",
-      "image": "https://www.thencahub.com/og-image.svg",
+      "image": "https://www.thencahub.com/og-image.jpg",
       "inLanguage": "en-CA"
     },
     {
@@ -454,8 +456,19 @@ ${faqSchema}
 </script>` : ''}
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:image" content="https://www.thencahub.com/og-image.svg">
-<meta property="twitter:image" content="https://www.thencahub.com/og-image.svg">
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'MEASUREMENT_ID');
+</script>
+<meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The NCA Hub — NCA exam preparation for internationally trained lawyers in Canada">
+<meta property="twitter:image" content="https://www.thencahub.com/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
@@ -474,6 +487,7 @@ body:hover #cd{opacity:1}
 @media(max-width:960px){body{cursor:auto}}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0),var(--g1),var(--g3));background-size:200% 100%;z-index:9100;width:0;transform-origin:left;transition:width .1s;animation:shimmer 3s linear infinite;}
+#read-progress{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--g1),var(--g0));z-index:10000;transition:width .1s linear;pointer-events:none;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
 .nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}
@@ -570,9 +584,11 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .rel-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-2px)}
 .rel-card-title{font-family:var(--fd);font-size:1.05rem;color:var(--cream);line-height:1.3;margin-bottom:10px;font-weight:400}
 .rel-card-desc{font-size:.78rem;color:var(--fog);line-height:1.6}
+@media print{#nav,footer,.article-cta,.related-grid,#read-progress,.grain,#spotlight,#cookie-banner,#ep,#discovery-bar{display:none!important;}body{background:#fff!important;color:#000!important;font-size:11pt;line-height:1.6;cursor:auto!important;}h1,h2,h3{color:#000!important;font-family:Georgia,serif;page-break-after:avoid;}a{color:#000!important;text-decoration:underline;}.w{max-width:100%!important;padding:0 1cm!important;}body::before{content:'The NCA Hub — thencahub.com | NCA Exam Preparation';display:block;font-size:8pt;color:#555;border-bottom:1px solid #ccc;padding-bottom:6pt;margin-bottom:16pt;font-family:Arial,sans-serif;}}
 </style>
 </head>
 <body>
+<div id="read-progress" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div id="prog" aria-hidden="true"></div>
 <div id="cd" aria-hidden="true"></div>
@@ -618,6 +634,19 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         <span class="art-read" style="color:var(--dim);">Updated: <time datetime="${dateModified}">${dateModified}</time></span>
       </div>
       <p class="art-desc">${escHtml(description)}</p>
+      <div style="display:flex;gap:12px;margin-top:24px;margin-bottom:8px;align-items:center;flex-wrap:wrap;">
+  <span style="font-size:var(--nano);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-family:var(--fb);">Share:</span>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedURL}"
+     target="_blank" rel="noopener"
+     style="display:inline-flex;align-items:center;padding:8px 18px;border:1px solid rgba(201,168,76,.18);color:var(--fog);font-size:var(--nano);letter-spacing:.14em;text-transform:uppercase;font-family:var(--fb);text-decoration:none;transition:all .25s;"
+     onmouseover="this.style.borderColor='var(--g1)';this.style.color='var(--g1)'"
+     onmouseout="this.style.borderColor='rgba(201,168,76,.18)';this.style.color='var(--fog)'">LinkedIn</a>
+  <a href="https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedURL}"
+     target="_blank" rel="noopener"
+     style="display:inline-flex;align-items:center;padding:8px 18px;border:1px solid rgba(201,168,76,.18);color:var(--fog);font-size:var(--nano);letter-spacing:.14em;text-transform:uppercase;font-family:var(--fb);text-decoration:none;transition:all .25s;"
+     onmouseover="this.style.borderColor='var(--g1)';this.style.color='var(--g1)'"
+     onmouseout="this.style.borderColor='rgba(201,168,76,.18)';this.style.color='var(--fog)'">WhatsApp</a>
+</div>
     </header>
 
     <div class="art-body" id="art-body">
