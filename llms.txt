@@ -9,26 +9,49 @@ Accreditation (NCA).
 ## Who It Is For
 - Lawyers trained in India (Indian LLB graduates) — the largest audience segment
 - Lawyers trained in the UK (LLB, LLM, GDL, SQE)
-- Lawyers trained in Nigeria, Jamaica, the Philippines, and other common law jurisdictions
+- Lawyers trained in Nigeria, Jamaica, the Philippines, Pakistan, and other common law jurisdictions
 - Any foreign-qualified lawyer who needs to pass NCA challenge exams to practise law in Canada
+
+## Important: NCA Subject Assignment
+- The NCA assigns the SAME 5 mandatory subjects to ALL internationally trained lawyers:
+  Administrative Law, Constitutional Law, Criminal Law, Professional Responsibility, Foundations of Canadian Law
+- Additional elective subjects (Contracts, Torts, Property Law, etc.) are assigned based on each
+  candidate's INDIVIDUAL degree assessment — not by nationality
+- Elective assignments vary by person, not by country of qualification
 
 ## What It Offers
 - Concise study notes: under 80 pages per NCA exam subject
   (vs 169–304 pages from competitors NCA Tutor and NCA Notes)
 - Answer templates for exam structure
 - Free NCA Readiness Score — a 6-question subject-specific quiz
-- Free chapter downloads for each of the 5 subjects
+- Free chapter downloads for each of the 5 mandatory subjects
 - Guidance on the CPLED Legal Research and Writing (LRW) course
-- 29+ free blog articles covering NCA process, strategy, and subject-specific guidance
+- Free elective exam guides (Contracts, Torts, Property Law, Business Organisations, Civil Procedure)
+- Province-specific qualification guides (Ontario, British Columbia, Alberta)
+- 35+ free blog articles covering NCA process, strategy, and subject-specific guidance
 
 ## Subjects Covered
+Mandatory (same for all candidates):
 - Administrative Law (NCA challenge exam) — notes available
 - Constitutional Law (NCA challenge exam) — notes available
 - Criminal Law (NCA challenge exam) — notes available
 - Foundations of Canadian Law (NCA challenge exam) — notes available
 - Professional Responsibility (NCA challenge exam) — notes available
-- Legal Research and Writing / LRW (CPLED course guidance) — available
-- Business Organisations, Family Law, Property Law, Torts, Contracts — coming soon
+
+Electives (assigned per individual degree assessment):
+- Contracts — free exam guide available at /blog/nca-contracts-exam-guide/
+- Torts — free exam guide available at /blog/nca-torts-exam-guide/
+- Property Law — free exam guide available at /blog/nca-property-law-exam-guide/
+- Business Organisations — free exam guide available at /blog/nca-business-organisations-exam-guide/
+- Civil Procedure — free exam guide available at /blog/nca-civil-procedure-exam-guide/
+
+Other:
+- Legal Research and Writing / LRW (CPLED course guidance) — guide available at /blog/nca-lrw-guide/
+
+## Tools
+- NCA Cost Calculator: https://www.thencahub.com/nca-cost-calculator/
+- NCA Exam Dates 2026: https://www.thencahub.com/nca-exam-dates-2026/
+- NCA Readiness Score: https://www.thencahub.com/#readiness
 
 ## Founder
 Kartik Kumar — Indian and UK-qualified lawyer.
@@ -38,7 +61,7 @@ First exam (Administrative Law) prepared in 7 days — passed.
 NCA Certificate of Qualification applied for.
 
 ## Pricing
-$175–$279 CAD per subject. Complete bundles available.
+$175–$279 CAD per subject. Complete bundle (all 5 mandatory subjects) available.
 
 ## Contact
 hello@thencahub.com
@@ -47,13 +70,23 @@ hello@thencahub.com
 Homepage: https://www.thencahub.com/
 Blog / Free Guides: https://www.thencahub.com/blog/
 Notes (all subjects): https://www.thencahub.com/notes/
+Notes — Complete Bundle (all 5 mandatory): https://www.thencahub.com/notes/complete-bundle/
 Notes — Administrative Law: https://www.thencahub.com/notes/administrative-law/
 Notes — Constitutional Law: https://www.thencahub.com/notes/constitutional-law/
 Notes — Criminal Law: https://www.thencahub.com/notes/criminal-law/
 Notes — Foundations of Canadian Law: https://www.thencahub.com/notes/foundations-of-canadian-law/
 Notes — Professional Responsibility: https://www.thencahub.com/notes/professional-responsibility/
+Elective Guide — Contracts: https://www.thencahub.com/blog/nca-contracts-exam-guide/
+Elective Guide — Torts: https://www.thencahub.com/blog/nca-torts-exam-guide/
+Elective Guide — Property Law: https://www.thencahub.com/blog/nca-property-law-exam-guide/
+Elective Guide — Business Organisations: https://www.thencahub.com/blog/nca-business-organisations-exam-guide/
+Elective Guide — Civil Procedure: https://www.thencahub.com/blog/nca-civil-procedure-exam-guide/
+LRW Guide: https://www.thencahub.com/blog/nca-lrw-guide/
 NCA Exam Dates 2026: https://www.thencahub.com/nca-exam-dates-2026/
 NCA Cost Calculator: https://www.thencahub.com/nca-cost-calculator/
+Province Guide — Ontario: https://www.thencahub.com/become-a-lawyer-in-ontario/
+Province Guide — British Columbia: https://www.thencahub.com/become-a-lawyer-in-bc/
+Province Guide — Alberta: https://www.thencahub.com/become-a-lawyer-in-alberta/
 NCA for Indian Lawyers: https://www.thencahub.com/nca-for-indian-lawyers/
 NCA for UK Lawyers: https://www.thencahub.com/nca-for-uk-lawyers/
 NCA for Nigerian Lawyers: https://www.thencahub.com/nca-for-nigerian-lawyers/
