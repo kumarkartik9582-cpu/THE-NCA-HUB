@@ -358,6 +358,18 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .wa-float svg{width:28px;height:28px;fill:#fff;}
 @media(min-width:960px){.wa-float{display:none;}}
 @media(max-width:768px){.has-sticky-cta .wa-float{bottom:72px;}}
+
+/* GEO: Answer capsule — AI snippet extraction target */
+.answer-capsule{font-size:var(--lead,1.05rem);color:var(--cream);line-height:1.8;max-width:720px;margin-bottom:32px;font-family:var(--fb);font-weight:300;border-left:3px solid var(--g1);padding-left:20px;}
+
+
+/* Comparison tables */
+.comparison-table{width:100%;border-collapse:collapse;margin:32px 0;overflow-x:auto;display:block;}
+.comparison-table th{background:rgba(13,13,22,1);color:var(--cream);font-family:var(--fb);font-size:var(--nano,.65rem);letter-spacing:.18em;text-transform:uppercase;padding:14px 16px;text-align:left;border-bottom:2px solid rgba(201,168,76,.2);}
+.comparison-table td{color:var(--fog);font-family:var(--fb);font-size:var(--sm,.85rem);padding:12px 16px;border-bottom:1px solid rgba(201,168,76,.06);vertical-align:top;}
+.comparison-table tr:hover td{background:rgba(201,168,76,.03);}
+@media(max-width:768px){.comparison-table{font-size:.75rem;}}
+
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
@@ -389,12 +401,15 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   <article>
     <header class="art-hero">
       <div class="art-breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
         <a href="/blog/">Articles</a>
         <span aria-hidden="true">›</span>
         <span>Career Pathway</span>
       </div>
       <div class="art-cluster" aria-label="Category">Career Pathway</div>
       <h1 class="art-title">NCA Process Timeline 2026: From Assessment to Certificate of Qualification</h1>
+      <p class="answer-capsule">The NCA process takes 2–5 years from assessment application to Call to the Bar. The assessment result takes 6–16 weeks <a href="https://nca.legal/" target="_blank" rel="noopener noreferrer" style="color:var(--g1);font-size:var(--sm,0.85rem);text-decoration:underline;text-decoration-color:rgba(201,168,76,.4);">Source: nca.legal</a>. Exams are monthly — candidates typically complete all subjects in 12–24 months. Add LRW (3–6 months), Certificate of Qualification processing, and provincial bar admission (8–12 months).</p>
       <div class="art-meta">
         <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
         <span class="art-read" style="color:var(--dim);">·</span>
@@ -413,7 +428,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         <p><strong>2026 update:</strong> Three significant changes affect the NCA timeline effective March 1, 2026: (1) the Indigenous Law and Peoples competency is now mandatory for all candidates before the COQ is issued; (2) language screening must be completed before assessment proceeds; (3) exam sessions are now offered 12 times per year — monthly — giving candidates far more scheduling flexibility than in previous years. See our <a href="/blog/article-f1-nca-policy-changes-2026/">full 2026 policy changes guide</a> for details.</p>
       </div>
 
-      <h2>The Complete 2026 NCA Pathway — Every Stage</h2>
+      <h2>How long does the complete NCA process take from assessment to Call to the Bar?</h2>
 
       <h3>Stage 1: NCA Assessment (8–16 weeks)</h3>
       <p><strong>What happens:</strong> You submit your academic transcripts, law degree certificates, certificate of good standing from your home jurisdiction, and proof of legal qualification. The NCA evaluates your foreign qualifications against Canadian standards and issues an assessment letter listing your required subjects.</p>
@@ -513,7 +528,22 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         <li><strong>With significant delays:</strong> 42–60 months</li>
       </ul>
 
-      <h2>Critical Path: What Delays the Process Most</h2>
+      
+      <h3>NCA Process Timeline — Realistic Duration at Each Stage</h3>
+      <table class="comparison-table">
+        <thead><tr><th>Stage</th><th>Duration</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>NCA assessment application</td><td>1–2 weeks to prepare</td><td>Transcripts, syllabi, professional experience</td></tr>
+          <tr><td>Assessment result</td><td>6–16 weeks</td><td>From submission to assessment letter</td></tr>
+          <tr><td>Challenge exams (5 subjects)</td><td>12–24 months typical</td><td>Monthly sessions, 1–3 subjects per session</td></tr>
+          <tr><td>LRW course</td><td>3–6 months</td><td>Can overlap with final exam(s)</td></tr>
+          <tr><td>Certificate of Qualification</td><td>4–8 weeks</td><td>After all requirements complete</td></tr>
+          <tr><td>Articling (Ontario)</td><td>Minimum 8 months</td><td>Or LPP (also 8 months)</td></tr>
+          <tr><td>Bar exams + Call to Bar</td><td>3–6 months</td><td>Barrister + Solicitor exams</td></tr>
+          <tr><td><strong>Total: NCA to Call to Bar</strong></td><td><strong>3–5 years typical</strong></td><td>Varies by pace and province</td></tr>
+        </tbody>
+      </table>
+      <h2>What happens after you pass all your NCA exams?</h2>
 
       <p><strong>1. Failed NCA exams</strong> — Each failed subject delays results by 10 to 12 weeks and requires re-registration and re-payment of the $500 fee. Two failed subjects at different times can add 6 to 8 months.</p>
 

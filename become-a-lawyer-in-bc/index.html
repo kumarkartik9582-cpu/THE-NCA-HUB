@@ -226,6 +226,17 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5);}
 .wa-float svg{width:28px;height:28px;fill:#fff;}
 @media(min-width:960px){.wa-float{display:none;}}
+
+/* Visible breadcrumb nav */
+.bc-nav{padding:16px 0 4px;}
+.bc-nav .w{padding:0 72px;}
+@media(max-width:640px){.bc-nav .w{padding:0 24px;}}
+.bc-ol{display:flex;align-items:center;gap:8px;list-style:none;padding:0;margin:0;font-size:var(--nano,.65rem);font-family:var(--fb);flex-wrap:wrap;letter-spacing:.12em;text-transform:uppercase;}
+.bc-ol a{color:var(--dim);text-decoration:none;transition:color .3s;}
+.bc-ol a:hover{color:var(--g1);}
+.bc-ol .bc-sep{color:var(--dim);}
+.bc-ol .bc-cur{color:var(--fog);}
+
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 <!-- Google Analytics GA4 -->
@@ -249,6 +260,18 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
   <a href="https://www.thencahub.com/#readiness" class="nc"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
+<nav class="bc-nav" aria-label="Breadcrumb">
+  <div class="w">
+    <ol class="bc-ol">
+      <li><a href="/">Home</a></li>
+      <li class="bc-sep" aria-hidden="true">›</li>
+      <li><span class="bc-cur">Qualify in Canada</span></li>
+      <li class="bc-sep" aria-hidden="true">›</li>
+      <li><span class="bc-cur">British Columbia</span></li>
+    </ol>
+  </div>
+</nav>
+
 <section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:60vh;display:flex;align-items:center;padding:160px 0 100px;position:relative;z-index:1;">
   <div class="w"><div style="max-width:900px;">
     <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">Province Guide · British Columbia</p>

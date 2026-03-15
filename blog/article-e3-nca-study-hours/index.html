@@ -296,6 +296,18 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .wa-float svg{width:28px;height:28px;fill:#fff;}
 @media(min-width:960px){.wa-float{display:none;}}
 @media(max-width:768px){.has-sticky-cta .wa-float{bottom:72px;}}
+
+/* GEO: Answer capsule — AI snippet extraction target */
+.answer-capsule{font-size:var(--lead,1.05rem);color:var(--cream);line-height:1.8;max-width:720px;margin-bottom:32px;font-family:var(--fb);font-weight:300;border-left:3px solid var(--g1);padding-left:20px;}
+
+
+/* Comparison tables — AI-resistant content */
+.comparison-table{width:100%;border-collapse:collapse;margin:32px 0;overflow-x:auto;display:block;}
+.comparison-table th{background:rgba(13,13,22,1);color:var(--cream);font-family:var(--fb);font-size:var(--nano,.65rem);letter-spacing:.18em;text-transform:uppercase;padding:14px 16px;text-align:left;border-bottom:2px solid rgba(201,168,76,.2);}
+.comparison-table td{color:var(--fog);font-family:var(--fb);font-size:var(--sm,.85rem);padding:12px 16px;border-bottom:1px solid rgba(201,168,76,.06);vertical-align:top;}
+.comparison-table tr:hover td{background:rgba(201,168,76,.03);}
+@media(max-width:768px){.comparison-table{font-size:.75rem;}}
+
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
@@ -329,12 +341,15 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   <article>
     <header class="art-hero">
       <div class="art-breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
         <a href="/blog/">Articles</a>
         <span aria-hidden="true">›</span>
         <span>Exam Strategy</span>
       </div>
       <div class="art-cluster" aria-label="Category">Exam Strategy</div>
       <h1 class="art-title">How Many Hours to Study for the NCA Exam? The Evidence-Based Answer (2026)</h1>
+      <p class="answer-capsule">Most NCA candidates need 80–140 hours <a href="https://nca.legal/exams/information/" target="_blank" rel="noopener noreferrer" style="color:var(--g1);font-size:var(--sm,0.85rem);text-decoration:underline;text-decoration-color:rgba(201,168,76,.4);">Source: nca.legal</a> of focused preparation per subject. Administrative Law and Constitutional Law tend to require more time (100–140 hours) due to their unique Canadian frameworks. Professional Responsibility tends to require less (60–100 hours) because the Model Code structure is navigable with good notes.</p>
       <div class="art-meta">
         <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
         <span class="art-read" style="color:var(--dim);">·</span><span class="art-read">9 min read</span>
@@ -346,7 +361,20 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
     <div class="art-body" id="art-body">
       <p>The question every candidate asks. The answer nobody likes: <strong>It depends.</strong> But here is the baseline: <strong>100 hours per subject minimum</strong> for a comfortable pass. Less is possible. More is safer. <a href="/notes/" style="color:var(--g1);text-decoration:underline;text-decoration-color:rgba(201,168,76,.4);">Browse all NCA study notes, including answer templates and practice questions for every mandatory subject.</a></p>
-<h2>The 100-Hour Breakdown</h2>
+
+      <h3>Recommended Study Hours by NCA Subject</h3>
+      <table class="comparison-table">
+        <thead><tr><th>Subject</th><th>Minimum</th><th>Typical</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Administrative Law</td><td>80 hrs</td><td>100–140 hrs</td><td>Vavilov framework is entirely new for most candidates</td></tr>
+          <tr><td>Constitutional Law</td><td>80 hrs</td><td>100–140 hrs</td><td>Charter analysis has no direct equivalent in most jurisdictions</td></tr>
+          <tr><td>Criminal Law</td><td>60 hrs</td><td>80–120 hrs</td><td>Conceptually familiar but Canadian-specific defences and Charter rights differ</td></tr>
+          <tr><td>Foundations of Canadian Law</td><td>80 hrs</td><td>100–140 hrs</td><td>Bijural system and Indigenous law concepts are new for all international candidates</td></tr>
+          <tr><td>Professional Responsibility</td><td>50 hrs</td><td>60–100 hrs</td><td>Model Code structure is navigable with good notes</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:var(--sm);color:var(--dim);font-family:var(--fb);">"Hours" = focused study time building and practising answer templates — not passive reading.</p>
+      <h2>How many hours should you study for each NCA subject?</h2>
 <p><strong>Core study:</strong> 60 hours</p>
 <ul>
 <li>Reading condensed notes: 20 hours</li>
@@ -386,7 +414,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <strong>If total 80–100:</strong> Manageable with efficient materials.
 <strong>If total 100–120:</strong> Comfortable zone.
 <strong>If total &gt; 120:</strong> Excellent. Deepen into secondary topics.</p>
-<h2>Quality vs. Quantity</h2>
+<h2>Is it better to study more hours or more strategically?</h2>
 <p>100 hours of passive reading ≠ 100 hours of application practice.</p>
 <p><strong>Efficiency ranking (best to worst):</strong></p>
 <ol>

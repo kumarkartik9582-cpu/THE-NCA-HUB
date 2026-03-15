@@ -165,6 +165,17 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5);}
 .wa-float svg{width:28px;height:28px;fill:#fff;}
 @media(min-width:960px){.wa-float{display:none;}}
+
+/* Visible breadcrumb nav */
+.bc-nav{padding:16px 0 4px;}
+.bc-nav .w{padding:0 72px;}
+@media(max-width:640px){.bc-nav .w{padding:0 24px;}}
+.bc-ol{display:flex;align-items:center;gap:8px;list-style:none;padding:0;margin:0;font-size:var(--nano,.65rem);font-family:var(--fb);flex-wrap:wrap;letter-spacing:.12em;text-transform:uppercase;}
+.bc-ol a{color:var(--dim);text-decoration:none;transition:color .3s;}
+.bc-ol a:hover{color:var(--g1);}
+.bc-ol .bc-sep{color:var(--dim);}
+.bc-ol .bc-cur{color:var(--fog);}
+
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 <!-- Google Analytics GA4 -->
@@ -208,6 +219,18 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <a href="https://www.thencahub.com/#readiness" class="nc"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
+<nav class="bc-nav" aria-label="Breadcrumb">
+  <div class="w">
+    <ol class="bc-ol">
+      <li><a href="/">Home</a></li>
+      <li class="bc-sep" aria-hidden="true">›</li>
+      <li><span class="bc-cur">Country Guides</span></li>
+      <li class="bc-sep" aria-hidden="true">›</li>
+      <li><span class="bc-cur">Pakistani Lawyers</span></li>
+    </ol>
+  </div>
+</nav>
+
 <section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:70vh;display:flex;align-items:center;padding:160px 0 120px;position:relative;z-index:1;" aria-label="Introduction">
   <div class="w" style="max-width:1300px;">
     <div style="max-width:900px;">
@@ -315,7 +338,8 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div style="max-width:800px;">
       <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
         <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">How many NCA exams do Pakistani lawyers typically need?</p>
-        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Pakistani lawyers are typically assigned 5 to 7 NCA challenge exams. All five mandatory subjects are usually required. Some candidates are also assigned Property Law and/or Contracts depending on their specific transcripts and syllabi.</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Pakistani lawyers are typically assigned 5 to 7 NCA challenge exams. All five mandatory subjects are usually required.
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin:24px 0;">For Pakistani lawyers, the most significant adjustment is <strong>Administrative Law</strong> — Canada's Vavilov standard of review (2019 SCC 65) has no equivalent in Pakistani administrative law, which relies on Wednesbury unreasonableness and natural justice principles derived from English common law. <strong>Constitutional Law</strong> requires learning the Canadian Charter's s.1 Oakes test for rights limitations — structurally different from the fundamental rights framework under Pakistan's Constitution. Pakistan's common law heritage provides a foundation, but the Charter-based criminal procedure rights (ss.7–14) and the Federation Model Code of Professional Conduct are areas requiring dedicated preparation.</p> Some candidates are also assigned Property Law and/or Contracts depending on their specific transcripts and syllabi.</p>
       </div>
       <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
         <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Is a Pakistan Bar Council licence recognised by the NCA?</p>
