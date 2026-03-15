@@ -158,13 +158,7 @@ nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padd
 .nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);padding:11px 26px;position:relative;overflow:hidden;display:inline-block;transition:transform .3s var(--expo);margin-left:48px;background:linear-gradient(135deg,var(--g1) 0%,var(--g0) 50%,var(--g1) 100%);background-size:200% 200%;animation:shimmer 8s ease infinite}
 .nc::before{content:'';position:absolute;inset:0;background:var(--g0);transform:translateX(-101%);transition:transform .4s var(--expo)}.nc:hover{transform:translateY(-2px)}.nc:hover::before{transform:translateX(0)}.nc span{position:relative;z-index:1}
 @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0;cursor:pointer}
-.nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
-@media(max-width:960px){.nav-links,.nc{display:none}.nh{display:flex}nav,nav.sc{padding:18px 24px}nav{top:28px}}
-.mob{position:fixed;inset:0;background:var(--void);z-index:870;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--expo)}
-.mob.op{clip-path:inset(0 0 0% 0)}
-.mob a{font-family:var(--fd);font-size:2.8rem;font-weight:400;font-style:italic;color:var(--cream);transition:color .3s}.mob a:hover{color:var(--g1)}
-.mob-x{position:absolute;top:22px;right:24px;font-size:1.1rem;color:var(--fog);background:none;border:none;padding:8px;cursor:pointer}
+@media(max-width:960px){.nav-links,.nc{display:none}nav,nav.sc{padding:18px 24px}nav{top:28px}}
 footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 52px;position:relative;z-index:1}
 .ftg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
 @media(max-width:860px){.ftg{grid-template-columns:1fr 1fr}}
@@ -186,6 +180,50 @@ body{cursor:none;}
 @media(max-width:768px){.w{padding:0 24px!important}section{padding:80px 0!important}}
 /* WIDTH CONTAINER */
 .w{max-width:860px;margin:0 auto;padding:0 64px}
+
+.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:20px;z-index:9200;flex-shrink:0;}
+@media(max-width:960px){.nh{display:flex;}}
+.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s ease,width .4s cubic-bezier(.16,1,.3,1),background .3s ease;}
+.nh span:nth-child(2){width:16px;}
+.nh.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg);width:24px;background:var(--g1);}
+.nh.active span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nh.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);width:24px;background:var(--g1);}
+/* ═══ MOBILE MENU OVERLAY ═══ */
+.mob-overlay{position:fixed;inset:0;z-index:9100;pointer-events:none;overflow:hidden;}
+.mob-ink{position:absolute;inset:0;background:rgba(2,2,4,.97);clip-path:circle(0% at calc(100% - 44px) 44px);transition:clip-path .7s cubic-bezier(.16,1,.3,1);will-change:clip-path;}
+.mob-overlay.open .mob-ink{clip-path:circle(150% at calc(100% - 44px) 44px);}
+.mob-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1) .3s;}
+.mob-overlay.open .mob-line{transform:scaleX(1);}
+.mob-glow{position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 60%);border-radius:50%;opacity:0;transition:opacity .8s ease .2s;pointer-events:none;}
+.mob-overlay.open .mob-glow{opacity:1;}
+.mob-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:80px 48px 48px;opacity:0;transition:opacity .2s ease;overflow-y:auto;}
+.mob-overlay.open .mob-content{opacity:1;transition:opacity .3s ease .35s;pointer-events:all;}
+.mob-item{position:relative;overflow:hidden;border-bottom:1px solid rgba(201,168,76,.07);}
+.mob-item:last-of-type{border-bottom:none;}
+.mob-link{display:flex;align-items:center;justify-content:space-between;padding:18px 0;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;letter-spacing:-.01em;transform:translateY(40px);opacity:0;transition:color .3s ease,transform .6s cubic-bezier(.16,1,.3,1),opacity .6s ease;cursor:pointer;background:none;border:none;width:100%;text-align:left;}
+.mob-link::after{content:'→';font-family:var(--fb);font-size:.9rem;color:rgba(201,168,76,0);transition:color .3s,transform .3s;transform:translateX(-8px);}
+.mob-link:hover{color:var(--cream);}
+.mob-link:hover::after{color:var(--g1);transform:translateX(0);}
+.mob-overlay.open .mob-link{transform:translateY(0);opacity:1;}
+.mob-overlay.open .mob-item:nth-child(1) .mob-link{transition-delay:.38s;}
+.mob-overlay.open .mob-item:nth-child(2) .mob-link{transition-delay:.44s;}
+.mob-overlay.open .mob-item:nth-child(3) .mob-link{transition-delay:.50s;}
+.mob-overlay.open .mob-item:nth-child(4) .mob-link{transition-delay:.56s;}
+.mob-overlay.open .mob-item:nth-child(5) .mob-link{transition-delay:.62s;}
+.mob-overlay.open .mob-item:nth-child(6) .mob-link{transition-delay:.68s;}
+.mob-overlay.open .mob-item:nth-child(7) .mob-link{transition-delay:.74s;}
+.mob-overlay.open .mob-item:nth-child(8) .mob-link{transition-delay:.80s;}
+.mob-cta{display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:16px 40px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transform:translateY(30px);opacity:0;transition:transform .6s cubic-bezier(.16,1,.3,1) .86s,opacity .6s ease .86s,background .3s;align-self:flex-start;}
+.mob-cta:hover{background:var(--g0);}
+.mob-overlay.open .mob-cta{transform:translateY(0);opacity:1;}
+.mob-utils{display:flex;gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(201,168,76,.07);flex-wrap:wrap;transform:translateY(20px);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1) .9s,opacity .5s ease .9s;}
+.mob-overlay.open .mob-utils{transform:translateY(0);opacity:1;}
+.mob-utils a{font-size:var(--sm);color:var(--dim);text-decoration:none;font-family:var(--fb);transition:color .3s;letter-spacing:.04em;}
+.mob-utils a:hover{color:var(--g1);}
+.mob-deco{position:absolute;bottom:40px;right:48px;font-family:var(--fd);font-size:clamp(4rem,10vw,7rem);font-weight:300;color:rgba(201,168,76,.04);line-height:1;pointer-events:none;user-select:none;transform:translateY(20px);opacity:0;transition:transform .8s ease .5s,opacity .8s ease .5s;}
+.mob-overlay.open .mob-deco{transform:translateY(0);opacity:1;}
+.mob-counter{position:absolute;left:0;top:50%;transform:translateY(-50%);font-size:var(--nano);letter-spacing:.2em;color:rgba(201,168,76,.3);font-family:var(--fb);opacity:0;transition:opacity .2s;pointer-events:none;}
+.mob-item:hover .mob-counter{opacity:1;}
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 <!-- Google Analytics GA4 -->
@@ -219,19 +257,6 @@ body{cursor:none;}
   <a href="https://www.thencahub.com/#readiness" class="nc"><span>Get My Score</span></a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob" id="mob" role="dialog" aria-label="Navigation menu">
-  <button class="mob-x" id="mobx" aria-label="Close menu">✕</button>
-  <a href="https://www.thencahub.com/#method" class="mob-link">Method</a>
-  <a href="https://www.thencahub.com/#story" class="mob-link">Story</a>
-  <a href="https://www.thencahub.com/#pods" class="mob-link">Pods</a>
-  <a href="https://www.thencahub.com/#subjects" class="mob-link">Subjects</a>
-  <a href="https://www.thencahub.com/#pricing" class="mob-link">Pricing</a>
-  <a href="https://www.thencahub.com/#sample" class="mob-link">Free Chapter</a>
-  <a href="/blog/" class="mob-link">Articles</a>
-  <a href="https://payhip.com/THENCAHUB" class="mob-link" style="color:var(--g1);font-weight:600" target="_blank" rel="noopener">Shop Now</a>
-  <a href="https://www.thencahub.com/#readiness" class="mob-link" style="margin-top:16px;color:var(--g1);font-weight:600"><span>Get My Readiness Score</span></a>
-</div>
-
 <section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:60vh;display:flex;align-items:center;padding:160px 0 100px;position:relative;z-index:1;">
   <div class="w">
     <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">NCA Cost · 2026 Calculator</p>
@@ -567,13 +592,41 @@ recalc();
 
 /* MOBILE MENU */
 (function(){
-  var NH=document.getElementById('nh'),MOB=document.getElementById('mob'),MOBX=document.getElementById('mobx');
-  if(!NH||!MOB)return;
-  function openMenu(){MOB.classList.add('op');NH.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
-  function closeMenu(){MOB.classList.remove('op');NH.setAttribute('aria-expanded','false');document.body.style.overflow='';}
-  NH.addEventListener('click',openMenu);
-  if(MOBX)MOBX.addEventListener('click',closeMenu);
-  document.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',closeMenu);});
+  var BTN=document.getElementById('nh');
+  var OVERLAY=document.getElementById('mob-overlay');
+  if(!BTN||!OVERLAY)return;
+  var isOpen=false;
+  function openMenu(){isOpen=true;OVERLAY.classList.add('open');OVERLAY.setAttribute('aria-hidden','false');BTN.classList.add('active');BTN.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';if(navigator.vibrate)navigator.vibrate(10);}
+  function closeMenu(){isOpen=false;OVERLAY.classList.remove('open');OVERLAY.setAttribute('aria-hidden','true');BTN.classList.remove('active');BTN.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  BTN.addEventListener('click',function(){isOpen?closeMenu():openMenu();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen)closeMenu();});
+  OVERLAY.querySelectorAll('.mob-link').forEach(function(a){
+    a.addEventListener('click',function(){var href=a.getAttribute('href')||'';if(!href.startsWith('http'))closeMenu();else setTimeout(closeMenu,100);});
+  });
+  OVERLAY.addEventListener('click',function(e){if(e.target===OVERLAY||e.target.classList.contains('mob-ink'))closeMenu();});
+  OVERLAY.querySelectorAll('.mob-link').forEach(function(link){
+    link.addEventListener('mousemove',function(e){var rect=link.getBoundingClientRect();var x=((e.clientX-rect.left)/rect.width-.5)*8;var y=((e.clientY-rect.top)/rect.height-.5)*4;link.style.transform='translate('+x+'px,'+y+'px)';});
+    link.addEventListener('mouseleave',function(){link.style.transform='';});
+  });
+})();
+/* MOBILE MENU PARTICLES */
+(function(){
+  var canvas=document.getElementById('mob-particles');
+  var overlay=document.getElementById('mob-overlay');
+  if(!canvas||!overlay)return;
+  var ctx=canvas.getContext('2d');
+  var particles=[];
+  var animId;
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  function Particle(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*1.5+.3;this.speedX=(Math.random()-.5)*.4;this.speedY=(Math.random()-.5)*.4;this.opacity=Math.random()*.5+.1;this.gold=Math.random()>.7;}
+  Particle.prototype.update=function(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0)this.x=canvas.width;if(this.x>canvas.width)this.x=0;if(this.y<0)this.y=canvas.height;if(this.y>canvas.height)this.y=0;};
+  Particle.prototype.draw=function(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle=this.gold?'rgba(201,168,76,'+this.opacity+')':'rgba(237,229,206,'+(this.opacity*.3)+')';ctx.fill();};
+  for(var i=0;i<60;i++)particles.push(new Particle());
+  function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(function(p){p.update();p.draw();});animId=requestAnimationFrame(animate);}
+  var observer=new MutationObserver(function(){if(overlay.classList.contains('open')){animate();}else{cancelAnimationFrame(animId);ctx.clearRect(0,0,canvas.width,canvas.height);}});
+  observer.observe(overlay,{attributes:true,attributeFilter:['class']});
 })();
 
 /* NAV SCROLL */
@@ -608,5 +661,53 @@ recalc();
   <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('ck','1')" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept</button>
 </div>
 <script>if(!localStorage.getItem('ck'))document.getElementById('cookie-banner').style.display='block';</script>
+
+<!-- ═══ PREMIUM MOBILE MENU ═══ -->
+<div class="mob-overlay" id="mob-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
+  <div class="mob-ink" id="mob-ink"></div>
+  <div class="mob-line"></div>
+  <div class="mob-glow"></div>
+  <canvas id="mob-particles" style="position:absolute;inset:0;pointer-events:none;opacity:.4;"></canvas>
+  <div class="mob-deco" aria-hidden="true">NCA</div>
+  <div class="mob-content">
+    <nav aria-label="Mobile navigation">
+      <div class="mob-item">
+        <span class="mob-counter">01</span>
+        <a href="https://www.thencahub.com/#method" class="mob-link">Method</a>
+      </div>
+      <div class="mob-item">
+        <span class="mob-counter">02</span>
+        <a href="https://www.thencahub.com/#subjects" class="mob-link">Subjects</a>
+      </div>
+      <div class="mob-item">
+        <span class="mob-counter">03</span>
+        <a href="https://www.thencahub.com/notes/" class="mob-link" style="color:var(--g1);">Notes</a>
+      </div>
+      <div class="mob-item">
+        <span class="mob-counter">04</span>
+        <a href="https://www.thencahub.com/#pricing" class="mob-link">Pricing</a>
+      </div>
+      <div class="mob-item">
+        <span class="mob-counter">05</span>
+        <a href="https://www.thencahub.com/blog/" class="mob-link">Articles</a>
+      </div>
+      <div class="mob-item">
+        <span class="mob-counter">06</span>
+        <a href="https://www.thencahub.com/#sample" class="mob-link">Free Chapter</a>
+      </div>
+      <div class="mob-item">
+        <span class="mob-counter">07</span>
+        <a href="https://www.thencahub.com/nca-cost-calculator/" class="mob-link">Cost Calculator</a>
+      </div>
+    </nav>
+    <a href="https://payhip.com/THENCAHUB" class="mob-cta" target="_blank" rel="noopener">Get the Notes →</a>
+    <div class="mob-utils">
+      <a href="https://www.thencahub.com/nca-exam-dates-2026/">Exam Dates 2026</a>
+      <a href="https://www.thencahub.com/nca-for-indian-lawyers/">Indian Lawyers Guide</a>
+      <a href="https://www.thencahub.com/become-a-lawyer-in-ontario/">Qualify in Ontario</a>
+      <a href="https://www.thencahub.com/#readiness">Readiness Score</a>
+    </div>
+  </div>
+</div>
 </body>
 </html>
