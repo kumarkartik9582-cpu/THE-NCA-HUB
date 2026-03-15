@@ -179,12 +179,16 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 <!-- Google Analytics GA4 -->
+<!-- Google Analytics 4 — consent mode -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied', 'ad_storage': 'denied', 'wait_for_update': 500});
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
 <script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-CFFP8T95DZ');
+  gtag('js', new Date());
+  gtag('config', 'G-CFFP8T95DZ');
 </script>
 <!-- Microsoft Clarity — replace CLARITY_PROJECT_ID with your project ID from clarity.microsoft.com -->
 <!-- ACTIVATE: Remove these comment tags after adding your project ID -->
@@ -197,6 +201,26 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
 </script>
 -->
+<style id="search-overlay-css">
+#srch-btn{background:none;border:none;cursor:pointer;color:var(--fog);padding:6px;display:flex;align-items:center;transition:color .2s;margin-left:8px;}
+#srch-btn:hover{color:var(--cream);}
+#srch-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+#srch-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,8,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:80px 24px 24px;overflow-y:auto;}
+#srch-overlay.open{display:block;}
+#srch-box{max-width:640px;margin:0 auto;}
+#srch-wrap{position:relative;margin-bottom:24px;}
+#srch-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:var(--fb);font-size:1rem;padding:14px 48px 14px 18px;letter-spacing:.02em;outline:none;}
+#srch-input:focus{border-color:rgba(201,168,76,.5);}
+#srch-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--fog);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px;}
+#srch-results{list-style:none;margin:0;padding:0;}
+#srch-results li{border-bottom:1px solid rgba(255,255,255,.05);}
+#srch-results a{display:block;padding:14px 18px;text-decoration:none;transition:background .15s;}
+#srch-results a:hover,#srch-results a:focus{background:rgba(201,168,76,.07);}
+#srch-results .sr-title{display:block;font-size:.88rem;color:var(--cream);font-family:var(--fb);font-weight:600;margin-bottom:3px;}
+#srch-results .sr-desc{display:block;font-size:.75rem;color:var(--dim);line-height:1.5;}
+#srch-empty{text-align:center;color:var(--dim);font-size:.82rem;padding:32px;display:none;}
+#srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
+</style>
 </head>
 <body>
 <div class="grain"></div>
@@ -484,11 +508,35 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   });
 })();
 </script>
-<div id="cookie-banner" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9200;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
-  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin-bottom:14px">We use cookies to improve your experience. By continuing, you agree to our <a href="/privacy.html" style="color:var(--g1)">Privacy Policy</a>.</p>
-  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('ck','1')" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept</button>
+<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
+  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy/" style="color:var(--g1)">Privacy Policy</a>.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <button id="ck-necessary" style="background:transparent;color:var(--fog);border:1px solid rgba(201,168,76,.25);padding:9px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Necessary only</button>
+    <button id="ck-all" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept all</button>
+  </div>
 </div>
-<script>if(!localStorage.getItem('ck'))document.getElementById('cookie-banner').style.display='block';</script>
+<script>
+(function(){
+  var CONSENT_KEY = 'nca_cookie_consent';
+  var consent = localStorage.getItem(CONSENT_KEY);
+  var banner = document.getElementById('cookie-banner');
+  function hideBanner(){ if(banner) banner.style.display='none'; }
+  if(consent === 'all'){
+    if(typeof gtag === 'function') gtag('consent','update',{'analytics_storage':'granted'});
+    hideBanner(); return;
+  }
+  if(consent === 'necessary'){ hideBanner(); return; }
+  if(banner) banner.style.display='block';
+  document.getElementById('ck-necessary').addEventListener('click',function(){
+    localStorage.setItem(CONSENT_KEY,'necessary'); hideBanner();
+  });
+  document.getElementById('ck-all').addEventListener('click',function(){
+    localStorage.setItem(CONSENT_KEY,'all');
+    if(typeof gtag === 'function') gtag('consent','update',{'analytics_storage':'granted'});
+    hideBanner();
+  });
+})();
+</script>
 
 <!-- ═══ PREMIUM MOBILE MENU ═══ -->
 <div class="mob-overlay" id="mob-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
@@ -539,5 +587,77 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   </div>
 </div>
 <a href="https://wa.me/message/PLACEHOLDER" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" onclick="gtag('event','whatsapp_click',{'page':window.location.pathname});"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<!-- Site Search Overlay -->
+<div id="srch-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+  <div id="srch-box">
+    <div id="srch-wrap">
+      <input id="srch-input" type="search" placeholder="Search NCA Hub…" autocomplete="off" aria-label="Search">
+      <button id="srch-close" aria-label="Close search" onclick="closeSearch()">&#x2715;</button>
+    </div>
+    <ul id="srch-results" role="listbox"></ul>
+    <p id="srch-empty">No results found. Try different keywords.</p>
+    <p id="srch-hint">Press <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">/</kbd> to search · <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">ESC</kbd> to close</p>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('srch-overlay');
+  var input = document.getElementById('srch-input');
+  var resultsList = document.getElementById('srch-results');
+  var emptyMsg = document.getElementById('srch-empty');
+  var fuse, indexLoaded = false;
+
+  window.openSearch = function(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    input.focus();
+    loadIndex();
+  };
+  window.closeSearch = function(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    resultsList.innerHTML = '';
+    emptyMsg.style.display = 'none';
+    input.value = '';
+  };
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === '/' && !overlay.classList.contains('open') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA'){
+      e.preventDefault(); window.openSearch();
+    }
+    if(e.key === 'Escape' && overlay.classList.contains('open')){ window.closeSearch(); }
+  });
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) window.closeSearch(); });
+
+  function loadIndex(){
+    if(indexLoaded) return;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+    s.onload = function(){
+      fetch('/search-index.json').then(function(r){ return r.json(); }).then(function(data){
+        fuse = new Fuse(data, {keys:['title','desc','h1'],threshold:0.35,minMatchCharLength:2});
+        indexLoaded = true;
+        if(input.value) doSearch(input.value);
+      });
+    };
+    document.head.appendChild(s);
+  }
+
+  function doSearch(q){
+    if(!fuse){ return; }
+    var results = fuse.search(q, {limit:10});
+    resultsList.innerHTML = '';
+    emptyMsg.style.display = results.length ? 'none' : 'block';
+    results.forEach(function(r){
+      var item = r.item;
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="'+item.url+'"><span class="sr-title">'+item.title+'</span><span class="sr-desc">'+item.desc+'</span></a>';
+      resultsList.appendChild(li);
+    });
+  }
+
+  input.addEventListener('input', function(){ doSearch(this.value.trim()); });
+})();
+</script>
 </body>
 </html>

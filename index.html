@@ -71,7 +71,11 @@
     ]
   },
   "address": { "@type": "PostalAddress", "addressCountry": "CA" },
-  "sameAs": ["https://www.linkedin.com/company/thencahub"]
+  "foundingDate": "2025",
+  "sameAs": [
+    "https://www.linkedin.com/company/thencahub",
+    "https://payhip.com/THENCAHUB"
+  ]
 }
 </script>
 
@@ -1196,11 +1200,14 @@ body.golden-hour {
   }
 }
 </script>
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<!-- Google Analytics 4 — consent mode -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied', 'ad_storage': 'denied', 'wait_for_update': 500});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-CFFP8T95DZ');
 </script>
@@ -1215,6 +1222,26 @@ body.golden-hour {
     })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
 </script>
 -->
+<style id="search-overlay-css">
+#srch-btn{background:none;border:none;cursor:pointer;color:var(--fog);padding:6px;display:flex;align-items:center;transition:color .2s;margin-left:8px;}
+#srch-btn:hover{color:var(--cream);}
+#srch-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+#srch-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,8,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:80px 24px 24px;overflow-y:auto;}
+#srch-overlay.open{display:block;}
+#srch-box{max-width:640px;margin:0 auto;}
+#srch-wrap{position:relative;margin-bottom:24px;}
+#srch-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:var(--fb);font-size:1rem;padding:14px 48px 14px 18px;letter-spacing:.02em;outline:none;}
+#srch-input:focus{border-color:rgba(201,168,76,.5);}
+#srch-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--fog);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px;}
+#srch-results{list-style:none;margin:0;padding:0;}
+#srch-results li{border-bottom:1px solid rgba(255,255,255,.05);}
+#srch-results a{display:block;padding:14px 18px;text-decoration:none;transition:background .15s;}
+#srch-results a:hover,#srch-results a:focus{background:rgba(201,168,76,.07);}
+#srch-results .sr-title{display:block;font-size:.88rem;color:var(--cream);font-family:var(--fb);font-weight:600;margin-bottom:3px;}
+#srch-results .sr-desc{display:block;font-size:.75rem;color:var(--dim);line-height:1.5;}
+#srch-empty{text-align:center;color:var(--dim);font-size:.82rem;padding:32px;display:none;}
+#srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
+</style>
 </head>
 <body>
 <!-- AI Crawler Context — invisible to visitors, read by ChatGPT/Claude/Perplexity/Gemini -->
@@ -1483,6 +1510,10 @@ body.golden-hour {
 <div id="exam-countdown" style="display:none;margin-top:20px;text-align:center;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);padding:16px 24px;">
   <p id="countdown-text" style="font-size:var(--sm);color:var(--fog);font-family:var(--fb);line-height:1.7;"></p>
   <a href="/nca-exam-dates-2026/" style="font-size:var(--nano);color:var(--g1);font-family:var(--fb);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;">View full 2026 exam schedule &#x2192;</a>
+</div>
+<div id="score-followthrough" style="display:none;margin-top:28px;border-top:1px solid rgba(201,168,76,.12);padding-top:24px;">
+  <p id="sft-headline" style="font-family:var(--fd);font-size:1.05rem;color:var(--cream);margin-bottom:14px;"></p>
+  <div id="sft-links" style="display:flex;gap:12px;flex-wrap:wrap;"></div>
 </div>
       </div>
 
@@ -2272,7 +2303,7 @@ body.golden-hour {
   </div>
   <div class="fb2">
     <p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p>
-    <p class="fleg">© 2026 The NCA Hub. All rights reserved. All content is original work.</p>
+    <p class="fleg">© 2026 The NCA Hub. Founded 2025. All rights reserved. All content is original work.</p>
   </div>
   <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
 </footer>
@@ -2828,6 +2859,7 @@ function rqShowResults(){
 
   rqUpdateProgress(6);
   try{sessionStorage.setItem('ncahub_readiness_score',score);}catch(e){}
+  showFollowThrough(score, subjName);
   (function(){var rEl=document.getElementById('readiness');if(!rEl)return;if(typeof lenis!=='undefined'&&lenis){lenis.scrollTo(rEl,{offset:-80,duration:1.2});}else{window.scrollTo({top:rEl.offsetTop-80,behavior:'smooth'});}})();
 }
 
@@ -2863,6 +2895,57 @@ function getDaysToNextExam(subject){
   }
   window.showNCAShareButtons=showShareButtons;
 })();
+
+/* ── SCORE FOLLOW-THROUGH ── */
+function showFollowThrough(score, subject){
+  var el=document.getElementById('score-followthrough');
+  var headlineEl=document.getElementById('sft-headline');
+  var linksEl=document.getElementById('sft-links');
+  if(!el||!headlineEl||!linksEl) return;
+  var subjectSlugMap={
+    'Administrative Law':'/notes/administrative-law/',
+    'Constitutional Law':'/notes/constitutional-law/',
+    'Criminal Law':'/notes/criminal-law/',
+    'Foundations of Canadian Law':'/notes/foundations-of-canadian-law/',
+    'Professional Responsibility':'/notes/professional-responsibility/'
+  };
+  var noteUrl=subjectSlugMap[subject]||'/notes/';
+  var headline, links;
+  if(score>=70){
+    headline='You\'re nearly exam-ready — polish your execution and book your date.';
+    links=[
+      {href:noteUrl,label:'Review '+subject+' Notes'},
+      {href:'/nca-exam-dates-2026/',label:'View 2026 Exam Dates'},
+      {href:'/nca-prep-checklist/',label:'Final Prep Checklist'}
+    ];
+  } else if(score>=40){
+    headline='Close the gap — targeted notes + 2 weeks of timed practice = exam ready.';
+    links=[
+      {href:noteUrl,label:'Get '+subject+' Notes'},
+      {href:'/notes/complete-bundle/',label:'Complete Bundle (Save 30%)'},
+      {href:'/blog/article-e3-nca-study-hours/',label:'Study Hours Guide'}
+    ];
+  } else {
+    headline='Build the foundation first — the complete bundle covers everything you need.';
+    links=[
+      {href:'/notes/complete-bundle/',label:'Get Complete Bundle'},
+      {href:'/blog/article-a2-nca-exam-format/',label:'Understand the Exam Format'},
+      {href:'/nca-prep-checklist/',label:'NCA Prep Checklist'}
+    ];
+  }
+  headlineEl.textContent=headline;
+  linksEl.innerHTML='';
+  links.forEach(function(l){
+    var a=document.createElement('a');
+    a.href=l.href;
+    a.textContent=l.label+' →';
+    a.style.cssText='display:inline-block;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:9px 18px;font-family:var(--fb);font-size:.72rem;letter-spacing:.1em;text-decoration:none;text-transform:uppercase;transition:border-color .2s;';
+    a.addEventListener('mouseover',function(){this.style.borderColor='var(--g1)';});
+    a.addEventListener('mouseout',function(){this.style.borderColor='rgba(201,168,76,.2)';});
+    linksEl.appendChild(a);
+  });
+  el.style.display='block';
+}
 
 /* ── RESET QUIZ ── */
 function rqReset(){
@@ -3652,11 +3735,35 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 })();
 </script>
 
-<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
-  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin-bottom:14px">We use cookies to improve your experience. By continuing, you agree to our <a href="/privacy/" style="color:var(--g1)">Privacy Policy</a>.</p>
-  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('ck','1')" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept</button>
+<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
+  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy/" style="color:var(--g1)">Privacy Policy</a>.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <button id="ck-necessary" style="background:transparent;color:var(--fog);border:1px solid rgba(201,168,76,.25);padding:9px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Necessary only</button>
+    <button id="ck-all" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept all</button>
+  </div>
 </div>
-<script>if(!localStorage.getItem('ck'))document.getElementById('cookie-banner').style.display='block';</script>
+<script>
+(function(){
+  var CONSENT_KEY = 'nca_cookie_consent';
+  var consent = localStorage.getItem(CONSENT_KEY);
+  var banner = document.getElementById('cookie-banner');
+  function hideBanner(){ if(banner) banner.style.display='none'; }
+  if(consent === 'all'){
+    if(typeof gtag === 'function') gtag('consent','update',{'analytics_storage':'granted'});
+    hideBanner(); return;
+  }
+  if(consent === 'necessary'){ hideBanner(); return; }
+  if(banner) banner.style.display='block';
+  document.getElementById('ck-necessary').addEventListener('click',function(){
+    localStorage.setItem(CONSENT_KEY,'necessary'); hideBanner();
+  });
+  document.getElementById('ck-all').addEventListener('click',function(){
+    localStorage.setItem(CONSENT_KEY,'all');
+    if(typeof gtag === 'function') gtag('consent','update',{'analytics_storage':'granted'});
+    hideBanner();
+  });
+})();
+</script>
 
 <!-- ═══ PREMIUM MOBILE MENU ═══ -->
 <div class="mob-overlay" id="mob-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
@@ -3695,6 +3802,78 @@ if('serviceWorker' in navigator){
       .catch(function(err){ console.log('SW registration failed:',err); });
   });
 }
+</script>
+<!-- Site Search Overlay -->
+<div id="srch-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+  <div id="srch-box">
+    <div id="srch-wrap">
+      <input id="srch-input" type="search" placeholder="Search NCA Hub…" autocomplete="off" aria-label="Search">
+      <button id="srch-close" aria-label="Close search" onclick="closeSearch()">&#x2715;</button>
+    </div>
+    <ul id="srch-results" role="listbox"></ul>
+    <p id="srch-empty">No results found. Try different keywords.</p>
+    <p id="srch-hint">Press <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">/</kbd> to search · <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">ESC</kbd> to close</p>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('srch-overlay');
+  var input = document.getElementById('srch-input');
+  var resultsList = document.getElementById('srch-results');
+  var emptyMsg = document.getElementById('srch-empty');
+  var fuse, indexLoaded = false;
+
+  window.openSearch = function(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    input.focus();
+    loadIndex();
+  };
+  window.closeSearch = function(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    resultsList.innerHTML = '';
+    emptyMsg.style.display = 'none';
+    input.value = '';
+  };
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === '/' && !overlay.classList.contains('open') && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA'){
+      e.preventDefault(); window.openSearch();
+    }
+    if(e.key === 'Escape' && overlay.classList.contains('open')){ window.closeSearch(); }
+  });
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) window.closeSearch(); });
+
+  function loadIndex(){
+    if(indexLoaded) return;
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+    s.onload = function(){
+      fetch('/search-index.json').then(function(r){ return r.json(); }).then(function(data){
+        fuse = new Fuse(data, {keys:['title','desc','h1'],threshold:0.35,minMatchCharLength:2});
+        indexLoaded = true;
+        if(input.value) doSearch(input.value);
+      });
+    };
+    document.head.appendChild(s);
+  }
+
+  function doSearch(q){
+    if(!fuse){ return; }
+    var results = fuse.search(q, {limit:10});
+    resultsList.innerHTML = '';
+    emptyMsg.style.display = results.length ? 'none' : 'block';
+    results.forEach(function(r){
+      var item = r.item;
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="'+item.url+'"><span class="sr-title">'+item.title+'</span><span class="sr-desc">'+item.desc+'</span></a>';
+      resultsList.appendChild(li);
+    });
+  }
+
+  input.addEventListener('input', function(){ doSearch(this.value.trim()); });
+})();
 </script>
 </body>
 </html>

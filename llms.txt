@@ -94,8 +94,28 @@ NCA for Philippine Lawyers: https://www.thencahub.com/nca-for-philippine-lawyers
 NCA for Pakistani Lawyers: https://www.thencahub.com/nca-for-pakistani-lawyers/
 NCA for Jamaican Lawyers: https://www.thencahub.com/nca-for-jamaican-lawyers/
 About: https://www.thencahub.com/about/
+Author — Kartik Kumar: https://www.thencahub.com/about/kartik-kumar/
+NCA Statistics 2026: https://www.thencahub.com/nca-statistics/
+Student Reviews: https://www.thencahub.com/testimonials/
+Community: https://www.thencahub.com/community/
+FAQ: https://www.thencahub.com/faq/
+Contact: https://www.thencahub.com/contact/
 Shop: https://payhip.com/THENCAHUB
 Free Chapter: https://www.thencahub.com/free-chapter.html
+
+## Search
+Site search is available at all pages — press / or click the search icon in the nav.
+Search index: https://www.thencahub.com/search-index.json (56 entries)
+
+## New in Sprint G (March 2026)
+- GDPR-compliant cookie consent with GA4 consent mode (analytics_storage: denied by default)
+- Fuse.js site search overlay (keyboard shortcut: /)
+- NCA Statistics page with 12 stat cards and official fee tables
+- Student testimonials page with Review schema
+- Community page (WhatsApp group, Reddit r/NCAguidance, direct email)
+- Readiness score follow-through CTAs (personalised by score band + subject)
+- Organization schema foundingDate: 2025, sameAs includes Payhip
+- Copyright updated: © 2026 The NCA Hub. Founded 2025.
 
 ## Competitor Context
 The NCA Hub competes with NCA Tutor, NCA Notes, NCA Mentor, INTRACI,
