@@ -66,65 +66,14 @@ body{background:var(--void);color:var(--fog);font-family:var(--fb);line-height:1
 a{color:var(--g1);text-decoration:none;transition:color .3s}
 a:hover{color:var(--cream)}
 img{max-width:100%}
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:20px 64px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(rgba(2,2,4,.95),transparent)}
-@media(max-width:760px){nav{padding:16px 24px}}
-.nlog{font-family:var(--fd);font-size:1.15rem;color:var(--cream);letter-spacing:.06em}
-.nlinks{display:flex;gap:32px;list-style:none}
-@media(max-width:760px){.nlinks{display:none}}
-.nlinks a{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-.nlinks a:hover{color:var(--cream)}
-/* HERO */
-.hub-hero{min-height:60vh;display:flex;align-items:center;padding:120px 64px 80px;background:linear-gradient(160deg,var(--abyss) 0%,var(--void) 60%)}
-@media(max-width:760px){.hub-hero{padding:100px 24px 60px}}
-.hub-eyelet{font-size:var(--nano);letter-spacing:.35em;text-transform:uppercase;color:var(--g2);margin-bottom:20px;font-weight:600}
-.hub-h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3.8rem);font-weight:300;color:var(--cream);line-height:1.15;max-width:820px;margin-bottom:24px}
-.hub-sub{font-size:1rem;color:var(--fog);line-height:1.8;max-width:620px;margin-bottom:40px}
-.hub-btn{display:inline-block;padding:16px 44px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano);font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:transform .3s var(--expo)}
-.hub-btn:hover{transform:translateY(-2px);color:var(--void)}
-/* SECTIONS */
-.hub-sec{max-width:860px;margin:0 auto;padding:80px 64px}
-@media(max-width:760px){.hub-sec{padding:60px 24px}}
-.hub-sec-title{font-family:var(--fd);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.2}
-.hub-sec p{color:var(--fog);line-height:1.9;margin-bottom:20px}
-.hub-sec ul{color:var(--fog);line-height:1.9;padding-left:20px;margin-bottom:20px}
-.hub-sec li{margin-bottom:10px}
-/* SUBJECTS TABLE */
-.subj-table{width:100%;border-collapse:collapse;margin:32px 0;overflow-x:auto;display:block}
-.subj-table th{padding:14px 20px;text-align:left;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;font-weight:600;font-family:var(--fb);border-bottom:1px solid rgba(201,168,76,.15);color:var(--g1)}
-.subj-table td{padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);font-size:var(--body);vertical-align:top}
-.subj-table td:first-child{color:var(--cream);font-family:var(--fd);font-size:1rem}
-/* FAQ */
-.faq-item{border-top:1px solid rgba(201,168,76,.1);padding:24px 0}
-.faq-q{font-family:var(--fd);font-size:1.1rem;color:var(--cream);margin-bottom:12px;font-weight:400}
-.faq-a{color:var(--fog);line-height:1.8}
-/* CTA SECTION */
-.hub-cta-sec{background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);padding:80px 64px;text-align:center}
-@media(max-width:760px){.hub-cta-sec{padding:60px 24px}}
-.hub-cta-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);margin-bottom:16px;font-weight:600}
-.hub-cta-title{font-family:var(--fd);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:300;color:var(--cream);margin-bottom:16px;line-height:1.2}
-.hub-cta-sub{font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
-/* FOOTER */
-footer{background:var(--surf);border-top:1px solid rgba(201,168,76,.07);padding:60px 64px 40px}
-@media(max-width:760px){footer{padding:48px 24px 32px}}
-.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px}
-@media(max-width:760px){.ftg{grid-template-columns:1fr}}
-.flog{font-family:var(--fd);font-size:1.1rem;color:var(--cream);margin-bottom:12px}
-.ftag{font-size:var(--nano);color:var(--dim);line-height:1.6;max-width:280px}
-.fhead{font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:16px}
-.fls{list-style:none}
-.fls li{margin-bottom:10px}
-.fls a{font-size:var(--body);color:var(--dim)}
-.fls a:hover{color:var(--cream)}
-.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:24px;font-size:var(--nano);color:var(--dim)}
-
-
+.w{max-width:1300px;margin:0 auto;padding:0 72px}
 body{cursor:none}
 #cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
 #cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
 #cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
 #cr.h{width:78px;height:78px;border-color:var(--g1);background:rgba(201,168,76,.04)}#cr.h #cl{opacity:1}
 #cr.c{width:14px;height:14px;background:rgba(201,168,76,.18)}#cd.h{transform:translate(-50%,-50%) scale(0)}
+#spotlight{position:fixed;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:998;transform:translate(-50%,-50%);transition:opacity .3s;opacity:0;}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 #discovery-bar{position:fixed;top:0;left:0;right:0;z-index:9050;height:28px;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g0);font-weight:500}#discovery-bar span{color:var(--g1)}
 nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
@@ -159,11 +108,13 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .fcl{font-family:var(--fd);font-style:italic;font-size:.88rem;color:var(--fog);line-height:1.65}
 .fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}
 .f-disc{font-size:.62rem;color:rgba(107,98,87,.4);line-height:1.8;margin-top:24px;max-width:800px}
+@media(max-width:768px){.w{padding:0 24px!important}section{padding:80px 0!important}}
 </style>
 <link rel="apple-touch-icon" href="/favicon.svg">
 </head>
 <body>
 <div class="grain"></div>
+<div id="spotlight" aria-hidden="true"></div>
 <div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;·&nbsp; <span>Internationally qualified lawyers qualifying in Canada</span></div>
 <div id="cd" role="presentation"></div>
 <div id="cr" role="presentation"><span id="cl"></span></div>
@@ -195,77 +146,112 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   <a href="https://www.thencahub.com/#readiness" class="mob-link" style="margin-top:16px;color:var(--g1);font-weight:600"><span>Get My Readiness Score</span></a>
 </div>
 
-<div class="hub-hero">
-  <div>
-    <p class="hub-eyelet">Jamaican Lawyers · Canada Qualification Guide</p>
-    <h1 class="hub-h1">NCA for Jamaican-Qualified Lawyers: The Complete 2026 Guide</h1>
-    <p class="hub-sub">Jamaican lawyers are assessed as common law trained and typically assigned 4–6 NCA challenge exams. Here is your complete path to practising law in Canada.</p>
-    <a href="/notes/" class="hub-btn">Browse Study Notes →</a>
+<section style="background:var(--void);background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,168,76,.08) 0%,transparent 60%);min-height:70vh;display:flex;align-items:center;padding:160px 0 120px;position:relative;z-index:1;" aria-label="Introduction">
+  <div class="w" style="max-width:1300px;">
+    <div style="max-width:900px;">
+      <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">🇯🇲 Jamaican Lawyers · Canada Qualification Guide</p>
+      <h1 style="font-family:var(--fd);font-size:clamp(2.8rem,6vw,6rem);font-weight:300;color:var(--cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px;">NCA for Jamaican-Qualified Lawyers:<br><em style="font-style:italic;color:var(--g1);">The Complete 2026 Guide</em></h1>
+      <p style="font-size:var(--lead);color:var(--fog);max-width:680px;line-height:1.9;font-family:var(--fb);font-weight:300;margin-bottom:48px;">Jamaican lawyers are assessed as common law trained and typically assigned 4–6 NCA challenge exams. Here is your complete path to practising law in Canada.</p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Browse Study Notes →</a>
+        <a href="https://www.thencahub.com/#readiness" style="display:inline-flex;align-items:center;border:1px solid rgba(201,168,76,.25);color:var(--cream);padding:16px 32px;font-family:var(--fb);font-size:.82rem;letter-spacing:.08em;text-decoration:none;">Take Readiness Score</a>
+      </div>
+    </div>
   </div>
-</div>
-
-
-<section class="hub-sec">
-  <h2 class="hub-sec-title">What subjects do Jamaican lawyers need to write?</h2>
-  <p>Jamaican lawyers who qualified through the Norman Manley Law School and the Council of Legal Education are assessed as common law trained. Jamaica's legal system is based on English common law. The NCA typically assigns <strong>4 to 6 NCA challenge exams</strong>.</p>
-  <table class="subj-table">
-    <thead><tr><th>Subject</th><th>Notes for Jamaican Lawyers</th></tr></thead>
-    <tbody>
-      <tr><td>Administrative Law</td><td>Vavilov — significant differences from English/Jamaican review</td></tr>
-      <tr><td>Constitutional Law</td><td>Charter analysis differs from Jamaican Constitution</td></tr>
-      <tr><td>Criminal Law</td><td>Common law foundations shared; specific rules differ</td></tr>
-      <tr><td>Foundations of Canadian Law</td><td>Bijural system; statutory interpretation differences</td></tr>
-      <tr><td>Professional Responsibility</td><td>Federation Model Code — different from JBA rules</td></tr>
-    </tbody>
-  </table>
-  <p>Jamaican lawyers with strong common law training often find Criminal Law more familiar than candidates from civil law jurisdictions. Administrative Law and Foundations of Canadian Law require the most dedicated preparation.</p>
 </section>
 
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Jamaica to Canada — qualification path</h2>
-  <ul>
-    <li><strong>NCA assessment:</strong> Submit transcripts and syllabi. Processing: 8–16 weeks.</li>
-    <li><strong>Complete Indigenous Law competency</strong> (mandatory since March 2026).</li>
-    <li><strong>Write NCA challenge exams</strong> — January, April, June, or November 2026.</li>
-    <li><strong>Complete LRW if required.</strong></li>
-    <li><strong>Apply for COQ, then articling and bar exams.</strong></li>
-  </ul>
-  <p>Total timeline: <strong>2.5–4 years</strong> from NCA application to call — faster than many internationally trained lawyers given Jamaica's strong common law foundation.</p>
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Subjects Assigned</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">What subjects do Jamaican lawyers need to write?</h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Jamaican lawyers who qualified through the Norman Manley Law School and the Council of Legal Education are assessed as common law trained. Jamaica's legal system is based on English common law. The NCA typically assigns <strong>4 to 6 NCA challenge exams</strong>.</p>
+    <table style="width:100%;border-collapse:collapse;margin:40px 0;">
+      <thead><tr>
+        <th style="background:var(--dark);color:var(--cream);font-family:var(--fb);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;padding:16px 20px;text-align:left;border-bottom:1px solid rgba(201,168,76,.15);">Subject</th>
+        <th style="background:var(--dark);color:var(--cream);font-family:var(--fb);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;padding:16px 20px;text-align:left;border-bottom:1px solid rgba(201,168,76,.15);">Notes for Jamaican Lawyers</th>
+      </tr></thead>
+      <tbody>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Administrative Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Vavilov — significant differences from English/Jamaican review</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Constitutional Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Charter analysis differs from Jamaican Constitution</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Criminal Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Common law foundations shared; specific rules differ</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Foundations of Canadian Law</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Bijural system; statutory interpretation differences</td>
+        </tr>
+        <tr onmouseover="this.style.background='rgba(201,168,76,.03)'" onmouseout="this.style.background='transparent'">
+          <td style="color:var(--cream);font-family:var(--fd);font-size:1rem;padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Professional Responsibility</td>
+          <td style="color:var(--fog);font-family:var(--fb);font-size:var(--body);padding:14px 20px;border-bottom:1px solid rgba(201,168,76,.06);">Federation Model Code — different from JBA rules</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;">Jamaican lawyers with strong common law training often find Criminal Law more familiar than candidates from civil law jurisdictions. Administrative Law and Foundations of Canadian Law require the most dedicated preparation.</p>
+  </div>
 </section>
 
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Further reading</h2>
-  <ul>
-    <li><a href="/blog/article-e4-nca-process-timeline/">NCA process timeline 2026</a></li>
-    <li><a href="/blog/article-a2-nca-exam-format/">NCA exam format explained</a></li>
-    <li><a href="/blog/nca-exam-complete-guide/">NCA exams — the complete guide</a></li>
-  </ul>
+<section style="background:var(--deep);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Qualification Path</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">Jamaica to Canada — qualification path</h2>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>NCA assessment:</strong> Submit transcripts and syllabi. Processing: 8–16 weeks.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Complete Indigenous Law competency</strong> (mandatory since March 2026).</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Write NCA challenge exams</strong> — January, April, June, or November 2026.</li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Complete LRW if required.</strong></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><strong>Apply for COQ, then articling and bar exams.</strong></li>
+    </ul>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.9;font-family:var(--fb);font-weight:300;max-width:800px;margin-bottom:20px;margin-top:24px;">Total timeline: <strong>2.5–4 years</strong> from NCA application to call — faster than many internationally trained lawyers given Jamaica's strong common law foundation.</p>
+  </div>
 </section>
 
-
-<section class="hub-cta-sec">
-  <p class="hub-cta-eyelet">Ready to prepare?</p>
-  <h2 class="hub-cta-title">Get the notes used to pass all 5 NCA subjects — 4 cleared in under 3 months.</h2>
-  <p class="hub-cta-sub">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers preparing for NCA exams in Canada.</p>
-  <a href="/notes/" class="hub-btn">Browse All Notes →</a>
+<section style="background:var(--dark);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">Further Reading</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:28px;line-height:1.1;letter-spacing:-.01em;">Further reading</h2>
+    <ul style="list-style:none;padding:0;max-width:800px;">
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/article-e4-nca-process-timeline/">NCA process timeline 2026</a></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/article-a2-nca-exam-format/">NCA exam format explained</a></li>
+      <li style="padding:12px 0;border-bottom:1px solid rgba(201,168,76,.07);color:var(--fog);font-family:var(--fb);font-size:var(--body);line-height:1.7;"><a href="/blog/nca-exam-complete-guide/">NCA exams — the complete guide</a></li>
+    </ul>
+  </div>
 </section>
 
-<section class="hub-sec">
-  <h2 class="hub-sec-title">Frequently Asked Questions</h2>
+<section style="background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12);padding:100px 0;text-align:center;position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:20px;font-family:var(--fb);">Ready to prepare?</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:20px;line-height:1.1;">Get the notes used to pass all 5 NCA subjects<br><em style="font-style:italic;color:var(--g1);">4 cleared in under 3 months.</em></h2>
+    <p style="font-size:var(--body);color:var(--fog);line-height:1.7;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto;font-family:var(--fb);">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers preparing for NCA exams in Canada.</p>
+    <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">Browse All Notes →</a>
+  </div>
+</section>
 
-  <div class="faq-item">
-    <p class="faq-q">How many NCA exams do Jamaican lawyers typically need?</p>
-    <p class="faq-a">Jamaican lawyers are typically assigned 4 to 6 NCA challenge exams. Jamaica's strong common law tradition means some candidates receive partial credit for subjects like Criminal Law, but all five mandatory subjects are usually required in full.</p>
+<section style="background:var(--abyss);padding:100px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;">
+  <div class="w">
+    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;display:block;margin-bottom:16px;font-family:var(--fb);">FAQ</p>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;color:var(--cream);margin-bottom:48px;line-height:1.1;letter-spacing:-.01em;">Frequently Asked Questions</h2>
+    <div style="max-width:800px;">
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">How many NCA exams do Jamaican lawyers typically need?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Jamaican lawyers are typically assigned 4 to 6 NCA challenge exams. Jamaica's strong common law tradition means some candidates receive partial credit for subjects like Criminal Law, but all five mandatory subjects are usually required in full.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Is a Jamaican LLB (UWI or UCC) recognised by the NCA?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Yes. LLB degrees from UWI (University of the West Indies) and other Jamaican institutions are assessed by the NCA. The NCA will review your transcripts and syllabi and specify which challenge exams you must write.</p>
+      </div>
+      <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+        <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:12px;font-weight:400;">Which Canadian province is best for Jamaican lawyers?</p>
+        <p style="color:var(--fog);line-height:1.8;font-family:var(--fb);font-size:var(--body);">Ontario has the largest Caribbean community in Canada and the largest legal market. Many Jamaican lawyers choose to article in Ontario. British Columbia and Alberta are also common destinations.</p>
+      </div>
+    </div>
   </div>
-  <div class="faq-item">
-    <p class="faq-q">Is a Jamaican LLB (UWI or UCC) recognised by the NCA?</p>
-    <p class="faq-a">Yes. LLB degrees from UWI (University of the West Indies) and other Jamaican institutions are assessed by the NCA. The NCA will review your transcripts and syllabi and specify which challenge exams you must write.</p>
-  </div>
-  <div class="faq-item">
-    <p class="faq-q">Which Canadian province is best for Jamaican lawyers?</p>
-    <p class="faq-a">Ontario has the largest Caribbean community in Canada and the largest legal market. Many Jamaican lawyers choose to article in Ontario. British Columbia and Alberta are also common destinations.</p>
-  </div>
-
 </section>
 
 <footer>
@@ -360,6 +346,27 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   var nav=document.getElementById('nav');
   if(!nav)return;
   window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});
+})();
+
+/* SPOTLIGHT */
+(function(){
+  var sp=document.getElementById('spotlight');
+  if(!sp)return;
+  document.addEventListener('mousemove',function(e){sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';sp.style.opacity='1';},{passive:true});
+})();
+
+/* SCROLL REVEAL */
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:.1});
+  document.querySelectorAll('section h2,section p,section table').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(24px)';
+    el.style.transition='opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)';
+    obs.observe(el);
+  });
 })();
 </script>
 <div id="cookie-banner" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9200;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
