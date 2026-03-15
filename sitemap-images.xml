@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.thencahub.com/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>The NCA Hub — NCA Exam Preparation for Internationally Trained Lawyers</image:title>
+      <image:caption>Precision NCA study notes and exam preparation resources for the National Committee on Accreditation process in Canada.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/notes/administrative-law/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>NCA Administrative Law Notes — The NCA Hub</image:title>
+      <image:caption>Precision NCA Administrative Law notes covering Vavilov standard of review, Baker procedural fairness, and judicial review.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/notes/constitutional-law/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>NCA Constitutional Law Notes — The NCA Hub</image:title>
+      <image:caption>Precision NCA Constitutional Law notes covering Charter analysis, division of powers, and federalism.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/notes/criminal-law/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>NCA Criminal Law Notes — The NCA Hub</image:title>
+      <image:caption>Precision NCA Criminal Law notes covering actus reus, mens rea, defences, and Charter remedies.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/notes/foundations-of-canadian-law/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>NCA Foundations of Canadian Law Notes — The NCA Hub</image:title>
+      <image:caption>Precision NCA Foundations of Canadian Law notes covering sources of law, Indigenous law, and bijuralism.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/notes/professional-responsibility/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>NCA Professional Responsibility Notes — The NCA Hub</image:title>
+      <image:caption>Precision NCA Professional Responsibility notes covering duties, conflicts, confidentiality, and competence.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/notes/complete-bundle/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>NCA Complete Bundle — All 5 Mandatory Subject Notes | The NCA Hub</image:title>
+      <image:caption>Complete NCA notes bundle covering all 5 mandatory core subjects for internationally trained lawyers.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thencahub.com/blog/</loc>
+    <image:image>
+      <image:loc>https://www.thencahub.com/og-image.jpg</image:loc>
+      <image:title>Free NCA Exam Guides and Articles — The NCA Hub</image:title>
+      <image:caption>Free guides on NCA exam preparation for internationally trained lawyers qualifying in Canada.</image:caption>
+    </image:image>
+  </url>
+</urlset>
