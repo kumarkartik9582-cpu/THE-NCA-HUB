@@ -650,7 +650,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <div class="mob-item"><span class="mob-counter">06</span><a href="/#sample" class="mob-link">Free Chapter</a></div>
       <div class="mob-item"><span class="mob-counter">07</span><a href="/nca-cost-calculator/" class="mob-link">Cost Calculator</a></div>
     </nav>
-    <a href="https://payhip.com/THENCAHUB" class="mob-cta" target="_blank" rel="noopener">Get the Notes →</a>
+    <a href="https://payhip.com/THENCAHUB" class="mob-cta" target="_blank" rel="noopener">Get My Notes →</a>
     <div class="mob-utils">
       <a href="/nca-exam-dates-2026/">Exam Dates 2026</a>
       <a href="/nca-for-indian-lawyers/">Indian Lawyers Guide</a>
@@ -700,7 +700,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         <p class="art-notes-eyelet">Study Notes</p>
         <h3 class="art-notes-title">Notes built to clear every NCA subject.</h3>
         <p class="art-notes-sub">Precision study notes for all 5 NCA subjects — Administrative Law, Constitutional Law, Criminal Law, Foundations of Canadian Law, and Professional Responsibility. Built for internationally trained lawyers.</p>
-        <a href="/notes/" class="art-notes-btn">Browse All Notes →</a>
+        <a href="/notes/" class="art-notes-btn">Browse My Notes →</a>
       </div>
     </div>
   </article>
