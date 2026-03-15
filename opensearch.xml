@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>The NCA Hub</ShortName>
+  <Description>Search NCA exam preparation guides on The NCA Hub</Description>
+  <Tags>NCA exam preparation Canadian law internationally trained lawyers</Tags>
+  <Contact>hello@thencahub.com</Contact>
+  <Url type="text/html" method="get"
+       template="https://www.thencahub.com/blog/?q={searchTerms}"/>
+  <Image height="16" width="16" type="image/x-icon">https://www.thencahub.com/favicon.svg</Image>
+  <Language>en-CA</Language>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>

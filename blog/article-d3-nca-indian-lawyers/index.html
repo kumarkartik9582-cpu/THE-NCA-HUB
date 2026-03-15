@@ -375,6 +375,18 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .wa-float svg{width:28px;height:28px;fill:#fff;}
 @media(min-width:960px){.wa-float{display:none;}}
 @media(max-width:768px){.has-sticky-cta .wa-float{bottom:72px;}}
+
+/* GEO: Answer capsule — AI snippet extraction target */
+.answer-capsule{font-size:var(--lead,1.05rem);color:var(--cream);line-height:1.8;max-width:720px;margin-bottom:32px;font-family:var(--fb);font-weight:300;border-left:3px solid var(--g1);padding-left:20px;}
+
+
+/* Comparison tables — AI-resistant content */
+.comparison-table{width:100%;border-collapse:collapse;margin:32px 0;overflow-x:auto;display:block;}
+.comparison-table th{background:rgba(13,13,22,1);color:var(--cream);font-family:var(--fb);font-size:var(--nano,.65rem);letter-spacing:.18em;text-transform:uppercase;padding:14px 16px;text-align:left;border-bottom:2px solid rgba(201,168,76,.2);}
+.comparison-table td{color:var(--fog);font-family:var(--fb);font-size:var(--sm,.85rem);padding:12px 16px;border-bottom:1px solid rgba(201,168,76,.06);vertical-align:top;}
+.comparison-table tr:hover td{background:rgba(201,168,76,.03);}
+@media(max-width:768px){.comparison-table{font-size:.75rem;}}
+
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
@@ -408,12 +420,15 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   <article>
     <header class="art-hero">
       <div class="art-breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
         <a href="/blog/">Articles</a>
         <span aria-hidden="true">›</span>
         <span>Career Pathway</span>
       </div>
       <div class="art-cluster" aria-label="Category">Career Pathway</div>
       <h1 class="art-title">How Indian Lawyers Qualify in Canada: Complete NCA Guide 2026 (Written by an Indian Lawyer)</h1>
+      <p class="answer-capsule">Indian LLB graduates must apply to the NCA for an assessment before practising law in Canada. The NCA assigns the same 5 mandatory subjects to all candidates. Additional electives may be assigned based on your specific degree curriculum. India is a common law jurisdiction, which helps — but the Vavilov framework, Charter, and Model Code have no Indian equivalents.</p>
 <a href="/nca-for-indian-lawyers/" style="display:block;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-left:3px solid var(--g1);padding:14px 20px;margin-bottom:32px;font-size:.82rem;color:var(--cream);text-decoration:none;font-family:var(--fb)">📖 See the complete dedicated guide for Indian lawyers in Canada → Read the full hub page</a>
       <div class="art-meta">
         <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
@@ -431,7 +446,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p>I graduated from National Law University with a BA LLB (Hons) and enrolled with the Bar Council of Delhi. I never practised in India — after graduating, I moved to an LLM in International Commercial Law at the University of Bristol, then worked in the UK at DWF LLP, Eversheds Sutherland International LLP, and Keoghs. I then began the NCA process and founded The NCA Hub.</p>
       <p>This guide is for Indian-qualified lawyers considering or preparing for the NCA. It covers the specific challenges we face and the advantages we have.</p>
 
-      <h2>The Indian Lawyer's Advantage</h2>
+      <h2>What advantages do Indian lawyers have in the NCA process?</h2>
       <p><strong>1. Common Law Foundation</strong><br>
       Indian law is fundamentally common law inherited from the British. Concepts like precedent, adversarial procedure, and statutory interpretation are familiar. The NCA tests Canadian common law, which is similar in structure.</p>
       <p><strong>2. English Language Proficiency</strong><br>
@@ -441,7 +456,19 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p><strong>4. UK Experience</strong><br>
       Many Indian lawyers work in London firms before Canada (as I did). UK common law experience is highly transferable to Canadian law, more so than civil law jurisdictions.</p>
 
-      <h2>The Indian Lawyer's Challenges</h2>
+      
+      <h3>Canadian Law vs Indian Law — Key NCA Exam Differences</h3>
+      <table class="comparison-table">
+        <thead><tr><th>Area</th><th>Canadian Law (NCA)</th><th>Indian Law</th></tr></thead>
+        <tbody>
+          <tr><td>Administrative Law</td><td>Vavilov standard of review (2019)</td><td>Wednesbury unreasonableness; no Vavilov equivalent</td></tr>
+          <tr><td>Constitutional rights</td><td>Charter of Rights, s.1 Oakes test</td><td>Fundamental rights, Articles 19–22 (different structure)</td></tr>
+          <tr><td>Professional Responsibility</td><td>CBA Federation Model Code</td><td>Bar Council of India Rules</td></tr>
+          <tr><td>Criminal procedure</td><td>Criminal Code + Charter ss.7–14</td><td>CrPC + IPC (different codification)</td></tr>
+          <tr><td>Statutory interpretation</td><td>Driedger modern principle</td><td>Mischief rule / Literal / Purposive</td></tr>
+        </tbody>
+      </table>
+      <h2>How does Canadian law differ from Indian law in the NCA?</h2>
       <p><strong>1. Constitutional Structure</strong><br>
       India has a written constitution with fundamental rights, but the Canadian federalism structure (division of powers, Charter) is different. The "pith and substance" test exists in both but applies differently.</p>
       <p><strong>2. Criminal Code vs. IPC</strong><br>
@@ -451,7 +478,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p><strong>4. Cold Weather</strong><br>
       Seriously. If you are coming from Delhi or Mumbai, Canadian winters (especially for exams in January/February) affect concentration. Prepare your exam room temperature accordingly.</p>
 
-      <h2>Subject-Specific Notes for Indian Lawyers</h2>
+      <h2>Which NCA subjects are most challenging for Indian lawyers?</h2>
       <p><strong>Administrative Law:</strong> Similar to Indian administrative law (writ jurisdiction, delegated legislation) but the Vavilov framework is new. Do not confuse with Indian "writs" procedure — learn Vavilov specifically.</p>
       <p><strong>Constitutional Law:</strong> The Charter is similar to Fundamental Rights in the Indian Constitution, but Section 1 "reasonable limits" is distinct. The Oakes test has no direct Indian equivalent.</p>
       <p><strong>Criminal Law:</strong> Actus reus/mens rea concepts transfer, but specific offences (theft, assault definitions) and the Criminal Code structure are different. Do not rely on IPC knowledge.</p>
