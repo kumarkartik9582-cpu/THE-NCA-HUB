@@ -1,531 +1,295 @@
 #!/usr/bin/env python3
-"""Comprehensive fix sprint for THE NCA HUB."""
-import re, os
+"""Complete Fix Sprint - All Issues"""
+import os, re, glob, json
 
-BASE = '/home/user/THE-NCA-HUB'
+ROOT = '/home/user/THE-NCA-HUB'
 
-# ── Shared content blocks ──────────────────────────────────────────────────────
+# Use string concatenation instead of f-strings for multi-line templates
 
-ROOT_CSS = """:root{--void:#020204;--abyss:#050508;--deep:#080810;--dark:#0D0D18;--surf:#121220;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--glow:rgba(201,168,76,.11);--glow3:rgba(201,168,76,.025);--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--td:clamp(4.5rem,11vw,10.5rem);--h1:clamp(3rem,6.5vw,6.5rem);--lead:1.08rem;--body:.93rem;--sm:.8rem;--nano:.57rem;--expo:cubic-bezier(.16,1,.3,1);}"""
-
-FONTS_SCRIPTS = """\
+def page_html(title, desc, canonical, schema_json, page_body, extra_css='', og_type='website'):
+    return (
+'''<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>''' + title + '''</title>
+<meta name="description" content="''' + desc + '''">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<link rel="canonical" href="''' + canonical + '''">
+<meta name="geo.region" content="CA">
+<link rel="alternate" hreflang="en-ca" href="''' + canonical + '''">
+<link rel="alternate" hreflang="en" href="''' + canonical + '''">
+<link rel="alternate" hreflang="x-default" href="''' + canonical + '''">
+<link rel="search" type="application/opensearchdescription+xml" title="The NCA Hub" href="/opensearch.xml">
+<meta property="og:type" content="''' + og_type + '''">
+<meta property="og:url" content="''' + canonical + '''">
+<meta property="og:title" content="''' + title + '''">
+<meta property="og:description" content="''' + desc + '''">
+<meta property="og:site_name" content="The NCA Hub">
+<meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="''' + title + '''">
+<meta name="twitter:description" content="''' + desc + '''">
+<meta name="twitter:image" content="https://www.thencahub.com/og-image.jpg">
+''' + schema_json + '''
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>"""
-
-APPLE_ICON = '<link rel="apple-touch-icon" href="/favicon.svg">'
-
-CURSOR_CSS = """\
-body{cursor:none}
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<!-- Google Analytics 4 — consent mode -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied', 'ad_storage': 'denied', 'wait_for_update': 500});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-CFFP8T95DZ');
+</script>
+<style>
+:root{--void:#020204;--abyss:#050508;--dark:#0D0D18;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:\'Cormorant Garamond\',Georgia,serif;--fb:\'Bricolage Grotesque\',\'Helvetica Neue\',sans-serif;--nano:.57rem;--sm:.8rem;--body:.93rem;--lead:1.08rem;--expo:cubic-bezier(.16,1,.3,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block;height:auto;}
+::selection{background:rgba(201,168,76,0.3);color:#fff}
 #cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
-#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
-#cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
-#cr.h{width:78px;height:78px;border-color:var(--g1);background:rgba(201,168,76,.04)}#cr.h #cl{opacity:1}
-#cr.c{width:14px;height:14px;background:rgba(201,168,76,.18)}#cd.h{transform:translate(-50%,-50%) scale(0)}"""
-
-GRAIN_DISC_CSS = """\
-.grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
-#discovery-bar{position:fixed;top:0;left:0;right:0;z-index:9050;height:28px;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g0);font-weight:500}#discovery-bar span{color:var(--g1)}"""
-
-NAV_CSS = """\
-nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
-nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1)}
-.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1}
-.nav-links{display:flex;gap:64px;margin-left:48px}
-.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;position:relative;transition:color .3s;overflow:hidden;padding-bottom:2px}
-.nav-links a:hover{color:var(--cream)}
-.nav-links a svg.nav-underline{position:absolute;bottom:-2px;left:0;width:100%;height:3px;overflow:visible;pointer-events:none}
-.nav-links a svg.nav-underline path{stroke:var(--g1);stroke-width:1;fill:none;stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset .5s var(--expo)}
-.nav-links a:hover svg.nav-underline path{stroke-dashoffset:0}
-.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);padding:11px 26px;position:relative;overflow:hidden;display:inline-block;transition:transform .3s var(--expo);margin-left:48px;background:linear-gradient(135deg,var(--g1) 0%,var(--g0) 50%,var(--g1) 100%);background-size:200% 200%;animation:shimmer 8s ease infinite}
-.nc::before{content:'';position:absolute;inset:0;background:var(--g0);transform:translateX(-101%);transition:transform .4s var(--expo)}.nc:hover{transform:translateY(-2px)}.nc:hover::before{transform:translateX(0)}.nc span{position:relative;z-index:1}
-@keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.nh{display:none;flex-direction:column;gap:5px;width:26px;background:none;border:none;padding:0;cursor:pointer}
-.nh span{display:block;height:1px;background:var(--cream);transition:transform .4s var(--expo),opacity .3s}
-@media(max-width:960px){.nav-links,.nc{display:none}.nh{display:flex}nav,nav.sc{padding:18px 24px}nav{top:28px}}
-.mob{position:fixed;inset:0;background:var(--void);z-index:870;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--expo)}
-.mob.op{clip-path:inset(0 0 0% 0)}
-.mob a{font-family:var(--fd);font-size:2.8rem;font-weight:400;font-style:italic;color:var(--cream);transition:color .3s}.mob a:hover{color:var(--g1)}
-.mob-x{position:absolute;top:22px;right:24px;font-size:1.1rem;color:var(--fog);background:none;border:none;padding:8px;cursor:pointer}"""
-
-FOOTER_CSS = """\
-footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 52px;position:relative;z-index:1}
-.ftg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-@media(max-width:860px){.ftg{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.ftg{grid-template-columns:1fr}}
-.flog{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
-.fct{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:22px}
-.fls{list-style:none;display:flex;flex-direction:column;gap:13px}
-.fls a{font-size:var(--sm);color:var(--dim);transition:color .3s}.fls a:hover{color:var(--cream)}
-.ftag{font-size:var(--sm);color:var(--dim);line-height:1.7;max-width:260px;margin-top:8px}
-.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:24px;display:flex;flex-direction:column;gap:8px}
-.fcl{font-family:var(--fd);font-style:italic;font-size:.88rem;color:var(--fog);line-height:1.65}
+#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .4s var(--expo),height .4s var(--expo),border-color .3s}
+#cr.h{width:64px;height:64px;border-color:var(--g1);}
+body:hover #cd{opacity:1}
+@media(max-width:960px){body{cursor:auto}}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'g\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'.75\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23g)\'/%3E%3C/svg%3E")}
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0),var(--g1),var(--g3));background-size:200% 100%;z-index:9100;width:0;transform-origin:left;transition:width .1s;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
+.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}
+.nav-links{display:flex;gap:44px}
+.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--cream)}
+.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;display:inline-block;transition:transform .3s var(--expo),background .3s;margin-left:20px}
+.nc:hover{transform:translateY(-2px);background:var(--g0)}
+@media(max-width:960px){.nav-links,.nc{display:none!important;}nav{padding:18px 24px}}
+#search-trigger{background:none;border:none;cursor:pointer;color:var(--fog);padding:8px;transition:color .3s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#search-trigger:hover{color:var(--g1);}
+.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:9200;flex-shrink:0;}
+@media(max-width:960px){.nh{display:flex;}}
+.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .4s ease,opacity .3s,background .3s;}
+.nh span:nth-child(2){width:16px;}
+.nh.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--g1);}
+.nh.open span:nth-child(2){opacity:0;}
+.nh.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--g1);}
+#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:9100;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto;}
+#mob-overlay.open{display:flex;}
+#mob-overlay a{display:block;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.07);transition:color .3s;}
+#mob-overlay a.mob-cta-link{color:var(--g1);}
+#mob-overlay a:hover{color:var(--cream);}
+.mob-shop-btn{display:inline-flex!important;align-items:center;margin-top:28px;background:var(--g1)!important;color:var(--void)!important;padding:14px 36px;font-family:var(--fb)!important;font-size:.82rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;align-self:flex-start;border:none!important;}
+#mob-close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--g1);font-size:1.3rem;cursor:pointer;padding:8px;z-index:1;}
+footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-top:0}
+@media(max-width:640px){footer{padding:60px 24px 40px}}
+.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:60px}
+@media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}
+.flog{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--g1);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.ftag{font-size:var(--sm);color:var(--dim);line-height:1.7;max-width:280px}
+.fct{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:20px}
+.fls{list-style:none}
+.fls li{margin-bottom:12px}
+.fls a{font-size:var(--sm);color:var(--fog);transition:color .3s}
+.fls a:hover{color:var(--cream)}
+.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.fcl{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--dim)}
 .fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}
-.f-disc{font-size:.62rem;color:rgba(107,98,87,.4);line-height:1.8;margin-top:24px;max-width:800px}"""
-
-NAV_HTML = """\
-<nav id="nav" role="navigation" aria-label="Main navigation">
-  <a href="https://www.thencahub.com/" class="nl" aria-label="The NCA Hub — home">THE NCA HUB</a>
+.f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;max-width:800px}
+.f-disc strong{color:rgba(107,98,87,.7)}
+.f-disc a{color:rgba(107,98,87,.6)}
+.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:7900;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s var(--expo),box-shadow .3s;text-decoration:none;}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5);}
+.wa-float svg{width:28px;height:28px;fill:#fff;}
+@media(min-width:960px){.wa-float{display:none;}}
+#srch-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,8,.92);backdrop-filter:blur(24px);padding:80px 24px 24px;overflow-y:auto;}
+#srch-overlay.open{display:block;}
+#srch-box{max-width:640px;margin:0 auto;}
+#srch-wrap{position:relative;margin-bottom:24px;}
+#srch-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:var(--fb);font-size:1rem;padding:14px 48px 14px 18px;letter-spacing:.02em;outline:none;}
+#srch-input:focus{border-color:rgba(201,168,76,.5);}
+#srch-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--fog);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px;}
+#srch-results{list-style:none;margin:0;padding:0;}
+#srch-results li{border-bottom:1px solid rgba(255,255,255,.05);}
+#srch-results a{display:block;padding:14px 18px;text-decoration:none;transition:background .15s;}
+#srch-results a:hover{background:rgba(201,168,76,.07);}
+#srch-results .sr-title{display:block;font-size:.88rem;color:var(--cream);font-family:var(--fb);font-weight:600;margin-bottom:3px;}
+#srch-results .sr-desc{display:block;font-size:.75rem;color:var(--dim);line-height:1.5;}
+#srch-empty{text-align:center;color:var(--dim);font-size:.82rem;padding:32px;display:none;}
+#srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
+''' + extra_css + '''
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div id="prog" aria-hidden="true"></div>
+<div id="cd" aria-hidden="true"></div>
+<div id="cr" aria-hidden="true"></div>
+<nav aria-label="Site navigation">
+  <a href="/" class="nl" aria-label="The NCA Hub home">The NCA <span style="color:var(--cream)">Hub</span></a>
   <div class="nav-links">
-    <a href="https://www.thencahub.com/#method">Method<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="https://www.thencahub.com/#story">Story<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="https://www.thencahub.com/#pods">Pods<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="https://www.thencahub.com/#subjects">Subjects<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="https://www.thencahub.com/#pricing">Pricing<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="https://www.thencahub.com/#sample">Free Chapter<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="/notes/" style="color:var(--g1);font-weight:600">Notes<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
-    <a href="/blog/">Articles<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
+    <a href="/#method">Method</a>
+    <a href="/#subjects">Subjects</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/blog/">Articles</a>
+    <a href="/#sample">Free Chapter</a>
   </div>
-  <a href="https://www.thencahub.com/#readiness" class="nc"><span>Get My Score</span></a>
+  <button id="search-trigger" onclick="if(typeof openSearch===\'function\')openSearch()" aria-label="Search" onmouseover="this.style.color=\'var(--g1)\'" onmouseout="this.style.color=\'var(--fog)\'">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+  </button>
+  <a href="/#readiness" class="nc">Get My Score</a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob" id="mob" role="dialog" aria-label="Navigation menu">
-  <button class="mob-x" id="mobx" aria-label="Close menu">✕</button>
-  <a href="https://www.thencahub.com/#method" class="mob-link">Method</a>
-  <a href="https://www.thencahub.com/#story" class="mob-link">Story</a>
-  <a href="https://www.thencahub.com/#pods" class="mob-link">Pods</a>
-  <a href="https://www.thencahub.com/#subjects" class="mob-link">Subjects</a>
-  <a href="https://www.thencahub.com/#pricing" class="mob-link">Pricing</a>
-  <a href="https://www.thencahub.com/#sample" class="mob-link">Free Chapter</a>
-  <a href="/blog/" class="mob-link">Articles</a>
-  <a href="https://payhip.com/THENCAHUB" class="mob-link" style="color:var(--g1);font-weight:600" target="_blank" rel="noopener">Shop Now</a>
-  <a href="https://www.thencahub.com/#readiness" class="mob-link" style="margin-top:16px;color:var(--g1);font-weight:600"><span>Get My Readiness Score</span></a>
-</div>"""
-
-GRAIN_DISC_HTML = """\
-<div class="grain"></div>
-<div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;·&nbsp; <span>Internationally qualified lawyers qualifying in Canada</span></div>
-<div id="cd" role="presentation"></div>
-<div id="cr" role="presentation"><span id="cl"></span></div>"""
-
-FOOTER_HTML = """\
+''' + page_body + '''
 <footer>
-  <div class="ftg">
-    <div>
-      <div class="flog">NCA <span style="color:var(--g1)">Hub</span></div>
-      <p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p>
+  <div style="max-width:1100px;margin:0 auto;padding:0 72px;">
+    <div class="ftg">
+      <div>
+        <div class="flog">The NCA Hub</div>
+        <p class="ftag">Strategic NCA exam preparation for internationally trained lawyers qualifying in Canada. Founded 2025.</p>
+      </div>
+      <div>
+        <div class="fct">Navigate</div>
+        <ul class="fls">
+          <li><a href="/#method">Method</a></li>
+          <li><a href="/notes/">Notes</a></li>
+          <li><a href="/blog/">Articles</a></li>
+          <li><a href="/nca-exam-dates-2026/">Exam Dates 2026</a></li>
+          <li><a href="/nca-cost-calculator/">Cost Calculator</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fct">Contact</div>
+        <ul class="fls">
+          <li><a href="mailto:hello@thencahub.com">hello@thencahub.com</a></li>
+          <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer">Shop Now</a></li>
+          <li><a href="/community/">Community</a></li>
+        </ul>
+        <div class="fct" style="margin-top:24px;">Legal</div>
+        <ul class="fls">
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/terms/">Terms of Use</a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <div class="fct">Navigate</div>
-      <ul class="fls">
-        <li><a href="https://www.thencahub.com/#method">The Method</a></li>
-        <li><a href="https://www.thencahub.com/#story">The Story</a></li>
-        <li><a href="https://www.thencahub.com/#pods">Performance Pods</a></li>
-        <li><a href="https://www.thencahub.com/#subjects">Subjects</a></li>
-        <li><a href="https://www.thencahub.com/#pricing">Pricing</a></li>
-        <li><a href="https://www.thencahub.com/#sample">Free Sample</a></li>
-      </ul>
+    <div class="fb2">
+      <p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p>
+      <p class="fleg">&copy; 2026 The NCA Hub. Founded 2025. All rights reserved.</p>
     </div>
-    <div>
-      <div class="fct">Candidate Guides</div>
-      <ul class="fls">
-        <li><a href="/nca-for-indian-lawyers/">Indian Lawyers</a></li>
-        <li><a href="/nca-for-uk-lawyers/">UK Lawyers</a></li>
-        <li><a href="/nca-for-nigerian-lawyers/">Nigerian Lawyers</a></li>
-        <li><a href="/nca-for-philippine-lawyers/">Philippine Lawyers</a></li>
-        <li><a href="/nca-for-pakistani-lawyers/">Pakistani Lawyers</a></li>
-        <li><a href="/nca-for-jamaican-lawyers/">Jamaican Lawyers</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="fct">Contact</div>
-      <ul class="fls">
-        <li><a href="mailto:hello@thencahub.com">hello@thencahub.com</a></li>
-        <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li>
-        <li><a href="https://www.thencahub.com/#sample">Get Free Chapter</a></li>
-        <li><a href="/privacy.html">Privacy Policy</a></li>
-        <li><a href="/terms.html">Terms of Use</a></li>
-        <li><a href="/refund.html">Refund Policy</a></li>
-      </ul>
-    </div>
+    <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource. Information accurate as of March 2026 — always verify current requirements at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer">nca.legal</a>.</p>
   </div>
-  <div class="fb2">
-    <p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p>
-    <p class="fleg">© 2026 The NCA Hub. All rights reserved. All content is original work.</p>
-  </div>
-  <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners.</p>
-</footer>"""
-
-BOTTOM_JS = """\
+</footer>
 <script>
-/* LENIS SMOOTH SCROLL */
 (function(){
-  try{
-    if(typeof Lenis!=='undefined'){
-      var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});
-      if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}
-      if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
-      document.documentElement.style.scrollBehavior='auto';
-    }
-  }catch(e){document.documentElement.style.scrollBehavior='smooth';}
+  var cd=document.getElementById('cd'),cr=document.getElementById('cr');
+  if(cd&&cr&&window.innerWidth>960){
+    var mx=0,my=0,cx=0,cy=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY},{passive:true});
+    document.querySelectorAll('a,button,[tabindex]').forEach(function(el){
+      el.addEventListener('mouseenter',function(){cr.classList.add('h')});
+      el.addEventListener('mouseleave',function(){cr.classList.remove('h')});
+    });
+    function loop(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;cd.style.left=mx+'px';cd.style.top=my+'px';cr.style.left=cx+'px';cr.style.top=cy+'px';requestAnimationFrame(loop);}
+    loop();
+  }
+  var p=document.getElementById('prog');
+  window.addEventListener('scroll',function(){var pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;if(p)p.style.width=Math.min(100,pct)+'%';},{passive:true});
 })();
-
-/* CUSTOM CURSOR */
-(function(){
-  var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');
-  if(!CD||!CR)return;
-  var cmx=-200,cmy=-200,crx=-200,cry=-200;
-  document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});
-  (function animC(){
-    crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;
-    CR.style.left=crx+'px';CR.style.top=cry+'px';
-    requestAnimationFrame(animC);
-  })();
-  document.querySelectorAll('[data-cur]').forEach(function(el){
-    el.addEventListener('mouseenter',function(){if(CL)CL.textContent=el.dataset.cur;CR.classList.add('h');CD.classList.add('h');});
-    el.addEventListener('mouseleave',function(){CR.classList.remove('h');CD.classList.remove('h');});
-  });
-})();
-
-/* MOBILE MENU */
-(function(){
-  var NH=document.getElementById('nh'),MOB=document.getElementById('mob'),MOBX=document.getElementById('mobx');
-  if(!NH||!MOB)return;
-  function openMenu(){MOB.classList.add('op');NH.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
-  function closeMenu(){MOB.classList.remove('op');NH.setAttribute('aria-expanded','false');document.body.style.overflow='';}
-  NH.addEventListener('click',openMenu);
-  if(MOBX)MOBX.addEventListener('click',closeMenu);
-  document.querySelectorAll('.mob-link').forEach(function(a){a.addEventListener('click',closeMenu);});
-})();
-
-/* NAV SCROLL */
-(function(){
-  var nav=document.getElementById('nav');
-  if(!nav)return;
-  window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});
-})();
-</script>"""
-
-COOKIE_BANNER = """\
-<div id="cookie-banner" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9200;background:rgba(5,5,8,.96);border:1px solid rgba(201,168,76,.18);padding:20px 28px;max-width:520px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
-  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin-bottom:14px">We use cookies to improve your experience. By continuing, you agree to our <a href="/privacy.html" style="color:var(--g1)">Privacy Policy</a>.</p>
-  <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('ck','1')" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept</button>
+</script>
+<div id="mob-overlay" aria-hidden="true" aria-label="Navigation" role="dialog">
+  <button id="mob-close" aria-label="Close navigation menu">&#x2715;</button>
+  <a href="https://www.thencahub.com/#method">Method</a>
+  <a href="https://www.thencahub.com/#subjects">Subjects</a>
+  <a href="https://www.thencahub.com/notes/" class="mob-cta-link">Notes</a>
+  <a href="https://www.thencahub.com/#pricing">Pricing</a>
+  <a href="https://www.thencahub.com/blog/">Articles</a>
+  <a href="https://www.thencahub.com/#sample">Free Chapter</a>
+  <a href="https://www.thencahub.com/nca-cost-calculator/">Cost Calculator</a>
+  <a href="https://www.thencahub.com/faq/">FAQ</a>
+  <a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now &rarr;</a>
 </div>
-<script>if(!localStorage.getItem('ck'))document.getElementById('cookie-banner').style.display='block';</script>"""
-
-CURSOR_JS_ONLY = """\
 <script>
-/* CUSTOM CURSOR */
 (function(){
-  var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');
-  if(!CD||!CR)return;
-  var cmx=-200,cmy=-200,crx=-200,cry=-200;
-  document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});
-  (function animC(){
-    crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;
-    CR.style.left=crx+'px';CR.style.top=cry+'px';
-    requestAnimationFrame(animC);
-  })();
-  document.querySelectorAll('[data-cur]').forEach(function(el){
-    el.addEventListener('mouseenter',function(){if(CL)CL.textContent=el.dataset.cur;CR.classList.add('h');CD.classList.add('h');});
-    el.addEventListener('mouseleave',function(){CR.classList.remove('h');CD.classList.remove('h');});
-  });
+  var btn=document.getElementById('nh');
+  var overlay=document.getElementById('mob-overlay');
+  var closeBtn=document.getElementById('mob-close');
+  if(!btn||!overlay){console.warn('Menu elements not found');return;}
+  function openMenu(){overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');btn.classList.add('open');btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+  function closeMenu(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  btn.addEventListener('click',function(e){e.stopPropagation();overlay.classList.contains('open')?closeMenu():openMenu();});
+  if(closeBtn)closeBtn.addEventListener('click',closeMenu);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  overlay.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))closeMenu();});});
+  overlay.addEventListener('click',function(e){if(e.target===overlay)closeMenu();});
 })();
-</script>"""
-
-
-# ── Helpers ────────────────────────────────────────────────────────────────────
-
-def read(path):
-    with open(path,'r',encoding='utf-8') as f: return f.read()
-
-def write(path, content):
-    with open(path,'w',encoding='utf-8') as f: f.write(content)
-    print(f'  ✓ wrote {path}')
-
-def patch_new_page(path):
-    """Full design-system patch for the 14 new pages."""
-    html = read(path)
-
-    # 1. Replace :root block (single-line pattern used in sprint)
-    html = re.sub(r':root\{[^}]+\}', ROOT_CSS, html, count=1)
-
-    # 2. Add apple-touch-icon before </head> if not present
-    if 'apple-touch-icon' not in html:
-        html = html.replace('</head>', APPLE_ICON + '\n</head>', 1)
-
-    # 3. Add Google Fonts + GSAP/Lenis before <style> (if fonts not present)
-    if 'fonts.googleapis.com' not in html:
-        html = re.sub(r'(<style\b)', FONTS_SCRIPTS + '\n\\1', html, count=1)
-    elif 'cdnjs.cloudflare.com/ajax/libs/gsap' not in html:
-        # Fonts present but not GSAP — replace entire font/script block
-        html = re.sub(
-            r'<link rel="preconnect".*?</script>\s*(?=<style)',
-            FONTS_SCRIPTS + '\n',
-            html, count=1, flags=re.DOTALL
-        )
-
-    # 4. Inject cursor CSS + grain/discovery CSS + nav CSS + footer CSS
-    #    (before the closing </style> of the main block)
-    extra_css = '\n' + CURSOR_CSS + '\n' + GRAIN_DISC_CSS + '\n' + NAV_CSS + '\n' + FOOTER_CSS + '\n'
-    # Find first </style> and inject before it
-    html = html.replace('</style>', extra_css + '</style>', 1)
-
-    # 5. Remove old nav-specific CSS classes that conflict
-    #    (the old pages use .nlog, .nlinks, .hub-* nav styles — leave them, they won't conflict)
-
-    # 6. After <body>, insert grain + discovery bar + cursor HTML
-    #    Make sure we don't insert twice
-    if 'id="discovery-bar"' not in html:
-        html = html.replace('<body>\n', '<body>\n' + GRAIN_DISC_HTML + '\n', 1)
-        if '<body>\n' + GRAIN_DISC_HTML not in html:
-            # Try without newline
-            html = html.replace('<body>', '<body>\n' + GRAIN_DISC_HTML, 1)
-
-    # 7. Replace old simple nav with full nav HTML
-    #    Pattern: <nav aria-label="Main navigation">...</nav>  (multiline)
-    if 'id="nav"' not in html:
-        html = re.sub(
-            r'<nav\s+aria-label="Main navigation">.*?</nav>',
-            NAV_HTML,
-            html, count=1, flags=re.DOTALL
-        )
-
-    # 8. Replace footer HTML
-    html = re.sub(
-        r'<footer>.*?</footer>',
-        FOOTER_HTML,
-        html, count=1, flags=re.DOTALL
-    )
-
-    # 9. Insert JS + cookie banner before </body>
-    if 'animC' not in html:
-        html = html.replace('</body>', BOTTOM_JS + '\n' + COOKIE_BANNER + '\n</body>', 1)
-    elif 'cookie-banner' not in html:
-        html = html.replace('</body>', COOKIE_BANNER + '\n</body>', 1)
-
-    write(path, html)
-
-
-# ── Fix 1: Patch all 14 new pages ─────────────────────────────────────────────
-
-NEW_PAGES = [
-    # 6 country hub pages
-    'nca-for-indian-lawyers/index.html',
-    'nca-for-uk-lawyers/index.html',
-    'nca-for-nigerian-lawyers/index.html',
-    'nca-for-philippine-lawyers/index.html',
-    'nca-for-pakistani-lawyers/index.html',
-    'nca-for-jamaican-lawyers/index.html',
-    # tools
-    'nca-cost-calculator/index.html',
-    'nca-exam-dates-2026/index.html',
-    # notes
-    'notes/index.html',
-    'notes/administrative-law/index.html',
-    'notes/constitutional-law/index.html',
-    'notes/criminal-law/index.html',
-    'notes/foundations-of-canadian-law/index.html',
-    'notes/professional-responsibility/index.html',
-]
-
-print('=== Fix 1: Patching 14 new pages ===')
-for rel in NEW_PAGES:
-    path = os.path.join(BASE, rel)
-    print(f'Patching {rel}...')
-    patch_new_page(path)
-
-# ── Fix 2: Cursor on blog/index.html ──────────────────────────────────────────
-
-print('\n=== Fix 2: Blog cursor JS ===')
-blog_path = os.path.join(BASE, 'blog/index.html')
-blog = read(blog_path)
-if 'animC' not in blog:
-    # Insert cursor JS before </body>
-    blog = blog.replace('</body>', CURSOR_JS_ONLY + '\n</body>', 1)
-    write(blog_path, blog)
-    print('  Added cursor JS to blog/index.html')
-else:
-    print('  Cursor JS already present in blog/index.html')
-
-# ── Fix 3A+3B: Update index.html footer + add country guide section ────────────
-
-print('\n=== Fix 3: index.html updates ===')
-idx_path = os.path.join(BASE, 'index.html')
-idx = read(idx_path)
-
-# 3A: Add Candidate Guides column to footer
-# The footer in index.html has 3 columns: brand, Navigate, Contact
-# We need to insert Candidate Guides between Navigate and Contact
-if 'Candidate Guides' not in idx:
-    candidate_col = """\n    <div>
-      <div class="fct">Candidate Guides</div>
-      <ul class="fls"><li><a href="/nca-for-indian-lawyers/">Indian Lawyers</a></li><li><a href="/nca-for-uk-lawyers/">UK Lawyers</a></li><li><a href="/nca-for-nigerian-lawyers/">Nigerian Lawyers</a></li><li><a href="/nca-for-philippine-lawyers/">Philippine Lawyers</a></li><li><a href="/nca-for-pakistani-lawyers/">Pakistani Lawyers</a></li><li><a href="/nca-for-jamaican-lawyers/">Jamaican Lawyers</a></li></ul>
-    </div>"""
-    # Insert before the Contact div
-    idx = idx.replace(
-        '\n    <div>\n      <div class="fct">Contact</div>',
-        candidate_col + '\n    <div>\n      <div class="fct">Contact</div>',
-        1
-    )
-    # Update grid to 4 columns
-    idx = idx.replace(
-        '.ftg{display:grid;grid-template-columns:1fr 1fr 1fr;',
-        '.ftg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;',
-        1
-    )
-    print('  Added Candidate Guides to footer')
-else:
-    print('  Candidate Guides already in footer')
-
-# 3B: Add "Your Country, Your Guide" section before #blog section
-COUNTRY_SECTION = """\
-<!-- COUNTRY GUIDES -->
-<section id="country-guides" aria-label="Candidate guides by country" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:140px 0;position:relative;z-index:1;">
-  <div class="w">
-    <div class="ey">By Country</div>
-    <h2 class="sh" style="margin-bottom:16px">Your Country, <em>Your Guide.</em></h2>
-    <p class="sl" style="margin-bottom:64px;max-width:560px">Every jurisdiction brings different gaps. Find the dedicated guide written for your specific legal background.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-      <a href="/nca-for-indian-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇮🇳</div>
-        <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Indian Lawyers</h3>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">Typically 5–7 NCA subjects</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read guide →</span>
-      </a>
-      <a href="/nca-for-uk-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇬🇧</div>
-        <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">UK Lawyers</h3>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">Typically 3–5 NCA subjects</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read guide →</span>
-      </a>
-      <a href="/nca-for-nigerian-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇳🇬</div>
-        <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Nigerian Lawyers</h3>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">Typically 5–7 NCA subjects</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read guide →</span>
-      </a>
-      <a href="/nca-for-philippine-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇵🇭</div>
-        <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Philippine Lawyers</h3>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">Typically 5–7 NCA subjects</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read guide →</span>
-      </a>
-      <a href="/nca-for-pakistani-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇵🇰</div>
-        <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Pakistani Lawyers</h3>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">Typically 5–7 NCA subjects</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read guide →</span>
-      </a>
-      <a href="/nca-for-jamaican-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇯🇲</div>
-        <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Jamaican Lawyers</h3>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">Typically 3–5 NCA subjects</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read guide →</span>
-      </a>
-    </div>
+</script>
+<a href="https://wa.me/447310803762" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" onclick="gtag(\'event\',\'whatsapp_click\',{\'page\':window.location.pathname});"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
+  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy/" style="color:var(--g1)">Privacy Policy</a>.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <button id="ck-necessary" style="background:transparent;color:var(--fog);border:1px solid rgba(201,168,76,.25);padding:9px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Necessary only</button>
+    <button id="ck-all" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept all</button>
   </div>
-</section>
-
-"""
-
-if 'id="country-guides"' not in idx:
-    idx = idx.replace('<section id="blog"', COUNTRY_SECTION + '<section id="blog"', 1)
-    print('  Added country guides section to index.html')
-else:
-    print('  Country guides section already in index.html')
-
-write(idx_path, idx)
-
-# ── Fix 3C: Add country guides subsection to blog/index.html ─────────────────
-
-print('\n=== Fix 3C: Country guides in blog ===')
-blog = read(blog_path)
-
-BLOG_COUNTRY_SECTION = """\
-
-<!-- COUNTRY GUIDES SUBSECTION -->
-<section style="padding:80px 0;border-top:1px solid rgba(201,168,76,.07)">
-  <div style="max-width:1200px;margin:0 auto;padding:0 72px">
-    <div style="font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:14px"><span style="width:28px;height:1px;background:var(--g1);display:inline-block"></span>By Country</div>
-    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,4vw,3rem);font-weight:300;color:var(--cream);margin-bottom:12px">Your Country, <em style="font-style:italic;color:var(--g1)">Your Guide.</em></h2>
-    <p style="font-size:var(--sm);color:var(--fog);margin-bottom:48px">Dedicated guides for each jurisdiction — subjects assigned, timeline, and exam strategy.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-      <a href="/nca-for-indian-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇮🇳</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Indian Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
-      <a href="/nca-for-uk-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇬🇧</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">UK Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
-      <a href="/nca-for-nigerian-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇳🇬</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Nigerian Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
-      <a href="/nca-for-philippine-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇵🇭</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Philippine Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
-      <a href="/nca-for-pakistani-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇵🇰</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Pakistani Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
-      <a href="/nca-for-jamaican-lawyers/" style="display:block;padding:24px;border:1px solid rgba(201,168,76,.1);text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.1)'"><span style="font-size:1.4rem">🇯🇲</span> <span style="font-family:var(--fd);font-size:1rem;color:var(--cream);margin-left:8px">Jamaican Lawyers</span><div style="font-size:var(--nano);color:var(--g1);margin-top:8px;letter-spacing:.15em;text-transform:uppercase">Read guide →</div></a>
+</div>
+<script>
+(function(){
+  var K='nca_cookie_consent',c=localStorage.getItem(K),b=document.getElementById('cookie-banner');
+  function h(){if(b)b.style.display='none';}
+  if(c==='all'){if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted'});h();return;}
+  if(c==='necessary'){h();return;}
+  if(b)b.style.display='block';
+  var bn=document.getElementById('ck-necessary'),ba=document.getElementById('ck-all');
+  if(bn)bn.addEventListener('click',function(){localStorage.setItem(K,'necessary');h();});
+  if(ba)ba.addEventListener('click',function(){localStorage.setItem(K,'all');if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'granted'});h();});
+})();
+</script>
+<div id="srch-overlay" role="dialog" aria-modal="true" aria-label="Site search">
+  <div id="srch-box">
+    <div id="srch-wrap">
+      <input id="srch-input" type="search" placeholder="Search NCA Hub..." autocomplete="off" aria-label="Search">
+      <button id="srch-close" aria-label="Close search" onclick="closeSearch()">&#x2715;</button>
     </div>
+    <ul id="srch-results" role="listbox"></ul>
+    <p id="srch-empty">No results found. Try different keywords.</p>
+    <p id="srch-hint">Press <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">/</kbd> to search</p>
   </div>
-</section>
-"""
-
-if 'nca-for-indian-lawyers' not in blog:
-    # Insert before </main> or before <footer>
-    if '<footer' in blog:
-        blog = blog.replace('<footer', BLOG_COUNTRY_SECTION + '<footer', 1)
-    else:
-        blog = blog.replace('</body>', BLOG_COUNTRY_SECTION + '</body>', 1)
-    write(blog_path, blog)
-    print('  Added country guides to blog/index.html')
-else:
-    write(blog_path, blog)
-    print('  Country guides already in blog/index.html')
-
-# ── Fix 3D: Internal link banners in 4 blog articles ─────────────────────────
-
-print('\n=== Fix 3D: Internal link banners in blog articles ===')
-
-ARTICLE_BANNERS = {
-    'blog/article-d3-nca-indian-lawyers/index.html': (
-        '/nca-for-indian-lawyers/',
-        'Indian lawyers in Canada'
-    ),
-    'blog/article-d4-nca-uk-based-lawyers/index.html': (
-        '/nca-for-uk-lawyers/',
-        'UK lawyers qualifying in Canada'
-    ),
-    'blog/article-f2-nca-nigerian-lawyers/index.html': (
-        '/nca-for-nigerian-lawyers/',
-        'Nigerian lawyers qualifying in Canada'
-    ),
-    'blog/article-f3-nca-philippine-lawyers/index.html': (
-        '/nca-for-philippine-lawyers/',
-        'Philippine lawyers qualifying in Canada'
-    ),
-}
-
-for rel, (url, label) in ARTICLE_BANNERS.items():
-    path = os.path.join(BASE, rel)
-    art = read(path)
-    banner = f'<a href="{url}" style="display:block;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-left:3px solid var(--g1);padding:14px 20px;margin-bottom:32px;font-size:.82rem;color:var(--cream);text-decoration:none;font-family:var(--fb)">📖 See the complete dedicated guide for {label} → Read the full hub page</a>'
-    if url not in art or 'border-left:3px solid var(--g1)' not in art:
-        # Insert after h1 closing tag
-        art = re.sub(r'(<h1[^>]*>.*?</h1>)', r'\1\n' + banner, art, count=1, flags=re.DOTALL)
-        write(path, art)
-        print(f'  Added banner to {rel}')
-    else:
-        print(f'  Banner already in {rel}')
-
-# ── Fix 4E: Remove target="_blank" from Notes "Get Notes" buttons ─────────────
-
-print('\n=== Fix 4E: Notes pages - same-tab links ===')
-notes_files = [
-    'notes/index.html',
-    'notes/administrative-law/index.html',
-    'notes/constitutional-law/index.html',
-    'notes/criminal-law/index.html',
-    'notes/foundations-of-canadian-law/index.html',
-    'notes/professional-responsibility/index.html',
-]
-for rel in notes_files:
-    path = os.path.join(BASE, rel)
-    notes = read(path)
-    # Remove target="_blank" and rel="noopener" from payhip links in these pages
-    updated = re.sub(
-        r'(<a href="https://payhip\.com/THENCAHUB"[^>]*)\s+target="_blank"\s+rel="noopener"',
-        r'\1',
-        notes
+</div>
+<script>
+(function(){
+  var ov=document.getElementById('srch-overlay'),inp=document.getElementById('srch-input'),rl=document.getElementById('srch-results'),em=document.getElementById('srch-empty'),fuse,loaded=false;
+  window.openSearch=function(){ov.classList.add('open');document.body.style.overflow='hidden';inp.focus();load();};
+  window.closeSearch=function(){ov.classList.remove('open');document.body.style.overflow='';rl.innerHTML='';em.style.display='none';inp.value='';};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&!ov.classList.contains('open')&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){e.preventDefault();window.openSearch();}
+    if(e.key==='Escape'&&ov.classList.contains('open'))window.closeSearch();
+  });
+  ov.addEventListener('click',function(e){if(e.target===ov)window.closeSearch();});
+  function load(){
+    if(loaded)return;
+    var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+    s.onload=function(){fetch('/search-index.json').then(function(r){return r.json();}).then(function(d){console.log('Search loaded:',d.length,'pages');fuse=new Fuse(d,{keys:['title','desc','h1'],threshold:0.35,minMatchCharLength:2});loaded=true;if(inp.value)search(inp.value);}).catch(function(e){console.error('Search index load failed:',e);});};
+    document.head.appendChild(s);
+  }
+  function search(q){if(!fuse)return;var r=fuse.search(q,{limit:10});rl.innerHTML='';em.style.display=r.length?'none':'block';r.forEach(function(x){var li=document.createElement('li');li.innerHTML='<a href="'+x.item.url+'"><span class="sr-title">'+x.item.title+'</span><span class="sr-desc">'+x.item.desc+'</span></a>';rl.appendChild(li);});}
+  inp.addEventListener('input',function(){search(this.value.trim());});
+})();
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+</body>
+</html>'''
     )
-    if updated != notes:
-        write(path, updated)
-        print(f'  Fixed target="_blank" in {rel}')
-    else:
-        print(f'  No change needed in {rel}')
 
-print('\n=== All fixes complete! ===')
+print("page_html() function defined OK")
