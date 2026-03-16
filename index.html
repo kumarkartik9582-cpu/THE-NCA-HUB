@@ -237,6 +237,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NCA Hub">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://payhip.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
@@ -367,6 +370,20 @@ ul{list-style:none}
 .pre-s{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--dim);opacity:0}
 
 /* NAV */
+.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:9200;flex-shrink:0;}
+@media(max-width:960px){.nh{display:flex;}}
+.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .4s ease,opacity .3s,background .3s;}
+.nh span:nth-child(2){width:16px;}
+.nh.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--g1);}
+.nh.open span:nth-child(2){opacity:0;}
+.nh.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--g1);}
+#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:9100;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto;}
+#mob-overlay.open{display:flex;}
+#mob-overlay a{display:block;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.07);transition:color .3s;}
+#mob-overlay a.mob-cta-link{color:var(--g1);}
+#mob-overlay a:hover{color:var(--cream);}
+.mob-shop-btn{display:inline-flex!important;align-items:center;margin-top:28px;background:var(--g1)!important;color:var(--void)!important;padding:14px 36px;font-family:var(--fb)!important;font-size:.82rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;align-self:flex-start;border:none!important;}
+#mob-close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--g1);font-size:1.3rem;cursor:pointer;padding:8px;z-index:1;}
 nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
 nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1)}
 nav.disc-gone{top:0}
@@ -743,8 +760,8 @@ nav.disc-gone{top:0}
 .scl li:nth-child(even){transform:translateX(8px)}
 .scl li:nth-child(even).on{transform:translateX(0)}
 .scl li::before{content:'—';color:var(--g1);flex-shrink:0}
-.sc-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;}
-.sc-link:hover{gap:14px;}
+.sc-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:2px;}
+.sc-link:hover{gap:14px;border-bottom-color:var(--g1);}
 .hh{display:flex;align-items:center;gap:12px;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:28px}
 .ha{color:var(--g1);animation:nd 2.2s ease-in-out infinite}
 @keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
@@ -969,17 +986,9 @@ body.golden-hour {
 .coming-soon-btn:hover{background:var(--g0);}
 .sc2.coming-soon:hover{border-color:rgba(201,168,76,.5);}
 
-.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:20px;z-index:9200;flex-shrink:0;}
-@media(max-width:960px){.nh{display:flex;}}
-.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s ease,width .4s cubic-bezier(.16,1,.3,1),background .3s ease;}
-.nh span:nth-child(2){width:16px;}
-.nh.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg);width:24px;background:var(--g1);}
-.nh.active span:nth-child(2){opacity:0;transform:scaleX(0);}
-.nh.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);width:24px;background:var(--g1);}
-/* ═══ MOBILE MENU OVERLAY ═══ */
-.mob-overlay{position:fixed;inset:0;z-index:9100;pointer-events:none;overflow:hidden;}
-.mob-ink{position:absolute;inset:0;background:rgba(2,2,4,.97);clip-path:circle(0% at calc(100% - 44px) 44px);transition:clip-path .7s cubic-bezier(.16,1,.3,1);will-change:clip-path;}
-.mob-overlay.open .mob-ink{clip-path:circle(150% at calc(100% - 44px) 44px);}
+
+
+
 .mob-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1) .3s;}
 .mob-overlay.open .mob-line{transform:scaleX(1);}
 .mob-glow{position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 60%);border-radius:50%;opacity:0;transition:opacity .8s ease .2s;pointer-events:none;}
@@ -1518,6 +1527,51 @@ body.golden-hour {
       </div>
 
     </div><!-- /quiz-shell -->
+  </div>
+</section>
+
+<!-- TOOLS GRID -->
+<section id="tools" aria-label="Free NCA tools" style="background:var(--abyss);border-top:1px solid rgba(201,168,76,.07);padding:100px 0;">
+  <div class="w">
+    <span class="ey split-heading">Free Tools</span>
+    <h2 class="sh split-heading" style="margin-bottom:48px">Plan your <em>NCA journey.</em></h2>
+    <div id="tools-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:2px;">
+      <a href="/nca-cost-calculator/" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
+        <div style="font-size:1.6rem;margin-bottom:14px;">🧮</div>
+        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">Cost Calculator</div>
+        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">Model your total NCA cost — assessment, exams, LRW, resits.</p>
+        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">Calculate now →</span>
+      </a>
+      <a href="/nca-exam-dates-2026/" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
+        <div style="font-size:1.6rem;margin-bottom:14px;">📅</div>
+        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">Exam Dates 2026</div>
+        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">All NCA exam sittings and registration deadlines for 2026.</p>
+        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">View schedule →</span>
+      </a>
+      <a href="/#readiness" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
+        <div style="font-size:1.6rem;margin-bottom:14px;">🎯</div>
+        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">Readiness Score</div>
+        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">6 questions. Get a subject-specific score and feedback on your real exam readiness.</p>
+        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">Take the quiz →</span>
+      </a>
+      <a href="/nca-statistics/" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
+        <div style="font-size:1.6rem;margin-bottom:14px;">📊</div>
+        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">NCA Statistics</div>
+        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">Pass rates, exam volume, and official fee tables — official NCA data.</p>
+        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">See the data →</span>
+      </a>
+    </div>
+    <!-- Prep Checklist Featured Row -->
+    <a href="/nca-prep-checklist/" style="display:flex;align-items:center;justify-content:space-between;gap:24px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.18);border-top:3px solid var(--g1);padding:28px 36px;text-decoration:none;transition:border-color .3s;flex-wrap:wrap;" onmouseover="this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.borderColor='rgba(201,168,76,.18)'">
+      <div style="display:flex;align-items:center;gap:20px;">
+        <span style="font-size:2rem;">✅</span>
+        <div>
+          <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:4px;">NCA Prep Checklist — Free</div>
+          <p style="font-size:var(--sm);color:var(--fog);line-height:1.5;margin:0;">Everything you need to do before, during, and after your NCA exams. Printable PDF checklist for each subject sitting.</p>
+        </div>
+      </div>
+      <span style="font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g1);font-weight:700;white-space:nowrap;flex-shrink:0;">Download Free →</span>
+    </a>
   </div>
 </section>
 
@@ -2099,6 +2153,7 @@ body.golden-hour {
       </div>
       <div class="sf2" id="SFORM">
         <div style="max-width:480px;margin:0 auto;">
+          <input type="hidden" name="_subject" value="Free chapter request — The NCA Hub">
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <input type="email" id="SEML" name="email" placeholder="Your email address" required autocomplete="email" style="flex:1;min-width:240px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-right:none;color:var(--cream);padding:17px 20px;font-family:var(--fb);font-size:.9rem;outline:none;">
             <button type="submit" id="FSB" style="background:var(--g1);color:var(--void);border:none;padding:17px 32px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .3s;" onmouseover="this.style.background='var(--g0)'" onmouseout="this.style.background='var(--g1)'"><span id="FSBT">Get My Free Chapter →</span></button>
@@ -3689,17 +3744,18 @@ function notifyComingSoon(form, subjectName) {
     fetch('https://formspree.io/f/mkoqgvqd',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({email:email,subject:'Free chapter request',_subject:'New free chapter request — The NCA Hub',_replyto:email})
+      body:JSON.stringify({email:email,subject:'Free chapter request',_subject:'Free chapter request — The NCA Hub',_replyto:email})
     }).then(function(r){
       if(r.ok){
-        if(SFORM)SFORM.innerHTML='<div class="form-success"><div class="fsi">✓</div><p class="fss">Your free chapter is on its way to <strong style="color:var(--g1)">'+email+'</strong>.<br>Check your inbox — it arrives within a few minutes.</p></div>';
+        if(FSBT)FSBT.textContent='✓ Sent! Redirecting…';
         try{sessionStorage.setItem('ncahub_sample_sent','1');}catch(ex){}
         try{if(typeof gtag==='function'){gtag('event','free_chapter_download',{});}}catch(ex){}
-        setTimeout(function(){window.location.href='/thank-you/';},2000);
+        setTimeout(function(){window.location.href='/free-chapter.html';},1500);
       }else{
         if(FSBT)FSBT.textContent='Try Again';FSB.disabled=false;
       }
-    }).catch(function(){
+    }).catch(function(err){
+      console.error('Form submission error:',err);
       if(FSBT)FSBT.textContent='Try Again';FSB.disabled=false;
     });
   });
@@ -3766,34 +3822,19 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 </script>
 
 <!-- ═══ PREMIUM MOBILE MENU ═══ -->
-<div class="mob-overlay" id="mob-overlay" aria-hidden="true" role="dialog" aria-label="Navigation">
-  <div class="mob-ink" id="mob-ink"></div>
-  <div class="mob-line"></div>
-  <div class="mob-glow"></div>
-  <canvas id="mob-particles" style="position:absolute;inset:0;pointer-events:none;opacity:.4;"></canvas>
-  <div class="mob-deco" aria-hidden="true">NCA</div>
-  <div class="mob-content">
-    <button class="mob-x" id="mobx" aria-label="Close navigation menu">&#x2715;</button>
-    <nav aria-label="Mobile navigation">
-      <div class="mob-item"><span class="mob-counter">01</span><a href="/#method" class="mob-link">Method</a></div>
-      <div class="mob-item"><span class="mob-counter">02</span><a href="/#subjects" class="mob-link">Subjects</a></div>
-      <div class="mob-item"><span class="mob-counter">03</span><a href="/notes/" class="mob-link" style="color:var(--g1);">Notes</a></div>
-      <div class="mob-item"><span class="mob-counter">04</span><a href="/#pricing" class="mob-link">Pricing</a></div>
-      <div class="mob-item"><span class="mob-counter">05</span><a href="/blog/" class="mob-link">Articles</a></div>
-      <div class="mob-item"><span class="mob-counter">06</span><a href="/#sample" class="mob-link">Free Chapter</a></div>
-      <div class="mob-item"><span class="mob-counter">07</span><a href="/nca-cost-calculator/" class="mob-link">Cost Calculator</a></div>
-    </nav>
-    <a href="https://payhip.com/THENCAHUB" class="mob-cta" target="_blank" rel="noopener noreferrer">Get My Notes &#x2192;</a>
-    <div class="mob-utils">
-      <a href="/nca-exam-dates-2026/">Exam Dates 2026</a>
-      <a href="/nca-for-indian-lawyers/">Indian Lawyers Guide</a>
-      <a href="/become-a-lawyer-in-ontario/">Qualify in Ontario</a>
-      <a href="/#readiness">Readiness Score</a>
-    </div>
-  </div>
+<div id="mob-overlay" aria-hidden="true" aria-label="Navigation" role="dialog">
+  <button id="mob-close" aria-label="Close navigation menu">&#x2715;</button>
+  <a href="https://www.thencahub.com/#method">Method</a>
+  <a href="https://www.thencahub.com/#subjects">Subjects</a>
+  <a href="https://www.thencahub.com/notes/" class="mob-cta-link">Notes</a>
+  <a href="https://www.thencahub.com/#pricing">Pricing</a>
+  <a href="https://www.thencahub.com/blog/">Articles</a>
+  <a href="https://www.thencahub.com/#sample">Free Chapter</a>
+  <a href="https://www.thencahub.com/nca-cost-calculator/">Cost Calculator</a>
+  <a href="https://www.thencahub.com/faq/">FAQ</a>
+  <a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now &rarr;</a>
 </div>
-
-<a href="https://wa.me/message/PLACEHOLDER" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" onclick="gtag('event','whatsapp_click',{'page':window.location.pathname});"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<a href="https://wa.me/447310803762" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" onclick="gtag('event','whatsapp_click',{'page':window.location.pathname});"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',function(){
