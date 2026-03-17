@@ -636,7 +636,7 @@ recalc();
 })();
 
 /* MOBILE MENU */
-(function(){
+document.addEventListener('DOMContentLoaded',function(){
   var btn=document.getElementById('nh');
   var overlay=document.getElementById('mob-overlay');
   var closeBtn=document.getElementById('mob-close');
@@ -648,7 +648,7 @@ recalc();
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
   overlay.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))closeMenu();});});
   overlay.addEventListener('click',function(e){if(e.target===overlay)closeMenu();});
-})();
+});
 
 /* NAV SCROLL */
 (function(){
