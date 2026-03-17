@@ -389,7 +389,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
         <h3>Get notified when Torts notes are available</h3>
         <p>Torts notes are in development. Enter your email and we'll notify you when they're ready.</p>
         <form id="torts-notify" onsubmit="submitNotify(event,'torts-notify','Torts Notes')">
-          <input type="email" name="email" placeholder="your@email.com" required>
+          <input type="email" name="email" id="email-notify" placeholder="your@email.com" required aria-label="Your email address">
           <button type="submit">Notify Me</button>
           <p id="torts-notify-msg" style="margin-top:12px;font-size:var(--sm);color:var(--g1);display:none;">You're on the list. We'll email you when Torts notes are ready.</p>
         </form>
@@ -440,7 +440,7 @@ function submitNotify(e,formId,subject){e.preventDefault();var form=document.get
 (function(){var bar=document.getElementById('prog');if(!bar)return;window.addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';},{passive:true});})();
 (function(){try{if(typeof Lenis!=='undefined'){var lenis=new Lenis({lerp:0.075,smoothWheel:true});if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});}}}catch(e){}})();
 (function(){var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');if(!CD||!CR)return;var cmx=-200,cmy=-200,crx=-200,cry=-200;document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});(function animC(){crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;CR.style.left=crx+'px';CR.style.top=cry+'px';requestAnimationFrame(animC);})();})();
-(function(){var NH=document.getElementById('nh'),MOB=document.getElementById('mob'),MOBX=document.getElementById('mobx');if(!NH||!MOB)return;function openMenu(){MOB.classList.add('op');NH.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}function closeMenu(){MOB.classList.remove('op');NH.setAttribute('aria-expanded','false');document.body.style.overflow='';}NH.addEventListener('click',openMenu);if(MOBX)MOBX.addEventListener('click',closeMenu);document.querySelectorAll(');})();
+(function(){var btn=document.getElementById('nh'),overlay=document.getElementById('mob-overlay'),closeBtn=document.getElementById('mob-close');if(!btn||!overlay){console.warn('Menu elements not found');return;}function openMenu(){overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');btn.classList.add('open');btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}function closeMenu(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}btn.addEventListener('click',function(e){e.stopPropagation();overlay.classList.contains('open')?closeMenu():openMenu();});if(closeBtn)closeBtn.addEventListener('click',closeMenu);document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});overlay.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))closeMenu();});});overlay.addEventListener('click',function(e){if(e.target===overlay)closeMenu();});})();
 (function(){var nav=document.getElementById('nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});})();
 (function(){var sp=document.getElementById('spotlight');if(!sp)return;document.addEventListener('mousemove',function(e){sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';sp.style.opacity='1';},{passive:true});})();
 </script>
@@ -547,5 +547,6 @@ function submitNotify(e,formId,subject){e.preventDefault();var form=document.get
   input.addEventListener('input', function(){ doSearch(this.value.trim()); });
 })();
 </script>
+<script src="/nca-chat-widget.js" defer></script>
 </body>
 </html>
