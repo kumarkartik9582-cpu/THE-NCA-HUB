@@ -308,9 +308,14 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 #srch-results .sr-desc{display:block;font-size:.75rem;color:var(--dim);line-height:1.5;}
 #srch-empty{text-align:center;color:var(--dim);font-size:.82rem;padding:32px;display:none;}
 #srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
+
+.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
+.nca-skip-nav:focus{top:0}
 </style>
 </head>
 <body class="has-sticky-cta">
+<a href="#main-content" class="nca-skip-nav">Skip to main content</a>
+
 <div id="prog"></div>
 <div class="grain"></div>
 <div id="spotlight" aria-hidden="true"></div>
@@ -665,5 +670,16 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 <script src="/nca-chat-widget.js" defer></script>
 <script src="/nca-enhancements.js" defer></script>
+
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'SW_UPDATED'){
+      var b = document.getElementById('nca-sw-update');
+      if(b) b.style.display = 'flex';
+    }
+  });
+}
+</script>
 </body>
 </html>

@@ -127,6 +127,9 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:60px 0 40px;}
 .fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 .fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em;}
 .f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;margin-top:16px;}
+
+.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
+.nca-skip-nav:focus{top:0}
 </style>
 <!-- Google Analytics 4 — consent mode -->
 <script>
@@ -141,6 +144,8 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:60px 0 40px;}
 </script>
 </head>
 <body>
+<a href="#main-content" class="nca-skip-nav">Skip to main content</a>
+
 <div class="grain" aria-hidden="true"></div>
 
 <nav aria-label="Site navigation">
@@ -284,5 +289,16 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:60px 0 40px;}
   }
 </script>
 <script src="/nca-chat-widget.js" defer></script>
+
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'SW_UPDATED'){
+      var b = document.getElementById('nca-sw-update');
+      if(b) b.style.display = 'flex';
+    }
+  });
+}
+</script>
 </body>
 </html>

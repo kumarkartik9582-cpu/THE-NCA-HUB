@@ -1,10 +1,14 @@
-const CACHE_NAME = 'nca-hub-v1';
+const CACHE_NAME = 'nca-hub-v2';
+const OFFLINE_URL = '/offline.html';
 const STATIC_CACHE = [
+  OFFLINE_URL,
   '/',
   '/index.html',
   '/og-image.jpg',
   '/favicon.svg',
   '/manifest.json',
+  '/nca-enhancements.js',
+  '/nca-chat-widget.js',
   '/notes/',
   '/notes/administrative-law/',
   '/notes/constitutional-law/',
@@ -30,7 +34,7 @@ self.addEventListener('install', function(e){
   self.skipWaiting();
 });
 
-/* Activate: clean old caches */
+/* Activate: clean old caches + notify clients */
 self.addEventListener('activate', function(e){
   e.waitUntil(
     caches.keys().then(function(keys){
@@ -38,6 +42,13 @@ self.addEventListener('activate', function(e){
         keys.filter(function(k){ return k !== CACHE_NAME; })
             .map(function(k){ return caches.delete(k); })
       );
+    }).then(function(){
+      /* Notify all open tabs that a new version is available */
+      return self.clients.matchAll({ type: 'window' }).then(function(clients){
+        clients.forEach(function(client){
+          client.postMessage({ type: 'SW_UPDATED' });
+        });
+      });
     })
   );
   self.clients.claim();
@@ -49,7 +60,10 @@ self.addEventListener('fetch', function(e){
   /* Only handle same-origin requests */
   if(url.origin !== self.location.origin) return;
 
-  /* For HTML pages: network first, fall back to cache */
+  /* Skip API calls — always network */
+  if(url.pathname.startsWith('/api/')) return;
+
+  /* For HTML pages: network first, fall back to cache, then offline page */
   if(e.request.headers.get('accept') &&
      e.request.headers.get('accept').includes('text/html')){
     e.respondWith(
@@ -62,7 +76,9 @@ self.addEventListener('fetch', function(e){
           return response;
         })
         .catch(function(){
-          return caches.match(e.request);
+          return caches.match(e.request).then(function(cached){
+            return cached || caches.match(OFFLINE_URL);
+          });
         })
     );
     return;

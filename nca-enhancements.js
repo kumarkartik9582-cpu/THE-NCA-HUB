@@ -1,12 +1,18 @@
 /**
- * NCA Hub Enhancements
+ * NCA Hub Enhancements v2
  * - Auto reading time calculation
- * - Scroll-triggered animations (Intersection Observer)
+ * - Scroll-triggered animations (respects prefers-reduced-motion)
  * - AI-personalized recommended next articles
- * - Reading progress tracking (localStorage)
+ * - Reading progress bar
+ * - Reading history tracking (localStorage)
+ * - "Was this helpful?" widget
+ * - GA4 event tracking (scroll depth, CTA clicks, newsletter, helpful votes)
+ * - SW update notification banner
  */
 (function () {
   'use strict';
+
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ─── 1. READING TIME AUTO-CALCULATION ─────────────────────────────── */
   function calcReadingTime() {
@@ -14,16 +20,13 @@
     if (!body) return;
     var text = body.innerText || body.textContent || '';
     var words = text.trim().split(/\s+/).length;
-    var mins = Math.max(1, Math.round(words / 220)); // 220 wpm average
-    // Find the span containing "min read" and update it
-    var spans = document.querySelectorAll('.art-read');
-    spans.forEach(function (s) {
+    var mins = Math.max(1, Math.round(words / 220));
+    document.querySelectorAll('.art-read').forEach(function (s) {
       if (/\d+\s*min read/i.test(s.textContent)) {
         s.textContent = mins + ' min read';
         s.setAttribute('data-words', words);
       }
     });
-    // Also update any element with id="reading-time"
     var rt = document.getElementById('reading-time');
     if (rt) rt.textContent = mins + ' min read';
   }
@@ -45,30 +48,26 @@
 
   /* ─── 3. SCROLL-TRIGGERED ANIMATIONS ───────────────────────────────── */
   function initScrollAnimations() {
-    // Add fade-in-up to article sections, tables, blockquotes, stat boxes
+    if (REDUCED) return; // respect prefers-reduced-motion
+
     var targets = document.querySelectorAll(
       '.art-body h2, .art-body h3, .art-body table, .art-body blockquote, ' +
       '.stat-box, .comparison-table, .answer-capsule, .rel-card, ' +
-      '.art-cta, .nca-inline-newsletter'
+      '.art-cta, .nca-inline-newsletter, .nca-helpful-widget'
     );
     if (!targets.length) return;
 
-    // CSS for animations — inject once
     if (!document.getElementById('nca-anim-style')) {
       var style = document.createElement('style');
       style.id = 'nca-anim-style';
-      style.textContent = [
-        '.nca-anim{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}',
-        '.nca-anim.nca-visible{opacity:1;transform:translateY(0)}',
-        '.nca-anim-delay-1{transition-delay:.08s}',
-        '.nca-anim-delay-2{transition-delay:.16s}',
-        '.nca-anim-delay-3{transition-delay:.24s}',
-        /* Reading progress bar polish */
-        '#prog{transition:width .1s linear}',
-        /* Highlight anchor sections on scroll */
-        '.nca-section-highlight{animation:nca-sec-flash .7s ease-out}',
-        '@keyframes nca-sec-flash{0%{background:rgba(201,168,76,.12)}100%{background:transparent}}'
-      ].join('');
+      style.textContent =
+        '.nca-anim{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}' +
+        '.nca-anim.nca-visible{opacity:1;transform:translateY(0)}' +
+        '.nca-anim-delay-1{transition-delay:.08s}' +
+        '.nca-anim-delay-2{transition-delay:.16s}' +
+        '#prog{transition:width .1s linear}' +
+        '.nca-section-highlight{animation:nca-sec-flash .7s ease-out}' +
+        '@keyframes nca-sec-flash{0%{background:rgba(201,168,76,.12)}100%{background:transparent}}';
       document.head.appendChild(style);
     }
 
@@ -79,7 +78,6 @@
     });
 
     if (!('IntersectionObserver' in window)) {
-      // Fallback: show all immediately
       targets.forEach(function (el) { el.classList.add('nca-visible'); });
       return;
     }
@@ -100,9 +98,8 @@
   var STORAGE_KEY = 'nca_read_articles';
 
   function getReadHistory() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    } catch (e) { return []; }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch (e) { return []; }
   }
 
   function markCurrentArticleRead() {
@@ -111,7 +108,6 @@
     var history = getReadHistory();
     if (history.indexOf(slug) === -1) {
       history.unshift(slug);
-      // Keep last 30
       if (history.length > 30) history = history.slice(0, 30);
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(history)); } catch (e) {}
     }
@@ -121,27 +117,17 @@
   function personalizeRecommendations() {
     var grid = document.querySelector('.rel-grid');
     if (!grid) return;
-
     var readHistory = getReadHistory();
-    if (!readHistory.length) return; // No history yet — keep defaults
-
+    if (!readHistory.length) return;
     var cards = Array.from(grid.querySelectorAll('.rel-card'));
     if (cards.length < 2) return;
-
-    // De-prioritize already-read articles by moving them to the end
     var unread = [], read = [];
     cards.forEach(function (card) {
       var href = (card.getAttribute('href') || '').replace(/\/$/, '').split('/').pop();
-      if (readHistory.indexOf(href) !== -1) {
-        read.push(card);
-      } else {
-        unread.push(card);
-      }
+      if (readHistory.indexOf(href) !== -1) read.push(card);
+      else unread.push(card);
     });
-
-    if (read.length === 0) return; // nothing to reorder
-
-    // Rebuild grid: unread first, then read (with "already read" label)
+    if (!read.length) return;
     grid.innerHTML = '';
     unread.forEach(function (c) { grid.appendChild(c); });
     read.forEach(function (c) {
@@ -154,15 +140,11 @@
       c.appendChild(badge);
       grid.appendChild(c);
     });
-
-    // Update eyelet label
     var eyelet = document.querySelector('.rel-eyelet');
-    if (eyelet && unread.length > 0) {
-      eyelet.textContent = 'Recommended Next';
-    }
+    if (eyelet && unread.length > 0) eyelet.textContent = 'Recommended Next';
   }
 
-  /* ─── 6. SMOOTH ANCHOR HIGHLIGHT ON HASH CHANGE ────────────────────── */
+  /* ─── 6. ANCHOR HIGHLIGHT ───────────────────────────────────────────── */
   function highlightTargetSection() {
     var hash = window.location.hash;
     if (!hash) return;
@@ -173,6 +155,116 @@
     }
   }
 
+  /* ─── 7. GA4 EVENT TRACKING ─────────────────────────────────────────── */
+  function fire(eventName, params) {
+    if (typeof gtag === 'function') gtag('event', eventName, params || {});
+  }
+
+  function initGA4Tracking() {
+    // CTA clicks
+    document.querySelectorAll('.art-cta-btn, .art-notes-cta a, [href*="payhip.com"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        fire('cta_click', { cta_text: el.textContent.trim().slice(0, 50), page: window.location.pathname });
+      });
+    });
+
+    // Newsletter signup (success tracked by form submission event below)
+    var nlForm = document.getElementById('nca-nl-form');
+    if (nlForm) {
+      nlForm.addEventListener('submit', function () {
+        fire('newsletter_signup_attempt', { page: window.location.pathname });
+      });
+    }
+
+    // Chat open
+    var chatBtn = document.getElementById('nca-chat-btn');
+    if (chatBtn) {
+      var chatFired = false;
+      chatBtn.addEventListener('click', function () {
+        if (!chatFired) { chatFired = true; fire('chat_open', { page: window.location.pathname }); }
+      });
+    }
+
+    // Scroll depth milestones (25, 50, 75, 100%)
+    if (document.getElementById('art-body')) {
+      var milestones = { 25: false, 50: false, 75: false, 100: false };
+      window.addEventListener('scroll', function () {
+        var doc = document.documentElement;
+        var scrolled = doc.scrollTop || document.body.scrollTop;
+        var total = doc.scrollHeight - doc.clientHeight;
+        if (!total) return;
+        var pct = (scrolled / total) * 100;
+        [25, 50, 75, 100].forEach(function (m) {
+          if (!milestones[m] && pct >= m) {
+            milestones[m] = true;
+            fire('scroll_depth', { depth: m, page: window.location.pathname });
+          }
+        });
+      }, { passive: true });
+    }
+
+    // Share button clicks
+    document.querySelectorAll('.art-share a').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var platform = el.href.includes('linkedin') ? 'linkedin'
+          : el.href.includes('whatsapp') ? 'whatsapp'
+          : el.href.includes('twitter') || el.href.includes('x.com') ? 'twitter' : 'other';
+        fire('share', { method: platform, content_type: 'article', page: window.location.pathname });
+      });
+    });
+  }
+
+  /* ─── 8. "WAS THIS HELPFUL?" WIDGET ────────────────────────────────── */
+  function initHelpfulWidget() {
+    var widget = document.getElementById('nca-helpful-widget');
+    if (!widget) return;
+    var VOTE_KEY = 'nca_helpful_' + window.location.pathname.replace(/\//g, '_');
+    var alreadyVoted = localStorage.getItem(VOTE_KEY);
+
+    if (alreadyVoted) {
+      widget.querySelector('.nca-helpful-btns').style.display = 'none';
+      var msg = widget.querySelector('.nca-helpful-thankyou');
+      if (msg) { msg.hidden = false; msg.textContent = 'Thanks for your feedback! You voted: ' + alreadyVoted + '.'; }
+      return;
+    }
+
+    widget.querySelectorAll('.nca-helpful-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var vote = btn.dataset.vote;
+        try { localStorage.setItem(VOTE_KEY, vote); } catch (e) {}
+        fire('helpful_vote', { vote: vote, page: window.location.pathname });
+        widget.querySelector('.nca-helpful-btns').style.display = 'none';
+        var thankyou = widget.querySelector('.nca-helpful-thankyou');
+        if (thankyou) { thankyou.hidden = false; thankyou.textContent = vote === 'yes' ? 'Glad it helped! Good luck with your NCA exams.' : 'Thanks for the feedback — we\'ll keep improving.'; }
+      });
+    });
+  }
+
+  /* ─── 9. SW UPDATE NOTIFICATION ────────────────────────────────────── */
+  function initSWUpdateBanner() {
+    if (!('serviceWorker' in navigator)) return;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      // A new SW has taken control — show refresh banner
+      var banner = document.getElementById('nca-sw-update');
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'nca-sw-update';
+        banner.setAttribute('role', 'alert');
+        banner.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#C9A84C;color:#02020A;' +
+          'padding:12px 18px;border-radius:8px;font-size:.78rem;font-weight:600;z-index:9999;' +
+          'display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,.4);';
+        banner.innerHTML = '<span>New content available</span>' +
+          '<button onclick="window.location.reload()" style="background:#02020A;color:#C9A84C;border:none;' +
+          'padding:5px 12px;border-radius:5px;cursor:pointer;font-size:.75rem;font-weight:600;">Refresh</button>' +
+          '<button onclick="this.parentElement.remove()" aria-label="Dismiss" style="background:none;border:none;' +
+          'color:#02020A;cursor:pointer;font-size:1.1rem;line-height:1;padding:0 4px;">\u00d7</button>';
+        document.body.appendChild(banner);
+      } else {
+        banner.style.display = 'flex';
+      }
+    });
+  }
+
   /* ─── INIT ──────────────────────────────────────────────────────────── */
   function init() {
     calcReadingTime();
@@ -181,6 +273,9 @@
     markCurrentArticleRead();
     personalizeRecommendations();
     highlightTargetSection();
+    initGA4Tracking();
+    initHelpfulWidget();
+    initSWUpdateBanner();
     window.addEventListener('hashchange', highlightTargetSection);
   }
 

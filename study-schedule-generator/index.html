@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NCA Study Schedule Generator 2026 — Build Your Week-by-Week Plan | The NCA Hub</title>
+<meta name="description" content="Generate a personalized week-by-week NCA study schedule based on your exam session, subjects needed, and available hours. Free tool for internationally trained lawyers.">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NCA Hub">
+<link rel="canonical" href="https://www.thencahub.com/study-schedule-generator/">
+<meta name="revised" content="2026-03-17">
+<meta name="geo.region" content="CA">
+<meta name="geo.country" content="Canada">
+<meta http-equiv="content-language" content="en-ca">
+<link rel="alternate" hreflang="en-ca" href="https://www.thencahub.com/study-schedule-generator/">
+<link rel="alternate" hreflang="en" href="https://www.thencahub.com/study-schedule-generator/">
+<link rel="alternate" hreflang="x-default" href="https://www.thencahub.com/study-schedule-generator/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.thencahub.com/study-schedule-generator/">
+<meta property="og:title" content="NCA Study Schedule Generator 2026 | The NCA Hub">
+<meta property="og:description" content="Generate a personalized week-by-week NCA study schedule based on your exam session, subjects needed, and available hours per week.">
+<meta property="og:site_name" content="The NCA Hub">
+<meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://www.thencahub.com/study-schedule-generator/">
+<meta name="twitter:title" content="NCA Study Schedule Generator 2026 | The NCA Hub">
+<meta name="twitter:description" content="Generate a personalized week-by-week NCA study schedule. Free tool for NCA candidates.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "NCA Study Schedule Generator",
+      "description": "Free interactive tool that generates a personalized week-by-week NCA study schedule based on exam session, subjects needed, and available study hours.",
+      "url": "https://www.thencahub.com/study-schedule-generator/",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CAD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "The NCA Hub",
+        "url": "https://www.thencahub.com"
+      },
+      "inLanguage": "en-CA"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.thencahub.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://www.thencahub.com/nca-cost-calculator/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Study Schedule Generator",
+          "item": "https://www.thencahub.com/study-schedule-generator/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-CFFP8T95DZ');</script>
+<style>
+:root{
+  --void:#02020A;
+  --cream:#f0e6cc;
+  --g1:#C9A84C;
+  --g2:#a87e3a;
+  --fog:#9e9587;
+  --dim:#5a554e;
+  --card-bg:rgba(201,168,76,.04);
+  --card-border:rgba(201,168,76,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--fog);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7;overflow-x:hidden}
+a{color:var(--g1);text-decoration:none;transition:color .3s}
+a:hover{color:var(--cream)}
+
+/* SKIP NAV */
+.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
+.nca-skip-nav:focus{top:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;background:rgba(2,2,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.08)}
+.nw{max-width:960px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nlog{font-family:Georgia,serif;font-size:1.1rem;color:var(--cream);letter-spacing:.04em;font-weight:400}
+.nl{display:flex;gap:8px;list-style:none;align-items:center}
+.nl li a{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:8px 12px;transition:color .3s}
+.nl li a:hover{color:var(--cream)}
+.n-cta{background:var(--g1);color:#02020A!important;border-radius:6px;padding:8px 16px!important;font-weight:700;transition:opacity .3s!important}
+.n-cta:hover{opacity:.85}
+.mob-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.mob-btn span{display:block;width:22px;height:2px;background:var(--cream);transition:all .3s}
+@media(max-width:720px){
+  .nl{display:none}
+  .mob-btn{display:flex}
+}
+
+/* MOB MENU */
+#mob-menu{display:none;position:fixed;inset:0;background:rgba(2,2,10,.98);z-index:900;flex-direction:column;justify-content:center;align-items:center;gap:32px}
+#mob-menu.open{display:flex}
+#mob-menu a{font-size:1.2rem;color:var(--cream);letter-spacing:.12em;text-transform:uppercase}
+
+/* LAYOUT */
+main{padding-top:64px}
+.page-hero{max-width:960px;margin:0 auto;padding:64px 24px 48px}
+.eyelet{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g2);margin-bottom:16px;font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:16px}
+.hero-sub{font-size:1rem;color:var(--fog);line-height:1.8;max-width:640px}
+
+/* FORM */
+.tool-wrap{max-width:960px;margin:0 auto;padding:0 24px 80px}
+.form-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:32px;margin-bottom:24px}
+.form-card h2{font-family:Georgia,serif;font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid rgba(201,168,76,.1)}
+.field-group{margin-bottom:20px}
+.field-group label{display:block;font-size:.85rem;color:var(--fog);margin-bottom:8px;font-weight:500}
+.field-group select,
+.field-group input[type="number"]{width:100%;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:12px 16px;color:var(--cream);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .3s}
+.field-group select:focus,
+.field-group input[type="number"]:focus{border-color:var(--g1)}
+.field-group select option{background:#0d0d14}
+
+/* CHECKBOXES */
+.cb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.cb-item{display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 14px;border:1px solid rgba(201,168,76,.12);border-radius:8px;transition:border-color .3s,background .3s}
+.cb-item:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.04)}
+.cb-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:1px solid rgba(201,168,76,.3);border-radius:4px;cursor:pointer;position:relative;flex-shrink:0;transition:background .2s,border-color .2s}
+.cb-item input[type="checkbox"]:checked{background:var(--g1);border-color:var(--g1)}
+.cb-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#02020A;font-size:.7rem;font-weight:700}
+.cb-item span{font-size:.85rem;color:var(--fog)}
+.cb-item input:checked+span{color:var(--cream)}
+
+/* RADIO */
+.radio-row{display:flex;gap:12px;flex-wrap:wrap}
+.radio-item{display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 20px;border:1px solid rgba(201,168,76,.12);border-radius:8px;transition:border-color .3s,background .3s}
+.radio-item:hover{border-color:rgba(201,168,76,.3)}
+.radio-item input[type="radio"]{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1px solid rgba(201,168,76,.3);border-radius:50%;position:relative;cursor:pointer;transition:border-color .2s}
+.radio-item input[type="radio"]:checked{border-color:var(--g1);border-width:4px;background:var(--void)}
+.radio-item span{font-size:.85rem;color:var(--fog)}
+.radio-item input:checked+span{color:var(--cream)}
+
+/* HOURS DISPLAY */
+.hours-display{display:flex;align-items:center;gap:16px}
+.hours-display input[type="number"]{max-width:100px}
+.hours-note{font-size:.75rem;color:var(--dim)}
+
+/* GENERATE BUTTON */
+.gen-btn{display:inline-flex;align-items:center;gap:10px;background:var(--g1);color:#02020A;font-family:inherit;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:14px 32px;border:none;border-radius:8px;cursor:pointer;transition:opacity .3s,transform .2s}
+.gen-btn:hover{opacity:.9;transform:translateY(-1px)}
+.gen-btn:active{transform:translateY(0)}
+
+/* OUTPUT */
+#schedule-output{display:none;margin-top:8px}
+.output-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.output-header h2{font-family:Georgia,serif;font-size:1.4rem;font-weight:400;color:var(--cream)}
+.output-actions{display:flex;gap:10px;flex-wrap:wrap}
+.action-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--cream);font-family:inherit;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:6px;cursor:pointer;transition:background .3s,border-color .3s}
+.action-btn:hover{background:rgba(201,168,76,.18);border-color:rgba(201,168,76,.4)}
+
+/* SUMMARY CARDS */
+.summary-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:32px}
+.summary-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px 20px}
+.summary-card .sc-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.summary-card .sc-value{font-family:Georgia,serif;font-size:1.5rem;color:var(--cream);font-weight:400}
+.summary-card .sc-sub{font-size:.75rem;color:var(--dim);margin-top:2px}
+
+/* SCHEDULE TABLE */
+.schedule-table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:.85rem}
+.schedule-table thead tr{background:rgba(201,168,76,.08)}
+.schedule-table th{padding:12px 16px;text-align:left;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);font-weight:600;border-bottom:1px solid rgba(201,168,76,.15)}
+.schedule-table td{padding:12px 16px;border-bottom:1px solid rgba(201,168,76,.06);vertical-align:top}
+.schedule-table tr:last-child td{border-bottom:none}
+.schedule-table tr:hover td{background:rgba(201,168,76,.03)}
+.week-num{color:var(--dim);white-space:nowrap}
+.subject-badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600;margin:2px 3px 2px 0}
+.badge-study{background:rgba(201,168,76,.15);color:var(--g1);border:1px solid rgba(201,168,76,.25)}
+.badge-mock{background:rgba(100,160,255,.12);color:#78a8f0;border:1px solid rgba(100,160,255,.2)}
+.badge-prep{background:rgba(120,200,120,.1);color:#7ec878;border:1px solid rgba(120,200,120,.2)}
+.badge-buffer{background:rgba(200,100,100,.1);color:#e08080;border:1px solid rgba(200,100,100,.2)}
+.week-notes{font-size:.78rem;color:var(--dim);margin-top:4px}
+.week-hours{color:var(--fog);white-space:nowrap}
+
+/* PHASE DIVIDER */
+.phase-row td{background:rgba(201,168,76,.04);border-top:1px solid rgba(201,168,76,.12)!important;border-bottom:1px solid rgba(201,168,76,.12)!important}
+.phase-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g2);font-weight:700}
+
+/* WARNING */
+.schedule-warning{background:rgba(200,100,50,.08);border:1px solid rgba(200,100,50,.2);border-radius:8px;padding:16px 20px;margin-bottom:24px;font-size:.85rem;color:#e0a878}
+
+/* TIPS */
+.tips-section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:24px 28px;margin-top:24px}
+.tips-section h3{font-family:Georgia,serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:16px}
+.tips-list{display:grid;gap:10px}
+.tip-item{display:flex;gap:12px;align-items:flex-start;font-size:.85rem;color:var(--fog)}
+.tip-icon{color:var(--g1);font-size:1rem;flex-shrink:0;margin-top:1px}
+
+/* FOOTER */
+footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:60px 24px 40px}
+.ftg{max-width:960px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px}
+@media(max-width:640px){.ftg{grid-template-columns:1fr}}
+.flog{font-family:Georgia,serif;font-size:1.1rem;color:var(--g1);margin-bottom:10px;letter-spacing:.04em}
+.ftag{font-size:.8rem;color:var(--dim);line-height:1.6;max-width:280px}
+.fct{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px}
+.fls{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fls a{font-size:.85rem;color:var(--dim);transition:color .3s}
+.fls a:hover{color:var(--cream)}
+.fb2{max-width:960px;margin:0 auto;border-top:1px solid rgba(201,168,76,.07);padding-top:24px;display:flex;flex-direction:column;gap:8px}
+.fcl{font-family:Georgia,serif;font-style:italic;font-size:.88rem;color:var(--fog)}
+.fleg{font-size:.7rem;color:var(--dim);letter-spacing:.08em}
+.f-disc{max-width:960px;margin:16px auto 0;font-size:.62rem;color:rgba(90,85,78,.5);line-height:1.8}
+.f-disc a{color:rgba(90,85,78,.6)}
+
+@media(max-width:600px){
+  .schedule-table{font-size:.78rem}
+  .schedule-table th,.schedule-table td{padding:10px 10px}
+  .summary-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="nca-skip-nav">Skip to main content</a>
+<div id="prog" style="position:fixed;top:0;left:0;height:3px;background:#C9A84C;z-index:9999;width:0"></div>
+
+<nav>
+  <div class="nw">
+    <a href="/" class="nlog">The NCA Hub</a>
+    <button id="mob-btn" class="mob-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mob-menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nl" role="list">
+      <li><a href="/#method">Method</a></li>
+      <li><a href="/notes/">Notes</a></li>
+      <li><a href="/blog/">Articles</a></li>
+      <li><a href="/nca-cost-calculator/">Calculator</a></li>
+      <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener" class="n-cta">Shop Notes</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="mob-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="/#method" onclick="closeMobMenu()">Method</a>
+  <a href="/notes/" onclick="closeMobMenu()">Notes</a>
+  <a href="/blog/" onclick="closeMobMenu()">Articles</a>
+  <a href="/nca-cost-calculator/" onclick="closeMobMenu()">Calculator</a>
+  <a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Notes</a>
+</div>
+
+<main id="main-content">
+  <div class="page-hero">
+    <p class="eyelet">Free Tool</p>
+    <h1>NCA Study Schedule Generator</h1>
+    <p class="hero-sub">Enter your exam session, subjects, and available hours. Get a complete week-by-week study plan built around your timeline — no spreadsheet required.</p>
+  </div>
+
+  <div class="tool-wrap">
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>1. Your Exam Session</h2>
+      <div class="field-group">
+        <label for="exam-session">Target exam session</label>
+        <select id="exam-session">
+          <option value="2026-06-15">June 2026</option>
+          <option value="2026-10-15">October 2026</option>
+          <option value="2027-02-15">February 2027</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h2>2. Subjects You Need to Pass</h2>
+      <div class="cb-grid" id="subjects-grid">
+        <label class="cb-item"><input type="checkbox" value="Administrative Law" data-weeks="5"> <span>Administrative Law</span></label>
+        <label class="cb-item"><input type="checkbox" value="Constitutional Law" data-weeks="6"> <span>Constitutional Law</span></label>
+        <label class="cb-item"><input type="checkbox" value="Criminal Law" data-weeks="5"> <span>Criminal Law</span></label>
+        <label class="cb-item"><input type="checkbox" value="Foundations of Canadian Law" data-weeks="4"> <span>Foundations of Canadian Law</span></label>
+        <label class="cb-item"><input type="checkbox" value="Professional Responsibility" data-weeks="3"> <span>Professional Responsibility</span></label>
+        <label class="cb-item"><input type="checkbox" value="Business Organisations" data-weeks="4"> <span>Business Organisations</span></label>
+        <label class="cb-item"><input type="checkbox" value="Civil Procedure" data-weeks="4"> <span>Civil Procedure</span></label>
+        <label class="cb-item"><input type="checkbox" value="Property Law" data-weeks="5"> <span>Property Law</span></label>
+        <label class="cb-item"><input type="checkbox" value="Legal Research &amp; Writing" data-weeks="3"> <span>Legal Research &amp; Writing</span></label>
+      </div>
+      <p style="font-size:.75rem;color:var(--dim);margin-top:12px">Select all subjects assigned to you by the NCA.</p>
+    </div>
+
+    <div class="form-card">
+      <h2>3. Your Availability</h2>
+      <div class="field-group">
+        <label for="hours-per-week">Study hours available per week</label>
+        <div class="hours-display">
+          <input type="number" id="hours-per-week" min="5" max="40" value="15" step="1">
+          <span class="hours-note">hours/week (recommended: 15–20)</span>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Are you working full time?</label>
+        <div class="radio-row">
+          <label class="radio-item"><input type="radio" name="working" value="yes"> <span>Yes, working full time</span></label>
+          <label class="radio-item"><input type="radio" name="working" value="no" checked> <span>No / Part-time only</span></label>
+        </div>
+      </div>
+    </div>
+
+    <button class="gen-btn" onclick="generateSchedule()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="#02020A" stroke-width="2" stroke-linecap="round"/></svg>
+      Generate My Schedule
+    </button>
+
+    <!-- OUTPUT -->
+    <div id="schedule-output">
+      <div style="margin-top:40px" class="output-header">
+        <h2>Your Personalised Study Plan</h2>
+        <div class="output-actions">
+          <button class="action-btn" onclick="copyToClipboard()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 10H2a1 1 0 01-1-1V2a1 1 0 011-1h7a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.3"/></svg>
+            Copy to Clipboard
+          </button>
+          <button class="action-btn" onclick="downloadText()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Download as Text
+          </button>
+        </div>
+      </div>
+      <div id="schedule-warning" class="schedule-warning" style="display:none"></div>
+      <div class="summary-row" id="summary-row"></div>
+      <div style="overflow-x:auto">
+        <table class="schedule-table" id="schedule-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Dates</th>
+              <th>Focus</th>
+              <th>Hours</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+      <div class="tips-section">
+        <h3>How to Use This Schedule</h3>
+        <div class="tips-list">
+          <div class="tip-item"><span class="tip-icon">→</span><span>Study each subject intensively for its assigned weeks before moving to the next. Do not spread subjects across weeks.</span></div>
+          <div class="tip-item"><span class="tip-icon">→</span><span>Mock exam weeks: simulate real exam conditions. Use your notes hub practice questions. Review every wrong answer.</span></div>
+          <div class="tip-item"><span class="tip-icon">→</span><span>Buffer weeks are for catch-up or deeper review on subjects you found most challenging.</span></div>
+          <div class="tip-item"><span class="tip-icon">→</span><span>Final prep week: do not start new material. Focus on quick-reference summaries and past exam questions.</span></div>
+          <div class="tip-item"><span class="tip-icon">→</span><span>If working full time, protect your weekend study blocks fiercely. Even 3 focused hours on Saturday and Sunday adds up.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="ftg">
+    <div>
+      <div class="flog">The NCA Hub</div>
+      <p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p>
+    </div>
+    <div>
+      <div class="fct">Navigate</div>
+      <ul class="fls">
+        <li><a href="/#method">The Method</a></li>
+        <li><a href="/#subjects">Subjects</a></li>
+        <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop</a></li>
+        <li><a href="/blog/">Articles</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fct">Tools</div>
+      <ul class="fls">
+        <li><a href="/nca-cost-calculator/">Cost Calculator</a></li>
+        <li><a href="/study-schedule-generator/">Schedule Generator</a></li>
+        <li><a href="/province-comparison/">Province Comparison</a></li>
+        <li><a href="/nca-practice-questions/">Practice Questions</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fb2">
+    <p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p>
+    <p class="fleg">© 2026 The NCA Hub. All rights reserved.</p>
+  </div>
+  <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society. All trademarks belong to their respective owners. Information accurate as of March 2026 — always verify current requirements at <a href="https://nca.legal" target="_blank" rel="noopener">nca.legal</a>.</p>
+</footer>
+
+<script>
+// Mobile menu
+const mobBtn = document.getElementById('mob-btn');
+const mobMenu = document.getElementById('mob-menu');
+function closeMobMenu(){mobMenu.classList.remove('open');mobBtn.setAttribute('aria-expanded','false');}
+mobBtn.addEventListener('click',function(){
+  const open = mobMenu.classList.toggle('open');
+  mobBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+// Reading progress
+window.addEventListener('scroll',function(){
+  const d = document.documentElement;
+  const pct = (d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+  document.getElementById('prog').style.width = Math.min(pct,100)+'%';
+});
+
+// ---- SCHEDULE GENERATOR ----
+const TODAY = new Date(2026,2,17); // March 17 2026
+
+function getSessionDate(){
+  return new Date(document.getElementById('exam-session').value);
+}
+
+function getWeeksUntil(date){
+  const diff = date - TODAY;
+  return Math.floor(diff/(1000*60*60*24*7));
+}
+
+function getSelectedSubjects(){
+  return Array.from(document.querySelectorAll('#subjects-grid input:checked')).map(cb=>({
+    name: cb.value,
+    weeks: parseInt(cb.dataset.weeks)
+  }));
+}
+
+function addDays(date, days){
+  const d = new Date(date);
+  d.setDate(d.getDate()+days);
+  return d;
+}
+
+function formatDate(d){
+  return d.toLocaleDateString('en-CA',{month:'short',day:'numeric'});
+}
+
+function generateSchedule(){
+  const subjects = getSelectedSubjects();
+  if(subjects.length === 0){
+    alert('Please select at least one subject.');
+    return;
+  }
+
+  const sessionDate = getSessionDate();
+  const totalWeeks = getWeeksUntil(sessionDate);
+  const hoursPerWeek = Math.min(40,Math.max(5,parseInt(document.getElementById('hours-per-week').value)||15));
+  const isWorking = document.querySelector('input[name="working"]:checked').value === 'yes';
+
+  // Working FT adjustment
+  const effectiveHours = isWorking ? Math.min(hoursPerWeek, 20) : hoursPerWeek;
+
+  // Calculate weeks needed
+  // Mandatory: Admin, Con, Crim, FCL, PR => need more depth
+  // Others: electives
+  const mandatory = ['Administrative Law','Constitutional Law','Criminal Law','Foundations of Canadian Law','Professional Responsibility'];
+  let studyWeeksNeeded = 0;
+  subjects.forEach(s=>{
+    // Scale based on hours: at 15hrs/wk use listed weeks; scale proportionally
+    const scaleFactor = 15/effectiveHours;
+    const adjWeeks = Math.ceil(s.weeks * scaleFactor);
+    studyWeeksNeeded += Math.max(1, adjWeeks);
+  });
+
+  const mockWeeks = Math.ceil(subjects.length / 3); // 1 mock week per 3 subjects
+  const bufferWeeks = Math.ceil(studyWeeksNeeded * 0.1);
+  const finalPrepWeeks = 1;
+  const weeksNeeded = studyWeeksNeeded + mockWeeks + bufferWeeks + finalPrepWeeks;
+
+  // Build warning if not enough time
+  const warningEl = document.getElementById('schedule-warning');
+  if(totalWeeks <= 0){
+    warningEl.style.display='block';
+    warningEl.textContent='Warning: Your selected exam session has already passed or is this week. Please select a future session.';
+    document.getElementById('schedule-output').style.display='block';
+    document.getElementById('schedule-body').innerHTML='';
+    document.getElementById('summary-row').innerHTML='';
+    return;
+  }
+
+  if(weeksNeeded > totalWeeks){
+    warningEl.style.display='block';
+    warningEl.innerHTML='<strong>Heads up:</strong> Your schedule needs approximately '+weeksNeeded+' weeks but you have '+totalWeeks+' weeks until the exam. Consider: (1) increasing study hours per week, (2) targeting a later exam session, or (3) reducing the number of subjects in this sitting.';
+  } else {
+    warningEl.style.display='none';
+  }
+
+  // Summary cards
+  const totalHours = studyWeeksNeeded * effectiveHours;
+  document.getElementById('summary-row').innerHTML = `
+    <div class="summary-card"><div class="sc-label">Weeks Available</div><div class="sc-value">${totalWeeks}</div><div class="sc-sub">until exam session</div></div>
+    <div class="summary-card"><div class="sc-label">Study Weeks Needed</div><div class="sc-value">${weeksNeeded}</div><div class="sc-sub">incl. mock &amp; buffer</div></div>
+    <div class="summary-card"><div class="sc-label">Subjects</div><div class="sc-value">${subjects.length}</div><div class="sc-sub">selected</div></div>
+    <div class="summary-card"><div class="sc-label">Total Study Hours</div><div class="sc-value">${totalHours}</div><div class="sc-sub">at ${effectiveHours} hrs/week</div></div>
+  `;
+
+  // Build week schedule
+  const rows = [];
+  let currentDate = new Date(TODAY);
+  let weekNum = 1;
+
+  // Phase 1: Study weeks
+  // Sort subjects: mandatory first, then others
+  const sortedSubjects = [...subjects].sort((a,b)=>{
+    const aM = mandatory.includes(a.name) ? 0 : 1;
+    const bM = mandatory.includes(b.name) ? 0 : 1;
+    return aM - bM;
+  });
+
+  rows.push({type:'phase', label:'PHASE 1 — SYSTEMATIC STUDY'});
+
+  let subjectIndex = 0;
+  const subjectSchedule = []; // track which weeks each subject is studied
+  sortedSubjects.forEach(s=>{
+    const scaleFactor = 15/effectiveHours;
+    const adjWeeks = Math.max(1, Math.ceil(s.weeks * scaleFactor));
+    for(let w=0; w<adjWeeks; w++){
+      const weekStart = new Date(currentDate);
+      const weekEnd = addDays(weekStart, 6);
+      const isFirstWeek = w === 0;
+      const isLastWeek = w === adjWeeks-1;
+      rows.push({
+        type:'study',
+        week: weekNum,
+        start: weekStart,
+        end: weekEnd,
+        subject: s.name,
+        hours: effectiveHours,
+        notes: isFirstWeek ? 'Start: read overview, key cases, legislation' : isLastWeek ? 'Final review: practice questions + self-test' : 'Deep reading + case summaries'
+      });
+      currentDate = addDays(currentDate, 7);
+      weekNum++;
+    }
+    subjectSchedule.push({name: s.name, weeks: adjWeeks});
+  });
+
+  // Phase 2: Mock exams
+  rows.push({type:'phase', label:'PHASE 2 — MOCK EXAMS'});
+  const subjectsForMock = [...sortedSubjects];
+  const subjectsPerMockWeek = Math.ceil(subjectsForMock.length / mockWeeks);
+  for(let m=0; m<mockWeeks; m++){
+    const weekStart = new Date(currentDate);
+    const weekEnd = addDays(weekStart, 6);
+    const batch = subjectsForMock.splice(0, subjectsPerMockWeek);
+    rows.push({
+      type:'mock',
+      week: weekNum,
+      start: weekStart,
+      end: weekEnd,
+      subjects: batch.map(s=>s.name),
+      hours: effectiveHours,
+      notes: 'Timed practice exams. Review all errors in detail.'
+    });
+    currentDate = addDays(currentDate, 7);
+    weekNum++;
+  }
+
+  // Phase 3: Buffer
+  if(bufferWeeks > 0){
+    rows.push({type:'phase', label:'PHASE 3 — REVIEW &amp; BUFFER'});
+    for(let b=0; b<bufferWeeks; b++){
+      const weekStart = new Date(currentDate);
+      const weekEnd = addDays(weekStart, 6);
+      rows.push({
+        type:'buffer',
+        week: weekNum,
+        start: weekStart,
+        end: weekEnd,
+        hours: effectiveHours,
+        notes: 'Revisit weakest areas identified in mock exams'
+      });
+      currentDate = addDays(currentDate, 7);
+      weekNum++;
+    }
+  }
+
+  // Phase 4: Final prep
+  rows.push({type:'phase', label:'PHASE 4 — FINAL PREP'});
+  {
+    const weekStart = new Date(currentDate);
+    const weekEnd = addDays(weekStart, 6);
+    rows.push({
+      type:'prep',
+      week: weekNum,
+      start: weekStart,
+      end: weekEnd,
+      hours: Math.ceil(effectiveHours * 0.7),
+      notes: 'No new material. Quick-reference summaries only. Rest and confidence.'
+    });
+  }
+
+  // Render table
+  const tbody = document.getElementById('schedule-body');
+  tbody.innerHTML = '';
+  rows.forEach(row=>{
+    const tr = document.createElement('tr');
+    if(row.type==='phase'){
+      tr.className='phase-row';
+      tr.innerHTML=`<td colspan="5"><span class="phase-label">${row.label}</span></td>`;
+    } else if(row.type==='study'){
+      tr.innerHTML=`
+        <td class="week-num">Week ${row.week}</td>
+        <td style="color:var(--dim);white-space:nowrap">${formatDate(row.start)} – ${formatDate(row.end)}</td>
+        <td><span class="subject-badge badge-study">${row.subject}</span></td>
+        <td class="week-hours">${row.hours} hrs</td>
+        <td class="week-notes">${row.notes}</td>
+      `;
+    } else if(row.type==='mock'){
+      tr.innerHTML=`
+        <td class="week-num">Week ${row.week}</td>
+        <td style="color:var(--dim);white-space:nowrap">${formatDate(row.start)} – ${formatDate(row.end)}</td>
+        <td>${row.subjects.map(s=>`<span class="subject-badge badge-mock">${s}</span>`).join('')}</td>
+        <td class="week-hours">${row.hours} hrs</td>
+        <td class="week-notes">${row.notes}</td>
+      `;
+    } else if(row.type==='buffer'){
+      tr.innerHTML=`
+        <td class="week-num">Week ${row.week}</td>
+        <td style="color:var(--dim);white-space:nowrap">${formatDate(row.start)} – ${formatDate(row.end)}</td>
+        <td><span class="subject-badge badge-buffer">Buffer / Catch-up</span></td>
+        <td class="week-hours">${row.hours} hrs</td>
+        <td class="week-notes">${row.notes}</td>
+      `;
+    } else if(row.type==='prep'){
+      tr.innerHTML=`
+        <td class="week-num">Week ${row.week}</td>
+        <td style="color:var(--dim);white-space:nowrap">${formatDate(row.start)} – ${formatDate(row.end)}</td>
+        <td><span class="subject-badge badge-prep">Final Prep</span></td>
+        <td class="week-hours">${row.hours} hrs</td>
+        <td class="week-notes">${row.notes}</td>
+      `;
+    }
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('schedule-output').style.display='block';
+  setTimeout(()=>document.getElementById('schedule-output').scrollIntoView({behavior:'smooth',block:'start'}),100);
+
+  // Store for copy/download
+  window._scheduleData = {rows, subjects, hoursPerWeek: effectiveHours, totalWeeks, sessionDate};
+}
+
+function buildTextSchedule(){
+  if(!window._scheduleData) return '';
+  const {rows, subjects, hoursPerWeek, totalWeeks, sessionDate} = window._scheduleData;
+  const lines = [
+    'NCA STUDY SCHEDULE — Generated by The NCA Hub',
+    '================================================',
+    `Generated: ${new Date().toLocaleDateString('en-CA')}`,
+    `Exam Session: ${sessionDate.toLocaleDateString('en-CA',{month:'long',year:'numeric'})}`,
+    `Subjects: ${subjects.map(s=>s.name).join(', ')}`,
+    `Hours/Week: ${hoursPerWeek}`,
+    `Total Weeks Available: ${totalWeeks}`,
+    '',
+    'WEEK-BY-WEEK PLAN',
+    '-----------------',
+  ];
+  rows.forEach(row=>{
+    if(row.type==='phase'){
+      lines.push('');
+      lines.push('— '+row.label.replace(/&amp;/g,'&')+' —');
+    } else if(row.type==='study'){
+      lines.push(`Week ${row.week} (${formatDate(row.start)} – ${formatDate(row.end)}): [STUDY] ${row.subject} — ${row.hours} hrs — ${row.notes}`);
+    } else if(row.type==='mock'){
+      lines.push(`Week ${row.week} (${formatDate(row.start)} – ${formatDate(row.end)}): [MOCK EXAMS] ${row.subjects.join(', ')} — ${row.hours} hrs — ${row.notes}`);
+    } else if(row.type==='buffer'){
+      lines.push(`Week ${row.week} (${formatDate(row.start)} – ${formatDate(row.end)}): [BUFFER] Catch-up / Review — ${row.hours} hrs — ${row.notes}`);
+    } else if(row.type==='prep'){
+      lines.push(`Week ${row.week} (${formatDate(row.start)} – ${formatDate(row.end)}): [FINAL PREP] — ${row.hours} hrs — ${row.notes}`);
+    }
+  });
+  lines.push('');
+  lines.push('Source: https://www.thencahub.com/study-schedule-generator/');
+  lines.push('NOT AFFILIATED WITH THE NCA. Verify exam dates at nca.legal');
+  return lines.join('\n');
+}
+
+function copyToClipboard(){
+  const text = buildTextSchedule();
+  if(!text){alert('Generate a schedule first.');return;}
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = document.querySelector('.action-btn');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✓ Copied!';
+    setTimeout(()=>{btn.innerHTML=orig;},2000);
+  }).catch(()=>{
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  });
+}
+
+function downloadText(){
+  const text = buildTextSchedule();
+  if(!text){alert('Generate a schedule first.');return;}
+  const blob = new Blob([text],{type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='nca-study-schedule.txt'; a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+<script src="/nca-enhancements.js" defer></script>
+<script src="/nca-chat-widget.js" defer></script>
+</body>
+</html>

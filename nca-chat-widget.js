@@ -167,10 +167,15 @@
     var typing = showTyping();
 
     try {
+      /* Pass current page context so AI can give article-aware answers */
+      var pageCtx = {
+        title: document.title.replace(' — The NCA Hub', '').trim(),
+        path: window.location.pathname
+      };
       var res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messages })
+        body: JSON.stringify({ messages: messages, pageContext: pageCtx })
       });
       var data = await res.json();
       typing.remove();
