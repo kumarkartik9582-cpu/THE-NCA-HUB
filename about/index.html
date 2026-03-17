@@ -386,6 +386,9 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:60px 72px 40px;}
   <a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now &rarr;</a>
 </div>
 <script>
+(function(){var btn=document.getElementById('nh'),overlay=document.getElementById('mob-overlay'),closeBtn=document.getElementById('mob-close');if(!btn||!overlay){console.warn('Menu elements not found');return;}function openMenu(){overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');btn.classList.add('open');btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}function closeMenu(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}btn.addEventListener('click',function(e){e.stopPropagation();overlay.classList.contains('open')?closeMenu():openMenu();});if(closeBtn)closeBtn.addEventListener('click',closeMenu);document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});overlay.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))closeMenu();});});overlay.addEventListener('click',function(e){if(e.target===overlay)closeMenu();});})();
+</script>
+<script>
 (function(){
   var overlay = document.getElementById('srch-overlay');
   var input = document.getElementById('srch-input');
@@ -445,5 +448,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:60px 72px 40px;}
   input.addEventListener('input', function(){ doSearch(this.value.trim()); });
 })();
 </script>
+<script src="/nca-chat-widget.js" defer></script>
 </body>
 </html>

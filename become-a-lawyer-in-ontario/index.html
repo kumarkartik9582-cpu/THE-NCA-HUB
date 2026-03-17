@@ -50,7 +50,7 @@
           "@type": "HowToStep",
           "position": 1,
           "name": "Apply for NCA academic assessment",
-          "text": "Submit your academic credentials to the NCA (Federation of Law Societies of Canada) at nca.legal. Pay the $500 CAD assessment fee. The NCA reviews your law degree against Canadian standards and issues a letter specifying which challenge exams you must write.",
+          "text": "Submit your academic credentials to the NCA (Federation of Law Societies of Canada) at nca.legal. Pay the $400 CAD assessment fee (effective March 1, 2024). The NCA reviews your law degree against Canadian standards and issues a letter specifying which challenge exams you must write.",
           "url": "https://www.thencahub.com/become-a-lawyer-in-ontario/#nca-assessment"
         },
         {
@@ -146,7 +146,7 @@
           "name": "How much does it cost to become a lawyer in Ontario as a foreign graduate?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Minimum costs are approximately $9,000-10,000 CAD in fees alone: NCA assessment (~$452), NCA exams for 5 subjects (~$2,825), CPLED LRW course (~$1,200), and LSO licensing fees (~$4,500). This does not include study materials, living expenses, or lost income during articling."
+            "text": "Minimum costs are approximately $9,000-10,000 CAD in fees alone: NCA assessment (~$452 incl. taxes), NCA exams for 5 subjects (~$2,825), CPLED LRW course (~$1,200), and LSO licensing fees (~$4,500). This does not include study materials, living expenses, or lost income during articling."
           }
         }
       ]
@@ -297,7 +297,7 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
     <table class="costs-table">
       <thead><tr><th>Item</th><th>Approximate Cost (CAD)</th></tr></thead>
       <tbody>
-        <tr><td>NCA academic assessment</td><td>~$452 (incl. HST)</td></tr>
+        <tr><td>NCA academic assessment</td><td>~$452 (incl. HST; base fee $400 + taxes)</td></tr>
         <tr><td>NCA challenge exams (5 subjects × ~$565)</td><td>~$2,825</td></tr>
         <tr><td>CPLED LRW course</td><td>~$1,200</td></tr>
         <tr><td>LSO licensing fees</td><td>~$4,500</td></tr>
@@ -310,7 +310,7 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
       <div class="faq-item"><p class="faq-q">How long does it take to become a lawyer in Ontario as a foreign graduate?</p><p class="faq-a">Realistically 3–5 years. The NCA process alone takes 1–2 years (assessment + exams + LRW). After completing the NCA and receiving your Certificate of Qualification, you must complete the LSO licensing process — either articling (12 months) or LPP (8 months) — plus pass the Barrister and Solicitor exams.</p></div>
       <div class="faq-item"><p class="faq-q">What is the LPP in Ontario?</p><p class="faq-a">The Law Practice Program (LPP) is an alternative to articling for Ontario lawyers. It consists of a 4-month skills training component followed by a 4-month work placement. It is offered by Toronto Metropolitan University and the University of Ottawa. It was introduced to address the shortage of articling positions in Ontario.</p></div>
       <div class="faq-item"><p class="faq-q">Are the LSO Barrister and Solicitor exams the same as NCA exams?</p><p class="faq-a">No. The LSO licensing exams (Barrister and Solicitor) are separate from NCA challenge exams. They are open-book multiple choice exams (not essays) and test Ontario-specific law and procedure. The NCA challenge exams are written-answer exams testing general Canadian law.</p></div>
-      <div class="faq-item"><p class="faq-q">How much does it cost to become a lawyer in Ontario as a foreign graduate?</p><p class="faq-a">Minimum costs are approximately $9,000–10,000 CAD in fees alone: NCA assessment (~$452), NCA exams for 5 subjects (~$2,825), CPLED LRW course (~$1,200), and LSO licensing fees (~$4,500). This does not include study materials, living expenses, or lost income during articling.</p></div>
+      <div class="faq-item"><p class="faq-q">How much does it cost to become a lawyer in Ontario as a foreign graduate?</p><p class="faq-a">Minimum costs are approximately $9,000–10,000 CAD in fees alone: NCA assessment (~$452 incl. taxes), NCA exams for 5 subjects (~$2,825), CPLED LRW course (~$1,200), and LSO licensing fees (~$4,500). This does not include study materials, living expenses, or lost income during articling.</p></div>
     </div>
     <div class="related-links"><h3>Related Resources</h3><div class="related-grid"><a href="/nca-cost-calculator/" class="related-card">NCA Cost Calculator</a><a href="/notes/" class="related-card">NCA Study Notes</a><a href="/blog/nca-lrw-guide/" class="related-card">NCA LRW Guide 2026</a><a href="/become-a-lawyer-in-bc/" class="related-card">Qualify in BC</a></div></div>
   </div></div>
@@ -320,7 +320,7 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
 (function(){var bar=document.getElementById('prog');if(!bar)return;window.addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';},{passive:true});})();
 (function(){try{if(typeof Lenis!=='undefined'){var l=new Lenis({lerp:0.075,smoothWheel:true});if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){l.raf(t*1000);});}}}catch(e){}})();
 (function(){var CD=document.getElementById('cd'),CR=document.getElementById('cr'),CL=document.getElementById('cl');if(!CD||!CR)return;var cmx=-200,cmy=-200,crx=-200,cry=-200;document.addEventListener('mousemove',function(e){cmx=e.clientX;cmy=e.clientY;CD.style.left=cmx+'px';CD.style.top=cmy+'px';},{passive:true});(function a(){crx+=(cmx-crx)*.1;cry+=(cmy-cry)*.1;CR.style.left=crx+'px';CR.style.top=cry+'px';requestAnimationFrame(a);})();})();
-(function(){var NH=document.getElementById('nh'),MOB=document.getElementById('mob'),MOBX=document.getElementById('mobx');if(!NH||!MOB)return;NH.addEventListener('click',function(){MOB.classList.add('op');NH.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';});if(MOBX)MOBX.addEventListener('click',function(){MOB.classList.remove('op');NH.setAttribute('aria-expanded','false');document.body.style.overflow='';});document.querySelectorAll(');});})();
+(function(){var btn=document.getElementById('nh'),overlay=document.getElementById('mob-overlay'),closeBtn=document.getElementById('mob-close');if(!btn||!overlay){console.warn('Menu elements not found');return;}function openMenu(){overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');btn.classList.add('open');btn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}function closeMenu(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');document.body.style.overflow='';}btn.addEventListener('click',function(e){e.stopPropagation();overlay.classList.contains('open')?closeMenu():openMenu();});if(closeBtn)closeBtn.addEventListener('click',closeMenu);document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});overlay.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))closeMenu();});});overlay.addEventListener('click',function(e){if(e.target===overlay)closeMenu();});})();
 (function(){var nav=document.getElementById('nav');if(!nav)return;window.addEventListener('scroll',function(){nav.classList.toggle('sc',window.scrollY>60);},{passive:true});})();
 (function(){var sp=document.getElementById('spotlight');if(!sp)return;document.addEventListener('mousemove',function(e){sp.style.left=e.clientX+'px';sp.style.top=e.clientY+'px';sp.style.opacity='1';},{passive:true});})();
 </script>
@@ -440,4 +440,5 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
   input.addEventListener('input', function(){ doSearch(this.value.trim()); });
 })();
 </script>
+<script src="/nca-chat-widget.js" defer></script>
 </body></html>
