@@ -178,13 +178,22 @@
       if (data.reply) {
         addMsg('bot', data.reply);
         messages.push({ role: 'assistant', content: data.reply });
+      } else if (data.error) {
+        var errText = data.error.toLowerCase().indexOf('api key') !== -1
+          ? 'The AI assistant is not configured yet. Please check back soon or email hello@thencahub.com for help.'
+          : 'Sorry, something went wrong: ' + data.error + '. Please try again.';
+        addMsg('bot', errText);
+        messages.pop();
       } else {
         addMsg('bot', 'Sorry, something went wrong. Please try again.');
         messages.pop();
       }
     } catch (e) {
       typing.remove();
-      addMsg('bot', 'Could not connect to the AI assistant. Please check your connection and try again.');
+      var online = navigator.onLine;
+      addMsg('bot', online
+        ? 'The AI assistant is temporarily unavailable. Please try again in a moment or email hello@thencahub.com for help.'
+        : 'No internet connection detected. Please check your connection and try again.');
       messages.pop();
     }
 

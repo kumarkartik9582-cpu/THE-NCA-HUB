@@ -3,14 +3,26 @@
  * Proxies requests to the Anthropic Claude API.
  * Set ANTHROPIC_API_KEY in your Cloudflare Pages environment variables.
  */
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+/* Handle CORS preflight */
+export async function onRequestOptions() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
   const apiKey = env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'API key not configured' }), {
+    return new Response(JSON.stringify({ error: 'API key not configured. Please set ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 
@@ -20,7 +32,7 @@ export async function onRequestPost(context) {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 
@@ -28,7 +40,7 @@ export async function onRequestPost(context) {
   if (!Array.isArray(messages) || messages.length === 0) {
     return new Response(JSON.stringify({ error: 'No messages provided' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 
@@ -79,9 +91,10 @@ Guidelines:
     const data = await res.json();
 
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: data.error?.message || 'API error' }), {
+      const errMsg = data.error?.message || 'API error';
+      return new Response(JSON.stringify({ error: errMsg }), {
         status: res.status,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
       });
     }
 
@@ -90,13 +103,14 @@ Guidelines:
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store'
+        'Cache-Control': 'no-store',
+        ...CORS_HEADERS
       }
     });
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'Failed to reach AI service' }), {
+    return new Response(JSON.stringify({ error: 'Failed to reach AI service. Please try again shortly.' }), {
       status: 502,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 }

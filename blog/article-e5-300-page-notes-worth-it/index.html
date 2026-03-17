@@ -316,6 +316,26 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 /* Copy toast */
 #copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:8px 20px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:9999;}
 #copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.nca-inline-newsletter{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:32px 36px;margin:48px 0;}
+@media(max-width:640px){.nca-inline-newsletter{padding:24px 20px;margin:36px 0;}}
+.nca-nl-inner{display:flex;flex-direction:column;gap:16px;}
+.nca-nl-icon{color:var(--g1,#C9A84C);opacity:.8;}
+.nca-nl-eyelet{font-size:var(--nano,.7rem);letter-spacing:.25em;text-transform:uppercase;color:var(--g2,#a87e3a);font-weight:600;margin:0 0 6px;}
+.nca-nl-headline{font-family:var(--fd,serif);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:300;color:var(--cream,#f0e6cc);line-height:1.25;margin:0 0 8px;}
+.nca-nl-sub{font-size:var(--sm,.85rem);color:var(--fog,#9e9587);line-height:1.65;margin:0;}
+.nca-nl-text{flex:1;}
+.nca-nl-form{}
+.nca-nl-input-row{display:flex;gap:8px;flex-wrap:wrap;}
+.nca-nl-email{flex:1;min-width:200px;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);border-radius:8px;color:var(--cream,#f0e6cc);font-size:var(--body,.9rem);padding:10px 14px;outline:none;transition:border-color .2s;font-family:inherit;}
+.nca-nl-email:focus{border-color:rgba(201,168,76,.6);}
+.nca-nl-email::placeholder{color:rgba(240,230,204,.3);}
+.nca-nl-btn{background:#C9A84C;color:#02020A;border:none;border-radius:8px;font-size:var(--sm,.85rem);font-weight:600;padding:10px 22px;cursor:pointer;transition:background .2s;white-space:nowrap;letter-spacing:.03em;}
+.nca-nl-btn:hover{background:#e0be6a;}
+.nca-nl-btn:disabled{background:rgba(201,168,76,.3);cursor:not-allowed;}
+.nca-nl-note{font-size:var(--nano,.7rem);color:var(--dim,#6b6560);margin:8px 0 0;letter-spacing:.05em;}
+.nca-nl-success{display:flex;align-items:center;gap:10px;color:#4ade80;font-size:var(--sm,.85rem);padding:4px 0;}
+.nca-nl-success[hidden]{display:none!important;}
 </style>
 </head>
 <body class="has-sticky-cta">
@@ -382,6 +402,24 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <p><strong>Academic commentary:</strong> Critical analysis of the law. Interesting, not exam-relevant.</p>
 <p><strong>Jurisdictional comparisons:</strong> How UK/US/Australia do it. Not tested (unless Foundations subject).</p>
 <p><strong>Secondary topics:</strong> Detailed coverage of 30% topics. You need 80% topics only.</p>
+        <div class="nca-nl-text">
+          <p class="nca-nl-eyelet">Free NCA Prep Tips</p>
+          <p class="nca-nl-headline">Get the strategies that cleared 5 subjects in under 3 months.</p>
+          <p class="nca-nl-sub">Weekly exam insights, study frameworks, and what no one tells you — straight to your inbox.</p>
+        </div>
+        <form class="nca-nl-form" id="nca-nl-form" novalidate>
+          <div class="nca-nl-input-row">
+            <input type="email" id="nca-nl-email" class="nca-nl-email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+            <button type="submit" class="nca-nl-btn" id="nca-nl-btn">Subscribe</button>
+          </div>
+          <p class="nca-nl-note">No spam. Unsubscribe any time.</p>
+        </form>
+        <div class="nca-nl-success" id="nca-nl-success" hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>You&#8217;re in! Check your inbox for a confirmation.</span>
+        </div>
+      </div>
+    </div>
 <h2>The Math of Page Count</h2>
 <table>
 <thead>
@@ -413,6 +451,25 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 </tr>
 </tbody></table>
 <p><strong>45 minutes per question:</strong></p>
+        <div class="nca-nl-text">
+          <p class="nca-nl-eyelet">Free NCA Prep Tips</p>
+          <p class="nca-nl-headline">Get the strategies that cleared 5 subjects in under 3 months.</p>
+          <p class="nca-nl-sub">Weekly exam insights, study frameworks, and what no one tells you — straight to your inbox.</p>
+        </div>
+        <form class="nca-nl-form" id="nca-nl-form" novalidate>
+          <div class="nca-nl-input-row">
+            <input type="email" id="nca-nl-email" class="nca-nl-email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+            <button type="submit" class="nca-nl-btn" id="nca-nl-btn">Subscribe</button>
+          </div>
+          <p class="nca-nl-note">No spam. Unsubscribe any time.</p>
+        </form>
+        <div class="nca-nl-success" id="nca-nl-success" hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>You&#8217;re in! Check your inbox for a confirmation.</span>
+        </div>
+      </div>
+    </div>
+
 <ul>
 <li>2 minutes finding = 43 minutes writing (acceptable)</li>
 <li>10 minutes finding = 35 minutes writing (dangerous)</li>
@@ -813,5 +870,39 @@ if(mobx)mobx.addEventListener('click',function(){mob.classList.remove('op');nh.s
   window._ncaShowToast = showToast;
 })();
 </script>
+<script src="/nca-enhancements.js" defer></script>
+
+<script>
+(function(){
+  var form = document.getElementById('nca-nl-form');
+  if(!form) return;
+  var emailEl = document.getElementById('nca-nl-email');
+  var btn = document.getElementById('nca-nl-btn');
+  var success = document.getElementById('nca-nl-success');
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var email = emailEl.value.trim();
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ emailEl.focus(); return; }
+    btn.disabled = true;
+    btn.textContent = 'Subscribing…';
+    try {
+      var res = await fetch('/api/newsletter',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email})});
+      var data = await res.json();
+      if(data.success){
+        form.hidden = true;
+        success.hidden = false;
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+        alert(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch(err){
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
