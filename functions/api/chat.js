@@ -3,14 +3,53 @@
  * Proxies requests to the Anthropic Claude API.
  * Set ANTHROPIC_API_KEY in your Cloudflare Pages environment variables.
  */
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+/* Handle CORS preflight */
+export async function onRequestOptions() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
+/* ── Simple in-process rate limiter (resets per worker cold start) ── */
+const _rateLimitMap = new Map();
+function isRateLimited(ip) {
+  const now = Date.now();
+  const windowMs = 60_000; // 1 minute window
+  const maxRequests = 20;
+  const entry = _rateLimitMap.get(ip) || { count: 0, reset: now + windowMs };
+  if (now > entry.reset) { entry.count = 0; entry.reset = now + windowMs; }
+  entry.count++;
+  _rateLimitMap.set(ip, entry);
+  // Prune map periodically to avoid memory growth
+  if (_rateLimitMap.size > 5000) {
+    for (const [k, v] of _rateLimitMap) { if (now > v.reset) _rateLimitMap.delete(k); }
+  }
+  return entry.count > maxRequests;
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
+  /* Rate limit by IP */
+  const ip = request.headers.get('CF-Connecting-IP') ||
+             request.headers.get('X-Forwarded-For') || 'unknown';
+  if (isRateLimited(ip)) {
+    return new Response(JSON.stringify({ error: 'Too many requests. Please wait a minute before trying again.' }), {
+      status: 429,
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS, 'Retry-After': '60' }
+    });
+  }
+
   const apiKey = env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'API key not configured' }), {
+    return new Response(JSON.stringify({ error: 'API key not configured. Please set ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 
@@ -20,17 +59,22 @@ export async function onRequestPost(context) {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 
-  const { messages } = body;
+  const { messages, pageContext } = body;
   if (!Array.isArray(messages) || messages.length === 0) {
     return new Response(JSON.stringify({ error: 'No messages provided' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
+
+  /* Build page-aware context prefix */
+  const pageNote = pageContext && pageContext.title && pageContext.path !== '/'
+    ? `\n\nCurrent page context: The user is reading "${pageContext.title}" (${pageContext.path}). Tailor your answer to this context where relevant.`
+    : '';
 
   const systemPrompt = `You are the NCA Hub AI Assistant — a knowledgeable, concise guide for internationally trained lawyers preparing for NCA (National Committee on Accreditation) challenge exams in Canada.
 
@@ -56,7 +100,7 @@ Guidelines:
 - If you don't know something specific, say so clearly and direct them to official sources
 - Encourage but be realistic — NCA exams are challenging
 - Keep responses under 300 words unless a detailed explanation is genuinely needed
-- Use plain English, not heavy legalese`;
+- Use plain English, not heavy legalese${pageNote}`;
 
   const anthropicBody = {
     model: 'claude-haiku-4-5-20251001',
@@ -79,9 +123,10 @@ Guidelines:
     const data = await res.json();
 
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: data.error?.message || 'API error' }), {
+      const errMsg = data.error?.message || 'API error';
+      return new Response(JSON.stringify({ error: errMsg }), {
         status: res.status,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
       });
     }
 
@@ -90,13 +135,14 @@ Guidelines:
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store'
+        'Cache-Control': 'no-store',
+        ...CORS_HEADERS
       }
     });
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'Failed to reach AI service' }), {
+    return new Response(JSON.stringify({ error: 'Failed to reach AI service. Please try again shortly.' }), {
       status: 502,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
     });
   }
 }

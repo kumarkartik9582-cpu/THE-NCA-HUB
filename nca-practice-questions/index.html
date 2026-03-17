@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NCA Practice Questions Generator — AI-Powered Exam Prep | The NCA Hub</title>
+<meta name="description" content="Generate realistic NCA challenge exam practice questions with AI feedback. Select your subject, get an essay-style question, write your answer, and receive instant IRAC analysis.">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<link rel="canonical" href="https://www.thencahub.com/nca-practice-questions/">
+<meta name="geo.region" content="CA">
+<meta http-equiv="content-language" content="en-ca">
+<link rel="alternate" hreflang="en-ca" href="https://www.thencahub.com/nca-practice-questions/">
+<link rel="alternate" hreflang="en" href="https://www.thencahub.com/nca-practice-questions/">
+<link rel="alternate" hreflang="x-default" href="https://www.thencahub.com/nca-practice-questions/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.thencahub.com/nca-practice-questions/">
+<meta property="og:title" content="NCA Practice Questions Generator — AI-Powered Exam Prep">
+<meta property="og:description" content="Generate realistic NCA exam practice questions. Write your answer and get instant AI feedback on your IRAC structure.">
+<meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
+<meta property="og:site_name" content="The NCA Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NCA Practice Questions Generator — AI-Powered Exam Prep">
+<meta name="twitter:description" content="Generate realistic NCA exam practice questions with instant AI feedback.">
+<meta name="twitter:image" content="https://www.thencahub.com/og-image.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "NCA Practice Questions Generator",
+      "url": "https://www.thencahub.com/nca-practice-questions/",
+      "description": "AI-powered NCA exam practice question generator with instant IRAC feedback for internationally trained lawyers.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+      "author": { "@type": "Person", "name": "Kartik Kumar", "url": "https://www.thencahub.com/about/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.thencahub.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Practice Questions", "item": "https://www.thencahub.com/nca-practice-questions/" }
+      ]
+    }
+  ]
+}
+</script>
+<!-- Google Analytics GA4 -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','wait_for_update':500});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFFP8T95DZ"></script>
+<script>gtag('js',new Date());gtag('config','G-CFFP8T95DZ');</script>
+<style>
+:root{--void:#02020A;--abyss:#06060F;--dark:#0d0d1a;--cream:#f0e6cc;--g0:#e8c84a;--g1:#C9A84C;--g2:#a87e3a;--fog:#9e9587;--dim:#5a554e;--fb:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--fd:'Cormorant Garamond',Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--cream);font-family:var(--fb);line-height:1.6;min-height:100vh}
+.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
+.nca-skip-nav:focus{top:0}
+#prog{position:fixed;top:0;left:0;height:3px;background:#C9A84C;z-index:9999;width:0;transition:width .1s linear}
+/* Nav */
+nav{position:sticky;top:0;z-index:800;background:rgba(2,2,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.1)}
+.nw{max-width:1200px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nlog{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--g1);text-decoration:none;letter-spacing:.08em}
+.nl{list-style:none;display:flex;align-items:center;gap:32px}
+.nl a{color:var(--fog);text-decoration:none;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
+.nl a:hover{color:var(--cream)}
+.n-cta{background:#C9A84C!important;color:#02020A!important;padding:8px 18px!important;border-radius:6px!important;font-weight:600!important}
+.mob-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.mob-btn span{display:block;width:22px;height:2px;background:var(--cream);transition:.25s}
+@media(max-width:768px){.nl{display:none}.mob-btn{display:flex}}
+/* Hero */
+.pq-hero{max-width:800px;margin:0 auto;padding:64px 24px 40px;text-align:center}
+.pq-eyelet{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:16px}
+.pq-title{font-family:var(--fd);font-size:clamp(2rem,5vw,3rem);font-weight:300;color:var(--cream);line-height:1.15;margin-bottom:16px}
+.pq-title span{color:var(--g1)}
+.pq-sub{font-size:.95rem;color:var(--fog);line-height:1.75;max-width:560px;margin:0 auto}
+/* Tool card */
+.pq-wrap{max-width:800px;margin:0 auto;padding:0 24px 80px}
+.pq-card{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.15);border-radius:16px;padding:36px 40px;margin-bottom:24px}
+@media(max-width:640px){.pq-card{padding:24px 20px}}
+.pq-section-title{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:16px}
+/* Subject selector */
+.pq-subjects{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:24px}
+.pq-subject-btn{background:transparent;border:1px solid rgba(201,168,76,.2);color:var(--fog);padding:12px 16px;border-radius:8px;cursor:pointer;font-size:.78rem;text-align:left;transition:all .2s;font-family:var(--fb);line-height:1.4}
+.pq-subject-btn:hover{border-color:rgba(201,168,76,.5);color:var(--cream);background:rgba(201,168,76,.06)}
+.pq-subject-btn.active{border-color:var(--g1);color:var(--g1);background:rgba(201,168,76,.1)}
+.pq-subject-btn .subj-tag{display:block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+/* Difficulty + generate */
+.pq-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.pq-diff-btn{background:transparent;border:1px solid rgba(201,168,76,.2);color:var(--fog);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;transition:all .2s;font-family:var(--fb)}
+.pq-diff-btn.active{background:rgba(201,168,76,.12);border-color:var(--g1);color:var(--g1)}
+.pq-generate-btn{background:#C9A84C;color:#02020A;border:none;padding:12px 28px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:background .2s;letter-spacing:.06em;font-family:var(--fb);display:inline-flex;align-items:center;gap:8px}
+.pq-generate-btn:hover{background:#e0be6a}
+.pq-generate-btn:disabled{background:rgba(201,168,76,.3);cursor:not-allowed}
+/* Question display */
+.pq-question-box{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.2);border-left:3px solid var(--g1);border-radius:8px;padding:24px 28px;margin:20px 0;display:none}
+.pq-question-box.visible{display:block}
+.pq-q-label{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:12px}
+.pq-q-text{font-size:.92rem;color:var(--cream);line-height:1.85}
+.pq-q-time{font-size:.7rem;color:var(--dim);margin-top:12px;letter-spacing:.1em}
+/* Answer area */
+.pq-answer-label{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.pq-word-count{color:var(--dim);font-weight:400}
+#pq-answer{width:100%;min-height:280px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:8px;color:var(--cream);font-size:.88rem;padding:16px;resize:vertical;outline:none;font-family:var(--fb);line-height:1.7;transition:border-color .2s}
+#pq-answer:focus{border-color:rgba(201,168,76,.5)}
+#pq-answer::placeholder{color:rgba(240,230,204,.25)}
+.pq-answer-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.pq-feedback-btn{background:#C9A84C;color:#02020A;border:none;padding:11px 24px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .2s;font-family:var(--fb);display:inline-flex;align-items:center;gap:7px}
+.pq-feedback-btn:hover{background:#e0be6a}
+.pq-feedback-btn:disabled{background:rgba(201,168,76,.25);cursor:not-allowed}
+.pq-timer-btn{background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--fog);padding:11px 20px;border-radius:8px;font-size:.78rem;cursor:pointer;transition:all .2s;font-family:var(--fb)}
+.pq-timer-btn:hover{border-color:var(--g1);color:var(--cream)}
+.pq-timer-btn.running{color:var(--g0);border-color:var(--g0)}
+/* Timer */
+#pq-timer-display{font-size:.78rem;color:var(--dim);letter-spacing:.12em;margin-left:auto}
+/* Feedback */
+.pq-feedback-box{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:28px 32px;margin-top:20px;display:none}
+.pq-feedback-box.visible{display:block}
+.pq-fb-label{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px}
+.pq-fb-content{font-size:.88rem;color:var(--fog);line-height:1.85;white-space:pre-wrap}
+.pq-fb-content strong{color:var(--cream)}
+/* Info strip */
+.pq-irac-info{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:28px}
+.pq-irac-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);border-radius:8px;padding:16px}
+.pq-irac-letter{font-family:var(--fd);font-size:1.8rem;color:var(--g1);font-weight:300;margin-bottom:4px;line-height:1}
+.pq-irac-word{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.pq-irac-desc{font-size:.76rem;color:var(--fog);line-height:1.55}
+/* CTA */
+.pq-cta{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:40px;text-align:center;margin-top:40px}
+.pq-cta-title{font-family:var(--fd);font-size:clamp(1.3rem,3vw,1.9rem);font-weight:300;color:var(--cream);margin-bottom:12px}
+.pq-cta-sub{font-size:.88rem;color:var(--fog);margin-bottom:24px;line-height:1.7}
+.pq-cta-btn{display:inline-block;background:#C9A84C;color:#02020A;padding:13px 32px;border-radius:8px;font-size:.82rem;font-weight:700;text-decoration:none;transition:background .2s;letter-spacing:.04em}
+.pq-cta-btn:hover{background:#e0be6a}
+/* Breadcrumb */
+.breadcrumb{max-width:800px;margin:0 auto;padding:20px 24px 0;font-size:.72rem;color:var(--dim);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.breadcrumb a{color:var(--dim);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--g1)}
+/* Footer */
+footer{border-top:1px solid rgba(201,168,76,.1);padding:48px 32px 32px;margin-top:80px}
+.ftg{max-width:960px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media(max-width:640px){.ftg{grid-template-columns:1fr}}
+.flog{font-family:var(--fd);font-size:1.1rem;color:var(--g1);margin-bottom:8px}
+.ftag{font-size:.78rem;color:var(--dim);line-height:1.6;max-width:200px}
+.fct{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:12px}
+.fls{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fls a{color:var(--dim);text-decoration:none;font-size:.8rem;transition:color .2s}
+.fls a:hover{color:var(--g1)}
+.fb2{max-width:960px;margin:0 auto;padding:24px 0;border-top:1px solid rgba(201,168,76,.07);text-align:center}
+.fcl{font-family:var(--fd);font-size:1rem;color:var(--dim);font-style:italic;margin-bottom:8px}
+.fleg{font-size:.72rem;color:var(--dim);letter-spacing:.08em}
+.f-disc{max-width:960px;margin:16px auto 0;font-size:.65rem;color:var(--dim);line-height:1.7;text-align:center}
+.f-disc a{color:var(--dim)}
+</style>
+</head>
+<body>
+<a href="#main-content" class="nca-skip-nav">Skip to main content</a>
+<div id="prog"></div>
+
+<nav>
+  <div class="nw">
+    <a href="/" class="nlog">The NCA Hub</a>
+    <button id="mob-btn" class="mob-btn" aria-label="Open navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nl" role="list">
+      <li><a href="/#method">Method</a></li>
+      <li><a href="/notes/">Notes</a></li>
+      <li><a href="/blog/">Articles</a></li>
+      <li><a href="/nca-cost-calculator/">Calculator</a></li>
+      <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener" class="n-cta">Shop Notes</a></li>
+    </ul>
+  </div>
+</nav>
+
+<nav aria-label="Breadcrumb" class="breadcrumb">
+  <a href="/">Home</a><span aria-hidden="true">›</span>
+  <span aria-current="page">Practice Questions</span>
+</nav>
+
+<main id="main-content">
+  <div class="pq-hero">
+    <p class="pq-eyelet">Free AI Tool</p>
+    <h1 class="pq-title">NCA Practice <span>Question Generator</span></h1>
+    <p class="pq-sub">Generate realistic NCA exam-style essay questions. Write your IRAC answer. Get instant AI feedback on structure, completeness, and legal reasoning.</p>
+  </div>
+
+  <div class="pq-wrap">
+
+    <!-- Step 1: Subject -->
+    <div class="pq-card">
+      <p class="pq-section-title">Step 1 — Select subject</p>
+      <div class="pq-subjects" id="pq-subjects">
+        <button class="pq-subject-btn" data-subject="Administrative Law" data-tag="Mandatory">
+          <span class="subj-tag">Mandatory</span>Administrative Law
+        </button>
+        <button class="pq-subject-btn" data-subject="Constitutional Law" data-tag="Mandatory">
+          <span class="subj-tag">Mandatory</span>Constitutional Law
+        </button>
+        <button class="pq-subject-btn" data-subject="Criminal Law" data-tag="Mandatory">
+          <span class="subj-tag">Mandatory</span>Criminal Law
+        </button>
+        <button class="pq-subject-btn" data-subject="Foundations of Canadian Law" data-tag="Mandatory">
+          <span class="subj-tag">Mandatory</span>Foundations of Canadian Law
+        </button>
+        <button class="pq-subject-btn" data-subject="Professional Responsibility" data-tag="Mandatory">
+          <span class="subj-tag">Mandatory</span>Professional Responsibility
+        </button>
+        <button class="pq-subject-btn" data-subject="Business Organisations" data-tag="Elective">
+          <span class="subj-tag">Elective</span>Business Organisations
+        </button>
+        <button class="pq-subject-btn" data-subject="Civil Procedure" data-tag="Elective">
+          <span class="subj-tag">Elective</span>Civil Procedure
+        </button>
+        <button class="pq-subject-btn" data-subject="Property Law" data-tag="Elective">
+          <span class="subj-tag">Elective</span>Property Law
+        </button>
+        <button class="pq-subject-btn" data-subject="Legal Research and Writing" data-tag="Elective">
+          <span class="subj-tag">Elective</span>Legal Research &amp; Writing
+        </button>
+      </div>
+
+      <p class="pq-section-title" style="margin-top:20px">Step 2 — Difficulty</p>
+      <div class="pq-controls">
+        <button class="pq-diff-btn active" data-diff="standard">Standard</button>
+        <button class="pq-diff-btn" data-diff="challenging">Challenging</button>
+        <button class="pq-diff-btn" data-diff="exam-level">Exam Level</button>
+        <button class="pq-generate-btn" id="pq-generate-btn" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Generate Question
+        </button>
+      </div>
+    </div>
+
+    <!-- Question display -->
+    <div class="pq-question-box" id="pq-question-box">
+      <p class="pq-q-label" id="pq-q-label">Question</p>
+      <p class="pq-q-text" id="pq-q-text"></p>
+      <p class="pq-q-time" id="pq-q-time"></p>
+    </div>
+
+    <!-- Answer area -->
+    <div class="pq-card" id="pq-answer-card" style="display:none">
+      <p class="pq-answer-label">
+        <span>Your Answer — use IRAC structure</span>
+        <span class="pq-word-count" id="pq-word-count">0 words</span>
+      </p>
+      <textarea id="pq-answer" placeholder="Issue: State the legal issue raised by the facts...&#10;&#10;Rule: Identify the applicable legal rule or test...&#10;&#10;Application: Apply the rule to the specific facts...&#10;&#10;Conclusion: State your conclusion clearly..."></textarea>
+      <div class="pq-answer-actions">
+        <button class="pq-feedback-btn" id="pq-feedback-btn" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Get AI Feedback
+        </button>
+        <button class="pq-timer-btn" id="pq-timer-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Start Timer (45 min)
+        </button>
+        <span id="pq-timer-display"></span>
+      </div>
+    </div>
+
+    <!-- AI Feedback -->
+    <div class="pq-feedback-box" id="pq-feedback-box">
+      <p class="pq-fb-label">AI Feedback — IRAC Analysis</p>
+      <div class="pq-fb-content" id="pq-fb-content"></div>
+    </div>
+
+    <!-- IRAC info -->
+    <div class="pq-card" style="margin-top:32px">
+      <p class="pq-section-title">The IRAC Framework — NCA Exam Structure</p>
+      <div class="pq-irac-info">
+        <div class="pq-irac-card">
+          <div class="pq-irac-letter">I</div>
+          <div class="pq-irac-word">Issue</div>
+          <div class="pq-irac-desc">Identify the precise legal question raised by the fact pattern.</div>
+        </div>
+        <div class="pq-irac-card">
+          <div class="pq-irac-letter">R</div>
+          <div class="pq-irac-word">Rule</div>
+          <div class="pq-irac-desc">State the applicable legal test, statute, or principle with the key case.</div>
+        </div>
+        <div class="pq-irac-card">
+          <div class="pq-irac-letter">A</div>
+          <div class="pq-irac-word">Application</div>
+          <div class="pq-irac-desc">Apply the rule to the specific facts. This is where marks are won or lost.</div>
+        </div>
+        <div class="pq-irac-card">
+          <div class="pq-irac-letter">C</div>
+          <div class="pq-irac-word">Conclusion</div>
+          <div class="pq-irac-desc">State your answer clearly. The examiner should never have to guess your conclusion.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="pq-cta">
+      <p class="pq-cta-title">Want the notes built to pass these exams?</p>
+      <p class="pq-cta-sub">Concise subject notes under 80 pages — structured around the same IRAC method you just practised. Used to pass all 5 mandatory NCA subjects.</p>
+      <a href="/notes/" class="pq-cta-btn">Browse Study Notes →</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="ftg">
+    <div>
+      <div class="flog">The NCA Hub</div>
+      <p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p>
+    </div>
+    <div>
+      <div class="fct">Navigate</div>
+      <ul class="fls">
+        <li><a href="/#method">The Method</a></li>
+        <li><a href="/notes/">Notes</a></li>
+        <li><a href="/blog/">Articles</a></li>
+        <li><a href="/nca-cost-calculator/">Calculator</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fct">Tools</div>
+      <ul class="fls">
+        <li><a href="/study-schedule-generator/">Schedule Generator</a></li>
+        <li><a href="/province-comparison/">Province Comparison</a></li>
+        <li><a href="/nca-practice-questions/">Practice Questions</a></li>
+        <li><a href="/community/">Community</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fb2">
+    <p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p>
+    <p class="fleg">© 2026 The NCA Hub. All rights reserved.</p>
+  </div>
+  <p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource. Information accurate as of March 2026 — always verify at <a href="https://nca.legal" target="_blank" rel="noopener">nca.legal</a>.</p>
+</footer>
+
+<script>
+(function(){
+  var selectedSubject = null;
+  var selectedDiff = 'standard';
+  var timerInterval = null;
+  var timerSeconds = 0;
+  var timerRunning = false;
+
+  var subjectBtns = document.querySelectorAll('.pq-subject-btn');
+  var diffBtns = document.querySelectorAll('.pq-diff-btn');
+  var generateBtn = document.getElementById('pq-generate-btn');
+  var questionBox = document.getElementById('pq-question-box');
+  var questionLabel = document.getElementById('pq-q-label');
+  var questionText = document.getElementById('pq-q-text');
+  var questionTime = document.getElementById('pq-q-time');
+  var answerCard = document.getElementById('pq-answer-card');
+  var answerEl = document.getElementById('pq-answer');
+  var wordCount = document.getElementById('pq-word-count');
+  var feedbackBtn = document.getElementById('pq-feedback-btn');
+  var feedbackBox = document.getElementById('pq-feedback-box');
+  var feedbackContent = document.getElementById('pq-fb-content');
+  var timerBtn = document.getElementById('pq-timer-btn');
+  var timerDisplay = document.getElementById('pq-timer-display');
+
+  // Subject buttons
+  subjectBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      subjectBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      selectedSubject = btn.dataset.subject;
+      generateBtn.disabled = false;
+    });
+  });
+
+  // Difficulty buttons
+  diffBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      diffBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      selectedDiff = btn.dataset.diff;
+    });
+  });
+
+  // Word count
+  answerEl.addEventListener('input', function(){
+    var words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+    wordCount.textContent = words + ' word' + (words !== 1 ? 's' : '');
+    feedbackBtn.disabled = words < 50;
+  });
+
+  // Timer
+  timerBtn.addEventListener('click', function(){
+    if(timerRunning){
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerBtn.textContent = 'Start Timer (45 min)';
+      timerBtn.classList.remove('running');
+      timerDisplay.textContent = '';
+      timerSeconds = 0;
+    } else {
+      timerRunning = true;
+      timerSeconds = 45 * 60;
+      timerBtn.textContent = 'Stop Timer';
+      timerBtn.classList.add('running');
+      timerInterval = setInterval(function(){
+        timerSeconds--;
+        var m = Math.floor(timerSeconds / 60);
+        var s = timerSeconds % 60;
+        timerDisplay.textContent = m + ':' + (s < 10 ? '0' : '') + s + ' remaining';
+        if(timerSeconds <= 0){
+          clearInterval(timerInterval);
+          timerRunning = false;
+          timerDisplay.textContent = 'Time\'s up!';
+          timerBtn.textContent = 'Start Timer (45 min)';
+          timerBtn.classList.remove('running');
+        }
+      }, 1000);
+    }
+  });
+
+  // Generate question
+  generateBtn.addEventListener('click', async function(){
+    if(!selectedSubject) return;
+    generateBtn.disabled = true;
+    generateBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Generating...';
+    feedbackBox.classList.remove('visible');
+    feedbackContent.textContent = '';
+    answerEl.value = '';
+    wordCount.textContent = '0 words';
+    feedbackBtn.disabled = true;
+
+    var diffLabel = selectedDiff === 'standard' ? 'standard difficulty (suitable for initial practice)'
+      : selectedDiff === 'challenging' ? 'challenging (tests deeper analysis)'
+      : 'full exam-level difficulty (3-hour exam standard)';
+
+    var messages = [{
+      role: 'user',
+      content: 'Generate a single realistic NCA challenge exam essay question for the subject: ' + selectedSubject + '. Difficulty: ' + diffLabel + '.\n\nRequirements:\n- Present a realistic fact pattern (2-4 paragraphs)\n- Ask 1-2 specific legal questions that require IRAC analysis\n- Include all facts needed to answer but also some irrelevant facts to test issue spotting\n- Do NOT provide the answer or any hints\n- End with the explicit question(s) to answer\n- Format: start with "FACT PATTERN:" then the scenario, then "QUESTION(S):" then the questions\n- For ' + selectedDiff + ' level, make it appropriately complex'
+    }];
+
+    try {
+      var res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: messages,
+          pageContext: { title: 'NCA Practice Questions — ' + selectedSubject, path: '/nca-practice-questions/' }
+        })
+      });
+      var data = await res.json();
+      if(data.reply){
+        questionLabel.textContent = selectedSubject + ' — ' + selectedDiff.charAt(0).toUpperCase() + selectedDiff.slice(1);
+        questionText.textContent = data.reply;
+        questionTime.textContent = 'Suggested time: 40–45 minutes for a full answer. Use IRAC structure.';
+        questionBox.classList.add('visible');
+        answerCard.style.display = 'block';
+        answerEl.focus();
+        if(typeof gtag === 'function') gtag('event', 'practice_question_generated', { subject: selectedSubject, difficulty: selectedDiff });
+      } else {
+        questionText.textContent = 'Could not generate question. Please try again.';
+        questionBox.classList.add('visible');
+      }
+    } catch(e) {
+      questionText.textContent = 'Could not connect to the AI. Please check your connection and try again.';
+      questionBox.classList.add('visible');
+    }
+
+    generateBtn.disabled = false;
+    generateBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Generate Another';
+  });
+
+  // Get AI feedback
+  feedbackBtn.addEventListener('click', async function(){
+    var answer = answerEl.value.trim();
+    if(!answer || answer.split(/\s+/).length < 50) return;
+
+    feedbackBtn.disabled = true;
+    feedbackBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Analysing...';
+
+    var messages = [
+      {
+        role: 'user',
+        content: 'I answered an NCA exam practice question for ' + selectedSubject + '.\n\nQUESTION:\n' + questionText.textContent + '\n\nMY ANSWER:\n' + answer + '\n\nPlease give me structured feedback on my answer. Evaluate:\n1. **Issue identification** — did I correctly identify the legal issues?\n2. **Rule statement** — did I state the applicable legal tests/principles accurately?\n3. **Application** — did I apply the law to the facts specifically and thoroughly?\n4. **Conclusion** — was my conclusion clear and legally sound?\n5. **Overall IRAC structure** — was the structure logical and examiner-friendly?\n6. **What to improve** — specific suggestions for a better answer\n\nBe constructive but honest. Use NCA exam marking standards. Keep feedback under 400 words.'
+      }
+    ];
+
+    try {
+      var res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: messages, pageContext: { title: 'NCA Practice Questions Feedback', path: '/nca-practice-questions/' } })
+      });
+      var data = await res.json();
+      if(data.reply){
+        feedbackContent.textContent = data.reply;
+        feedbackBox.classList.add('visible');
+        feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if(typeof gtag === 'function') gtag('event', 'practice_feedback_requested', { subject: selectedSubject });
+      }
+    } catch(e) {
+      feedbackContent.textContent = 'Could not get feedback. Please try again.';
+      feedbackBox.classList.add('visible');
+    }
+
+    feedbackBtn.disabled = false;
+    feedbackBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Get AI Feedback';
+  });
+
+})();
+</script>
+<script src="/nca-enhancements.js" defer></script>
+<script src="/nca-chat-widget.js" defer></script>
+</body>
+</html>

@@ -160,9 +160,40 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 /* Copy toast */
 #copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g1);color:var(--void);font-family:var(--fb);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:8px 20px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:9999;}
 #copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
+.nca-skip-nav:focus{top:0}
 </style>
+
+<script type="application/ld+json">
+{
+  "@type": "NewsArticle",
+  "headline": "NCA Administrative Law Exam \u2014 June 2026 Sitting Guide",
+  "url": "https://www.thencahub.com/blog/nca-admin-law-june-2026/",
+  "datePublished": "2026-03-15T00:00:00+00:00",
+  "dateModified": "2026-03-15T00:00:00+00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Kartik Kumar",
+    "url": "https://www.thencahub.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The NCA Hub",
+    "url": "https://www.thencahub.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.thencahub.com/favicon.svg"
+    }
+  },
+  "image": "https://www.thencahub.com/og-image.jpg",
+  "description": "NCA Administrative Law Exam \u2014 June 2026 Sitting Guide \u2014 NCA exam preparation, The NCA Hub"
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="nca-skip-nav">Skip to main content</a>
+
 <div class="grain" aria-hidden="true"></div>
 <div id="prog" aria-hidden="true"></div>
 <div id="cd" aria-hidden="true"></div>
@@ -527,6 +558,18 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   }
   window._ncaShowToast = showToast;
 })();
+</script>
+<script src="/nca-enhancements.js" defer></script>
+
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'SW_UPDATED'){
+      var b = document.getElementById('nca-sw-update');
+      if(b) b.style.display = 'flex';
+    }
+  });
+}
 </script>
 </body>
 </html>

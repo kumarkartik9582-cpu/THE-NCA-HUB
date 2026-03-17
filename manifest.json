@@ -5,7 +5,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#020204",
-  "theme_color": "#020204",
+  "theme_color": "#C9A84C",
   "icons": [
     {
       "src": "/favicon.svg",
@@ -15,5 +15,43 @@
     }
   ],
   "categories": ["education", "productivity"],
-  "lang": "en-CA"
+  "lang": "en-CA",
+  "shortcuts": [
+    {
+      "name": "Browse Notes",
+      "short_name": "Notes",
+      "description": "View NCA study notes by subject",
+      "url": "/notes/",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Latest Articles",
+      "short_name": "Articles",
+      "description": "Read NCA exam preparation guides",
+      "url": "/blog/",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Cost Calculator",
+      "short_name": "Calculator",
+      "description": "Calculate your total NCA exam costs",
+      "url": "/nca-cost-calculator/",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Ask AI",
+      "short_name": "Ask AI",
+      "description": "Chat with the NCA Hub AI assistant",
+      "url": "/?chat=open",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "label": "The NCA Hub — NCA exam preparation"
+    }
+  ]
 }
