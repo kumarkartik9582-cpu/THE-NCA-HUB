@@ -3,6 +3,8 @@ User-agent: *
 Allow: /
 Disallow: /cdn-cgi/
 Disallow: /thank-you/
+Disallow: /offline.html
+Disallow: /free-chapter.html
 
 User-agent: Googlebot
 Allow: /
