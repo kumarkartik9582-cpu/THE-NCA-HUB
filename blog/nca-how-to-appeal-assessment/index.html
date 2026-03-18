@@ -174,7 +174,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-skip-nav:focus{top:0}
 </style>
 </head>
-<body>
+<body class="has-sticky-cta">
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain" aria-hidden="true"></div>
@@ -182,34 +182,40 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <div id="cd" aria-hidden="true"></div>
 <div id="cr" aria-hidden="true"></div>
 <nav aria-label="Site navigation">
-  <a href="/" class="nl" aria-label="The NCA Hub home">The NCA <span style="color:var(--cream)">Hub</span></a>
+  <a href="/" class="nl" aria-label="The NCA Hub home">The NCA <span class="hub">Hub</span></a>
   <div class="nav-links">
     <a href="/#method">Method</a>
     <a href="/#subjects">Subjects</a>
     <a href="/#pricing">Pricing</a>
-    <a href="/blog/">Articles</a>
+    <a href="/blog/" class="active">Articles</a>
     <a href="/#sample">Free Chapter</a>
   </div>
-  <button id="search-trigger" onclick="if(typeof openSearch==='function')openSearch()" aria-label="Search" onmouseover="this.style.color='var(--g1)'" onmouseout="this.style.color='var(--fog)'">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-  </button>
   <a href="/#readiness" class="nc">Get My Score</a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-<div class="art-cluster">
-      <span class="art-cat">NCA Process</span>
-      <span class="art-read">7 min read</span>
-    </div>
-    <h1 class="art-title">How to Appeal Your NCA Assessment Decision (2026 Guide)</h1>
-    <div class="art-meta">
-      <time datetime="2026-03-15">March 15, 2026</time>
-      <span>·</span>
-      <span>By Kartik Kumar</span>
-    </div>
-    <p class="art-desc">Received your NCA assessment and believe it contains an error? Here is exactly how to request a review, what grounds are valid, and what to realistically expect.</p>
-  </div><!-- /.art-header -->
+<div id="article-wrap">
+  <article id="main-content">
+    <header class="art-hero">
+      <div class="art-breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/blog/">Articles</a>
+        <span aria-hidden="true">›</span>
+        <span>NCA Process</span>
+      </div>
+      <div class="art-cluster" aria-label="Category">NCA Process</div>
+      <h1 class="art-title">How to Appeal Your NCA Assessment Decision (2026 Guide)</h1>
+      <p class="answer-capsule">Received your NCA assessment and believe it contains an error? Here is exactly how to request a review, what grounds are valid, and what to realistically expect.</p>
+      <div class="art-meta">
+        <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
+        <span class="art-read" style="color:var(--dim);">·</span>
+        <span class="art-read">7 min read</span>
+        <span class="art-read" style="color:var(--dim);">·</span>
+        <span class="art-read" style="color:var(--dim);">Updated: <time datetime="2026-03-15">March 15, 2026</time></span>
+      </div>
+    </header>
 
-  <div class="art-body">
+    <div class="art-body" id="art-body">
 
     <p><strong>The short answer:</strong> You can request a review of your NCA assessment if you believe the committee made an error. The review must be requested within 60 days of receiving your assessment letter. Successful reviews typically involve documented errors or overlooked credentials, not simply disagreement with the NCA's judgment.</p>
 
@@ -315,7 +321,9 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       </ul>
     </div>
 
-  </div><!-- /.art-body -->
+  </div><!-- end .art-body -->
+  </article>
+</div><!-- end #article-wrap -->
 <footer>
   <div style="max-width:1100px;margin:0 auto;padding:0 72px;">
     <div class="ftg">
