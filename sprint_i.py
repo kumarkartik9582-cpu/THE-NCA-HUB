@@ -113,35 +113,59 @@ ENHANCEMENTS_SCRIPT = '<script src="/nca-enhancements.js" defer></script>'
 
 
 def insert_newsletter_midpoint(html: str) -> str:
-    """Insert newsletter block at a clean top-level boundary near the 40% mark of h2s.
+    """Insert newsletter at a guaranteed top-level boundary inside art-body (~40% mark).
 
-    Strategy: find lines that match '      <h2' (top-level h2s in art-body),
-    pick the one at ~40%, then insert the newsletter on the line immediately before it.
-    This guarantees insertion at the top-level of art-body, not inside a nested div.
+    Uses proper HTML depth tracking: scans from art-body opening tag, tracks
+    <div> open/close depth, collects positions where depth returns to 0 (i.e.,
+    after each direct child of art-body closes). Picks the insertion point at
+    ~40% of those top-level block boundaries. This is safe regardless of indentation.
     """
-    body_match = re.search(r'id="art-body"', html)
+    body_match = re.search(r'<div[^>]+id=["\']?art-body["\']?[^>]*>', html)
     if not body_match:
         return html
 
-    # Find all top-level h2 positions (6-space indented, direct children of art-body)
-    # Pattern: newline + 6 spaces + <h2
-    top_h2_pattern = re.compile(r'\n      <h2[\s>]')
-    body_after = html[body_match.start():]
-    h2_matches = list(top_h2_pattern.finditer(body_after))
+    pos = body_match.end()
+    local_depth = 0
+    top_level_ends = []  # positions after each top-level child closes
+    tag_re = re.compile(r'<(/?)([a-zA-Z][a-zA-Z0-9]*)(?:\s[^>]*)?>', re.DOTALL)
+    VOID = {'br', 'hr', 'img', 'input', 'meta', 'link', 'area', 'base', 'col',
+            'embed', 'param', 'source', 'track', 'wbr'}
+    BLOCK = {'p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+             'ul', 'ol', 'table', 'blockquote', 'section', 'aside', 'figure'}
 
-    # Filter to those that appear after art-body starts (skip any in <head> schema etc)
-    h2_matches = [m for m in h2_matches if m.start() > 100]
+    for m in tag_re.finditer(html, pos):
+        tag_text = m.group(0)
+        is_closing = m.group(1) == '/'
+        tag_name = m.group(2).lower()
 
-    if len(h2_matches) < 2:
+        if tag_text.endswith('/>') or tag_name in VOID:
+            continue
+
+        if not is_closing:
+            local_depth += 1
+        else:
+            local_depth -= 1
+            if local_depth == 0 and tag_name in BLOCK:
+                top_level_ends.append(m.end())
+            if local_depth < 0:
+                break  # past art-body closing tag
+
+    if len(top_level_ends) < 2:
         return html
 
-    # Pick the h2 at ~40% mark
-    insert_idx = max(1, int(len(h2_matches) * 0.40))
-    target_match = h2_matches[insert_idx]
+    # Pick insertion point at ~40% of top-level blocks
+    insert_idx = max(1, int(len(top_level_ends) * 0.40))
+    insert_pos = top_level_ends[insert_idx - 1]
 
-    # Insert just before the \n      <h2 (i.e., after the preceding line's content)
-    absolute_pos = body_match.start() + target_match.start() + 1  # +1 to keep the \n before insertion
-    return html[:absolute_pos] + NEWSLETTER_HTML + html[absolute_pos:]
+    # Validate: depth between art-body start and insert_pos must be balanced
+    between = html[body_match.end():insert_pos]
+    opens = len(re.findall(r'<div\b', between))
+    closes = len(re.findall(r'</div', between))
+    if opens != closes:
+        # Fallback: use the last top-level end before halfway
+        insert_pos = top_level_ends[max(0, len(top_level_ends) // 2 - 1)]
+
+    return html[:insert_pos] + '\n' + NEWSLETTER_HTML + html[insert_pos:]
 
 
 def add_newsletter_css(html: str) -> str:
