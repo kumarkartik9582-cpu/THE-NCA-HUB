@@ -169,13 +169,14 @@
     try {
       /* Pass current page context so AI can give article-aware answers */
       var pageCtx = {
-        title: document.title.replace(' — The NCA Hub', '').trim(),
+        title: document.title.replace(' \u2014 The NCA Hub', '').trim(),
         path: window.location.pathname
       };
       var res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messages, pageContext: pageCtx })
+        body: JSON.stringify({ messages: messages, pageContext: pageCtx }),
+        signal: AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined
       });
 
       /* Safely parse JSON — non-JSON responses (Cloudflare HTML errors) throw otherwise */
@@ -183,33 +184,46 @@
       try {
         data = await res.json();
       } catch (_) {
-        data = { error: 'Server returned an unexpected response (HTTP ' + res.status + '). The AI service may be starting up — please try again in a moment.' };
+        if (res.status === 404) {
+          data = { error: 'not_found' };
+        } else {
+          data = { error: 'unexpected_response', status: res.status };
+        }
       }
       typing.remove();
 
       if (data.reply) {
         addMsg('bot', data.reply);
         messages.push({ role: 'assistant', content: data.reply });
-      } else if (data.error) {
+      } else {
         var errText;
-        if (data.error.toLowerCase().indexOf('api key') !== -1) {
-          errText = 'The AI assistant is setting up. Please try again shortly or email hello@thencahub.com for help.';
+        var errStr = (data.error || '').toString().toLowerCase();
+        if (data.error === 'not_found' || res.status === 404) {
+          errText = 'The AI assistant isn\u2019t available yet on this deployment. For NCA questions, browse our \u003ca href="/faq/" style="color:#C9A84C"\u003eFAQ\u003c/a\u003e or \u003ca href="/blog/" style="color:#C9A84C"\u003earticles\u003c/a\u003e, or email hello@thencahub.com.';
+        } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1) {
+          errText = 'The AI assistant is being configured. Please try again in a moment, or email hello@thencahub.com for help.';
         } else if (res.status === 429) {
           errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
-        } else if (res.status >= 500) {
-          errText = 'The AI service is temporarily unavailable (server error). Please try again in a moment.';
+        } else if (res.status >= 500 || data.error === 'unexpected_response') {
+          errText = 'The AI service is temporarily unavailable. Please try again in a moment, or email hello@thencahub.com.';
+        } else if (data.error) {
+          errText = data.error + ' Please try again.';
         } else {
-          errText = 'Something went wrong: ' + data.error + ' Please try again.';
+          errText = 'Something went wrong. Please try again.';
         }
-        addMsg('bot', errText);
-        messages.pop();
-      } else {
-        addMsg('bot', 'Sorry, something went wrong. Please try again.');
+        var msgEl = document.createElement('div');
+        msgEl.className = 'nca-msg bot';
+        msgEl.innerHTML = errText;
+        msgsEl.appendChild(msgEl);
+        msgsEl.scrollTop = msgsEl.scrollHeight;
         messages.pop();
       }
     } catch (e) {
       typing.remove();
-      addMsg('bot', 'Unable to reach the AI assistant right now. Please check your internet connection and try again, or email hello@thencahub.com for help.');
+      var netMsg = e && e.name === 'TimeoutError'
+        ? 'The AI assistant took too long to respond. Please try again.'
+        : 'Unable to reach the AI assistant. Please check your internet connection or email hello@thencahub.com for help.';
+      addMsg('bot', netMsg);
       messages.pop();
     }
 
