@@ -184,9 +184,14 @@ If user is on:
     for (const model of MODELS) {
       res = await tryModel(model);
       data = await res.json();
-      /* If model_not_found or overloaded_error, try next model */
-      if (!res.ok && (data.error?.type === 'not_found_error' || data.error?.type === 'invalid_request_error')) {
-        continue;
+      /* Fall through to next model on any non-auth, non-billing, non-RateLimit error */
+      if (!res.ok) {
+        const errType = data.error?.type || '';
+        const shouldRetry = errType === 'not_found_error' ||
+                            errType === 'invalid_request_error' ||
+                            errType === 'overloaded_error' ||
+                            res.status === 529 || res.status === 503 || res.status === 404;
+        if (shouldRetry) continue;
       }
       break;
     }
