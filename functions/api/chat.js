@@ -102,14 +102,16 @@ Guidelines:
 - Keep responses under 300 words unless a detailed explanation is genuinely needed
 - Use plain English, not heavy legalese${pageNote}`;
 
-  const anthropicBody = {
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 600,
-    system: systemPrompt,
-    messages: messages.slice(-10)
-  };
+  /* Try modern Haiku first, fall back to Haiku 3 if model unavailable */
+  const MODELS = ['claude-haiku-4-5-20251001', 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307'];
 
-  try {
+  async function tryModel(model) {
+    const body = {
+      model,
+      max_tokens: 600,
+      system: systemPrompt,
+      messages: messages.slice(-10)
+    };
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -117,13 +119,26 @@ Guidelines:
         'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
-      body: JSON.stringify(anthropicBody)
+      body: JSON.stringify(body)
     });
+    return res;
+  }
 
-    const data = await res.json();
+  try {
+    let res;
+    let data;
+    for (const model of MODELS) {
+      res = await tryModel(model);
+      data = await res.json();
+      /* If model_not_found or overloaded_error, try next model */
+      if (!res.ok && (data.error?.type === 'not_found_error' || data.error?.type === 'invalid_request_error')) {
+        continue;
+      }
+      break;
+    }
 
     if (!res.ok) {
-      const errMsg = data.error?.message || 'API error';
+      const errMsg = data.error?.message || `API error (${res.status})`;
       return new Response(JSON.stringify({ error: errMsg }), {
         status: res.status,
         headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
@@ -131,6 +146,13 @@ Guidelines:
     }
 
     const reply = data.content?.[0]?.text || '';
+    if (!reply) {
+      return new Response(JSON.stringify({ error: 'Empty response from AI service.' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
+      });
+    }
+
     return new Response(JSON.stringify({ reply }), {
       status: 200,
       headers: {
