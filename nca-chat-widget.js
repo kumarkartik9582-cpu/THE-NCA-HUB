@@ -177,16 +177,30 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: messages, pageContext: pageCtx })
       });
-      var data = await res.json();
+
+      /* Safely parse JSON — non-JSON responses (Cloudflare HTML errors) throw otherwise */
+      var data;
+      try {
+        data = await res.json();
+      } catch (_) {
+        data = { error: 'Server returned an unexpected response (HTTP ' + res.status + '). The AI service may be starting up — please try again in a moment.' };
+      }
       typing.remove();
 
       if (data.reply) {
         addMsg('bot', data.reply);
         messages.push({ role: 'assistant', content: data.reply });
       } else if (data.error) {
-        var errText = data.error.toLowerCase().indexOf('api key') !== -1
-          ? 'The AI assistant is not configured yet. Please check back soon or email hello@thencahub.com for help.'
-          : 'Sorry, something went wrong: ' + data.error + '. Please try again.';
+        var errText;
+        if (data.error.toLowerCase().indexOf('api key') !== -1) {
+          errText = 'The AI assistant is setting up. Please try again shortly or email hello@thencahub.com for help.';
+        } else if (res.status === 429) {
+          errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
+        } else if (res.status >= 500) {
+          errText = 'The AI service is temporarily unavailable (server error). Please try again in a moment.';
+        } else {
+          errText = 'Something went wrong: ' + data.error + ' Please try again.';
+        }
         addMsg('bot', errText);
         messages.pop();
       } else {
@@ -195,15 +209,12 @@
       }
     } catch (e) {
       typing.remove();
-      var online = navigator.onLine;
-      addMsg('bot', online
-        ? 'The AI assistant is temporarily unavailable. Please try again in a moment or email hello@thencahub.com for help.'
-        : 'No internet connection detected. Please check your connection and try again.');
+      addMsg('bot', 'Unable to reach the AI assistant right now. Please check your internet connection and try again, or email hello@thencahub.com for help.');
       messages.pop();
     }
 
     isLoading = false;
-    if (input.value.trim()) sendBtn.disabled = false;
+    sendBtn.disabled = !input.value.trim();
   }
 
   /* ── Event listeners ── */
