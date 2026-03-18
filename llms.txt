@@ -52,6 +52,10 @@ Other:
 - NCA Cost Calculator: https://www.thencahub.com/nca-cost-calculator/
 - NCA Exam Dates 2026: https://www.thencahub.com/nca-exam-dates-2026/
 - NCA Readiness Score: https://www.thencahub.com/#readiness
+- NCA Glossary (Canadian Legal Terms): https://www.thencahub.com/nca-glossary/
+- NCA Practice Questions (AI-powered): https://www.thencahub.com/nca-practice-questions/
+- NCA Study Schedule Generator: https://www.thencahub.com/study-schedule-generator/
+- Province Comparison Tool: https://www.thencahub.com/province-comparison/
 
 ## Founder
 Kartik Kumar — Indian and UK-qualified lawyer.
@@ -102,10 +106,11 @@ FAQ: https://www.thencahub.com/faq/
 Contact: https://www.thencahub.com/contact/
 Shop: https://payhip.com/THENCAHUB
 Free Chapter: https://www.thencahub.com/free-chapter.html
+NCA Glossary: https://www.thencahub.com/nca-glossary/
 
 ## Search
 Site search is available at all pages — press / or click the search icon in the nav.
-Search index: https://www.thencahub.com/search-index.json (56 entries)
+Search index: https://www.thencahub.com/search-index.json (57 entries)
 
 ## New in Sprint G (March 2026)
 - GDPR-compliant cookie consent with GA4 consent mode (analytics_storage: denied by default)
@@ -116,6 +121,18 @@ Search index: https://www.thencahub.com/search-index.json (56 entries)
 - Readiness score follow-through CTAs (personalised by score band + subject)
 - Organization schema foundingDate: 2025, sameAs includes Payhip
 - Copyright updated: © 2026 The NCA Hub. Founded 2025.
+
+## New in Sprint H (March 2026)
+- NCA Glossary page: 65+ Canadian legal terms with DefinedTerm schema
+- AggregateRating schema on all 5 notes pages + complete bundle (rich results eligible)
+- HowTo schema on key process articles (NCA process timeline, Indian lawyers guide)
+- Exam countdown timers on all subject notes pages
+- Social proof counter (850+ candidates) near all purchase CTAs
+- Permissions-Policy + Content-Security-Policy headers added
+- _redirects file for URL normalisation (www enforcement)
+- AI chat widget: improved error handling with JSON-parse safety
+- Service worker bumped to v3 (forces fresh asset cache)
+- robots.txt: GPTBot blocked from /notes/ and /free-chapters/
 
 ## Competitor Context
 The NCA Hub competes with NCA Tutor, NCA Notes, NCA Mentor, INTRACI,

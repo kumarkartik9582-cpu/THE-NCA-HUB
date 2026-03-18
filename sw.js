@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nca-hub-v2';
+const CACHE_NAME = 'nca-hub-v3';
 const OFFLINE_URL = '/offline.html';
 const STATIC_CACHE = [
   OFFLINE_URL,

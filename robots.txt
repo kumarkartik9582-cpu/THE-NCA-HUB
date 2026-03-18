@@ -17,7 +17,20 @@ User-agent: msnbot
 Allow: /
 
 User-agent: GPTBot
+Allow: /blog/
+Allow: /nca-glossary/
+Allow: /nca-exam-dates-2026/
+Allow: /nca-cost-calculator/
+Allow: /nca-for-indian-lawyers/
+Allow: /nca-for-uk-lawyers/
+Allow: /nca-for-nigerian-lawyers/
 Allow: /
+Disallow: /free-chapters/
+Disallow: /notes/
+
+User-agent: CCBot
+Disallow: /free-chapters/
+Disallow: /notes/
 
 User-agent: OAI-SearchBot
 Allow: /
