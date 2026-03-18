@@ -217,7 +217,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-skip-nav:focus{top:0}
 </style>
 </head>
-<body>
+<body class="has-sticky-cta">
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain" aria-hidden="true"></div>
@@ -225,48 +225,47 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <div id="cd" aria-hidden="true"></div>
 <div id="cr" aria-hidden="true"></div>
 <nav aria-label="Site navigation">
-  <a href="/" class="nl" aria-label="The NCA Hub home">The NCA <span style="color:var(--cream)">Hub</span></a>
+  <a href="/" class="nl" aria-label="The NCA Hub home">The NCA <span class="hub">Hub</span></a>
   <div class="nav-links">
     <a href="/#method">Method</a>
     <a href="/#subjects">Subjects</a>
     <a href="/#pricing">Pricing</a>
-    <a href="/blog/">Articles</a>
+    <a href="/blog/" class="active">Articles</a>
     <a href="/#sample">Free Chapter</a>
   </div>
-  <button id="search-trigger" onclick="if(typeof openSearch==='function')openSearch()" aria-label="Search" onmouseover="this.style.color='var(--g1)'" onmouseout="this.style.color='var(--fog)'">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-  </button>
   <a href="/#readiness" class="nc">Get My Score</a>
   <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-<main id="main-content">
-<article style="max-width:760px;margin:0 auto;padding:0 24px 80px;">
-<div style="padding-top:110px;"></div>
-<div style="max-width:760px;margin:0 auto;padding:0 24px;">
-<nav aria-label="Breadcrumb" style="margin-bottom:24px;">
-  <ol style="list-style:none;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-    <li><a href="/" style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);">Home</a></li>
-    <li style="color:var(--dim);font-size:.7rem;">/</li>
-    <li><a href="/blog/" style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);">Articles</a></li>
-    <li style="color:var(--dim);font-size:.7rem;">/</li>
-    <li style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fog);">Policy Updates</li>
-  </ol>
-</nav>
-<div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
-  <span style="font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g1);font-weight:600;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);padding:5px 12px;">Policy Updates</span>
-  <span style="font-size:.7rem;color:var(--dim);">March 15, 2026</span>
-  <span style="font-size:.7rem;color:var(--dim);">&#xB7; 5 min read</span>
-</div>
-<h1 style="font-family:var(--fd);font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:20px;">NCA Language Requirement 2026: What Lawyers Need to Know</h1>
-<p style="color:var(--fog);font-size:var(--lead);line-height:1.75;margin-bottom:36px;border-bottom:1px solid rgba(201,168,76,.1);padding-bottom:28px;">Do you need to prove English proficiency for NCA exams? Complete guide to the language requirement, who is exempt, and which tests are accepted.</p>
-<div style="background:rgba(201,168,76,.04);border-left:3px solid var(--g1);padding:20px 24px;margin-bottom:36px;"><p><strong style="color:var(--cream);">The short answer:</strong> <span style="color:var(--fog);">The NCA requires English or French language proficiency proof from most internationally trained lawyers. Candidates who completed their legal education in an English-medium institution are typically exempt. This requirement was introduced in 2023 and significantly affects candidates from non-English-medium institutions.</span></p></div>
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">What is the NCA language requirement?</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">Since 2023, the NCA requires candidates to demonstrate proficiency in English or French before their application can be processed. This is separate from the challenge exam registration process — it applies at the assessment stage.</p>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">The requirement exists because NCA challenge exams are conducted in English (or French in Quebec), and the NCA needs to be satisfied that candidates can meaningfully engage with the exam content.</p>
 
-    </div>
+<div id="article-wrap">
+  <article id="main-content">
+    <header class="art-hero">
+      <div class="art-breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/blog/">Articles</a>
+        <span aria-hidden="true">›</span>
+        <span>Policy Updates</span>
+      </div>
+      <div class="art-cluster" aria-label="Category">Policy Updates</div>
+      <h1 class="art-title">NCA Language Requirement 2026: What Lawyers Need to Know</h1>
+      <p class="answer-capsule">Do you need to prove English proficiency for NCA exams? Complete guide to the language requirement, who is exempt, and which tests are accepted.</p>
+      <div class="art-meta">
+        <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
+        <span class="art-read" style="color:var(--dim);">·</span>
+        <span class="art-read">5 min read</span>
+        <span class="art-read" style="color:var(--dim);">·</span>
+        <span class="art-read" style="color:var(--dim);">Updated: <time datetime="2026-03-15">March 2026</time></span>
+      </div>
+    </header>
 
-    <!-- Inline Newsletter Capture -->
+    <div class="art-body" id="art-body">
+
+<p><strong>The short answer:</strong> <span>The NCA requires English or French language proficiency proof from most internationally trained lawyers. Candidates who completed their legal education in an English-medium institution are typically exempt. This requirement was introduced in 2023 and significantly affects candidates from non-English-medium institutions.</span></p></div>
+<h2>What is the NCA language requirement?</h2>
+<p>Since 2023, the NCA requires candidates to demonstrate proficiency in English or French before their application can be processed. This is separate from the challenge exam registration process — it applies at the assessment stage.</p>
+<p>The requirement exists because NCA challenge exams are conducted in English (or French in Quebec), and the NCA needs to be satisfied that candidates can meaningfully engage with the exam content.</p>
+<!-- Inline Newsletter Capture -->
     <div class="nca-inline-newsletter" id="nca-newsletter-inline">
       <div class="nca-nl-inner">
         <div class="nca-nl-icon" aria-hidden="true">
@@ -292,51 +291,51 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     </div>
 
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">Who is exempt from the language requirement?</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">You are likely exempt if: your law degree was taught and examined entirely in English; you completed a university degree in an English-speaking country (Canada, UK, USA, Australia, New Zealand, Ireland); or your native language is English and you have practised law in English.</p>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">Always verify your specific situation with the NCA directly at nca.legal, as exemption criteria can change.</p>
+<h2>Who is exempt from the language requirement?</h2>
+<p>You are likely exempt if: your law degree was taught and examined entirely in English; you completed a university degree in an English-speaking country (Canada, UK, USA, Australia, New Zealand, Ireland); or your native language is English and you have practised law in English.</p>
+<p>Always verify your specific situation with the NCA directly at nca.legal, as exemption criteria can change.</p>
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">Which language tests are accepted?</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">The NCA accepts several internationally recognised English proficiency tests. The most commonly used are IELTS (International English Language Testing System) and CELPIP (Canadian English Language Proficiency Index Program). The NCA sets minimum score requirements for each test — check nca.legal for current required scores.</p>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">French proficiency tests are accepted for candidates who intend to practise in Quebec.</p>
+<h2>Which language tests are accepted?</h2>
+<p>The NCA accepts several internationally recognised English proficiency tests. The most commonly used are IELTS (International English Language Testing System) and CELPIP (Canadian English Language Proficiency Index Program). The NCA sets minimum score requirements for each test — check nca.legal for current required scores.</p>
+<p>French proficiency tests are accepted for candidates who intend to practise in Quebec.</p>
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">How many attempts are you allowed?</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">There is no limit on how many times you can take a language proficiency test. However, each attempt costs money and tests have validity periods (typically 2 years). Plan your preparation to pass in as few attempts as possible.</p>
+<h2>How many attempts are you allowed?</h2>
+<p>There is no limit on how many times you can take a language proficiency test. However, each attempt costs money and tests have validity periods (typically 2 years). Plan your preparation to pass in as few attempts as possible.</p>
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">What if you fail the language test?</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">If you do not meet the required scores, you will need to resit the test. Your NCA application cannot proceed until the language requirement is satisfied. Focus on the sections where you scored lowest and use official test preparation materials.</p>
+<h2>What if you fail the language test?</h2>
+<p>If you do not meet the required scores, you will need to resit the test. Your NCA application cannot proceed until the language requirement is satisfied. Focus on the sections where you scored lowest and use official test preparation materials.</p>
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">Does the language requirement cost extra?</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">Yes. Language tests cost money (IELTS typically CAD $300+) and this cost is separate from the NCA assessment fee ($400 CAD + taxes). Budget accordingly if you need to take a language test.</p>
+<h2>Does the language requirement cost extra?</h2>
+<p>Yes. Language tests cost money (IELTS typically CAD $300+) and this cost is separate from the NCA assessment fee ($400 CAD + taxes). Budget accordingly if you need to take a language test.</p>
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">The 2029 enhanced requirement</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">The NCA has announced that from 2029, all exams will move to in-person format and language requirements may be enhanced. If you are planning your NCA timeline, completing your exams before 2029 avoids any additional requirements that may come into force.</p>
+<h2>The 2029 enhanced requirement</h2>
+<p>The NCA has announced that from 2029, all exams will move to in-person format and language requirements may be enhanced. If you are planning your NCA timeline, completing your exams before 2029 avoids any additional requirements that may come into force.</p>
 
-<h2 style="font-family:var(--fd);font-size:1.5rem;font-weight:400;color:var(--cream);margin:40px 0 16px;">Bottom line</h2>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">Check your exemption status before applying. If you are not exempt, take the language test early so it does not delay your assessment. Most UK, Indian, Nigerian, and Philippine lawyers who studied at English-medium institutions will be exempt — but always verify.</p>
-<p style="color:var(--fog);line-height:1.8;margin-bottom:16px;">See also: <a href="/blog/nca-language-requirement-2026/" style="color:var(--g1);">NCA Policy Changes 2026</a> and <a href="/faq/" style="color:var(--g1);">NCA FAQ 2026</a>.</p>
+<h2>Bottom line</h2>
+<p>Check your exemption status before applying. If you are not exempt, take the language test early so it does not delay your assessment. Most UK, Indian, Nigerian, and Philippine lawyers who studied at English-medium institutions will be exempt — but always verify.</p>
+<p>See also: <a href="/blog/nca-language-requirement-2026/">NCA Policy Changes 2026</a> and <a href="/faq/">NCA FAQ 2026</a>.</p>
 
-<div style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.18);border-left:3px solid var(--g1);padding:28px 32px;margin:48px 0;"><p style="font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);margin-bottom:10px;font-weight:600;">Ready to Prepare?</p><p style="color:var(--cream);font-family:var(--fd);font-size:1.2rem;font-weight:300;margin-bottom:18px;">Under-80-page notes for all 5 mandatory NCA subjects. Answer templates included.</p><a href="/notes/" style="background:var(--g1);color:var(--void);padding:12px 32px;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;font-weight:700;font-family:var(--fb);display:inline-block;">View All Notes &rarr;</a></div>
-<div style="margin-top:56px;padding-top:32px;border-top:1px solid rgba(201,168,76,.1);"><p style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:4px;">Written by</p><p style="color:var(--cream);font-family:var(--fd);font-size:1.1rem;margin-bottom:8px;">Kartik Kumar</p><p style="color:var(--fog);font-size:var(--sm);line-height:1.7;max-width:480px;">Indian and UK-qualified lawyer. Passed all 5 NCA subjects — 4 cleared in under 3 months. First exam (Administrative Law) prepared in 7 days. Founder of The NCA Hub.</p><a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--g1);">LinkedIn &rarr;</a></div>
+<p>Ready to Prepare?</p><p>Under-80-page notes for all 5 mandatory NCA subjects. Answer templates included.</p><a href="/notes/">View All Notes &rarr;</a></div>
+<p>Written by</p><p>Kartik Kumar</p><p>Indian and UK-qualified lawyer. Passed all 5 NCA subjects — 4 cleared in under 3 months. First exam (Administrative Law) prepared in 7 days. Founder of The NCA Hub.</p><a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer">LinkedIn &rarr;</a></div>
 
     <!-- Was this helpful? -->
-    <div class="nca-helpful-widget" id="nca-helpful-widget" style="border-top:1px solid rgba(201,168,76,.1);padding-top:28px;margin-top:36px;text-align:center">
-      <p style="font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);margin-bottom:14px">Was this article helpful?</p>
-      <div class="nca-helpful-btns" style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-        <button class="nca-helpful-btn" data-vote="yes" style="background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--fog);font-size:.8rem;padding:9px 22px;border-radius:8px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px" aria-label="Yes, this article was helpful">
+    <div class="nca-helpful-widget" id="nca-helpful-widget">
+      <p>Was this article helpful?</p>
+      <div class="nca-helpful-btns">
+        <button class="nca-helpful-btn" data-vote="yes" aria-label="Yes, this article was helpful">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
           Yes, helpful
         </button>
-        <button class="nca-helpful-btn" data-vote="no" style="background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--fog);font-size:.8rem;padding:9px 22px;border-radius:8px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px" aria-label="No, this article was not helpful">
+        <button class="nca-helpful-btn" data-vote="no" aria-label="No, this article was not helpful">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/><path d="M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
           Needs improvement
         </button>
       </div>
-      <p id="nca-helpful-thankyou" hidden style="font-size:.82rem;color:var(--g1);padding-top:10px"></p>
-    </div>
+      <p id="nca-helpful-thankyou" hidden></p>
 
-</article>
-</main>
+    </div><!-- end .art-body -->
+  </article>
+</div><!-- end #article-wrap -->
 
 <footer>
   <div style="max-width:1100px;margin:0 auto;padding:0 72px;">
