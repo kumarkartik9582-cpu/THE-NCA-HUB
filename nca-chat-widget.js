@@ -167,10 +167,16 @@
     var typing = showTyping();
 
     try {
-      /* Pass current page context so AI can give article-aware answers */
+      /* Pass page content so AI gives article-aware, context-grounded answers */
+      var pageContent = '';
+      var artBody = document.querySelector('.art-body, #art-body, .article-body, main article');
+      if (artBody) {
+        pageContent = artBody.innerText.replace(/\s+/g, ' ').trim().slice(0, 3500);
+      }
       var pageCtx = {
         title: document.title.replace(' \u2014 The NCA Hub', '').trim(),
-        path: window.location.pathname
+        path: window.location.pathname,
+        content: pageContent || undefined
       };
       var res = await fetch('/api/chat', {
         method: 'POST',
