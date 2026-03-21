@@ -572,6 +572,8 @@ nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;al
 .art-body table{width:100%;border-collapse:collapse;margin:1.6em 0;font-size:var(--sm)}
 .art-body th{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.2);padding:10px 16px;text-align:left}
 .art-body td{color:var(--fog);border-bottom:1px solid rgba(201,168,76,.06);padding:10px 16px}
+.art-body *{font-family:inherit;line-height:inherit}
+.art-body > *:first-child{margin-top:0}
 .art-cta{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:48px 52px;margin-top:64px;text-align:center}
 @media(max-width:640px){.art-cta{padding:32px 24px}}
 .art-cta-eyelet{font-size:var(--nano);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:16px}
@@ -931,6 +933,30 @@ function build() {
     } catch (e) {
       console.warn(`  ⚠️  Markdown parse error in ${file}: ${e.message}`);
       bodyHTML = `<p>${escHtml(parsed.content.slice(0, 200))}…</p>`;
+    }
+
+    // Sanitize: remove stray </div> tags that would break out of .art-body container
+    // Count <div> opens vs </div> closes; remove excess closes
+    {
+      const divOpens = (bodyHTML.match(/<div[\s>]/gi) || []).length;
+      const divCloses = (bodyHTML.match(/<\/div>/gi) || []).length;
+      if (divCloses > divOpens) {
+        let excess = divCloses - divOpens;
+        // Remove unmatched </div> by tracking depth
+        let depth = 0;
+        bodyHTML = bodyHTML.replace(/<div[\s>][^>]*>|<\/div>/gi, (tag) => {
+          if (tag.toLowerCase().startsWith('<div')) {
+            depth++;
+            return tag;
+          } else {
+            if (depth > 0) { depth--; return tag; }
+            else { excess--; return ''; } // Remove stray </div>
+          }
+        });
+        if (excess !== 0) {
+          console.warn(`  ⚠️  ${file}: removed stray </div> tags from bodyHTML`);
+        }
+      }
     }
 
     // Clean URL: /blog/[slug]/
