@@ -172,6 +172,47 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
 .nca-skip-nav:focus{top:0}
 </style>
+<style>
+/* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
+   Prevents layout regression if content accidentally escapes container.
+   Ensures visual consistency across all article types. */
+
+/* 1. Box-sizing and containment */
+.art-body, .art-body *, .article-body, .article-body * { box-sizing: border-box; }
+
+/* 2. Force font-family inheritance (prevent browser-default font in nested components) */
+.art-body { font-family: var(--fb); }
+.art-body h2, .art-body h3, .art-body h4 { font-family: var(--fd); }
+.art-body p, .art-body li, .art-body td, .art-body th { font-family: var(--fb); }
+
+/* 3. Responsive table overflow (mobile safe-scroll) */
+@media(max-width:640px) {
+  .art-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+  .article-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+}
+
+/* 4. Ensure links inside art-body always use brand gold */
+.art-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+
+/* 5. strong/em colour consistency */
+.art-body strong { color:var(--cream); }
+.art-body em { color:var(--fog); font-style:italic; }
+
+/* 6. Ensure HR divider always uses brand palette */
+.art-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+
+/* 7. Code/pre consistency */
+.art-body code { font-family:monospace; font-size:.9em; color:var(--g0); background:rgba(201,168,76,.07); padding:2px 5px; border-radius:3px; }
+
+/* 8. Defensive: #article-wrap fallback typography if content escapes art-body */
+#article-wrap { font-family:var(--fb); color:var(--fog); font-size:var(--body,1rem); line-height:1.75; }
+#article-wrap h2, #article-wrap h3 { font-family:var(--fd); color:var(--cream); font-weight:400; }
+
+/* 9. article-body (alt template) alignment with art-body */
+.article-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+.article-body strong { color:var(--cream); }
+.article-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+</style>
 </head>
 <body class="has-sticky-cta">
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
@@ -252,7 +293,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <p>The NCA (National Committee on Accreditation) assesses the legal education of foreign-trained lawyers. After assessment, candidates must pass required exams in specific subjects (typically 2–7 subjects), then apply to a provincial law society for articling or PPEL.</p>
     <p>Total cost: approximately <strong>$3,000–$4,500 CAD</strong> (assessment + exams). Timeline: <strong>12–24 months</strong> depending on exam frequency and preparation.</p>
 
-    </div>
 
     <h2>What Is a Canadian LLM?</h2>
     <p>An LLM (Master of Laws) is a graduate law degree offered by Canadian universities. Designed for lawyers who already hold a law degree, it provides advanced study in a specific area of law.</p>

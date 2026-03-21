@@ -416,6 +416,47 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-helpful-btn:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.5);color:var(--cream)}
 .nca-helpful-thankyou{font-size:.82rem;color:var(--g1);padding:8px 0}
 </style>
+<style>
+/* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
+   Prevents layout regression if content accidentally escapes container.
+   Ensures visual consistency across all article types. */
+
+/* 1. Box-sizing and containment */
+.art-body, .art-body *, .article-body, .article-body * { box-sizing: border-box; }
+
+/* 2. Force font-family inheritance (prevent browser-default font in nested components) */
+.art-body { font-family: var(--fb); }
+.art-body h2, .art-body h3, .art-body h4 { font-family: var(--fd); }
+.art-body p, .art-body li, .art-body td, .art-body th { font-family: var(--fb); }
+
+/* 3. Responsive table overflow (mobile safe-scroll) */
+@media(max-width:640px) {
+  .art-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+  .article-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+}
+
+/* 4. Ensure links inside art-body always use brand gold */
+.art-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+
+/* 5. strong/em colour consistency */
+.art-body strong { color:var(--cream); }
+.art-body em { color:var(--fog); font-style:italic; }
+
+/* 6. Ensure HR divider always uses brand palette */
+.art-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+
+/* 7. Code/pre consistency */
+.art-body code { font-family:monospace; font-size:.9em; color:var(--g0); background:rgba(201,168,76,.07); padding:2px 5px; border-radius:3px; }
+
+/* 8. Defensive: #article-wrap fallback typography if content escapes art-body */
+#article-wrap { font-family:var(--fb); color:var(--fog); font-size:var(--body,1rem); line-height:1.75; }
+#article-wrap h2, #article-wrap h3 { font-family:var(--fd); color:var(--cream); font-weight:400; }
+
+/* 9. article-body (alt template) alignment with art-body */
+.article-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+.article-body strong { color:var(--cream); }
+.article-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+</style>
 </head>
 <body class="has-sticky-cta">
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
@@ -517,7 +558,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         <li><strong>Sleep ritual:</strong> Same time as usual. No alcohol — it disrupts REM sleep and increases anxiety the following day. If you cannot sleep, rest with eyes closed — it is approximately 70% as restorative as sleep and far better than lying awake worrying.</li>
       </ul
 
-    </div>
 >
 
       <h2>During-Exam Anxiety (The Freeze)</h2>
@@ -548,8 +588,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <strong>To:</strong> "Study group chats are selection bias. Only anxious people post about being anxious. The silent majority feels exactly like you."</p>
       <p><strong>From:</strong> "If I fail, I am not meant to be a lawyer."<br>
       <strong>To:</strong> "The NCA tests exam technique under a specific format. Many excellent lawyers have failed an NCA subject once. It measures exam performance, not lawyer competence."</p>
-    </div>
-    </div>
       <h2>Physical Management</h2>
       <p><strong>Breathing (4-7-8 technique):</strong> Inhale for 4 counts, hold for 7, exhale for 8. This activates the parasympathetic nervous system and measurably reduces acute anxiety response. Use it during the exam if your heart rate spikes — it takes under 30 seconds and does not cost you reading time.</p>
       <p><strong>Cold water:</strong> Splash cold water on your wrists and the back of your neck before the exam begins. Lowers heart rate and interrupts the physical escalation of anxiety.</p>

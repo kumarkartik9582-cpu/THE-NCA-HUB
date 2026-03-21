@@ -411,6 +411,47 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-helpful-btn:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.5);color:var(--cream)}
 .nca-helpful-thankyou{font-size:.82rem;color:var(--g1);padding:8px 0}
 </style>
+<style>
+/* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
+   Prevents layout regression if content accidentally escapes container.
+   Ensures visual consistency across all article types. */
+
+/* 1. Box-sizing and containment */
+.art-body, .art-body *, .article-body, .article-body * { box-sizing: border-box; }
+
+/* 2. Force font-family inheritance (prevent browser-default font in nested components) */
+.art-body { font-family: var(--fb); }
+.art-body h2, .art-body h3, .art-body h4 { font-family: var(--fd); }
+.art-body p, .art-body li, .art-body td, .art-body th { font-family: var(--fb); }
+
+/* 3. Responsive table overflow (mobile safe-scroll) */
+@media(max-width:640px) {
+  .art-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+  .article-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+}
+
+/* 4. Ensure links inside art-body always use brand gold */
+.art-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+
+/* 5. strong/em colour consistency */
+.art-body strong { color:var(--cream); }
+.art-body em { color:var(--fog); font-style:italic; }
+
+/* 6. Ensure HR divider always uses brand palette */
+.art-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+
+/* 7. Code/pre consistency */
+.art-body code { font-family:monospace; font-size:.9em; color:var(--g0); background:rgba(201,168,76,.07); padding:2px 5px; border-radius:3px; }
+
+/* 8. Defensive: #article-wrap fallback typography if content escapes art-body */
+#article-wrap { font-family:var(--fb); color:var(--fog); font-size:var(--body,1rem); line-height:1.75; }
+#article-wrap h2, #article-wrap h3 { font-family:var(--fd); color:var(--cream); font-weight:400; }
+
+/* 9. article-body (alt template) alignment with art-body */
+.article-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+.article-body strong { color:var(--cream); }
+.article-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+</style>
 </head>
 <body class="has-sticky-cta">
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
@@ -508,7 +549,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p><em>Note: Frequency estimates are based on analysis of past exams and candidate reports, not official NCA data.</em></p>
       <p>The exam typically includes 3–4 questions, often combining multiple topics. A single fact pattern may raise division of powers issues, Charter questions, and s.1 justification — all requiring separate but integrated analysis in one answer.</p>
 
-    </div>
 
       <h2>How does Canada's division of powers work?</h2>
       <p>The division of powers between federal and provincial governments is the foundation of Canadian federalism. The analysis follows a five-step sequence.</p>
@@ -601,8 +641,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p><strong>a) Rational Connection:</strong> The measure must be rationally connected to the pressing and substantial objective. There must be a logical and not arbitrary relationship between the means and the end.</p>
       <p><strong>b) Minimal Impairment:</strong> The measure must impair the Charter right as little as reasonably possible. The government is not required to use the "least restrictive" means but must demonstrate it considered alternatives and that the chosen means falls within a range of reasonable options.</p>
       <p><strong>c) Proportionality of Effects:</strong> The beneficial effects of the measure on the public good must outweigh the deleterious effects on the Charter right-holder. This is a final balancing of severity: a serious rights infringement requires a correspondingly significant benefit.</p>
-    </div>
-    </div>
       <h2>Aboriginal Rights — Section 35</h2>
       <p>Section 35 of the <em>Constitution Act, 1982</em> recognises and affirms the existing Aboriginal and treaty rights of the Aboriginal peoples of Canada. Two distinct forms of s.35 rights are commonly tested: Aboriginal rights (practice-based) and Aboriginal title (land-based).</p>
 
