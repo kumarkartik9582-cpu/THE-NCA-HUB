@@ -173,6 +173,47 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
 .nca-skip-nav:focus{top:0}
 </style>
+<style>
+/* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
+   Prevents layout regression if content accidentally escapes container.
+   Ensures visual consistency across all article types. */
+
+/* 1. Box-sizing and containment */
+.art-body, .art-body *, .article-body, .article-body * { box-sizing: border-box; }
+
+/* 2. Force font-family inheritance (prevent browser-default font in nested components) */
+.art-body { font-family: var(--fb); }
+.art-body h2, .art-body h3, .art-body h4 { font-family: var(--fd); }
+.art-body p, .art-body li, .art-body td, .art-body th { font-family: var(--fb); }
+
+/* 3. Responsive table overflow (mobile safe-scroll) */
+@media(max-width:640px) {
+  .art-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+  .article-body table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+}
+
+/* 4. Ensure links inside art-body always use brand gold */
+.art-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+
+/* 5. strong/em colour consistency */
+.art-body strong { color:var(--cream); }
+.art-body em { color:var(--fog); font-style:italic; }
+
+/* 6. Ensure HR divider always uses brand palette */
+.art-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+
+/* 7. Code/pre consistency */
+.art-body code { font-family:monospace; font-size:.9em; color:var(--g0); background:rgba(201,168,76,.07); padding:2px 5px; border-radius:3px; }
+
+/* 8. Defensive: #article-wrap fallback typography if content escapes art-body */
+#article-wrap { font-family:var(--fb); color:var(--fog); font-size:var(--body,1rem); line-height:1.75; }
+#article-wrap h2, #article-wrap h3 { font-family:var(--fd); color:var(--cream); font-weight:400; }
+
+/* 9. article-body (alt template) alignment with art-body */
+.article-body a { color:var(--g1); text-decoration:underline; text-underline-offset:3px; }
+.article-body strong { color:var(--cream); }
+.article-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
+</style>
 </head>
 <body class="has-sticky-cta">
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
@@ -253,7 +294,6 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <p>When the NCA assesses your foreign legal credentials, they determine which NCA subjects (if any) you must pass before you can be called to the bar in Canada. If you believe this assessment is incorrect — for example, if they missed a course you completed or mischaracterized your legal education — you can request a formal review.</p>
     <p>This is different from simply being dissatisfied with how many exams you must take. A review is appropriate when there is a factual error in the assessment, not a difference of opinion about how credits should count.</p>
 
-    </div>
 
     <h2>Valid Grounds for an Appeal</h2>
     <p>The NCA will consider a review request if:</p>
