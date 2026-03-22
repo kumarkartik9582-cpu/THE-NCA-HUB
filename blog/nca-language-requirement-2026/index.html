@@ -452,6 +452,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     </div>
     <ul id="srch-results" role="listbox"></ul>
     <p id="srch-empty">No results found. Try different keywords.</p>
+    <p id="srch-mode" style="font-size:.6rem;color:rgba(201,168,76,.4);text-align:center;margin-top:4px;"></p>
     <p id="srch-hint">Press <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">/</kbd> to search</p>
   </div>
 </div>
@@ -476,6 +477,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 })();
 </script>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+<script src="/nca-search.js" defer></script>
 <script src="/nca-chat-widget.js" defer></script>
 <script src="/nca-enhancements.js" defer></script>
 

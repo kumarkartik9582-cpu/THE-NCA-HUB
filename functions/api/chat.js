@@ -50,6 +50,46 @@ const MODELS = [
   '@cf/mistralai/mistral-small-3.1-24b-instruct'
 ];
 
+/* ── Llama Guard content safety filter ── */
+const SAFETY_MODEL = '@cf/meta/llama-guard-3-8b';
+const BLOCKED_CATEGORIES = [
+  'S1',  // Violent Crimes
+  'S2',  // Non-Violent Crimes
+  'S3',  // Sex-Related Crimes
+  'S4',  // Child Sexual Exploitation
+  'S5',  // Defamation
+  'S6',  // Specialized Advice (we provide NCA-specific, not general legal advice)
+  'S7',  // Privacy
+  'S8',  // Intellectual Property
+  'S9',  // Indiscriminate Weapons
+  'S10', // Hate
+  'S11', // Suicide & Self-Harm
+  'S12', // Sexual Content
+  'S13'  // Elections
+];
+
+async function isContentUnsafe(ai, userMessage) {
+  try {
+    const result = await ai.run(SAFETY_MODEL, {
+      messages: [{ role: 'user', content: userMessage }]
+    });
+    if (result && result.response) {
+      const response = result.response.trim().toLowerCase();
+      // Llama Guard returns "safe" or "unsafe\n<category>"
+      if (response.startsWith('unsafe')) {
+        console.log('CHATBOT GUARD: Blocked unsafe input:', response.split('\n')[1] || 'unknown category');
+        return true;
+      }
+    }
+    return false;
+  } catch (err) {
+    // If safety check fails, allow the message through (fail-open)
+    // to avoid blocking legitimate users due to model errors
+    console.error('CHATBOT GUARD: Safety check failed (allowing through):', err.message || String(err));
+    return false;
+  }
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
   console.log('CHATBOT: Request received');
@@ -78,6 +118,17 @@ export async function onRequestPost(context) {
   const { messages, pageContext } = body;
   if (!Array.isArray(messages) || messages.length === 0) {
     return jsonResponse({ error: 'No messages provided' }, 400);
+  }
+
+  /* ── Llama Guard safety check on latest user message ── */
+  const latestUserMsg = messages[messages.length - 1];
+  if (latestUserMsg && latestUserMsg.role === 'user' && latestUserMsg.content) {
+    const unsafe = await isContentUnsafe(env.AI, latestUserMsg.content);
+    if (unsafe) {
+      return jsonResponse({
+        reply: "I'm the NCA Hub AI assistant, here to help with NCA exam preparation and the Canadian legal qualification process. I can't help with that particular request, but I'm happy to answer questions about NCA subjects, study strategies, fees, timelines, or provincial requirements. What would you like to know?"
+      });
+    }
   }
 
   /* ── Build page-aware context ── */
