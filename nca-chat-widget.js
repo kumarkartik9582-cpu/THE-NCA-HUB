@@ -225,6 +225,8 @@
           errText = 'The AI assistant isn\u2019t available yet on this deployment. For NCA questions, browse our <a href="/faq/" style="color:#C9A84C">FAQ</a> or <a href="/blog/" style="color:#C9A84C">articles</a>, or email hello@thencahub.com.';
         } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1 || errStr.indexOf('authentication') !== -1) {
           errText = 'The AI assistant is being configured. Please try again in a moment, or email hello@thencahub.com for help.';
+        } else if (errStr.indexOf('credit') !== -1 || errStr.indexOf('billing') !== -1) {
+          errText = 'The AI assistant is temporarily unavailable due to a configuration issue. Please email hello@thencahub.com for help.';
         } else if (res.status === 429) {
           errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
         } else if (res.status >= 500 || data.error === 'unexpected_response') {

@@ -89,9 +89,9 @@ export async function onRequestPost(context) {
 
   /* ── Validate API key from Cloudflare env (NOT process.env) ── */
   const apiKey = env.ANTHROPIC_API_KEY;
-  console.log('CHATBOT: API key present:', !!apiKey);
+  console.log('CHATBOT: API key present:', !!apiKey, '| length:', apiKey ? apiKey.length : 0, '| prefix:', apiKey ? apiKey.slice(0, 10) : 'N/A');
   if (!apiKey) {
-    console.error('CHATBOT FATAL: ANTHROPIC_API_KEY is not set in Cloudflare Pages environment variables');
+    console.error('CHATBOT FATAL: ANTHROPIC_API_KEY is not set. Visit /api/chat-health to diagnose.');
     return jsonResponse({ error: 'API key not configured. Please set ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }, 500);
   }
 
@@ -242,7 +242,11 @@ If user is on:
           return jsonResponse({ error: 'API key authentication failed. Please verify ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }, 500);
         }
         if (errType === 'permission_error' || errType === 'billing_error') {
-          return jsonResponse({ error: 'API account issue. Please check your Anthropic account status and billing.' }, 500);
+          return jsonResponse({ error: 'API account billing issue. Please add credits at console.anthropic.com → Billing.' }, 500);
+        }
+        if (errType === 'invalid_request_error' && (errMsg.includes('credit') || errMsg.includes('billing') || errMsg.includes('plan'))) {
+          console.error('CHATBOT: Account has no credits or is on free plan');
+          return jsonResponse({ error: 'API account has no credits. Please add credits at console.anthropic.com → Billing.' }, 500);
         }
 
         /* Try next model on transient/model-specific errors */
