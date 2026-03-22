@@ -2,6 +2,9 @@
  * Cloudflare Pages Function: /api/chat
  * Proxies requests to the Anthropic Claude API.
  * Set ANTHROPIC_API_KEY in your Cloudflare Pages environment variables.
+ *
+ * Runtime: Cloudflare Workers (V8 isolate) — no Node.js APIs.
+ * Env access: context.env.ANTHROPIC_API_KEY (NOT process.env).
  */
 
 const CORS_HEADERS = {
@@ -9,6 +12,13 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type'
 };
+
+function jsonResponse(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
+  });
+}
 
 /* Handle CORS preflight */
 export async function onRequestOptions() {
@@ -19,13 +29,12 @@ export async function onRequestOptions() {
 const _rateLimitMap = new Map();
 function isRateLimited(ip) {
   const now = Date.now();
-  const windowMs = 60_000; // 1 minute window
+  const windowMs = 60_000;
   const maxRequests = 20;
   const entry = _rateLimitMap.get(ip) || { count: 0, reset: now + windowMs };
   if (now > entry.reset) { entry.count = 0; entry.reset = now + windowMs; }
   entry.count++;
   _rateLimitMap.set(ip, entry);
-  // Prune map periodically to avoid memory growth
   if (_rateLimitMap.size > 5000) {
     for (const [k, v] of _rateLimitMap) { if (now > v.reset) _rateLimitMap.delete(k); }
   }
@@ -38,22 +47,18 @@ async function fetchWithRetry(url, options, { maxRetries = 2, baseDelay = 1000 }
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       const res = await fetch(url, options);
-      // Don't retry on client errors (4xx) except 429 (rate limit) and 408 (timeout)
       if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429 && res.status !== 408)) {
         return res;
       }
-      // Retry on 429, 5xx, 529
       if (attempt < maxRetries) {
-        const delay = baseDelay * Math.pow(2, attempt);
-        await new Promise(r => setTimeout(r, delay));
+        await new Promise(r => setTimeout(r, baseDelay * Math.pow(2, attempt)));
         continue;
       }
-      return res; // Return last failed response
+      return res;
     } catch (err) {
       lastError = err;
       if (attempt < maxRetries) {
-        const delay = baseDelay * Math.pow(2, attempt);
-        await new Promise(r => setTimeout(r, delay));
+        await new Promise(r => setTimeout(r, baseDelay * Math.pow(2, attempt)));
         continue;
       }
     }
@@ -61,50 +66,52 @@ async function fetchWithRetry(url, options, { maxRetries = 2, baseDelay = 1000 }
   throw lastError || new Error('All retry attempts failed');
 }
 
+/* ── Safely parse JSON from a Response, falling back to text ── */
+async function safeParseJSON(res) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (_e) {
+    return { _raw: text.slice(0, 500), error: { type: 'parse_error', message: `Non-JSON response (HTTP ${res.status})` } };
+  }
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
+  console.log('CHATBOT: Request received');
 
-  /* Rate limit by IP */
+  /* ── Rate limit by IP ── */
   const ip = request.headers.get('CF-Connecting-IP') ||
              request.headers.get('X-Forwarded-For') || 'unknown';
   if (isRateLimited(ip)) {
-    return new Response(JSON.stringify({ error: 'Too many requests. Please wait a minute before trying again.' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS, 'Retry-After': '60' }
-    });
+    return jsonResponse({ error: 'Too many requests. Please wait a minute before trying again.' }, 429);
   }
 
+  /* ── Validate API key from Cloudflare env (NOT process.env) ── */
   const apiKey = env.ANTHROPIC_API_KEY;
+  console.log('CHATBOT: API key present:', !!apiKey);
   if (!apiKey) {
-    console.error('CHATBOT ERROR: ANTHROPIC_API_KEY is not set in environment variables');
-    return new Response(JSON.stringify({ error: 'API key not configured. Please set ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-    });
+    console.error('CHATBOT FATAL: ANTHROPIC_API_KEY is not set in Cloudflare Pages environment variables');
+    return jsonResponse({ error: 'API key not configured. Please set ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }, 500);
   }
 
+  /* ── Parse request body ── */
   let body;
   try {
     body = await request.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-    });
+  } catch (_e) {
+    return jsonResponse({ error: 'Invalid JSON' }, 400);
   }
 
   const { messages, pageContext } = body;
   if (!Array.isArray(messages) || messages.length === 0) {
-    return new Response(JSON.stringify({ error: 'No messages provided' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-    });
+    return jsonResponse({ error: 'No messages provided' }, 400);
   }
 
-  /* Build page-aware context */
-  const pageContent = pageContext && pageContext.content ? pageContext.content.slice(0, 4000) : null;
-  const pageTitle = pageContext && pageContext.title ? pageContext.title : null;
-  const pagePath = pageContext && pageContext.path ? pageContext.path : null;
+  /* ── Build page-aware context ── */
+  const pageContent = pageContext?.content ? pageContext.content.slice(0, 4000) : null;
+  const pageTitle = pageContext?.title || null;
+  const pagePath = pageContext?.path || null;
 
   let contextSection = '';
   if (pageContent) {
@@ -189,13 +196,8 @@ If user is on:
   /* ── Model fallback with per-model retry ── */
   const MODELS = ['claude-haiku-4-5-20251001', 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307'];
 
-  async function tryModel(model) {
-    const payload = {
-      model,
-      max_tokens: 600,
-      system: systemPrompt,
-      messages: messages.slice(-10)
-    };
+  async function callClaude(model) {
+    console.log(`CHATBOT: Trying model ${model}`);
     const res = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -203,87 +205,93 @@ If user is on:
         'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        model,
+        max_tokens: 600,
+        system: systemPrompt,
+        messages: messages.slice(-10)
+      })
     }, { maxRetries: 1, baseDelay: 800 });
     return res;
   }
 
   try {
-    let res;
-    let data;
+    let res = null;
+    let data = null;
     let lastError = null;
 
     for (const model of MODELS) {
       try {
-        res = await tryModel(model);
-        data = await res.json();
+        res = await callClaude(model);
+        data = await safeParseJSON(res);
       } catch (fetchErr) {
-        console.error(`CHATBOT: fetch failed for model ${model}:`, fetchErr.message || fetchErr);
+        console.error(`CHATBOT: Network error for ${model}:`, fetchErr.message || String(fetchErr));
         lastError = fetchErr;
-        continue; // Try next model
+        res = null;
+        data = null;
+        continue;
       }
 
       if (!res.ok) {
-        const errType = data.error?.type || '';
-        console.error(`CHATBOT: model ${model} returned ${res.status}: ${errType} — ${data.error?.message || ''}`);
+        const errType = data?.error?.type || '';
+        const errMsg = data?.error?.message || data?._raw || `HTTP ${res.status}`;
+        console.error(`CHATBOT: ${model} failed — ${res.status} ${errType}: ${errMsg}`);
 
-        // Don't retry on auth/billing errors — the key is wrong for ALL models
+        /* Auth/billing errors apply to ALL models — stop immediately */
         if (errType === 'authentication_error') {
-          return new Response(JSON.stringify({ error: 'API key authentication failed. Please verify ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-          });
+          return jsonResponse({ error: 'API key authentication failed. Please verify ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }, 500);
         }
         if (errType === 'permission_error' || errType === 'billing_error') {
-          return new Response(JSON.stringify({ error: 'API account issue. Please check your Anthropic account status and billing.' }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-          });
+          return jsonResponse({ error: 'API account issue. Please check your Anthropic account status and billing.' }, 500);
         }
 
-        // Retry with next model on transient/model-specific errors
-        const shouldRetry = errType === 'not_found_error' ||
+        /* Try next model on transient/model-specific errors */
+        const isTransient = errType === 'not_found_error' ||
                             errType === 'invalid_request_error' ||
                             errType === 'overloaded_error' ||
+                            errType === 'parse_error' ||
                             res.status === 529 || res.status === 503 || res.status === 404;
-        if (shouldRetry) {
-          lastError = new Error(`${model}: ${data.error?.message || res.status}`);
+        if (isTransient) {
+          lastError = new Error(`${model}: ${errMsg}`);
+          res = null;
+          data = null;
           continue;
         }
+
+        /* Non-transient, non-auth error (e.g., 400 bad request) — return as-is */
+        return jsonResponse({ error: errMsg, retryable: false }, res.status);
       }
-      break; // Success or non-retryable error
+
+      /* Success — break out of model loop */
+      console.log(`CHATBOT: ${model} responded successfully`);
+      break;
     }
 
-    // All models failed via fetch errors
-    if (!res && lastError) {
-      console.error('CHATBOT: All models failed with fetch errors:', lastError.message);
-      return new Response(JSON.stringify({
+    /* All models exhausted with no successful response */
+    if (!res || !data) {
+      const reason = lastError ? lastError.message : 'All models unavailable';
+      console.error(`CHATBOT: All models failed — ${reason}`);
+      return jsonResponse({
         error: 'Unable to reach AI service after multiple attempts. Please try again in a moment.',
         retryable: true
-      }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-      });
+      }, 502);
     }
 
+    /* Unexpected: loop broke but response wasn't ok (shouldn't happen, but guard) */
     if (!res.ok) {
-      const errMsg = data.error?.message || `API error (${res.status})`;
-      console.error(`CHATBOT: Final error after all models: ${res.status} — ${errMsg}`);
-      return new Response(JSON.stringify({ error: errMsg, retryable: res.status >= 500 || res.status === 429 }), {
-        status: res.status,
-        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-      });
+      const errMsg = data?.error?.message || `API error (${res.status})`;
+      console.error(`CHATBOT: Unexpected non-ok response: ${res.status} — ${errMsg}`);
+      return jsonResponse({ error: errMsg, retryable: res.status >= 500 || res.status === 429 }, res.status);
     }
 
-    const reply = data.content?.[0]?.text || '';
+    /* Extract reply */
+    const reply = data?.content?.[0]?.text || '';
     if (!reply) {
-      console.error('CHATBOT: Empty response from Claude API');
-      return new Response(JSON.stringify({ error: 'Empty response from AI service.', retryable: true }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-      });
+      console.error('CHATBOT: Empty reply from Claude API. Full response:', JSON.stringify(data).slice(0, 500));
+      return jsonResponse({ error: 'Empty response from AI service.', retryable: true }, 500);
     }
 
+    console.log('CHATBOT: Reply sent successfully');
     return new Response(JSON.stringify({ reply }), {
       status: 200,
       headers: {
@@ -293,13 +301,10 @@ If user is on:
       }
     });
   } catch (err) {
-    console.error('CHATBOT: Unhandled error:', err.message || err);
-    return new Response(JSON.stringify({
+    console.error('CHATBOT: Unhandled error:', err.message || String(err), err.stack || '');
+    return jsonResponse({
       error: 'Failed to reach AI service. Please try again shortly.',
       retryable: true
-    }), {
-      status: 502,
-      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
-    });
+    }, 502);
   }
 }
