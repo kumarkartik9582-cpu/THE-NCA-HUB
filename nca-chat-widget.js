@@ -1,48 +1,127 @@
 /**
- * NCA Hub AI Chat Widget
- * Self-contained floating chat widget for thencahub.com
- * Calls /api/chat (Cloudflare Pages Function) which uses Cloudflare Workers AI
+ * NCA Hub AI Chat Widget — v2
+ * World-class floating chat widget for thencahub.com
+ * Features: smooth animations, markdown rendering, typing indicator,
+ * session persistence, scroll fix, copy button, mobile fullscreen
  */
 (function () {
   'use strict';
 
   /* ── Styles ── */
   var css = `
-#nca-chat-btn{position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#C9A84C;border:none;cursor:pointer;z-index:8900;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,168,76,.45);transition:transform .25s ease,background .25s ease;padding:0;}
-#nca-chat-btn:hover{transform:scale(1.08);background:#e0be6a;}
-#nca-chat-btn svg{width:26px;height:26px;fill:#02020A;}
-#nca-chat-btn .nca-notif{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#ff4444;border-radius:50%;display:block;}
-#nca-chat-overlay{position:fixed;bottom:92px;left:24px;width:340px;max-height:520px;background:#02020A;border:1px solid rgba(201,168,76,.25);border-radius:16px;z-index:8900;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.6);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow:hidden;}
-#nca-chat-overlay.open{display:flex;}
-@media(max-width:400px){#nca-chat-overlay{left:12px;right:12px;width:auto;bottom:84px;}}
-.nca-chat-head{background:rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.15);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.nca-chat-avatar{width:34px;height:34px;border-radius:50%;background:#C9A84C;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700;color:#02020A;}
+/* === FAB Button === */
+#nca-chat-btn{position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:50%;background:#C9A84C;border:none;cursor:pointer;z-index:8900;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,168,76,.45);transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s ease,box-shadow .3s ease;padding:0;}
+#nca-chat-btn:hover{transform:scale(1.1);background:#e0be6a;box-shadow:0 6px 28px rgba(201,168,76,.6);}
+#nca-chat-btn:active{transform:scale(.95);}
+#nca-chat-btn svg{width:26px;height:26px;fill:#02020A;transition:transform .3s ease;}
+#nca-chat-btn.nca-chat-open svg{transform:rotate(90deg) scale(.85);}
+#nca-chat-btn .nca-notif{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#ff4444;border-radius:50%;display:block;animation:nca-pulse 2s infinite;}
+@keyframes nca-pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.3);opacity:.7;}}
+
+/* === Chat Overlay === */
+#nca-chat-overlay{position:fixed;bottom:92px;left:24px;width:380px;height:560px;max-height:calc(100vh - 120px);background:#0a0a0f;border:1px solid rgba(201,168,76,.2);border-radius:16px;z-index:8900;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.7),0 0 0 1px rgba(201,168,76,.08) inset;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;overflow:hidden;opacity:0;transform:translateY(16px) scale(.96);pointer-events:none;transition:opacity .3s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1);}
+#nca-chat-overlay.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+
+/* Mobile fullscreen */
+@media(max-width:500px){
+  #nca-chat-overlay{left:0;right:0;bottom:0;top:0;width:100%;height:100%;max-height:100vh;border-radius:0;border:none;}
+  #nca-chat-btn{bottom:16px;left:16px;width:52px;height:52px;}
+}
+@media(min-width:501px) and (max-width:800px){
+  #nca-chat-overlay{left:12px;right:12px;width:auto;bottom:84px;}
+}
+
+/* === Header === */
+.nca-chat-head{background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border-bottom:1px solid rgba(201,168,76,.12);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nca-chat-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#e0be6a);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;color:#02020A;box-shadow:0 2px 8px rgba(201,168,76,.3);}
 .nca-chat-info{flex:1;min-width:0;}
 .nca-chat-name{font-size:.78rem;font-weight:600;color:#f0e6cc;letter-spacing:.06em;text-transform:uppercase;}
-.nca-chat-status{font-size:.68rem;color:#C9A84C;display:flex;align-items:center;gap:4px;}
-.nca-chat-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;}
-#nca-chat-close{background:none;border:none;color:rgba(201,168,76,.6);font-size:1.1rem;cursor:pointer;padding:4px;line-height:1;transition:color .2s;}
-#nca-chat-close:hover{color:#C9A84C;}
-.nca-chat-msgs{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
-.nca-chat-msgs::-webkit-scrollbar{width:4px;}
+.nca-chat-status{font-size:.66rem;color:rgba(201,168,76,.7);display:flex;align-items:center;gap:5px;margin-top:1px;}
+.nca-chat-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;animation:nca-dot-pulse 2s infinite;}
+@keyframes nca-dot-pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+#nca-chat-close{background:none;border:none;color:rgba(201,168,76,.5);font-size:1.2rem;cursor:pointer;padding:6px;line-height:1;transition:color .2s,transform .2s;border-radius:6px;}
+#nca-chat-close:hover{color:#C9A84C;transform:scale(1.1);background:rgba(201,168,76,.08);}
+
+/* === Messages Area === */
+.nca-chat-msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 14px 8px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;min-height:0;}
+.nca-chat-msgs::-webkit-scrollbar{width:5px;}
 .nca-chat-msgs::-webkit-scrollbar-track{background:transparent;}
-.nca-chat-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.2);border-radius:2px;}
-.nca-msg{max-width:88%;line-height:1.5;font-size:.8rem;padding:9px 12px;border-radius:12px;word-break:break-word;white-space:pre-wrap;}
-.nca-msg.bot{background:rgba(255,255,255,.07);color:#d8d0c4;border-bottom-left-radius:4px;align-self:flex-start;}
-.nca-msg.user{background:#C9A84C;color:#02020A;border-bottom-right-radius:4px;align-self:flex-end;font-weight:500;}
-.nca-msg.typing{color:rgba(201,168,76,.6);font-style:italic;background:rgba(255,255,255,.04);}
-.nca-chips{padding:0 14px 10px;display:flex;flex-wrap:wrap;gap:6px;}
-.nca-chip{background:transparent;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.8);font-size:.68rem;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.04em;}
-.nca-chip:hover{background:rgba(201,168,76,.12);border-color:#C9A84C;color:#C9A84C;}
-.nca-chat-input-row{border-top:1px solid rgba(201,168,76,.12);padding:10px 12px;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;}
-#nca-chat-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;color:#f0e6cc;font-size:.8rem;padding:8px 12px;resize:none;min-height:36px;max-height:96px;outline:none;font-family:inherit;line-height:1.4;transition:border-color .2s;}
-#nca-chat-input:focus{border-color:rgba(201,168,76,.5);}
-#nca-chat-input::placeholder{color:rgba(240,230,204,.3);}
-#nca-chat-send{width:34px;height:34px;border-radius:8px;background:#C9A84C;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;padding:0;}
-#nca-chat-send:hover{background:#e0be6a;}
-#nca-chat-send:disabled{background:rgba(201,168,76,.25);cursor:not-allowed;}
-#nca-chat-send svg{width:16px;height:16px;fill:#02020A;}
-.nca-chat-footer{text-align:center;padding:6px 0 8px;font-size:.6rem;color:rgba(255,255,255,.18);}
+.nca-chat-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15);border-radius:3px;}
+.nca-chat-msgs::-webkit-scrollbar-thumb:hover{background:rgba(201,168,76,.3);}
+
+/* === Message Bubbles === */
+.nca-msg{max-width:85%;line-height:1.6;font-size:.8rem;padding:10px 14px;border-radius:14px;word-break:break-word;opacity:0;transform:translateY(8px);animation:nca-msg-in .3s cubic-bezier(.4,0,.2,1) forwards;position:relative;}
+@keyframes nca-msg-in{to{opacity:1;transform:translateY(0);}}
+.nca-msg.bot{background:rgba(255,255,255,.06);color:#d8d0c4;border-bottom-left-radius:4px;align-self:flex-start;border:1px solid rgba(255,255,255,.04);}
+.nca-msg.user{background:linear-gradient(135deg,#C9A84C,#d4b35e);color:#02020A;border-bottom-right-radius:4px;align-self:flex-end;font-weight:500;box-shadow:0 2px 8px rgba(201,168,76,.2);}
+
+/* Bot message markdown */
+.nca-msg.bot p{margin:0 0 8px;}
+.nca-msg.bot p:last-child{margin-bottom:0;}
+.nca-msg.bot strong{color:#f0e6cc;font-weight:600;}
+.nca-msg.bot a{color:#C9A84C;text-decoration:underline;text-decoration-color:rgba(201,168,76,.3);text-underline-offset:2px;transition:text-decoration-color .2s;}
+.nca-msg.bot a:hover{text-decoration-color:#C9A84C;}
+.nca-msg.bot ul,.nca-msg.bot ol{margin:6px 0;padding-left:18px;}
+.nca-msg.bot li{margin-bottom:3px;}
+.nca-msg.bot code{background:rgba(201,168,76,.1);padding:1px 5px;border-radius:3px;font-size:.75rem;font-family:'SF Mono',Monaco,monospace;}
+
+/* Message timestamp */
+.nca-msg-time{font-size:.58rem;color:rgba(255,255,255,.15);margin-top:4px;text-align:right;}
+.nca-msg.bot .nca-msg-time{text-align:left;}
+
+/* Copy button on bot messages */
+.nca-msg-copy{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.3);font-size:.6rem;padding:3px 6px;border-radius:4px;cursor:pointer;opacity:0;transition:opacity .2s,color .2s,background .2s;font-family:inherit;line-height:1;}
+.nca-msg.bot:hover .nca-msg-copy{opacity:1;}
+.nca-msg-copy:hover{color:#C9A84C;background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.2);}
+.nca-msg-copy.copied{color:#4ade80;border-color:rgba(74,222,128,.2);}
+
+/* === Typing Indicator === */
+.nca-typing{display:flex;align-items:center;gap:4px;padding:10px 14px;align-self:flex-start;opacity:0;animation:nca-msg-in .3s cubic-bezier(.4,0,.2,1) forwards;}
+.nca-typing-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.5);animation:nca-typing-bounce .6s infinite alternate;}
+.nca-typing-dot:nth-child(2){animation-delay:.15s;}
+.nca-typing-dot:nth-child(3){animation-delay:.3s;}
+@keyframes nca-typing-bounce{from{transform:translateY(0);opacity:.4;}to{transform:translateY(-4px);opacity:1;}}
+
+/* === Welcome Animation === */
+.nca-welcome{text-align:center;padding:8px 0 4px;opacity:0;animation:nca-welcome-in .6s .2s cubic-bezier(.4,0,.2,1) forwards;}
+@keyframes nca-welcome-in{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.nca-welcome-icon{font-size:1.8rem;margin-bottom:6px;display:block;animation:nca-wave 1.5s .6s ease-in-out forwards;transform-origin:70% 70%;}
+@keyframes nca-wave{0%{transform:rotate(0);}15%{transform:rotate(14deg);}30%{transform:rotate(-8deg);}40%{transform:rotate(14deg);}50%{transform:rotate(-4deg);}60%{transform:rotate(10deg);}70%{transform:rotate(0);}100%{transform:rotate(0);}}
+.nca-welcome-title{font-size:.82rem;font-weight:600;color:#f0e6cc;margin-bottom:4px;}
+.nca-welcome-sub{font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.5;}
+
+/* === Quick Actions / Chips === */
+.nca-chips{padding:4px 14px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;}
+.nca-chip{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.75);font-size:.68rem;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;letter-spacing:.02em;font-family:inherit;}
+.nca-chip:hover{background:rgba(201,168,76,.12);border-color:#C9A84C;color:#C9A84C;transform:translateY(-1px);box-shadow:0 2px 8px rgba(201,168,76,.15);}
+.nca-chip:active{transform:translateY(0);}
+
+/* === Input Area === */
+.nca-chat-input-row{border-top:1px solid rgba(201,168,76,.1);padding:10px 12px;display:flex;gap:8px;align-items:flex-end;flex-shrink:0;background:rgba(0,0,0,.2);}
+#nca-chat-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:12px;color:#f0e6cc;font-size:.8rem;padding:9px 14px;resize:none;min-height:38px;max-height:96px;outline:none;font-family:inherit;line-height:1.4;transition:border-color .25s,box-shadow .25s;}
+#nca-chat-input:focus{border-color:rgba(201,168,76,.4);box-shadow:0 0 0 3px rgba(201,168,76,.06);}
+#nca-chat-input::placeholder{color:rgba(240,230,204,.25);}
+#nca-chat-send{width:36px;height:36px;border-radius:10px;background:rgba(201,168,76,.2);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s cubic-bezier(.4,0,.2,1);padding:0;}
+#nca-chat-send.active{background:#C9A84C;box-shadow:0 2px 10px rgba(201,168,76,.3);}
+#nca-chat-send.active:hover{background:#e0be6a;transform:scale(1.05);}
+#nca-chat-send:disabled{background:rgba(201,168,76,.1);cursor:not-allowed;}
+#nca-chat-send svg{width:16px;height:16px;fill:rgba(201,168,76,.4);transition:fill .25s;}
+#nca-chat-send.active svg{fill:#02020A;}
+
+/* === Footer === */
+.nca-chat-footer{text-align:center;padding:5px 0 7px;font-size:.58rem;color:rgba(255,255,255,.12);flex-shrink:0;letter-spacing:.03em;}
+
+/* === Reduced Motion === */
+@media(prefers-reduced-motion:reduce){
+  .nca-msg{animation:none!important;opacity:1;transform:none;}
+  .nca-typing-dot{animation:none!important;opacity:.6;}
+  .nca-welcome{animation:none!important;opacity:1;transform:none;}
+  .nca-welcome-icon{animation:none!important;}
+  #nca-chat-overlay{transition:opacity .15s!important;transform:none!important;}
+  #nca-chat-overlay.open{transform:none!important;}
+  #nca-chat-btn .nca-notif{animation:none!important;}
+  .nca-chat-dot{animation:none!important;}
+}
 `;
 
   var style = document.createElement('style');
@@ -60,7 +139,7 @@
     <div class="nca-chat-avatar">N</div>
     <div class="nca-chat-info">
       <div class="nca-chat-name">NCA AI Assistant</div>
-      <div class="nca-chat-status">Online now</div>
+      <div class="nca-chat-status"><span class="nca-chat-dot"></span> Online now</div>
     </div>
     <button id="nca-chat-close" aria-label="Close chat">&#x2715;</button>
   </div>
@@ -80,6 +159,7 @@
   document.body.appendChild(wrap);
 
   /* ── State ── */
+  var SESSION_KEY = 'nca_chat_history';
   var messages = [];
   var isOpen = false;
   var isLoading = false;
@@ -99,21 +179,134 @@
     'What is the NCA exam format?',
     'How long to prepare for one subject?',
     'What happens after passing NCA?',
-    'NCA fees — how much does it cost?'
+    'NCA fees \u2014 how much does it cost?'
   ];
 
-  function addMsg(role, text) {
+  /* ── Session Persistence ── */
+  function saveSession() {
+    try {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(messages));
+    } catch (_e) { /* quota exceeded or private mode */ }
+  }
+
+  function loadSession() {
+    try {
+      var saved = sessionStorage.getItem(SESSION_KEY);
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (_e) { /* corrupt data */ }
+    return null;
+  }
+
+  /* ── Simple Markdown Renderer ── */
+  function renderMarkdown(text) {
+    if (!text) return '';
+    var html = text
+      // Escape HTML
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      // Bold
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      // Italic
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      // Inline code
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      // Unordered lists (- item)
+      .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
+      // Numbered lists (1. item)
+      .replace(/^\d+\.\s(.+)$/gm, '<li>$1</li>')
+      // Wrap consecutive <li> in <ul>
+      .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>')
+      // Paragraphs (double newline)
+      .replace(/\n\n/g, '</p><p>')
+      // Single newlines to <br>
+      .replace(/\n/g, '<br>');
+
+    return '<p>' + html + '</p>';
+  }
+
+  /* ── Time Formatting ── */
+  function timeStamp() {
+    var d = new Date();
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+  }
+
+  /* ── Add Message ── */
+  function addMsg(role, text, opts) {
+    opts = opts || {};
     var div = document.createElement('div');
     div.className = 'nca-msg ' + role;
-    div.textContent = text;
+
+    if (role === 'bot' && !opts.plain) {
+      div.innerHTML = renderMarkdown(text);
+
+      // Copy button
+      var copyBtn = document.createElement('button');
+      copyBtn.className = 'nca-msg-copy';
+      copyBtn.textContent = 'Copy';
+      copyBtn.setAttribute('aria-label', 'Copy message');
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(text).then(function () {
+          copyBtn.textContent = 'Copied!';
+          copyBtn.classList.add('copied');
+          setTimeout(function () {
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.remove('copied');
+          }, 1500);
+        });
+      });
+      div.appendChild(copyBtn);
+    } else {
+      div.textContent = text;
+    }
+
+    // Timestamp
+    if (!opts.noTime) {
+      var timeEl = document.createElement('div');
+      timeEl.className = 'nca-msg-time';
+      timeEl.textContent = opts.time || timeStamp();
+      div.appendChild(timeEl);
+    }
+
     msgsEl.appendChild(div);
-    msgsEl.scrollTop = msgsEl.scrollHeight;
+    requestAnimationFrame(function () {
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    });
     return div;
   }
 
+  /* ── Typing Indicator ── */
   function showTyping() {
-    var div = addMsg('bot typing', 'Thinking\u2026');
+    var div = document.createElement('div');
+    div.className = 'nca-typing';
+    div.innerHTML = '<span class="nca-typing-dot"></span><span class="nca-typing-dot"></span><span class="nca-typing-dot"></span>';
+    div.setAttribute('aria-label', 'Assistant is typing');
+    msgsEl.appendChild(div);
+    requestAnimationFrame(function () {
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    });
     return div;
+  }
+
+  /* ── Welcome Screen ── */
+  function showWelcome() {
+    var wel = document.createElement('div');
+    wel.className = 'nca-welcome';
+    wel.innerHTML = '<span class="nca-welcome-icon" aria-hidden="true">\u{1F44B}</span>' +
+      '<div class="nca-welcome-title">Hi! I\u2019m the NCA Hub AI assistant.</div>' +
+      '<div class="nca-welcome-sub">I can help with NCA exam subjects, study strategies, fees, timelines, and provincial requirements.</div>';
+    msgsEl.appendChild(wel);
   }
 
   function showChips() {
@@ -130,29 +323,55 @@
     });
   }
 
+  /* ── Restore Session ── */
+  function restoreSession() {
+    var saved = loadSession();
+    if (saved && saved.length > 0) {
+      messages = saved;
+      hasOpened = true;
+      saved.forEach(function (m) {
+        addMsg(m.role === 'assistant' ? 'bot' : 'user', m.content, { noTime: true });
+      });
+    }
+  }
+
+  /* ── Open / Close ── */
   function openChat() {
     isOpen = true;
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
+    btn.classList.add('nca-chat-open');
     btn.setAttribute('aria-expanded', 'true');
     if (notif) notif.style.display = 'none';
     if (!hasOpened) {
       hasOpened = true;
-      addMsg('bot', 'Hi! I\u2019m the NCA Hub AI assistant.\n\nI can help with NCA exam subjects, the application process, study strategies, and provincial requirements.\n\nWhat would you like to know?');
+      showWelcome();
       showChips();
     }
-    setTimeout(function () { input.focus(); }, 100);
+    setTimeout(function () { input.focus(); }, 150);
   }
 
   function closeChat() {
     isOpen = false;
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
+    btn.classList.remove('nca-chat-open');
     btn.setAttribute('aria-expanded', 'false');
   }
 
+  /* ── Update send button state ── */
+  function updateSendBtn() {
+    var hasText = input.value.trim().length > 0;
+    sendBtn.disabled = !hasText || isLoading;
+    if (hasText && !isLoading) {
+      sendBtn.classList.add('active');
+    } else {
+      sendBtn.classList.remove('active');
+    }
+  }
+
+  /* ── API Call ── */
   async function callChatAPI(msgPayload) {
-    /* Build page context */
     var pageContent = '';
     var artBody = document.querySelector('.art-body, #art-body, .article-body, main article');
     if (artBody) {
@@ -170,7 +389,6 @@
       signal: AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined
     });
 
-    /* Safely parse JSON — non-JSON responses (Cloudflare HTML errors) throw otherwise */
     var data;
     try {
       data = await res.json();
@@ -184,6 +402,7 @@
     return { res: res, data: data };
   }
 
+  /* ── Send Message ── */
   async function sendMessage(text) {
     text = (text || input.value).trim();
     if (!text || isLoading) return;
@@ -191,11 +410,12 @@
     chipsEl.innerHTML = '';
     input.value = '';
     input.style.height = '';
-    sendBtn.disabled = true;
     isLoading = true;
+    updateSendBtn();
 
     addMsg('user', text);
     messages.push({ role: 'user', content: text });
+    saveSession();
 
     var typing = showTyping();
     var lastUserMsg = text;
@@ -218,30 +438,25 @@
       if (data.reply) {
         addMsg('bot', data.reply);
         messages.push({ role: 'assistant', content: data.reply });
+        saveSession();
       } else {
         var errText;
         var errStr = (data.error || '').toString().toLowerCase();
         if (data.error === 'not_found' || res.status === 404) {
-          errText = 'The AI assistant isn\u2019t available yet on this deployment. For NCA questions, browse our <a href="/faq/" style="color:#C9A84C">FAQ</a> or <a href="/blog/" style="color:#C9A84C">articles</a>, or email hello@thencahub.com.';
+          errText = 'The AI assistant isn\u2019t available yet. Browse our [FAQ](/faq/) or [articles](/blog/) for NCA info, or email hello@thencahub.com.';
         } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1 || errStr.indexOf('authentication') !== -1) {
-          errText = 'The AI assistant is being configured. Please try again in a moment, or email hello@thencahub.com for help.';
-        } else if (errStr.indexOf('credit') !== -1 || errStr.indexOf('billing') !== -1) {
-          errText = 'The AI assistant is temporarily unavailable due to a configuration issue. Please email hello@thencahub.com for help.';
+          errText = 'The AI assistant is being configured. Please try again in a moment.';
         } else if (res.status === 429) {
           errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
         } else if (res.status >= 500 || data.error === 'unexpected_response') {
-          errText = 'The AI service is temporarily unavailable. <button class="nca-chip" style="margin-left:4px;display:inline;vertical-align:baseline;font-size:.72rem;padding:3px 8px" onclick="document.getElementById(\'nca-chat-input\').value=\'' + lastUserMsg.replace(/'/g, "\\'") + '\';document.getElementById(\'nca-chat-send\').disabled=false">Tap to retry</button> or email hello@thencahub.com.';
+          errText = 'The AI service is temporarily unavailable. Please try again in a moment.';
         } else if (data.error) {
           errText = data.error + ' Please try again.';
         } else {
           errText = 'Something went wrong. Please try again.';
         }
-        var msgEl = document.createElement('div');
-        msgEl.className = 'nca-msg bot';
-        msgEl.innerHTML = errText;
-        msgsEl.appendChild(msgEl);
-        msgsEl.scrollTop = msgsEl.scrollHeight;
-        messages.pop();
+        addMsg('bot', errText);
+        messages.pop(); // remove failed user message from history
       }
     } catch (e) {
       typing.remove();
@@ -249,17 +464,17 @@
       if (e && e.name === 'TimeoutError') {
         netMsg = 'The AI assistant took too long to respond. Please try again.';
       } else {
-        netMsg = 'Unable to reach the AI assistant. Please check your internet connection or email hello@thencahub.com for help.';
+        netMsg = 'Unable to reach the AI assistant. Please check your internet connection.';
       }
       addMsg('bot', netMsg);
       messages.pop();
     }
 
     isLoading = false;
-    sendBtn.disabled = !input.value.trim();
+    updateSendBtn();
   }
 
-  /* ── Event listeners ── */
+  /* ── Event Listeners ── */
   btn.addEventListener('click', function () {
     isOpen ? closeChat() : openChat();
   });
@@ -267,7 +482,7 @@
   closeBtn.addEventListener('click', closeChat);
 
   input.addEventListener('input', function () {
-    sendBtn.disabled = !this.value.trim() || isLoading;
+    updateSendBtn();
     this.style.height = 'auto';
     this.style.height = Math.min(this.scrollHeight, 96) + 'px';
   });
@@ -286,6 +501,9 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && isOpen) closeChat();
   });
+
+  /* ── Restore previous session on load ── */
+  restoreSession();
 
   /* Show notification pulse after 8s if not opened */
   setTimeout(function () {
