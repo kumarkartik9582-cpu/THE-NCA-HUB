@@ -1094,6 +1094,7 @@ if(mobx)mobx.addEventListener('click',function(){mob.classList.remove('op');nh.s
     </div>
     <ul id="srch-results" role="listbox"></ul>
     <p id="srch-empty">No results found. Try different keywords.</p>
+    <p id="srch-mode" style="font-size:.6rem;color:rgba(201,168,76,.4);text-align:center;margin-top:4px;"></p>
     <p id="srch-hint">Press <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">/</kbd> to search · <kbd style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px;font-family:monospace;">ESC</kbd> to close</p>
   </div>
 </div>
@@ -1157,6 +1158,7 @@ if(mobx)mobx.addEventListener('click',function(){mob.classList.remove('op');nh.s
   input.addEventListener('input', function(){ doSearch(this.value.trim()); });
 })();
 </script>
+<script src="/nca-search.js" defer></script>
 <script src="/nca-chat-widget.js" defer></script>
 <script src="/nca-enhancements.js" defer></script>
 

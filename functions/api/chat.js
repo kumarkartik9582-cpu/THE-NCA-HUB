@@ -1,10 +1,12 @@
 /**
  * Cloudflare Pages Function: /api/chat
- * Proxies requests to the Anthropic Claude API.
- * Set ANTHROPIC_API_KEY in your Cloudflare Pages environment variables.
+ * Uses Cloudflare Workers AI (free tier, no API key needed).
+ *
+ * SETUP: In Cloudflare Dashboard → Pages → your project → Settings →
+ *        Functions → Bindings → Add → Workers AI → Variable name: AI
+ *        Then redeploy.
  *
  * Runtime: Cloudflare Workers (V8 isolate) — no Node.js APIs.
- * Env access: context.env.ANTHROPIC_API_KEY (NOT process.env).
  */
 
 const CORS_HEADERS = {
@@ -41,38 +43,50 @@ function isRateLimited(ip) {
   return entry.count > maxRequests;
 }
 
-/* ── Retry helper with exponential backoff ── */
-async function fetchWithRetry(url, options, { maxRetries = 2, baseDelay = 1000 } = {}) {
-  let lastError;
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      const res = await fetch(url, options);
-      if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429 && res.status !== 408)) {
-        return res;
-      }
-      if (attempt < maxRetries) {
-        await new Promise(r => setTimeout(r, baseDelay * Math.pow(2, attempt)));
-        continue;
-      }
-      return res;
-    } catch (err) {
-      lastError = err;
-      if (attempt < maxRetries) {
-        await new Promise(r => setTimeout(r, baseDelay * Math.pow(2, attempt)));
-        continue;
+/* ── Model list (fallback order) ── */
+const MODELS = [
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/meta/llama-4-scout-17b-16e-instruct',
+  '@cf/mistralai/mistral-small-3.1-24b-instruct'
+];
+
+/* ── Llama Guard content safety filter ── */
+const SAFETY_MODEL = '@cf/meta/llama-guard-3-8b';
+const BLOCKED_CATEGORIES = [
+  'S1',  // Violent Crimes
+  'S2',  // Non-Violent Crimes
+  'S3',  // Sex-Related Crimes
+  'S4',  // Child Sexual Exploitation
+  'S5',  // Defamation
+  'S6',  // Specialized Advice (we provide NCA-specific, not general legal advice)
+  'S7',  // Privacy
+  'S8',  // Intellectual Property
+  'S9',  // Indiscriminate Weapons
+  'S10', // Hate
+  'S11', // Suicide & Self-Harm
+  'S12', // Sexual Content
+  'S13'  // Elections
+];
+
+async function isContentUnsafe(ai, userMessage) {
+  try {
+    const result = await ai.run(SAFETY_MODEL, {
+      messages: [{ role: 'user', content: userMessage }]
+    });
+    if (result && result.response) {
+      const response = result.response.trim().toLowerCase();
+      // Llama Guard returns "safe" or "unsafe\n<category>"
+      if (response.startsWith('unsafe')) {
+        console.log('CHATBOT GUARD: Blocked unsafe input:', response.split('\n')[1] || 'unknown category');
+        return true;
       }
     }
-  }
-  throw lastError || new Error('All retry attempts failed');
-}
-
-/* ── Safely parse JSON from a Response, falling back to text ── */
-async function safeParseJSON(res) {
-  const text = await res.text();
-  try {
-    return JSON.parse(text);
-  } catch (_e) {
-    return { _raw: text.slice(0, 500), error: { type: 'parse_error', message: `Non-JSON response (HTTP ${res.status})` } };
+    return false;
+  } catch (err) {
+    // If safety check fails, allow the message through (fail-open)
+    // to avoid blocking legitimate users due to model errors
+    console.error('CHATBOT GUARD: Safety check failed (allowing through):', err.message || String(err));
+    return false;
   }
 }
 
@@ -87,12 +101,10 @@ export async function onRequestPost(context) {
     return jsonResponse({ error: 'Too many requests. Please wait a minute before trying again.' }, 429);
   }
 
-  /* ── Validate API key from Cloudflare env (NOT process.env) ── */
-  const apiKey = env.ANTHROPIC_API_KEY;
-  console.log('CHATBOT: API key present:', !!apiKey);
-  if (!apiKey) {
-    console.error('CHATBOT FATAL: ANTHROPIC_API_KEY is not set in Cloudflare Pages environment variables');
-    return jsonResponse({ error: 'API key not configured. Please set ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }, 500);
+  /* ── Validate Workers AI binding ── */
+  if (!env.AI) {
+    console.error('CHATBOT FATAL: AI binding is not configured. Add a Workers AI binding named "AI" in Cloudflare Pages → Settings → Functions → Bindings.');
+    return jsonResponse({ error: 'AI service not configured. The site administrator needs to add a Workers AI binding in Cloudflare Pages settings.' }, 500);
   }
 
   /* ── Parse request body ── */
@@ -106,6 +118,17 @@ export async function onRequestPost(context) {
   const { messages, pageContext } = body;
   if (!Array.isArray(messages) || messages.length === 0) {
     return jsonResponse({ error: 'No messages provided' }, 400);
+  }
+
+  /* ── Llama Guard safety check on latest user message ── */
+  const latestUserMsg = messages[messages.length - 1];
+  if (latestUserMsg && latestUserMsg.role === 'user' && latestUserMsg.content) {
+    const unsafe = await isContentUnsafe(env.AI, latestUserMsg.content);
+    if (unsafe) {
+      return jsonResponse({
+        reply: "I'm the NCA Hub AI assistant, here to help with NCA exam preparation and the Canadian legal qualification process. I can't help with that particular request, but I'm happy to answer questions about NCA subjects, study strategies, fees, timelines, or provincial requirements. What would you like to know?"
+      });
+    }
   }
 
   /* ── Build page-aware context ── */
@@ -192,103 +215,42 @@ If user is on:
 - Longer only if user explicitly requests depth or topic demands it
 - Use bullet points over paragraphs wherever possible${contextSection}`;
 
-
-  /* ── Model fallback with per-model retry ── */
-  const MODELS = ['claude-haiku-4-5-20251001', 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307'];
-
-  async function callClaude(model) {
-    console.log(`CHATBOT: Trying model ${model}`);
-    const res = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model,
-        max_tokens: 600,
-        system: systemPrompt,
-        messages: messages.slice(-10)
-      })
-    }, { maxRetries: 1, baseDelay: 800 });
-    return res;
-  }
+  /* ── Call Workers AI with model fallback ── */
+  const chatMessages = [
+    { role: 'system', content: systemPrompt },
+    ...messages.slice(-10)
+  ];
 
   try {
-    let res = null;
-    let data = null;
+    let reply = null;
     let lastError = null;
 
     for (const model of MODELS) {
       try {
-        res = await callClaude(model);
-        data = await safeParseJSON(res);
-      } catch (fetchErr) {
-        console.error(`CHATBOT: Network error for ${model}:`, fetchErr.message || String(fetchErr));
-        lastError = fetchErr;
-        res = null;
-        data = null;
-        continue;
+        console.log(`CHATBOT: Trying model ${model}`);
+        const result = await env.AI.run(model, { messages: chatMessages });
+
+        if (result && result.response) {
+          reply = result.response;
+          console.log(`CHATBOT: ${model} responded successfully`);
+          break;
+        } else {
+          console.error(`CHATBOT: ${model} returned empty response:`, JSON.stringify(result).slice(0, 300));
+          lastError = new Error(`${model}: empty response`);
+        }
+      } catch (err) {
+        console.error(`CHATBOT: ${model} failed:`, err.message || String(err));
+        lastError = err;
       }
-
-      if (!res.ok) {
-        const errType = data?.error?.type || '';
-        const errMsg = data?.error?.message || data?._raw || `HTTP ${res.status}`;
-        console.error(`CHATBOT: ${model} failed — ${res.status} ${errType}: ${errMsg}`);
-
-        /* Auth/billing errors apply to ALL models — stop immediately */
-        if (errType === 'authentication_error') {
-          return jsonResponse({ error: 'API key authentication failed. Please verify ANTHROPIC_API_KEY in Cloudflare Pages environment variables.' }, 500);
-        }
-        if (errType === 'permission_error' || errType === 'billing_error') {
-          return jsonResponse({ error: 'API account issue. Please check your Anthropic account status and billing.' }, 500);
-        }
-
-        /* Try next model on transient/model-specific errors */
-        const isTransient = errType === 'not_found_error' ||
-                            errType === 'invalid_request_error' ||
-                            errType === 'overloaded_error' ||
-                            errType === 'parse_error' ||
-                            res.status === 529 || res.status === 503 || res.status === 404;
-        if (isTransient) {
-          lastError = new Error(`${model}: ${errMsg}`);
-          res = null;
-          data = null;
-          continue;
-        }
-
-        /* Non-transient, non-auth error (e.g., 400 bad request) — return as-is */
-        return jsonResponse({ error: errMsg, retryable: false }, res.status);
-      }
-
-      /* Success — break out of model loop */
-      console.log(`CHATBOT: ${model} responded successfully`);
-      break;
     }
 
-    /* All models exhausted with no successful response */
-    if (!res || !data) {
+    if (!reply) {
       const reason = lastError ? lastError.message : 'All models unavailable';
       console.error(`CHATBOT: All models failed — ${reason}`);
       return jsonResponse({
         error: 'Unable to reach AI service after multiple attempts. Please try again in a moment.',
         retryable: true
       }, 502);
-    }
-
-    /* Unexpected: loop broke but response wasn't ok (shouldn't happen, but guard) */
-    if (!res.ok) {
-      const errMsg = data?.error?.message || `API error (${res.status})`;
-      console.error(`CHATBOT: Unexpected non-ok response: ${res.status} — ${errMsg}`);
-      return jsonResponse({ error: errMsg, retryable: res.status >= 500 || res.status === 429 }, res.status);
-    }
-
-    /* Extract reply */
-    const reply = data?.content?.[0]?.text || '';
-    if (!reply) {
-      console.error('CHATBOT: Empty reply from Claude API. Full response:', JSON.stringify(data).slice(0, 500));
-      return jsonResponse({ error: 'Empty response from AI service.', retryable: true }, 500);
     }
 
     console.log('CHATBOT: Reply sent successfully');

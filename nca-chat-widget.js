@@ -1,7 +1,7 @@
 /**
  * NCA Hub AI Chat Widget
  * Self-contained floating chat widget for thencahub.com
- * Calls /api/chat (Cloudflare Pages Function) which proxies to Claude API
+ * Calls /api/chat (Cloudflare Pages Function) which uses Cloudflare Workers AI
  */
 (function () {
   'use strict';
@@ -72,7 +72,7 @@
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
-  <div class="nca-chat-footer">Powered by Claude AI &middot; Not official NCA advice</div>
+  <div class="nca-chat-footer">AI-powered &middot; Not official NCA advice</div>
 </div>`;
 
   var wrap = document.createElement('div');
@@ -225,6 +225,8 @@
           errText = 'The AI assistant isn\u2019t available yet on this deployment. For NCA questions, browse our <a href="/faq/" style="color:#C9A84C">FAQ</a> or <a href="/blog/" style="color:#C9A84C">articles</a>, or email hello@thencahub.com.';
         } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1 || errStr.indexOf('authentication') !== -1) {
           errText = 'The AI assistant is being configured. Please try again in a moment, or email hello@thencahub.com for help.';
+        } else if (errStr.indexOf('credit') !== -1 || errStr.indexOf('billing') !== -1) {
+          errText = 'The AI assistant is temporarily unavailable due to a configuration issue. Please email hello@thencahub.com for help.';
         } else if (res.status === 429) {
           errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
         } else if (res.status >= 500 || data.error === 'unexpected_response') {

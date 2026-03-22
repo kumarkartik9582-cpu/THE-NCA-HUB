@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nca-hub-v4';
+const CACHE_NAME = 'nca-hub-v5';
 const OFFLINE_URL = '/offline.html';
 const STATIC_CACHE = [
   OFFLINE_URL,
@@ -9,6 +9,7 @@ const STATIC_CACHE = [
   '/manifest.json',
   '/nca-enhancements.js',
   '/nca-chat-widget.js',
+  '/nca-search.js',
   '/notes/',
   '/notes/administrative-law/',
   '/notes/constitutional-law/',
@@ -23,7 +24,7 @@ const STATIC_CACHE = [
 ];
 
 /* JS files that must always be fetched fresh (network-first) */
-const ALWAYS_FRESH = ['/nca-chat-widget.js', '/nca-enhancements.js'];
+const ALWAYS_FRESH = ['/nca-chat-widget.js', '/nca-enhancements.js', '/nca-search.js'];
 
 /* Install: cache critical assets */
 self.addEventListener('install', function(e){
