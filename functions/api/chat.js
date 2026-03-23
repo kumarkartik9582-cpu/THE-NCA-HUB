@@ -213,7 +213,17 @@ If user is on:
 ## LENGTH
 - Default: 150–300 words
 - Longer only if user explicitly requests depth or topic demands it
-- Use bullet points over paragraphs wherever possible${contextSection}`;
+- Use bullet points over paragraphs wherever possible
+
+## FOLLOW-UP QUESTIONS
+At the END of every response, add exactly 2-3 suggested follow-up questions on new lines, each prefixed with ">>>" (three greater-than signs). These must be relevant to what you just discussed and help the user go deeper.
+Example format:
+>>>How long should I study for Constitutional Law?
+>>>What's the best order to take NCA subjects?
+>>>Can I write 3 exams in one session?${contextSection}`;
+
+  /* ── Determine streaming mode ── */
+  const wantsStream = body.stream === true;
 
   /* ── Call Workers AI with model fallback ── */
   const chatMessages = [
@@ -221,9 +231,48 @@ If user is on:
     ...messages.slice(-10)
   ];
 
+  /* ── Log question for analytics (fire-and-forget) ── */
+  logAnalytics(env, latestUserMsg?.content, pagePath);
+
   try {
-    let reply = null;
     let lastError = null;
+
+    /* ── STREAMING MODE ── */
+    if (wantsStream) {
+      for (const model of MODELS) {
+        try {
+          console.log(`CHATBOT STREAM: Trying model ${model}`);
+          const stream = await env.AI.run(model, { messages: chatMessages, stream: true });
+
+          if (stream) {
+            console.log(`CHATBOT STREAM: ${model} streaming`);
+            return new Response(stream, {
+              status: 200,
+              headers: {
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-store',
+                'Connection': 'keep-alive',
+                ...CORS_HEADERS
+              }
+            });
+          }
+          lastError = new Error(`${model}: no stream returned`);
+        } catch (err) {
+          console.error(`CHATBOT STREAM: ${model} failed:`, err.message || String(err));
+          lastError = err;
+        }
+      }
+
+      const reason = lastError ? lastError.message : 'All models unavailable';
+      console.error(`CHATBOT STREAM: All models failed — ${reason}`);
+      return jsonResponse({
+        error: 'Unable to reach AI service. Please try again in a moment.',
+        retryable: true
+      }, 502);
+    }
+
+    /* ── NON-STREAMING MODE (original) ── */
+    let reply = null;
 
     for (const model of MODELS) {
       try {
@@ -269,4 +318,18 @@ If user is on:
       retryable: true
     }, 502);
   }
+}
+
+/* ── Analytics: track questions to KV (or log if no KV) ── */
+function logAnalytics(env, question, pagePath) {
+  if (!question) return;
+  const timestamp = new Date().toISOString();
+  const entry = { q: question.slice(0, 200), page: pagePath || '/', ts: timestamp };
+
+  // If KV binding exists, persist; otherwise just console.log for Cloudflare dashboard
+  if (env.CHAT_ANALYTICS) {
+    const key = `chat_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    env.CHAT_ANALYTICS.put(key, JSON.stringify(entry), { expirationTtl: 86400 * 90 }).catch(() => {});
+  }
+  console.log('CHATBOT_ANALYTICS:', JSON.stringify(entry));
 }

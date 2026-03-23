@@ -370,22 +370,60 @@
     }
   }
 
-  /* ── API Call ── */
-  async function callChatAPI(msgPayload) {
+  /* ── Build page context ── */
+  function getPageContext() {
     var pageContent = '';
     var artBody = document.querySelector('.art-body, #art-body, .article-body, main article');
     if (artBody) {
       pageContent = artBody.innerText.replace(/\s+/g, ' ').trim().slice(0, 3500);
     }
-    var pageCtx = {
+    return {
       title: document.title.replace(' \u2014 The NCA Hub', '').trim(),
       path: window.location.pathname,
       content: pageContent || undefined
     };
+  }
+
+  /* ── Parse follow-up suggestions from bot reply ── */
+  function parseFollowUps(text) {
+    var lines = text.split('\n');
+    var followUps = [];
+    var bodyLines = [];
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].trim().indexOf('>>>') === 0) {
+        followUps.push(lines[i].trim().slice(3).trim());
+      } else {
+        bodyLines.push(lines[i]);
+      }
+    }
+    // Trim trailing empty lines from body
+    while (bodyLines.length > 0 && bodyLines[bodyLines.length - 1].trim() === '') {
+      bodyLines.pop();
+    }
+    return { body: bodyLines.join('\n'), followUps: followUps };
+  }
+
+  /* ── Show follow-up suggestion chips ── */
+  function showFollowUpChips(followUps) {
+    chipsEl.innerHTML = '';
+    if (!followUps || followUps.length === 0) return;
+    followUps.forEach(function (q) {
+      var chip = document.createElement('button');
+      chip.className = 'nca-chip';
+      chip.textContent = q;
+      chip.addEventListener('click', function () {
+        sendMessage(q);
+      });
+      chipsEl.appendChild(chip);
+    });
+  }
+
+  /* ── API Call (non-streaming) ── */
+  async function callChatAPI(msgPayload) {
     var res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: msgPayload, pageContext: pageCtx }),
+      body: JSON.stringify({ messages: msgPayload, pageContext: getPageContext() }),
       signal: AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined
     });
 
@@ -402,7 +440,30 @@
     return { res: res, data: data };
   }
 
-  /* ── Send Message ── */
+  /* ── Streaming API Call ── */
+  async function callChatStreamAPI(msgPayload) {
+    var res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: msgPayload, pageContext: getPageContext(), stream: true }),
+      signal: AbortSignal.timeout ? AbortSignal.timeout(60000) : undefined
+    });
+    return res;
+  }
+
+  /* ── Add a streaming bot message (updates in-place) ── */
+  function addStreamingMsg() {
+    var div = document.createElement('div');
+    div.className = 'nca-msg bot';
+    div.innerHTML = '<p></p>';
+    msgsEl.appendChild(div);
+    requestAnimationFrame(function () {
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    });
+    return div;
+  }
+
+  /* ── Send Message (streaming with non-streaming fallback) ── */
   async function sendMessage(text) {
     text = (text || input.value).trim();
     if (!text || isLoading) return;
@@ -418,45 +479,129 @@
     saveSession();
 
     var typing = showTyping();
-    var lastUserMsg = text;
 
     try {
-      var result = await callChatAPI(messages);
-      var res = result.res;
-      var data = result.data;
+      /* Try streaming first */
+      var res = await callChatStreamAPI(messages);
 
-      /* Auto-retry once on retryable server errors */
-      if (!data.reply && (data.retryable || res.status === 502 || res.status === 503 || res.status === 529)) {
-        await new Promise(function (r) { setTimeout(r, 1500); });
-        result = await callChatAPI(messages);
-        res = result.res;
-        data = result.data;
-      }
+      if (res.ok && res.headers.get('Content-Type') && res.headers.get('Content-Type').indexOf('text/event-stream') !== -1) {
+        /* ── Streaming response ── */
+        typing.remove();
+        var msgDiv = addStreamingMsg();
+        var fullText = '';
+        var reader = res.body.getReader();
+        var decoder = new TextDecoder();
 
-      typing.remove();
+        while (true) {
+          var chunk = await reader.read();
+          if (chunk.done) break;
+          var raw = decoder.decode(chunk.value, { stream: true });
 
-      if (data.reply) {
-        addMsg('bot', data.reply);
-        messages.push({ role: 'assistant', content: data.reply });
-        saveSession();
-      } else {
-        var errText;
-        var errStr = (data.error || '').toString().toLowerCase();
-        if (data.error === 'not_found' || res.status === 404) {
-          errText = 'The AI assistant isn\u2019t available yet. Browse our [FAQ](/faq/) or [articles](/blog/) for NCA info, or email hello@thencahub.com.';
-        } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1 || errStr.indexOf('authentication') !== -1) {
-          errText = 'The AI assistant is being configured. Please try again in a moment.';
-        } else if (res.status === 429) {
-          errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
-        } else if (res.status >= 500 || data.error === 'unexpected_response') {
-          errText = 'The AI service is temporarily unavailable. Please try again in a moment.';
-        } else if (data.error) {
-          errText = data.error + ' Please try again.';
-        } else {
-          errText = 'Something went wrong. Please try again.';
+          /* Parse SSE data lines from Workers AI */
+          var sseLines = raw.split('\n');
+          for (var i = 0; i < sseLines.length; i++) {
+            var line = sseLines[i];
+            if (line.indexOf('data: ') === 0) {
+              var payload = line.slice(6).trim();
+              if (payload === '[DONE]') continue;
+              try {
+                var parsed = JSON.parse(payload);
+                var token = parsed.response || '';
+                fullText += token;
+              } catch (_) {
+                /* Non-JSON SSE data — treat as raw text */
+                fullText += payload;
+              }
+            }
+          }
+
+          /* Re-render with markdown */
+          var result = parseFollowUps(fullText);
+          msgDiv.innerHTML = renderMarkdown(result.body);
+          requestAnimationFrame(function () {
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+          });
         }
-        addMsg('bot', errText);
-        messages.pop(); // remove failed user message from history
+
+        /* Final render with copy button and timestamp */
+        var final = parseFollowUps(fullText);
+        msgDiv.innerHTML = renderMarkdown(final.body);
+
+        var copyBtn = document.createElement('button');
+        copyBtn.className = 'nca-msg-copy';
+        copyBtn.textContent = 'Copy';
+        copyBtn.setAttribute('aria-label', 'Copy message');
+        copyBtn.addEventListener('click', function () {
+          navigator.clipboard.writeText(final.body).then(function () {
+            copyBtn.textContent = 'Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(function () {
+              copyBtn.textContent = 'Copy';
+              copyBtn.classList.remove('copied');
+            }, 1500);
+          });
+        });
+        msgDiv.appendChild(copyBtn);
+
+        var timeEl = document.createElement('div');
+        timeEl.className = 'nca-msg-time';
+        timeEl.textContent = timeStamp();
+        msgDiv.appendChild(timeEl);
+
+        messages.push({ role: 'assistant', content: fullText });
+        saveSession();
+
+        /* Show follow-up chips */
+        if (final.followUps.length > 0) {
+          showFollowUpChips(final.followUps);
+        }
+
+      } else {
+        /* ── Non-streaming fallback ── */
+        var data;
+        try {
+          data = await res.json();
+        } catch (_) {
+          data = res.status === 404 ? { error: 'not_found' } : { error: 'unexpected_response', status: res.status };
+        }
+
+        /* Auto-retry once on retryable server errors */
+        if (!data.reply && (data.retryable || res.status === 502 || res.status === 503 || res.status === 529)) {
+          await new Promise(function (r) { setTimeout(r, 1500); });
+          var retryResult = await callChatAPI(messages);
+          res = retryResult.res;
+          data = retryResult.data;
+        }
+
+        typing.remove();
+
+        if (data.reply) {
+          var parsed = parseFollowUps(data.reply);
+          addMsg('bot', parsed.body);
+          messages.push({ role: 'assistant', content: data.reply });
+          saveSession();
+          if (parsed.followUps.length > 0) {
+            showFollowUpChips(parsed.followUps);
+          }
+        } else {
+          var errText;
+          var errStr = (data.error || '').toString().toLowerCase();
+          if (data.error === 'not_found' || res.status === 404) {
+            errText = 'The AI assistant isn\u2019t available yet. Browse our [FAQ](/faq/) or [articles](/blog/) for NCA info, or email hello@thencahub.com.';
+          } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1 || errStr.indexOf('authentication') !== -1) {
+            errText = 'The AI assistant is being configured. Please try again in a moment.';
+          } else if (res.status === 429) {
+            errText = 'You\u2019ve sent a lot of messages! Please wait a minute before trying again.';
+          } else if (res.status >= 500 || data.error === 'unexpected_response') {
+            errText = 'The AI service is temporarily unavailable. Please try again in a moment.';
+          } else if (data.error) {
+            errText = data.error + ' Please try again.';
+          } else {
+            errText = 'Something went wrong. Please try again.';
+          }
+          addMsg('bot', errText);
+          messages.pop();
+        }
       }
     } catch (e) {
       typing.remove();
