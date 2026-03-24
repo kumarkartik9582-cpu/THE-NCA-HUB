@@ -19,9 +19,9 @@ SOCIAL_PROOF = '<p style="font-size:var(--nano);letter-spacing:.24em;text-transf
 
 LOSS_AVERSION = '''<div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);padding:20px 24px;margin:20px 0;max-width:480px;margin-left:auto;margin-right:auto;"><p style="font-size:var(--sm);color:var(--fog);font-family:var(--fb);line-height:1.8;text-align:center;">One NCA resit costs <strong style="color:var(--cream);">$500 CAD + taxes</strong> and a <strong style="color:var(--cream);">3-month wait</strong> for the next session. These notes cost <strong style="color:var(--cream);">$175 CAD</strong>. The maths are straightforward.</p></div>'''
 
-RISK_REVERSAL = '<p style="font-size:var(--sm);color:var(--fog);text-align:center;font-family:var(--fb);line-height:1.8;margin-bottom:24px;">If you sit your exam using these notes and don\'t pass, email <a href="mailto:hello@thencahub.com" style="color:var(--g1);text-decoration:none;">hello@thencahub.com</a> and we will send you the updated notes for your resit &#x2014; <strong style="color:var(--cream);">free.</strong></p>'
+RISK_REVERSAL = '<p style="font-size:var(--sm);color:var(--fog);text-align:center;font-family:var(--fb);line-height:1.8;margin-bottom:24px;">If you sit your exam using these notes and don\'t pass, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a> and we will send you the updated notes for your resit &#x2014; <strong style="color:var(--cream);">free.</strong></p>'
 
-BNPL = '<p style="font-size:.72rem;color:var(--dim);margin-top:12px;text-align:center;font-family:var(--fb);">Instant PDF delivery &middot; <span style="color:var(--fog);">Pay in 2 instalments available at checkout</span> &middot; Questions? <a href="mailto:hello@thencahub.com" style="color:var(--g1);text-decoration:none;">hello@thencahub.com</a></p>'
+BNPL = '<p style="font-size:.72rem;color:var(--dim);margin-top:12px;text-align:center;font-family:var(--fb);">Instant PDF delivery &middot; <span style="color:var(--fog);">Pay in 2 instalments available at checkout</span> &middot; Questions? <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a></p>'
 
 WA_CSS = """\n.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:7900;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s var(--expo),box-shadow .3s;text-decoration:none;}\n.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5);}\n.wa-float svg{width:28px;height:28px;fill:#fff;}\n@media(min-width:960px){.wa-float{display:none;}}\n@media(max-width:768px){.has-sticky-cta .wa-float{bottom:72px;}}"""
 
@@ -338,7 +338,7 @@ if LOSS_AVERSION_IDX not in content and PROOF_ROWS_END in content:
     print("  Task 6: Loss aversion added to pricing section")
 
 # Task 10: Risk reversal below loss aversion
-RISK_IDX = '<p style="font-size:var(--sm);color:var(--fog);text-align:center;font-family:var(--fb);line-height:1.8;margin-bottom:0;">If you sit your exam using these notes and don\'t pass, email <a href="mailto:hello@thencahub.com" style="color:var(--g1);text-decoration:none;">hello@thencahub.com</a> and we will send you the updated notes for your resit &#x2014; <strong style="color:var(--cream);">free.</strong></p>\n'
+RISK_IDX = '<p style="font-size:var(--sm);color:var(--fog);text-align:center;font-family:var(--fb);line-height:1.8;margin-bottom:0;">If you sit your exam using these notes and don\'t pass, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a> and we will send you the updated notes for your resit &#x2014; <strong style="color:var(--cream);">free.</strong></p>\n'
 
 if RISK_IDX not in content and LOSS_AVERSION_IDX in content:
     content = content.replace(LOSS_AVERSION_IDX, LOSS_AVERSION_IDX + RISK_IDX)

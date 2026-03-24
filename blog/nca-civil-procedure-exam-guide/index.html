@@ -282,6 +282,13 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
 
 .nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
 .nca-skip-nav:focus{top:0}
+
+.nca-helpful-widget{text-align:center;padding:48px 24px 32px;border-top:1px solid rgba(201,168,76,.07)}
+.nca-helpful-label{font-size:var(--nano,.7rem);letter-spacing:.25em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+.nca-helpful-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.nca-helpful-btn{background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--fog);font-size:.8rem;padding:9px 22px;border-radius:8px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px;font-family:inherit}
+.nca-helpful-btn:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.5);color:var(--cream)}
+.nca-helpful-thankyou{font-size:.82rem;color:var(--g1);padding:8px 0}
 </style>
 <style>
 /* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
@@ -422,7 +429,23 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
     <div class="related-links"><h3>Related Guides</h3><div class="related-grid"><a href="/blog/nca-contracts-exam-guide/" class="related-card">NCA Contracts Exam Guide 2026</a><a href="/blog/nca-business-organisations-exam-guide/" class="related-card">NCA Business Organisations Exam Guide 2026</a><a href="/blog/nca-lrw-guide/" class="related-card">NCA LRW Guide 2026</a><a href="/notes/" class="related-card">Browse All NCA Notes</a></div></div>
   </div></div>
 </section>
-<footer><div class="ftg"><div><div class="flog">NCA <span style="color:var(--g1)">Hub</span></div><p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p></div><div><div class="fct">Navigate</div><ul class="fls"><li><a href="https://www.thencahub.com/#method">The Method</a></li><li><a href="https://www.thencahub.com/#subjects">Subjects</a></li><li><a href="https://www.thencahub.com/#pricing">Pricing</a></li><li><a href="https://www.thencahub.com/#sample">Free Sample</a></li></ul></div><div><div class="fct">Candidate Guides</div><ul class="fls"><li><a href="/nca-for-indian-lawyers/">Indian Lawyers</a></li><li><a href="/nca-for-uk-lawyers/">UK Lawyers</a></li><li><a href="/nca-for-nigerian-lawyers/">Nigerian Lawyers</a></li><li><a href="/nca-for-philippine-lawyers/">Philippine Lawyers</a></li><li><a href="/nca-for-pakistani-lawyers/">Pakistani Lawyers</a></li><li><a href="/nca-for-jamaican-lawyers/">Jamaican Lawyers</a></li></ul></div><div><div class="fct">Contact</div><ul class="fls"><li><a href="mailto:hello@thencahub.com">hello@thencahub.com</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul></div></div><div class="fb2"><p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p><p class="fleg">© 2026 The NCA Hub. All rights reserved.</p></div><p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society.</p></footer>
+    <!-- Was this helpful? -->
+    <div class="nca-helpful-widget" id="nca-helpful-widget">
+      <p class="nca-helpful-label">Was this article helpful?</p>
+      <div class="nca-helpful-btns">
+        <button class="nca-helpful-btn" data-vote="yes" aria-label="Yes, this article was helpful">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+          Yes, helpful
+        </button>
+        <button class="nca-helpful-btn" data-vote="no" aria-label="No, this article was not helpful">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/><path d="M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
+          Needs improvement
+        </button>
+      </div>
+      <p class="nca-helpful-thankyou" id="nca-helpful-thankyou" hidden></p>
+    </div>
+
+<footer><div class="ftg"><div><div class="flog">NCA <span style="color:var(--g1)">Hub</span></div><p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p></div><div><div class="fct">Navigate</div><ul class="fls"><li><a href="https://www.thencahub.com/#method">The Method</a></li><li><a href="https://www.thencahub.com/#subjects">Subjects</a></li><li><a href="https://www.thencahub.com/#pricing">Pricing</a></li><li><a href="https://www.thencahub.com/#sample">Free Sample</a></li></ul></div><div><div class="fct">Candidate Guides</div><ul class="fls"><li><a href="/nca-for-indian-lawyers/">Indian Lawyers</a></li><li><a href="/nca-for-uk-lawyers/">UK Lawyers</a></li><li><a href="/nca-for-nigerian-lawyers/">Nigerian Lawyers</a></li><li><a href="/nca-for-philippine-lawyers/">Philippine Lawyers</a></li><li><a href="/nca-for-pakistani-lawyers/">Pakistani Lawyers</a></li><li><a href="/nca-for-jamaican-lawyers/">Jamaican Lawyers</a></li></ul></div><div><div class="fct">Contact</div><ul class="fls"><li><a href="mailto:thencahub@gmail.com">thencahub@gmail.com</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul></div></div><div class="fb2"><p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p><p class="fleg">© 2026 The NCA Hub. All rights reserved.</p></div><p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with the National Committee on Accreditation (NCA™), the Federation of Law Societies of Canada, or any provincial law society.</p></footer>
 <script>
 function submitNotify(e,formId,subject){e.preventDefault();var form=document.getElementById(formId);var email=form.querySelector('input[type=email]').value;var msg=document.getElementById(formId+'-msg');fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})}).then(function(){if(msg)msg.style.display='block';form.querySelector('button').disabled=true;}).catch(function(){if(msg)msg.style.display='block';});}
 (function(){var bar=document.getElementById('prog');if(!bar)return;window.addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';},{passive:true});})();
@@ -548,5 +571,25 @@ if('serviceWorker' in navigator){
     }
   });
 }
+</script>
+<script>
+/* Helpful widget handler */
+(function(){
+  var widget = document.getElementById('nca-helpful-widget');
+  if(!widget) return;
+  var btns = widget.querySelectorAll('.nca-helpful-btn');
+  var ty = document.getElementById('nca-helpful-thankyou');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var vote = btn.getAttribute('data-vote');
+      btns.forEach(function(b){ b.style.display = 'none'; });
+      if(ty){
+        ty.hidden = false;
+        ty.textContent = vote === 'yes' ? 'Thank you! Glad it helped.' : 'Thank you for the feedback — we\'ll improve this.';
+      }
+      if(typeof gtag === 'function') gtag('event','helpful_vote',{vote:vote, page:window.location.pathname});
+    });
+  });
+})();
 </script>
 </body></html>
