@@ -26,9 +26,9 @@ LOSS_AVERSION_NOTES = '''<div style="background:rgba(201,168,76,.04);border:1px 
 <p style="font-size:var(--sm);color:var(--fog);font-family:var(--fb);line-height:1.8;text-align:center;">One NCA resit costs <strong style="color:var(--cream);">$500 CAD + taxes</strong> and a <strong style="color:var(--cream);">3-month wait</strong> for the next session. These notes cost <strong style="color:var(--cream);">$175 CAD</strong>. The maths are straightforward.</p>
 </div>'''
 
-RISK_REVERSAL = '''<p style="font-size:var(--sm);color:var(--fog);text-align:center;font-family:var(--fb);line-height:1.8;margin-bottom:24px;">If you sit your exam using these notes and don&#x2019;t pass, email <a href="mailto:hello@thencahub.com" style="color:var(--g1);text-decoration:none;">hello@thencahub.com</a> and we will send you the updated notes for your resit &#x2014; <strong style="color:var(--cream);">free.</strong></p>'''
+RISK_REVERSAL = '''<p style="font-size:var(--sm);color:var(--fog);text-align:center;font-family:var(--fb);line-height:1.8;margin-bottom:24px;">If you sit your exam using these notes and don&#x2019;t pass, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a> and we will send you the updated notes for your resit &#x2014; <strong style="color:var(--cream);">free.</strong></p>'''
 
-BNPL = '''<p style="font-size:.72rem;color:var(--dim);margin-top:12px;text-align:center;font-family:var(--fb);">Instant PDF delivery · <span style="color:var(--fog);">Pay in 2 instalments available at checkout</span> · Questions? <a href="mailto:hello@thencahub.com" style="color:var(--g1);text-decoration:none;">hello@thencahub.com</a></p>'''
+BNPL = '''<p style="font-size:.72rem;color:var(--dim);margin-top:12px;text-align:center;font-family:var(--fb);">Instant PDF delivery · <span style="color:var(--fog);">Pay in 2 instalments available at checkout</span> · Questions? <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a></p>'''
 
 WA_CSS = '''
 .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:7900;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .3s var(--expo),box-shadow .3s;text-decoration:none;}

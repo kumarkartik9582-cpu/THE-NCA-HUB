@@ -154,7 +154,7 @@ NH_BTN = '<button class="nh" id="nh" aria-label="Open menu" aria-expanded="false
 
 # ─── FIX 1: EMAIL ─────────────────────────────────────────────────────────────────
 def fix_email(html):
-    REPLACEMENT = '<a href="mailto:hello@thencahub.com" style="color:var(--g1)">hello@thencahub.com</a>'
+    REPLACEMENT = '<a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a>'
     # Pattern A: <a href="cdn-cgi..."><span class="__cf_email__"...>...</span></a>
     html = re.sub(
         r'<a\s+href="/cdn-cgi/l/email-protection[^"]*"[^>]*>\s*<span[^>]*class="__cf_email__"[^>]*>[^<]*</span>\s*</a>',
@@ -170,7 +170,7 @@ def fix_email(html):
     # Pattern D: lingering <span class="__cf_email__"...>...</span>
     html = re.sub(
         r'<span[^>]*class="__cf_email__"[^>]*>[^<]*</span>',
-        'hello@thencahub.com', html)
+        'thencahub@gmail.com', html)
     # Remove cfasync email-decode script tag
     html = re.sub(
         r'<script\s+data-cfasync="false"\s+src="/cdn-cgi/scripts/[^"]+/cloudflare-static/email-decode\.min\.js"></script>',

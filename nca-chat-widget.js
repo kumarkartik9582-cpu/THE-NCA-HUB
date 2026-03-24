@@ -587,7 +587,7 @@
           var errText;
           var errStr = (data.error || '').toString().toLowerCase();
           if (data.error === 'not_found' || res.status === 404) {
-            errText = 'The AI assistant isn\u2019t available yet. Browse our [FAQ](/faq/) or [articles](/blog/) for NCA info, or email hello@thencahub.com.';
+            errText = 'The AI assistant isn\u2019t available yet. Browse our [FAQ](/faq/) or [articles](/blog/) for NCA info, or email thencahub@gmail.com.';
           } else if (errStr.indexOf('api key') !== -1 || errStr.indexOf('not configured') !== -1 || errStr.indexOf('authentication') !== -1) {
             errText = 'The AI assistant is being configured. Please try again in a moment.';
           } else if (res.status === 429) {
