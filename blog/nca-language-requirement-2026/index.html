@@ -225,6 +225,15 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .nca-helpful-btn{background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--fog);font-size:.8rem;padding:9px 22px;border-radius:8px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px;font-family:inherit}
 .nca-helpful-btn:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.5);color:var(--cream)}
 .nca-helpful-thankyou{font-size:.82rem;color:var(--g1);padding:8px 0}
+.art-cta{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:48px 52px;margin-top:64px;text-align:center}
+@media(max-width:640px){.art-cta{padding:32px 24px}}
+.art-cta-eyelet{font-size:var(--nano,.57rem);letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:16px}
+.art-cta-title{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:16px}
+.art-cta-sub{font-size:var(--body,.93rem);color:var(--fog);line-height:1.7;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.art-cta-btn{display:inline-block;padding:16px 44px;background:var(--g1);color:var(--void);font-family:var(--fb);font-size:var(--nano,.57rem);font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:transform .3s,background .3s}
+.art-cta-btn:hover{transform:translateY(-2px);background:var(--g0)}
+.art-back{display:block;margin-top:32px;font-size:var(--nano,.57rem);letter-spacing:.24em;text-transform:uppercase;color:var(--dim);transition:color .3s}
+.art-back:hover{color:var(--g1)}
 </style>
 </head>
 <body class="has-sticky-cta">
@@ -359,9 +368,42 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p id="nca-helpful-thankyou" hidden></p>
 
     </div>
+    <div class="author-bio" itemscope itemtype="https://schema.org/Person">
+      <div>
+        <div class="author-bio-label" style="font-size:.57rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:8px;">About the author</div>
+        <div class="author-bio-name" style="font-family:var(--fd);font-size:1.2rem;color:var(--cream);margin-bottom:8px;"><a href="/about/" itemprop="url"><span itemprop="name">Kartik Kumar</span></a></div>
+        <p class="author-bio-desc" itemprop="description" style="font-size:.88rem;color:var(--fog);line-height:1.7;">Indian-qualified lawyer. Built his legal career at UK law firms DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects — 4 cleared in under 3 months. Founder of The NCA Hub.</p>
+        <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &rarr;</a>
+      </div>
+    </div>
+    <div class="art-cta">
+      <p class="art-cta-eyelet">Ready to prepare?</p>
+      <h2 class="art-cta-title">Get the notes used to pass all 5 NCA subjects — 4 cleared in under 3 months.</h2>
+      <p class="art-cta-sub">Precision study notes, answer templates, and the readiness score tool — built for internationally trained lawyers.</p>
+      <a href="https://payhip.com/THENCAHUB" class="art-cta-btn" target="_blank" rel="noopener">Get Your Notes →</a>
+    </div>
+    <a href="/blog/" class="art-back">← Back to all articles</a>
     </div><!-- end .art-body -->
   </article>
 </div><!-- end #article-wrap -->
+
+  <div class="related-articles" style="max-width:720px;margin:0 auto;padding:48px 72px 0;">
+    <p class="rel-eyelet" style="font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:20px;">Related Guides</p>
+    <div class="rel-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+        <a href="/blog/article-f1-nca-policy-changes-2026/" class="rel-card" style="display:block;border:1px solid rgba(201,168,76,.1);padding:20px;text-decoration:none;transition:border-color .3s;">
+          <div class="rel-card-title" style="font-size:.88rem;color:var(--cream);font-weight:600;margin-bottom:6px;">NCA Policy Changes 2026</div>
+          <div class="rel-card-desc" style="font-size:.75rem;color:var(--dim);line-height:1.5;">Key policy changes affecting NCA candidates in 2026.</div>
+        </a>
+        <a href="/blog/nca-exam-cost-2026/" class="rel-card" style="display:block;border:1px solid rgba(201,168,76,.1);padding:20px;text-decoration:none;transition:border-color .3s;">
+          <div class="rel-card-title" style="font-size:.88rem;color:var(--cream);font-weight:600;margin-bottom:6px;">NCA Exam Cost 2026</div>
+          <div class="rel-card-desc" style="font-size:.75rem;color:var(--dim);line-height:1.5;">Full breakdown of all NCA exam fees.</div>
+        </a>
+        <a href="/faq/" class="rel-card" style="display:block;border:1px solid rgba(201,168,76,.1);padding:20px;text-decoration:none;transition:border-color .3s;">
+          <div class="rel-card-title" style="font-size:.88rem;color:var(--cream);font-weight:600;margin-bottom:6px;">NCA FAQ 2026</div>
+          <div class="rel-card-desc" style="font-size:.75rem;color:var(--dim);line-height:1.5;">All your NCA questions answered.</div>
+        </a>
+    </div>
+  </div>
 
 <footer>
   <div style="max-width:1100px;margin:0 auto;padding:0 72px;">
