@@ -33,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <!-- Google Analytics 4 — consent mode -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -124,6 +127,27 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
 .art-body *,.article-body *{font-family:inherit;line-height:inherit}
 .art-body > *:first-child,.article-body > *:first-child{margin-top:0}
+#discovery-bar{position:fixed;top:0;left:0;right:0;z-index:9050;height:28px;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g0);font-weight:500}#discovery-bar span{color:var(--g1)}
+nav{top:28px}
+#prog{top:28px}
+.case-callout{background:rgba(201,168,76,.05);border-left:2px solid var(--g1);padding:24px 28px;margin:32px 0}
+.case-callout strong{font-family:var(--fd);font-size:1.1rem;color:var(--cream);display:block;margin-bottom:8px}
+.faq-section{margin-top:64px}
+.faq-item{border-top:1px solid rgba(201,168,76,.1);padding:24px 0}
+.faq-item:last-child{border-bottom:1px solid rgba(201,168,76,.1)}
+.faq-q{font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:10px}
+.faq-a{font-size:var(--body);color:var(--fog);line-height:1.8}
+.notify-form{background:rgba(13,13,24,.6);border:1px solid rgba(201,168,76,.12);padding:32px;margin:40px 0}
+.notify-form h3{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:8px}
+.notify-form p{font-size:var(--sm);color:var(--fog);margin-bottom:20px}
+.notify-form input[type=email]{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;margin-bottom:12px}
+.notify-form input[type=email]::placeholder{color:var(--dim)}
+.notify-form button{background:var(--g1);color:var(--void);border:none;padding:14px 36px;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.related-links{margin-top:56px;padding-top:40px;border-top:1px solid rgba(201,168,76,.07)}
+.related-links h3{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.related-card{border:1px solid rgba(201,168,76,.1);padding:20px;font-size:var(--sm);color:var(--fog);transition:border-color .3s}
+.related-card:hover{border-color:rgba(201,168,76,.35);color:var(--cream)}
 </style>
 <style id="toc-styles">
 /* ── Table of Contents ── */
@@ -178,8 +202,8 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         "@type": "Person",
         "name": "Kartik Kumar",
         "url": "https://www.thencahub.com/about/",
-        "jobTitle": "Founder, The NCA Hub",
-        "description": "Indian-qualified lawyer who built his career at UK law firms DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects — 4 cleared in under 3 months, starting with Administrative Law with one week to prepare. Certificate of Qualification requested."
+        "jobTitle": "NCA-Qualified Lawyer",
+        "description": "Indian-qualified lawyer who passed all 5 NCA subjects. Founder of The NCA Hub."
       },
       "publisher": {
         "@type": "Organization",
@@ -190,7 +214,10 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
           "url": "https://www.thencahub.com/favicon.svg"
         }
       },
-      "mainEntityOfPage": "https://www.thencahub.com/blog/nca-criminal-law-may-2026/",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.thencahub.com/blog/nca-criminal-law-may-2026/"
+      },
       "image": "https://www.thencahub.com/og-image.jpg",
       "inLanguage": "en-CA",
       "wordCount": 650,
@@ -258,6 +285,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain" aria-hidden="true"></div>
+<div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;&middot;&nbsp; <span>Mandatory Subject Guide</span></div>
 <div id="prog" aria-hidden="true"></div>
 <div id="cd" aria-hidden="true"></div>
 <div id="cr" aria-hidden="true"></div>
@@ -340,27 +368,95 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <li><strong>Sentencing:</strong> Principles (ss.718–718.2), mandatory minimums (constitutional challenges), conditional sentences</li>
     </ul>
 
-    <h2>Key Cases You Must Know</h2>
-    <p>Criminal Law is heavily case-driven. Essential cases:</p>
+    <h2>Mens Rea and Actus Reus: Core Elements of Criminal Liability</h2>
+    <p>Every criminal offence in Canadian law requires proof of two fundamental elements: the <em>actus reus</em> (the prohibited act or omission) and the <em>mens rea</em> (the guilty mind). Understanding these elements and how they interact is the foundation of your NCA Criminal Law exam preparation.</p>
+    <p>The <em>actus reus</em> encompasses the physical element of the offence: the voluntary act, the circumstances surrounding it, and the consequences that result. In Canadian criminal law, an act must be voluntary to ground liability &#8212; involuntary conduct (such as a reflex or conduct during a seizure) negates the actus reus entirely. The actus reus can also include omissions where there is a legal duty to act (for example, a parent&#8217;s duty to provide necessaries of life under s.215 of the <em>Criminal Code</em>).</p>
+    <p>The <em>mens rea</em> requirement varies depending on the offence. Canadian law recognizes several levels of fault:</p>
     <ul>
-      <li><em>R v Sault Ste Marie</em>, [1978] 2 SCR 1299 &#8212; regulatory offences, strict liability</li>
-      <li><em>R v Creighton</em>, [1993] 3 SCR 3 &#8212; objective fault standard</li>
-      <li><em>R v Daviault</em>, [1994] 3 SCR 63 &#8212; extreme intoxication defence</li>
-      <li><em>R v Grant</em>, 2009 SCC 32 &#8212; s.24(2) analysis for excluding evidence</li>
-      <li><em>R v Jordan</em>, 2016 SCC 27 &#8212; s.11(b) trial delay framework</li>
-      <li><em>R v Gladue</em>, [1999] 1 SCR 688 &#8212; sentencing Indigenous offenders</li>
-      <li><em>R v Brown</em>, 2022 SCC 18 &#8212; s.33.1 CC extreme intoxication (post-Daviault)</li>
+      <li><strong>Subjective mens rea:</strong> The accused must have actually intended or known the consequences of their actions. This is the standard for most serious offences (murder, theft, fraud). The Crown must prove what was in the accused&#8217;s mind.</li>
+      <li><strong>Objective mens rea:</strong> The question is whether a reasonable person in the accused&#8217;s position would have foreseen the risk. This applies to offences like criminal negligence (s.219 CC), dangerous driving (s.320.13 CC), and unlawful act manslaughter.</li>
+      <li><strong>Strict liability:</strong> For regulatory offences, the Crown need only prove the actus reus; the accused then bears the burden of showing due diligence on a balance of probabilities.</li>
+    </ul>
+    <p>The SCC&#8217;s decision in <em>R v Creighton</em> [1993] 3 SCR 3 remains essential for understanding the objective fault standard, particularly the &#8220;modified objective test&#8221; used for unlawful act manslaughter &#8212; where the question is whether a reasonable person would have foreseen the risk of bodily harm. On the exam, be prepared to apply both subjective and objective fault standards to hypothetical fact patterns and explain which standard applies to which offence category.</p>
+
+    <h2>Key Cases You Must Know</h2>
+    <p>Criminal Law is heavily case-driven. The NCA exam will expect you to apply these landmark decisions to fact patterns. Below are the most critical cases organized by topic.</p>
+
+    <div class="case-callout">
+      <strong>Key Case: R v Jordan [2016] SCC 27</strong>
+      <p>Established the modern framework for s.11(b) Charter right to trial within a reasonable time. The SCC set presumptive ceilings of 18 months for provincial court matters and 30 months for superior court matters. Once the ceiling is exceeded, delay is presumptively unreasonable and the charge should be stayed unless the Crown proves exceptional circumstances. This case fundamentally changed how courts assess trial delay and is frequently tested on the NCA exam because it intersects criminal procedure with Charter rights.</p>
+    </div>
+
+    <div class="case-callout">
+      <strong>Key Case: R v Oakes [1986] 1 SCR 103</strong>
+      <p>The foundational case for s.1 Charter analysis. When the Crown seeks to justify a limit on a Charter right, the court applies the Oakes test: (1) the government objective must be pressing and substantial; (2) the means must be rationally connected to the objective; (3) the means must minimally impair the right; and (4) there must be proportionality between the effects and the objective. This test appears across all NCA subjects but is especially important in Criminal Law when analyzing the constitutionality of Criminal Code provisions such as mandatory minimum sentences.</p>
+    </div>
+
+    <div class="case-callout">
+      <strong>Key Case: R v Lavallee [1990] 1 SCR 852</strong>
+      <p>A landmark decision on self-defence in the context of battered woman syndrome. The SCC held that expert evidence on the psychological effects of battering is relevant and admissible to explain why an accused in an abusive relationship might reasonably perceive a threat to their life even in the absence of an immediate attack. This case broadened the understanding of what constitutes a &#8220;reasonable apprehension&#8221; of harm under the self-defence provisions and is a staple NCA exam topic on defences.</p>
+    </div>
+
+    <p>Additional essential cases include:</p>
+    <ul>
+      <li><em>R v Sault Ste Marie</em>, [1978] 2 SCR 1299 &#8212; regulatory offences and the three categories of liability (true criminal, strict liability, absolute liability)</li>
+      <li><em>R v Creighton</em>, [1993] 3 SCR 3 &#8212; objective fault standard for unlawful act manslaughter</li>
+      <li><em>R v Daviault</em>, [1994] 3 SCR 63 &#8212; extreme intoxication defence (now largely codified by s.33.1 CC)</li>
+      <li><em>R v Grant</em>, 2009 SCC 32 &#8212; the modern s.24(2) framework for excluding evidence obtained in breach of Charter rights</li>
+      <li><em>R v Gladue</em>, [1999] 1 SCR 688 &#8212; sentencing principles for Indigenous offenders under s.718.2(e) CC</li>
+      <li><em>R v Brown</em>, 2022 SCC 18 &#8212; constitutionality of s.33.1 CC restricting extreme intoxication defence for violent offences</li>
     </ul>
 
-    <h2>Recommended Study Strategy (8&#8211;10 Weeks)</h2>
+    <h2>Defences in Canadian Criminal Law</h2>
+    <p>A significant portion of the NCA Criminal Law exam tests your knowledge of criminal defences. You must know not only the elements of each defence but also how courts have interpreted and limited them through case law.</p>
+    <p><strong>Self-defence (s.34 CC):</strong> The reformed self-defence provision (post-2012 amendments) requires that the accused reasonably believed force or a threat of force was being used against them or another person, that the act was committed for the purpose of defending themselves or others, and that the act was reasonable in the circumstances. The court considers factors such as the nature of the threat, the proportionality of the response, the parties&#8217; size and strength, and any history of interaction between them.</p>
+    <p><strong>Provocation (s.232 CC):</strong> Available only as a partial defence to murder, reducing it to manslaughter. The accused must show that the victim&#8217;s conduct constituted a wrongful act or insult sufficient to deprive an ordinary person of self-control, and that the accused acted on that provocation before there was time to cool down.</p>
+    <p><strong>Intoxication:</strong> For specific intent offences (e.g., murder, theft), voluntary intoxication can negate the required mens rea. For general intent offences (e.g., assault, sexual assault), voluntary intoxication is generally not a defence, particularly after the enactment of s.33.1 CC following <em>R v Brown</em> (2022 SCC 18).</p>
+    <p><strong>Mental disorder (s.16 CC):</strong> An accused is not criminally responsible if, at the time of the offence, they were suffering from a mental disorder rendering them incapable of appreciating the nature and quality of the act or of knowing that it was wrong. The burden is on the party raising the defence (on a balance of probabilities).</p>
+    <p><strong>Necessity and duress:</strong> Necessity requires that there was an imminent peril, no reasonable legal alternative, and proportionality between the harm avoided and the harm caused. Duress (both common law and statutory under s.17 CC) requires threats of death or bodily harm; the accused must have had no safe avenue of escape and the response must have been proportionate.</p>
+
+    <h2>Specific Offences: What the Exam Emphasizes</h2>
+    <p>The NCA Criminal Law exam frequently tests homicide, sexual assault, and property offences. You need to know the precise elements of each offence and the relevant Code provisions.</p>
+    <p><strong>Homicide (ss.222&#8211;240 CC):</strong></p>
+    <ul>
+      <li><strong>First-degree murder (s.231 CC):</strong> Murder that is planned and deliberate, or murder of a peace officer, or murder during the commission of certain listed offences (e.g., sexual assault, kidnapping). Mandatory sentence: life imprisonment with no parole eligibility for 25 years.</li>
+      <li><strong>Second-degree murder (s.235 CC):</strong> All murder that is not first-degree. Requires subjective foresight of death (s.229(a)) or recklessness as to whether death ensues while pursuing an unlawful object (s.229(c)). Mandatory sentence: life imprisonment with parole eligibility between 10 and 25 years.</li>
+      <li><strong>Manslaughter (s.236 CC):</strong> Culpable homicide that does not meet the threshold for murder. Includes unlawful act manslaughter (objective foresight of bodily harm per <em>Creighton</em>) and criminal negligence causing death. No mandatory minimum sentence (except where a firearm is used).</li>
+    </ul>
+    <p><strong>Sexual assault (ss.271&#8211;273 CC):</strong> An assault of a sexual nature. Consent (s.273.1) must be voluntary, specific, and ongoing. The accused cannot rely on belief in consent where they were willfully blind, reckless, or where consent was obtained through abuse of a position of trust or authority. Note the &#8220;capacity to consent&#8221; issues and the affirmative consent standard.</p>
+    <p><strong>Theft (s.322 CC) and fraud (s.380 CC):</strong> Theft requires fraudulent taking without colour of right. Fraud requires dishonesty (deceit, falsehood, or other fraudulent means) that causes deprivation or risk of deprivation to the victim. The subjective mens rea for fraud was confirmed in <em>R v Theroux</em> [1993] 2 SCR 5.</p>
+
+    <h2>Charter Issues in Criminal Law</h2>
+    <p>The <em>Canadian Charter of Rights and Freedoms</em> is deeply interwoven with criminal law. NCA exam questions frequently combine substantive criminal law with Charter analysis. The key provisions you must master:</p>
+    <ul>
+      <li><strong>Section 7 &#8212; Life, liberty, and security of the person:</strong> No deprivation except in accordance with principles of fundamental justice. This section has been used to challenge overbroad criminal provisions, arbitrary detention conditions, and grossly disproportionate penalties.</li>
+      <li><strong>Section 8 &#8212; Search and seizure:</strong> Protects against unreasonable search and seizure. The standard is reasonable expectation of privacy (<em>R v Edwards</em>, [1996] 1 SCR 128). Warrantless searches are presumptively unreasonable; the Crown must justify them.</li>
+      <li><strong>Section 9 &#8212; Arbitrary detention:</strong> Protects against detention without lawful authority or proper grounds. Key for roadside stops and investigative detentions.</li>
+      <li><strong>Section 10(b) &#8212; Right to counsel:</strong> Upon arrest or detention, the accused has the right to be informed of the right to counsel and to retain and instruct counsel without delay. Police must provide a reasonable opportunity to contact counsel before continuing investigation.</li>
+      <li><strong>Section 11(d) &#8212; Presumption of innocence:</strong> The accused is presumed innocent until proven guilty beyond a reasonable doubt. Reverse onus provisions in criminal statutes are frequently challenged under this section (see <em>R v Oakes</em>).</li>
+      <li><strong>Section 24(2) &#8212; Exclusion of evidence:</strong> Where evidence is obtained in breach of Charter rights, the court may exclude it under the <em>R v Grant</em> (2009 SCC 32) framework if its admission would bring the administration of justice into disrepute. The three-part test considers: (1) the seriousness of the Charter-infringing state conduct, (2) the impact on the accused&#8217;s Charter-protected interests, and (3) society&#8217;s interest in adjudication on the merits.</li>
+    </ul>
+
+    <h2>Sentencing Principles</h2>
+    <p>The sentencing provisions of the <em>Criminal Code</em> (ss.718&#8211;718.2) set out the objectives and principles courts must consider when imposing a sentence. This is a frequently tested area on the NCA exam.</p>
+    <p>The fundamental purpose of sentencing (s.718) is to protect society and contribute to respect for the law by imposing just sanctions. The six objectives are:</p>
+    <ul>
+      <li><strong>Denunciation:</strong> Communicating society&#8217;s condemnation of the offence</li>
+      <li><strong>Deterrence:</strong> Both specific (discouraging the offender) and general (discouraging others)</li>
+      <li><strong>Separation:</strong> Removing the offender from society where necessary</li>
+      <li><strong>Rehabilitation:</strong> Assisting the offender&#8217;s reintegration into the community</li>
+      <li><strong>Reparation:</strong> Providing for acknowledgment of and reparation for harm done</li>
+      <li><strong>Responsibility:</strong> Promoting a sense of responsibility and acknowledgment of harm</li>
+    </ul>
+    <p>The fundamental principle is proportionality (s.718.1): the sentence must be proportionate to the gravity of the offence and the degree of responsibility of the offender. Courts must also consider parity (s.718.2(b)), restraint (s.718.2(d) and (e)), and the specific direction in s.718.2(e) to consider all available sanctions other than imprisonment that are reasonable in the circumstances, with particular attention to Indigenous offenders (the <em>Gladue</em> principle).</p>
+
+    <h2>Recommended 4-Week Intensive Study Plan</h2>
+    <p>If you have limited time before the May sitting, this compressed 4-week plan covers the essentials. For candidates with more time, expand each week into two.</p>
     <ol>
-      <li><strong>Weeks 1&#8211;2:</strong> <em>Actus reus</em> and <em>mens rea</em> — master the fault element framework</li>
-      <li><strong>Week 3:</strong> Major offences — homicide (s.229-240), assault, sexual assault, theft, fraud</li>
-      <li><strong>Week 4:</strong> Defences — self-defence, mental disorder, automatism, intoxication</li>
-      <li><strong>Week 5:</strong> Charter rights in criminal proceedings — s.8 search, s.9 detention, s.10(b) counsel, s.24(2)</li>
-      <li><strong>Week 6:</strong> Procedure — classification, election, preliminary inquiry, trial</li>
-      <li><strong>Week 7:</strong> Sentencing principles and conditional sentences</li>
-      <li><strong>Weeks 8&#8211;10:</strong> Practice questions, past exam review, consolidation</li>
+      <li><strong>Week 1 &#8212; Foundations and elements of offences:</strong> Master <em>actus reus</em> and <em>mens rea</em> distinctions. Study subjective vs. objective fault. Cover the main categories: true criminal offences, strict liability, and absolute liability (<em>Sault Ste Marie</em>). Begin homicide provisions (ss.222&#8211;240).</li>
+      <li><strong>Week 2 &#8212; Defences and specific offences:</strong> Self-defence (s.34), provocation (s.232), intoxication (<em>Daviault</em>, s.33.1, <em>Brown</em>), mental disorder (s.16), necessity, duress. Complete sexual assault, theft, fraud. Practice applying defences to fact patterns.</li>
+      <li><strong>Week 3 &#8212; Charter rights and procedure:</strong> Sections 7, 8, 9, 10(b), 11(b), 11(d), 24(2). Study <em>Grant</em> exclusion framework, <em>Jordan</em> delay framework, and <em>Oakes</em> s.1 analysis. Cover classification of offences (summary, indictable, hybrid), election, preliminary inquiries.</li>
+      <li><strong>Week 4 &#8212; Sentencing and consolidation:</strong> Sentencing principles (ss.718&#8211;718.2), <em>Gladue</em>, mandatory minimums and constitutional challenges. Spend the final days doing practice questions, reviewing weak areas, and consolidating your case law summaries.</li>
     </ol>
 
     <div class="rule-box">
@@ -369,6 +465,37 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
     <h2>Why Criminal Law Is Manageable Despite the Volume</h2>
     <p>Despite the large volume of material, Criminal Law has a clear structure: the <em>Criminal Code</em> provides the framework, and the SCC jurisprudence fills in the analysis. Unlike contract or property law, the rules are largely codified. If you learn the Code provisions and the key cases interpreting them, you have a solid base for most exam questions.</p>
+
+    <div class="notify-form">
+      <h3>Get notified when Criminal Law notes are available</h3>
+      <p>Criminal Law notes are in development. Enter your email and we'll notify you when they're ready.</p>
+      <form id="criminal-notify" onsubmit="submitNotify(event,'criminal-notify','Criminal Law Notes')">
+        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email address">
+        <button type="submit">Notify Me</button>
+      </form>
+      <p id="criminal-notify-msg" style="display:none;color:var(--g1);font-size:var(--sm);margin-top:12px">Done — we'll email you when they're ready.</p>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <p class="faq-q">What topics are most tested on the NCA Criminal Law exam?</p>
+        <p class="faq-a">The most heavily tested areas are the elements of offences (actus reus and mens rea), homicide classifications (first-degree murder, second-degree murder, manslaughter), criminal defences (self-defence, intoxication, mental disorder), and Charter rights in criminal proceedings (particularly ss.8, 10(b), 11(b), 11(d), and 24(2)). Sentencing principles under ss.718&#8211;718.2 of the Criminal Code are also regularly examined. Expect fact-pattern questions that require you to identify the applicable offence, analyze the fault element, consider available defences, and address any Charter issues.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Is the NCA Criminal Law exam open book?</p>
+        <p class="faq-a">NCA challenge exams are typically closed-book, time-limited exams administered under supervised conditions. You will not be permitted to bring notes, textbooks, or the Criminal Code into the exam. This means you need to memorize key Code provisions (section numbers for major offences and defences), the elements of landmark SCC decisions, and the frameworks for Charter analysis. Focus on understanding principles rather than rote memorization &#8212; if you understand the logic behind the rules, you can reconstruct the analysis under exam conditions.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">How should I structure my Criminal Law exam answers?</p>
+        <p class="faq-a">Use the IRAC method (Issue, Rule, Application, Conclusion) consistently. For each issue in a fact pattern: (1) identify the legal issue clearly, (2) state the relevant rule (Code provision and/or case law principle), (3) apply the rule to the specific facts given, and (4) reach a reasoned conclusion. For criminal law specifically, work through the analysis systematically: identify the offence, establish the actus reus, analyze the mens rea, consider any applicable defences, and address Charter issues if relevant. Always cite specific Criminal Code sections and case names where possible.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">How long should I study for NCA Criminal Law?</p>
+        <p class="faq-a">Most candidates allocate 6&#8211;10 weeks of focused study for Criminal Law. The subject requires learning Canadian-specific criminal law principles, key Criminal Code provisions, and SCC case law. If you have prior criminal law training from your home jurisdiction, you may find some concepts familiar, but the Canadian-specific elements &#8212; particularly the Charter framework and Code structure &#8212; will require dedicated study regardless of your background. The 4-week intensive plan above is a compressed minimum; 8&#8211;10 weeks is ideal.</p>
+      </div>
+    </div>
+
 <div class="art-share" style="max-width:720px;margin:0 auto 0;padding:0 72px 32px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
   <span style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-family:var(--fb);margin-right:4px">Share</span>
   <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.thencahub.com%2Fblog%2Fnca-criminal-law-may-2026%2F" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:rgba(0,114,177,.15);border:1px solid rgba(0,114,177,.3);color:#60a8d0;font-family:var(--fb);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .3s" onmouseover="this.style.background='rgba(0,114,177,.3)'" onmouseout="this.style.background='rgba(0,114,177,.15)'">
@@ -406,25 +533,22 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p class="art-cta-label">Sitting Criminal Law in May 2026?</p>
       <h3 class="art-cta-head">NCA Criminal Law notes &#8212; Code-organized, exam-ready.</h3>
       <p class="art-cta-sub">Organized by Criminal Code section with key cases and Charter analysis integrated. Written by someone who passed.</p>
-      <a href="/notes/criminal-law/" class="art-cta-btn">View Criminal Law Notes &#8594;</a>
+      <a href="https://payhip.com/THENCAHUB" class="art-cta-btn">View Criminal Law Notes &#8594;</a>
     </div>
 
-    <div class="author-bio">
-      <div class="author-bio-inner">
-        <div class="author-bio-text">
-          <p class="author-bio-name">Kartik Kumar</p>
-          <p class="author-bio-desc">Foreign-trained lawyer who passed NCA Criminal Law. Kartik built The NCA Hub to help other internationally trained lawyers navigate Canadian bar admission efficiently.</p>
-          <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &#8594;</a>
-        </div>
-      </div>
+    <div class="author-bio" itemscope itemtype="https://schema.org/Person">
+      <div class="author-bio-label">About the author</div>
+      <div class="author-bio-name"><a href="/about/" itemprop="url"><span itemprop="name">Kartik Kumar</span></a></div>
+      <p class="author-bio-desc" itemprop="description">Indian-qualified lawyer. Built his legal career at UK law firms DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects — 4 cleared in under 3 months — and completed the CPLED Legal Research &amp; Writing requirement. Certificate of Qualification requested. Founder of The NCA Hub.</p>
+      <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &rarr;</a>
     </div>
 
-    <div class="related-articles" style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07);">
-      <p style="font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:20px;">Related Articles</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <a href="/notes/criminal-law/" style="display:block;padding:18px 20px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);color:var(--cream);font-size:.88rem;text-decoration:none;transition:background .3s,border-color .3s;" onmouseover="this.style.background='rgba(201,168,76,.08)';this.style.borderColor='rgba(201,168,76,.25)'" onmouseout="this.style.background='rgba(201,168,76,.04)';this.style.borderColor='rgba(201,168,76,.1)'">NCA Criminal Law Notes</a>
-        <a href="/blog/nca-exam-complete-guide/" style="display:block;padding:18px 20px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);color:var(--cream);font-size:.88rem;text-decoration:none;transition:background .3s,border-color .3s;" onmouseover="this.style.background='rgba(201,168,76,.08)';this.style.borderColor='rgba(201,168,76,.25)'" onmouseout="this.style.background='rgba(201,168,76,.04)';this.style.borderColor='rgba(201,168,76,.1)'">NCA Exam Complete Guide 2026</a>
-        <a href="/faq/" style="display:block;padding:18px 20px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);color:var(--cream);font-size:.88rem;text-decoration:none;transition:background .3s,border-color .3s;" onmouseover="this.style.background='rgba(201,168,76,.08)';this.style.borderColor='rgba(201,168,76,.25)'" onmouseout="this.style.background='rgba(201,168,76,.04)';this.style.borderColor='rgba(201,168,76,.1)'">NCA FAQ 2026 &#8212; All Your Questions Answered</a>
+    <div class="related-links">
+      <h3>Related Guides</h3>
+      <div class="related-grid">
+        <a href="/blog/nca-how-to-appeal-assessment/" class="related-card">How to Appeal Your NCA Assessment</a>
+        <a href="/blog/nca-exam-complete-guide/" class="related-card">NCA Exam Complete Guide</a>
+        <a href="/blog/nca-vs-canadian-llm/" class="related-card">NCA vs Canadian LLM</a>
       </div>
     </div>
 
@@ -716,6 +840,20 @@ if('serviceWorker' in navigator){
     });
   });
 })();
+</script>
+<script>
+function submitNotify(e,formId,subject){
+  e.preventDefault();
+  var form=document.getElementById(formId);
+  var email=form.querySelector('input[type=email]').value;
+  var msg=document.getElementById(formId+'-msg');
+  fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
+  .then(function(){if(msg){msg.style.display='block';}form.querySelector('button').disabled=true;})
+  .catch(function(){if(msg){msg.style.display='block';}});
+}
+</script>
+<script>
+(function(){try{if(typeof Lenis!=='undefined'){var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}document.documentElement.style.scrollBehavior='auto';}}catch(e){document.documentElement.style.scrollBehavior='smooth';}})();
 </script>
 </body>
 </html>

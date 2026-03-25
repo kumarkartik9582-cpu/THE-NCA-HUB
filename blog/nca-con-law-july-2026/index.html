@@ -33,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <!-- Google Analytics 4 — consent mode -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -123,6 +126,19 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 #srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
 
 
+.case-callout{background:rgba(201,168,76,.05);border-left:2px solid var(--g1);padding:24px 28px;margin:32px 0}
+.case-callout strong{font-family:var(--fd);font-size:1.1rem;color:var(--cream);display:block;margin-bottom:8px}
+.notify-form{background:rgba(13,13,24,.6);border:1px solid rgba(201,168,76,.12);padding:32px;margin:40px 0}
+.notify-form h3{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:8px}
+.notify-form p{font-size:var(--sm);color:var(--fog);margin-bottom:20px}
+.notify-form input[type=email]{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;margin-bottom:12px}
+.notify-form input[type=email]::placeholder{color:var(--dim)}
+.notify-form button{background:var(--g1);color:var(--void);border:none;padding:14px 36px;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.related-links{margin-top:56px;padding-top:40px;border-top:1px solid rgba(201,168,76,.07)}
+.related-links h3{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.related-card{border:1px solid rgba(201,168,76,.1);padding:20px;font-size:var(--sm);color:var(--fog);transition:border-color .3s}
+.related-card:hover{border-color:rgba(201,168,76,.35);color:var(--cream)}
 .art-body *,.article-body *{font-family:inherit;line-height:inherit}
 .art-body > *:first-child,.article-body > *:first-child{margin-top:0}
 </style>
@@ -179,8 +195,8 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         "@type": "Person",
         "name": "Kartik Kumar",
         "url": "https://www.thencahub.com/about/",
-        "jobTitle": "Founder, The NCA Hub",
-        "description": "Indian-qualified lawyer who built his career at UK law firms DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects \u2014 4 cleared in under 3 months, starting with Administrative Law with one week to prepare. Certificate of Qualification requested."
+        "jobTitle": "NCA-Qualified Lawyer",
+        "description": "Indian-qualified lawyer who passed all 5 NCA subjects. Founder of The NCA Hub."
       },
       "publisher": {
         "@type": "Organization",
@@ -191,7 +207,10 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
           "url": "https://www.thencahub.com/favicon.svg"
         }
       },
-      "mainEntityOfPage": "https://www.thencahub.com/blog/nca-con-law-july-2026/",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.thencahub.com/blog/nca-con-law-july-2026/"
+      },
       "image": "https://www.thencahub.com/og-image.jpg",
       "inLanguage": "en-CA",
       "wordCount": 810,
@@ -337,11 +356,21 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Part 1: Division of Powers</h3>
     <ul>
       <li><strong>Characterization of legislation:</strong> Pith and substance analysis, dominant purpose</li>
-      <li><strong>Federal heads of power:</strong> s.91 — POGG, criminal law, trade and commerce, banking, taxation</li>
-      <li><strong>Provincial heads of power:</strong> s.92 — property and civil rights, matters of a merely local nature</li>
+      <li><strong>Federal heads of power:</strong> s.91 &#8212; POGG, criminal law, trade and commerce, banking, taxation</li>
+      <li><strong>Provincial heads of power:</strong> s.92 &#8212; property and civil rights, matters of a merely local nature</li>
       <li><strong>Doctrines:</strong> Double aspect, paramountcy, interjurisdictional immunity, cooperative federalism</li>
       <li><strong>Ancillary powers:</strong> Necessarily incidental doctrine</li>
     </ul>
+
+    <h2>Division of Powers &#8212; Deep Dive</h2>
+    <p>The division of powers is the structural backbone of Canadian constitutional law. The Constitution Act, 1867 divides legislative authority between Parliament (s.91) and the provincial legislatures (s.92). On the NCA exam, you will be expected to classify legislation under the correct head of power and resolve conflicts between overlapping federal and provincial jurisdiction.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Sections 91 and 92 of the Constitution Act, 1867</h3>
+    <p><strong>Section 91</strong> grants Parliament the power to legislate for &#8220;Peace, Order, and good Government of Canada&#8221; (POGG) in relation to all matters not exclusively assigned to the provinces. The enumerated federal heads of power include trade and commerce (s.91(2)), criminal law (s.91(27)), banking (s.91(15)), and taxation (s.91(3)).</p>
+    <p><strong>POGG</strong> operates in three branches: the gap branch (residual matters not assigned to either level), the national concern branch (<em>R v Crown Zellerbach</em>, [1988] 1 SCR 401), and the emergency branch (temporary federal jurisdiction during national crises, as in the <em>Anti-Inflation Reference</em>, [1976] 2 SCR 373).</p>
+    <p><strong>Trade and commerce</strong> has two branches: interprovincial/international trade (relatively uncontroversial) and general trade affecting the whole dominion (<em>General Motors of Canada v City National Leasing</em>, [1989] 1 SCR 641). The second branch requires a five-part test.</p>
+    <p><strong>Criminal law power</strong> (s.91(27)) is broad. Legislation qualifies as criminal law if it has a valid criminal law purpose (public peace, order, security, health, morality), is backed by a prohibition, and carries a penalty (<em>Reference re Firearms Act</em>, 2000 SCC 31). The NCA exam frequently tests the boundary between criminal law and provincial regulation of property and civil rights.</p>
+    <p><strong>Section 92</strong> grants provinces exclusive jurisdiction over property and civil rights (s.92(13)), matters of a merely local or private nature (s.92(16)), administration of justice (s.92(14)), and municipal institutions (s.92(8)). Section 92(13) is the broadest provincial head of power and encompasses contract, tort, property, and most commercial regulation within the province.</p>
 
     <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Part 2: Canadian Charter of Rights and Freedoms</h3>
     <ul>
@@ -351,6 +380,39 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <li><strong>Section 33:</strong> Notwithstanding clause</li>
       <li><strong>Remedies:</strong> s.24 individual remedies, s.52 declarations of invalidity</li>
     </ul>
+
+    <h2>Charter Analysis &#8212; In Depth</h2>
+    <p>The Canadian Charter of Rights and Freedoms, entrenched in Part I of the Constitution Act, 1982, is the most heavily tested area on the NCA Constitutional Law exam. Charter analysis follows a structured framework: (1) Does the Charter apply? (2) Has a right been infringed? (3) Can the infringement be justified under s.1? (4) What is the appropriate remedy?</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Section 1 &#8212; The Oakes Test</h3>
+    <p>Section 1 of the Charter states that rights are subject &#8220;only to such reasonable limits prescribed by law as can be demonstrably justified in a free and democratic society.&#8221; The test for justification was set out in <em>R v Oakes</em>, [1986] 1 SCR 103, and has two main stages:</p>
+    <ol>
+      <li><strong>Pressing and substantial objective:</strong> The government must demonstrate that the objective of the limiting measure is pressing and substantial enough to warrant overriding a constitutionally protected right.</li>
+      <li><strong>Proportionality:</strong> The means chosen must be proportional, assessed through three sub-tests:
+        <ul>
+          <li><strong>Rational connection:</strong> The limit must be rationally connected to the government&#8217;s objective.</li>
+          <li><strong>Minimal impairment:</strong> The limit must impair the right as little as reasonably possible. Courts grant some deference here, especially where the government is mediating between competing groups.</li>
+          <li><strong>Proportionality of effects:</strong> The salutary effects of the measure must outweigh its deleterious effects on the right.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="case-callout">
+      <strong>R v Oakes, [1986] 1 SCR 103</strong>
+      <p>The foundational s.1 case. David Oakes was charged under the Narcotics Control Act with possession for the purpose of trafficking. The SCC struck down the reverse onus provision and established the two-part Oakes test for s.1 justification: (1) the objective must be pressing and substantial, and (2) the means must be proportional (rational connection, minimal impairment, proportionality of effects). This framework governs every Charter limitation analysis on the NCA exam.</p>
+    </div>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Section 2 &#8212; Fundamental Freedoms</h3>
+    <p>Section 2 protects freedom of conscience and religion (s.2(a)), freedom of expression (s.2(b)), freedom of peaceful assembly (s.2(c)), and freedom of association (s.2(d)). Freedom of expression under s.2(b) has an extremely broad scope &#8212; it covers any activity that conveys meaning, subject only to violence (<em>Irwin Toy v Quebec</em>, [1989] 1 SCR 927). Most s.2(b) cases are ultimately decided at the s.1 stage because the right is so broad.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Section 7 &#8212; Life, Liberty, and Security of the Person</h3>
+    <p>Section 7 guarantees that everyone has the right to life, liberty, and security of the person and the right not to be deprived thereof except in accordance with the principles of fundamental justice. The analysis proceeds in two steps: (1) Has the claimant&#8217;s right to life, liberty, or security of the person been engaged? (2) If so, is the deprivation in accordance with the principles of fundamental justice? Key principles of fundamental justice include the prohibition against arbitrariness, overbreadth, and gross disproportionality (<em>Canada (AG) v Bedford</em>, 2013 SCC 72). The landmark case <em>Carter v Canada (AG)</em>, 2015 SCC 5, applied s.7 to strike down the criminal prohibition on physician-assisted dying.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Section 15 &#8212; Equality Rights</h3>
+    <p>Section 15 guarantees equality before and under the law and equal protection and benefit of the law without discrimination based on enumerated or analogous grounds. The test from <em>Andrews v Law Society of BC</em>, [1989] 1 SCR 143, as refined in later cases, asks: (1) Does the law create a distinction based on an enumerated or analogous ground? (2) Does the distinction create a disadvantage by perpetuating prejudice or stereotyping? Substantive equality, not merely formal equality, is the standard.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Section 33 &#8212; The Notwithstanding Clause</h3>
+    <p>Section 33 allows Parliament or a provincial legislature to declare that an Act or a provision thereof shall operate notwithstanding ss.2 or 7&#8211;15 of the Charter. The declaration must be expressly stated, is renewable every five years, and does not apply to democratic rights (ss.3&#8211;5), mobility rights (s.6), or language rights (ss.16&#8211;23). The notwithstanding clause reflects the compromise between parliamentary sovereignty and entrenched rights. Quebec has used s.33 more frequently than any other province, most notably in Bill 21 (the &#8220;laicity&#8221; law).</p>
 
     <h2>Essential Cases</h2>
     <p>Constitutional Law has the longest case list of any NCA subject. Priority cases:</p>
@@ -364,7 +426,42 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <li><em>Andrews v Law Society of BC</em>, [1989] 1 SCR 143 &#8212; s.15 equality rights</li>
       <li><em>Carter v Canada (AG)</em>, 2015 SCC 5 &#8212; s.7 and physician-assisted dying</li>
       <li><em>Reference re Secession of Quebec</em>, [1998] 2 SCR 217 &#8212; constitutional principles</li>
+      <li><em>Edwards v AG Canada</em>, [1930] AC 124 (Persons Case) &#8212; living tree doctrine</li>
     </ul>
+
+    <div class="case-callout">
+      <strong>Reference re Secession of Quebec, [1998] 2 SCR 217</strong>
+      <p>The Supreme Court identified four underlying constitutional principles: federalism, democracy, constitutionalism and the rule of law, and protection of minorities. These principles are not merely descriptive &#8212; they carry normative force and can fill gaps in the constitutional text. The Court held that Quebec could not unilaterally secede but that a clear referendum majority on a clear question would trigger a duty to negotiate. This case is essential for understanding the unwritten principles that inform all constitutional interpretation.</p>
+    </div>
+
+    <div class="case-callout">
+      <strong>Edwards v AG Canada, [1930] AC 124 (Persons Case)</strong>
+      <p>The Judicial Committee of the Privy Council held that the word &#8220;persons&#8221; in s.24 of the Constitution Act, 1867, included women. Lord Sankey&#8217;s famous metaphor described the Constitution as &#8220;a living tree capable of growth and expansion within its natural limits.&#8221; The living tree doctrine remains the foundational principle of Canadian constitutional interpretation, requiring that constitutional provisions be read in a broad, progressive manner.</p>
+    </div>
+
+    <h2>Federalism Doctrines</h2>
+    <p>The NCA exam expects you to apply several doctrines that mediate the overlap between federal and provincial jurisdiction. These doctrines are not abstract &#8212; they determine whether legislation is valid and operative.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Pith and Substance</h3>
+    <p>Every division of powers question begins with characterization. The court asks: what is the &#8220;pith and substance&#8221; &#8212; the dominant purpose and legal effect &#8212; of the impugned legislation? If the pith and substance falls within a head of power assigned to the enacting legislature, the law is valid, even if it incidentally affects matters within the other level&#8217;s jurisdiction. This is the single most important analytical step in any division of powers problem.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Double Aspect Doctrine</h3>
+    <p>Some subject matters have both a federal and a provincial aspect. The double aspect doctrine allows both levels of government to legislate on the same subject matter, provided each law can be characterized under a valid head of power. For example, dangerous driving can be addressed by Parliament under criminal law and by provinces under highway traffic regulation.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Federal Paramountcy</h3>
+    <p>Where valid federal and provincial laws conflict, the federal law prevails and the provincial law is rendered inoperative to the extent of the inconsistency. Conflict arises in two situations: (1) operational conflict (it is impossible to comply with both laws simultaneously), and (2) frustration of federal purpose (the provincial law frustrates the purpose of the federal law). See <em>Quebec (AG) v Canadian Owners and Pilots Association</em>, 2010 SCC 39.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Interjurisdictional Immunity</h3>
+    <p>This doctrine protects the &#8220;core&#8221; of exclusive federal (or provincial) powers from being impaired by legislation enacted by the other level. The SCC in <em>Canadian Western Bank v Alberta</em>, 2007 SCC 22, significantly restrained this doctrine, holding that it should be applied with restraint and only where supported by existing precedent. On the NCA exam, be prepared to argue both for and against the application of interjurisdictional immunity.</p>
+
+    <h3 style="font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:700;margin:28px 0 12px;">Ancillary Powers (Necessarily Incidental Doctrine)</h3>
+    <p>Where a provision of a statute falls outside the enacting legislature&#8217;s jurisdiction, it may still be saved if it is necessarily incidental to a valid legislative scheme. The test from <em>General Motors v City National Leasing</em> asks how well the impugned provision is integrated into the larger scheme. The more serious the encroachment on the other level&#8217;s jurisdiction, the tighter the required integration.</p>
+
+    <h2>Aboriginal and Treaty Rights &#8212; Section 35</h2>
+    <p>Section 35 of the Constitution Act, 1982 recognizes and affirms the existing Aboriginal and treaty rights of the Aboriginal peoples of Canada. Although s.35 sits outside the Charter (in Part II of the Constitution Act, 1982), it is constitutionally entrenched and is tested on the NCA exam.</p>
+    <p>The test for establishing an Aboriginal right was set out in <em>R v Van der Peet</em>, [1996] 2 SCR 507: the claimant must demonstrate that the practice, custom, or tradition was integral to the distinctive culture of the Aboriginal group prior to European contact. Aboriginal title, a subset of Aboriginal rights, was comprehensively addressed in <em>Tsilhqot&#8217;in Nation v British Columbia</em>, 2014 SCC 44.</p>
+    <p><strong>Duty to consult:</strong> The Crown has a constitutional duty to consult and, where appropriate, accommodate Aboriginal peoples when contemplating conduct that might adversely impact established or potential Aboriginal or treaty rights (<em>Haida Nation v British Columbia</em>, 2004 SCC 73). The scope of the duty ranges from notice and discussion (where the claim is weak and the impact minor) to deep consultation and accommodation (where the claim is strong and the impact significant).</p>
+    <p>Section 35 rights are not absolute &#8212; the government may infringe them if the infringement is justified under the test from <em>R v Sparrow</em>, [1990] 1 SCR 1075: the objective must be compelling and substantial, and the infringement must be consistent with the Crown&#8217;s fiduciary obligation to Aboriginal peoples.</p>
 
     <h2>Recommended Study Strategy (10&#8211;14 Weeks)</h2>
     <ol>
@@ -378,6 +475,15 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <li><strong>Weeks 13&#8211;14:</strong> Review weak areas, consolidate case holdings</li>
     </ol>
 
+    <h2>Condensed 4-Week Study Plan</h2>
+    <p>If you are starting late or studying Constitutional Law alongside other NCA subjects, here is a condensed 4-week plan that covers the essential material:</p>
+    <ol>
+      <li><strong>Week 1 &#8212; Division of Powers Framework:</strong> Read the constitutional text (ss.91&#8211;92, Constitution Act, 1867). Master pith and substance analysis. Study POGG (gap, national concern, emergency branches). Work through the criminal law power and trade and commerce. Key cases: <em>Reference re Firearms Act</em>, <em>General Motors v City National Leasing</em>, <em>R v Crown Zellerbach</em>.</li>
+      <li><strong>Week 2 &#8212; Federalism Doctrines and Aboriginal Rights:</strong> Study paramountcy, double aspect, interjurisdictional immunity, and ancillary powers. Cover s.35 Aboriginal and treaty rights, the duty to consult, and the <em>Van der Peet</em> test. Key cases: <em>Canadian Western Bank</em>, <em>Haida Nation</em>, <em>Tsilhqot&#8217;in Nation</em>.</li>
+      <li><strong>Week 3 &#8212; Charter Analysis:</strong> Master the analytical framework: application (s.32), substantive rights (ss.2, 7, 15), and the Oakes test (s.1). Study s.33 notwithstanding clause and remedies (ss.24, 52). Key cases: <em>R v Oakes</em>, <em>Irwin Toy</em>, <em>Carter</em>, <em>Andrews</em>, <em>Bedford</em>.</li>
+      <li><strong>Week 4 &#8212; Practice and Review:</strong> Write at least two full practice exams under timed conditions. Focus on structuring your answers &#8212; always follow the analytical framework step by step. Review your weakest areas. Consolidate case holdings into one-line summaries for quick reference.</li>
+    </ol>
+
     <div class="rule-box">
       <p><strong>Personal insight:</strong> I found the Constitutional Law exam to be a true test of structured thinking. The exam leaned heavily toward Charter analysis, but the division of powers questions required equally precise framework application. The biggest mistake I saw candidates make was jumping straight to the substantive analysis without properly characterizing the legislation or establishing government action. Structure your answer methodically — even if you run short on time, a well-structured incomplete answer scores better than a rambling complete one.</p>
     </div>
@@ -385,14 +491,14 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <h2>Why Constitutional Law Is Difficult &#8212; and How to Approach It</h2>
     <p>Constitutional Law is difficult because it requires holding two large frameworks in your head simultaneously &#8212; the division of powers and the Charter &#8212; and applying them with precision to novel fact scenarios. The key insight: <strong>structure is everything.</strong></p>
     <p>For division of powers problems: always start with characterization (pith and substance), then identify the applicable head of power, then address any overlap doctrines. For Charter problems: always start with application (government action?), then identify the right, then apply Oakes if the right is infringed. Never skip steps in the analysis framework &#8212; you lose marks for missing the structure even if your substantive analysis is correct.</p>
-    <div class="notify-form" style="background:rgba(13,13,24,.6);border:1px solid rgba(201,168,76,.12);padding:32px;margin:40px 0;">
-      <h3 style="font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Get notified when Constitutional Law notes are updated</h3>
-      <p style="font-size:var(--sm);color:var(--fog);margin-bottom:20px;">Enter your email and we'll notify you when new content is available.</p>
+    <div class="notify-form">
+      <h3>Get notified when Constitutional Law notes are available</h3>
+      <p>Constitutional Law notes are in development. Enter your email and we'll notify you when they're ready.</p>
       <form id="conlaw-notify" onsubmit="submitNotify(event,'conlaw-notify','Constitutional Law Notes')">
-        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email address" style="width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;margin-bottom:12px;">
-        <button type="submit" style="background:var(--g1);color:var(--void);border:none;padding:14px 36px;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;">Notify Me</button>
-        <p id="conlaw-notify-msg" style="margin-top:12px;font-size:var(--sm);color:var(--g1);display:none;">You're on the list. We'll email you when updates are ready.</p>
+        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email address">
+        <button type="submit">Notify Me</button>
       </form>
+      <p id="conlaw-notify-msg" style="display:none;color:var(--g1);font-size:var(--sm);margin-top:12px">Done — we'll email you when they're ready.</p>
     </div>
 
     <div class="faq-section">
@@ -460,12 +566,12 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       </div>
     </div>
 
-    <div class="related-articles" style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07);">
-      <p style="font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:20px;">Related Articles</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
-        <a href="/notes/constitutional-law/" style="display:block;border:1px solid rgba(201,168,76,.1);padding:20px;text-decoration:none;transition:border-color .3s;"><div style="font-size:.88rem;color:var(--cream);font-weight:600;margin-bottom:6px;">NCA Constitutional Law Notes</div><div style="font-size:.75rem;color:var(--dim);line-height:1.5;">Framework-organized study notes for Con Law.</div></a>
-        <a href="/blog/nca-exam-complete-guide/" style="display:block;border:1px solid rgba(201,168,76,.1);padding:20px;text-decoration:none;transition:border-color .3s;"><div style="font-size:.88rem;color:var(--cream);font-weight:600;margin-bottom:6px;">NCA Exam Complete Guide 2026</div><div style="font-size:.75rem;color:var(--dim);line-height:1.5;">Everything you need to know about NCA exams.</div></a>
-        <a href="/blog/nca-how-to-appeal-assessment/" style="display:block;border:1px solid rgba(201,168,76,.1);padding:20px;text-decoration:none;transition:border-color .3s;"><div style="font-size:.88rem;color:var(--cream);font-weight:600;margin-bottom:6px;">How to Appeal an NCA Assessment</div><div style="font-size:.75rem;color:var(--dim);line-height:1.5;">Step-by-step guide to appealing your NCA results.</div></a>
+    <div class="related-links">
+      <h3>Related Articles</h3>
+      <div class="related-grid">
+        <a href="/blog/nca-how-to-appeal-assessment/" class="related-card">How to Appeal an NCA Assessment &#8212; step-by-step guide to appealing your NCA results.</a>
+        <a href="/blog/nca-exam-complete-guide/" class="related-card">NCA Exam Complete Guide 2026 &#8212; everything you need to know about NCA exams.</a>
+        <a href="/blog/nca-vs-canadian-llm/" class="related-card">NCA vs Canadian LLM &#8212; which path to Canadian bar admission is right for you?</a>
       </div>
     </div>
 
@@ -759,12 +865,18 @@ if('serviceWorker' in navigator){
 })();
 </script>
 <script>
-function submitNotify(e,formId,topic){
+function submitNotify(e,formId,subject){
   e.preventDefault();
   var form=document.getElementById(formId);
+  var email=form.querySelector('input[type=email]').value;
   var msg=document.getElementById(formId+'-msg');
-  if(form&&msg){msg.style.display='block';form.querySelector('button[type="submit"]').disabled=true;form.querySelector('button[type="submit"]').textContent='Subscribed';}
+  fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
+  .then(function(){if(msg){msg.style.display='block';}form.querySelector('button').disabled=true;})
+  .catch(function(){if(msg){msg.style.display='block';}});
 }
+</script>
+<script>
+(function(){try{if(typeof Lenis!=='undefined'){var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}document.documentElement.style.scrollBehavior='auto';}}catch(e){document.documentElement.style.scrollBehavior='smooth';}})();
 </script>
 </body>
 </html>
