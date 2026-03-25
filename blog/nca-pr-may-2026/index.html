@@ -33,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <!-- Google Analytics 4 — consent mode -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -60,7 +63,7 @@ body:hover #cd{opacity:1}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0),var(--g1),var(--g3));background-size:200% 100%;z-index:9100;width:0;transform-origin:left;transition:width .1s;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
+nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
 .nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}
 .nav-links{display:flex;gap:44px}
 .nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;}
@@ -124,6 +127,27 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
 .art-body *,.article-body *{font-family:inherit;line-height:inherit}
 .art-body > *:first-child,.article-body > *:first-child{margin-top:0}
+#discovery-bar{position:fixed;top:0;left:0;right:0;z-index:9050;height:28px;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g0);font-weight:500}#discovery-bar span{color:var(--g1)}
+nav{top:28px}
+#prog{top:28px}
+.case-callout{background:rgba(201,168,76,.05);border-left:2px solid var(--g1);padding:24px 28px;margin:32px 0}
+.case-callout strong{font-family:var(--fd);font-size:1.1rem;color:var(--cream);display:block;margin-bottom:8px}
+.faq-section{margin-top:64px}
+.faq-item{border-top:1px solid rgba(201,168,76,.1);padding:24px 0}
+.faq-item:last-child{border-bottom:1px solid rgba(201,168,76,.1)}
+.faq-q{font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:10px}
+.faq-a{font-size:var(--body);color:var(--fog);line-height:1.8}
+.notify-form{background:rgba(13,13,24,.6);border:1px solid rgba(201,168,76,.12);padding:32px;margin:40px 0}
+.notify-form h3{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:8px}
+.notify-form p{font-size:var(--sm);color:var(--fog);margin-bottom:20px}
+.notify-form input[type=email]{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;margin-bottom:12px}
+.notify-form input[type=email]::placeholder{color:var(--dim)}
+.notify-form button{background:var(--g1);color:var(--void);border:none;padding:14px 36px;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.related-links{margin-top:56px;padding-top:40px;border-top:1px solid rgba(201,168,76,.07)}
+.related-links h3{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.related-card{border:1px solid rgba(201,168,76,.1);padding:20px;font-size:var(--sm);color:var(--fog);transition:border-color .3s}
+.related-card:hover{border-color:rgba(201,168,76,.35);color:var(--cream)}
 </style>
 <style id="toc-styles">
 /* ── Table of Contents ── */
@@ -164,32 +188,12 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 </style>
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [{
-  "@type": "NewsArticle",
-  "headline": "NCA Professional Responsibility Exam \u2014 May 2026 Sitting Guide",
-  "url": "https://www.thencahub.com/blog/nca-pr-may-2026/",
-  "datePublished": "2026-03-15T00:00:00+00:00",
-  "dateModified": "2026-03-15T00:00:00+00:00",
-  "author": {
-    "@type": "Person",
-    "name": "Kartik Kumar",
-    "url": "https://www.thencahub.com/about/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The NCA Hub",
-    "url": "https://www.thencahub.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://www.thencahub.com/favicon.svg"
-    }
-  },
-  "image": "https://www.thencahub.com/og-image.jpg",
-  "description": "NCA Professional Responsibility Exam \u2014 May 2026 Sitting Guide \u2014 NCA exam preparation, The NCA Hub"
-}]
-}
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Article","headline":"NCA Professional Responsibility Exam — May 2026 Sitting Guide","description":"Preparation guide for the NCA Professional Responsibility exam. Federation Model Code, conflicts of interest, confidentiality, and exam strategy.","url":"https://www.thencahub.com/blog/nca-pr-may-2026/","datePublished":"2026-03-15","dateModified":"2026-03-15","wordCount":1800,"timeRequired":"PT3M","inLanguage":"en-CA","author":{"@type":"Person","name":"Kartik Kumar","url":"https://www.thencahub.com/about/","jobTitle":"NCA-Qualified Lawyer","description":"Indian-qualified lawyer who passed all 5 NCA subjects. Founder of The NCA Hub."},"publisher":{"@type":"Organization","name":"The NCA Hub","url":"https://www.thencahub.com","logo":{"@type":"ImageObject","url":"https://www.thencahub.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thencahub.com/blog/nca-pr-may-2026/"},"image":{"@type":"ImageObject","url":"https://www.thencahub.com/og-image.jpg","width":1200,"height":630}},
+  {"@type":"LearningResource","name":"NCA Professional Responsibility Exam — May 2026 Sitting Guide","educationalLevel":"Advanced","learningResourceType":"Guide"},
+  {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.thencahub.com/"},{"@type":"ListItem","position":2,"name":"Articles","item":"https://www.thencahub.com/blog/"},{"@type":"ListItem","position":3,"name":"NCA Prof Responsibility May 2026","item":"https://www.thencahub.com/blog/nca-pr-may-2026/"}]},
+  {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What source document governs the NCA Professional Responsibility exam?","acceptedAnswer":{"@type":"Answer","text":"The NCA Professional Responsibility exam is governed by the Federation of Law Societies' Model Code of Professional Conduct — not any provincial rules."}},{"@type":"Question","name":"What are the most tested topics on the NCA Professional Responsibility exam?","acceptedAnswer":{"@type":"Answer","text":"Conflicts of interest appear in over 90% of exams. Duties to clients (competence, confidentiality, diligence) follow at approximately 85%, and withdrawal from representation at 70%."}},{"@type":"Question","name":"What are the three types of conflicts of interest?","acceptedAnswer":{"@type":"Answer","text":"Concurrent conflicts (materially adverse interests), successive conflicts (acting against a former client), and imputed conflicts (attributed to the entire firm)."}}]}
+]}
 </script>
 <style>
 /* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
@@ -237,6 +241,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain" aria-hidden="true"></div>
+<div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;&middot;&nbsp; <span>Mandatory Subject Guide</span></div>
 <div id="prog" aria-hidden="true"></div>
 <div id="cd" aria-hidden="true"></div>
 <div id="cr" aria-hidden="true"></div>
@@ -268,7 +273,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <div class="art-meta">
         <span class="art-read" style="color:var(--fog);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;">By <a href="/about/" style="color:var(--g1);text-decoration:none;">Kartik Kumar</a></span>
         <span class="art-read" style="color:var(--dim);">·</span>
-        <span class="art-read">6 min read</span>
+        <span class="art-read">3 min read</span>
         <span class="art-read" style="color:var(--dim);">·</span>
         <span class="art-read" style="color:var(--dim);">Updated: <time datetime="2026-03-15">March 15, 2026</time></span>
       </div>
@@ -320,34 +325,147 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <li><strong>Access to justice:</strong> Pro bono obligations, duty to facilitate access</li>
     </ul>
 
+    <h2>The Federation Model Code — What It Is and Why It Matters</h2>
+    <p>The Federation of Law Societies of Canada Model Code of Professional Conduct is the unified code that harmonises professional regulation across Canada’s common-law provinces and territories. Unlike substantive law subjects where the NCA tests Canadian case law, Professional Responsibility is built almost entirely around this single document. The Model Code contains rules and commentary. The rules state the binding obligation; the commentary explains scope and application. Both are examinable.</p>
+    <p>The Model Code is organised into chapters covering: integrity (Chapter 2), relationship to clients (Chapter 3), practice management (Chapter 4), relationship to the administration of justice (Chapter 5), relationship to students, employees and others (Chapter 6), and marketing (Chapter 7). For exam purposes, Chapters 3 and 5 carry the most weight. You should be able to cite specific rule numbers — for example, Rule 3.4-1 (conflicts of interest) or Rule 3.3-1 (confidentiality) — in your answers.</p>
+
+    <div class="case-callout">
+      <strong>Key Point: Model Code vs. Provincial Rules</strong>
+      The NCA exam tests the Federation Model Code, not any specific provincial code. While provinces like Ontario (Rules of Professional Conduct) and British Columbia (Code of Professional Conduct for British Columbia) have their own versions, the NCA uses the Model Code as the national standard. Do not study provincial rules unless a question specifically instructs you to do so.
+    </div>
+
     <h2>Why Professional Responsibility Is Unique</h2>
     <p>Unlike other NCA subjects, Professional Responsibility does not test case law in the traditional sense. The exam is primarily about applying the Model Code rules to fact scenarios. This means:</p>
     <ul>
       <li>You need to know the actual rule text well, not just general principles</li>
       <li>Issue-spotting is critical — identify every possible rule at play in a scenario</li>
       <li>Provincial variations exist, but the exam focuses on the Model Code (federal standard)</li>
+      <li>The exam rewards structured answers that reference specific rule numbers</li>
+      <li>Commentary sections are fair game — they explain the scope and limits of each rule</li>
     </ul>
 
     <div class="rule-box">
-      <p><strong>[KARTIK: ADD YOUR EXPERIENCE HERE — Describe your personal experience with the NCA Professional Responsibility exam: how the questions were structured, whether it was more rule-application or policy analysis, any specific topics that came up more than you expected, and advice for May/future candidates.]</strong></p>
+      <p>The Professional Responsibility exam tests your ability to apply the Federation Model Code of Professional Conduct to practical scenarios. Candidates report that conflicts of interest, confidentiality obligations, and withdrawal procedures dominate the exam. The questions are scenario-based — you’ll be given a factual situation and asked to identify the ethical issues, apply the relevant Model Code provisions, and recommend a course of action.</p>
     </div>
 
-    <h2>Recommended Study Strategy</h2>
-    <p>A 4&#8211;6 week study plan is typically sufficient:</p>
+    <h2>Conflicts of Interest in Detail</h2>
+    <p>Conflicts of interest (Chapter 3.4 of the Model Code) are the most heavily tested topic, appearing in some form on virtually every Professional Responsibility exam. You must understand three distinct categories:</p>
+
+    <div class="case-callout">
+      <strong>1. Concurrent Conflicts (Rule 3.4-1)</strong>
+      A concurrent conflict arises when a lawyer represents two or more clients whose interests are directly adverse, or when there is a substantial risk that the lawyer’s representation of one client would be materially and adversely affected by the lawyer’s duties to another current client. The general rule prohibits acting unless both clients provide informed consent and the lawyer reasonably believes they can provide competent representation to each client. In litigation, concurrent client conflicts are almost never consentable.
+    </div>
+
+    <div class="case-callout">
+      <strong>2. Successive Conflicts (Rule 3.4-10)</strong>
+      A successive (or former client) conflict arises when a lawyer is asked to act against a former client. The test asks: (a) did the lawyer previously represent the former client, (b) is the new matter related to the previous retainer, and (c) did the lawyer receive confidential information during the previous retainer that is relevant to the new matter? If all three elements are met, the lawyer cannot act without the former client’s informed consent.
+    </div>
+
+    <div class="case-callout">
+      <strong>3. Imputed Conflicts (Rule 3.4-17 to 3.4-22)</strong>
+      When one lawyer in a firm has a conflict, that conflict is generally imputed to every other lawyer in the firm. The Model Code provides a narrow exception through screening mechanisms when a lawyer transfers between firms. The transferring lawyer must be screened from the file, must not share in fees from the matter, and the affected client must be notified. Know the screening requirements cold — they are frequently tested.
+    </div>
+
+    <h2>Confidentiality</h2>
+    <p>The duty of confidentiality (Rule 3.3-1) prohibits a lawyer from disclosing any information obtained during the professional relationship without the client’s authority. This duty is broader than solicitor-client privilege and extends beyond the termination of the retainer. However, the Model Code provides four exceptions where disclosure is permitted or required:</p>
     <ol>
-      <li><strong>Week 1:</strong> Read the Model Code in full — get familiar with the structure and key rules</li>
-      <li><strong>Week 2:</strong> Conflicts of interest (the most tested area) — concurrent, former client, and personal interest conflicts</li>
-      <li><strong>Week 3:</strong> Confidentiality exceptions, candour obligations, and withdrawal rules</li>
-      <li><strong>Week 4:</strong> Fees, competence, and access to justice duties</li>
-      <li><strong>Weeks 5&#8211;6:</strong> Practice scenarios and issue-spotting exercises</li>
+      <li><strong>Client consent:</strong> The client authorises disclosure, either expressly or impliedly (e.g., disclosure necessary to carry out the retainer)</li>
+      <li><strong>Required by law or court order:</strong> When legislation or a court order compels disclosure (e.g., anti-money laundering reporting obligations)</li>
+      <li><strong>Prevention of serious harm:</strong> Where the lawyer believes on reasonable grounds that there is an imminent risk of death or serious bodily harm and disclosure is necessary to prevent it (the “future harm” exception under Rule 3.3-3)</li>
+      <li><strong>Lawyer’s own defence:</strong> When the lawyer needs to disclose confidential information to defend themselves against allegations of misconduct or to collect fees</li>
     </ol>
+    <p>The exam frequently presents scenarios where multiple exceptions might apply simultaneously. Be prepared to analyse each one and explain why it does or does not apply on the facts.</p>
+
+    <h2>Withdrawal from Representation</h2>
+    <p>The Model Code distinguishes between mandatory and permissive withdrawal (Rules 3.7-1 to 3.7-9):</p>
+    <p><strong>Mandatory withdrawal</strong> is required when:</p>
+    <ul>
+      <li>The lawyer is discharged by the client</li>
+      <li>The client instructs the lawyer to act in a way that is dishonest, fraudulent, or illegal</li>
+      <li>The lawyer is not competent to continue the representation</li>
+      <li>A conflict of interest arises that cannot be resolved</li>
+    </ul>
+    <p><strong>Permissive withdrawal</strong> is allowed when:</p>
+    <ul>
+      <li>The client persistently fails to provide instructions</li>
+      <li>The client fails to pay fees as agreed</li>
+      <li>The lawyer’s continued involvement would cause the lawyer to breach professional rules</li>
+      <li>The client is acting unreasonably or the relationship has irretrievably broken down</li>
+    </ul>
+    <p>Regardless of the reason, withdrawal must follow proper procedure: the lawyer must give reasonable notice, allow time for the client to retain new counsel, deliver all client property and documents, cooperate with the successor lawyer, and take steps to protect the client’s interests. In litigation, the lawyer must also obtain leave of the court to withdraw.</p>
+
+    <h2>Duties to Tribunals</h2>
+    <p>Chapter 5 of the Model Code addresses the lawyer’s relationship with the administration of justice. Key duties include:</p>
+    <ul>
+      <li><strong>Candour (Rule 5.1-1):</strong> A lawyer must not mislead the court and must correct any misstatement of fact or law once discovered</li>
+      <li><strong>Misleading the tribunal (Rule 5.1-2):</strong> A lawyer must not knowingly assist or permit a client to do anything dishonest or dishonourable before the court</li>
+      <li><strong>Courtesy and good faith (Rule 7.2-1):</strong> Obligations toward opposing counsel, including not engaging in sharp practices</li>
+      <li><strong>Undertakings (Rule 7.2-11):</strong> An undertaking given by a lawyer is a personal promise and must be honoured scrupulously</li>
+    </ul>
+
+    <h2>Answer Structure Template — IRAC for Professional Responsibility</h2>
+    <p>Professional Responsibility answers benefit enormously from the IRAC (Issue, Rule, Application, Conclusion) structure. Here is a template you can adapt to any scenario:</p>
+    <ol>
+      <li><strong>Issue:</strong> Identify each ethical issue in the fact pattern. Name it specifically (e.g., “This raises a concurrent conflict of interest under Rule 3.4-1”)</li>
+      <li><strong>Rule:</strong> State the relevant Model Code rule by number and explain its requirements. Include the commentary if it clarifies scope</li>
+      <li><strong>Application:</strong> Apply the rule to the specific facts. Explain why each element of the rule is or is not satisfied</li>
+      <li><strong>Conclusion:</strong> State what the lawyer should do. Be specific — “decline the retainer,” “obtain informed written consent,” “implement a screening mechanism,” etc.</li>
+    </ol>
+    <p>Practice writing at least 5–10 IRAC-structured answers before exam day. The pattern becomes natural with repetition and ensures you earn marks for each component.</p>
+
+    <h2>Recommended Study Strategy — 4-Week Plan</h2>
+    <p>A 4–6 week study plan is typically sufficient:</p>
+    <ol>
+      <li><strong>Week 1:</strong> Read the Model Code in full — get familiar with the structure, chapter organisation, and how rules relate to their commentary. Take notes on rule numbers for key topics</li>
+      <li><strong>Week 2:</strong> Deep dive into conflicts of interest (the most tested area) — concurrent, successive, and imputed conflicts. Study the screening requirements. Create flowcharts for conflict analysis</li>
+      <li><strong>Week 3:</strong> Confidentiality exceptions, candour obligations, withdrawal rules, and duties to tribunals. These topics frequently appear together in exam scenarios</li>
+      <li><strong>Week 4:</strong> Practice scenarios and issue-spotting exercises. Write full IRAC answers under timed conditions. Review fees, competence, and access to justice duties</li>
+    </ol>
+    <p>If you have 5–6 weeks, use the additional time for more practice scenarios and to revisit any weak areas identified during practice.</p>
 
     <h2>Common Mistakes</h2>
     <ul>
       <li><strong>Studying case law instead of the Model Code:</strong> The exam is rule-based, not case-based. Focus on the Model Code text.</li>
-      <li><strong>Missing secondary issues:</strong> Exam scenarios often have 3&#8211;4 ethical issues embedded. Train yourself to spot all of them.</li>
+      <li><strong>Missing secondary issues:</strong> Exam scenarios often have 3–4 ethical issues embedded. Train yourself to spot all of them.</li>
       <li><strong>Confusing provincial rules with the Model Code:</strong> Focus on the federal Model Code unless the question specifies a province.</li>
+      <li><strong>Not citing rule numbers:</strong> Vague references to “ethical obligations” earn fewer marks than specific citations like “Rule 3.4-1.”</li>
+      <li><strong>Skipping the conclusion:</strong> Always state what the lawyer should actually do. The examiner wants a practical recommendation, not just analysis.</li>
     </ul>
+
+    <div class="notify-form">
+      <h3>Get notified when Professional Responsibility notes are updated</h3>
+      <p>Enter your email and we’ll notify you when new Professional Responsibility materials are available.</p>
+      <form id="pr-notify" onsubmit="submitNotify(event,'pr-notify','Professional Responsibility Notes')">
+        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email address">
+        <button type="submit">Notify Me</button>
+        <p id="pr-notify-msg" style="margin-top:12px;font-size:var(--sm);color:var(--g1);display:none;">You’re on the list. We’ll email you when Professional Responsibility notes are updated.</p>
+      </form>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <p class="faq-q">What source document governs the NCA Professional Responsibility exam?</p>
+        <p class="faq-a">The NCA Professional Responsibility exam is governed by the Federation of Law Societies’ Model Code of Professional Conduct — not any provincial rules. The Model Code is the harmonised national standard adopted by common-law provinces and territories across Canada. You should study the Model Code directly, not the Ontario or BC versions.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What are the most frequently tested topics?</p>
+        <p class="faq-a">Conflicts of interest appear in some form on virtually every exam. Duties to clients (competence, confidentiality, diligence) follow closely at approximately 85% frequency, and withdrawal from representation at roughly 70%. Duties to tribunals (candour, honesty) and fee arrangements round out the most common topics.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What are the three types of conflicts of interest?</p>
+        <p class="faq-a">Concurrent conflicts (representing clients with materially adverse interests at the same time), successive conflicts (acting against a former client on a related matter where confidential information was received), and imputed conflicts (where one lawyer’s conflict is attributed to every other lawyer in the firm).</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What are the four exceptions to the duty of confidentiality?</p>
+        <p class="faq-a">Client consent (express or implied), required by law or court order, prevention of imminent serious bodily harm or death (the “future harm” exception under Rule 3.3-3), and the lawyer’s own defence against allegations of misconduct or to collect fees.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">When is withdrawal mandatory vs. permissive?</p>
+        <p class="faq-a">Withdrawal is mandatory when the client instructs the lawyer to act dishonestly or illegally, when the lawyer is not competent to continue, or when an unresolvable conflict arises. Withdrawal is permissive when the client fails to provide instructions, fails to pay fees, acts unreasonably, or the relationship has irretrievably broken down. In all cases, the lawyer must give reasonable notice and protect the client’s interests.</p>
+      </div>
+    </div>
+
 <div class="art-share" style="max-width:720px;margin:0 auto 0;padding:0 72px 32px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
   <span style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-family:var(--fb);margin-right:4px">Share</span>
   <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.thencahub.com%2Fblog%2Fnca-pr-may-2026%2F" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:rgba(0,114,177,.15);border:1px solid rgba(0,114,177,.3);color:#60a8d0;font-family:var(--fb);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .3s" onmouseover="this.style.background='rgba(0,114,177,.3)'" onmouseout="this.style.background='rgba(0,114,177,.15)'">
@@ -388,23 +506,25 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <a href="https://payhip.com/THENCAHUB" class="art-cta-btn" target="_blank" rel="noopener">Browse Notes &#8594;</a>
     </div>
 
-    <div class="author-bio">
+    <div class="author-bio" itemscope itemtype="https://schema.org/Person">
       <div class="author-bio-inner">
         <div class="author-bio-text">
-          <p class="author-bio-name">Kartik Kumar</p>
-          <p class="author-bio-desc">Foreign-trained lawyer who passed NCA Professional Responsibility. Kartik built The NCA Hub to help other internationally trained lawyers navigate Canadian bar admission efficiently.</p>
-          <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &#8594;</a>
+          <p class="author-bio-name" itemprop="name">Kartik Kumar</p>
+          <meta itemprop="jobTitle" content="NCA-Qualified Lawyer">
+          <p class="author-bio-desc" itemprop="description">Foreign-trained lawyer who passed NCA Professional Responsibility. Kartik built The NCA Hub to help other internationally trained lawyers navigate Canadian bar admission efficiently.</p>
+          <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" itemprop="sameAs" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &#8594;</a>
+          <link itemprop="url" href="https://www.thencahub.com/about/">
         </div>
       </div>
     </div>
 
-    <div class="related-articles" style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07);">
-      <p style="font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:20px;">Related Articles</p>
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px;">
-        <li><a href="/blog/article-a2-what-to-expect-nca-exam/" style="color:var(--off);border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:2px;">What to Expect on NCA Exam Day</a></li>
-        <li><a href="/blog/what-to-do-if-you-fail-nca/" style="color:var(--off);border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:2px;">What to Do If You Fail an NCA Exam</a></li>
-        <li><a href="/faq/" style="color:var(--off);border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:2px;">NCA FAQ 2026 &#8212; All Your Questions Answered</a></li>
-      </ul>
+    <div class="related-links">
+      <h3>Related Articles</h3>
+      <div class="related-grid">
+        <a href="/blog/nca-how-to-appeal-assessment/" class="related-card">How to Appeal Your NCA Assessment</a>
+        <a href="/blog/nca-vs-canadian-llm/" class="related-card">NCA vs. Canadian LLM &#8212; Which Path Is Right?</a>
+        <a href="/blog/nca-exam-complete-guide/" class="related-card">NCA Exam Complete Guide</a>
+      </div>
     </div>
 
   </div><!-- end .art-body -->
@@ -437,8 +557,8 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
         </ul>
         <div class="fct" style="margin-top:24px;">Legal</div>
         <ul class="fls">
-          <li><a href="/privacy/">Privacy Policy</a></li>
-          <li><a href="/terms/">Terms of Use</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Use</a></li>
         </ul>
       </div>
     </div>
@@ -495,7 +615,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 </script>
 <a href="https://wa.me/447310803762" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" onclick="gtag('event','whatsapp_click',{'page':window.location.pathname});"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 <div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
-  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy/" style="color:var(--g1)">Privacy Policy</a>.</p>
+  <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy.html" style="color:var(--g1)">Privacy Policy</a>.</p>
   <div style="display:flex;gap:10px;flex-wrap:wrap;">
     <button id="ck-necessary" style="background:transparent;color:var(--fog);border:1px solid rgba(201,168,76,.25);padding:9px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Necessary only</button>
     <button id="ck-all" style="background:var(--g1);color:var(--void);border:none;padding:9px 24px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Accept all</button>
@@ -694,6 +814,27 @@ if('serviceWorker' in navigator){
       if(typeof gtag === 'function') gtag('event','helpful_vote',{vote:vote, page:window.location.pathname});
     });
   });
+})();
+</script>
+<script>
+function submitNotify(e,formId,subject){
+  e.preventDefault();
+  var form=document.getElementById(formId);
+  var email=form.querySelector('input[type=email]').value;
+  var msg=document.getElementById(formId+'-msg');
+  fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
+  .then(function(){if(msg){msg.style.display='block';}form.querySelector('button').disabled=true;})
+  .catch(function(){if(msg){msg.style.display='block';}});
+}
+</script>
+<script>
+/* Lenis smooth scroll init */
+(function(){
+  if(typeof Lenis!=='undefined'){
+    var lenis=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));},smooth:true});
+    function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
+    requestAnimationFrame(raf);
+  }
 })();
 </script>
 </body>

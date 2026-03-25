@@ -33,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <!-- Google Analytics 4 — consent mode -->
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -60,7 +63,7 @@ body:hover #cd{opacity:1}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:997;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0),var(--g1),var(--g3));background-size:200% 100%;z-index:9100;width:0;transform-origin:left;transition:width .1s;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
+nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1);}
 .nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}
 .nav-links{display:flex;gap:44px}
 .nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s;}
@@ -124,6 +127,24 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
 .art-body *,.article-body *{font-family:inherit;line-height:inherit}
 .art-body > *:first-child,.article-body > *:first-child{margin-top:0}
+#discovery-bar{position:fixed;top:0;left:0;right:0;z-index:9050;height:28px;background:var(--g3);display:flex;align-items:center;justify-content:center;font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g0);font-weight:500}#discovery-bar span{color:var(--g1)}
+.case-callout{background:rgba(201,168,76,.05);border-left:2px solid var(--g1);padding:24px 28px;margin:32px 0}
+.case-callout strong{font-family:var(--fd);font-size:1.1rem;color:var(--cream);display:block;margin-bottom:8px}
+.notify-form{background:rgba(13,13,24,.6);border:1px solid rgba(201,168,76,.12);padding:32px;margin:40px 0}
+.notify-form h3{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:8px}
+.notify-form p{font-size:var(--sm);color:var(--fog);margin-bottom:20px}
+.notify-form input[type=email]{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;margin-bottom:12px}
+.notify-form input[type=email]::placeholder{color:var(--dim)}
+.notify-form button{background:var(--g1);color:var(--void);border:none;padding:14px 36px;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.faq-section{margin:48px 0;padding:40px 0;border-top:1px solid rgba(201,168,76,.07)}
+.faq-item{margin-bottom:24px;padding:20px 24px;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08)}
+.faq-q{font-family:var(--fd);font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:10px}
+.faq-a{font-size:var(--sm);color:var(--fog);line-height:1.75}
+.related-links{margin-top:56px;padding-top:40px;border-top:1px solid rgba(201,168,76,.07)}
+.related-links h3{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g1);margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.related-card{border:1px solid rgba(201,168,76,.1);padding:20px;font-size:var(--sm);color:var(--fog);transition:border-color .3s}
+.related-card:hover{border-color:rgba(201,168,76,.35);color:var(--cream)}
 </style>
 <style id="toc-styles">
 /* ── Table of Contents ── */
@@ -190,7 +211,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
           "url": "https://www.thencahub.com/favicon.svg"
         }
       },
-      "mainEntityOfPage": "https://www.thencahub.com/blog/nca-admin-law-june-2026/",
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.thencahub.com/blog/nca-admin-law-june-2026/"},
       "image": "https://www.thencahub.com/og-image.jpg",
       "inLanguage": "en-CA",
       "wordCount": 617,
@@ -300,6 +321,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
 <div class="grain" aria-hidden="true"></div>
 <div id="prog" aria-hidden="true"></div>
+<div id="discovery-bar" aria-hidden="true">Read by NCA candidates across 12+ countries &nbsp;&middot;&nbsp; <span>Mandatory Subject Guide</span></div>
 <div id="cd" aria-hidden="true"></div>
 <div id="cr" aria-hidden="true"></div>
 <nav aria-label="Site navigation">
@@ -383,10 +405,23 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
     <h2>Key Cases You Must Know</h2>
     <p>Administrative Law is heavily case-based. These are the essential cases:</p>
+
+    <div class="case-callout">
+      <strong>Key Case: Canada (Minister of Citizenship and Immigration) v Vavilov [2019] SCC 65</strong>
+      <p>The Supreme Court overhauled the standard of review framework. Reasonableness is now the presumptive standard of review for all administrative decisions. Correctness review applies only in specific categories: constitutional division of powers, jurisdictional boundaries between tribunals, and general questions of law of central importance to the legal system. This is the most important case for the NCA Administrative Law exam.</p>
+    </div>
+
+    <div class="case-callout">
+      <strong>Key Case: Baker v Canada (Minister of Citizenship and Immigration) [1999] 2 SCR 817</strong>
+      <p>Established the five factors for determining the content of procedural fairness: (1) nature of the decision and the process followed; (2) nature of the statutory scheme; (3) importance of the decision to the individual; (4) legitimate expectations of the person challenging the decision; (5) the tribunal's procedural choices. These factors appear in virtually every procedural fairness question on the NCA exam.</p>
+    </div>
+
+    <div class="case-callout">
+      <strong>Key Case: Dunsmuir v New Brunswick [2008] SCC 9</strong>
+      <p>Collapsed the previous three standards of review into two: reasonableness and correctness. While largely superseded by Vavilov, Dunsmuir remains relevant for understanding the evolution of Canadian administrative law and is still referenced in exam materials. Know how Vavilov modified the Dunsmuir framework.</p>
+    </div>
+
     <ul>
-      <li><em>Canada (Minister of Citizenship and Immigration) v Vavilov</em>, 2019 SCC 65 — the current standard of review framework</li>
-      <li><em>Baker v Canada (Minister of Citizenship and Immigration)</em>, [1999] 2 SCR 817 — procedural fairness factors</li>
-      <li><em>Dunsmuir v New Brunswick</em>, 2008 SCC 9 — still referenced for context</li>
       <li><em>Roncarelli v Duplessis</em>, [1959] SCR 121 — abuse of discretion</li>
       <li><em>Knight v Indian Head School Division No 19</em>, [1990] 1 SCR 653 — duty of fairness scope</li>
     </ul>
@@ -415,6 +450,37 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
     <h2>Study Materials</h2>
     <p>The NCA's syllabus for Administrative Law specifies required readings from the assigned casebook and materials. Supplementary exam-focused notes can help you organize the key principles efficiently.</p>
+
+    <div class="notify-form">
+      <h3>Get notified when Administrative Law notes are available</h3>
+      <p>Administrative Law notes are in development. Enter your email and we'll notify you when they're ready.</p>
+      <form id="admin-notify" onsubmit="submitNotify(event,'admin-notify','Administrative Law Notes')">
+        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email address">
+        <button type="submit">Notify Me</button>
+      </form>
+      <p id="admin-notify-msg" style="display:none;color:var(--g1);font-size:var(--sm);margin-top:12px">Done — we'll email you when they're ready.</p>
+    </div>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-section">
+      <div class="faq-item">
+        <div class="faq-q">What is the standard of review framework after Vavilov?</div>
+        <div class="faq-a">Reasonableness is the presumptive standard of review for all administrative decisions. Correctness review applies only in specific categories: constitutional division of powers questions, jurisdictional boundaries between two or more administrative bodies, and general questions of law of central importance to the legal system as a whole. The previous Dunsmuir categories-based approach was replaced by a presumption of reasonableness that can only be rebutted in these narrow circumstances.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What are the grounds for judicial review of administrative decisions?</div>
+        <div class="faq-a">The main grounds are: unreasonableness of the decision (the decision lacks justification, transparency, or intelligibility), breach of procedural fairness (failure to provide adequate notice, opportunity to be heard, or reasons), jurisdictional error (the decision-maker acted outside its statutory authority), and bias or reasonable apprehension of bias. On the NCA exam, you must identify which ground applies and apply the relevant legal test.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is procedural fairness and when does it apply?</div>
+        <div class="faq-a">Procedural fairness is the duty of administrative decision-makers to follow a fair process when making decisions that affect individual rights, privileges, or interests. It applies whenever an administrative body makes a decision that affects the rights of an individual. The content of the duty varies based on the five Baker factors. At minimum, it includes the right to be heard and the right to an unbiased decision-maker. Higher-stakes decisions require more procedural protections.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long should I study for the NCA Administrative Law exam?</div>
+        <div class="faq-a">Most candidates allocate 4&#8211;8 weeks. Administrative Law is conceptually manageable but requires understanding the post-Vavilov framework for standard of review. The Vavilov framework is the backbone of the exam — master it first. The founder of The NCA Hub passed Administrative Law with one week of preparation by focusing on the analytical frameworks rather than memorising entire textbooks.</div>
+      </div>
+    </div>
+
 <div class="art-share" style="max-width:720px;margin:0 auto 0;padding:0 72px 32px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
   <span style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-family:var(--fb);margin-right:4px">Share</span>
   <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.thencahub.com%2Fblog%2Fnca-admin-law-june-2026%2F" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:rgba(0,114,177,.15);border:1px solid rgba(0,114,177,.3);color:#60a8d0;font-family:var(--fb);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .3s" onmouseover="this.style.background='rgba(0,114,177,.3)'" onmouseout="this.style.background='rgba(0,114,177,.15)'">
@@ -452,26 +518,27 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <p class="art-cta-label">Sitting Admin Law in June 2026?</p>
       <h3 class="art-cta-head">NCA Administrative Law notes &#8212; concise and exam-ready.</h3>
       <p class="art-cta-sub">Organized around the Vavilov framework and NCA exam priorities. Written by someone who passed.</p>
-      <a href="/notes/administrative-law/" class="art-cta-btn">View Admin Law Notes &#8594;</a>
+      <a href="https://payhip.com/THENCAHUB" class="art-cta-btn">View Admin Law Notes &#8594;</a>
     </div>
 
-    <div class="author-bio">
+    <div class="author-bio" itemscope itemtype="https://schema.org/Person">
       <div class="author-bio-inner">
         <div class="author-bio-text">
-          <p class="author-bio-name">Kartik Kumar</p>
-          <p class="author-bio-desc">Foreign-trained lawyer who passed NCA Administrative Law. Kartik built The NCA Hub to help other internationally trained lawyers navigate Canadian bar admission efficiently.</p>
-          <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &#8594;</a>
+          <p class="author-bio-name" itemprop="name">Kartik Kumar</p>
+          <p class="author-bio-desc" itemprop="description">Foreign-trained lawyer who passed NCA Administrative Law. Kartik built The NCA Hub to help other internationally trained lawyers navigate Canadian bar admission efficiently.</p>
+          <meta itemprop="jobTitle" content="Founder, The NCA Hub">
+          <a href="https://www.linkedin.com/in/the-nca-hub-123ab63b5" target="_blank" rel="noopener noreferrer" itemprop="url" style="display:inline-block;margin-top:10px;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:1px;">LinkedIn Profile &#8594;</a>
         </div>
       </div>
     </div>
 
-    <div class="related-articles" style="margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07);">
-      <p style="font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:20px;">Related Articles</p>
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px;">
-        <li><a href="/notes/administrative-law/" style="color:var(--off);border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:2px;">Administrative Law Notes &#8212; NCA Exam Edition</a></li>
-        <li><a href="/blog/article-a2-what-to-expect-nca-exam/" style="color:var(--off);border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:2px;">What to Expect on NCA Exam Day</a></li>
-        <li><a href="/faq/" style="color:var(--off);border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:2px;">NCA FAQ 2026 &#8212; All Your Questions Answered</a></li>
-      </ul>
+    <div class="related-links">
+      <h3>Related Articles</h3>
+      <div class="related-grid">
+        <a href="/blog/nca-how-to-appeal-assessment/" class="related-card">How to Appeal Your NCA Assessment</a>
+        <a href="/blog/nca-vs-canadian-llm/" class="related-card">NCA vs Canadian LLM &#8212; Which Path Is Right?</a>
+        <a href="/blog/nca-exam-complete-guide/" class="related-card">NCA Exam Complete Guide 2026</a>
+      </div>
     </div>
 
   </div><!-- end .art-body -->
@@ -532,6 +599,18 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
   var p=document.getElementById('prog');
   window.addEventListener('scroll',function(){var pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;if(p)p.style.width=Math.min(100,pct)+'%';},{passive:true});
 })();
+/* NOTIFY FORM */
+function submitNotify(e,formId,subject){
+  e.preventDefault();
+  var form=document.getElementById(formId);
+  var email=form.querySelector('input[type=email]').value;
+  var msg=document.getElementById(formId+'-msg');
+  fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
+  .then(function(){if(msg){msg.style.display='block';}form.querySelector('button').disabled=true;})
+  .catch(function(){if(msg){msg.style.display='block';}});
+}
+/* LENIS SMOOTH SCROLL */
+(function(){try{if(typeof Lenis!=='undefined'){var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}document.documentElement.style.scrollBehavior='auto';}}catch(e){document.documentElement.style.scrollBehavior='smooth';}})();
 </script>
 <div id="mob-overlay" aria-hidden="true" aria-label="Navigation" role="dialog">
   <button id="mob-close" aria-label="Close navigation menu">&#x2715;</button>
