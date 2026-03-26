@@ -888,7 +888,7 @@ function submitNotify(e,formId,subject){
   var form=document.getElementById(formId);
   var email=form.querySelector('input[type=email]').value;
   var msg=document.getElementById(formId+'-msg');
-  fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
+  fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
   .then(function(){if(msg){msg.style.display='block';}form.querySelector('button').disabled=true;})
   .catch(function(){if(msg){msg.style.display='block';}});
 }

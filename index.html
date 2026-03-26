@@ -1305,7 +1305,7 @@ body.golden-hour {
   <button class="epx" id="epx" aria-label="Close">✕</button>
   <p class="ept" id="ep-title">Before you leave — free chapter.</p>
   <p class="eps">Take the 60-second Readiness Assessment. Get personalized feedback on your study plan.</p>
-  <div class="epa"><a href="/free-chapter.html" class="epy" id="epy">Get My Free Chapter</a><button class="epn" id="epn">No, thanks</button></div>
+  <div class="epa"><a href="#sample" class="epy" id="epy" onclick="document.getElementById('ep').classList.remove('on')">Get My Free Chapter</a><button class="epn" id="epn">No, thanks</button></div>
 </div>
 
 <!-- NAV -->
@@ -2159,7 +2159,6 @@ body.golden-hour {
       </div>
       <div class="sf2" id="SFORM">
         <div style="max-width:480px;margin:0 auto;">
-          <input type="hidden" name="_subject" value="Free chapter request — The NCA Hub">
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <input type="email" id="SEML" name="email" placeholder="Your email address" required autocomplete="email" style="flex:1;min-width:240px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-right:none;color:var(--cream);padding:17px 20px;font-family:var(--fb);font-size:.9rem;outline:none;">
             <button type="submit" id="FSB" style="background:var(--g1);color:var(--void);border:none;padding:17px 32px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .3s;" onmouseover="this.style.background='var(--g0)'" onmouseout="this.style.background='var(--g1)'"><span id="FSBT">Get My Free Chapter →</span></button>
@@ -2359,7 +2358,7 @@ body.golden-hour {
     </div>
     <div>
       <div class="fct">Contact</div>
-      <ul class="fls"><li><a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a></li><li><a href="/contact/">Contact</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="#sample">Get My Free Chapter</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul>
+      <ul class="fls"><li><a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a></li><li><a href="/contact/">Contact Form</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="#sample">Get My Free Chapter</a></li><li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul>
     </div>
   </div>
   <div class="fb2">
@@ -3655,21 +3654,6 @@ document.addEventListener('DOMContentLoaded',function(){
 })();
 
 
-/* FREE CHAPTER FORM SUBMIT HELPER */
-function ncaFormSubmit(e){
-  var btn=document.getElementById('FSB');
-  var lbl=document.getElementById('FSBT');
-  var sel=document.getElementById('FS');
-  var nxt=document.getElementById('form-next');
-  if(btn)btn.disabled=true;
-  if(lbl)lbl.textContent='Sending…';
-  if(sel&&nxt){
-    var subj=encodeURIComponent(sel.value.toLowerCase());
-    nxt.value='https://www.thencahub.com/free-chapter.html?subject='+subj;
-  }
-  return true; /* allow native submit to proceed */
-}
-
 /* NOTIFY COMING SOON — captures email for unreleased subjects via Formspree */
 function notifyComingSoon(form, subjectName) {
   var input = form.querySelector('.coming-soon-input');
@@ -3717,19 +3701,22 @@ function notifyComingSoon(form, subjectName) {
     fetch('https://formspree.io/f/mkoqgvqd',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({email:email,subject:'Free chapter request',_subject:'Free chapter request — The NCA Hub',_replyto:email})
+      body:JSON.stringify({email:email,subject:'Free chapter request — Administrative Law',_subject:'Free chapter request — The NCA Hub',_replyto:email})
     }).then(function(r){
       if(r.ok){
         if(FSBT)FSBT.textContent='✓ Sent! Redirecting…';
         try{sessionStorage.setItem('ncahub_sample_sent','1');}catch(ex){}
-        try{if(typeof gtag==='function'){gtag('event','free_chapter_download',{});}}catch(ex){}
-        setTimeout(function(){window.location.href='/free-chapter.html';},1500);
+        try{if(typeof gtag==='function'){gtag('event','free_chapter_download',{subject:'administrative law'});}}catch(ex){}
+        setTimeout(function(){window.location.href='/free-chapter.html?subject=administrative+law';},1500);
       }else{
-        if(FSBT)FSBT.textContent='Try Again';FSB.disabled=false;
+        /* Formspree error — still deliver the chapter so the user isn't blocked */
+        if(FSBT)FSBT.textContent='↓ Getting your chapter…';
+        setTimeout(function(){window.location.href='/free-chapter.html?subject=administrative+law';},1800);
       }
-    }).catch(function(err){
-      console.error('Form submission error:',err);
-      if(FSBT)FSBT.textContent='Try Again';FSB.disabled=false;
+    }).catch(function(){
+      /* Network error — still deliver the chapter */
+      if(FSBT)FSBT.textContent='↓ Getting your chapter…';
+      setTimeout(function(){window.location.href='/free-chapter.html?subject=administrative+law';},1800);
     });
   });
 })();
