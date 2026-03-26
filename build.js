@@ -751,6 +751,8 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <ul class="fls">
         <li><a href="mailto:thencahub@gmail.com">thencahub@gmail.com</a></li>
         <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li>
+        <li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
         <li><a href="/#readiness">Get My Score</a></li>
       </ul>
     </div>
@@ -895,9 +897,20 @@ function build() {
 
   console.log(`\n🔨  Building ${mdFiles.length} articles...\n`);
 
+  const today = new Date().toISOString().slice(0,10);
   const sitemapURLs = [
-    { loc: `${BASE_URL}/`,       priority: '1.0', changefreq: 'weekly',  lastmod: new Date().toISOString().slice(0,10) },
-    { loc: `${BASE_URL}/blog/`,  priority: '0.8', changefreq: 'weekly',  lastmod: new Date().toISOString().slice(0,10) },
+    { loc: `${BASE_URL}/`,                         priority: '1.0', changefreq: 'weekly',  lastmod: today },
+    { loc: `${BASE_URL}/blog/`,                    priority: '0.8', changefreq: 'weekly',  lastmod: today },
+    { loc: `${BASE_URL}/about/`,                   priority: '0.7', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/complete-bundle/`,   priority: '0.9', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/administrative-law/`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/constitutional-law/`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/criminal-law/`,      priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/foundations-of-canadian-law/`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/professional-responsibility/`, priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/privacy.html`,             priority: '0.3', changefreq: 'yearly',  lastmod: today },
+    { loc: `${BASE_URL}/terms.html`,               priority: '0.3', changefreq: 'yearly',  lastmod: today },
+    { loc: `${BASE_URL}/refund.html`,              priority: '0.3', changefreq: 'yearly',  lastmod: today },
   ];
 
   let built = 0, skipped = 0;
@@ -1015,7 +1028,9 @@ ${sitemapURLs.map(u => `  <url>
 }
 
 // ── INDEXNOW ───────────────────────────────────────────────
-const INDEXNOW_KEY      = '679ea90259474fdb89ba975b64b7ec6a';
+// Key moved to env var. Set INDEXNOW_KEY in your CI/CD environment.
+// Fallback keeps existing key working if env var not yet set.
+const INDEXNOW_KEY      = process.env.INDEXNOW_KEY || '679ea90259474fdb89ba975b64b7ec6a';
 const INDEXNOW_KEY_FILE = `https://www.thencahub.com/${INDEXNOW_KEY}.txt`;
 
 function pingIndexNow(urls) {
