@@ -10,7 +10,7 @@
  */
 
 const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': 'https://www.thencahub.com',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type'
 };
@@ -104,6 +104,7 @@ export async function onRequestPost(context) {
   // ── No email service configured — accept gracefully ──
   // In production, set up Mailchimp or ConvertKit env vars.
   // For now, we confirm success so the UX is not broken.
+  console.warn('[NCA Hub] WARNING: No email service configured. Submissions are accepted but NOT being stored. Set MAILCHIMP_API_KEY or CONVERTKIT_API_KEY in Cloudflare Pages environment variables.');
   return new Response(JSON.stringify({ success: true }), {
     status: 200,
     headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }

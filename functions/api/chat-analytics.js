@@ -8,7 +8,7 @@
  */
 
 const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': 'https://www.thencahub.com',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization'
 };
@@ -22,7 +22,7 @@ export async function onRequestGet(context) {
 
   /* Simple auth: require ?key= parameter matching env var */
   const url = new URL(request.url);
-  const authKey = url.searchParams.get('key');
+  const authKey = request.headers.get('Authorization')?.replace('Bearer ', '') || url.searchParams.get('key');
   if (!env.ANALYTICS_KEY || authKey !== env.ANALYTICS_KEY) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,

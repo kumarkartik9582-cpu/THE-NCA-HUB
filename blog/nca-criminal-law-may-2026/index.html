@@ -619,6 +619,8 @@ nav{top:28px}
         <ul class="fls">
           <li><a href="mailto:thencahub@gmail.com">thencahub@gmail.com</a></li>
           <li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer">Shop Now</a></li>
+          <li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
           <li><a href="/community/">Community</a></li>
         </ul>
         <div class="fct" style="margin-top:24px;">Legal</div>
@@ -886,11 +888,21 @@ if('serviceWorker' in navigator){
 function submitNotify(e,formId,subject){
   e.preventDefault();
   var form=document.getElementById(formId);
-  var email=form.querySelector('input[type=email]').value;
+  var email=(form.querySelector('input[type=email]').value||'').trim();
   var msg=document.getElementById(formId+'-msg');
+  var btn=form.querySelector('button');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    var inp=form.querySelector('input[type=email]');
+    if(inp){inp.style.borderColor='rgba(220,80,80,.7)';setTimeout(function(){inp.style.borderColor='';},1800);}
+    return;
+  }
+  if(btn)btn.disabled=true;
   fetch('https://formspree.io/f/mkoqgvqd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:email,subject:subject,_subject:'Notify: '+subject})})
-  .then(function(){if(msg){msg.style.display='block';}form.querySelector('button').disabled=true;})
-  .catch(function(){if(msg){msg.style.display='block';}});
+  .then(function(r){
+    if(r.ok){if(msg)msg.style.display='block';}
+    else{if(btn)btn.disabled=false;if(msg){msg.textContent='Something went wrong. Try again or email thencahub@gmail.com';msg.style.display='block';}}
+  })
+  .catch(function(){if(btn)btn.disabled=false;if(msg){msg.textContent='Something went wrong. Try again or email thencahub@gmail.com';msg.style.display='block';}});
 }
 </script>
 <script>
