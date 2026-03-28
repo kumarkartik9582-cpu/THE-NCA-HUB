@@ -567,17 +567,43 @@
   /* ── Send Message (streaming with non-streaming fallback) ── */
   async function sendMessage(text) {
     text = (text || input.value).trim();
-    if (!text || isLoading) return;
+    if (!text) return;
+
+    // Fix 11: strip HTML tags from user input before processing
+    text = text.replace(/<[^>]*>/g, '');
+    if (!text) return;
+
+    // Fix 9: if already sending, queue the message for after current completes
+    if (isSending) {
+      messageQueue.push(text);
+      return;
+    }
+
+    // Fix 5: client-side rate limiting (max 5 messages per 30 seconds)
+    var now = Date.now();
+    rateLimitTimestamps = rateLimitTimestamps.filter(function (ts) { return now - ts < rateLimitWindow; });
+    if (rateLimitTimestamps.length >= rateLimitMax) {
+      addMsg('bot', 'Please slow down \u2014 you can send 5 messages per 30 seconds.', { plain: true });
+      return;
+    }
+    rateLimitTimestamps.push(now);
+
+    // Fix 6: reset inactivity timer on each user message
+    if (overlay.classList.contains('open')) resetInactivityTimer();
 
     chipsEl.innerHTML = '';
     input.value = '';
     input.style.height = '';
     isLoading = true;
+    isSending = true; // Fix 9
     updateSendBtn();
 
     addMsg('user', text);
     messages.push({ role: 'user', content: text });
     saveSession();
+
+    // Fix 4: set aria-busy on messages container while bot is generating
+    msgsEl.setAttribute('aria-busy', 'true');
 
     var typing = showTyping();
 
@@ -640,7 +666,7 @@
               copyBtn.textContent = 'Copy';
               copyBtn.classList.remove('copied');
             }, 1500);
-          });
+          }).catch(function (err) { console.warn('Clipboard unavailable', err); }); // Fix 7
         });
         msgDiv.appendChild(copyBtn);
 
@@ -658,7 +684,7 @@
         }
 
       } else {
-        /* ── Non-streaming fallback ── */
+        /* ── Non-streaming fallback with exponential backoff retry (Fix 13) ── */
         var data;
         try {
           data = await res.json();
@@ -666,9 +692,12 @@
           data = res.status === 404 ? { error: 'not_found' } : { error: 'unexpected_response', status: res.status };
         }
 
-        /* Auto-retry once on retryable server errors */
-        if (!data.reply && (data.retryable || res.status === 502 || res.status === 503 || res.status === 529)) {
-          await new Promise(function (r) { setTimeout(r, 1500); });
+        /* Fix 13: exponential backoff — up to 3 total attempts, delays: 1s, 2s, 4s */
+        var retryDelays = [1000, 2000, 4000];
+        var attempt = 0;
+        while (!data.reply && (data.retryable || res.status === 502 || res.status === 503 || res.status === 529) && attempt < retryDelays.length) {
+          await new Promise(function (r) { setTimeout(r, retryDelays[attempt]); });
+          attempt++;
           var retryResult = await callChatAPI(messages);
           res = retryResult.res;
           data = retryResult.data;
@@ -677,12 +706,12 @@
         typing.remove();
 
         if (data.reply) {
-          var parsed = parseFollowUps(data.reply);
-          addMsg('bot', parsed.body);
+          var parsedReply = parseFollowUps(data.reply);
+          addMsg('bot', parsedReply.body);
           messages.push({ role: 'assistant', content: data.reply });
           saveSession();
-          if (parsed.followUps.length > 0) {
-            showFollowUpChips(parsed.followUps);
+          if (parsedReply.followUps.length > 0) {
+            showFollowUpChips(parsedReply.followUps);
           }
         } else {
           var errText;
@@ -707,8 +736,9 @@
     } catch (e) {
       typing.remove();
       var netMsg;
-      if (e && e.name === 'TimeoutError') {
-        netMsg = 'The AI assistant took too long to respond. Please try again.';
+      // Fix 8: handle API_TIMEOUT from Promise.race as well as native TimeoutError
+      if (e && (e.message === 'API_TIMEOUT' || e.name === 'TimeoutError' || e.name === 'AbortError')) {
+        netMsg = 'Request timed out \u2014 please try again.';
       } else {
         netMsg = 'Unable to reach the AI assistant. Please check your internet connection.';
       }
@@ -716,13 +746,23 @@
       messages.pop();
     }
 
+    // Fix 4: remove aria-busy when bot is done generating
+    msgsEl.removeAttribute('aria-busy');
     isLoading = false;
+    isSending = false; // Fix 9
     updateSendBtn();
+
+    // Fix 9: process queued message if any
+    if (messageQueue.length > 0) {
+      var nextMsg = messageQueue.shift();
+      sendMessage(nextMsg);
+    }
   }
 
   /* ── Event Listeners ── */
   btn.addEventListener('click', function () {
-    isOpen ? closeChat() : openChat();
+    // Fix 10: use only class check — no isOpen variable
+    overlay.classList.contains('open') ? closeChat() : openChat();
   });
 
   closeBtn.addEventListener('click', closeChat);
@@ -745,7 +785,8 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && isOpen) closeChat();
+    // Fix 10: use only class check — no isOpen variable
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeChat();
   });
 
   /* ── Restore previous session on load ── */

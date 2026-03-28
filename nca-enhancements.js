@@ -314,6 +314,63 @@
     window.addEventListener('beforeunload', function() { obs.disconnect(); }, { once: true });
   }
 
+  /* ─── 12. COOKIE CONSENT BANNER ────────────────────────────────────── */
+  function initCookieConsent() {
+    var consent = localStorage.getItem('cookie-consent');
+    if (consent) return; // already decided
+
+    var banner = document.createElement('div');
+    banner.id = 'nca-cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Cookie consent');
+    banner.style.cssText =
+      'position:fixed;bottom:0;left:0;right:0;z-index:99999;' +
+      'background:#0D0D18;border-top:1px solid rgba(201,168,76,.2);' +
+      'padding:16px 24px;display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;' +
+      'font-family:"Bricolage Grotesque","Helvetica Neue",sans-serif;font-size:.82rem;' +
+      'color:#998E7C;box-shadow:0 -4px 24px rgba(0,0,0,.5);';
+
+    var text = document.createElement('p');
+    text.style.cssText = 'flex:1;min-width:240px;margin:0;line-height:1.6;';
+    text.innerHTML =
+      'We use cookies for analytics to improve your experience. By continuing, you accept our ' +
+      '<a href="/cookie-policy/" style="color:#C9A84C;text-underline-offset:3px;">cookie policy</a>.';
+
+    var btnWrap = document.createElement('div');
+    btnWrap.style.cssText = 'display:flex;gap:10px;flex-shrink:0;';
+
+    var btnAccept = document.createElement('button');
+    btnAccept.textContent = 'Accept';
+    btnAccept.style.cssText =
+      'background:#C9A84C;color:#020204;border:none;padding:9px 22px;' +
+      'font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.12em;' +
+      'text-transform:uppercase;cursor:pointer;border-radius:4px;transition:background .2s;';
+    btnAccept.addEventListener('click', function () {
+      try { localStorage.setItem('cookie-consent', 'accepted'); } catch (e) {}
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+      banner.remove();
+    });
+
+    var btnDecline = document.createElement('button');
+    btnDecline.textContent = 'Decline';
+    btnDecline.style.cssText =
+      'background:transparent;color:#6B6257;border:1px solid rgba(107,98,87,.4);' +
+      'padding:9px 22px;font-family:inherit;font-size:.78rem;font-weight:500;' +
+      'letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:color .2s,border-color .2s;';
+    btnDecline.addEventListener('click', function () {
+      try { localStorage.setItem('cookie-consent', 'declined'); } catch (e) {}
+      banner.remove();
+    });
+
+    btnWrap.appendChild(btnAccept);
+    btnWrap.appendChild(btnDecline);
+    banner.appendChild(text);
+    banner.appendChild(btnWrap);
+    document.body.appendChild(banner);
+  }
+
   /* ─── INIT ──────────────────────────────────────────────────────────── */
   function init() {
     calcReadingTime();
@@ -327,6 +384,7 @@
     initSWUpdateBanner();
     initMagneticButtons();
     initCounterAnimations();
+    initCookieConsent();
     window.addEventListener('hashchange', highlightTargetSection);
   }
 
