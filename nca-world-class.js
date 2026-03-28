@@ -981,4 +981,189 @@
     mo.observe(document.body, { childList: true, subtree: true });
   })();
 
+  /* ═══════════════════════════════════════════════════════════
+     21. BLUR-UP PROGRESSIVE IMAGE LOADING
+     Awwwards winners all use this technique for perceived speed
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        var img = entry.target;
+        var src = img.dataset.src;
+        if (!src) return;
+
+        var full = new Image();
+        full.onload = function () {
+          img.style.transition = 'filter .6s ease, opacity .6s ease';
+          img.style.filter = 'blur(0px)';
+          img.src = src;
+          img.removeAttribute('data-src');
+          img.classList.add('loaded');
+        };
+        full.src = src;
+      });
+    }, { rootMargin: '200px 0px' });
+
+    document.querySelectorAll('img[data-src]').forEach(function (img) {
+      img.style.filter = 'blur(8px)';
+      img.style.transition = 'filter .6s ease';
+      obs.observe(img);
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     22. SCROLL DEPTH ANALYTICS
+     Fires GA4 events at 25/50/75/100% depth (key for SEO signals)
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    var milestones = { 25: false, 50: false, 75: false, 100: false };
+
+    window.addEventListener('scroll', function () {
+      var scrolled = window.scrollY;
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total <= 0) return;
+      var pct = Math.round(scrolled / total * 100);
+
+      [25, 50, 75, 100].forEach(function (m) {
+        if (!milestones[m] && pct >= m) {
+          milestones[m] = true;
+          try {
+            if (typeof gtag === 'function') {
+              gtag('event', 'scroll_depth', {
+                event_category: 'engagement',
+                event_label: window.location.pathname,
+                value: m
+              });
+            }
+          } catch (e) {}
+        }
+      });
+    }, { passive: true });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     23. LOW-END DEVICE DETECTION + GRACEFUL DEGRADATION
+     Respects battery/CPU on slow connections & hardware
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    var isLowEnd = false;
+
+    /* Check connection speed */
+    try {
+      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (conn) {
+        var slow = conn.effectiveType === '2g' || conn.effectiveType === 'slow-2g' || conn.saveData;
+        if (slow) isLowEnd = true;
+      }
+    } catch (e) {}
+
+    /* Check hardware concurrency */
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+      isLowEnd = true;
+    }
+
+    if (isLowEnd) {
+      document.documentElement.classList.add('nca-low-end');
+      /* Inject reduced styles */
+      var s = document.createElement('style');
+      s.textContent = '.nca-low-end *,.nca-low-end *::before,.nca-low-end *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}' +
+        '.nca-low-end #ambient-cv,.nca-low-end #trail-cv,.nca-low-end body::before{display:none!important;}';
+      document.head.appendChild(s);
+    }
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     24. ENHANCED FORM INTERACTIONS
+     Gold focus rings, floating labels, real-time validation feel
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (!document.getElementById('nca-form-style')) {
+      var s = document.createElement('style');
+      s.id = 'nca-form-style';
+      s.textContent = [
+        'input:not([type=checkbox]):not([type=radio]),textarea,select{',
+        '  transition:border-color .25s ease,box-shadow .25s ease,background .25s ease!important;',
+        '}',
+        'input:not([type=checkbox]):not([type=radio]):focus,textarea:focus,select:focus{',
+        '  border-color:#C9A84C!important;',
+        '  box-shadow:0 0 0 3px rgba(201,168,76,.15),0 0 20px rgba(201,168,76,.08)!important;',
+        '  outline:none!important;',
+        '  background:rgba(201,168,76,.03)!important;',
+        '}',
+        'input:not([type=checkbox]):not([type=radio]):valid:not(:placeholder-shown){',
+        '  border-color:rgba(120,200,120,.4)!important;',
+        '}',
+        'input:not([type=checkbox]):not([type=radio]):invalid:not(:placeholder-shown):not(:focus){',
+        '  border-color:rgba(200,80,80,.4)!important;',
+        '}'
+      ].join('');
+      document.head.appendChild(s);
+    }
+
+    /* Subtle bounce on submit buttons */
+    document.querySelectorAll('form').forEach(function (form) {
+      form.addEventListener('submit', function () {
+        var btn = form.querySelector('[type=submit]');
+        if (!btn) return;
+        btn.style.transform = 'scale(0.96)';
+        setTimeout(function () { btn.style.transform = ''; }, 150);
+      });
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     25. WORD-BY-WORD TEXT REVEAL (Awwwards signature motion)
+     For blockquotes, pull quotes, and .reveal-words elements
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (REDUCED) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    if (!document.getElementById('nca-words-style')) {
+      var s = document.createElement('style');
+      s.id = 'nca-words-style';
+      s.textContent = [
+        '.nca-word-wrap{display:inline-block;overflow:hidden;vertical-align:bottom;}',
+        '.nca-word-inner{display:inline-block;transform:translateY(110%);opacity:0;',
+        '  transition:transform .65s cubic-bezier(.23,1,.32,1),opacity .65s ease;}',
+        '.nca-word-inner.in{transform:translateY(0);opacity:1;}'
+      ].join('');
+      document.head.appendChild(s);
+    }
+
+    function splitWords(el) {
+      if (el.dataset.wordsDone) return;
+      el.dataset.wordsDone = '1';
+      var words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(function (w) {
+        return '<span class="nca-word-wrap"><span class="nca-word-inner">' + w + '</span></span>';
+      }).join(' ');
+    }
+
+    function revealWords(el) {
+      el.querySelectorAll('.nca-word-inner').forEach(function (span, i) {
+        setTimeout(function () { span.classList.add('in'); }, i * 55);
+      });
+    }
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        revealWords(entry.target);
+      });
+    }, { threshold: 0.3 });
+
+    /* Apply to blockquotes and elements with data-words attribute */
+    document.querySelectorAll('blockquote p, [data-words], .pull-quote').forEach(function (el) {
+      if (el.children.length > 0) return;
+      splitWords(el);
+      obs.observe(el);
+    });
+  })();
+
 })();
