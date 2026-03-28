@@ -895,7 +895,6 @@ function build() {
     return;
   }
 
-  console.log(`\n🔨  Building ${mdFiles.length} articles...\n`);
 
   const today = new Date().toISOString().slice(0,10);
   const sitemapURLs = [
@@ -984,7 +983,6 @@ function build() {
 
    // Skip if HTML already exists — never overwrite manual edits
     if (fs.existsSync(outFile)) {
-      console.log(`  ⏭️   ${slug}/index.html — skipped`);
       skipped++;
       // Still add to sitemap even if skipped
       sitemapURLs.push({
@@ -998,7 +996,6 @@ function build() {
     const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema });
     fs.writeFileSync(outFile, html, 'utf8');
 
-    console.log(`  ✅  ${slug}/index.html — built`);
     built++;
 
     // Add to sitemap
@@ -1023,10 +1020,6 @@ ${sitemapURLs.map(u => `  <url>
 
   fs.writeFileSync(SITEMAP_OUT, sitemapXML, 'utf8');
 
-  console.log(`\n📄  sitemap.xml updated (${sitemapURLs.length} URLs)`);
-  console.log(`\n✨  Done — ${built} pages built${skipped ? `, ${skipped} skipped` : ''}`);
-  console.log(`    Static pages are at:  blog/[slug]/index.html`);
-  console.log(`    Clean URLs will be:   ${BASE_URL}/blog/[slug]/\n`);
 
   // ── INDEXNOW BULK PING ───────────────────────────────────
   // Notifies Bing (+ Yandex, Seznam) of all URLs on every build.
@@ -1062,7 +1055,6 @@ function pingIndexNow(urls) {
 
   const req = https.request(options, (res) => {
     if (res.statusCode === 200) {
-      console.log(`🚀  IndexNow: ${urls.length} URLs submitted successfully`);
     } else {
       console.warn(`⚠️   IndexNow: responded with HTTP ${res.statusCode}`);
     }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en-CA">
+<html lang="en-CA" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NCA Exam Prep Canada 2026 | Study Notes for Internationally Trained Lawyers | The NCA Hub</title>
 <meta name="description" content="Indian, UK, or foreign-trained lawyer qualifying in Canada? Concise NCA notes (under 80 pages), answer templates &amp; free readiness score. Built by someone who passed all 5 NCA subjects — starting with 7 days to prepare. Try a free chapter today.">
 <meta name="keywords" content="NCA exam Canada, NCA prep notes, NCA study materials, internationally trained lawyer Canada, Indian LLB Canada, foreign lawyer NCA, NCA administrative law notes, NCA constitutional law notes, NCA criminal law notes, NCA professional responsibility notes, NCA foundations of Canadian law, NCA certificate of qualification, CPLED LRW, NCA challenge exam 2026, pass NCA exam, National Committee on Accreditation">
@@ -1035,6 +1035,104 @@ body.golden-hour {
   .mob-overlay .mob-ink{background:rgba(2,2,4,0.99);}
 }
 .mob-item:hover .mob-counter{opacity:1;}
+
+/* ── FOCUS VISIBLE ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--g1, #C9A84C);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+}
+
+/* ── Z-INDEX SCALE ─────────────────────────────────────────── */
+:root {
+  --z-base: 1;
+  --z-card: 10;
+  --z-sticky: 100;
+  --z-nav: 800;
+  --z-overlay: 900;
+  --z-modal: 9100;
+  --z-toast: 9200;
+  --z-cursor: 9997;
+  --z-top: 9998;
+}
+
+/* ── LIGHT THEME (system preference) ──────────────────────── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f8f6f0;
+    --fog: #3a3228;
+    --g1: #8B6914;
+    --g2: #a07820;
+  }
+  body {
+    background: var(--bg, #f8f6f0);
+    color: var(--fog, #3a3228);
+  }
+}
+
+/* ── PRINT STYLES ──────────────────────────────────────────── */
+@media print {
+  nav, header nav, .nca-chat-btn, #nca-chat-overlay, #cd, #cr,
+  .floating-actions, .cookie-banner, .sw-update-banner,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12pt;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+  h1, h2, h3 {
+    page-break-after: avoid;
+    color: #000 !important;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 2cm;
+  }
+}
+
+/* ── VENDOR PREFIXES & COMPAT ──────────────────────────────── */
+.nav-blur, nav[class*="nav"] {
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+}
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-blur, nav[class*="nav"] {
+    background: rgba(2, 2, 4, 0.97) !important;
+  }
+}
+
+/* ── SCROLLBAR STYLING ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,.6); }
+
+/* ── SELECTION COLOR ───────────────────────────────────────── */
+::selection { background: rgba(201,168,76,.25); color: inherit; }
+
+/* ── SMOOTH SCROLL FALLBACK ────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -1530,7 +1628,7 @@ body.golden-hour {
           <div id="rq-res-breakdown"></div>
         </div>
         <div class="rq-action-row">
-          <a href="https://payhip.com/THENCAHUB" class="btn-rq-primary" target="_blank" rel="noopener">Get Your Notes Now →</a>
+          <a href="https://payhip.com/THENCAHUB" class="btn-rq-primary" target="_blank" rel="noopener noreferrer">Get Your Notes Now →</a>
           <button class="btn-rq-ghost" id="rq-retake-btn">Retake Assessment</button>
         </div>
 <div id="score-share" style="display:none;margin-top:24px;text-align:center;">
@@ -2118,7 +2216,7 @@ body.golden-hour {
         <div class="pdiv"></div>
         <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>PDF: yours to keep forever</li></ul>
         <div style="background:rgba(201,168,76,.04);border-left:3px solid var(--g1);padding:24px 28px;margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto;"><p style="font-family:var(--fd);font-size:1.15rem;font-weight:300;color:var(--cream);line-height:1.7;font-style:italic;margin-bottom:14px;">"I passed on my 4th and final attempt. This is the only method that worked for me."</p><p style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;">Anum &middot; Constitutional Law &middot; 4th attempt</p></div>
-        <a href="https://payhip.com/THENCAHUB" class="pb" aria-label="Get My Notes plan" target="_blank" rel="noopener"><span>Get My Notes</span></a>
+        <a href="https://payhip.com/THENCAHUB" class="pb" aria-label="Get My Notes plan" target="_blank" rel="noopener noreferrer"><span>Get My Notes</span></a>
         <p style="font-size:.72rem;color:var(--dim);margin-top:8px;text-align:center;font-family:var(--fb);">Pay in 2 instalments available at checkout</p>
       </div>
       <div class="pc feat sm tilt-card" id="PC2">
@@ -2211,7 +2309,7 @@ body.golden-hour {
     <div class="cey split-heading">Your Turn</div>
     <div class="sh-mask-wrap" style="margin-bottom:32px"><h2 class="ch split-heading">The NCA is <br><em>passable.</em></h2></div>
     <p class="cp">You have already done the hardest part: qualifying in another country, choosing Canada, starting over. Do not let the NCA be the wall that stops you.</p>
-    <a href="https://payhip.com/THENCAHUB" class="bp" style="padding:20px 56px" target="_blank" rel="noopener"><span>Get Your Notes →</span></a>
+    <a href="https://payhip.com/THENCAHUB" class="bp" style="padding:20px 56px" target="_blank" rel="noopener noreferrer"><span>Get Your Notes →</span></a>
   </div>
 </div>
 
@@ -2376,7 +2474,7 @@ body.golden-hour {
     </div>
     <div>
       <div class="fct">Contact</div>
-      <ul class="fls"><li><a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a></li><li><a href="/contact/">Contact Form</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener">Shop Now</a></li><li><a href="#sample">Get My Free Chapter</a></li><li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul>
+      <ul class="fls"><li><a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a></li><li><a href="/contact/">Contact Form</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer">Shop Now</a></li><li><a href="#sample">Get My Free Chapter</a></li><li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li><li><a href="/refund.html">Refund Policy</a></li></ul>
     </div>
   </div>
   <div class="fb2">

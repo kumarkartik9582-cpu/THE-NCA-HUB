@@ -162,6 +162,7 @@
 
   function initGA4Tracking() {
     // CTA clicks
+    // TODO: use event delegation to avoid per-element listeners
     document.querySelectorAll('.art-cta-btn, .art-notes-cta a, [href*="payhip.com"]').forEach(function (el) {
       el.addEventListener('click', function () {
         fire('cta_click', { cta_text: el.textContent.trim().slice(0, 50), page: window.location.pathname });
@@ -173,7 +174,7 @@
     if (nlForm) {
       nlForm.addEventListener('submit', function () {
         fire('newsletter_signup_attempt', { page: window.location.pathname });
-      });
+      }, { once: true });
     }
 
     // Chat open
@@ -204,6 +205,7 @@
     }
 
     // Share button clicks
+    // TODO: use event delegation to avoid per-element listeners
     document.querySelectorAll('.art-share a').forEach(function (el) {
       el.addEventListener('click', function () {
         var platform = el.href.includes('linkedin') ? 'linkedin'
@@ -245,6 +247,7 @@
     if (!('serviceWorker' in navigator)) return;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
       // A new SW has taken control — show refresh banner
+      if (document.getElementById('sw-update-banner')) return;
       var banner = document.getElementById('nca-sw-update');
       if (!banner) {
         banner = document.createElement('div');
@@ -308,6 +311,7 @@
       });
     }, { threshold: 0.5 });
     counters.forEach(function(el) { obs.observe(el); });
+    window.addEventListener('beforeunload', function() { obs.disconnect(); }, { once: true });
   }
 
   /* ─── INIT ──────────────────────────────────────────────────────────── */

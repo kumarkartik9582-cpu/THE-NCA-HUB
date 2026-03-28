@@ -1,4 +1,5 @@
-const CACHE_NAME = 'nca-hub-v5';
+const CACHE_NAME = 'nca-static-v2';
+const DYNAMIC_CACHE = 'nca-dynamic-v2';
 const OFFLINE_URL = '/offline.html';
 const STATIC_CACHE = [
   OFFLINE_URL,
@@ -43,7 +44,7 @@ self.addEventListener('activate', function(e){
   e.waitUntil(
     caches.keys().then(function(keys){
       return Promise.all(
-        keys.filter(function(k){ return k !== CACHE_NAME; })
+        keys.filter(function(k){ return k !== CACHE_NAME && k !== DYNAMIC_CACHE; })
             .map(function(k){ return caches.delete(k); })
       );
     }).then(function(){
@@ -85,34 +86,55 @@ self.addEventListener('fetch', function(e){
     return;
   }
 
-  /* For HTML pages: network first, fall back to cache, then offline page */
+  /* For HTML pages: network-first, fall back to cache, always serve offline page on failure */
   if(e.request.headers.get('accept') &&
      e.request.headers.get('accept').includes('text/html')){
     e.respondWith(
       fetch(e.request)
         .then(function(response){
           var clone = response.clone();
-          caches.open(CACHE_NAME).then(function(cache){
+          caches.open(DYNAMIC_CACHE).then(function(cache){
             cache.put(e.request, clone);
           });
           return response;
         })
         .catch(function(){
           return caches.match(e.request).then(function(cached){
-            return cached || caches.match(OFFLINE_URL);
+            if(cached) return cached;
+            return caches.match(OFFLINE_URL).then(function(offlinePage){
+              return offlinePage || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain' } });
+            });
           });
         })
     );
     return;
   }
 
-  /* For static assets: cache first, fall back to network */
+  /* CSS and JS: stale-while-revalidate — return cache immediately, refresh in background */
+  var ext = url.pathname.split('.').pop().toLowerCase();
+  if(ext === 'css' || ext === 'js'){
+    e.respondWith(
+      caches.open(CACHE_NAME).then(function(cache){
+        return cache.match(e.request).then(function(cached){
+          var networkFetch = fetch(e.request).then(function(response){
+            cache.put(e.request, response.clone());
+            return response;
+          });
+          /* Return cached version immediately; network fetch updates cache in background */
+          return cached || networkFetch;
+        });
+      })
+    );
+    return;
+  }
+
+  /* For all other static assets: cache-first, fall back to network */
   e.respondWith(
     caches.match(e.request).then(function(cached){
       if(cached) return cached;
       return fetch(e.request).then(function(response){
         var clone = response.clone();
-        caches.open(CACHE_NAME).then(function(cache){
+        caches.open(DYNAMIC_CACHE).then(function(cache){
           cache.put(e.request, clone);
         });
         return response;
