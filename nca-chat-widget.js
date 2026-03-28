@@ -131,7 +131,7 @@
   /* ── HTML ── */
   var html = `
 <button id="nca-chat-btn" aria-label="Ask the NCA AI assistant" title="Ask the NCA AI assistant">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.1-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm1 15H7v-2h6v2zm2-4H7v-2h8v2zm0-4H7V7h8v2z"/></svg>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.1-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm1 15H7v-2h6v2zm2-4H7v-2h8v2zm0-4H7V7h8v2z"/></svg>
   <span class="nca-notif" id="nca-notif" aria-hidden="true"></span>
 </button>
 <div id="nca-chat-overlay" role="dialog" aria-modal="true" aria-label="NCA AI Assistant">
@@ -160,10 +160,22 @@
 
   /* ── State ── */
   var SESSION_KEY = 'nca_chat_history';
+  var SESSION_TS_KEY = 'nca_chat_opened_at';
   var messages = [];
-  var isOpen = false;
   var isLoading = false;
   var hasOpened = false;
+  var isSending = false;
+  var messageQueue = [];
+  var _lastFocusedBeforeOpen = null; // Fix 1: store element to return focus to on close
+
+  /* ── Rate limiter state ── */
+  var rateLimitWindow = 30000; // 30 seconds
+  var rateLimitMax = 5;
+  var rateLimitTimestamps = [];
+
+  /* ── Inactivity timer ── */
+  var inactivityTimeout = null;
+  var INACTIVITY_MS = 30 * 60 * 1000; // 30 minutes
 
   var btn = document.getElementById('nca-chat-btn');
   var overlay = document.getElementById('nca-chat-overlay');
@@ -191,6 +203,16 @@
 
   function loadSession() {
     try {
+      /* Fix 15: Clear session if the opened-at timestamp is over 60 minutes old */
+      var tsRaw = sessionStorage.getItem(SESSION_TS_KEY);
+      if (tsRaw) {
+        var ts = parseInt(tsRaw, 10);
+        if (!isNaN(ts) && (Date.now() - ts) > 60 * 60 * 1000) {
+          sessionStorage.removeItem(SESSION_KEY);
+          sessionStorage.removeItem(SESSION_TS_KEY);
+          return null;
+        }
+      }
       var saved = sessionStorage.getItem(SESSION_KEY);
       if (saved) {
         var parsed = JSON.parse(saved);
@@ -206,10 +228,15 @@
   function renderMarkdown(text) {
     if (!text) return '';
     var html = text
+      // Fix 14: Handle escaped asterisks and underscores (replace with placeholders)
+      .replace(/\\\*/g, '\x00ESCSTAR\x00')
+      .replace(/\\_/g, '\x00ESCUND\x00')
       // Escape HTML
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
+      // Fix 14: Horizontal rules
+      .replace(/\n---\n/g, '\n<hr>\n')
       // Bold
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       // Italic
@@ -217,7 +244,10 @@
       // Inline code
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       // Links
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(m, text, url) {
+        var safe = /^https?:\/\//.test(url.trim()) ? url.trim() : '#';
+        return '<a href="' + safe + '" target="_blank" rel="noopener noreferrer">' + text + '</a>';
+      })
       // Unordered lists (- item)
       .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
       // Numbered lists (1. item)
@@ -227,7 +257,10 @@
       // Paragraphs (double newline)
       .replace(/\n\n/g, '</p><p>')
       // Single newlines to <br>
-      .replace(/\n/g, '<br>');
+      .replace(/\n/g, '<br>')
+      // Fix 14: Restore escaped asterisks and underscores
+      .replace(/\x00ESCSTAR\x00/g, '*')
+      .replace(/\x00ESCUND\x00/g, '_');
 
     return '<p>' + html + '</p>';
   }
@@ -264,7 +297,7 @@
             copyBtn.textContent = 'Copy';
             copyBtn.classList.remove('copied');
           }, 1500);
-        });
+        }).catch(function (err) { console.warn('Clipboard unavailable', err); }); // Fix 7
       });
       div.appendChild(copyBtn);
     } else {
@@ -309,17 +342,27 @@
     msgsEl.appendChild(wel);
   }
 
+  /* Fix 3: Helper to create a keyboard-accessible chip button */
+  function makeChip(q) {
+    var chip = document.createElement('button');
+    chip.className = 'nca-chip';
+    chip.textContent = q;
+    chip.setAttribute('tabindex', '0');
+    chip.addEventListener('click', function () { sendMessage(q); });
+    chip.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        sendMessage(q);
+      }
+    });
+    return chip;
+  }
+
   function showChips() {
     chipsEl.innerHTML = '';
     if (messages.length > 0) return;
     SUGGESTIONS.forEach(function (q) {
-      var chip = document.createElement('button');
-      chip.className = 'nca-chip';
-      chip.textContent = q;
-      chip.addEventListener('click', function () {
-        sendMessage(q);
-      });
-      chipsEl.appendChild(chip);
+      chipsEl.appendChild(makeChip(q));
     });
   }
 
@@ -335,28 +378,80 @@
     }
   }
 
+  /* Fix 6: Inactivity timer — clear chat after 30 minutes of no user message */
+  function resetInactivityTimer() {
+    if (inactivityTimeout) clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(function () {
+      messages = [];
+      saveSession();
+      msgsEl.innerHTML = '';
+      chipsEl.innerHTML = '';
+      hasOpened = false;
+      addMsg('bot', 'Session cleared after 30 minutes of inactivity.', { plain: true });
+    }, INACTIVITY_MS);
+  }
+
+  /* Fix 2: Focus trap — cycle focus through focusable elements inside the dialog */
+  function trapFocus(e) {
+    if (!overlay.classList.contains('open')) return;
+    var focusable = Array.prototype.slice.call(
+      overlay.querySelectorAll('button:not([disabled]), [tabindex="0"], textarea:not([disabled]), input:not([disabled])')
+    ).filter(function (el) { return el.offsetParent !== null; });
+    if (focusable.length === 0) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  }
+
   /* ── Open / Close ── */
   function openChat() {
-    isOpen = true;
-    overlay.classList.add('open');
+    // Fix 1: store element that had focus before opening so we can restore it on close
+    _lastFocusedBeforeOpen = document.activeElement;
+    overlay.classList.add('open'); // Fix 10: use only class check — removed isOpen variable
     overlay.setAttribute('aria-hidden', 'false');
     btn.classList.add('nca-chat-open');
     btn.setAttribute('aria-expanded', 'true');
     if (notif) notif.style.display = 'none';
     if (!hasOpened) {
       hasOpened = true;
+      // Fix 15: record first-open timestamp for 60-min sessionStorage expiry check
+      try { sessionStorage.setItem(SESSION_TS_KEY, String(Date.now())); } catch (_e) {}
       showWelcome();
       showChips();
     }
-    setTimeout(function () { input.focus(); }, 150);
+    // Fix 1: move focus to close button (or input) when overlay opens
+    setTimeout(function () { closeBtn.focus(); }, 150);
+    // Fix 2: attach focus trap listener
+    overlay.addEventListener('keydown', trapFocus);
+    // Fix 6: start inactivity timer
+    resetInactivityTimer();
   }
 
   function closeChat() {
-    isOpen = false;
-    overlay.classList.remove('open');
+    overlay.classList.remove('open'); // Fix 10: use only class check — removed isOpen variable
     overlay.setAttribute('aria-hidden', 'true');
     btn.classList.remove('nca-chat-open');
     btn.setAttribute('aria-expanded', 'false');
+    // Fix 2: remove focus trap listener
+    overlay.removeEventListener('keydown', trapFocus);
+    // Fix 1: return focus to the element that opened the chat
+    if (_lastFocusedBeforeOpen && typeof _lastFocusedBeforeOpen.focus === 'function') {
+      _lastFocusedBeforeOpen.focus();
+    }
+    // Fix 6: clear inactivity timer when chat is closed
+    if (inactivityTimeout) { clearTimeout(inactivityTimeout); inactivityTimeout = null; }
   }
 
   /* ── Update send button state ── */
@@ -408,24 +503,30 @@
     chipsEl.innerHTML = '';
     if (!followUps || followUps.length === 0) return;
     followUps.forEach(function (q) {
-      var chip = document.createElement('button');
-      chip.className = 'nca-chip';
-      chip.textContent = q;
-      chip.addEventListener('click', function () {
-        sendMessage(q);
-      });
-      chipsEl.appendChild(chip);
+      chipsEl.appendChild(makeChip(q)); // Fix 3: uses makeChip for keyboard support
     });
   }
 
   /* ── API Call (non-streaming) ── */
   async function callChatAPI(msgPayload) {
-    var res = await fetch('/api/chat', {
+    /* Fix 8: wrap fetch with a 15-second Promise.race timeout */
+    var controller = new AbortController();
+    var timeoutId = setTimeout(function () { controller.abort(); }, 15000);
+    var timeoutPromise = new Promise(function (_, reject) {
+      setTimeout(function () { reject(new Error('API_TIMEOUT')); }, 15000);
+    });
+    var fetchPromise = fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: msgPayload, pageContext: getPageContext() }),
-      signal: AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined
+      signal: controller.signal
     });
+    var res;
+    try {
+      res = await Promise.race([fetchPromise, timeoutPromise]);
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     var data;
     try {
@@ -466,17 +567,43 @@
   /* ── Send Message (streaming with non-streaming fallback) ── */
   async function sendMessage(text) {
     text = (text || input.value).trim();
-    if (!text || isLoading) return;
+    if (!text) return;
+
+    // Fix 11: strip HTML tags from user input before processing
+    text = text.replace(/<[^>]*>/g, '');
+    if (!text) return;
+
+    // Fix 9: if already sending, queue the message for after current completes
+    if (isSending) {
+      messageQueue.push(text);
+      return;
+    }
+
+    // Fix 5: client-side rate limiting (max 5 messages per 30 seconds)
+    var now = Date.now();
+    rateLimitTimestamps = rateLimitTimestamps.filter(function (ts) { return now - ts < rateLimitWindow; });
+    if (rateLimitTimestamps.length >= rateLimitMax) {
+      addMsg('bot', 'Please slow down \u2014 you can send 5 messages per 30 seconds.', { plain: true });
+      return;
+    }
+    rateLimitTimestamps.push(now);
+
+    // Fix 6: reset inactivity timer on each user message
+    if (overlay.classList.contains('open')) resetInactivityTimer();
 
     chipsEl.innerHTML = '';
     input.value = '';
     input.style.height = '';
     isLoading = true;
+    isSending = true; // Fix 9
     updateSendBtn();
 
     addMsg('user', text);
     messages.push({ role: 'user', content: text });
     saveSession();
+
+    // Fix 4: set aria-busy on messages container while bot is generating
+    msgsEl.setAttribute('aria-busy', 'true');
 
     var typing = showTyping();
 
@@ -539,7 +666,7 @@
               copyBtn.textContent = 'Copy';
               copyBtn.classList.remove('copied');
             }, 1500);
-          });
+          }).catch(function (err) { console.warn('Clipboard unavailable', err); }); // Fix 7
         });
         msgDiv.appendChild(copyBtn);
 
@@ -557,7 +684,7 @@
         }
 
       } else {
-        /* ── Non-streaming fallback ── */
+        /* ── Non-streaming fallback with exponential backoff retry (Fix 13) ── */
         var data;
         try {
           data = await res.json();
@@ -565,9 +692,12 @@
           data = res.status === 404 ? { error: 'not_found' } : { error: 'unexpected_response', status: res.status };
         }
 
-        /* Auto-retry once on retryable server errors */
-        if (!data.reply && (data.retryable || res.status === 502 || res.status === 503 || res.status === 529)) {
-          await new Promise(function (r) { setTimeout(r, 1500); });
+        /* Fix 13: exponential backoff — up to 3 total attempts, delays: 1s, 2s, 4s */
+        var retryDelays = [1000, 2000, 4000];
+        var attempt = 0;
+        while (!data.reply && (data.retryable || res.status === 502 || res.status === 503 || res.status === 529) && attempt < retryDelays.length) {
+          await new Promise(function (r) { setTimeout(r, retryDelays[attempt]); });
+          attempt++;
           var retryResult = await callChatAPI(messages);
           res = retryResult.res;
           data = retryResult.data;
@@ -576,12 +706,12 @@
         typing.remove();
 
         if (data.reply) {
-          var parsed = parseFollowUps(data.reply);
-          addMsg('bot', parsed.body);
+          var parsedReply = parseFollowUps(data.reply);
+          addMsg('bot', parsedReply.body);
           messages.push({ role: 'assistant', content: data.reply });
           saveSession();
-          if (parsed.followUps.length > 0) {
-            showFollowUpChips(parsed.followUps);
+          if (parsedReply.followUps.length > 0) {
+            showFollowUpChips(parsedReply.followUps);
           }
         } else {
           var errText;
@@ -606,8 +736,9 @@
     } catch (e) {
       typing.remove();
       var netMsg;
-      if (e && e.name === 'TimeoutError') {
-        netMsg = 'The AI assistant took too long to respond. Please try again.';
+      // Fix 8: handle API_TIMEOUT from Promise.race as well as native TimeoutError
+      if (e && (e.message === 'API_TIMEOUT' || e.name === 'TimeoutError' || e.name === 'AbortError')) {
+        netMsg = 'Request timed out \u2014 please try again.';
       } else {
         netMsg = 'Unable to reach the AI assistant. Please check your internet connection.';
       }
@@ -615,13 +746,23 @@
       messages.pop();
     }
 
+    // Fix 4: remove aria-busy when bot is done generating
+    msgsEl.removeAttribute('aria-busy');
     isLoading = false;
+    isSending = false; // Fix 9
     updateSendBtn();
+
+    // Fix 9: process queued message if any
+    if (messageQueue.length > 0) {
+      var nextMsg = messageQueue.shift();
+      sendMessage(nextMsg);
+    }
   }
 
   /* ── Event Listeners ── */
   btn.addEventListener('click', function () {
-    isOpen ? closeChat() : openChat();
+    // Fix 10: use only class check — no isOpen variable
+    overlay.classList.contains('open') ? closeChat() : openChat();
   });
 
   closeBtn.addEventListener('click', closeChat);
@@ -644,7 +785,8 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && isOpen) closeChat();
+    // Fix 10: use only class check — no isOpen variable
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeChat();
   });
 
   /* ── Restore previous session on load ── */

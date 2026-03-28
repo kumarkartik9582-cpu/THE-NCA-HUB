@@ -55,6 +55,12 @@ Allow: /
 User-agent: FacebookBot
 Allow: /
 
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
 Sitemap: https://www.thencahub.com/sitemap.xml
 Sitemap: https://www.thencahub.com/sitemap-index.xml
 Sitemap: https://www.thencahub.com/sitemap-images.xml

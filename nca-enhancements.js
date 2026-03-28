@@ -162,6 +162,7 @@
 
   function initGA4Tracking() {
     // CTA clicks
+    // TODO: use event delegation to avoid per-element listeners
     document.querySelectorAll('.art-cta-btn, .art-notes-cta a, [href*="payhip.com"]').forEach(function (el) {
       el.addEventListener('click', function () {
         fire('cta_click', { cta_text: el.textContent.trim().slice(0, 50), page: window.location.pathname });
@@ -173,7 +174,7 @@
     if (nlForm) {
       nlForm.addEventListener('submit', function () {
         fire('newsletter_signup_attempt', { page: window.location.pathname });
-      });
+      }, { once: true });
     }
 
     // Chat open
@@ -204,6 +205,7 @@
     }
 
     // Share button clicks
+    // TODO: use event delegation to avoid per-element listeners
     document.querySelectorAll('.art-share a').forEach(function (el) {
       el.addEventListener('click', function () {
         var platform = el.href.includes('linkedin') ? 'linkedin'
@@ -245,6 +247,7 @@
     if (!('serviceWorker' in navigator)) return;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
       // A new SW has taken control — show refresh banner
+      if (document.getElementById('sw-update-banner')) return;
       var banner = document.getElementById('nca-sw-update');
       if (!banner) {
         banner = document.createElement('div');
@@ -265,6 +268,109 @@
     });
   }
 
+  /* ─── 10. MAGNETIC BUTTON EFFECT ────────────────────────────────── */
+  function initMagneticButtons() {
+    if (REDUCED) return;
+    if (typeof gsap === 'undefined') return;
+    document.querySelectorAll('.cta-primary, .art-cta-btn, [data-magnetic]').forEach(function(btn) {
+      btn.addEventListener('mousemove', function(e) {
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.25;
+        var y = (e.clientY - r.top - r.height / 2) * 0.25;
+        gsap.to(btn, { x: x, y: y, duration: 0.4, ease: 'power3.out' });
+      });
+      btn.addEventListener('mouseleave', function() {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' });
+      });
+    });
+  }
+
+  /* ─── 11. ANIMATED STAT COUNTERS ────────────────────────────────── */
+  function initCounterAnimations() {
+    if (REDUCED) return;
+    var counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
+    if (!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var suffix = el.getAttribute('data-count-suffix') || '';
+        var duration = 1500;
+        var start = performance.now();
+        function step(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(el) { obs.observe(el); });
+    window.addEventListener('beforeunload', function() { obs.disconnect(); }, { once: true });
+  }
+
+  /* ─── 12. COOKIE CONSENT BANNER ────────────────────────────────────── */
+  function initCookieConsent() {
+    var consent = localStorage.getItem('cookie-consent');
+    if (consent) return; // already decided
+
+    var banner = document.createElement('div');
+    banner.id = 'nca-cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Cookie consent');
+    banner.style.cssText =
+      'position:fixed;bottom:0;left:0;right:0;z-index:99999;' +
+      'background:#0D0D18;border-top:1px solid rgba(201,168,76,.2);' +
+      'padding:16px 24px;display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;' +
+      'font-family:"Bricolage Grotesque","Helvetica Neue",sans-serif;font-size:.82rem;' +
+      'color:#998E7C;box-shadow:0 -4px 24px rgba(0,0,0,.5);';
+
+    var text = document.createElement('p');
+    text.style.cssText = 'flex:1;min-width:240px;margin:0;line-height:1.6;';
+    text.innerHTML =
+      'We use cookies for analytics to improve your experience. By continuing, you accept our ' +
+      '<a href="/cookie-policy/" style="color:#C9A84C;text-underline-offset:3px;">cookie policy</a>.';
+
+    var btnWrap = document.createElement('div');
+    btnWrap.style.cssText = 'display:flex;gap:10px;flex-shrink:0;';
+
+    var btnAccept = document.createElement('button');
+    btnAccept.textContent = 'Accept';
+    btnAccept.style.cssText =
+      'background:#C9A84C;color:#020204;border:none;padding:9px 22px;' +
+      'font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.12em;' +
+      'text-transform:uppercase;cursor:pointer;border-radius:4px;transition:background .2s;';
+    btnAccept.addEventListener('click', function () {
+      try { localStorage.setItem('cookie-consent', 'accepted'); } catch (e) {}
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+      banner.remove();
+    });
+
+    var btnDecline = document.createElement('button');
+    btnDecline.textContent = 'Decline';
+    btnDecline.style.cssText =
+      'background:transparent;color:#6B6257;border:1px solid rgba(107,98,87,.4);' +
+      'padding:9px 22px;font-family:inherit;font-size:.78rem;font-weight:500;' +
+      'letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:color .2s,border-color .2s;';
+    btnDecline.addEventListener('click', function () {
+      try { localStorage.setItem('cookie-consent', 'declined'); } catch (e) {}
+      banner.remove();
+    });
+
+    btnWrap.appendChild(btnAccept);
+    btnWrap.appendChild(btnDecline);
+    banner.appendChild(text);
+    banner.appendChild(btnWrap);
+    document.body.appendChild(banner);
+  }
+
   /* ─── INIT ──────────────────────────────────────────────────────────── */
   function init() {
     calcReadingTime();
@@ -276,6 +382,9 @@
     initGA4Tracking();
     initHelpfulWidget();
     initSWUpdateBanner();
+    initMagneticButtons();
+    initCounterAnimations();
+    initCookieConsent();
     window.addEventListener('hashchange', highlightTargetSection);
   }
 

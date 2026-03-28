@@ -365,5 +365,11 @@
     "title": "NCA Glossary — Key Canadian Legal Terms for Exam Candidates",
     "desc": "Comprehensive glossary of Canadian legal terms for NCA candidates: standard of review, Vavilov, Charter rights, mens rea, procedural fairness, and more.",
     "h1": "NCA Glossary: Canadian Legal Terms"
-  }
+  },
+  {"url":"/community/","title":"NCA Candidate Community","desc":"Connect with other NCA candidates. Join WhatsApp study groups, Reddit, and Discord communities.","h1":"NCA Candidate Community"},
+  {"url":"/testimonials/","title":"Student Reviews — The NCA Hub","desc":"See what NCA candidates say about The NCA Hub study notes and preparation materials.","h1":"Student Reviews"},
+  {"url":"/nca-statistics/","title":"NCA Statistics 2026 — Pass Rates & Exam Data","desc":"Official NCA exam statistics, pass rates, candidate numbers, and fee information for 2026.","h1":"NCA Statistics 2026"},
+  {"url":"/study-schedule-generator/","title":"NCA Study Schedule Generator","desc":"Build a personalised NCA exam study schedule based on your timeline and subjects.","h1":"NCA Study Schedule Generator"},
+  {"url":"/province-comparison/","title":"NCA Province Comparison — Ontario vs BC vs Alberta","desc":"Compare lawyer licensing requirements across Canadian provinces for internationally trained lawyers.","h1":"Province Comparison"},
+  {"url":"/nca-practice-questions/","title":"NCA Practice Questions Generator — AI-Powered","desc":"Generate realistic NCA challenge exam practice questions with instant AI IRAC feedback.","h1":"NCA Practice Questions Generator"}
 ]

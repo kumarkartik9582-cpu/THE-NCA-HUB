@@ -1,1 +1,14 @@
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+fix_*.py
+sprint_*.py
+rebuild_*.py
+nuclear_*.py
+node_modules/
+*.bak
+.env
+.env.local
+.DS_Store
+.claude/
