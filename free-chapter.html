@@ -50,9 +50,14 @@
   .footer{margin-top:48px;font-size:.6rem;color:var(--dim);text-align:center;}
   .footer a{color:var(--fog);text-decoration:none;}
   @media(max-width:520px){.card{padding:36px 24px;}}
+@view-transition{navigation:auto;}
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body>
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 
 <a href="/" class="logo">The NCA Hub</a>
 
@@ -144,5 +149,6 @@ function init() {
 
 init();
 </script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

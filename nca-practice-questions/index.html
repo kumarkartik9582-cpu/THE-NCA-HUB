@@ -155,9 +155,14 @@ footer{border-top:1px solid rgba(201,168,76,.1);padding:48px 32px 32px;margin-to
 .fleg{font-size:.72rem;color:var(--dim);letter-spacing:.08em}
 .f-disc{max-width:960px;margin:16px auto 0;font-size:.65rem;color:var(--dim);line-height:1.7;text-align:center}
 .f-disc a{color:var(--dim)}
+@view-transition{navigation:auto;}
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body>
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 <div id="prog"></div>
 
@@ -513,5 +518,6 @@ footer{border-top:1px solid rgba(201,168,76,.1);padding:48px 32px 32px;margin-to
 <script src="/nca-enhancements.js" defer></script>
 <script src="/nca-search.js" defer></script>
 <script src="/nca-chat-widget.js" defer></script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

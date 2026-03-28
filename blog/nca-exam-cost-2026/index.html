@@ -237,6 +237,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .art-cta-btn:hover{transform:translateY(-2px);background:var(--g0)}
 .art-back{display:block;margin-top:32px;font-size:var(--nano,.57rem);letter-spacing:.24em;text-transform:uppercase;color:var(--dim);transition:color .3s}
 .art-back:hover{color:var(--g1)}
+@view-transition{navigation:auto;}
 </style>
 <style>
 /* === NCA HUB: DESIGN SYSTEM ENFORCEMENT ===
@@ -279,8 +280,12 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .article-body strong { color:var(--cream); }
 .article-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body class="has-sticky-cta">
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain" aria-hidden="true"></div>
@@ -614,5 +619,6 @@ if('serviceWorker' in navigator){
   });
 })();
 </script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

@@ -73,9 +73,14 @@ footer a:hover{color:var(--g1);}
 @media(max-width:960px){footer{padding:40px 24px;}}
 
 @media print{nav,footer{display:none!important;}body{background:#fff;color:#000;}a::after{content:" (" attr(href) ")";font-size:.8em;color:#555;}}
+@view-transition{navigation:auto;}
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body>
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <a class="skip-nav" href="#main-content">Skip to main content</a>
 
 <nav aria-label="Main navigation">
@@ -185,5 +190,6 @@ footer a:hover{color:var(--g1);}
 
 <script src="/nca-enhancements.js" defer></script>
 <script src="/nca-chat-widget.js" defer></script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

@@ -359,6 +359,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 
 .art-body *,.article-body *{font-family:inherit;line-height:inherit}
 .art-body > *:first-child,.article-body > *:first-child{margin-top:0}
+@view-transition{navigation:auto;}
 </style>
 <!-- Google Analytics GA4 -->
 <!-- Google Analytics 4 — consent mode -->
@@ -470,8 +471,12 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .article-body strong { color:var(--cream); }
 .article-body hr { border:none; border-top:1px solid rgba(201,168,76,.12); margin:2.5em 0; }
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body class="has-sticky-cta">
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain" aria-hidden="true"></div>
@@ -1176,5 +1181,6 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

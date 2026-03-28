@@ -73,6 +73,7 @@ h1 em{font-style:italic;color:var(--g1);}
 /* Reset button */
 .reset-btn{background:none;border:1px solid rgba(201,168,76,.2);color:var(--dim);padding:8px 20px;font-family:var(--fb);font-size:var(--nano);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:all .3s;margin-top:32px;}
 .reset-btn:hover{border-color:var(--g1);color:var(--g1);}
+@view-transition{navigation:auto;}
 </style>
 <!-- Microsoft Clarity — replace CLARITY_PROJECT_ID with your project ID from clarity.microsoft.com -->
 <!-- ACTIVATE: Remove these comment tags after adding your project ID -->
@@ -108,8 +109,12 @@ h1 em{font-style:italic;color:var(--g1);}
 .nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
 .nca-skip-nav:focus{top:0}
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body>
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <div class="grain"></div>
@@ -342,5 +347,6 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

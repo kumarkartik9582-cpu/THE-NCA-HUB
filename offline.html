@@ -21,9 +21,14 @@ p{font-size:.95rem;color:var(--fog);line-height:1.7;max-width:440px;margin:0 aut
 .links a{display:block;padding:12px 20px;border:1px solid rgba(201,168,76,.25);color:var(--g1);text-decoration:none;border-radius:8px;font-size:.85rem;letter-spacing:.05em;transition:background .2s}
 .links a:hover{background:rgba(201,168,76,.08)}
 .note{margin-top:40px;font-size:.75rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+@view-transition{navigation:auto;}
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body>
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <main id="main-content">
 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
   <line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
@@ -40,5 +45,6 @@ p{font-size:.95rem;color:var(--fog);line-height:1.7;max-width:440px;margin:0 aut
 </div>
 <p class="note">The NCA Hub · Pages cached for offline reading</p>
 </main>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>

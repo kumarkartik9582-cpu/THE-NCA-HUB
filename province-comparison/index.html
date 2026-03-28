@@ -214,9 +214,14 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
   .comp-table td:first-child{width:130px;font-size:.72rem}
   .quiz-options{flex-direction:column}
 }
+@view-transition{navigation:auto;}
 </style>
+<link rel="stylesheet" href="/nca-premium.css">
 </head>
 <body>
+<canvas id="ambient-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;"></canvas>
+<canvas id="trail-cv" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9996;"></canvas>
+
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 <div id="prog" style="position:fixed;top:0;left:0;height:3px;background:#C9A84C;z-index:9999;width:0"></div>
 
@@ -566,5 +571,6 @@ function runQuiz(){
 <script src="/nca-enhancements.js" defer></script>
 <script src="/nca-search.js" defer></script>
 <script src="/nca-chat-widget.js" defer></script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>
