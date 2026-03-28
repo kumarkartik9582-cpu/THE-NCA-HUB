@@ -1,0 +1,217 @@
+/**
+ * NCA Hub — Premium CSS Layer
+ * Awwwards-level visual polish: glassmorphism, smooth hovers,
+ * selection styles, scrollbar, focus rings, print, and dark mode.
+ *
+ * Loaded on every page via <link rel="stylesheet" href="/nca-premium.css">
+ */
+
+/* ─── Custom Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,.5); }
+
+/* ─── Text Selection ──────────────────────────────────────── */
+::selection { background: rgba(201,168,76,.25); color: #F0D878; }
+::-moz-selection { background: rgba(201,168,76,.25); color: #F0D878; }
+
+/* ─── Focus Visible — consistent gold ring ────────────────── */
+:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ─── Glassmorphism cards ─────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,.04);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+}
+
+/* Auto-glass on pod cards and note cards that match Awwwards feel */
+.pod-card,
+.note-card,
+.sc2 {
+  transition: transform .35s cubic-bezier(.23,1,.32,1),
+              box-shadow .35s cubic-bezier(.23,1,.32,1),
+              border-color .35s ease;
+}
+
+.pod-card:hover,
+.note-card:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.15), 0 0 40px rgba(201,168,76,.08);
+}
+
+/* ─── Link hover underline animation ─────────────────────── */
+.animated-link {
+  text-decoration: none;
+  background-image: linear-gradient(#C9A84C, #C9A84C);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size .3s ease;
+}
+.animated-link:hover { background-size: 100% 1px; }
+
+/* ─── Button glow on hover ───────────────────────────────── */
+.nc:hover,
+.bp:hover,
+.cta-primary:hover {
+  box-shadow: 0 0 30px rgba(201,168,76,.4), 0 8px 20px rgba(0,0,0,.3);
+}
+
+/* ─── Art card image zoom ─────────────────────────────────── */
+.art-card,
+.art-grid-item,
+.lg-art {
+  overflow: hidden;
+}
+
+.art-card img,
+.art-grid-item img,
+.lg-art img {
+  transition: transform .6s cubic-bezier(.23,1,.32,1);
+}
+
+.art-card:hover img,
+.art-grid-item:hover img,
+.lg-art:hover img {
+  transform: scale(1.04);
+}
+
+/* ─── Gradient text utility ───────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #F0D878 0%, #C9A84C 40%, #9E7B30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Noise texture on sections ───────────────────────────── */
+.noise-bg {
+  position: relative;
+}
+.noise-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+}
+
+/* ─── Horizontal rule gold glow ───────────────────────────── */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.3), transparent);
+  margin: 2rem 0;
+}
+
+/* ─── Badge / chip component ─────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: .65rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(201,168,76,.12);
+  border: 1px solid rgba(201,168,76,.25);
+  color: #C9A84C;
+}
+
+/* ─── Tooltip ─────────────────────────────────────────────── */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13,13,24,.95);
+  color: #EDE5CE;
+  font-size: .75rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease;
+  transform: translateX(-50%) translateY(4px);
+  border: 1px solid rgba(201,168,76,.2);
+  z-index: 1000;
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Smooth image loading ─────────────────────────────────── */
+img {
+  transition: opacity .3s ease;
+}
+img[loading] {
+  opacity: 0;
+}
+img.loaded,
+img:not([loading]) {
+  opacity: 1;
+}
+
+/* ─── Skip to content ─────────────────────────────────────── */
+.skip-nav:focus {
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 99999;
+}
+
+/* ─── Print styles ────────────────────────────────────────── */
+@media print {
+  #nca-scroll-prog,
+  #sfx-toggle,
+  #ambient-cv,
+  #trail-cv,
+  [id^="nca-chat"],
+  nav {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: .8em;
+    color: #555;
+  }
+}
+
+/* ─── Reduced motion overrides ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .nca-letter { opacity: 1 !important; transform: none !important; }
+  .nca-fade { opacity: 1 !important; transform: none !important; }
+}
+
+/* ─── High contrast mode ───────────────────────────────────── */
+@media (forced-colors: active) {
+  .nc, .bp, .cta-primary {
+    forced-color-adjust: none;
+  }
+}
