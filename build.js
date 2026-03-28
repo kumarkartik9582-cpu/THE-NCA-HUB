@@ -986,6 +986,13 @@ function build() {
     if (fs.existsSync(outFile)) {
       console.log(`  ⏭️   ${slug}/index.html — skipped`);
       skipped++;
+      // Still add to sitemap even if skipped
+      sitemapURLs.push({
+        loc:        canonicalURL,
+        priority:   '0.9',
+        changefreq: 'monthly',
+        lastmod:    new Date().toISOString().slice(0,10),
+      });
       return;
     }
     const html = buildHTML({ slug, title, description, cluster, clusterLabel, readTime, bodyHTML, canonicalURL, datePublished, dateModified, faqSchema });

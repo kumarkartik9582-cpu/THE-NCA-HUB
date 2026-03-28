@@ -2,12 +2,14 @@
 <html lang="en-CA">
 <head>
 <meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="ai-content-declaration" content="human-authored">
 <title>NCA Complete Bundle — All 5 Mandatory Subject Notes | The NCA Hub</title>
 <meta name="description" content="The complete NCA notes bundle covers all 5 mandatory core subjects: Administrative Law, Constitutional Law, Criminal Law, Foundations of Canadian Law, and Professional Responsibility.">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#C9A84C">
+<meta name="msapplication-TileColor" content="#C9A84C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NCA Hub">
@@ -412,7 +414,7 @@ nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex
       <p style="font-family:var(--fd);font-size:1.2rem;color:var(--cream);margin-bottom:10px;">Assigned elective subjects?</p>
       <p style="font-size:var(--sm);color:var(--fog);line-height:1.7;margin-bottom:20px;">If your individual NCA assessment has assigned elective subjects (Contracts, Torts, Property Law, Business Organisations), those notes are in development. Join the waitlist below.</p>
       <form id="elective-waitlist" onsubmit="submitNotify(event,'elective-waitlist','Elective Notes Waitlist')" style="display:flex;gap:12px;flex-wrap:wrap;">
-        <input type="email" name="email" placeholder="your@email.com" required style="flex:1;min-width:200px;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;">
+        <input type="email" name="email" placeholder="your@email.com" required style="flex:1;min-width:200px;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);color:var(--cream);padding:14px 18px;font-family:var(--fb);font-size:var(--body);outline:none;" autocomplete="email">
         <button type="submit" style="background:var(--g1);color:var(--void);border:none;padding:14px 28px;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;white-space:nowrap;">Join Waitlist</button>
       </form>
       <p id="elective-waitlist-msg" style="margin-top:12px;font-size:var(--sm);color:var(--g1);display:none;">You're on the waitlist. We'll email you when elective notes are ready.</p>

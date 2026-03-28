@@ -5,7 +5,7 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /manifest.json
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600
 
 /sw.js
   Cache-Control: no-cache, no-store, must-revalidate
@@ -23,9 +23,9 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
-  X-XSS-Protection: 1; mode=block
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.anthropic.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://payhip.com; frame-src https://payhip.com; object-src 'none'; base-uri 'self';
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), accelerometer=(), gyroscope=(), magnetometer=(), usb=(), bluetooth=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://api.anthropic.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://payhip.com https://cdn.jsdelivr.net; frame-src https://payhip.com; object-src 'none'; base-uri 'self';

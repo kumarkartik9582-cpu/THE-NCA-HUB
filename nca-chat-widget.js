@@ -217,7 +217,10 @@
       // Inline code
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       // Links
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(m, text, url) {
+        var safe = /^https?:\/\//.test(url.trim()) ? url.trim() : '#';
+        return '<a href="' + safe + '" target="_blank" rel="noopener noreferrer">' + text + '</a>';
+      })
       // Unordered lists (- item)
       .replace(/^[-*] (.+)$/gm, '<li>$1</li>')
       // Numbered lists (1. item)

@@ -265,6 +265,51 @@
     });
   }
 
+  /* ─── 10. MAGNETIC BUTTON EFFECT ────────────────────────────────── */
+  function initMagneticButtons() {
+    if (REDUCED) return;
+    if (typeof gsap === 'undefined') return;
+    document.querySelectorAll('.cta-primary, .art-cta-btn, [data-magnetic]').forEach(function(btn) {
+      btn.addEventListener('mousemove', function(e) {
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.25;
+        var y = (e.clientY - r.top - r.height / 2) * 0.25;
+        gsap.to(btn, { x: x, y: y, duration: 0.4, ease: 'power3.out' });
+      });
+      btn.addEventListener('mouseleave', function() {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' });
+      });
+    });
+  }
+
+  /* ─── 11. ANIMATED STAT COUNTERS ────────────────────────────────── */
+  function initCounterAnimations() {
+    if (REDUCED) return;
+    var counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
+    if (!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var suffix = el.getAttribute('data-count-suffix') || '';
+        var duration = 1500;
+        var start = performance.now();
+        function step(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(el) { obs.observe(el); });
+  }
+
   /* ─── INIT ──────────────────────────────────────────────────────────── */
   function init() {
     calcReadingTime();
@@ -276,6 +321,8 @@
     initGA4Tracking();
     initHelpfulWidget();
     initSWUpdateBanner();
+    initMagneticButtons();
+    initCounterAnimations();
     window.addEventListener('hashchange', highlightTargetSection);
   }
 

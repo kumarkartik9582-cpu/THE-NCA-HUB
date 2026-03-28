@@ -2,6 +2,7 @@
 <html lang="en-CA">
 <head>
 <meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Free NCA Exam Guides &amp; Articles (2026) | The NCA Hub</title>
 <meta name="description" content="44 free NCA exam guides for internationally trained lawyers in Canada. Covers all 5 NCA subjects, exam strategy, costs, appeals, language requirements, monthly session guides, and more. Written by someone who passed all 5 NCA subjects.">
@@ -10,6 +11,7 @@
 <meta property="og:url" content="https://www.thencahub.com/blog/">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#C9A84C">
+<meta name="msapplication-TileColor" content="#C9A84C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NCA Hub">
@@ -1514,9 +1516,7 @@ document.querySelectorAll('.page-link').forEach(function(link){
 <script>
 if("serviceWorker" in navigator){
   window.addEventListener("load",function(){
-    navigator.serviceWorker.register("/sw.js")
-      .then(function(reg){ console.log("SW registered"); })
-      .catch(function(err){ console.log("SW registration failed:",err); });
+    navigator.serviceWorker.register("/sw.js");
   });
 }
 </script>
