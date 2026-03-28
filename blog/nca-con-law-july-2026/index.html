@@ -144,6 +144,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
 .related-card:hover{border-color:rgba(201,168,76,.35);color:var(--cream)}
 .art-body *,.article-body *{font-family:inherit;line-height:inherit}
 .art-body > *:first-child,.article-body > *:first-child{margin-top:0}
+@view-transition{navigation:auto;}
 </style>
 <style id="toc-styles">
 /* ── Table of Contents ── */
@@ -934,5 +935,6 @@ function submitNotify(e,formId,subject){
 <script>
 (function(){try{if(typeof Lenis!=='undefined'){var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}document.documentElement.style.scrollBehavior='auto';}}catch(e){document.documentElement.style.scrollBehavior='smooth';}})();
 </script>
+<script src="/nca-world-class.js" defer></script>
 </body>
 </html>
