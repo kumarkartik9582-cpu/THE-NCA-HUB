@@ -701,4 +701,284 @@
     document.head.appendChild(s);
   })();
 
+  /* ═══════════════════════════════════════════════════════════
+     15. MAGNETIC BUTTONS — CTA buttons attract cursor (Awwwards staple)
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (IS_MOBILE || REDUCED) return;
+
+    function attachMagnetic(el) {
+      if (el.dataset.magAttached) return;
+      el.dataset.magAttached = '1';
+      var strength = 0.35;
+
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        var cx = r.left + r.width / 2;
+        var cy = r.top + r.height / 2;
+        var dx = (e.clientX - cx) * strength;
+        var dy = (e.clientY - cy) * strength;
+        el.style.transform = 'translate(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px) scale(1.04)';
+        el.style.transition = 'transform 0.15s ease';
+      });
+
+      el.addEventListener('mouseleave', function () {
+        el.style.transform = '';
+        el.style.transition = 'transform 0.5s cubic-bezier(.23,1,.32,1)';
+      });
+    }
+
+    function hookMagnetic() {
+      document.querySelectorAll('.nc, .bp, .cta-primary, [data-magnetic]').forEach(attachMagnetic);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hookMagnetic);
+    } else {
+      hookMagnetic();
+    }
+    var mo = new MutationObserver(hookMagnetic);
+    mo.observe(document.body, { childList: true, subtree: true });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     16. FILM GRAIN OVERLAY — SVG feTurbulence noise texture
+     Adds premium tactile depth (used by every Awwwards SOTD)
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (REDUCED) return;
+    if (document.getElementById('nca-grain')) return;
+
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="300" height="300" filter="url(#grain)" opacity="0.08"/></svg>';
+    var encoded = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+
+    var s = document.createElement('style');
+    s.id = 'nca-grain';
+    s.textContent = [
+      'body::before{',
+      '  content:"";',
+      '  position:fixed;inset:0;',
+      '  pointer-events:none;',
+      '  z-index:9999;',
+      '  background-image:url("' + encoded + '");',
+      '  background-repeat:repeat;',
+      '  background-size:200px 200px;',
+      '  opacity:0.035;',
+      '  mix-blend-mode:overlay;',
+      '  animation:grain-shift 8s steps(10) infinite;',
+      '}',
+      '@keyframes grain-shift{',
+      '  0%{background-position:0 0;}',
+      '  10%{background-position:-5% -10%;}',
+      '  20%{background-position:-15% 5%;}',
+      '  30%{background-position:7% -25%;}',
+      '  40%{background-position:-5% 25%;}',
+      '  50%{background-position:-15% 10%;}',
+      '  60%{background-position:15% 0%;}',
+      '  70%{background-position:0% 15%;}',
+      '  80%{background-position:3% 35%;}',
+      '  90%{background-position:-10% 10%;}',
+      '  100%{background-position:0 0;}',
+      '}'
+    ].join('');
+    document.head.appendChild(s);
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     17. 3D TILT EFFECT — Extend to all card elements
+     Adds perspective tilt on mouse hover (premium feel)
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (IS_MOBILE || REDUCED) return;
+
+    var TILT_CARDS = [
+      '.pod-card', '.art-card', '.art-grid-item', '.lg-art',
+      '.note-card', '.cg-card', '.tool-card', '.faq-item',
+      '.stat-card', '[data-tilt]'
+    ].join(',');
+
+    function attachTilt(el) {
+      if (el.dataset.tiltAttached) return;
+      el.dataset.tiltAttached = '1';
+      el.style.transformStyle = 'preserve-3d';
+      el.style.willChange = 'transform';
+
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        var rx = y * -10;
+        var ry = x * 10;
+        el.style.transform = 'perspective(800px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateZ(4px) scale(1.02)';
+        el.style.transition = 'transform 0.1s ease';
+      });
+
+      el.addEventListener('mouseleave', function () {
+        el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+        el.style.transition = 'transform 0.6s cubic-bezier(.23,1,.32,1)';
+      });
+    }
+
+    function hookTilt() {
+      try {
+        document.querySelectorAll(TILT_CARDS).forEach(attachTilt);
+      } catch (err) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hookTilt);
+    } else {
+      hookTilt();
+    }
+    var mo = new MutationObserver(hookTilt);
+    mo.observe(document.body, { childList: true, subtree: true });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     18. KINETIC TYPOGRAPHY — Letter-split entrance on headings
+     Splits h1/h2 text into spans and staggers them in
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (REDUCED) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    /* CSS for letter animation */
+    if (!document.getElementById('nca-kinetic-style')) {
+      var s = document.createElement('style');
+      s.id = 'nca-kinetic-style';
+      s.textContent = [
+        '.nca-letter{',
+        '  display:inline-block;',
+        '  opacity:0;',
+        '  transform:translateY(0.5em) rotate(3deg);',
+        '  transition:opacity 0.5s ease, transform 0.5s cubic-bezier(.23,1,.32,1);',
+        '}',
+        '.nca-letter.in{opacity:1;transform:translateY(0) rotate(0deg);}',
+        '.nca-word{display:inline-block;overflow:hidden;vertical-align:bottom;}'
+      ].join('');
+      document.head.appendChild(s);
+    }
+
+    function splitEl(el) {
+      if (el.dataset.kineticDone) return;
+      el.dataset.kineticDone = '1';
+      var text = el.textContent;
+      var words = text.split(' ');
+      el.innerHTML = words.map(function (word) {
+        var letters = word.split('').map(function (ch) {
+          return '<span class="nca-letter">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>';
+        }).join('');
+        return '<span class="nca-word">' + letters + '</span>';
+      }).join(' ');
+    }
+
+    function animateEl(el) {
+      var letters = el.querySelectorAll('.nca-letter');
+      letters.forEach(function (lt, i) {
+        setTimeout(function () { lt.classList.add('in'); }, i * 28);
+      });
+    }
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        animateEl(entry.target);
+      });
+    }, { threshold: 0.2 });
+
+    /* Only apply to section headings, not nav or footer */
+    document.querySelectorAll('main h1, main h2, .hero-title, [data-kinetic]').forEach(function (el) {
+      /* Skip elements that already have children (icons, spans, etc.) */
+      if (el.children.length > 0) return;
+      /* Skip very short/already animated */
+      if (el.textContent.trim().length < 3) return;
+      splitEl(el);
+      obs.observe(el);
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     19. SCROLL PROGRESS BAR — Gold line at top of viewport
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (document.getElementById('nca-scroll-prog')) return;
+
+    var bar = document.createElement('div');
+    bar.id = 'nca-scroll-prog';
+    bar.setAttribute('role', 'progressbar');
+    bar.setAttribute('aria-label', 'Page scroll progress');
+    bar.style.cssText = [
+      'position:fixed', 'top:0', 'left:0', 'z-index:9000',
+      'height:2px', 'width:0%',
+      'background:linear-gradient(90deg,#9E7B30,#C9A84C,#F0D878)',
+      'box-shadow:0 0 8px rgba(201,168,76,0.6)',
+      'transition:width .05s linear',
+      'pointer-events:none'
+    ].join(';');
+    document.body.appendChild(bar);
+
+    window.addEventListener('scroll', function () {
+      var scrolled = window.scrollY;
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = total > 0 ? (scrolled / total * 100).toFixed(2) : 0;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+
+  /* ═══════════════════════════════════════════════════════════
+     20. STAGGERED FADE-IN for all section content
+     IntersectionObserver-based entrance for any .fade-up element
+     Auto-applies to common content blocks
+     ═══════════════════════════════════════════════════════════ */
+  (function () {
+    if (REDUCED) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    if (!document.getElementById('nca-fadein-style')) {
+      var s = document.createElement('style');
+      s.id = 'nca-fadein-style';
+      s.textContent = [
+        '.nca-fade{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.23,1,.32,1);}',
+        '.nca-fade.nca-visible{opacity:1;transform:translateY(0);}'
+      ].join('');
+      document.head.appendChild(s);
+    }
+
+    var AUTO_SELECTORS = [
+      '.pod-card', '.art-card', '.art-grid-item',
+      '.cg-card', '.tool-card', '.note-card',
+      '.faq-item', '.stat-block', '.testimonial-card',
+      '[data-fade]'
+    ].join(',');
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        entry.target.classList.add('nca-visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    function hookFade() {
+      try {
+        document.querySelectorAll(AUTO_SELECTORS).forEach(function (el, i) {
+          if (el.dataset.fadeHooked) return;
+          el.dataset.fadeHooked = '1';
+          el.classList.add('nca-fade');
+          el.style.transitionDelay = (Math.min(i % 6, 5) * 0.08) + 's';
+          obs.observe(el);
+        });
+      } catch (err) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hookFade);
+    } else {
+      hookFade();
+    }
+    var mo = new MutationObserver(hookFade);
+    mo.observe(document.body, { childList: true, subtree: true });
+  })();
+
 })();
