@@ -121,7 +121,7 @@
         s.x += s.vx; s.y += s.vy; s.vy += 0.04; s.life -= s.decay;
         var a = s.life * 0.7;
         cx.beginPath();
-        cx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
+        cx.arc(s.x, s.y, Math.max(0, s.size * s.life), 0, Math.PI * 2);
         if (s.gold) {
           cx.fillStyle = 'rgba(201,168,76,' + a + ')';
         } else {
