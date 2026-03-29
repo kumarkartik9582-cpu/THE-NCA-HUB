@@ -211,3 +211,121 @@ img {
     forced-color-adjust: none;
   }
 }
+
+/* ─── Nav letter-spacing micro-animation ──────────────────── */
+.nav-links a {
+  transition: color .3s, letter-spacing .4s cubic-bezier(.23,1,.32,1), font-variation-settings .3s !important;
+}
+.nav-links a:hover {
+  letter-spacing: .36em;
+}
+
+/* ─── Section eyebrow label glow ─────────────────────────── */
+.ey {
+  text-shadow: 0 0 20px rgba(201,168,76,.25);
+}
+
+/* ─── Deeper card hover shadows ──────────────────────────── */
+.pod-card:hover,
+.note-card:hover,
+.art-card:hover,
+.art-grid-item:hover,
+.cg-card:hover,
+.tool-card:hover {
+  box-shadow: 0 32px 80px rgba(0,0,0,.6),
+              0 0 0 1px rgba(201,168,76,.18),
+              0 0 60px rgba(201,168,76,.07);
+  transform: translateY(-4px);
+}
+
+/* ─── Premium italic heading colour pulse ─────────────────── */
+.sh em, .story-ch-head em {
+  background: linear-gradient(135deg, #F0D878 0%, #C9A84C 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(201,168,76,.3));
+}
+
+/* ─── Stat/proof number glow ─────────────────────────────── */
+.psn, .bsn, .scrub-val {
+  background: linear-gradient(180deg, #F0D878 0%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 16px rgba(201,168,76,.35));
+}
+
+/* ─── Border shimmer on section dividers ─────────────────── */
+.sec::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(201,168,76,.06) 15%,
+    rgba(201,168,76,.18) 50%,
+    rgba(201,168,76,.06) 85%,
+    transparent 100%);
+  margin-bottom: 0;
+}
+
+/* ─── Button inner shine (shimmer sweep) ─────────────────── */
+.bp, .nc {
+  position: relative;
+  overflow: hidden;
+}
+.bp::before, .nc::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,.12) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: left 0s;
+}
+.bp:hover::before, .nc:hover::before {
+  left: 150%;
+  transition: left .65s cubic-bezier(.23,1,.32,1);
+}
+
+/* ─── Pricing card gold accent on feature row ─────────────── */
+.price-card .pf-item::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #C9A84C;
+  margin-right: 10px;
+  vertical-align: middle;
+  box-shadow: 0 0 6px rgba(201,168,76,.6);
+}
+
+/* ─── Gold cursor ring when over headings ─────────────────── */
+h1:hover, h2:hover, .split-heading:hover {
+  cursor: default;
+}
+
+/* ─── View transition cross-fade ─────────────────────────── */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root) {
+    animation: nca-vt-fade-out .28s cubic-bezier(.4,0,1,1) both;
+  }
+  ::view-transition-new(root) {
+    animation: nca-vt-fade-in .28s cubic-bezier(0,0,.2,1) both;
+  }
+  @keyframes nca-vt-fade-out {
+    to { opacity: 0; transform: scale(.98); }
+  }
+  @keyframes nca-vt-fade-in {
+    from { opacity: 0; transform: scale(1.01); }
+  }
+}

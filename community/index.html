@@ -144,12 +144,12 @@ h2{font-size:clamp(1.4rem,3vw,2rem);color:var(--cream);line-height:1.3;margin-bo
 .group-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(201,168,76,.06),transparent 60%);opacity:0;transition:opacity .3s}
 .group-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-3px);background:rgba(201,168,76,.06)}
 .group-card:hover::before{opacity:1}
-.group-card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:1.3rem}
-.icon-green{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.2)}
+.group-card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.icon-green{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25)}
 .group-card h3{font-family:Georgia,serif;font-size:1.05rem;font-weight:400;color:var(--cream);margin-bottom:8px}
 .group-card p{font-size:.84rem;color:var(--fog);line-height:1.7;margin-bottom:20px}
 .group-meta{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:.75rem;color:var(--dim)}
-.meta-dot{width:6px;height:6px;border-radius:50%;background:#25D166;flex-shrink:0}
+.meta-dot{width:5px;height:5px;border-radius:50%;background:#C9A84C;flex-shrink:0;box-shadow:0 0 6px rgba(201,168,76,.5)}
 .join-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);color:#4dd886;font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 18px;border-radius:6px;text-decoration:none;transition:background .3s,border-color .3s}
 .join-btn:hover{background:rgba(37,211,102,.25);border-color:rgba(37,211,102,.5);color:#4dd886}
 
@@ -295,7 +295,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
     <div class="groups-grid">
 
       <div class="group-card">
-        <div class="group-card-icon icon-green">💬</div>
+        <div class="group-card-icon icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <h3>General NCA Group</h3>
         <p>The main community hub. All subjects, all stages. Ask anything about the NCA process, share updates, and connect with candidates across Canada.</p>
         <div class="group-meta"><span class="meta-dot"></span> 200+ members · All subjects</div>
@@ -306,7 +306,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
 
       <div class="group-card">
-        <div class="group-card-icon icon-green">⚖️</div>
+        <div class="group-card-icon icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.5 5H21l-5.5 4 2 6L12 15l-5.5 3 2-6L3 8h6.5z"/></svg></div>
         <h3>Administrative Law Group</h3>
         <p>Dedicated to Admin Law exam prep. Discuss judicial review, tribunals, procedural fairness, and share practice questions with other Admin Law candidates.</p>
         <div class="group-meta"><span class="meta-dot"></span> 80+ members · Admin Law</div>
@@ -317,7 +317,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
 
       <div class="group-card">
-        <div class="group-card-icon icon-green">📜</div>
+        <div class="group-card-icon icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
         <h3>Constitutional Law Group</h3>
         <p>Con Law is the most complex NCA subject. This group focuses on Charter analysis, division of powers, and landmark cases. Weekly case study discussions.</p>
         <div class="group-meta"><span class="meta-dot"></span> 95+ members · Con Law</div>
@@ -328,7 +328,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
 
       <div class="group-card">
-        <div class="group-card-icon icon-green">🔍</div>
+        <div class="group-card-icon icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
         <h3>Criminal Law Group</h3>
         <p>Criminal Law, evidence, Charter rights, and the criminal process. Share case briefs and preparation strategies for one of the highest-volume NCA subjects.</p>
         <div class="group-meta"><span class="meta-dot"></span> 75+ members · Criminal Law</div>
@@ -339,7 +339,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
 
       <div class="group-card">
-        <div class="group-card-icon icon-green">🏛️</div>
+        <div class="group-card-icon icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
         <h3>Foundations of Canadian Law</h3>
         <p>FCL is often the first subject candidates take. This group covers Canadian legal history, Indigenous law, sources of law, and the Canadian legal system structure.</p>
         <div class="group-meta"><span class="meta-dot"></span> 60+ members · FCL</div>
@@ -350,7 +350,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
       </div>
 
       <div class="group-card">
-        <div class="group-card-icon icon-green">💼</div>
+        <div class="group-card-icon icon-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg></div>
         <h3>Professional Responsibility Group</h3>
         <p>Ethics, professional conduct, and the Model Code of Professional Conduct. PR is passable with focused study — this group keeps the strategy tight.</p>
         <div class="group-meta"><span class="meta-dot"></span> 55+ members · Prof. Responsibility</div>

@@ -35,7 +35,7 @@
   body{background:var(--void);color:#E8E8F0;font-family:var(--fb);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
   .logo{font-size:.65rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:48px;text-decoration:none;display:block;text-align:center;}
   .card{background:#0D0D16;border:1px solid rgba(201,168,76,.15);border-radius:4px;max-width:600px;width:100%;padding:52px 48px;text-align:center;}
-  .icon{font-size:3rem;margin-bottom:24px;display:block;}
+  .icon{display:flex;align-items:center;justify-content:center;margin:0 auto 24px;width:64px;height:64px;border-radius:50%;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);}
   h1{font-size:1.65rem;font-weight:700;color:#fff;letter-spacing:-.01em;margin-bottom:12px;line-height:1.25;}
   .sub{font-size:.9rem;color:var(--fog);line-height:1.7;margin-bottom:36px;}
   .subject-badge{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:6px 18px;border-radius:2px;margin-bottom:32px;}
@@ -62,7 +62,7 @@
 
 <main id="main-content">
 <div class="card" id="main-card">
-  <span class="icon">✓</span>
+  <span class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
   <div class="subject-badge" id="subject-badge">Loading…</div>
   <h1>Your free chapter is ready.</h1>
   <p class="sub" id="sub-text">Click below to download your free sample chapter. It opens as a PDF — save it to your device so you have it offline during exam prep.</p>
