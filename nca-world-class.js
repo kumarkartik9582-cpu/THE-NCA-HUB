@@ -537,49 +537,34 @@
   })();
 
   /* ═══════════════════════════════════════════════════════════
-     11. VIEW TRANSITIONS — Link intercept for enhanced cross-page feel
-     Adds a gold sweep when navigating (Chrome 111+ View Transitions API)
+     11. VIEW TRANSITIONS — Soft cross-fade when browser supports it
+     Only injects custom ::view-transition keyframes.
+     NO link intercept and NO navigation:auto CSS — both caused
+     black screens between pages. If a transition ever fires (e.g.
+     future same-page use), the custom keyframes prevent opacity:0 gaps.
      ═══════════════════════════════════════════════════════════ */
   (function () {
-    if (!document.startViewTransition || REDUCED) return;
-
-    /* Inject ::view-transition CSS if not present */
+    if (!document.startViewTransition) return;
     if (!document.getElementById('nca-vt-style')) {
       var s = document.createElement('style');
       s.id = 'nca-vt-style';
+      /* Cross-fade that never goes below 0.15 opacity — prevents black flash */
       s.textContent = [
         '::view-transition-old(root){',
-        '  animation:nca-vt-out 0.35s cubic-bezier(.4,0,.2,1) both;',
+        '  animation:nca-vt-out 0.3s ease both;',
         '}',
         '::view-transition-new(root){',
-        '  animation:nca-vt-in 0.35s cubic-bezier(.4,0,.2,1) both;',
+        '  animation:nca-vt-in 0.3s ease both;',
         '}',
         '@keyframes nca-vt-out{',
-        '  to{opacity:0;transform:translateY(-20px);}',
+        '  to{opacity:0.15;}',
         '}',
         '@keyframes nca-vt-in{',
-        '  from{opacity:0;transform:translateY(20px);}',
+        '  from{opacity:0.15;}',
         '}'
       ].join('');
       document.head.appendChild(s);
     }
-
-    /* Intercept same-origin link clicks */
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest('a[href]');
-      if (!a) return;
-      var href = a.href;
-      if (!href || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
-      try {
-        var url = new URL(href);
-        if (url.origin !== location.origin) return;
-        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-        e.preventDefault();
-        document.startViewTransition(function () {
-          window.location.href = href;
-        });
-      } catch (err) {}
-    }, { capture: true });
   })();
 
   /* ═══════════════════════════════════════════════════════════
@@ -633,44 +618,9 @@
       });
     }
 
-    /* Stagger the tool cards on enter */
-    var toolCards = document.querySelectorAll('#tools-grid > a');
-    if (toolCards.length) {
-      gsap.from(toolCards, {
-        y: 60, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#tools',
-          start: 'top 75%',
-          once: true
-        }
-      });
-    }
-
-    /* Blog article cards entrance */
-    var blogCards = document.querySelectorAll('#blog .art-card, #blog .lg-art, #blog .art-grid-item');
-    if (blogCards.length) {
-      gsap.from(blogCards, {
-        y: 50, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#blog',
-          start: 'top 75%',
-          once: true
-        }
-      });
-    }
-
-    /* Country guide cards */
-    var countryCards = document.querySelectorAll('#country-guides .cg-card, #country-guides .cg-item');
-    if (countryCards.length) {
-      gsap.from(countryCards, {
-        scale: 0.95, opacity: 0, duration: 0.6, stagger: 0.07, ease: 'back.out(1.4)',
-        scrollTrigger: {
-          trigger: '#country-guides',
-          start: 'top 75%',
-          once: true
-        }
-      });
-    }
+    /* Note: card entrance animations are handled by Feature 20 (nca-fade IntersectionObserver)
+       to avoid GSAP opacity:0 conflicting with .nca-fade CSS class opacity:0.
+       Keeping only non-overlapping GSAP scroll effects here. */
   })();
 
   /* ═══════════════════════════════════════════════════════════
@@ -681,15 +631,18 @@
     var s = document.createElement('style');
     s.id = 'nca-scroll-driven';
     s.textContent = [
-      /* Shrink nav on scroll */
+      /* Shrink nav on scroll — animation-duration:auto is required for scroll timelines */
       '@keyframes nav-shrink{',
       '  from{padding-top:22px;padding-bottom:22px;}',
-      '  to{padding-top:12px;padding-bottom:12px;}',
+      '  to{padding-top:10px;padding-bottom:10px;}',
       '}',
       'nav{',
-      '  animation:nav-shrink linear both;',
+      '  animation-name:nav-shrink;',
+      '  animation-timing-function:linear;',
+      '  animation-fill-mode:both;',
+      '  animation-duration:auto;',
       '  animation-timeline:scroll();',
-      '  animation-range:0px 200px;',
+      '  animation-range:0px 160px;',
       '}',
       /* Progress glow pulse */
       '@keyframes prog-glow{',
@@ -887,12 +840,14 @@
       });
     }, { threshold: 0.2 });
 
-    /* Only apply to section headings, not nav or footer */
-    document.querySelectorAll('main h1, main h2, .hero-title, [data-kinetic]').forEach(function (el) {
-      /* Skip elements that already have children (icons, spans, etc.) */
+    /* Only apply to headings explicitly marked data-kinetic.
+       Avoid auto-applying to main h1/h2 to prevent conflicts with
+       nca-enhancements.js animations on article pages. */
+    document.querySelectorAll('[data-kinetic]').forEach(function (el) {
       if (el.children.length > 0) return;
-      /* Skip very short/already animated */
       if (el.textContent.trim().length < 3) return;
+      /* Don't apply if element already has nca-anim class (managed by enhancements.js) */
+      if (el.classList.contains('nca-anim')) return;
       splitEl(el);
       obs.observe(el);
     });
@@ -952,13 +907,15 @@
       '[data-fade]'
     ].join(',');
 
+    /* rootMargin '200px' on top ensures elements already visible (or near top)
+       get revealed immediately — prevents above-the-fold flash of invisible cards */
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         obs.unobserve(entry.target);
         entry.target.classList.add('nca-visible');
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.01, rootMargin: '200px 0px 0px 0px' });
 
     function hookFade() {
       try {
@@ -966,7 +923,10 @@
           if (el.dataset.fadeHooked) return;
           el.dataset.fadeHooked = '1';
           el.classList.add('nca-fade');
-          el.style.transitionDelay = (Math.min(i % 6, 5) * 0.08) + 's';
+          /* Only add stagger delay for elements clearly below the fold */
+          var rect = el.getBoundingClientRect();
+          var belowFold = rect.top > window.innerHeight;
+          el.style.transitionDelay = belowFold ? (Math.min(i % 6, 5) * 0.08) + 's' : '0s';
           obs.observe(el);
         });
       } catch (err) {}

@@ -160,13 +160,9 @@ hr {
 img {
   transition: opacity .3s ease;
 }
-img[loading] {
-  opacity: 0;
-}
-img.loaded,
-img:not([loading]) {
-  opacity: 1;
-}
+/* NOTE: Do NOT use img[loading]{opacity:0} — the loading attribute
+   (loading="lazy") is a standard HTML performance attribute and
+   setting opacity:0 on it hides images permanently. */
 
 /* ─── Skip to content ─────────────────────────────────────── */
 .skip-nav:focus {
