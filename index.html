@@ -2270,17 +2270,49 @@ select:focus-visible {
     <div class="sgrid">
       <div>
         <span class="ey split-heading">Try Before You Buy</span>
-        <h2 class="sh split-heading">One free chapter.<br><em>No obligation.</em></h2>
-        <p class="sl" style="margin-top:20px">Download one free chapter from the Administrative Law notes. See exactly what our strategic, exam-focused approach looks like before spending a single dollar.</p>
+        <h2 class="sh split-heading">One free chapter.<br><em>Your subject.</em></h2>
+        <p class="sl" style="margin-top:20px">Choose the subject you're preparing for. Enter your email. Get a free sample chapter from our strategic, exam-focused notes — instantly.</p>
         <p style="margin-top:16px;font-size:var(--sm);color:var(--fog)">You'll also receive our weekly NCA Strategy email. Unsubscribe any time.</p>
       </div>
       <div class="sf2" id="SFORM">
-        <div style="max-width:480px;margin:0 auto;">
+        <!-- Step 1: Subject selection -->
+        <div id="fc-step-subject">
+          <div style="font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:14px;">Step 1 — Choose your subject</div>
+          <div class="subj-grid" id="fc-subj-grid">
+            <button class="subj-btn" data-fc-subj="administrative law" data-fc-slug="administrative+law">
+              <span class="subj-name">Administrative Law</span>
+              <span class="subj-hint">Vavilov, Baker — judicial review &amp; procedural fairness</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="criminal law" data-fc-slug="criminal+law">
+              <span class="subj-name">Criminal Law</span>
+              <span class="subj-hint">Actus reus, mens rea, defences, Charter rights</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="constitutional law" data-fc-slug="constitutional+law">
+              <span class="subj-name">Constitutional Law</span>
+              <span class="subj-hint">Division of powers, Charter, Aboriginal title</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="foundations of canadian law" data-fc-slug="foundations+of+canadian+law">
+              <span class="subj-name">Foundations of Canadian Law</span>
+              <span class="subj-hint">Sources of law, Indigenous law, statutory interpretation</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="professional responsibility" data-fc-slug="professional+responsibility">
+              <span class="subj-name">Professional Responsibility</span>
+              <span class="subj-hint">Conflicts, confidentiality, duty of loyalty, Model Code</span>
+            </button>
+          </div>
+        </div>
+        <!-- Step 2: Email (revealed after subject chosen) -->
+        <div id="fc-step-email" style="display:none;margin-top:4px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+            <div style="font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--g1);font-weight:600;">Step 2 — Your email</div>
+            <button id="fc-back" style="background:none;border:none;color:var(--dim);font-family:var(--fb);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:2px 0;">← Change subject</button>
+          </div>
+          <div id="fc-selected-label" style="font-size:var(--sm);color:var(--fog);margin-bottom:14px;padding:10px 14px;background:rgba(201,168,76,.05);border-left:2px solid var(--g1);"></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <input type="email" id="SEML" name="email" placeholder="Your email address" required autocomplete="email" style="flex:1;min-width:240px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-right:none;color:var(--cream);padding:17px 20px;font-family:var(--fb);font-size:.9rem;outline:none;">
+            <input type="email" id="SEML" name="email" placeholder="Your email address" required autocomplete="email" style="flex:1;min-width:220px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-right:none;color:var(--cream);padding:17px 20px;font-family:var(--fb);font-size:.9rem;outline:none;">
             <button type="submit" id="FSB" style="background:var(--g1);color:var(--void);border:none;padding:17px 32px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .3s;" onmouseover="this.style.background='var(--g0)'" onmouseout="this.style.background='var(--g1)'"><span id="FSBT" aria-live="polite">Get My Free Chapter →</span></button>
           </div>
-          <p style="font-size:.72rem;color:var(--dim);margin-top:12px;text-align:center;font-family:var(--fb);">Instant delivery · No payment · Unsubscribe anytime</p>
+          <p style="font-size:.72rem;color:var(--dim);margin-top:12px;font-family:var(--fb);">Instant delivery · No payment · Unsubscribe anytime</p>
         </div>
       </div>
     </div>
@@ -3803,39 +3835,87 @@ function notifyComingSoon(form, subjectName) {
   });
 }
 
-/* FORM - Email-only (Sprint B) */
+/* FORM - Free Chapter Subject Selector */
 (function(){
-  var FSB=document.getElementById('FSB'),FSBT=document.getElementById('FSBT'),SFORM=document.getElementById('SFORM');
-  if(!FSB)return;
-  FSB.addEventListener('click',function(e){
+  var selectedSlug = '';
+  var selectedName = '';
+
+  /* Step 1 — subject button clicks */
+  var grid = document.getElementById('fc-subj-grid');
+  if(grid){
+    grid.addEventListener('click', function(e){
+      var btn = e.target.closest('.subj-btn');
+      if(!btn) return;
+      Array.prototype.forEach.call(grid.querySelectorAll('.subj-btn'), function(b){ b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedSlug = btn.getAttribute('data-fc-slug') || 'administrative+law';
+      selectedName = btn.getAttribute('data-fc-subj') || 'Administrative Law';
+      var step1 = document.getElementById('fc-step-subject');
+      var step2 = document.getElementById('fc-step-email');
+      var label = document.getElementById('fc-selected-label');
+      if(step1) step1.style.display = 'none';
+      if(step2) step2.style.display = 'block';
+      if(label) label.textContent = 'Selected: ' + btn.querySelector('.subj-name').textContent;
+      var seml = document.getElementById('SEML');
+      if(seml) seml.focus();
+    });
+  }
+
+  /* Back button */
+  var backBtn = document.getElementById('fc-back');
+  if(backBtn){
+    backBtn.addEventListener('click', function(){
+      var step1 = document.getElementById('fc-step-subject');
+      var step2 = document.getElementById('fc-step-email');
+      var FSB2  = document.getElementById('FSB');
+      var FSBT2 = document.getElementById('FSBT');
+      if(step1) step1.style.display = 'block';
+      if(step2) step2.style.display = 'none';
+      if(FSB2){ FSB2.disabled = false; }
+      if(FSBT2){ FSBT2.textContent = 'Get My Free Chapter \u2192'; }
+    });
+  }
+
+  /* Step 2 — submit */
+  var FSB  = document.getElementById('FSB');
+  var FSBT = document.getElementById('FSBT');
+  if(!FSB) return;
+  FSB.addEventListener('click', function(e){
     e.preventDefault();
-    var SEML=document.getElementById('SEML');
-    var email=SEML?SEML.value.trim():'';
-    var emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    var SEML  = document.getElementById('SEML');
+    var email = SEML ? SEML.value.trim() : '';
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if(!emailOk){
-      if(SEML){SEML.style.borderColor='rgba(220,80,80,.7)';setTimeout(function(){if(SEML)SEML.style.borderColor='rgba(201,168,76,.25)';},1800);}
+      if(SEML){ SEML.style.borderColor='rgba(220,80,80,.7)'; setTimeout(function(){ if(SEML) SEML.style.borderColor='rgba(201,168,76,.25)'; }, 1800); }
       return;
     }
-    if(FSBT)FSBT.textContent='Sending…';FSB.disabled=true;
+    if(!selectedSlug){
+      var step1b = document.getElementById('fc-step-subject');
+      var step2b = document.getElementById('fc-step-email');
+      if(step1b) step1b.style.display = 'block';
+      if(step2b) step2b.style.display = 'none';
+      return;
+    }
+    var displayName = selectedName.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+    if(FSBT) FSBT.textContent = 'Sending\u2026';
+    FSB.disabled = true;
     fetch('https://formspree.io/f/mkoqgvqd',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({email:email,subject:'Free chapter request — Administrative Law',_subject:'Free chapter request — The NCA Hub',_replyto:email})
+      body:JSON.stringify({email:email, subject:'Free chapter request \u2014 '+displayName, _subject:'Free chapter request \u2014 The NCA Hub', _replyto:email, chosen_subject:displayName})
     }).then(function(r){
       if(r.ok){
-        if(FSBT)FSBT.textContent='Sent — Redirecting…';
-        try{sessionStorage.setItem('ncahub_sample_sent','1');}catch(ex){}
-        try{if(typeof gtag==='function'){gtag('event','free_chapter_download',{subject:'administrative law'});}}catch(ex){}
-        setTimeout(function(){window.location.href='/free-chapter.html?subject=administrative+law';},1500);
+        if(FSBT) FSBT.textContent = 'Sent \u2014 Redirecting\u2026';
+        try{ sessionStorage.setItem('ncahub_sample_sent','1'); }catch(ex){}
+        try{ if(typeof gtag==='function'){ gtag('event','free_chapter_download',{subject:selectedName}); } }catch(ex){}
+        setTimeout(function(){ window.location.href='/free-chapter.html?subject='+selectedSlug; }, 1500);
       }else{
-        /* Formspree error — still deliver the chapter so the user isn't blocked */
-        if(FSBT)FSBT.textContent='↓ Getting your chapter…';
-        setTimeout(function(){window.location.href='/free-chapter.html?subject=administrative+law';},1800);
+        if(FSBT) FSBT.textContent = '\u2193 Getting your chapter\u2026';
+        setTimeout(function(){ window.location.href='/free-chapter.html?subject='+selectedSlug; }, 1800);
       }
     }).catch(function(){
-      /* Network error — still deliver the chapter */
-      if(FSBT)FSBT.textContent='↓ Getting your chapter…';
-      setTimeout(function(){window.location.href='/free-chapter.html?subject=administrative+law';},1800);
+      if(FSBT) FSBT.textContent = '\u2193 Getting your chapter\u2026';
+      setTimeout(function(){ window.location.href='/free-chapter.html?subject='+selectedSlug; }, 1800);
     });
   });
 })();
