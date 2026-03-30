@@ -629,7 +629,7 @@ function submitNotify(e,formId,subject){
   .catch(function(){if(btn)btn.disabled=false;if(msg){msg.textContent='Something went wrong. Try again or email thencahub@gmail.com';msg.style.display='block';}});
 }
 /* LENIS SMOOTH SCROLL */
-(function(){try{if(typeof Lenis!=='undefined'){var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}document.documentElement.style.scrollBehavior='auto';}}catch(e){document.documentElement.style.scrollBehavior='smooth';}})();
+(function(){try{var isSafari=isSafari||/^((?!chrome|android).)*safari/i.test(navigator.userAgent);if(typeof Lenis!=="undefined"&&!isSafari){var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}document.documentElement.style.scrollBehavior='auto';}}catch(e){document.documentElement.style.scrollBehavior='smooth';}})();
 </script>
 <div id="mob-overlay" aria-hidden="true" aria-label="Navigation" role="dialog">
   <button id="mob-close" aria-label="Close navigation menu">&#x2715;</button>

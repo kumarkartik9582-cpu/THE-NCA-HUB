@@ -515,7 +515,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 /* LENIS SMOOTH SCROLL */
 (function(){
   try{
-    if(typeof Lenis!=='undefined'){
+    var isSafari=isSafari||/^((?!chrome|android).)*safari/i.test(navigator.userAgent);if(typeof Lenis!=="undefined"&&!isSafari){
       var lenis=new Lenis({lerp:0.075,smoothWheel:true,touchMultiplier:2,infinite:false});
       if(typeof ScrollTrigger!=='undefined'){lenis.on('scroll',ScrollTrigger.update);}
       if(typeof gsap!=='undefined'){gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
