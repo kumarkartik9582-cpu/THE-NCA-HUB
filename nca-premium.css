@@ -203,6 +203,7 @@ img {
   }
   .nca-letter { opacity: 1 !important; transform: none !important; }
   .nca-fade { opacity: 1 !important; transform: none !important; }
+  .char { opacity: 1 !important; transform: none !important; }
 }
 
 /* ─── High contrast mode ───────────────────────────────────── */
@@ -210,6 +211,18 @@ img {
   .nc, .bp, .cta-primary {
     forced-color-adjust: none;
   }
+}
+
+/* ─── Split-text safety fallback ─────────────────────────── */
+/* If GSAP ScrollTrigger never fires (slow JS, network, etc.)
+   .char elements become visible after 2.5s via CSS animation.
+   GSAP's inline opacity/transform override this immediately
+   when it does run, so there is no visual conflict. */
+@keyframes char-reveal {
+  to { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+.char {
+  animation: char-reveal 0.01s 2.5s forwards;
 }
 
 /* ─── Nav letter-spacing micro-animation ──────────────────── */
@@ -235,25 +248,16 @@ img {
   box-shadow: 0 32px 80px rgba(0,0,0,.6),
               0 0 0 1px rgba(201,168,76,.18),
               0 0 60px rgba(201,168,76,.07);
-  transform: translateY(-4px);
 }
 
-/* ─── Premium italic heading colour pulse ─────────────────── */
+/* ─── Italic heading gold glow (no colour override) ────────── */
 .sh em, .story-ch-head em {
-  background: linear-gradient(135deg, #F0D878 0%, #C9A84C 60%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 12px rgba(201,168,76,.3));
+  filter: drop-shadow(0 0 8px rgba(201,168,76,.4));
 }
 
 /* ─── Stat/proof number glow ─────────────────────────────── */
 .psn, .bsn, .scrub-val {
-  background: linear-gradient(180deg, #F0D878 0%, #C9A84C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 2px 16px rgba(201,168,76,.35));
+  filter: drop-shadow(0 0 10px rgba(201,168,76,.5));
 }
 
 /* ─── Border shimmer on section dividers ─────────────────── */
