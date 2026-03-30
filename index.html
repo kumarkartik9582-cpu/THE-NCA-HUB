@@ -2527,9 +2527,10 @@ var lenis=null;
 /* READINESS QUIZ STATE (new system) */
 var rqState={subject:null,answers:{},scores:{}};
 
-/* LENIS INITIALIZATION */
+/* LENIS INITIALIZATION — disabled on Safari (native scroll is smooth and Lenis causes jank) */
+var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 try{
-  if(typeof Lenis!=='undefined'){
+  if(typeof Lenis!=='undefined' && !isSafari){
     lenis=new Lenis({
       lerp:0.075,
       smoothWheel:true,
@@ -2542,6 +2543,12 @@ try{
     });
     gsap.ticker.lagSmoothing(0);
     document.documentElement.style.scrollBehavior='auto';
+  } else if(isSafari){
+    /* Safari: use native scroll, still wire ScrollTrigger */
+    document.documentElement.style.scrollBehavior='smooth';
+    if(typeof ScrollTrigger!=='undefined'){
+      window.addEventListener('scroll', ScrollTrigger.update, {passive:true});
+    }
   }
 }catch(e){
   document.documentElement.style.scrollBehavior='smooth';

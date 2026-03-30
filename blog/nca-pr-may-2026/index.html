@@ -849,7 +849,7 @@ function submitNotify(e,formId,subject){
 <script>
 /* Lenis smooth scroll init */
 (function(){
-  if(typeof Lenis!=='undefined'){
+  var isSafari=isSafari||/^((?!chrome|android).)*safari/i.test(navigator.userAgent);if(typeof Lenis!=="undefined"&&!isSafari){
     var lenis=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));},smooth:true});
     function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
     requestAnimationFrame(raf);

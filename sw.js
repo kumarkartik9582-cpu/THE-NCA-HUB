@@ -1,144 +1,114 @@
-const CACHE_NAME = 'nca-static-v2';
-const DYNAMIC_CACHE = 'nca-dynamic-v2';
+/* ─────────────────────────────────────────────────────────────
+   The NCA Hub — Service Worker
+   Cache strategy:
+   • HTML    → network-first (always fresh from server)
+   • CSS/JS  → network-first (always fresh, no stale serving)
+   • Images  → cache-first (long-lived, never changes)
+   • Other   → network-first with cache fallback
+
+   Bumping CACHE_NAME forces ALL users to throw away old caches
+   on next visit, even on Safari or Opera.
+   ───────────────────────────────────────────────────────────── */
+const CACHE_NAME = 'nca-static-v3';
+const DYNAMIC_CACHE = 'nca-dynamic-v3';
 const OFFLINE_URL = '/offline.html';
+
+/* Files pre-cached at install time */
 const STATIC_CACHE = [
   OFFLINE_URL,
-  '/',
-  '/index.html',
   '/og-image.jpg',
   '/favicon.svg',
-  '/manifest.json',
-  '/nca-enhancements.js',
-  '/nca-chat-widget.js',
-  '/nca-search.js',
-  '/notes/',
-  '/notes/administrative-law/',
-  '/notes/constitutional-law/',
-  '/notes/criminal-law/',
-  '/notes/foundations-of-canadian-law/',
-  '/notes/professional-responsibility/',
-  '/notes/complete-bundle/',
-  '/nca-exam-dates-2026/',
-  '/nca-cost-calculator/',
-  '/nca-prep-checklist/',
-  '/blog/'
+  '/manifest.json'
 ];
 
-/* JS files that must always be fetched fresh (network-first) */
-const ALWAYS_FRESH = ['/nca-chat-widget.js', '/nca-enhancements.js', '/nca-search.js'];
-
-/* Install: cache critical assets */
+/* ── Install ── */
 self.addEventListener('install', function(e){
   e.waitUntil(
     caches.open(CACHE_NAME).then(function(cache){
       return cache.addAll(STATIC_CACHE);
     }).catch(function(err){
-      console.log('Cache install failed:', err);
+      console.log('[SW] Cache install warning:', err);
     })
   );
+  /* Take control immediately — no waiting for old SW to die */
   self.skipWaiting();
 });
 
-/* Activate: clean old caches + notify clients */
+/* ── Activate: wipe every old cache ── */
 self.addEventListener('activate', function(e){
   e.waitUntil(
     caches.keys().then(function(keys){
       return Promise.all(
         keys.filter(function(k){ return k !== CACHE_NAME && k !== DYNAMIC_CACHE; })
-            .map(function(k){ return caches.delete(k); })
+            .map(function(k){
+              console.log('[SW] Deleting old cache:', k);
+              return caches.delete(k);
+            })
       );
     }).then(function(){
-      /* Notify all open tabs that a new version is available */
-      return self.clients.matchAll({ type: 'window' }).then(function(clients){
-        clients.forEach(function(client){
-          client.postMessage({ type: 'SW_UPDATED' });
-        });
+      return self.clients.matchAll({ type: 'window' });
+    }).then(function(clients){
+      clients.forEach(function(client){
+        client.postMessage({ type: 'SW_UPDATED' });
       });
     })
   );
   self.clients.claim();
 });
 
-/* Fetch: network-first for HTML + critical JS, cache-first for other static assets */
+/* ── Fetch ── */
 self.addEventListener('fetch', function(e){
   var url = new URL(e.request.url);
-  /* Only handle same-origin requests */
+
+  /* Only intercept same-origin requests */
   if(url.origin !== self.location.origin) return;
 
   /* Skip API calls — always network */
   if(url.pathname.startsWith('/api/')) return;
 
-  /* Critical JS files: network-first so updates deploy immediately */
-  if(ALWAYS_FRESH.indexOf(url.pathname) !== -1){
-    e.respondWith(
-      fetch(e.request)
-        .then(function(response){
-          var clone = response.clone();
-          caches.open(CACHE_NAME).then(function(cache){
-            cache.put(e.request, clone);
-          });
-          return response;
-        })
-        .catch(function(){
-          return caches.match(e.request);
-        })
-    );
-    return;
-  }
-
-  /* For HTML pages: network-first, fall back to cache, always serve offline page on failure */
-  if(e.request.headers.get('accept') &&
-     e.request.headers.get('accept').includes('text/html')){
-    e.respondWith(
-      fetch(e.request)
-        .then(function(response){
-          var clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then(function(cache){
-            cache.put(e.request, clone);
-          });
-          return response;
-        })
-        .catch(function(){
-          return caches.match(e.request).then(function(cached){
-            if(cached) return cached;
-            return caches.match(OFFLINE_URL).then(function(offlinePage){
-              return offlinePage || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain' } });
-            });
-          });
-        })
-    );
-    return;
-  }
-
-  /* CSS and JS: stale-while-revalidate — return cache immediately, refresh in background */
   var ext = url.pathname.split('.').pop().toLowerCase();
-  if(ext === 'css' || ext === 'js'){
+
+  /* ── Images: cache-first (safe — filenames rarely change) ── */
+  if(ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'svg' || ext === 'webp' || ext === 'gif'){
     e.respondWith(
-      caches.open(CACHE_NAME).then(function(cache){
-        return cache.match(e.request).then(function(cached){
-          var networkFetch = fetch(e.request).then(function(response){
-            cache.put(e.request, response.clone());
-            return response;
-          });
-          /* Return cached version immediately; network fetch updates cache in background */
-          return cached || networkFetch;
+      caches.match(e.request).then(function(cached){
+        return cached || fetch(e.request).then(function(response){
+          var clone = response.clone();
+          caches.open(DYNAMIC_CACHE).then(function(cache){ cache.put(e.request, clone); });
+          return response;
         });
       })
     );
     return;
   }
 
-  /* For all other static assets: cache-first, fall back to network */
+  /* ── CSS / JS / HTML: ALWAYS network-first ─────────────────
+     Reason: these files change on every deploy. Stale-while-
+     revalidate or cache-first here causes users to see the old
+     broken styles / scripts until they manually clear cache.
+     Network-first means every page load gets the current file.
+     Cache is only used if the network fails (offline fallback).
+  ─────────────────────────────────────────────────────────── */
   e.respondWith(
-    caches.match(e.request).then(function(cached){
-      if(cached) return cached;
-      return fetch(e.request).then(function(response){
-        var clone = response.clone();
-        caches.open(DYNAMIC_CACHE).then(function(cache){
-          cache.put(e.request, clone);
-        });
+    fetch(e.request)
+      .then(function(response){
+        /* Store fresh copy for offline fallback */
+        if(response.ok){
+          var clone = response.clone();
+          caches.open(DYNAMIC_CACHE).then(function(cache){ cache.put(e.request, clone); });
+        }
         return response;
-      });
-    })
+      })
+      .catch(function(){
+        /* Network failed — serve from cache (offline mode) */
+        return caches.match(e.request).then(function(cached){
+          if(cached) return cached;
+          /* For HTML, serve offline page */
+          if(e.request.headers.get('accept') && e.request.headers.get('accept').includes('text/html')){
+            return caches.match(OFFLINE_URL);
+          }
+          return new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain' } });
+        });
+      })
   );
 });
