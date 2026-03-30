@@ -215,15 +215,43 @@ img {
 
 /* ─── Split-text safety fallback ─────────────────────────── */
 /* If GSAP ScrollTrigger never fires (slow JS, network, etc.)
-   .char elements become visible after 2.5s via CSS animation.
+   .char elements become visible after 1s via CSS animation.
    GSAP's inline opacity/transform override this immediately
    when it does run, so there is no visual conflict. */
 @keyframes char-reveal {
   to { opacity: 1; transform: translateY(0) rotate(0deg); }
 }
 .char {
-  animation: char-reveal 0.01s 2.5s forwards;
+  animation: char-reveal 0.01s 1s forwards;
 }
+
+/* ─── Hero content CSS fallback ──────────────────────────── */
+/* .li elements start at translateY(112%) in CSS and are clipped
+   by .lm{overflow:hidden}. If revealHero() never fires (preloader
+   stuck, GSAP fails), these CSS animations make them visible.
+   GSAP inline transforms override immediately when it runs. */
+@keyframes li-reveal {
+  to { transform: translateY(0); }
+}
+@keyframes hero-fade-in {
+  to { opacity: 1; transform: none; }
+}
+.lm .li {
+  animation: li-reveal 0.4s 2s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hsub {
+  animation: hero-fade-in 0.4s 2.2s ease-out forwards;
+}
+.hact {
+  animation: hero-fade-in 0.4s 2.4s ease-out forwards;
+}
+.hcard {
+  animation: hero-fade-in 0.4s 2s ease-out forwards;
+}
+.h-auth {
+  animation: hero-fade-in 0.4s 2.6s ease-out forwards;
+}
+
 
 /* ─── Nav letter-spacing micro-animation ──────────────────── */
 .nav-links a {
