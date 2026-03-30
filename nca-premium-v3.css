@@ -266,26 +266,36 @@ img {
   text-shadow: 0 0 20px rgba(201,168,76,.25);
 }
 
-/* ─── Deeper card hover shadows ──────────────────────────── */
+/* ─── Deeper card hover shadows + lift ───────────────────── */
 .pod-card:hover,
 .note-card:hover,
 .art-card:hover,
 .art-grid-item:hover,
 .cg-card:hover,
 .tool-card:hover {
+  transform: translateY(-4px);
   box-shadow: 0 32px 80px rgba(0,0,0,.6),
               0 0 0 1px rgba(201,168,76,.18),
               0 0 60px rgba(201,168,76,.07);
 }
 
-/* ─── Italic heading gold glow (no colour override) ────────── */
+/* ─── Italic heading — gold gradient text ─────────────────── */
 .sh em, .story-ch-head em {
-  filter: drop-shadow(0 0 8px rgba(201,168,76,.4));
+  background: linear-gradient(135deg, #F0D878 0%, #C9A84C 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #C9A84C; /* fallback if gradient-text unsupported */
 }
 
-/* ─── Stat/proof number glow ─────────────────────────────── */
+/* ─── Stat/proof numbers — gold gradient text ────────────── */
 .psn, .bsn, .scrub-val {
-  filter: drop-shadow(0 0 10px rgba(201,168,76,.5));
+  background: linear-gradient(180deg, #F0D878 0%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #C9A84C; /* fallback */
+  filter: drop-shadow(0 2px 16px rgba(201,168,76,.35));
 }
 
 /* ─── Border shimmer on section dividers ─────────────────── */
