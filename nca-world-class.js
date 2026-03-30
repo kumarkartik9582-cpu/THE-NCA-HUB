@@ -19,12 +19,13 @@
 
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var IS_MOBILE = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth <= 768;
+  var IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   /* ═══════════════════════════════════════════════════════════
      1. AMBIENT-CV — Atmospheric floating orbs
      ═══════════════════════════════════════════════════════════ */
   (function () {
-    if (REDUCED) return;
+    if (REDUCED || IS_SAFARI) return;
     var cv = document.getElementById('ambient-cv');
     if (!cv) return;
     var cx = cv.getContext('2d');
@@ -79,7 +80,7 @@
      2. TRAIL-CV — Sparkle / star-burst cursor trail
      ═══════════════════════════════════════════════════════════ */
   (function () {
-    if (IS_MOBILE || REDUCED) return;
+    if (IS_MOBILE || REDUCED || IS_SAFARI) return;
     var cv = document.getElementById('trail-cv');
     if (!cv) return;
     var cx = cv.getContext('2d');

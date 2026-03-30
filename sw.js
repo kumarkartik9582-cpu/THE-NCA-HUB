@@ -1,16 +1,17 @@
 /* ─────────────────────────────────────────────────────────────
-   The NCA Hub — Service Worker
+   The NCA Hub — Service Worker v4
    Cache strategy:
-   • HTML    → network-first (always fresh from server)
-   • CSS/JS  → network-first (always fresh, no stale serving)
-   • Images  → cache-first (long-lived, never changes)
-   • Other   → network-first with cache fallback
+   • HTML       → network-first  (always get fresh page with updated asset URLs)
+   • CSS / JS   → stale-while-revalidate  (serve from cache for instant paint,
+                  fetch fresh in background; HTML versioned URLs bust this
+                  automatically when deploying nca-premium-v4.css etc.)
+   • Images     → cache-first   (long-lived, content-addressed filenames)
+   • Other      → stale-while-revalidate with cache fallback
 
    Bumping CACHE_NAME forces ALL users to throw away old caches
    on next visit, even on Safari or Opera.
    ───────────────────────────────────────────────────────────── */
-const CACHE_NAME = 'nca-static-v3';
-const DYNAMIC_CACHE = 'nca-dynamic-v3';
+const CACHE_NAME = 'nca-static-v4';
 const OFFLINE_URL = '/offline.html';
 
 /* Files pre-cached at install time */
@@ -30,7 +31,6 @@ self.addEventListener('install', function(e){
       console.log('[SW] Cache install warning:', err);
     })
   );
-  /* Take control immediately — no waiting for old SW to die */
   self.skipWaiting();
 });
 
@@ -39,7 +39,7 @@ self.addEventListener('activate', function(e){
   e.waitUntil(
     caches.keys().then(function(keys){
       return Promise.all(
-        keys.filter(function(k){ return k !== CACHE_NAME && k !== DYNAMIC_CACHE; })
+        keys.filter(function(k){ return k !== CACHE_NAME; })
             .map(function(k){
               console.log('[SW] Deleting old cache:', k);
               return caches.delete(k);
@@ -60,21 +60,26 @@ self.addEventListener('activate', function(e){
 self.addEventListener('fetch', function(e){
   var url = new URL(e.request.url);
 
-  /* Only intercept same-origin requests */
+  /* Only intercept same-origin GET requests */
   if(url.origin !== self.location.origin) return;
+  if(e.request.method !== 'GET') return;
 
   /* Skip API calls — always network */
   if(url.pathname.startsWith('/api/')) return;
 
-  var ext = url.pathname.split('.').pop().toLowerCase();
+  var ext = url.pathname.split('.').pop().toLowerCase().split('?')[0];
 
-  /* ── Images: cache-first (safe — filenames rarely change) ── */
-  if(ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'svg' || ext === 'webp' || ext === 'gif'){
+  /* ── Images: cache-first (safe — content-addressed filenames) ── */
+  if(ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'svg' ||
+     ext === 'webp' || ext === 'gif' || ext === 'ico' || ext === 'woff2'){
     e.respondWith(
       caches.match(e.request).then(function(cached){
-        return cached || fetch(e.request).then(function(response){
-          var clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then(function(cache){ cache.put(e.request, clone); });
+        if(cached) return cached;
+        return fetch(e.request).then(function(response){
+          if(response.ok){
+            var clone = response.clone();
+            caches.open(CACHE_NAME).then(function(cache){ cache.put(e.request, clone); });
+          }
           return response;
         });
       })
@@ -82,33 +87,45 @@ self.addEventListener('fetch', function(e){
     return;
   }
 
-  /* ── CSS / JS / HTML: ALWAYS network-first ─────────────────
-     Reason: these files change on every deploy. Stale-while-
-     revalidate or cache-first here causes users to see the old
-     broken styles / scripts until they manually clear cache.
-     Network-first means every page load gets the current file.
-     Cache is only used if the network fails (offline fallback).
-  ─────────────────────────────────────────────────────────── */
-  e.respondWith(
-    fetch(e.request)
-      .then(function(response){
-        /* Store fresh copy for offline fallback */
-        if(response.ok){
-          var clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then(function(cache){ cache.put(e.request, clone); });
-        }
-        return response;
-      })
-      .catch(function(){
-        /* Network failed — serve from cache (offline mode) */
-        return caches.match(e.request).then(function(cached){
-          if(cached) return cached;
-          /* For HTML, serve offline page */
-          if(e.request.headers.get('accept') && e.request.headers.get('accept').includes('text/html')){
-            return caches.match(OFFLINE_URL);
+  /* ── HTML: network-first so page always loads with fresh asset URLs ── */
+  if(e.request.headers.get('accept') && e.request.headers.get('accept').includes('text/html')){
+    e.respondWith(
+      fetch(e.request)
+        .then(function(response){
+          if(response.ok){
+            var clone = response.clone();
+            caches.open(CACHE_NAME).then(function(cache){ cache.put(e.request, clone); });
           }
-          return new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain' } });
+          return response;
+        })
+        .catch(function(){
+          return caches.match(e.request).then(function(cached){
+            return cached || caches.match(OFFLINE_URL);
+          });
+        })
+    );
+    return;
+  }
+
+  /* ── CSS / JS / everything else: stale-while-revalidate ─────────────
+     Serve from cache immediately for fast paint. Fetch fresh in background.
+     When HTML is updated to point to new versioned URLs (e.g. nca-premium-v4.css),
+     the cache won't have that URL, so it falls through to network naturally.
+  ─────────────────────────────────────────────────────────────────── */
+  e.respondWith(
+    caches.open(CACHE_NAME).then(function(cache){
+      return cache.match(e.request).then(function(cached){
+        var networkFetch = fetch(e.request).then(function(response){
+          if(response.ok){
+            cache.put(e.request, response.clone());
+          }
+          return response;
+        }).catch(function(){
+          return cached || new Response('Offline', { status: 503 });
         });
-      })
+        /* Return cached immediately, update in background */
+        return cached || networkFetch;
+      });
+    })
   );
 });
