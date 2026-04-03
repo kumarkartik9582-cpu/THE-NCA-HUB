@@ -74,14 +74,29 @@
 
   <hr class="divider">
 
-  <div class="upsell-title">Want the complete notes?</div>
+  <!-- OPTIONAL EMAIL CAPTURE -->
+  <div id="email-capture-wrap" style="margin-bottom:28px;">
+    <div style="font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Get your study plan</div>
+    <p style="font-size:.82rem;color:var(--fog);line-height:1.65;margin-bottom:16px;">Want a subject-specific study plan sent to your inbox? One email. No spam.</p>
+    <div id="ec-form" style="display:flex;gap:8px;flex-wrap:wrap;">
+      <input type="email" id="ec-email" placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:180px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);color:#E8E8F0;padding:13px 16px;font-family:var(--fb);font-size:.8rem;outline:none;border-radius:2px;">
+      <button id="ec-btn" style="background:var(--gold);color:#0D0D16;border:none;padding:13px 24px;font-family:var(--fb);font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;white-space:nowrap;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Send My Plan</button>
+    </div>
+    <p id="ec-msg" style="font-size:.65rem;color:var(--fog);margin-top:8px;display:none;"></p>
+    <p style="font-size:.6rem;color:var(--dim);margin-top:8px;">Optional. Unsubscribe any time.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="upsell-title" id="upsell-title">Want the complete notes?</div>
   <p class="upsell-body" id="upsell-body">
-    This sample is one chapter. The full bundle includes every exam topic —
-    IRAC frameworks, IF→THEN trigger tables, decision trees, and EXAM TRAP warnings
-    for every high-yield issue on the NCA syllabus.
+    This sample is one chapter. The full notes include every exam topic —
+    answer templates for every question type, IF→THEN trigger tables, decision trees,
+    and EXAM TRAP warnings for every high-yield issue on the NCA syllabus.
+    Under 80 pages. No filler.
   </p>
-  <a href="https://payhip.com/THENCAHUB" class="upsell-btn" target="_blank" rel="noopener noreferrer">
-    Get the Full Notes Bundle →
+  <a href="https://payhip.com/THENCAHUB" class="upsell-btn" id="upsell-link" target="_blank" rel="noopener noreferrer">
+    Get the Full Notes →
   </a>
 </div>
 </main>
@@ -147,6 +162,48 @@ function init() {
 }
 
 init();
+
+// Email capture form
+(function() {
+  var btn = document.getElementById('ec-btn');
+  var emailInput = document.getElementById('ec-email');
+  var msg = document.getElementById('ec-msg');
+  if (!btn) return;
+  btn.addEventListener('click', async function() {
+    var email = emailInput.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailInput.focus();
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      var subject = document.getElementById('subject-badge').textContent || 'NCA';
+      var res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: email, tags: ['free-chapter', subject.toLowerCase().replace(/\s+/g, '-')]})
+      });
+      msg.style.display = 'block';
+      if (res.ok) {
+        msg.style.color = '#6ecf8e';
+        msg.textContent = 'Study plan on its way. Check your inbox.';
+        document.getElementById('ec-form').style.display = 'none';
+      } else {
+        msg.style.color = 'var(--fog)';
+        msg.textContent = 'Something went wrong. Email thencahub@gmail.com directly.';
+        btn.disabled = false;
+        btn.textContent = 'Send My Plan';
+      }
+    } catch(e) {
+      msg.style.display = 'block';
+      msg.style.color = 'var(--fog)';
+      msg.textContent = 'Could not connect. Email thencahub@gmail.com directly.';
+      btn.disabled = false;
+      btn.textContent = 'Send My Plan';
+    }
+  });
+})();
 </script>
 <script src="/nca-world-class.js?v=20260330" defer></script>
 </body>
