@@ -22,62 +22,140 @@
   var IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   /* ═══════════════════════════════════════════════════════════
-     1. AMBIENT-CV — Atmospheric floating orbs
+     1. AMBIENT-CV — Deep-space nebula: star-field + volumetric
+        gold clouds + diagonal light rays + mouse reactive glow
      ═══════════════════════════════════════════════════════════ */
   (function () {
     if (REDUCED || IS_SAFARI) return;
     var cv = document.getElementById('ambient-cv');
     if (!cv) return;
     var cx = cv.getContext('2d');
+    var W, H;
 
-    function rz() {
-      cv.width = window.innerWidth;
-      cv.height = window.innerHeight;
-    }
+    function rz() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
     rz();
     window.addEventListener('resize', rz, { passive: true });
 
-    var orbs = [];
-    for (var i = 0; i < 6; i++) {
-      orbs.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: 180 + Math.random() * 220,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-        a: Math.random() * 0.025 + 0.008,
-        ph: Math.random() * Math.PI * 2,
-        phs: 0.004 + Math.random() * 0.003
-      });
+    /* ── Star field (static seed, repositioned on resize) ── */
+    var STAR_COUNT = 280;
+    var stars = [];
+    function seedStars() {
+      stars = [];
+      for (var i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * W, y: Math.random() * H,
+          sz: Math.random() * 0.9 + 0.15,
+          a: Math.random() * 0.28 + 0.04,
+          ph: Math.random() * Math.PI * 2,
+          phs: 0.006 + Math.random() * 0.012
+        });
+      }
     }
+    seedStars();
+    window.addEventListener('resize', seedStars, { passive: true });
+
+    /* ── Nebula orbs (larger, richer than before) ── */
+    var orbs = [];
+    var ORB_DATA = [
+      /* x%, y%, radius, speed multiplier, alpha, color r,g,b */
+      [0.15, 0.25, 340, 0.9, 0.022, 201, 168, 76],
+      [0.82, 0.12, 280, 1.1, 0.018, 201, 168, 76],
+      [0.50, 0.70, 420, 0.7, 0.016, 201, 168, 76],
+      [0.30, 0.85, 260, 1.3, 0.020, 240, 200, 80],
+      [0.70, 0.45, 380, 0.8, 0.015, 180, 140, 60],
+      [0.10, 0.60, 300, 1.0, 0.019, 220, 185, 75],
+      [0.90, 0.80, 250, 1.2, 0.021, 201, 168, 76],
+      [0.55, 0.20, 320, 0.6, 0.014, 240, 210, 90]
+    ];
+    ORB_DATA.forEach(function (d) {
+      orbs.push({
+        x: d[0] * W, y: d[1] * H, r: d[2],
+        vx: (Math.random() - 0.5) * 0.14 * d[3],
+        vy: (Math.random() - 0.5) * 0.14 * d[3],
+        a: d[4], ph: Math.random() * Math.PI * 2,
+        phs: 0.003 + Math.random() * 0.003,
+        cr: d[5], cg: d[6], cb: d[7]
+      });
+    });
+
+    /* ── Diagonal light rays ── */
+    var RAYS = [
+      { x1f: -0.1, y1f: 0.0, x2f: 0.6, y2f: 1.0, a: 0.025, ph: 0, phs: 0.004 },
+      { x1f:  1.1, y1f: 0.0, x2f: 0.4, y2f: 1.0, a: 0.018, ph: 1.2, phs: 0.003 }
+    ];
+
+    /* ── Mouse reactive glow ── */
+    var mx = W * 0.5, my = H * 0.3;
+    document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
 
     function drawAmbient() {
-      cx.clearRect(0, 0, cv.width, cv.height);
+      cx.clearRect(0, 0, W, H);
+
+      /* Star field */
+      stars.forEach(function (s) {
+        s.ph += s.phs;
+        var a = s.a * (0.5 + 0.5 * Math.sin(s.ph));
+        cx.beginPath();
+        cx.arc(s.x, s.y, s.sz, 0, Math.PI * 2);
+        cx.fillStyle = 'rgba(240,216,120,' + a + ')';
+        cx.fill();
+      });
+
+      /* Diagonal light rays */
+      RAYS.forEach(function (ray) {
+        ray.ph += ray.phs;
+        var a = ray.a * (0.5 + 0.5 * Math.sin(ray.ph));
+        var g = cx.createLinearGradient(
+          ray.x1f * W, ray.y1f * H, ray.x2f * W, ray.y2f * H
+        );
+        g.addColorStop(0, 'rgba(201,168,76,0)');
+        g.addColorStop(0.35, 'rgba(201,168,76,' + a + ')');
+        g.addColorStop(0.65, 'rgba(201,168,76,' + (a * 0.6) + ')');
+        g.addColorStop(1, 'rgba(201,168,76,0)');
+        cx.save();
+        cx.globalCompositeOperation = 'screen';
+        cx.fillStyle = g;
+        cx.fillRect(0, 0, W, H);
+        cx.restore();
+      });
+
+      /* Nebula orbs */
       orbs.forEach(function (o) {
         o.ph += o.phs;
-        o.x += o.vx;
-        o.y += o.vy;
-        if (o.x < -o.r) o.x = cv.width + o.r;
-        if (o.x > cv.width + o.r) o.x = -o.r;
-        if (o.y < -o.r) o.y = cv.height + o.r;
-        if (o.y > cv.height + o.r) o.y = -o.r;
-        var a = o.a * (0.6 + 0.4 * Math.sin(o.ph));
+        o.x += o.vx; o.y += o.vy;
+        if (o.x < -o.r) o.x = W + o.r;
+        if (o.x > W + o.r) o.x = -o.r;
+        if (o.y < -o.r) o.y = H + o.r;
+        if (o.y > H + o.r) o.y = -o.r;
+        var a = o.a * (0.55 + 0.45 * Math.sin(o.ph));
         var g = cx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
-        g.addColorStop(0, 'rgba(201,168,76,' + a + ')');
-        g.addColorStop(0.5, 'rgba(201,168,76,' + (a * 0.3) + ')');
-        g.addColorStop(1, 'rgba(201,168,76,0)');
+        g.addColorStop(0, 'rgba(' + o.cr + ',' + o.cg + ',' + o.cb + ',' + a + ')');
+        g.addColorStop(0.45, 'rgba(' + o.cr + ',' + o.cg + ',' + o.cb + ',' + (a * 0.25) + ')');
+        g.addColorStop(1, 'rgba(' + o.cr + ',' + o.cg + ',' + o.cb + ',0)');
         cx.beginPath();
         cx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
         cx.fillStyle = g;
         cx.fill();
       });
+
+      /* Mouse-reactive soft light */
+      var mg = cx.createRadialGradient(mx, my, 0, mx, my, 280);
+      mg.addColorStop(0, 'rgba(201,168,76,0.035)');
+      mg.addColorStop(0.5, 'rgba(201,168,76,0.010)');
+      mg.addColorStop(1, 'rgba(201,168,76,0)');
+      cx.beginPath();
+      cx.arc(mx, my, 280, 0, Math.PI * 2);
+      cx.fillStyle = mg;
+      cx.fill();
+
       requestAnimationFrame(drawAmbient);
     }
     drawAmbient();
   })();
 
   /* ═══════════════════════════════════════════════════════════
-     2. TRAIL-CV — Sparkle / star-burst cursor trail
+     2. TRAIL-CV — Enhanced sparkle: gold sparks + ring bursts
+        + click-burst explosion on mousedown
      ═══════════════════════════════════════════════════════════ */
   (function () {
     if (IS_MOBILE || REDUCED || IS_SAFARI) return;
@@ -90,57 +168,95 @@
     window.addEventListener('resize', rz, { passive: true });
 
     var sparks = [];
-    var mx = -999, my = -999;
-    var lastX = mx, lastY = my;
+    var rings = [];  /* expanding ring bursts */
+    var mx = -999, my = -999, lastX = mx, lastY = my;
 
     document.addEventListener('mousemove', function (e) {
       mx = e.clientX; my = e.clientY;
       var speed = Math.hypot(mx - lastX, my - lastY);
-      if (speed > 3) {
-        var count = Math.min(Math.floor(speed / 5), 4);
+      if (speed > 4) {
+        var count = Math.min(Math.floor(speed / 4), 6);
         for (var i = 0; i < count; i++) {
           var angle = Math.random() * Math.PI * 2;
-          var v = 0.4 + Math.random() * 1.2;
+          var v = 0.5 + Math.random() * 1.6;
           sparks.push({
-            x: mx, y: my,
-            vx: Math.cos(angle) * v,
-            vy: Math.sin(angle) * v - 0.5,
-            life: 1,
-            decay: 0.025 + Math.random() * 0.03,
-            size: 1 + Math.random() * 2.5,
-            gold: Math.random() > 0.4
+            x: mx + (Math.random() - 0.5) * 4,
+            y: my + (Math.random() - 0.5) * 4,
+            vx: Math.cos(angle) * v, vy: Math.sin(angle) * v - 0.6,
+            life: 1, decay: 0.022 + Math.random() * 0.028,
+            size: 0.8 + Math.random() * 3.0,
+            type: Math.random()  /* 0-0.5 gold, 0.5-0.8 bright, 0.8-1 cross */
           });
+        }
+        /* Occasional ring burst on fast move */
+        if (speed > 18 && Math.random() > 0.7) {
+          rings.push({ x: mx, y: my, r: 0, maxR: 28 + Math.random() * 18, life: 1 });
         }
       }
       lastX = mx; lastY = my;
     }, { passive: true });
 
+    /* Click burst */
+    document.addEventListener('mousedown', function (e) {
+      for (var i = 0; i < 18; i++) {
+        var angle = (i / 18) * Math.PI * 2;
+        var v = 1.2 + Math.random() * 2.5;
+        sparks.push({
+          x: e.clientX, y: e.clientY,
+          vx: Math.cos(angle) * v, vy: Math.sin(angle) * v,
+          life: 1, decay: 0.018 + Math.random() * 0.02,
+          size: 1.2 + Math.random() * 2.8, type: 0.3
+        });
+      }
+      rings.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 55, life: 1 });
+      rings.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 32, life: 1 });
+    }, { passive: true });
+
     function drawTrail() {
       cx.clearRect(0, 0, cv.width, cv.height);
+
+      /* Rings */
+      rings = rings.filter(function (r) { return r.life > 0; });
+      rings.forEach(function (r) {
+        r.r += (r.maxR - r.r) * 0.12;
+        r.life -= 0.038;
+        var a = r.life * 0.35;
+        cx.beginPath();
+        cx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+        cx.strokeStyle = 'rgba(201,168,76,' + a + ')';
+        cx.lineWidth = r.life * 1.5;
+        cx.stroke();
+      });
+
+      /* Sparks */
       sparks = sparks.filter(function (s) { return s.life > 0; });
       sparks.forEach(function (s) {
-        s.x += s.vx; s.y += s.vy; s.vy += 0.04; s.life -= s.decay;
-        var a = s.life * 0.7;
+        s.x += s.vx; s.y += s.vy;
+        s.vy += 0.035; s.vx *= 0.98;
+        s.life -= s.decay;
+        var a = s.life * 0.75;
+        var sz = Math.max(0, s.size * s.life);
         cx.beginPath();
-        cx.arc(s.x, s.y, Math.max(0, s.size * s.life), 0, Math.PI * 2);
-        if (s.gold) {
+        cx.arc(s.x, s.y, sz, 0, Math.PI * 2);
+        if (s.type < 0.55) {
           cx.fillStyle = 'rgba(201,168,76,' + a + ')';
+        } else if (s.type < 0.82) {
+          cx.fillStyle = 'rgba(240,216,120,' + (a * 0.55) + ')';
         } else {
-          cx.fillStyle = 'rgba(240,216,120,' + (a * 0.5) + ')';
+          cx.fillStyle = 'rgba(255,240,160,' + (a * 0.35) + ')';
         }
         cx.fill();
-        /* tiny star cross */
-        if (s.size > 2 && s.life > 0.5) {
-          cx.strokeStyle = 'rgba(240,216,120,' + (a * 0.3) + ')';
-          cx.lineWidth = 0.5;
+        /* 4-pointed star on larger, lively sparks */
+        if (s.size > 2.2 && s.life > 0.45) {
+          cx.strokeStyle = 'rgba(240,216,120,' + (a * 0.28) + ')';
+          cx.lineWidth = 0.6;
           cx.beginPath();
-          cx.moveTo(s.x - s.size * 2, s.y);
-          cx.lineTo(s.x + s.size * 2, s.y);
-          cx.moveTo(s.x, s.y - s.size * 2);
-          cx.lineTo(s.x, s.y + s.size * 2);
+          cx.moveTo(s.x - sz * 2.2, s.y); cx.lineTo(s.x + sz * 2.2, s.y);
+          cx.moveTo(s.x, s.y - sz * 2.2); cx.lineTo(s.x, s.y + sz * 2.2);
           cx.stroke();
         }
       });
+
       requestAnimationFrame(drawTrail);
     }
     drawTrail();

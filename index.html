@@ -3404,30 +3404,60 @@ function revealHero(){
   draw();
 })();
 
-/* HOLOGRAPHIC CARD TILT - Existing (Preserved) */
+/* HOLOGRAPHIC CARD TILT — Enhanced 3D with specular glow + depth shadow */
 (function(){
   if(IS_MOBILE || REDUCED) return;
   document.querySelectorAll('.tilt-card').forEach(function(card){
+    /* Inject per-card specular layer if not already present */
+    if(!card.querySelector('.tilt-specular')){
+      var sp=document.createElement('div');
+      sp.className='tilt-specular';
+      sp.style.cssText='position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .3s;z-index:10;';
+      card.style.position=card.style.position||'relative';
+      card.appendChild(sp);
+    }
+
     card.addEventListener('mousemove',function(e){
       var r=card.getBoundingClientRect();
-      var x=(e.clientX-r.left)/r.width-.5;
-      var y=(e.clientY-r.top)/r.height-.5;
-      var rotX=-y*12,rotY=x*10;
-      card.style.transform='perspective(1000px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) translateZ(10px)';
-      
-      /* Specular highlight */
+      var nx=(e.clientX-r.left)/r.width;  /* 0–1 */
+      var ny=(e.clientY-r.top)/r.height;
+      var x=nx-.5;var y=ny-.5;
+      var rotX=-y*20;var rotY=x*16;
+
+      card.style.transform='perspective(900px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) translateZ(18px)';
+      /* Dynamic drop shadow that follows tilt direction */
+      var sx=rotY*1.5,sy=-rotX*1.5;
+      card.style.boxShadow=
+        sx+'px '+sy+'px 40px rgba(0,0,0,.7),'+
+        '0 0 60px rgba(201,168,76,.08),'+
+        'inset 0 1px 0 rgba(201,168,76,.18)';
+
+      /* Moving specular light patch */
+      var sp=card.querySelector('.tilt-specular');
+      if(sp){
+        sp.style.background=
+          'radial-gradient(ellipse 60% 50% at '+(nx*100)+'% '+(ny*100)+'%,'+
+          'rgba(240,216,120,.13) 0%,rgba(201,168,76,.05) 40%,transparent 70%)';
+        sp.style.opacity='1';
+      }
+      /* sc2 card highlight (existing) */
       var hl=card.querySelector('.sc2-highlight');
       if(hl){
-        hl.style.setProperty('--hx',((e.clientX-r.left)/r.width*100)+'%');
-        hl.style.setProperty('--hy',((e.clientY-r.top)/r.height*100)+'%');
+        hl.style.setProperty('--hx',(nx*100)+'%');
+        hl.style.setProperty('--hy',(ny*100)+'%');
       }
     });
+
     card.addEventListener('mouseleave',function(){
-      card.style.transform='perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-      card.style.transition='transform 0.5s ease-out';
+      card.style.transform='perspective(900px) rotateX(0) rotateY(0) translateZ(0)';
+      card.style.transition='transform .55s cubic-bezier(.23,1,.32,1),box-shadow .55s cubic-bezier(.23,1,.32,1)';
+      card.style.boxShadow='';
+      var sp=card.querySelector('.tilt-specular');
+      if(sp) sp.style.opacity='0';
     });
+
     card.addEventListener('mouseenter',function(){
-      card.style.transition='transform 0.1s linear';
+      card.style.transition='transform .08s linear,box-shadow .08s linear';
     });
   });
 })();
@@ -3628,36 +3658,92 @@ if(CD&&CR){
   });
 }
 
-/* HERO CANVAS - Existing (Preserved) */
+/* HERO CANVAS — 3D Depth-Layered Constellation System
+   Three parallax layers (far/mid/near) with inter-particle connections.
+   Replaces expensive noise-grid loop (~82k iterations/frame) with
+   ~1200 pair-checks + 117 particle updates — significantly lighter. */
 (function(){
   var cv=document.getElementById('hcv');if(!cv)return;
   var cx=cv.getContext('2d');var W,H;
   function rz(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
   rz();window.addEventListener('resize',rz,{passive:true});
+
+  /* Layer definitions: [count, szMin, szMax, aMin, aMax, mouseF, spdF, connDist, lineA, lineW] */
+  var LAYERS=[
+    [38, .25,.75, .03,.11, .000018,.00006, .11,.030,.22],  /* far   — dim & slow  */
+    [52, .55,1.6, .09,.30, .000048,.00016, .15,.065,.38],  /* mid   — balanced    */
+    [20,1.1,2.5, .18,.55, .000095,.00030, .20,.130,.60]    /* near  — vivid&fast  */
+  ];
   var pts=[];
-  for(var i=0;i<85;i++)pts.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.00016,vy:(Math.random()-.5)*.00016,sz:Math.random()*1.4+.4,a:Math.random()*.38+.06,ph:Math.random()*Math.PI*2});
+  LAYERS.forEach(function(L,li){
+    for(var i=0;i<L[0];i++){
+      pts.push({x:Math.random(),y:Math.random(),
+        vx:(Math.random()-.5)*L[6]*2,vy:(Math.random()-.5)*L[6]*2,
+        sz:L[1]+Math.random()*(L[2]-L[1]),
+        a:L[3]+Math.random()*(L[4]-L[3]),
+        ph:Math.random()*Math.PI*2,
+        li:li,mF:L[5],sF:L[6],cD:L[7],cA:L[8],cW:L[9]});
+    }
+  });
+
+  /* Sort by layer so we draw far→near */
+  pts.sort(function(a,b){return a.li-b.li;});
+
   var mx=.5,my=.5;
-  document.addEventListener('mousemove',function(e){mx=e.clientX/innerWidth;my=e.clientY/innerHeight;},{passive:true});
-  var breathPhase=0,t=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX/innerWidth;my=e.clientY/innerHeight;
+  },{passive:true});
+
+  /* Pre-bucket by layer for O(n) connection checks per layer */
+  function getLayerBuckets(){
+    var b=[[],[],[]];
+    pts.forEach(function(p){b[p.li].push(p);});
+    return b;
+  }
+
   function draw(){
-    breathPhase+=.006;var bm=.85+.15*Math.sin(breathPhase);
     cx.clearRect(0,0,W,H);
-    var s=5;
-    for(var x=0;x<W;x+=s){for(var y=0;y<H;y+=s){
-      var nx=x/W+(mx-.5)*.05,ny=y/H+(my-.5)*.05;
-      var v=(Math.sin(nx*4+t)*Math.cos(ny*3+t*.7)+Math.cos(nx*2-t*.5)*Math.sin(ny*5+t*.4)+1)/2;
-      if(v>.54){cx.fillStyle='rgba(201,168,76,'+((v-.54)*.07*bm)+')';cx.fillRect(x,y,s,s);}
-    }}
-    pts.forEach(function(p){
-      var px=p.x*W,py=p.y*H,curX=mx*W,curY=my*H;
-      var dx=curX-px,dy=curY-py,dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120&&dist>1){var f=(120-dist)/120*.00004;p.vx+=dx/dist*f;p.vy+=dy/dist*f;}
-      p.x+=p.vx+(mx-.5)*.00003;p.y+=p.vy+(my-.5)*.00002;p.ph+=.013;
-      if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;
-      var a=p.a*(.7+.3*Math.sin(p.ph))*bm;
-      cx.beginPath();cx.arc(p.x*W,p.y*H,p.sz,0,Math.PI*2);cx.fillStyle='rgba(201,168,76,'+a+')';cx.fill();
+    var buckets=getLayerBuckets();
+
+    /* Connection lines per layer */
+    buckets.forEach(function(lp){
+      if(!lp.length)return;
+      var cD=lp[0].cD,cA=lp[0].cA,cW=lp[0].cW;
+      cx.lineWidth=cW;
+      for(var a=0;a<lp.length;a++){
+        for(var b=a+1;b<lp.length;b++){
+          var dx=lp[a].x-lp[b].x,dy=lp[a].y-lp[b].y;
+          var d=Math.sqrt(dx*dx+dy*dy);
+          if(d<cD){
+            var alpha=cA*(1-d/cD);
+            cx.beginPath();
+            cx.moveTo(lp[a].x*W,lp[a].y*H);
+            cx.lineTo(lp[b].x*W,lp[b].y*H);
+            cx.strokeStyle='rgba(201,168,76,'+alpha+')';
+            cx.stroke();
+          }
+        }
+      }
     });
-    t+=.003;requestAnimationFrame(draw);
+
+    /* Particles */
+    pts.forEach(function(p){
+      var px=p.x*W,py=p.y*H,cX=mx*W,cY=my*H;
+      var dx=cX-px,dy=cY-py,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<160&&dist>1){var f=(160-dist)/160*p.mF;p.vx+=dx/dist*f;p.vy+=dy/dist*f;}
+      /* Depth parallax: near layer responds more to mouse pan */
+      p.x+=p.vx+(mx-.5)*(p.li+1)*.000022;
+      p.y+=p.vy+(my-.5)*(p.li+1)*.000016;
+      p.ph+=.007+p.li*.004;
+      /* Damping to prevent runaway velocity */
+      p.vx*=.998;p.vy*=.998;
+      if(p.x<0)p.x=1;if(p.x>1)p.x=0;
+      if(p.y<0)p.y=1;if(p.y>1)p.y=0;
+      var alpha=p.a*(.65+.35*Math.sin(p.ph));
+      cx.beginPath();cx.arc(px,py,p.sz,0,Math.PI*2);
+      cx.fillStyle='rgba(201,168,76,'+alpha+')';cx.fill();
+    });
+    requestAnimationFrame(draw);
   }
   draw();
 })();
