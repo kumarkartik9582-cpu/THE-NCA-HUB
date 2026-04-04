@@ -403,9 +403,9 @@ body{cursor:none;}
     <div class="calc-row">
       <div class="calc-label">
         COQ Application Fee
-        <small>Certificate of Qualification processing fee</small>
+        <small>No fee to request the Certificate of Qualification (verified nca.legal)</small>
       </div>
-      <div class="calc-val">$200</div>
+      <div class="calc-val">$0</div>
     </div>
   </div>
 
@@ -560,7 +560,7 @@ var FEES = {
   assessment: 400,
   docs: 200,
   examPerSubject: 500,
-  cog: 200,
+  cog: 0,
   lrw: 375,
   indig: 275,
   ncahub: 875,
@@ -603,7 +603,7 @@ function recalc(){
     {n:'NCA assessment application', v: fmt(FEES.assessment)},
     {n:'Document certification (estimate)', v: fmt(FEES.docs)},
     {n:'Challenge exams ('+numSubj+' subjects' + (numResits>0?' + '+numResits+' re-sit'+(numResits!==1?'s':''):'')+') × $500', v: fmt(examTotal)},
-    {n:'COQ application', v: fmt(FEES.cog)}
+    {n:'COQ application', v: 'No fee'}
   ];
   if(incLrw) items.push({n:'Legal Research & Writing', v: fmt(FEES.lrw)});
   if(incIndig) items.push({n:'Indigenous Law competency', v: fmt(FEES.indig)});

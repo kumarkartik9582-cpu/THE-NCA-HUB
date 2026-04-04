@@ -963,7 +963,7 @@ body.golden-hour {
 /* REDUCED MOTION */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
-  .li{transform:none!important}.fu{opacity:1!important;transform:none!important}.sh-mask-inner{transform:none!important}
+  .li{transform:none!important}.fu{opacity:1!important;transform:none!important}.sh-mask-inner{transform:none!important}.char{transform:none!important;opacity:1!important}
   .grain{animation:none!important;}
   .sc2, .mc, .pc, .pod-card{animation:none!important;}
 }
@@ -2678,11 +2678,11 @@ document.querySelectorAll('.split-heading').forEach(function(el){
 if(!REDUCED && typeof gsap !== 'undefined'){
   if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   gsap.registerPlugin(ScrollTrigger);
-  
+
   document.querySelectorAll('.split-heading').forEach(function(heading){
     var chars = heading.querySelectorAll('.char');
     if(chars.length === 0) return;
-    
+
     ScrollTrigger.create({
       trigger: heading,
       start: 'top 85%',
@@ -2699,7 +2699,24 @@ if(!REDUCED && typeof gsap !== 'undefined'){
     });
   });
   }
+} else {
+  /* GSAP not available or reduced motion — reveal all split-heading chars immediately */
+  document.querySelectorAll('.char').forEach(function(c){
+    c.style.transform = 'none';
+    c.style.opacity = '1';
+  });
 }
+
+/* Safety net: any .char still invisible after 4s (ScrollTrigger missed) gets revealed */
+setTimeout(function(){
+  document.querySelectorAll('.char').forEach(function(c){
+    if(parseFloat(c.style.opacity) < 1 || c.style.transform.indexOf('110%') !== -1){
+      c.style.transition = 'opacity 0.6s, transform 0.6s';
+      c.style.transform = 'none';
+      c.style.opacity = '1';
+    }
+  });
+}, 4000);
 
 /* ═══════════════════════════════════════════════
    READINESS QUIZ — NEW ENGINE
@@ -3647,9 +3664,13 @@ if(CD&&CR){
 
 /* STORY CHAPTER REVEAL WITH SCROLLTRIGGER - Existing (Preserved) */
 (function(){
-  if(typeof ScrollTrigger === 'undefined') return;
-  
   var chapters=document.querySelectorAll('.story-chapter');
+
+  if(typeof ScrollTrigger === 'undefined'){
+    /* Fallback: reveal all story chapter headings immediately */
+    chapters.forEach(function(ch){ ch.classList.add('vis'); });
+    return;
+  }
   var dots=document.querySelectorAll('.scp-dot');
   var prog=document.getElementById('STORY_PROG');
   
@@ -3675,8 +3696,19 @@ if(CD&&CR){
 
 /* METHOD CARDS WITH SCROLLTRIGGER - Existing (Preserved) */
 (function(){
-  if(typeof ScrollTrigger === 'undefined') return;
-  
+  if(typeof ScrollTrigger === 'undefined'){
+    /* Fallback: reveal method cards immediately */
+    ['MC1','MC2','MC3'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.style.opacity='1';el.style.transform='none';}
+    });
+    ['MF1','MF2','MF3','MF4'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.style.opacity='1';el.style.transform='none';}
+    });
+    return;
+  }
+
   ['MC1','MC2','MC3'].forEach(function(id,i){
     var el=document.getElementById(id);
     if(!el)return;
@@ -3781,6 +3813,22 @@ if(CD&&CR){
     });
   }
 });
+
+/* GLOBAL FALLBACK: If ScrollTrigger never loaded, reveal all scroll-animated elements */
+if(typeof ScrollTrigger === 'undefined'){
+  /* Bench stats, subject cards, subscription cards */
+  document.querySelectorAll('.bs,.sc2,.pc,.mc').forEach(function(el){
+    el.classList.add('on');
+    el.style.opacity='1';
+    el.style.transform='none';
+  });
+  /* Subject card list items */
+  document.querySelectorAll('.scl li').forEach(function(li){ li.classList.add('on'); });
+  /* Pricing cards inline transform */
+  document.querySelectorAll('.pc').forEach(function(el){
+    el.style.opacity='1';el.style.transform='none';
+  });
+}
 
 /* TEXT SCRUB - Existing (Preserved) */
 (function(){
