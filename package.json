@@ -48,5 +48,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "preferGlobal": true,
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "motion": "^12.38.0"
+  }
 }
