@@ -1383,8 +1383,8 @@ select:focus-visible {
 <div id="cr" role="presentation" aria-hidden="true"><span id="cl"></span></div>
 <div id="prog" role="progressbar" aria-hidden="true"></div>
 
-<!-- PRELOADER -->
-<div id="pre" aria-label="Loading" role="status">
+<!-- PRELOADER: hidden — removed per performance audit (item 31) -->
+<div id="pre" aria-hidden="true" style="display:none!important;visibility:hidden;pointer-events:none;">
   <div class="pre-half top" id="PRE_TOP"></div>
   <div class="pre-half bot" id="PRE_BOT"></div>
   <div class="pre-content">
@@ -1443,14 +1443,25 @@ select:focus-visible {
       </div>
     </div>
     <div class="hcard sm hero-p4 tilt-card" id="HC" data-cur="Results">
-      <div class="hcl">Your Readiness Score</div>
-      <div id="readiness-intro">
-        <p style="font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px;">
-          Answer 6 questions. Get a subject-specific score and actionable feedback on your real readiness.
-        </p>
-        <a href="#readiness" class="bp" style="width:100%;text-align:center;justify-content:center;" data-cur="Assess"><span>Calculate My Score →</span></a>
+      <div class="hcl">Candidate Results</div>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px;">
+        <div style="padding:14px 16px;background:rgba(201,168,76,.05);border-left:2px solid var(--g1);">
+          <div style="font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);margin-bottom:4px;">Admin Law · 1st attempt · 10 days</div>
+          <div style="font-size:var(--sm);color:var(--cream);font-family:var(--fd);font-style:italic;">"Kartik's Vavilov framework was clearer than any textbook."</div>
+          <div style="font-size:.6rem;color:var(--dim);font-family:var(--fb);margin-top:4px;">Anum S. · Toronto · <strong style="color:var(--g1)">Passed</strong></div>
+        </div>
+        <div style="padding:14px 16px;background:rgba(201,168,76,.05);border-left:2px solid rgba(201,168,76,.4);">
+          <div style="font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);margin-bottom:4px;">Con Law · 4th attempt · 10 days</div>
+          <div style="font-size:var(--sm);color:var(--cream);font-family:var(--fd);font-style:italic;">"The only method that worked for me."</div>
+          <div style="font-size:.6rem;color:var(--dim);font-family:var(--fb);margin-top:4px;">Anum S. · Toronto · <strong style="color:var(--g1)">Passed</strong></div>
+        </div>
+        <div style="padding:14px 16px;background:rgba(201,168,76,.05);border-left:2px solid rgba(201,168,76,.25);">
+          <div style="font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);margin-bottom:4px;">Admin Law · 1st attempt · 3 weeks</div>
+          <div style="font-size:var(--sm);color:var(--fog);font-family:var(--fd);font-style:italic;">"Passed first attempt."</div>
+          <div style="font-size:.6rem;color:var(--dim);font-family:var(--fb);margin-top:4px;">M.B. · Toronto · <strong style="color:var(--g1)">Passed</strong></div>
+        </div>
       </div>
-      <div class="hcq">"The only method that worked for me." · Anum</div>
+      <a href="#readiness" class="bp" style="width:100%;text-align:center;justify-content:center;font-size:.72rem;" data-cur="Assess"><span>Get My Readiness Score →</span></a>
     </div>
   </div>
   <div class="scr-ind" aria-hidden="true"><div class="st"><div class="stf"></div></div>Scroll to explore</div>
@@ -1469,7 +1480,7 @@ select:focus-visible {
   <div class="morph-orb" id="MORPH_ORB" aria-hidden="true"></div>
   <div class="pi">
     <div class="phl" id="PHL"></div>
-    <p class="pht" id="PHT">Whatever brought you to the NCA,<br>the gate is passable.<br><em>We exist to prove it.</em></p>
+    <p class="pht" id="PHT">The NCA is not testing<br>your legal knowledge.<br><em>It's testing your exam technique.</em></p>
     <p class="pha" style="transition-delay:.35s">The belief behind everything we build</p>
   </div>
 </section>
@@ -1788,6 +1799,7 @@ select:focus-visible {
         <div class="story-ch-body">
           <p>LRW completed early signals system efficiency. The NCA Hub was born from necessity — built for everyone in the same position.</p>
           <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt, using The NCA Hub method, she passed.</p>
+          <p style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(201,168,76,.1);color:var(--cream);">The notes Kartik built to pass his own exams are the same notes you get. No revision, no dilution. The system that worked under pressure — available to every candidate in the same position.</p>
         </div>
         <div class="story-ch-quote">
           <p>"I passed on my 4th and final attempt. This is the only method that worked for me." · Anum</p>
@@ -1950,8 +1962,8 @@ select:focus-visible {
         </tbody>
       </table>
       <p class="ctw-hint">← Swipe to compare →</p>
-      <p class="ct-disc">All claims are factual and verifiable as of publication date. Provider names are used for descriptive comparison only. The NCA Hub is not affiliated with any of the above providers.</p>
     </div>
+      <p class="ct-disc">All claims are factual and verifiable as of publication date. Provider names are used for descriptive comparison only. The NCA Hub is not affiliated with any of the above providers.</p>
   </div>
 </section>
 
@@ -2029,6 +2041,7 @@ select:focus-visible {
         <div class="sctg">Administrative Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.62"></div></div></div>
         <h3 class="scti split-heading">Admin Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: applying Dunsmuir after Vavilov replaced it. Examiners see this every sitting.</p>
         <p class="scb">The subject most candidates sit first. Built under one week of genuine time pressure. Battle-tested and proven from the very beginning.</p>
         <ul class="scl">
           <li>Judicial review — grounds and scope</li><li>Standards of review: the Vavilov framework</li><li>Procedural fairness</li><li>Statutory interpretation</li><li>Remedies in administrative law</li>
@@ -2041,6 +2054,7 @@ select:focus-visible {
         <div class="sctg">Constitutional Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.88"></div></div></div>
         <h3 class="scti split-heading">Con Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: writing a section 1 Oakes analysis without the correct burden and proportionality structure. Most candidates skip steps.</p>
         <p class="scb">The subject where Anum passed her 4th and final attempt using these exact materials. The method that works when everything else has failed.</p>
         <ul class="scl">
           <li>Division of powers — ss. 91 and 92</li><li>Pith and substance doctrine</li><li>Charter of Rights — full framework</li><li>Section 1 Oakes test</li><li>Aboriginal rights and s.35</li>
@@ -2053,6 +2067,7 @@ select:focus-visible {
         <div class="sctg">Criminal Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.75"></div></div></div>
         <h3 class="scti split-heading">Criminal Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: confusing general intent and specific intent offences. Intoxication as a defence turns on this distinction alone.</p>
         <p class="scb">Criminal law rewards structure above everything else. Our templates mean you know the first four lines of your answer before you have read the question.</p>
         <ul class="scl">
           <li>Actus reus and mens rea</li><li>Criminal defences — complete framework</li><li>Charter rights in criminal proceedings</li><li>Parties to an offence</li><li>Sentencing principles</li>
@@ -2065,6 +2080,7 @@ select:focus-visible {
         <div class="sctg">Foundations of Canadian Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.55"></div></div></div>
         <h3 class="scti split-heading">Foundations</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: using IRAC on an essay question. FCL uses three distinct answer formats — candidates who misread the format fail on structure alone.</p>
         <p class="scb">Often underestimated. The architecture of the entire Canadian legal system, made navigable for lawyers trained anywhere in the world.</p>
         <ul class="scl">
           <li>Sources of Canadian law</li><li>Court hierarchy and jurisdiction</li><li>Common law methodology</li><li>Statutory construction in Canada</li><li>Quebec's bijural tradition</li>
@@ -2077,6 +2093,7 @@ select:focus-visible {
         <div class="sctg">Professional Responsibility</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
         <h3 class="scti split-heading">PR Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: saying a lawyer "must" disclose when the Model Code says "may." The mandatory vs permissive distinction is tested directly.</p>
         <p class="scb">Ethics, conduct and professional obligations. The exam tests your ability to spot conflicts, duties and breaches. Our templates structure every scenario.</p>
         <ul class="scl">
           <li>Lawyer-client relationship and duties</li><li>Confidentiality and privilege</li><li>Conflicts of interest — the Bright Line rule</li><li>CBA Model Code of Professional Conduct</li><li>Access to justice and withdrawal</li>
@@ -2373,6 +2390,9 @@ select:focus-visible {
       <div class="fqi"><button class="fqq" aria-expanded="false">Do I need to be in Canada to use these materials?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">No. Everything is fully digital and accessible from anywhere in the world.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">When will the video lectures be available?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">The video lecture series is in production. Anyone who purchases a Complete Bundle gets access automatically when videos go live, at no extra cost. The notes and templates are available now.</p></div></div>
       <div class="fqi"><button class="fqq" aria-expanded="false">Can I pay in installments?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. Email <a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a> before purchasing and we will arrange a payment schedule that works for you.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">Is this different from the NCA textbooks?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">Yes. The textbooks are 169–400 pages per subject, written for law students who have years, not weeks. The NCA Hub notes are under 80 pages per subject, written specifically for the NCA challenge exam — a 3-hour, 50%-threshold exam with a specific answer format. The textbooks teach you law. The NCA Hub teaches you how to pass the NCA exam. They are not the same thing.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">What if I fail anyway?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">If you sit your exam using these notes and don't pass, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a>. We will send you the updated notes for your resit — free. No conditions. We stand behind the materials.</p></div></div>
+      <div class="fqi"><button class="fqq" aria-expanded="false">I already have notes from another provider. Why switch?<span class="fqico" aria-hidden="true"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span></button><div class="fqb" role="region"><p class="fqbi">If your current notes are working, keep them. If you have already failed once, the answer is in the method — not just the content. What separates a pass from a fail on the NCA is answer structure and format recognition. No other provider provides exam-specific answer templates for every question type. That is the gap the NCA Hub fills.</p></div></div>
     </div>
   </div>
 </section>
