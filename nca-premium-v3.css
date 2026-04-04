@@ -371,3 +371,135 @@ h1:hover, h2:hover, .split-heading:hover {
     from { opacity: 0; transform: scale(1.01); }
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PREMIUM 3D VISUAL UPGRADES — Phase 4 Enhancement Layer
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 3D Hero text depth shadow ───────────────────────────── */
+.hh1, .sh, .story-ch-head {
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.4),
+    0 2px 0 rgba(0,0,0,.3),
+    0 4px 12px rgba(0,0,0,.25);
+}
+.hh1 em, .sh em {
+  text-shadow:
+    0 0 40px rgba(201,168,76,.35),
+    0 2px 8px rgba(0,0,0,.4);
+}
+
+/* ─── Volumetric card depth on hover ──────────────────────── */
+.mc:hover {
+  border-color: rgba(201,168,76,.28) !important;
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,.12),
+    0 8px 40px rgba(0,0,0,.6),
+    0 0 60px rgba(201,168,76,.07),
+    inset 0 0 30px rgba(201,168,76,.03);
+}
+.pc:hover {
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,.22),
+    0 20px 60px rgba(0,0,0,.7),
+    0 0 80px rgba(201,168,76,.10) !important;
+}
+.sc2:hover {
+  border-color: rgba(201,168,76,.35) !important;
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,.12),
+    0 12px 50px rgba(0,0,0,.65),
+    0 0 50px rgba(201,168,76,.06);
+}
+
+/* ─── Gold text shimmer on section eyes ───────────────────── */
+@keyframes gold-shimmer-text {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.ey {
+  background: linear-gradient(
+    90deg,
+    rgba(201,168,76,.6) 0%,
+    rgba(240,216,120,1) 30%,
+    rgba(201,168,76,.8) 50%,
+    rgba(158,123,48,1)  70%,
+    rgba(201,168,76,.6) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer-text 4s linear infinite;
+}
+
+/* ─── 3D floating hero card enhancement ──────────────────── */
+.hcard {
+  transform-origin: center center;
+}
+@keyframes float-card {
+  0%, 100% { transform: translateY(0px) rotateX(0deg);   }
+  33%       { transform: translateY(-8px) rotateX(1.2deg); }
+  66%       { transform: translateY(-4px) rotateX(-0.6deg); }
+}
+.hcard:not(:hover) {
+  animation: float-card 7s ease-in-out infinite;
+}
+
+/* ─── Glowing border pulse on primary CTA ─────────────────── */
+@keyframes cta-pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,.0),  0 4px 20px rgba(0,0,0,.3); }
+  50%       { box-shadow: 0 0 0 6px rgba(201,168,76,.18), 0 4px 20px rgba(0,0,0,.3); }
+}
+.bp {
+  animation: shimmer 8s ease infinite, cta-pulse-border 3.5s ease-in-out infinite !important;
+}
+
+/* ─── Story chapter: gold accent number 3D depth ─────────── */
+.spn {
+  text-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+/* ─── Premium scrollbar: thinner + gold glow ──────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(201,168,76,.4), rgba(201,168,76,.2));
+  box-shadow: 0 0 6px rgba(201,168,76,.3);
+}
+
+/* ─── Section transitions: depth fog dividers ─────────────── */
+.sec::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(201,168,76,.08) 20%,
+    rgba(201,168,76,.18) 50%,
+    rgba(201,168,76,.08) 80%,
+    transparent 100%
+  );
+  margin-bottom: 0;
+}
+
+/* ─── Hero canvas depth blur (far particles appear softer) ── */
+#hcv { filter: blur(0px); }  /* baseline — JS adds blur to layers via CSS var */
+
+/* ─── Magnetic button 3D press feel ───────────────────────── */
+.bp:active, .nc:active {
+  transform: translateY(2px) scale(.98);
+  box-shadow: 0 2px 10px rgba(0,0,0,.4), 0 0 15px rgba(201,168,76,.2) !important;
+  transition: transform .08s, box-shadow .08s !important;
+}
+
+/* ─── Noise texture enhanced ──────────────────────────────── */
+.story-chapter, .msc, .csc, .subsc, .prf {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* ─── Reduce motion overrides for new animations ──────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hcard:not(:hover), .bp, .ey { animation: none !important; }
+  .tilt-specular { display: none !important; }
+}
