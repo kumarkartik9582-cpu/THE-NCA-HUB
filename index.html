@@ -3936,6 +3936,51 @@ if(typeof ScrollTrigger === 'undefined'){
   });
 }
 
+/* UNIVERSAL SAFETY NET: reveal any content element still invisible after 2s.
+   Catches the case where ScrollTrigger loads but triggers never fire (Lenis timing). */
+setTimeout(function(){
+  /* Method cards */
+  document.querySelectorAll('.mc').forEach(function(el){
+    if(parseFloat(window.getComputedStyle(el).opacity)<0.5){
+      el.style.opacity='1';el.style.transform='none';
+    }
+  });
+  /* Method flow steps and arrows */
+  document.querySelectorAll('.mf-step,.mf-arrow').forEach(function(el){
+    if(parseFloat(window.getComputedStyle(el).opacity)<0.5){
+      el.style.opacity='1';el.style.transform='none';
+    }
+  });
+  /* Big stats */
+  document.querySelectorAll('.bs').forEach(function(el){
+    if(parseFloat(window.getComputedStyle(el).opacity)<0.5){
+      el.classList.add('on');
+    }
+  });
+  /* Pricing cards */
+  document.querySelectorAll('.pc').forEach(function(el){
+    if(parseFloat(window.getComputedStyle(el).opacity)<0.5){
+      el.style.opacity='1';el.style.transform='none';
+    }
+  });
+  /* Philosophy text */
+  var pht=document.getElementById('PHT');
+  if(pht&&parseFloat(window.getComputedStyle(pht).opacity)<0.5){
+    pht.style.opacity='1';
+  }
+  var pha=document.querySelector('.pha');
+  if(pha&&parseFloat(window.getComputedStyle(pha).opacity)<0.5){
+    pha.style.opacity='1';
+  }
+  /* Hero elements (fallback if page-load GSAP also failed) */
+  ['HSUB','HACT','HC','HAUTH'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&parseFloat(window.getComputedStyle(el).opacity)<0.5){
+      el.style.opacity='1';el.style.transform='none';
+    }
+  });
+},2000);
+
 /* TEXT SCRUB - Existing (Preserved) */
 (function(){
   var wrap=document.getElementById('scrub-section');
