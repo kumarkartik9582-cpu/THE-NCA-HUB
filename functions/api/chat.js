@@ -169,6 +169,42 @@ Help users:
 - LRW (Legal Research & Writing) via CPLED is a separate mandatory requirement (~$375)
 - After NCA Certificate of Qualification: Ontario → LSO (articling min. 10 months OR LPP 8 months + bar exams); BC → LSBC (PLTC + 9 months articles); Alberta → LSA (CPLED + 12 months articles)
 - The NCA Hub offers concise subject notes (under 80 pages), answer templates, and readiness assessment — founded by Kartik Kumar who passed all 5 subjects (4 cleared in under 3 months)
+- The NCA Hub now covers 8 subjects: the 5 mandatory subjects PLUS Contract Law, Family Law, and Evidence Law (elective subjects)
+- Notes available at thencahub.com/notes/ — individual subject pages at /notes/contract-law/, /notes/family-law/, /notes/evidence-law/
+- Buy links: Contract Law → payhip.com/b/aiXLF | Family Law → payhip.com/b/K17CE | Evidence Law → payhip.com/b/3mnxi
+
+## CONTRACT LAW (NCA elective — key concepts)
+- Formation: offer + acceptance + consideration + intention to create legal relations + certainty of terms
+- Terms classification: conditions (breach = right to terminate + damages), warranties (breach = damages only), innominate terms (breach = depends on consequences — Hong Kong Fir Shipping Co v Kawasaki [1962])
+- Hong Kong Fir test: did the breach deprive the innocent party of substantially the whole benefit of the contract?
+- Exclusion clauses: incorporated by signature/notice/course of dealing; contra proferentem; UCTA-style reasonableness
+- Breach and termination: repudiatory breach (Hochster v De La Tour — anticipatory), actual breach, affirm or terminate
+- Remedies: expectation interest (put in position as if performed), reliance interest, restitution; duty to mitigate
+- Remoteness: Hadley v Baxendale two-limb test — (1) arises naturally from breach; (2) within reasonable contemplation of both parties at contracting time
+- Specific performance: available where damages are inadequate (unique goods, land)
+- Parol evidence rule: extrinsic evidence cannot add to/vary a final integrated written contract; exceptions: collateral contract, implied terms, partial integration
+
+## FAMILY LAW (NCA elective — Canadian framework)
+- Jurisdiction split: divorce (federal — Divorce Act, R.S.C. 1985) vs property/support outside divorce (provincial — e.g., Ontario Family Law Act, BC Family Law Act)
+- Divorce Act s.8: breakdown of marriage = 1 year separation, or adultery, or physical/mental cruelty
+- Corollary relief under Divorce Act: custody/access (now "parenting orders" post-2021 amendments), child support, spousal support
+- Child support: Federal Child Support Guidelines (FCSG) — table amount based on payor's income + province; plus s.7 special/extraordinary expenses
+- Spousal support objectives: s.15.2(6) Divorce Act — compensatory (economic disadvantage/advantage from marriage), non-compensatory (needs-based), contractual; leading cases: Moge v Moge [1992], Bracklow v Bracklow [1999]
+- SSAG (Spousal Support Advisory Guidelines — Rogerson & Thompson): without-child formula (length of marriage drives duration), with-child formula (child support takes priority); generates low/mid/high range
+- Ontario property: equalization of net family property (NFP) under FLA; NFP = value of property owned on valuation date minus value at date of marriage; excluded property: gifts/inheritances kept separate, damages for personal injury; matrimonial home has special rules (no deduction for value at marriage)
+- Best interests of the child: paramount consideration for all parenting orders (Divorce Act s.16(2)); factors include relationship with each parent, each parent's willingness to support the other's relationship with the child
+- Gordon v Goertz [1996]: framework for variation of parenting orders — material change in circumstances required
+
+## EVIDENCE LAW (NCA elective — Canadian rules)
+- Admissibility framework: relevance (any tendency to make a fact more or less probable) → probative value vs prejudice → specific exclusionary rules
+- Hearsay: out-of-court statement tendered for truth of its contents; general exclusionary rule with exceptions
+- Principled approach (Starr v Dunlap [2000]; Khelawon [2006]): for novel hearsay — threshold reliability + necessity; threshold reliability assessed on voir dire (circumstantial or corroborative guarantees)
+- Categorical hearsay exceptions (admissible without full principled analysis): party admissions, prior inconsistent statements (after KGB [1993]), declarations against interest, dying declarations, business records, res gestae/excited utterance
+- Party admissions: statement made by a party, tendered against that party — admissible without necessity/reliability analysis
+- Character evidence: Crown cannot lead bad character of accused in case-in-chief (propensity prohibited); accused may put character in issue → Crown may rebut; similar fact evidence admissible if probative value substantially outweighs prejudice (identity/system, not mere propensity)
+- Prior convictions: Canada Evidence Act s.12 — available to challenge credibility of testifying accused; but cannot be used as propensity evidence
+- Charter exclusion (s.24(2)): Grant v R [2009] SCC 32 — three factors: (1) seriousness of Charter-infringing conduct; (2) impact on accused's Charter-protected interests; (3) society's interest in adjudication on merits; replaced Collins/Stillman automatic exclusion
+- Privilege: solicitor-client (near-absolute, protects confidential communications for legal advice); litigation privilege (dominant purpose of litigation, not absolute); public interest immunity
 
 ## KNOWLEDGE PRIORITY ORDER
 1. Provided page content (pageContext.content) — PRIMARY source
