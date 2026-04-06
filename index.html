@@ -1349,6 +1349,14 @@ select:focus-visible {
 }
 </script>
 <link rel="stylesheet" href="/nca-premium-v3.css">
+<style>
+/* VISIBILITY GUARANTEE: story headings always readable regardless of JS/GSAP state */
+.story-ch-head{opacity:1!important;transform:none!important;}
+.story-ch-right{opacity:1!important;transform:none!important;}
+/* Re-enable transition effect when .vis is present (JS enhancement only) */
+.story-chapter.vis .story-ch-head{transition:none;}
+.story-chapter.vis .story-ch-right{transition:none;}
+</style>
 </head>
 <body>
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
@@ -2184,7 +2192,7 @@ select:focus-visible {
         <a href="https://payhip.com/b/aiXLF" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC11b" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">&#9654;</span>
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">12</span>
         <div class="sctg">Evidence Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.77"></div></div></div>
         <h3 class="scti split-heading">Evidence Law</h3>
@@ -2197,7 +2205,7 @@ select:focus-visible {
         <a href="https://payhip.com/b/3mnxi" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
       <div class="sc2 sm coming-soon tilt-card" id="SC12" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">12</span>
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">13</span>
         <div class="sctg">Civil Procedure <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.76"></div></div></div>
         <h3 class="scti split-heading">Civil Procedure</h3>
@@ -2212,7 +2220,7 @@ select:focus-visible {
         </div>
       </div>
       <div class="sc2 sm coming-soon tilt-card" id="SC13" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">13</span>
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">14</span>
         <div class="sctg">Remedies <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.73"></div></div></div>
         <h3 class="scti split-heading">Remedies</h3>
@@ -2690,36 +2698,31 @@ if(!REDUCED && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefine
     var chars = heading.querySelectorAll('.char');
     if(chars.length === 0) return;
 
-    /* Set chars invisible NOW that GSAP is confirmed ready */
-    gsap.set(chars, {y:'110%', opacity:0});
-
+    /* Animate from slightly faded/shifted to fully visible — chars start readable */
     ScrollTrigger.create({
       trigger: heading,
-      start: 'top 88%',
+      start: 'top 95%',
       once: true,
       onEnter: function(){
-        gsap.to(chars, {
-          y: '0%',
-          opacity: 1,
-          duration: 1.1,
-          stagger: 0.018,
-          ease: 'power4.out'
-        });
+        gsap.fromTo(chars,
+          {y:'8%', opacity:0.15},
+          {y:'0%', opacity:1, duration:0.9, stagger:0.015, ease:'power3.out'}
+        );
       }
     });
   });
 
-  /* Safety net: any char still invisible 5s after load reveals instantly */
+  /* Safety net: any char still below full opacity 1.5s after load reveals instantly */
   setTimeout(function(){
     document.querySelectorAll('.char').forEach(function(c){
       var op = parseFloat(window.getComputedStyle(c).opacity);
       if(op < 0.5){
-        c.style.transition = 'opacity 0.5s, transform 0.5s';
+        c.style.transition = 'opacity 0.4s, transform 0.4s';
         c.style.transform = 'none';
         c.style.opacity = '1';
       }
     });
-  }, 5000);
+  }, 1500);
 }
 
 /* ═══════════════════════════════════════════════
@@ -3833,7 +3836,7 @@ if(CD&&CR){
 })();
 
 /* SUBJECT CARDS - Existing (Preserved) */
-['SC1','SC2','SC3','SC4','SC5','SC6','SC7','SC8','SC9','SC10','SC11','SC12','SC13'].forEach(function(id,i){
+['SC1','SC2','SC3','SC4','SC5','SC6','SC7','SC8','SC9','SC10','SC11','SC11b','SC12','SC13'].forEach(function(id,i){
   var el=document.getElementById(id);if(!el)return;
   if(typeof ScrollTrigger !== 'undefined'){
     ScrollTrigger.create({
@@ -3851,6 +3854,19 @@ if(CD&&CR){
     });
   }
 });
+/* Safety net: subject cards still invisible after 2s get revealed */
+setTimeout(function(){
+  document.querySelectorAll('.sc2').forEach(function(card){
+    var op=parseFloat(window.getComputedStyle(card).opacity);
+    if(op<0.5){
+      card.style.opacity='1';
+      card.style.transform='translateX(0)';
+      card.querySelectorAll('.scl li').forEach(function(li){li.classList.add('on');});
+      var fill=card.querySelector('.diff-fill');
+      if(fill)fill.classList.add('on');
+    }
+  });
+},2000);
 
 /* BIG STATS WITH SCROLLTRIGGER - Existing (Preserved) */
 ['BS1','BS2','BS3','BS4'].forEach(function(id,i){
