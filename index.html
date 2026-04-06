@@ -1601,6 +1601,18 @@ select:focus-visible {
             <span class="subj-name">Professional Responsibility</span>
             <span class="subj-hint">Conflicts, confidentiality, duty of loyalty, Model Code</span>
           </button>
+          <button class="subj-btn" data-subj="contract">
+            <span class="subj-name">Contract Law</span>
+            <span class="subj-hint">Formation, terms, breach, remedies, Hong Kong Fir distinction</span>
+          </button>
+          <button class="subj-btn" data-subj="family">
+            <span class="subj-name">Family Law</span>
+            <span class="subj-hint">Divorce Act, spousal support (SSAG), child support, property division</span>
+          </button>
+          <button class="subj-btn" data-subj="evidence">
+            <span class="subj-name">Evidence Law</span>
+            <span class="subj-hint">Admissibility, hearsay principled approach, Charter exclusion (s.24(2))</span>
+          </button>
         </div>
         <div class="rq-nav" style="margin-top:20px;">
           <button class="btn-rq-next" id="rq-btn-subj-next">Continue →</button>
@@ -2404,6 +2416,18 @@ select:focus-visible {
               <span class="subj-name">Professional Responsibility</span>
               <span class="subj-hint">Conflicts, confidentiality, duty of loyalty, Model Code</span>
             </button>
+            <button class="subj-btn" data-fc-subj="contract law" data-fc-slug="contract+law">
+              <span class="subj-name">Contract Law</span>
+              <span class="subj-hint">Formation, terms, breach, remedies, Hadley v Baxendale</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="family law" data-fc-slug="family+law">
+              <span class="subj-name">Family Law</span>
+              <span class="subj-hint">Divorce Act, SSAG, child support, property division (FLA)</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="evidence law" data-fc-slug="evidence+law">
+              <span class="subj-name">Evidence Law</span>
+              <span class="subj-hint">Hearsay principled approach, Grant test, character evidence</span>
+            </button>
           </div>
         </div>
         <!-- Step 2: Email (revealed after subject chosen) -->
@@ -2932,7 +2956,96 @@ var rqKnowledgeQ={
   ]
 };
 
-var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility'};
+  contract:[
+    {
+      q:'A seller contracts to deliver 500 machine components by June 1. She delivers on June 4 — three days late. The buyer immediately purports to terminate the contract and refuses to accept delivery. The termination is:',
+      opts:[
+        {label:'Valid — any breach of a delivery date entitles the innocent party to terminate immediately',pts:0,fb:'Incorrect. Termination for breach depends on the classification of the term breached. A delivery date is not automatically a condition. Under Hong Kong Fir, the court must assess whether the breach deprived the buyer of substantially the whole benefit of the contract. A three-day delay on a non-time-of-the-essence term rarely justifies termination.',tag:'Term classification — Hong Kong Fir'},
+        {label:'Potentially invalid — unless the delivery date was expressly or impliedly a condition, the court applies the Hong Kong Fir test: did this breach deprive the buyer of substantially the whole benefit of the contract?',pts:20,fb:'Correct. Hong Kong Fir Shipping Co v Kawasaki [1962] established the innominate term category. Most delivery clauses are innominate terms, not conditions. The buyer can only terminate if the consequence of the breach — not the breach itself — was sufficiently serious. A three-day delay without further impact on the buyer\'s interests likely does not justify termination.',tag:'Term classification — Hong Kong Fir'},
+        {label:'Invalid — time is never of the essence in commercial contracts unless the contract expressly says so',pts:5,fb:'Partially correct as a starting principle but overstated. Time can be made of the essence expressly, impliedly from the nature of the contract (e.g., sale of perishables), or by notice. The correct analysis is whether this delivery clause was a condition based on its classification, not a blanket rule about commercial contracts.',tag:'Time of the essence'},
+        {label:'Valid — the seller\'s breach of contract automatically entitles the buyer to terminate regardless of consequences',pts:0,fb:'Incorrect. This describes the effect of breaching a condition — not all contractual terms. The correct analysis distinguishes conditions (right to terminate on any breach), warranties (damages only), and innominate terms (depends on consequences of breach under Hong Kong Fir).',tag:'Term classification — conditions vs warranties'}
+      ]
+    },
+    {
+      q:'A contract for the sale of commercial equipment is silent on remedies. The seller breaches and the buyer sues for lost profits from a sub-contract the buyer had entered into with a third party. The seller argues she had no knowledge of the sub-contract at the time of contracting. The test for whether the lost profits are recoverable is:',
+      opts:[
+        {label:'Foreseeability — the losses must have been reasonably foreseeable at the time of breach',pts:5,fb:'Foreseeability is the tort standard (Wagon Mound). Contract law applies the Hadley v Baxendale remoteness rule, which is narrower and more defendant-friendly: either the loss arises naturally from the breach (first limb) or it was within the reasonable contemplation of both parties at the time of contracting (second limb). The key difference is the timing — contracting, not breach.',tag:'Hadley v Baxendale vs foreseeability'},
+        {label:'The Hadley v Baxendale two-limb test: either the loss flows naturally from the breach (first limb) or it was within the reasonable contemplation of both parties as a probable result at the time of contracting (second limb)',pts:20,fb:'Correct. Hadley v Baxendale [1854] is the foundational remoteness rule in contract. Lost profits from a sub-contract the seller did not know about fail the second limb — they were not within the seller\'s reasonable contemplation at contracting. The buyer should have disclosed the sub-contract to bring the loss within the second limb.',tag:'Hadley v Baxendale — two limbs'},
+        {label:'The buyer recovers all losses that are a direct consequence of the breach, regardless of the seller\'s knowledge',pts:0,fb:'Incorrect. This would make the seller an insurer against all consequential losses, which contract law does not do. Remoteness limits recovery. Losses outside the reasonable contemplation of both parties at contracting are not recoverable even if causally linked to the breach.',tag:'Hadley v Baxendale — remoteness principle'},
+        {label:'The buyer cannot recover lost profits in any circumstance — only the expectation interest (difference in market value) is available in contract',pts:0,fb:'Incorrect. Lost profits are a recognised head of expectation damages in contract law. They represent the profit the buyer would have earned from the sub-contract — squarely within the expectation interest. They are recoverable if they satisfy the Hadley v Baxendale remoteness test.',tag:'Expectation damages — lost profits'}
+      ]
+    },
+    {
+      q:'Two parties sign a written agreement that appears complete. One party seeks to introduce oral evidence that, before signing, the other party promised an additional term not in the written document. The admissibility of this oral evidence is governed by:',
+      opts:[
+        {label:'The parol evidence rule — extrinsic evidence cannot be admitted to add to, vary, or contradict the terms of a final written contract',pts:20,fb:'Correct. The parol evidence rule bars admission of prior or contemporaneous oral statements to contradict, add to, or vary an integrated written contract. The rationale is certainty and finality. Key exceptions include collateral contracts, terms implied by law, and evidence that the written contract was not intended to be the complete agreement.',tag:'Parol evidence rule'},
+        {label:'The best evidence rule — only the original written contract is admissible, and oral evidence is categorically excluded',pts:5,fb:'The best evidence rule concerns proof of the contents of documents — it is not the same as the parol evidence rule. The parol evidence rule is the correct framework for this question: it governs whether extrinsic evidence can supplement the written contract, not just which documentary evidence is preferred.',tag:'Parol evidence vs best evidence rule'},
+        {label:'No rule prevents this — parties are free to give oral evidence of any pre-contractual discussions they wish',pts:0,fb:'Incorrect. The parol evidence rule exists specifically to prevent this. Once parties have reduced their agreement to a final written contract, pre-contractual negotiations and oral promises are generally inadmissible to vary the written terms. Without this rule, contractual certainty would be impossible.',tag:'Parol evidence rule'},
+        {label:'The Statute of Frauds — oral modifications to written contracts are void unless evidenced in writing',pts:5,fb:'The Statute of Frauds imposes writing requirements for certain categories of contract (e.g., interests in land, suretyship). It does not govern the admissibility of parol evidence about additional terms in all written contracts. The parol evidence rule is the directly applicable doctrine for this fact pattern.',tag:'Parol evidence rule vs Statute of Frauds'}
+      ]
+    }
+  ],
+  family:[
+    {
+      q:'A married couple separates after 12 years. One spouse wants a divorce and an order for spousal support. The court with jurisdiction to grant both orders is:',
+      opts:[
+        {label:'The provincial superior court, applying provincial family law legislation for both divorce and spousal support',pts:0,fb:'Incorrect. Divorce — including corollary relief like spousal support in connection with divorce — is exclusively federal jurisdiction under s.91(26) of the Constitution Act, 1867 and is governed by the federal Divorce Act. Provinces cannot enact divorce legislation.',tag:'Federal/provincial split — Divorce Act vs provincial'},
+        {label:'The superior court of the province, applying the federal Divorce Act for divorce and spousal support as corollary relief',pts:20,fb:'Correct. Divorce is exclusively federal under the Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.). A superior court can grant both the divorce and an order for spousal support as corollary relief under the same Divorce Act proceedings. Where divorce is not sought, provincial legislation (e.g., Family Law Act, Ontario) governs support independently.',tag:'Federal/provincial split — Divorce Act jurisdiction'},
+        {label:'The federal court, because divorce involves federal legislation',pts:0,fb:'Incorrect. The Federal Court of Canada does not have jurisdiction over family law matters. Divorce proceedings are heard in the superior court of the province (e.g., Ontario Superior Court of Justice, B.C. Supreme Court). The Divorce Act is federal law applied by provincial superior courts.',tag:'Federal/provincial split — which court'},
+        {label:'Either the provincial court or the superior court, depending on which court the petitioner chooses',pts:0,fb:'Incorrect. Divorce under the Divorce Act must be commenced in a superior court. Provincial courts (family division) have jurisdiction to make interim orders in some provinces but cannot grant divorce. The distinction between court levels matters because only superior courts can grant divorce.',tag:'Federal/provincial split — court level'}
+      ]
+    },
+    {
+      q:'A couple separates after 8 years of marriage. The wife earned $90,000 annually; the husband earned $35,000 and was the primary caregiver for their two children. He applies for spousal support. The correct starting point for quantum and duration is:',
+      opts:[
+        {label:'Spousal support is unavailable because the husband is male — historically spousal support was designed to protect dependent wives',pts:0,fb:'Incorrect and outdated. The Divorce Act and provincial legislation are gender-neutral. Spousal support is available to any spouse who is economically disadvantaged by the marriage or its breakdown, regardless of gender. This is settled law.',tag:'Spousal support — gender neutral'},
+        {label:'The Spousal Support Advisory Guidelines (SSAG) — applying the with-child formula given the presence of dependent children, generating a range for monthly quantum and duration',pts:20,fb:'Correct. The SSAG, developed by Rogerson and Thompson, provide the starting point for quantum and duration in nearly all spousal support cases. With dependent children, the with-child support formula applies. It generates a range (low, mid, high) based on the income difference and length of marriage. While not legally binding, courts consistently apply the SSAG as the framework for principled analysis.',tag:'SSAG — with-child formula'},
+        {label:'The Moge/Bracklow framework only — courts set support based on the compensatory and non-compensatory rationales without reference to any formula',pts:10,fb:'Moge and Bracklow establish the rationales (compensatory, non-compensatory, contractual) but do not quantify support. The SSAG provides the quantification framework that courts now apply consistently after Moge/Bracklow analysis. Ignoring the SSAG in an NCA answer leaves the analysis incomplete.',tag:'SSAG vs Moge/Bracklow'},
+        {label:'The Federal Child Support Guidelines — spousal support and child support are governed by the same federal formula',pts:0,fb:'Incorrect. The Federal Child Support Guidelines (FCSG) govern child support quantum. Spousal support is a separate analysis, governed by the Divorce Act objectives in s.15.2(6) and quantified using the SSAG. They are distinct orders with distinct legal frameworks.',tag:'Child support vs spousal support'}
+      ]
+    },
+    {
+      q:'A couple married in Ontario in 2010 and separates in 2026. During the marriage, the husband received an inheritance of $300,000 and kept it in a separate account that grew to $380,000. Under Ontario\'s Family Law Act equalization of net family property, this $380,000 is:',
+      opts:[
+        {label:'Fully included in the husband\'s net family property — all assets acquired during marriage are shared equally on separation',pts:0,fb:'Incorrect. This overlooks the deduction for excluded property under s.4(2) of the Ontario Family Law Act. Inherited property is specifically excluded from net family property if it has been kept separate and not converted into a family asset.',tag:'FLA — excluded property — inheritance'},
+        {label:'Partially excluded — the original $300,000 inheritance is deducted from net family property, but the $80,000 growth during marriage is included',pts:20,fb:'Correct. Under s.4(2)(c) of the Ontario Family Law Act, property inherited by a spouse and not converted into a family asset is excluded from net family property. The exclusion applies to the original value ($300,000). However, passive growth on excluded property remains tricky — some decisions include only growth attributable to marital efforts. The safest NCA answer acknowledges the $300,000 as excluded and flags the growth question.',tag:'FLA — excluded property — growth on inheritance'},
+        {label:'Fully excluded — all inheritance, including growth, is excluded from net family property under the Family Law Act',pts:10,fb:'Partially correct — the inheritance itself is excluded, but courts do not automatically exclude all growth on excluded property. Growth resulting purely from passive appreciation may be treated differently from growth from active management. The complete answer distinguishes the original exclusion from the treatment of growth.',tag:'FLA — excluded property — growth'},
+        {label:'Irrelevant to equalization — only matrimonial home equity is subject to equalization under Ontario law',pts:0,fb:'Incorrect. The Ontario FLA equalization regime applies to all net family property — defined as the value of all property a spouse owns on valuation date, minus deductions and exclusions. The matrimonial home has special rules (no deduction for value at marriage) but is not the only asset subject to equalization.',tag:'FLA — net family property definition'}
+      ]
+    }
+  ],
+  evidence:[
+    {
+      q:'A witness testifies that the accused told him "I did it, but don\'t tell anyone." The Crown tenders this statement to prove the accused committed the offence. The defence objects on hearsay grounds. The correct analysis is:',
+      opts:[
+        {label:'The statement is inadmissible hearsay — it is an out-of-court statement offered for the truth of its contents',pts:5,fb:'The statement is an out-of-court statement offered for truth, making it hearsay. However, identifying it as hearsay is only the first step. The statement is also a party admission — and in Canadian evidence law, party admissions are admissible as a recognized exception to the hearsay rule. The analysis is incomplete without addressing the exception.',tag:'Hearsay — party admissions exception'},
+        {label:'The statement is hearsay but admissible as a party admission — a statement made by a party to the proceeding offered against that party is a recognized exception to the hearsay rule',pts:20,fb:'Correct. In Canada, party admissions (statements made by the accused/party and tendered against them) are admissible as an established categorical exception to the hearsay rule. Unlike the principled approach, party admissions do not require individualized necessity and reliability analysis — they are admitted on the basis that a party cannot object to their own words being used against them.',tag:'Hearsay — party admissions exception'},
+        {label:'The statement is admissible as a present sense impression — the accused described the event shortly after it occurred',pts:0,fb:'Incorrect. A present sense impression requires a spontaneous description made during or immediately after the event. A deliberate private admission to a third party is not a present sense impression. The correct exception is party admission.',tag:'Hearsay — exceptions identification'},
+        {label:'The statement must be assessed under the principled approach — the court applies the Khelawon necessity and reliability framework to determine admissibility',pts:5,fb:'The principled approach from Starr and Khelawon applies to statements tendered under novel or residual categories. Party admissions are an established categorical exception that do not require principled approach analysis. Applying the principled approach to a party admission signals format confusion.',tag:'Hearsay — principled approach vs categorical exceptions'}
+      ]
+    },
+    {
+      q:'Police arrest a suspect without a warrant and, before giving Charter warnings, ask "where is the weapon?" The suspect answers and the weapon is found. At trial, Crown seeks to admit the statement and the weapon. The framework for determining admissibility of both is:',
+      opts:[
+        {label:'The confession rule only — both the statement and the weapon are excluded automatically because the confession was involuntary',pts:0,fb:'Incorrect. The confession rule (Ibrahim/Hart voluntariness) governs the statement to a person in authority. However, the weapon is real (non-conscriptive) evidence, and its admissibility under s.24(2) is assessed under the Grant test — not the confession rule. Two separate frameworks apply.',tag:'Grant test vs confession rule'},
+        {label:'The Grant three-step test under s.24(2) of the Charter: (1) seriousness of the Charter-infringing conduct; (2) impact on the accused\'s Charter-protected interests; (3) society\'s interest in adjudication on the merits',pts:20,fb:'Correct. Grant [2009] SCC 32 replaced the Collins/Stillman framework. Once a Charter breach (s.10(b) here — right to counsel before police questioning) is established, s.24(2) determines whether admitting the evidence would bring the administration of justice into disrepute. The three Grant factors are assessed cumulatively. The weapon (real evidence) and the statement (conscriptive evidence) may receive different results under the same framework.',tag:'Grant test — s.24(2) framework'},
+        {label:'Automatic exclusion — any evidence obtained following a Charter breach must be excluded under s.24(2)',pts:0,fb:'Incorrect. Canada does not have an automatic exclusionary rule. Section 24(2) requires a balancing exercise — the Grant test. Evidence may be admitted despite a Charter breach if the three-factor analysis favours admission. Real evidence (weapons, drugs) is often admitted even after Charter breaches.',tag:'Grant test — no automatic exclusion'},
+        {label:'The Collins good faith exception — if police genuinely believed they were acting lawfully, the evidence is admissible',pts:0,fb:'Incorrect. Collins was replaced by Grant in 2009. Under Grant, good faith (or bad faith) is one consideration within the first factor (seriousness of the breach), not a standalone exception that determines admissibility. Grant is the current and only framework for s.24(2) analysis.',tag:'Grant test — Collins replaced'}
+      ]
+    },
+    {
+      q:'The Crown seeks to introduce evidence that the accused was convicted of fraud 5 years ago to prove he is the type of person who would commit the current fraud charge. The defence objects. The correct analysis is:',
+      opts:[
+        {label:'The evidence is admissible — a prior conviction for the same type of offence is always relevant to guilt in the current proceeding',pts:0,fb:'Incorrect. This is precisely the propensity reasoning that the character evidence rule prohibits. Using a prior conviction to reason "he did it before, so he probably did it again" is inadmissible propensity evidence. The Crown cannot lead bad character evidence as part of its case-in-chief.',tag:'Character evidence — Crown prohibited from leading'},
+        {label:'The evidence is inadmissible as propensity evidence — the Crown cannot lead evidence of the accused\'s bad character to prove guilt; to be admitted, the evidence must satisfy the similar fact evidence test',pts:20,fb:'Correct. The general rule is that the Crown cannot lead evidence of bad character as part of its case to invite propensity reasoning. An exception exists for similar fact evidence: if the prior acts are so strikingly similar as to be probative of identity, system, or another specific issue (not just propensity), and the probative value substantially outweighs the prejudice, the evidence may be admitted. A prior conviction for the same category of offence alone does not meet this threshold.',tag:'Character evidence — similar fact exception'},
+        {label:'The evidence is admissible only if the accused first puts his own good character in issue',pts:10,fb:'Partially correct — if the accused puts character in issue, the Crown may rebut with bad character evidence. However, the question asks about the Crown leading prior conviction evidence in its case-in-chief, before the accused does anything. The general rule prohibits this unless similar fact principles apply.',tag:'Character evidence — accused putting character in issue'},
+        {label:'The evidence is admissible to test credibility, as prior convictions are always available for cross-examination',pts:5,fb:'Prior convictions can be used in cross-examination to challenge credibility (Canada Evidence Act s.12), but only if the accused testifies. This question concerns Crown evidence in chief before any testimony. The credibility use is distinct from the propensity use, and neither applies in the case-in-chief without the accused testifying.',tag:'Character evidence — credibility vs propensity'}
+      ]
+    }
+  ]
+};
+
+var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility',contract:'Contract Law',family:'Family Law',evidence:'Evidence Law'};
 
 /* ── PROGRESS HELPER ── */
 function rqUpdateProgress(stepNum){

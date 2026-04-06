@@ -108,6 +108,16 @@
 #nca-chat-send svg{width:16px;height:16px;fill:rgba(201,168,76,.4);transition:fill .25s;}
 #nca-chat-send.active svg{fill:#02020A;}
 
+/* === Voice Button === */
+#nca-voice-btn{width:36px;height:36px;border-radius:10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s cubic-bezier(.4,0,.2,1);padding:0;}
+#nca-voice-btn:hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.5);}
+#nca-voice-btn svg{width:16px;height:16px;stroke:rgba(201,168,76,.7);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s;}
+#nca-voice-btn:hover svg{stroke:#C9A84C;}
+#nca-voice-btn.nca-recording{background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.5);animation:nca-voice-pulse 1s infinite;}
+#nca-voice-btn.nca-recording svg{stroke:#f87171;}
+@keyframes nca-voice-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3);}50%{box-shadow:0 0 0 6px rgba(220,38,38,0);}}
+.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 0;text-align:center;flex-basis:100%;order:10;min-height:14px;transition:opacity .2s;}
+
 /* === Footer === */
 .nca-chat-footer{text-align:center;padding:5px 0 7px;font-size:.58rem;color:rgba(255,255,255,.12);flex-shrink:0;letter-spacing:.03em;}
 
@@ -147,10 +157,14 @@
   <div class="nca-chips" id="nca-chips"></div>
   <div class="nca-chat-input-row">
     <textarea id="nca-chat-input" placeholder="Ask about NCA exams..." rows="1" aria-label="Your message"></textarea>
+    <button id="nca-voice-btn" aria-label="Voice message" title="Click to speak">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M19 10a7 7 0 0 1-14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="9" y1="22" x2="15" y2="22"/></svg>
+    </button>
     <button id="nca-chat-send" aria-label="Send message" disabled>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
+  <div class="nca-voice-status" id="nca-voice-status"></div>
   <div class="nca-chat-footer">AI-powered &middot; Not official NCA advice</div>
 </div>`;
 
@@ -185,6 +199,105 @@
   var sendBtn = document.getElementById('nca-chat-send');
   var chipsEl = document.getElementById('nca-chips');
   var notif = document.getElementById('nca-notif');
+  var voiceBtn = document.getElementById('nca-voice-btn');
+  var voiceStatus = document.getElementById('nca-voice-status');
+
+  /* ── Voice state ── */
+  var mediaRecorder = null;
+  var audioChunks = [];
+  var isRecording = false;
+  var voiceSupported = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+
+  if (!voiceSupported && voiceBtn) voiceBtn.style.display = 'none';
+
+  /* ── Voice: set status text ── */
+  function setVoiceStatus(text) {
+    if (voiceStatus) voiceStatus.textContent = text;
+  }
+
+  /* ── Voice: stop recording and send ── */
+  function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+    }
+  }
+
+  /* ── Voice: start recording ── */
+  async function startRecording() {
+    if (isRecording) { stopRecording(); return; }
+    if (!voiceSupported) {
+      setVoiceStatus('Voice not supported in this browser.');
+      return;
+    }
+    try {
+      var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunks = [];
+      // Prefer webm/opus, fall back to whatever the browser supports
+      var mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus'
+        : MediaRecorder.isTypeSupported('audio/webm')
+          ? 'audio/webm'
+          : '';
+      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+
+      mediaRecorder.addEventListener('dataavailable', function (e) {
+        if (e.data && e.data.size > 0) audioChunks.push(e.data);
+      });
+
+      mediaRecorder.addEventListener('stop', async function () {
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        stream.getTracks().forEach(function (t) { t.stop(); });
+
+        if (audioChunks.length === 0) { setVoiceStatus(''); return; }
+
+        var blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+        audioChunks = [];
+
+        setVoiceStatus('Transcribing\u2026');
+        var formData = new FormData();
+        formData.append('audio', blob, 'voice.webm');
+
+        try {
+          var res = await fetch('/api/voice', { method: 'POST', body: formData });
+          if (!res.ok) throw new Error('voice_api_' + res.status);
+          var data = await res.json();
+          if (data.text && data.text.trim()) {
+            setVoiceStatus('');
+            // Put transcribed text into the input and auto-send
+            input.value = data.text.trim();
+            updateSendBtn();
+            sendMessage(data.text.trim());
+          } else {
+            setVoiceStatus('Could not transcribe — please try again.');
+            setTimeout(function () { setVoiceStatus(''); }, 3000);
+          }
+        } catch (err) {
+          // Voice API not yet deployed — fall back to showing helpful message
+          setVoiceStatus('Voice API not active. Type your question below.');
+          setTimeout(function () { setVoiceStatus(''); }, 4000);
+        }
+      });
+
+      mediaRecorder.start();
+      isRecording = true;
+      if (voiceBtn) voiceBtn.classList.add('nca-recording');
+      setVoiceStatus('Listening\u2026 click mic to stop.');
+    } catch (err) {
+      if (err.name === 'NotAllowedError') {
+        setVoiceStatus('Microphone access denied.');
+      } else {
+        setVoiceStatus('Could not access microphone.');
+      }
+      setTimeout(function () { setVoiceStatus(''); }, 3000);
+    }
+  }
+
+  if (voiceBtn) {
+    voiceBtn.addEventListener('click', function () {
+      if (isRecording) stopRecording(); else startRecording();
+    });
+  }
 
   var SUGGESTIONS = [
     'How many NCA exams do I need?',
