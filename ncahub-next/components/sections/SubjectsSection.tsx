@@ -1,122 +1,269 @@
 'use client'
-import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
+/**
+ * SubjectsSection — GSAP-pinned horizontal scroll panel.
+ *
+ * As the user scrolls DOWN, the panel slides horizontally across 8 subject cards.
+ * This is the "activetheory / mokn" style cinematic scroll experience.
+ */
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { gsap } from '@/lib/gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitText from '@/components/ui/SplitText'
+import ScrollReveal from '@/components/ui/ScrollReveal'
+
+if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger)
 
 const SUBJECTS = [
   {
-    code: 'ADM', title: 'Administrative Law',
-    weight: 'High exam frequency', color: 'rgba(201,168,76,1)',
-    topics: ['Vavilov reasonableness', 'Baker procedural fairness', 'Dunsmuir correctness', 'Fettering discretion'],
+    code: '01',
+    title: 'Administrative\nLaw',
+    tagline: 'Vavilov. Dunsmuir. Standard of review — mapped cold.',
     href: '/notes/administrative-law/',
+    accentAngle: '135deg',
   },
   {
-    code: 'CON', title: 'Constitutional Law',
-    weight: 'Complex frameworks', color: 'rgba(201,168,76,.85)',
-    topics: ['Division of powers', 'Charter s.1 Oakes', 'Aboriginal rights s.35', 'Notwithstanding clause'],
+    code: '02',
+    title: 'Constitutional\nLaw',
+    tagline: 'Charter rights. Division of powers. Section 1 analysis.',
     href: '/notes/constitutional-law/',
+    accentAngle: '120deg',
   },
   {
-    code: 'CRM', title: 'Criminal Law',
-    weight: 'Framework-heavy', color: 'rgba(201,168,76,.7)',
-    topics: ['Actus reus / mens rea', 'Section 229 murder', 'Defences', 'Sentencing principles'],
+    code: '03',
+    title: 'Criminal\nLaw',
+    tagline: 'Actus reus. Mens rea. Defences. Exam-ready templates.',
     href: '/notes/criminal-law/',
+    accentAngle: '150deg',
   },
   {
-    code: 'FCL', title: 'Foundations of Canadian Law',
-    weight: 'Conceptual', color: 'rgba(201,168,76,.55)',
-    topics: ['Sources of law', 'Common law vs civil law', 'Constitutional supremacy', 'Stare decisis'],
+    code: '04',
+    title: 'Foundations of\nCanadian Law',
+    tagline: 'Indigenous law. Quebec civil law. Federal structure.',
     href: '/notes/foundations-of-canadian-law/',
+    accentAngle: '110deg',
   },
   {
-    code: 'PR', title: 'Professional Responsibility',
-    weight: 'Rules-based', color: 'rgba(201,168,76,.45)',
-    topics: ['Duty of loyalty', 'Conflicts of interest', 'Competence', 'Trust accounting'],
+    code: '05',
+    title: 'Professional\nResponsibility',
+    tagline: 'Ethics, conflicts of interest, Law Society obligations.',
     href: '/notes/professional-responsibility/',
+    accentAngle: '160deg',
+  },
+  {
+    code: '06',
+    title: 'Contract\nLaw',
+    tagline: 'Formation, breach, remedies — nothing left out.',
+    href: '/notes/',
+    accentAngle: '125deg',
+  },
+  {
+    code: '07',
+    title: 'Family\nLaw',
+    tagline: 'Spousal support, parenting orders, Hague Convention.',
+    href: '/notes/',
+    accentAngle: '145deg',
+  },
+  {
+    code: '08',
+    title: 'Evidence\nLaw',
+    tagline: 'Admissibility, hearsay exceptions, privilege.',
+    href: '/notes/',
+    accentAngle: '130deg',
   },
 ]
 
 export default function SubjectsSection() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const sectionRef = useRef<HTMLElement>(null!)
+  const trackRef = useRef<HTMLDivElement>(null!)
+  const progressRef = useRef<HTMLDivElement>(null!)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const track = trackRef.current
+    if (!section || !track) return
+
+    const getScrollDist = () => track.scrollWidth - window.innerWidth
+
+    const ctx = gsap.context(() => {
+      gsap.to(track, {
+        x: () => -getScrollDist(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${getScrollDist()}`,
+          scrub: 1.2,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (progressRef.current) {
+              progressRef.current.style.width = `${self.progress * 100}%`
+            }
+          },
+        },
+      })
+    }, section)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section className="sec" id="subjects" aria-label="Subjects covered" ref={ref}
-      style={{ background: 'var(--abyss)', borderTop: '1px solid rgba(201,168,76,.06)' }}>
-      <div className="w">
-        <motion.span className="ey"
-          initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}>
-          All 5 NCA Subjects
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontFamily: 'var(--fd)', fontSize: 'var(--h1)', fontWeight: 400, lineHeight: 1.1, marginBottom: 16 }}>
-          Complete coverage.<br /><em>Zero filler.</em>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          style={{ fontSize: 'var(--lead)', color: 'var(--fog)', maxWidth: 600, marginBottom: 56 }}>
-          Each subject pod is built from the exam up — structured around what the NCA actually tests, not what law schools teach.
-        </motion.p>
-
-        {/* Horizontal scroll on mobile, grid on desktop */}
-        <div id="HT" style={{
-          display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 2,
-          overflowX: 'auto', paddingBottom: 4,
+    <section
+      ref={sectionRef}
+      id="subjects"
+      aria-label="NCA Subjects"
+      style={{
+        overflow: 'hidden',
+        background: 'var(--void)',
+        borderTop: '1px solid rgba(201,168,76,.06)',
+      }}
+    >
+      {/* Fixed header overlay */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
+          padding: 'clamp(40px, 6vh, 64px) clamp(24px, 5vw, 72px) 0',
+          background: 'linear-gradient(to bottom, var(--void) 65%, transparent)',
+          pointerEvents: 'none',
+        }}
+      >
+        <span className="ey">Every NCA Subject</span>
+        <div style={{
+          fontFamily: 'var(--fd)', fontSize: 'clamp(2rem, 4vw, 4rem)',
+          fontWeight: 400, color: 'var(--cream)', lineHeight: 1.05, marginTop: 10,
         }}>
-          {SUBJECTS.map((s, i) => (
-            <motion.div key={s.code}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="sc2"
-              style={{
-                padding: '28px 24px', minWidth: 200,
-                background: 'rgba(201,168,76,.03)',
-                border: '1px solid rgba(201,168,76,.1)',
-                cursor: 'pointer', position: 'relative',
-              }}>
-              {/* Subject code */}
-              <div style={{
-                fontFamily: 'var(--fd)', fontSize: '2rem', color: s.color,
-                fontWeight: 300, lineHeight: 1, marginBottom: 12, opacity: 0.6,
-              }}>{s.code}</div>
-              <h3 style={{ fontSize: '.85rem', fontWeight: 600, color: 'var(--cream)', lineHeight: 1.3, marginBottom: 8 }}>
-                {s.title}
-              </h3>
-              <div style={{ fontSize: 'var(--nano)', color: s.color, letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: 16, opacity: 0.8 }}>
-                {s.weight}
-              </div>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 20 }}>
-                {s.topics.map((t) => (
-                  <li key={t} style={{ fontSize: '.72rem', color: 'var(--dim)', lineHeight: 1.5 }}>
-                    · {t}
-                  </li>
-                ))}
-              </ul>
-              <Link href={s.href}
-                style={{ fontSize: 'var(--nano)', letterSpacing: '.15em', textTransform: 'uppercase', color: 'var(--g2)', display: 'flex', alignItems: 'center', gap: 4 }}>
-                Notes →
-              </Link>
-            </motion.div>
-          ))}
+          Nothing wasted.
+        </div>
+        {/* Progress bar */}
+        <div style={{
+          marginTop: 28, width: 160, height: 1,
+          background: 'rgba(201,168,76,.12)', borderRadius: 1, overflow: 'hidden',
+        }}>
+          <div
+            ref={progressRef}
+            style={{ height: '100%', background: 'var(--g1)', width: '0%' }}
+          />
+        </div>
+        <p style={{
+          fontSize: 'var(--nano)', letterSpacing: '.22em', textTransform: 'uppercase',
+          color: 'var(--dim)', marginTop: 10,
+        }}>
+          Drag or scroll to explore →
+        </p>
+      </div>
+
+      {/* Horizontal track */}
+      <div
+        ref={trackRef}
+        style={{
+          display: 'flex',
+          alignItems: 'stretch',
+          height: '100vh',
+          paddingTop: '200px',
+          paddingLeft: 'clamp(24px, 5vw, 72px)',
+          paddingRight: 'clamp(24px, 5vw, 72px)',
+          gap: 24,
+          willChange: 'transform',
+        }}
+      >
+        {/* Leading spacer */}
+        <div style={{ flexShrink: 0, width: 'clamp(200px, 28vw, 360px)' }} />
+
+        {SUBJECTS.map((s, i) => (
+          <SubjectCard key={s.code} subject={s} index={i} />
+        ))}
+
+        {/* Trailing spacer */}
+        <div style={{ flexShrink: 0, width: 'clamp(24px, 5vw, 72px)' }} />
+      </div>
+    </section>
+  )
+}
+
+function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null!)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const onEnter = () => gsap.to(el, { borderColor: 'rgba(201,168,76,0.35)', duration: 0.35 })
+    const onLeave = () => gsap.to(el, { borderColor: 'rgba(201,168,76,0.06)', duration: 0.4 })
+    el.addEventListener('mouseenter', onEnter)
+    el.addEventListener('mouseleave', onLeave)
+    return () => {
+      el.removeEventListener('mouseenter', onEnter)
+      el.removeEventListener('mouseleave', onLeave)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        flexShrink: 0,
+        width: 'clamp(240px, 20vw, 300px)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        paddingBottom: 'clamp(36px, 5vh, 56px)',
+        paddingLeft: 24,
+        paddingRight: 24,
+        border: '1px solid rgba(201,168,76,.06)',
+        borderRadius: 4,
+        position: 'relative',
+        cursor: 'default',
+        transition: 'border-color 0.35s',
+        background: 'rgba(255,255,255,0.015)',
+      }}
+    >
+      {/* Vertical accent line */}
+      <div style={{
+        position: 'absolute', top: '20%', left: -1,
+        width: 2, height: '30%',
+        background: `linear-gradient(${subject.accentAngle}, transparent, rgba(201,168,76,0.55), transparent)`,
+      }} />
+
+      {/* Large ghost number */}
+      <div style={{
+        position: 'absolute', top: '18%', right: 16,
+        fontFamily: 'var(--fd)', fontSize: 'clamp(5rem, 9vw, 8rem)',
+        color: 'rgba(201,168,76,0.07)', lineHeight: 1,
+        fontWeight: 300, userSelect: 'none',
+      }}>
+        {subject.code}
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{
+          fontSize: 'var(--nano)', letterSpacing: '.3em', textTransform: 'uppercase',
+          color: 'var(--g2)', marginBottom: 16,
+        }}>
+          Subject {subject.code}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          style={{ display: 'flex', justifyContent: 'center', marginTop: 48 }}>
-          <Link href="#pricing" className="bp"><span>Get All 5 Subjects →</span></Link>
-        </motion.div>
+        <h3 style={{
+          fontFamily: 'var(--fd)', fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
+          fontWeight: 400, lineHeight: 1.1, color: 'var(--cream)',
+          marginBottom: 14, whiteSpace: 'pre-line',
+        }}>
+          {subject.title}
+        </h3>
+
+        <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.65, marginBottom: 28 }}>
+          {subject.tagline}
+        </p>
+
+        <Link
+          href={subject.href}
+          className="nc"
+          style={{ fontSize: '.62rem', padding: '9px 16px', display: 'inline-flex' }}
+        >
+          <span>View Notes →</span>
+        </Link>
       </div>
-      <style>{`
-        @media(max-width:1024px){#HT{grid-template-columns:repeat(3,1fr)!important}}
-        @media(max-width:640px){#HT{grid-template-columns:repeat(2,220px)!important;overflow-x:scroll}}
-      `}</style>
-    </section>
+    </div>
   )
 }
