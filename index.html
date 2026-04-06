@@ -1350,12 +1350,41 @@ select:focus-visible {
 </script>
 <link rel="stylesheet" href="/nca-premium-v3.css">
 <style>
-/* VISIBILITY GUARANTEE: story headings always readable regardless of JS/GSAP state */
+/* ── VISIBILITY GUARANTEE ──────────────────────────────────────────────────
+   Every content element is visible by CSS default.
+   GSAP / ScrollTrigger animate ON TOP of these base states — they never
+   control whether something is readable, only how smoothly it arrives.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Split-heading characters — always readable; animation is additive */
+.char{opacity:1;transform:none;}
+/* Word overflow must be visible so no char is ever clipped */
+.word{overflow:visible!important;}
+
+/* Story chapter headings and body panels */
 .story-ch-head{opacity:1!important;transform:none!important;}
 .story-ch-right{opacity:1!important;transform:none!important;}
-/* Re-enable transition effect when .vis is present (JS enhancement only) */
-.story-chapter.vis .story-ch-head{transition:none;}
-.story-chapter.vis .story-ch-right{transition:none;}
+
+/* Method cards, flow steps, stats, pricing cards, subject cards */
+.mc{opacity:1!important;transform:none!important;}
+.mf-step{opacity:1!important;transform:none!important;}
+.mf-arrow{opacity:1!important;}
+.bs{opacity:1!important;transform:none!important;}
+.sc2{opacity:1!important;transform:none!important;}
+.pc{opacity:1!important;transform:none!important;}
+
+/* Hero elements */
+.hsub{opacity:1!important;transform:none!important;}
+.hact{opacity:1!important;transform:none!important;}
+.h-auth{opacity:1!important;}
+.hcard{opacity:1!important;transform:none!important;}
+
+/* Philosophy typewriter text */
+#PHT{opacity:1!important;}
+.pha{opacity:1!important;}
+
+/* GSAP / ScrollTrigger can still add .on / .vis for transitions —
+   those classes layer extra effects but are never required for visibility */
 </style>
 </head>
 <body>
@@ -2649,7 +2678,7 @@ function makeWordSpan(word){
   var ws=document.createElement('span');
   ws.className='word';
   ws.style.display='inline-block';
-  ws.style.overflow='hidden';
+  ws.style.overflow='visible';
   ws.style.marginRight='0.25em';
   word.split('').forEach(function(ch){
     var s=document.createElement('span');
