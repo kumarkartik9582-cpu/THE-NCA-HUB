@@ -339,3 +339,68 @@ SuperClaude extends Claude Code through its native extension points. When develo
 - **Native Session Persistence**: `--continue`/`--resume` instead of custom memory files
 
 See `docs/user-guide/claude-code-integration.md` for the full gap analysis.
+
+## Awesome Claude Code — Installed Slash Commands
+
+23 community-curated slash commands are installed to `~/.claude/commands/`. Use these for consistent, high-quality workflows. Re-install anytime via `./install-awesome-claude-code.sh`.
+
+### Recommended Daily Workflow
+
+```
+/context-prime          # Start of session — prime codebase context
+/todo list              # Check current priorities from todos.md
+/commit                 # Conventional commits with emoji (use instead of raw git commit)
+/pr-review <number>     # 6-perspective code review before merging
+/add-to-changelog       # Track changes after features/fixes
+```
+
+### Command Reference
+
+| Command | Use When |
+|---|---|
+| `/commit` | Every commit — enforces conventional format with emoji |
+| `/create-pr` | Creating PRs — auto-splits logical commits, formats code |
+| `/pr-review` | Before merging — 6-perspective review (PM, Dev, QA, Security, DevOps, UX) |
+| `/add-to-changelog` | After features/fixes — keeps CHANGELOG.md current |
+| `/todo` | Task management — manages `todos.md` with due dates and tracking |
+| `/fix-github-issue` | Fixing reported issues — reads issue, implements, tests, commits |
+| `/context-prime` | Session start — primes codebase understanding |
+| `/create-hook` | Adding Claude Code automation hooks |
+| `/update-docs` | After major changes — syncs all documentation |
+| `/release` | Version bumps — changelog + version + README |
+| `/act` | TDD — RED-GREEN-REFACTOR from todo list |
+| `/clean` | Before PRs — runs all linters/formatters |
+| `/optimize` | Performance issues — analyzes and proposes fixes |
+| `/create-prd` | Major features — Product Requirements Document |
+| `/create-worktrees` | Parallel work — git worktrees for multi-branch |
+| `/testing_plan_integration` | Adding tests — structured test planning |
+| `/create-prp` | Research-driven prompts — gathers docs, web, codebase context |
+| `/create-jtbd` | User research — Jobs to be Done analysis |
+| `/husky` | CI validation — lint, build, test, stage |
+| `/initref` | Reference docs — summarize project into /ref |
+| `/update-branch-name` | Rename branches based on diff analysis |
+
+### Active Hooks (Project-Level)
+
+Configured in `.claude/settings.json`:
+
+- **Blog Auto-Build** (`PostToolUse` → `Edit|Write`): When blog markdown is edited, `node build.js` runs automatically to regenerate static HTML and sitemap
+- **Commit Quality** (`PreToolUse` → `Bash`): Validates conventional commit format (feat/fix/docs/etc.) before `git commit` executes
+- **Git Check** (`Stop`): Ensures all changes are committed and pushed before session ends (user-level hook)
+
+### CI/CD Quality Gates
+
+- **Build & Deploy** (`.github/workflows/build.yml`): Manual trigger — builds blog pages, regenerates sitemap, commits and pushes
+- **PR Quality Gate** (`.github/workflows/pr-quality-gate.yml`): Runs on every PR — builds blog, validates sitemap, checks broken internal links, validates SEO meta tags (title, description, canonical)
+
+### Task Management
+
+Use `todos.md` (managed via `/todo`) instead of the stale `TASK.md` for current priorities:
+
+```
+/todo list              # Show all active tasks with due dates
+/todo add "task" 2026-05-01   # Add task with due date
+/todo complete 3        # Mark task #3 as done
+/todo past due          # Show overdue tasks
+/todo next              # Show next task to work on
+```

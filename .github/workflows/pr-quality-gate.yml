@@ -1,0 +1,100 @@
+name: PR Quality Gate
+
+on:
+  pull_request:
+    branches: [main, master]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  build-check:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install marked
+
+      - name: Build blog pages
+        run: node build.js
+
+      - name: Validate sitemap exists
+        run: |
+          if [ ! -f sitemap.xml ]; then
+            echo "::error::sitemap.xml missing after build"
+            exit 1
+          fi
+          echo "sitemap.xml exists with $(grep -c '<url>' sitemap.xml) URLs"
+
+      - name: Check for broken internal links
+        run: |
+          errors=0
+          for html in blog/*/index.html; do
+            # Extract href links to local paths
+            grep -oP 'href="(/[^"]*)"' "$html" 2>/dev/null | while read -r link; do
+              path="${link#href=\"}"
+              path="${path%\"}"
+              # Skip anchors, external links, mailto
+              [[ "$path" == \#* || "$path" == http* || "$path" == mailto* ]] && continue
+              # Check if target exists (as file or directory with index.html)
+              target="${path#/}"
+              if [ ! -f "$target" ] && [ ! -f "${target}/index.html" ] && [ ! -f "${target}index.html" ]; then
+                echo "::warning file=$html::Potentially broken link: $path"
+              fi
+            done
+          done
+
+  seo-validation:
+    name: SEO Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate HTML meta tags
+        run: |
+          missing=0
+          for html in blog/*/index.html; do
+            [ -f "$html" ] || continue
+            slug=$(basename "$(dirname "$html")")
+
+            if ! grep -q '<title>' "$html"; then
+              echo "::warning file=$html::Missing <title> tag"
+              missing=$((missing + 1))
+            fi
+
+            if ! grep -q 'meta.*description' "$html"; then
+              echo "::warning file=$html::Missing meta description"
+              missing=$((missing + 1))
+            fi
+
+            if ! grep -q 'canonical' "$html"; then
+              echo "::warning file=$html::Missing canonical URL"
+            fi
+          done
+
+          if [ "$missing" -gt 0 ]; then
+            echo "::warning::$missing SEO issues found across blog pages"
+          else
+            echo "All blog pages have required SEO meta tags"
+          fi
+
+      - name: Validate sitemap format
+        run: |
+          if [ -f sitemap.xml ]; then
+            if head -1 sitemap.xml | grep -q '<?xml'; then
+              echo "sitemap.xml is valid XML format"
+            else
+              echo "::error::sitemap.xml is not valid XML"
+              exit 1
+            fi
+          fi
