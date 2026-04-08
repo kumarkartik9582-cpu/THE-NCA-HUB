@@ -102,8 +102,8 @@ If no, your materials are too big.
 
 Reduce volume. Increase utility.
 
-[Get the 80-Page Strategic Notes →](/pricing)
+[Get the 80-Page Strategic Notes →](/notes/)
 
-[Download free sample →](/sample)
+[Download free sample →](/free-chapter.html)
 
 Small. Fast. Pass.

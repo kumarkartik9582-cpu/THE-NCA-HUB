@@ -91,7 +91,7 @@ Use a simple spreadsheet:
 
 Calculate your hours. Be honest.
 
-[Get the Study Hour Calculator →](/pricing)
+[Get the Study Hour Calculator →](/notes/)
 
 [See the working professional schedule →](/blog/article?post=article-e1-nca-study-schedule-working)
 

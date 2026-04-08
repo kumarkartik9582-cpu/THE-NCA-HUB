@@ -143,7 +143,7 @@ const SEO_META = {
     datePublished: '2025-11-01',
   },
   'article-a3-administrative-law-nca': {
-    title:       'NCA Administrative Law Exam Guide 2026: Vavilov, Baker & Full Answer Template',
+    title:       'NCA Administrative Law Exam Guide 2026: Vavilov & Baker',
     description: 'Complete NCA Administrative Law exam guide. Vavilov standard of review, Baker procedural fairness, judicial review — with the exact answer template for every Admin Law question.',
     cluster:     'subjects',
     readTime:    '18 min',
@@ -157,7 +157,7 @@ const SEO_META = {
     datePublished: '2025-11-01',
   },
   'article-b1-constitutional-law-nca': {
-    title:       'NCA Constitutional Law 2026: Charter Analysis, Division of Powers & Oakes Test Guide',
+    title:       'NCA Constitutional Law 2026: Charter, Oakes & Powers',
     description: 'Complete NCA Constitutional Law exam guide. Charter analysis sequence, division of powers, the Oakes test, and Aboriginal rights under s.35 — with a full answer template.',
     cluster:     'subjects',
     readTime:    '16 min',
@@ -171,7 +171,7 @@ const SEO_META = {
     datePublished: '2025-11-01',
   },
   'article-b3-professional-responsibility-nca': {
-    title:       'NCA Professional Responsibility Exam Guide 2026: Model Code, Conflicts & Confidentiality',
+    title:       'NCA Professional Responsibility 2026: Model Code Guide',
     description: 'Complete NCA Professional Responsibility exam guide. CBA Model Code, duties to clients, conflicts of interest, withdrawal — with the answer template that pre-structures every PR question.',
     cluster:     'subjects',
     readTime:    '14 min',

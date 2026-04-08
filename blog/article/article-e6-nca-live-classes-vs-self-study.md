@@ -87,7 +87,7 @@ Based on candidate reports:
 
 Know thyself. If you need a teacher, take the class. If you need flexibility, self-study.
 
-[Get Strategic Self-Study Materials →](/pricing)
+[Get Strategic Self-Study Materials →](/notes/)
 
 [Calculate your study style →](/readiness)
 
