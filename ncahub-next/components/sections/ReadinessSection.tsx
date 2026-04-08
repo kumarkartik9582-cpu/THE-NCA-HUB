@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
-import { motion, useInView, AnimatePresence } from 'motion/react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 
 const QUESTIONS = [
   {

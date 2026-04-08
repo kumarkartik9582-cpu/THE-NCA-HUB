@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { EffectComposer, Bloom, ChromaticAberration, Vignette } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import { Float, Preload } from '@react-three/drei'
 import * as THREE from 'three'
 import { BlendFunction } from 'postprocessing'
@@ -194,7 +194,7 @@ const particleFrag = /* glsl */ `
   }
 `
 
-function GoldParticleField({ count = 4500 }: { count?: number }) {
+function GoldParticleField({ count = 2000 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.ShaderMaterial>(null!)
   const mouse = useRef({ x: 0, y: 0 })
@@ -497,14 +497,10 @@ function Scene() {
 
       <EffectComposer multisampling={0}>
         <Bloom
-          luminanceThreshold={0.5}
-          luminanceSmoothing={0.015}
-          intensity={1.6}
+          luminanceThreshold={0.55}
+          luminanceSmoothing={0.02}
+          intensity={1.0}
           mipmapBlur
-        />
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL}
-          offset={new THREE.Vector2(0.001, 0.001)}
         />
         <Vignette
           offset={0.25}

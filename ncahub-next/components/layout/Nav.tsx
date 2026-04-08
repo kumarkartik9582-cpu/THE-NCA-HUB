@@ -103,7 +103,9 @@ export default function Nav() {
           aria-label="Toggle menu"
           style={{
             display: 'none', background: 'none', border: 'none',
-            cursor: 'pointer', padding: 8, flexDirection: 'column', gap: 5,
+            cursor: 'pointer', padding: 12, flexDirection: 'column', gap: 5,
+            minWidth: 44, minHeight: 44,
+            alignItems: 'center', justifyContent: 'center',
           }}
         >
           <span style={{

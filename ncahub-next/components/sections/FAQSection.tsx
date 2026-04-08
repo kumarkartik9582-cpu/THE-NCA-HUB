@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'motion/react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import FloatingParticles from '@/components/ui/FloatingParticles'
 
 const FAQS = [
