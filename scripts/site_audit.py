@@ -104,9 +104,11 @@ def rel_path(p: Path) -> str:
 
 def extract_meta(html):
     tags = {}
-    for m in re.finditer(r'<meta\s+(?:name|property)=["\']([^"\']+)["\']\s+content=["\']([^"\']*)["\']', html, re.I):
+    # Match name="x" content="y" (handle apostrophes inside double-quoted values)
+    for m in re.finditer(r'<meta\s+(?:name|property)="([^"]+)"\s+content="([^"]*)"', html, re.I):
         tags[m.group(1)] = m.group(2)
-    for m in re.finditer(r'<meta\s+content=["\']([^"\']*)["\'].*?(?:name|property)=["\']([^"\']+)["\']', html, re.I):
+    # Match content="y" name="x" order
+    for m in re.finditer(r'<meta\s+content="([^"]*)"[^>]*(?:name|property)="([^"]+)"', html, re.I):
         tags[m.group(2)] = m.group(1)
     return tags
 

@@ -115,17 +115,20 @@ def read_html(path: Path) -> str:
 
 
 def extract_meta_tags(html: str) -> dict:
-    """Extract meta tags into a dict of {name/property: content}."""
+    """Extract meta tags into a dict of {name/property: content}.
+
+    Uses double-quote-only matching to handle apostrophes inside content values.
+    """
     tags = {}
+    # Match name="x" content="y"
     for match in re.finditer(
-        r'<meta\s+(?:name|property)=["\']([^"\']+)["\']\s+content=["\']([^"\']*)["\']',
+        r'<meta\s+(?:name|property)="([^"]+)"\s+content="([^"]*)"',
         html, re.IGNORECASE
     ):
         tags[match.group(1)] = match.group(2)
     # Also catch reversed attribute order
     for match in re.finditer(
-        r'<meta\s+content=["\']([^"\']*)["\']'
-        r'\s+(?:name|property)=["\']([^"\']+)["\']',
+        r'<meta\s+content="([^"]*)"[^>]*(?:name|property)="([^"]+)"',
         html, re.IGNORECASE
     ):
         tags[match.group(2)] = match.group(1)
