@@ -1,6 +1,6 @@
 'use client'
 import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
+import { motion, useInView } from 'framer-motion'
 import TiltCard from '@/components/ui/TiltCard'
 import FloatingParticles from '@/components/ui/FloatingParticles'
 

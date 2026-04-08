@@ -5,7 +5,7 @@
  * As the user scrolls DOWN, the panel slides horizontally across 8 subject cards.
  * Now with holographic card effects, perspective hover, and particle trails.
  */
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, memo } from 'react'
 import Link from 'next/link'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -203,7 +203,7 @@ export default function SubjectsSection() {
   )
 }
 
-function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: number }) {
+const SubjectCard = memo(function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null!)
 
   useEffect(() => {
@@ -341,4 +341,4 @@ function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: n
       </div>
     </div>
   )
-}
+})

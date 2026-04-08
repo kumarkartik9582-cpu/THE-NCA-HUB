@@ -91,10 +91,10 @@ export default function SplitText({
     if (!useST) tl.play()
 
     return () => {
+      // Kill only this timeline's ScrollTrigger, not all on page
+      const st = tl.scrollTrigger
+      if (st) st.kill()
       tl.kill()
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === rootRef.current) st.kill()
-      })
     }
   }, [text, useST, delay, stagger, duration])
 

@@ -70,12 +70,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none;
-  /* GPU compositing layer — keeps scrolling off main thread */
-  will-change: scroll-position;
 }
 @media (max-width: 960px) { body { cursor: auto } }
 ::selection { background: rgba(201,168,76,0.3); color:#fff; text-shadow:0 0 10px rgba(201,168,76,0.5) }
-:focus-visible { outline: 2px solid #C9A84C; outline-offset: 3px; border-radius: 3px }
+:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 4px rgba(201,168,76,0.15);
+}
+/* Ensure all interactive elements get focus ring */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 4px rgba(201,168,76,0.15);
+}
 h1, h2, h3, h4 { font-family: var(--fd) }
 a { text-decoration: none; color: inherit }
 button { font-family: var(--fb); border: none; background: none; cursor: pointer }
@@ -297,7 +307,6 @@ ul { list-style: none }
   pointer-events: none;
   filter: blur(60px);
   animation: orb-float 18s ease-in-out infinite alternate;
-  will-change: transform;
 }
 @keyframes orb-float {
   0%   { transform: translate(0, 0) scale(1) rotate(0deg) }
@@ -311,7 +320,6 @@ ul { list-style: none }
 .morph-blob {
   border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   animation: morph 12s ease-in-out infinite;
-  will-change: border-radius;
 }
 @keyframes morph {
   0%   { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% }

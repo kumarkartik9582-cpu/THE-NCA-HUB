@@ -14,9 +14,20 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
     // Lenis smooth scroll synced with GSAP
     const lenis = new Lenis({ autoRaf: false })
-    gsap.ticker.add((time) => lenis.raf(time * 1000))
+    const lenisRaf = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(lenisRaf)
     gsap.ticker.lagSmoothing(0)
     lenis.on('scroll', ScrollTrigger.update)
+
+    // Pause GSAP ticker when tab is hidden (saves CPU in background)
+    const onVisibility = () => {
+      if (document.hidden) {
+        gsap.ticker.sleep()
+      } else {
+        gsap.ticker.wake()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
 
     // Scroll progress + discovery bar
     const prog = document.getElementById('prog')
@@ -29,14 +40,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     }
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    // Enhanced ambient cursor light with trail
+    // Ambient cursor spotlight — pauses when hidden
     const IS_MOBILE = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth <= 768
+    let spotlightRafId = 0
+    let spotlightStyle: HTMLStyleElement | null = null
+
     if (!IS_MOBILE && !isLowEnd) {
-      // Primary spotlight
       if (!document.getElementById('nca-spotlight')) {
-        const s = document.createElement('style')
-        s.id = 'nca-spotlight'
-        s.textContent = `
+        spotlightStyle = document.createElement('style')
+        spotlightStyle.id = 'nca-spotlight'
+        spotlightStyle.textContent = `
           body::after {
             content: "";
             position: fixed;
@@ -49,10 +62,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
               rgba(201,168,76,0.015) 30%,
               transparent 60%
             );
-            transition: background 0.1s ease;
           }
         `
-        document.head.appendChild(s)
+        document.head.appendChild(spotlightStyle)
       }
 
       let mx = 50, my = 50, tx = 50, ty = 50
@@ -62,19 +74,24 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       }, { passive: true })
 
       const lerp = () => {
-        mx += (tx - mx) * 0.06
-        my += (ty - my) * 0.06
-        document.documentElement.style.setProperty('--mx', mx.toFixed(2) + '%')
-        document.documentElement.style.setProperty('--my', my.toFixed(2) + '%')
-        requestAnimationFrame(lerp)
+        if (!document.hidden) {
+          mx += (tx - mx) * 0.06
+          my += (ty - my) * 0.06
+          document.documentElement.style.setProperty('--mx', mx.toFixed(2) + '%')
+          document.documentElement.style.setProperty('--my', my.toFixed(2) + '%')
+        }
+        spotlightRafId = requestAnimationFrame(lerp)
       }
-      lerp()
+      spotlightRafId = requestAnimationFrame(lerp)
     }
 
     return () => {
-      gsap.ticker.remove(lenis.raf)
+      gsap.ticker.remove(lenisRaf)
       lenis.destroy()
       window.removeEventListener('scroll', onScroll)
+      document.removeEventListener('visibilitychange', onVisibility)
+      cancelAnimationFrame(spotlightRafId)
+      if (spotlightStyle) spotlightStyle.remove()
     }
   }, [])
 
