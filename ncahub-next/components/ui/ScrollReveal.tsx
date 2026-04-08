@@ -34,7 +34,7 @@ interface ScrollRevealProps {
   once?: boolean
   className?: string
   style?: React.CSSProperties
-  as?: keyof JSX.IntrinsicElements
+  as?: keyof React.JSX.IntrinsicElements
   stagger?: number   // if children is array of elements, stagger each
 }
 

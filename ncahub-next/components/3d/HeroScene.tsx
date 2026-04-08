@@ -1,8 +1,8 @@
 'use client'
 import { useRef, useMemo, useEffect } from 'react'
-import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { EffectComposer, Bloom, ChromaticAberration, Vignette } from '@react-three/postprocessing'
-import { Float, Environment, Preload } from '@react-three/drei'
+import { Float, Preload } from '@react-three/drei'
 import * as THREE from 'three'
 import { BlendFunction } from 'postprocessing'
 
@@ -21,7 +21,6 @@ const nebulaFrag = /* glsl */ `
   uniform vec2 uMouse;
   varying vec2 vUv;
 
-  // --- Noise helpers ---------------------------------------------------------
   vec3 mod289(vec3 x){return x - floor(x*(1./289.))*289.;}
   vec4 mod289(vec4 x){return x - floor(x*(1./289.))*289.;}
   vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);}
@@ -65,7 +64,6 @@ const nebulaFrag = /* glsl */ `
     m=m*m;
     return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
   }
-  // --------------------------------------------------------------------------
 
   void main() {
     vec2 uv = vUv;
@@ -75,29 +73,40 @@ const nebulaFrag = /* glsl */ `
     vec2 mouse = uMouse * 0.15;
     uv += mouse * (1.0 - length(uv - 0.5));
 
-    // Layered noise
+    // Layered noise — more octaves for richer texture
     float n1 = snoise(vec3(uv * 2.2, t));
     float n2 = snoise(vec3(uv * 4.8 + 0.5, t * 0.7));
     float n3 = snoise(vec3(uv * 9.0 + 1.1, t * 1.3));
-    float n  = n1 * 0.55 + n2 * 0.30 + n3 * 0.15;
+    float n4 = snoise(vec3(uv * 16.0 + 2.3, t * 1.8));
+    float n  = n1 * 0.45 + n2 * 0.28 + n3 * 0.17 + n4 * 0.10;
 
-    // Radial vignette — darker at edges
+    // Radial vignette
     float dist = length(uv - 0.5) * 1.8;
     float vig  = 1.0 - smoothstep(0.3, 1.0, dist);
 
-    // Base dark void colour
-    vec3 col = vec3(0.008, 0.008, 0.016);
+    // Base dark void
+    vec3 col = vec3(0.008, 0.008, 0.018);
 
-    // Gold vein highlights
-    float vein = pow(max(n * 0.5 + 0.5, 0.0), 6.0);
-    col += vec3(0.79, 0.66, 0.30) * vein * 0.22;
+    // Gold vein highlights — more intense
+    float vein = pow(max(n * 0.5 + 0.5, 0.0), 5.5);
+    col += vec3(0.82, 0.68, 0.32) * vein * 0.28;
 
-    // Deep purple/indigo tints for depth
-    col += vec3(0.05, 0.02, 0.12) * (n * 0.5 + 0.5) * 0.4;
+    // Deep indigo depth tints
+    col += vec3(0.05, 0.02, 0.14) * (n * 0.5 + 0.5) * 0.45;
 
-    // Soft horizon glow at bottom
-    float horizon = pow(1.0 - uv.y, 3.0) * 0.15;
-    col += vec3(0.79, 0.66, 0.30) * horizon;
+    // Subtle cyan accent for futuristic feel
+    float accent = pow(max(n3 * 0.5 + 0.5, 0.0), 4.0);
+    col += vec3(0.12, 0.18, 0.28) * accent * 0.08;
+
+    // Energy pulse ring (mouse-centered)
+    vec2 center = vec2(0.5) + uMouse * 0.08;
+    float ring = abs(length(uv - center) - 0.25 - sin(t * 2.0) * 0.05);
+    float ringGlow = smoothstep(0.02, 0.0, ring) * 0.15;
+    col += vec3(0.82, 0.68, 0.32) * ringGlow;
+
+    // Soft horizon glow
+    float horizon = pow(1.0 - uv.y, 3.0) * 0.18;
+    col += vec3(0.82, 0.68, 0.32) * horizon;
 
     col *= vig;
     gl_FragColor = vec4(col, 1.0);
@@ -145,7 +154,7 @@ function NebulaBG() {
   )
 }
 
-/* ─── Instanced Gold Particle Field ──────────────────────────────────────── */
+/* ─── Instanced Gold Particle Field — more particles ─────────────────────── */
 const particleVert = /* glsl */ `
   attribute float aScale;
   attribute float aRandom;
@@ -156,37 +165,36 @@ const particleVert = /* glsl */ `
   void main() {
     vec3 pos = position;
 
-    // Slow drift
-    pos.x += sin(uTime * 0.18 + aRandom * 6.28) * 0.12;
-    pos.y += cos(uTime * 0.22 + aRandom * 6.28) * 0.10;
-    pos.z += sin(uTime * 0.15 + aRandom * 3.14) * 0.06;
+    // Slow drift with more variation
+    pos.x += sin(uTime * 0.18 + aRandom * 6.28) * 0.15;
+    pos.y += cos(uTime * 0.22 + aRandom * 6.28) * 0.12;
+    pos.z += sin(uTime * 0.15 + aRandom * 3.14) * 0.08;
 
-    // Mouse parallax offset (foreground particles move more)
+    // Mouse parallax (foreground particles move more)
     float depth = smoothstep(-10.0, 10.0, position.z);
-    pos.x += uMouse.x * depth * 0.25;
-    pos.y += uMouse.y * depth * 0.15;
+    pos.x += uMouse.x * depth * 0.3;
+    pos.y += uMouse.y * depth * 0.2;
 
     vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPos;
 
-    // Depth-attenuated point size
     float dist = -mvPos.z;
-    gl_PointSize = aScale * (400.0 / dist);
-    vAlpha = aScale * 0.6;
+    gl_PointSize = aScale * (450.0 / dist);
+    vAlpha = aScale * 0.65;
   }
 `
 
 const particleFrag = /* glsl */ `
   varying float vAlpha;
   void main() {
-    // Soft circular sprite
     float d = length(gl_PointCoord - 0.5) * 2.0;
-    float a = 1.0 - smoothstep(0.5, 1.0, d);
-    gl_FragColor = vec4(0.90, 0.76, 0.42, a * vAlpha);
+    float a = 1.0 - smoothstep(0.4, 1.0, d);
+    // Gold with slight warm variation
+    gl_FragColor = vec4(0.92, 0.78, 0.44, a * vAlpha);
   }
 `
 
-function GoldParticleField({ count = 3500 }: { count?: number }) {
+function GoldParticleField({ count = 4500 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.ShaderMaterial>(null!)
   const mouse = useRef({ x: 0, y: 0 })
@@ -207,10 +215,10 @@ function GoldParticleField({ count = 3500 }: { count?: number }) {
     const randoms = new Float32Array(count)
     for (let i = 0; i < count; i++) {
       const r = Math.random()
-      positions[i * 3]     = (Math.random() - 0.5) * 24
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 16
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 14
-      scales[i]   = Math.random() * 1.6 + 0.3
+      positions[i * 3]     = (Math.random() - 0.5) * 28
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 18
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 16
+      scales[i]   = Math.random() * 1.8 + 0.2
       randoms[i]  = r
     }
     return { positions, scales, randoms }
@@ -260,20 +268,19 @@ function GoldObjects() {
   const goldMat = useMemo(() => new THREE.MeshStandardMaterial({
     color: new THREE.Color('#C9A84C'),
     metalness: 1.0,
-    roughness: 0.05,
+    roughness: 0.04,
     emissive: new THREE.Color('#5A3A08'),
-    emissiveIntensity: 0.3,
-    envMapIntensity: 2.5,
+    emissiveIntensity: 0.35,
+    envMapIntensity: 2.8,
   }), [])
 
   const darkGoldMat = useMemo(() => new THREE.MeshStandardMaterial({
     color: new THREE.Color('#9E7B30'),
     metalness: 0.95,
-    roughness: 0.15,
+    roughness: 0.12,
     emissive: new THREE.Color('#3A2A06'),
-    emissiveIntensity: 0.2,
-    envMapIntensity: 2.0,
-    wireframe: false,
+    emissiveIntensity: 0.25,
+    envMapIntensity: 2.2,
   }), [])
 
   useFrame((state) => {
@@ -329,7 +336,112 @@ function GoldObjects() {
           />
         </mesh>
       </Float>
+
+      {/* Additional — wireframe dodecahedron far background */}
+      <Float speed={0.4} rotationIntensity={0.08} floatIntensity={0.15}>
+        <mesh position={[4.0, 2.5, -5.5]}>
+          <dodecahedronGeometry args={[1.2]} />
+          <meshStandardMaterial
+            color="#F0D878"
+            metalness={0.85}
+            roughness={0.15}
+            wireframe
+            transparent
+            opacity={0.1}
+          />
+        </mesh>
+      </Float>
     </>
+  )
+}
+
+/* ─── Holographic Grid Floor ─────────────────────────────────────────────── */
+function HoloGrid() {
+  const matRef = useRef<THREE.ShaderMaterial>(null!)
+
+  const gridVert = /* glsl */ `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `
+
+  const gridFrag = /* glsl */ `
+    precision highp float;
+    uniform float uTime;
+    varying vec2 vUv;
+
+    void main() {
+      vec2 uv = vUv * 20.0;
+      vec2 grid = abs(fract(uv - 0.5) - 0.5);
+      float line = min(grid.x, grid.y);
+      float g = 1.0 - smoothstep(0.0, 0.04, line);
+
+      // Fade at edges
+      float fade = smoothstep(0.0, 0.15, vUv.y) * (1.0 - smoothstep(0.85, 1.0, vUv.y));
+      fade *= smoothstep(0.0, 0.2, vUv.x) * (1.0 - smoothstep(0.8, 1.0, vUv.x));
+
+      // Scan line moving across
+      float scan = smoothstep(0.0, 0.01, abs(vUv.y - fract(uTime * 0.08)));
+      scan = 1.0 - (1.0 - scan) * 0.5;
+
+      float alpha = g * fade * scan * 0.12;
+      gl_FragColor = vec4(0.82, 0.68, 0.32, alpha);
+    }
+  `
+
+  const uniforms = useMemo(() => ({
+    uTime: { value: 0 },
+  }), [])
+
+  useFrame((state) => {
+    if (matRef.current) matRef.current.uniforms.uTime.value = state.clock.elapsedTime
+  })
+
+  return (
+    <mesh rotation={[-Math.PI * 0.45, 0, 0]} position={[0, -3.5, -3]}>
+      <planeGeometry args={[30, 20]} />
+      <shaderMaterial
+        ref={matRef}
+        vertexShader={gridVert}
+        fragmentShader={gridFrag}
+        uniforms={uniforms}
+        transparent
+        depthWrite={false}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
+  )
+}
+
+/* ─── Energy Ring ────────────────────────────────────────────────────────── */
+function EnergyRing() {
+  const ringRef = useRef<THREE.Mesh>(null!)
+
+  useFrame((state) => {
+    if (!ringRef.current) return
+    const t = state.clock.elapsedTime
+    ringRef.current.rotation.x = t * 0.05
+    ringRef.current.rotation.z = t * 0.03
+    ringRef.current.scale.setScalar(1 + Math.sin(t * 0.5) * 0.05)
+  })
+
+  return (
+    <Float speed={0.3} rotationIntensity={0.05} floatIntensity={0.1}>
+      <mesh ref={ringRef} position={[0, 0, -2]}>
+        <torusGeometry args={[3.5, 0.015, 16, 128]} />
+        <meshStandardMaterial
+          color="#F0D878"
+          emissive="#C9A84C"
+          emissiveIntensity={0.8}
+          metalness={1}
+          roughness={0}
+          transparent
+          opacity={0.2}
+        />
+      </mesh>
+    </Float>
   )
 }
 
@@ -372,30 +484,31 @@ function Scene() {
   return (
     <>
       <ambientLight color="#9E7B30" intensity={0.5} />
-      <pointLight position={[6, 6, 4]}  color="#F0D878" intensity={3} />
-      <pointLight position={[-6, -4, -2]} color="#C9A84C" intensity={2} />
+      <pointLight position={[6, 6, 4]}  color="#F0D878" intensity={3.5} />
+      <pointLight position={[-6, -4, -2]} color="#C9A84C" intensity={2.5} />
       <pointLight position={[0, 10, 2]} color="#ffffff"  intensity={0.6} />
-      <Environment preset="city" />
 
       <NebulaBG />
       <GoldParticleField />
       <GoldObjects />
+      <HoloGrid />
+      <EnergyRing />
       <CameraController />
 
       <EffectComposer multisampling={0}>
         <Bloom
-          luminanceThreshold={0.6}
-          luminanceSmoothing={0.02}
-          intensity={1.4}
+          luminanceThreshold={0.5}
+          luminanceSmoothing={0.015}
+          intensity={1.6}
           mipmapBlur
         />
         <ChromaticAberration
           blendFunction={BlendFunction.NORMAL}
-          offset={new THREE.Vector2(0.0008, 0.0008)}
+          offset={new THREE.Vector2(0.001, 0.001)}
         />
         <Vignette
-          offset={0.3}
-          darkness={0.7}
+          offset={0.25}
+          darkness={0.75}
           blendFunction={BlendFunction.NORMAL}
         />
       </EffectComposer>
@@ -413,13 +526,13 @@ export default function HeroScene() {
       <Canvas
         camera={{ position: [0, 0, 5], fov: 70 }}
         gl={{
-          antialias: false,   // off for perf — post-processing handles AA
+          antialias: false,
           alpha: false,
           powerPreference: 'high-performance',
           stencil: false,
           depth: true,
         }}
-        dpr={[1, 1.5]}        // cap at 1.5× — sweet spot quality/perf
+        dpr={[1, 1.5]}
         shadows={false}
       >
         <Scene />

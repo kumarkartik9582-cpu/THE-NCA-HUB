@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import SplitText from '@/components/ui/SplitText'
+import TiltCard from '@/components/ui/TiltCard'
+import FloatingParticles from '@/components/ui/FloatingParticles'
 
 const HeroSceneLoader = dynamic(() => import('@/components/3d/HeroSceneLoader'), { ssr: false })
 
@@ -27,7 +28,6 @@ function MagneticBtn({
   'data-cur'?: string
 }) {
   const ref = useRef<HTMLAnchorElement>(null!)
-  const pos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     const el = ref.current
@@ -79,13 +79,27 @@ export default function HeroSection() {
   const cardRef = useRef<HTMLDivElement>(null!)
   const ctaRef = useRef<HTMLDivElement>(null!)
   const authorRef = useRef<HTMLDivElement>(null!)
+  const scrollRef = useRef<HTMLDivElement>(null!)
 
   useEffect(() => {
-    // Staggered entrance after 3D scene loads (~300 ms)
-    gsap.fromTo(
-      [cardRef.current, ctaRef.current, authorRef.current],
+    const tl = gsap.timeline({ delay: 0.8 })
+
+    tl.fromTo(
+      [authorRef.current, ctaRef.current],
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1.0, stagger: 0.12, delay: 0.9, ease: 'expo.out' },
+      { opacity: 1, y: 0, duration: 1.0, stagger: 0.12, ease: 'expo.out' },
+    )
+    .fromTo(
+      cardRef.current,
+      { opacity: 0, y: 40, rotateY: -8 },
+      { opacity: 1, y: 0, rotateY: 0, duration: 1.2, ease: 'expo.out' },
+      '-=0.6'
+    )
+    .fromTo(
+      scrollRef.current,
+      { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' },
+      '-=0.4'
     )
   }, [])
 
@@ -105,6 +119,9 @@ export default function HeroSection() {
           padding: 'clamp(120px, 14vh, 160px) clamp(24px, 5vw, 72px) clamp(60px, 8vh, 100px)',
         }}
       >
+        {/* Floating particles layer */}
+        <FloatingParticles count={15} opacity={0.6} />
+
         {/* Visually-hidden SEO h1 */}
         <h1 className="seo-h1">NCA Exam Prep Canada — The NCA Hub</h1>
 
@@ -114,6 +131,7 @@ export default function HeroSection() {
           gridTemplateColumns: 'minmax(0,1fr) 380px',
           gap: 'clamp(40px, 6vw, 80px)',
           alignItems: 'center',
+          perspective: '1200px',
         }}>
 
           {/* ── Left ── */}
@@ -122,23 +140,36 @@ export default function HeroSection() {
             <div
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                background: 'rgba(201,168,76,.06)',
-                border: '1px solid rgba(201,168,76,.2)',
-                padding: '7px 16px', borderRadius: 2, marginBottom: 36,
+                background: 'rgba(201,168,76,.04)',
+                border: '1px solid rgba(201,168,76,.15)',
+                padding: '7px 16px', borderRadius: 3, marginBottom: 36,
                 opacity: 0, animation: 'fadeInDown 0.7s 0.3s ease forwards',
+                backdropFilter: 'blur(10px)',
               }}
             >
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--g1)', display: 'inline-block', boxShadow: '0 0 8px var(--g1)' }} />
-              <span style={{ fontSize: 'var(--nano)', letterSpacing: '.35em', textTransform: 'uppercase', color: 'var(--g1)', fontFamily: 'var(--fb)', fontWeight: 600 }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%', background: 'var(--g1)',
+                display: 'inline-block',
+                boxShadow: '0 0 12px var(--g1), 0 0 24px rgba(201,168,76,0.3)',
+                animation: 'pulse-glow 2s ease-in-out infinite',
+              }} />
+              <span style={{
+                fontSize: 'var(--nano)', letterSpacing: '.35em', textTransform: 'uppercase',
+                color: 'var(--g1)', fontFamily: 'var(--fb)', fontWeight: 600,
+              }}>
                 You qualified abroad — Canada requires 5 more exams
               </span>
             </div>
 
             {/* Kinetic headline — split into words */}
-            <div style={{ fontFamily: 'var(--fd)', fontSize: 'var(--h1)', fontWeight: 400, lineHeight: 1.05, color: 'var(--cream)', marginBottom: 28, perspective: '800px' }}>
+            <div style={{
+              fontFamily: 'var(--fd)', fontSize: 'var(--h1)', fontWeight: 400,
+              lineHeight: 1.05, color: 'var(--cream)', marginBottom: 28,
+              perspective: '800px',
+            }}>
               <SplitText text="Pass the NCA." by="words" delay={0.5} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em' }} />
               <SplitText text="Not in years." by="words" delay={0.7} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em', color: 'var(--fog)' }} />
-              <SplitText text="This cycle." by="words" delay={0.88} stagger={0.09} scrollTrigger={false} style={{ display: 'block', color: 'var(--g1)' }} tokenColor="var(--g1)" />
+              <SplitText text="This cycle." by="words" delay={0.88} stagger={0.09} scrollTrigger={false} style={{ display: 'block' }} tokenColor="var(--g1)" />
             </div>
 
             {/* Sub */}
@@ -160,66 +191,86 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <div ref={ctaRef} style={{ display: 'flex', gap: 14, flexWrap: 'wrap', opacity: 0 }}>
-              <MagneticBtn href="#readiness" className="bp" data-cur="Score">
+              <MagneticBtn href="#readiness" className="bp" data-cur="Score" style={{ borderRadius: '4px' }}>
                 <span>Get My Readiness Score →</span>
               </MagneticBtn>
-              <MagneticBtn href="#pricing" className="nc" data-cur="View">
+              <MagneticBtn href="#pricing" className="nc" data-cur="View" style={{ borderRadius: '4px' }}>
                 <span>See the Notes</span>
               </MagneticBtn>
             </div>
           </div>
 
-          {/* ── Right: results card ── */}
-          <div
-            ref={cardRef}
+          {/* ── Right: results card with 3D tilt ── */}
+          <TiltCard
             className="glass"
-            data-cur="Results"
-            style={{ padding: 28, opacity: 0 }}
+            maxTilt={10}
+            glare={0.12}
+            style={{
+              padding: 28,
+              opacity: 0,
+              transformOrigin: 'center center',
+            }}
           >
-            <div style={{
-              fontSize: 'var(--nano)', letterSpacing: '.3em', textTransform: 'uppercase',
-              color: 'var(--g1)', fontWeight: 600, marginBottom: 20,
-            }}>
-              Candidate Results
-            </div>
-            {RESULTS.map((t, i) => (
-              <div key={i} style={{
-                padding: '14px 16px',
-                background: `rgba(201,168,76,${0.05 - i * 0.01})`,
-                borderLeft: `2px solid rgba(201,168,76,${1 - i * 0.35})`,
-                marginBottom: i < 2 ? 12 : 0,
+            <div ref={cardRef} data-cur="Results" style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{
+                fontSize: 'var(--nano)', letterSpacing: '.3em', textTransform: 'uppercase',
+                color: 'var(--g1)', fontWeight: 600, marginBottom: 20,
               }}>
-                <div style={{ fontSize: 'var(--nano)', letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--g1)', fontWeight: 600, marginBottom: 4 }}>
-                  {t.subject}
-                </div>
-                <div style={{ fontSize: 'var(--sm)', color: 'var(--cream)', fontFamily: 'var(--fd)', fontStyle: 'italic' }}>
-                  {t.quote}
-                </div>
-                <div style={{ fontSize: '.6rem', color: 'var(--dim)', marginTop: 4 }}>
-                  {t.author} · <strong style={{ color: 'var(--g1)' }}>Passed</strong>
-                </div>
+                <span className="gradient-text-animated">Candidate Results</span>
               </div>
-            ))}
-            <a href="#readiness" className="bp" style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: '.72rem', marginTop: 16, display: 'flex' }}>
-              <span>Get My Readiness Score →</span>
-            </a>
-          </div>
+              {RESULTS.map((t, i) => (
+                <div key={i} style={{
+                  padding: '14px 16px',
+                  background: `linear-gradient(135deg, rgba(201,168,76,${0.06 - i * 0.015}) 0%, rgba(8,8,16,0.4) 100%)`,
+                  borderLeft: `2px solid rgba(201,168,76,${1 - i * 0.35})`,
+                  marginBottom: i < 2 ? 12 : 0,
+                  borderRadius: '0 6px 6px 0',
+                  transition: 'all 0.3s ease',
+                }}>
+                  <div style={{ fontSize: 'var(--nano)', letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--g1)', fontWeight: 600, marginBottom: 4 }}>
+                    {t.subject}
+                  </div>
+                  <div style={{ fontSize: 'var(--sm)', color: 'var(--cream)', fontFamily: 'var(--fd)', fontStyle: 'italic' }}>
+                    {t.quote}
+                  </div>
+                  <div style={{ fontSize: '.6rem', color: 'var(--dim)', marginTop: 4 }}>
+                    {t.author} · <strong style={{ color: 'var(--g1)' }}>Passed</strong>
+                  </div>
+                </div>
+              ))}
+              <a href="#readiness" className="bp" style={{
+                width: '100%', textAlign: 'center', justifyContent: 'center',
+                fontSize: '.72rem', marginTop: 16, display: 'flex', borderRadius: '4px',
+              }}>
+                <span>Get My Readiness Score →</span>
+              </a>
+            </div>
+          </TiltCard>
         </div>
 
         {/* Scroll indicator */}
-        <div style={{
-          position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
-          fontSize: 'var(--nano)', letterSpacing: '.25em', textTransform: 'uppercase', color: 'var(--dim)',
-          opacity: 0, animation: 'fadeInDown 0.8s 1.6s ease forwards',
-        }}>
-          <div style={{ width: 1, height: 44, background: 'linear-gradient(to bottom, var(--g1), transparent)' }} />
+        <div
+          ref={scrollRef}
+          style={{
+            position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+            fontSize: 'var(--nano)', letterSpacing: '.25em', textTransform: 'uppercase', color: 'var(--dim)',
+            opacity: 0,
+          }}
+        >
+          <div style={{
+            width: 1, height: 44,
+            background: 'linear-gradient(to bottom, var(--g1), transparent)',
+            animation: 'scrollPulse 2s ease-in-out infinite',
+          }} />
           Scroll
         </div>
       </section>
 
       {/* Ticker band */}
-      <div className="tb" aria-hidden="true">
+      <div className="tb" aria-hidden="true" style={{ position: 'relative' }}>
+        {/* Glow line on top */}
+        <div className="glow-line" style={{ position: 'absolute', top: 0, left: '5%', right: '5%' }} />
         <div className="tt">
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
             <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 32 }}>
@@ -234,6 +285,14 @@ export default function HeroSection() {
         @keyframes fadeInDown {
           from { opacity:0; transform:translateY(-10px); }
           to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 8px var(--g1), 0 0 16px rgba(201,168,76,0.2); }
+          50% { box-shadow: 0 0 16px var(--g1), 0 0 32px rgba(201,168,76,0.4); }
+        }
+        @keyframes scrollPulse {
+          0%, 100% { opacity: 0.5; transform: scaleY(1); }
+          50% { opacity: 1; transform: scaleY(1.15); }
         }
         @media(max-width:768px){
           #hero > div > div { grid-template-columns:1fr!important; }

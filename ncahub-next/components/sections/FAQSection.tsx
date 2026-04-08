@@ -1,6 +1,7 @@
 'use client'
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'motion/react'
+import FloatingParticles from '@/components/ui/FloatingParticles'
 
 const FAQS = [
   {
@@ -32,23 +33,35 @@ const FAQS = [
 function FAQItem({ faq, idx }: { faq: { q: string; a: string }; idx: number }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="faq-item"
-      style={{ borderBottom: '1px solid rgba(201,168,76,.08)', padding: '0' }}>
+    <div
+      className="faq-item"
+      style={{
+        borderBottom: '1px solid rgba(201,168,76,.06)',
+        padding: '0',
+        transition: 'all 0.3s ease',
+      }}
+    >
       <button
         onClick={() => setOpen(!open)}
         style={{
           width: '100%', textAlign: 'left', padding: '24px 0',
           display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 20,
           cursor: 'pointer', background: 'none', border: 'none', color: 'var(--cream)',
+        }}
+      >
+        <span style={{
+          fontFamily: 'var(--fd)', fontSize: '1.05rem', lineHeight: 1.4, fontWeight: 400,
+          transition: 'color 0.3s ease',
+          color: open ? 'var(--g1)' : 'var(--cream)',
         }}>
-        <span style={{ fontFamily: 'var(--fd)', fontSize: '1.05rem', lineHeight: 1.4, fontWeight: 400 }}>
           {faq.q}
         </span>
         <span style={{
           color: 'var(--g1)', fontSize: '1.2rem', flexShrink: 0, lineHeight: 1,
           transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
-          transition: 'transform .3s ease',
+          transition: 'transform .3s cubic-bezier(.16,1,.3,1)',
           display: 'block', marginTop: 4,
+          textShadow: open ? '0 0 8px rgba(201,168,76,0.4)' : 'none',
         }}>+</span>
       </button>
       <AnimatePresence>
@@ -58,10 +71,17 @@ function FAQItem({ faq, idx }: { faq: { q: string; a: string }; idx: number }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            style={{ overflow: 'hidden' }}>
-            <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.75, paddingBottom: 24 }}>
-              {faq.a}
-            </p>
+            style={{ overflow: 'hidden' }}
+          >
+            <div style={{
+              paddingBottom: 24, paddingLeft: 16,
+              borderLeft: '2px solid rgba(201,168,76,0.15)',
+              marginLeft: 4,
+            }}>
+              <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.75 }}>
+                {faq.a}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -74,8 +94,22 @@ export default function FAQSection() {
   const inView = useInView(ref, { once: true, margin: '-10%' })
 
   return (
-    <section className="sec" id="faq" aria-label="Frequently asked questions" ref={ref}>
-      <div className="w">
+    <section className="sec" id="faq" aria-label="Frequently asked questions" ref={ref}
+      style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Grid background */}
+      <div className="grid-bg" aria-hidden="true" style={{
+        position: 'absolute', inset: 0, opacity: 0.15, pointerEvents: 'none',
+      }} />
+
+      {/* Floating particles */}
+      <FloatingParticles count={8} opacity={0.2} />
+
+      {/* Glow line at top */}
+      <div className="glow-line" style={{
+        position: 'absolute', top: 0, left: '20%', right: '20%', zIndex: 5,
+      }} />
+
+      <div className="w" style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'start' }}>
           <div>
             <motion.span className="ey"
@@ -87,24 +121,40 @@ export default function FAQSection() {
               initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ fontFamily: 'var(--fd)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 400, lineHeight: 1.15 }}>
-              Questions<br /><em>answered.</em>
+              Questions<br /><em className="gradient-text">answered.</em>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.7, delay: 0.3 }}
               style={{ fontSize: 'var(--sm)', color: 'var(--dim)', marginTop: 20, lineHeight: 1.75 }}>
               Still have questions?{' '}
-              <a href="mailto:thencahub@gmail.com" style={{ color: 'var(--g1)' }}>Email us</a>.
+              <a href="mailto:thencahub@gmail.com" style={{ color: 'var(--g1)', textDecoration: 'underline', textDecorationColor: 'rgba(201,168,76,0.3)', textUnderlineOffset: '3px' }}>Email us</a>.
             </motion.p>
+
+            {/* Decorative orb */}
+            <div className="float-orb morph-blob" aria-hidden="true" style={{
+              width: 200, height: 200,
+              background: 'radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)',
+              top: '60%', left: '-20%',
+              filter: 'blur(40px)',
+            }} />
           </div>
+
           <motion.div
-            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}>
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="holo-card"
+            style={{ padding: '8px 32px', borderRadius: '12px' }}
+          >
             {FAQS.map((faq, i) => <FAQItem key={i} faq={faq} idx={i} />)}
           </motion.div>
         </div>
       </div>
-      <style>{`@media(max-width:768px){#faq .w > div{grid-template-columns:1fr!important;gap:40px!important}}`}</style>
+      <style>{`
+        @media(max-width:768px){#faq .w > div{grid-template-columns:1fr!important;gap:40px!important}}
+        .faq-item:hover { background: rgba(201,168,76,0.02) }
+      `}</style>
     </section>
   )
 }

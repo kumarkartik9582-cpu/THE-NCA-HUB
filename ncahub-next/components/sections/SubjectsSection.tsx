@@ -1,16 +1,15 @@
 'use client'
 /**
- * SubjectsSection — GSAP-pinned horizontal scroll panel.
+ * SubjectsSection — GSAP-pinned horizontal scroll panel with 3D cards.
  *
  * As the user scrolls DOWN, the panel slides horizontally across 8 subject cards.
- * This is the "activetheory / mokn" style cinematic scroll experience.
+ * Now with holographic card effects, perspective hover, and particle trails.
  */
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SplitText from '@/components/ui/SplitText'
-import ScrollReveal from '@/components/ui/ScrollReveal'
+import FloatingParticles from '@/components/ui/FloatingParticles'
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger)
 
@@ -118,8 +117,22 @@ export default function SubjectsSection() {
         overflow: 'hidden',
         background: 'var(--void)',
         borderTop: '1px solid rgba(201,168,76,.06)',
+        position: 'relative',
       }}
     >
+      {/* Grid background */}
+      <div className="grid-bg" aria-hidden="true" style={{
+        position: 'absolute', inset: 0, opacity: 0.2, pointerEvents: 'none',
+      }} />
+
+      {/* Floating particles */}
+      <FloatingParticles count={18} opacity={0.35} />
+
+      {/* Glow line at top */}
+      <div className="glow-line" style={{
+        position: 'absolute', top: 0, left: '10%', right: '10%', zIndex: 5,
+      }} />
+
       {/* Fixed header overlay */}
       <div
         aria-hidden="true"
@@ -131,20 +144,27 @@ export default function SubjectsSection() {
         }}
       >
         <span className="ey">Every NCA Subject</span>
-        <div style={{
+        <div className="neon-text" style={{
           fontFamily: 'var(--fd)', fontSize: 'clamp(2rem, 4vw, 4rem)',
           fontWeight: 400, color: 'var(--cream)', lineHeight: 1.05, marginTop: 10,
         }}>
           Nothing wasted.
         </div>
-        {/* Progress bar */}
+        {/* Progress bar with glow */}
         <div style={{
-          marginTop: 28, width: 160, height: 1,
-          background: 'rgba(201,168,76,.12)', borderRadius: 1, overflow: 'hidden',
+          marginTop: 28, width: 160, height: 2,
+          background: 'rgba(201,168,76,.08)', borderRadius: 2, overflow: 'hidden',
+          position: 'relative',
         }}>
           <div
             ref={progressRef}
-            style={{ height: '100%', background: 'var(--g1)', width: '0%' }}
+            style={{
+              height: '100%',
+              background: 'linear-gradient(90deg, var(--g2), var(--g1), var(--g0))',
+              width: '0%',
+              boxShadow: '0 0 10px rgba(201,168,76,0.5)',
+              borderRadius: 2,
+            }}
           />
         </div>
         <p style={{
@@ -189,13 +209,51 @@ function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: n
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const onEnter = () => gsap.to(el, { borderColor: 'rgba(201,168,76,0.35)', duration: 0.35 })
-    const onLeave = () => gsap.to(el, { borderColor: 'rgba(201,168,76,0.06)', duration: 0.4 })
+
+    const onEnter = () => {
+      gsap.to(el, {
+        borderColor: 'rgba(201,168,76,0.35)',
+        boxShadow: '0 0 40px rgba(201,168,76,0.08), 0 20px 60px rgba(0,0,0,0.3)',
+        y: -4,
+        duration: 0.4,
+        ease: 'expo.out',
+      })
+    }
+    const onLeave = () => {
+      gsap.to(el, {
+        borderColor: 'rgba(201,168,76,0.06)',
+        boxShadow: 'none',
+        y: 0,
+        duration: 0.5,
+        ease: 'expo.out',
+      })
+    }
+
+    // 3D tilt effect
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width - 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5
+      gsap.to(el, {
+        rotateY: x * 6,
+        rotateX: -y * 4,
+        duration: 0.3,
+        ease: 'power2.out',
+      })
+    }
+    const onLeaveReset = () => {
+      gsap.to(el, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'expo.out' })
+    }
+
     el.addEventListener('mouseenter', onEnter)
     el.addEventListener('mouseleave', onLeave)
+    el.addEventListener('mousemove', onMove)
+    el.addEventListener('mouseleave', onLeaveReset)
     return () => {
       el.removeEventListener('mouseenter', onEnter)
       el.removeEventListener('mouseleave', onLeave)
+      el.removeEventListener('mousemove', onMove)
+      el.removeEventListener('mouseleave', onLeaveReset)
     }
   }, [])
 
@@ -212,28 +270,42 @@ function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: n
         paddingLeft: 24,
         paddingRight: 24,
         border: '1px solid rgba(201,168,76,.06)',
-        borderRadius: 4,
+        borderRadius: 8,
         position: 'relative',
         cursor: 'default',
         transition: 'border-color 0.35s',
-        background: 'rgba(255,255,255,0.015)',
+        background: 'linear-gradient(170deg, rgba(201,168,76,0.03) 0%, rgba(8,8,16,0.6) 40%, rgba(201,168,76,0.01) 100%)',
+        perspective: '1000px',
+        transformStyle: 'preserve-3d',
+        willChange: 'transform',
+        overflow: 'hidden',
       }}
     >
-      {/* Vertical accent line */}
+      {/* Vertical accent line with glow */}
       <div style={{
-        position: 'absolute', top: '20%', left: -1,
-        width: 2, height: '30%',
-        background: `linear-gradient(${subject.accentAngle}, transparent, rgba(201,168,76,0.55), transparent)`,
+        position: 'absolute', top: '15%', left: -1,
+        width: 2, height: '35%',
+        background: `linear-gradient(${subject.accentAngle}, transparent, rgba(201,168,76,0.65), transparent)`,
+        boxShadow: '0 0 8px rgba(201,168,76,0.2)',
+      }} />
+
+      {/* Corner accent */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', top: 0, right: 0,
+        width: 40, height: 40,
+        borderTop: '1px solid rgba(201,168,76,0.15)',
+        borderRight: '1px solid rgba(201,168,76,0.15)',
+        borderRadius: '0 8px 0 0',
+        opacity: 0.5,
       }} />
 
       {/* Large ghost number */}
       <div style={{
-        position: 'absolute', top: '18%', right: 16,
+        position: 'absolute', top: '15%', right: 16,
         fontFamily: 'var(--fd)', fontSize: 'clamp(5rem, 9vw, 8rem)',
-        color: 'rgba(201,168,76,0.07)', lineHeight: 1,
-        fontWeight: 300, userSelect: 'none',
+        lineHeight: 1, fontWeight: 300, userSelect: 'none',
       }}>
-        {subject.code}
+        <span className="gradient-text" style={{ opacity: 0.08 }}>{subject.code}</span>
       </div>
 
       <div style={{ position: 'relative', zIndex: 2 }}>
@@ -259,7 +331,10 @@ function SubjectCard({ subject, index }: { subject: typeof SUBJECTS[0]; index: n
         <Link
           href={subject.href}
           className="nc"
-          style={{ fontSize: '.62rem', padding: '9px 16px', display: 'inline-flex' }}
+          style={{
+            fontSize: '.62rem', padding: '9px 16px', display: 'inline-flex',
+            borderRadius: '4px',
+          }}
         >
           <span>View Notes →</span>
         </Link>

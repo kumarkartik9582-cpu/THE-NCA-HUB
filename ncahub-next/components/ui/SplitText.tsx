@@ -32,7 +32,7 @@ interface SplitTextProps {
   className?: string
   style?: React.CSSProperties
   /** Forwarded element tag */
-  as?: keyof JSX.IntrinsicElements
+  as?: keyof React.JSX.IntrinsicElements
   /** Colour for each token — can include 'var(--g1)' etc. */
   tokenColor?: string
 }

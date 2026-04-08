@@ -29,20 +29,38 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     }
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    // Ambient cursor light
+    // Enhanced ambient cursor light with trail
     const IS_MOBILE = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth <= 768
-    if (!IS_MOBILE) {
+    if (!IS_MOBILE && !isLowEnd) {
+      // Primary spotlight
       if (!document.getElementById('nca-spotlight')) {
         const s = document.createElement('style')
         s.id = 'nca-spotlight'
-        s.textContent = 'body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(201,168,76,0.04) 0%,transparent 60%)}'
+        s.textContent = `
+          body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(
+              700px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(201,168,76,0.045) 0%,
+              rgba(201,168,76,0.015) 30%,
+              transparent 60%
+            );
+            transition: background 0.1s ease;
+          }
+        `
         document.head.appendChild(s)
       }
+
       let mx = 50, my = 50, tx = 50, ty = 50
       document.addEventListener('mousemove', (e) => {
         tx = e.clientX / window.innerWidth * 100
         ty = e.clientY / window.innerHeight * 100
       }, { passive: true })
+
       const lerp = () => {
         mx += (tx - mx) * 0.06
         my += (ty - my) * 0.06
