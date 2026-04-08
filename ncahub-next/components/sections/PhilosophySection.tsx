@@ -2,10 +2,12 @@
 /**
  * PhilosophySection — full-viewport "big statement" panel.
  * Text draws in word-by-word on scroll using SplitText.
- * Inspired by mokn.io / adeline.ai manifesto sections.
+ * Now with aurora backdrop, morphing orbs, and glow lines.
  */
 import SplitText from '@/components/ui/SplitText'
 import ScrollReveal from '@/components/ui/ScrollReveal'
+import AuroraBackground from '@/components/ui/AuroraBackground'
+import FloatingParticles from '@/components/ui/FloatingParticles'
 
 export default function PhilosophySection() {
   return (
@@ -20,26 +22,21 @@ export default function PhilosophySection() {
         overflow: 'hidden',
       }}
     >
-      {/* Ambient glow orbs */}
-      <div aria-hidden="true" style={{
-        position: 'absolute', top: '15%', left: '10%',
-        width: 'clamp(200px, 30vw, 400px)', height: 'clamp(200px, 30vw, 400px)',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%)',
-        filter: 'blur(60px)', pointerEvents: 'none',
-      }} />
-      <div aria-hidden="true" style={{
-        position: 'absolute', bottom: '15%', right: '10%',
-        width: 'clamp(250px, 35vw, 500px)', height: 'clamp(250px, 35vw, 500px)',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.03) 0%, transparent 70%)',
-        filter: 'blur(80px)', pointerEvents: 'none',
+      {/* Aurora backdrop with morphing orbs */}
+      <AuroraBackground intensity={0.8} extraOrb />
+
+      {/* Floating particles */}
+      <FloatingParticles count={12} opacity={0.4} />
+
+      {/* Grid background for depth */}
+      <div className="grid-bg" aria-hidden="true" style={{
+        position: 'absolute', inset: 0, opacity: 0.3, pointerEvents: 'none',
       }} />
 
-      <div style={{ maxWidth: 900, position: 'relative', textAlign: 'center' }}>
-        {/* Eyebrow line */}
+      <div style={{ maxWidth: 900, position: 'relative', textAlign: 'center', zIndex: 2 }}>
+        {/* Glow line divider */}
         <ScrollReveal variant="line" duration={0.9} style={{ display: 'flex', justifyContent: 'center', marginBottom: 36 }}>
-          <div style={{ width: 48, height: 1, background: 'var(--g1)' }} />
+          <div className="glow-line" style={{ width: 80 }} />
         </ScrollReveal>
 
         {/* Main statement — word-by-word reveal */}
@@ -74,6 +71,11 @@ export default function PhilosophySection() {
           }}>
             The belief behind everything we build
           </p>
+        </ScrollReveal>
+
+        {/* Bottom glow line */}
+        <ScrollReveal variant="line" delay={1.0} duration={1.2} style={{ display: 'flex', justifyContent: 'center', marginTop: 48 }}>
+          <div className="glow-line" style={{ width: 120 }} />
         </ScrollReveal>
       </div>
     </section>

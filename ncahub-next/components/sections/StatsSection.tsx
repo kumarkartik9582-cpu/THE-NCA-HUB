@@ -1,20 +1,23 @@
 'use client'
 /**
  * StatsSection — animated counter stats + testimonial pull-quotes.
- * Numbers count up when scrolled into view (GSAP odometer style).
+ * Now with holographic counters, glow dividers, and 3D tilt quote cards.
  */
 import { useEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrollReveal from '@/components/ui/ScrollReveal'
+import TiltCard from '@/components/ui/TiltCard'
+import AuroraBackground from '@/components/ui/AuroraBackground'
+import FloatingParticles from '@/components/ui/FloatingParticles'
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger)
 
 const STATS = [
-  { value: 5,   suffix: '',  label: 'NCA subjects\npassed by founder' },
-  { value: 7,   suffix: 'd', label: 'Days to prep for\nfirst exam' },
-  { value: 80,  suffix: '+', label: 'Pages max\nper subject' },
-  { value: 12,  suffix: '+', label: 'Countries our\ncandidates come from' },
+  { value: 5,   suffix: '',  label: 'NCA subjects\npassed by founder', icon: '◈' },
+  { value: 7,   suffix: 'd', label: 'Days to prep for\nfirst exam', icon: '⟐' },
+  { value: 80,  suffix: '+', label: 'Pages max\nper subject', icon: '◇' },
+  { value: 12,  suffix: '+', label: 'Countries our\ncandidates come from', icon: '○' },
 ]
 
 const QUOTES = [
@@ -45,7 +48,7 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
         { val: 0 },
         {
           val: target,
-          duration: 1.8,
+          duration: 2.0,
           ease: 'power2.out',
           scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
           onUpdate() {
@@ -70,9 +73,21 @@ export default function StatsSection() {
         background: 'var(--abyss)',
         borderTop: '1px solid rgba(201,168,76,.06)',
         position: 'relative', zIndex: 1,
+        overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      {/* Aurora backdrop */}
+      <AuroraBackground intensity={0.5} />
+
+      {/* Floating particles */}
+      <FloatingParticles count={14} opacity={0.3} />
+
+      {/* Glow line at top */}
+      <div className="glow-line" style={{
+        position: 'absolute', top: 0, left: '15%', right: '15%', zIndex: 5,
+      }} />
+
+      <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 2 }}>
         {/* Stats row */}
         <div className="stats-grid" style={{
           display: 'grid',
@@ -81,15 +96,24 @@ export default function StatsSection() {
           marginBottom: 'clamp(80px, 12vh, 120px)',
         }}>
           {STATS.map((s, i) => (
-            <ScrollReveal key={i} variant="slide-up" delay={i * 0.08} style={{ textAlign: 'center' }}>
-              <div style={{
-                fontFamily: 'var(--fd)',
-                fontSize: 'clamp(3rem, 6vw, 5.5rem)',
-                fontWeight: 300, lineHeight: 1,
-                color: 'var(--g1)',
-                marginBottom: 12,
-              }}>
-                <AnimatedCounter target={s.value} suffix={s.suffix} />
+            <ScrollReveal key={i} variant="slide-up" delay={i * 0.1} style={{ textAlign: 'center' }}>
+              <div style={{ position: 'relative', display: 'inline-block' }}>
+                {/* Ghost icon behind number */}
+                <span aria-hidden="true" style={{
+                  position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)',
+                  fontSize: '4rem', opacity: 0.04, color: 'var(--g1)',
+                  fontFamily: 'var(--fd)',
+                }}>{s.icon}</span>
+                <div className="neon-text" style={{
+                  fontFamily: 'var(--fd)',
+                  fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+                  fontWeight: 300, lineHeight: 1,
+                  marginBottom: 12,
+                }}>
+                  <span className="gradient-text-animated">
+                    <AnimatedCounter target={s.value} suffix={s.suffix} />
+                  </span>
+                </div>
               </div>
               <div style={{
                 fontSize: 'var(--nano)', letterSpacing: '.18em', textTransform: 'uppercase',
@@ -101,41 +125,49 @@ export default function StatsSection() {
           ))}
         </div>
 
-        {/* Divider */}
+        {/* Glow divider */}
         <ScrollReveal variant="line" style={{ marginBottom: 'clamp(60px, 8vh, 90px)' }}>
-          <div style={{ height: 1, background: 'rgba(201,168,76,.08)' }} />
+          <div className="glow-line" />
         </ScrollReveal>
 
-        {/* Quotes */}
+        {/* Quotes as 3D tilt cards */}
         <div className="quotes-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 'clamp(20px, 3vw, 36px)',
         }}>
           {QUOTES.map((q, i) => (
-            <ScrollReveal key={i} variant="slide-up" delay={0.1 + i * 0.1}>
-              <blockquote style={{
-                padding: '28px 24px',
-                background: 'rgba(201,168,76,0.03)',
-                border: '1px solid rgba(201,168,76,.08)',
-                borderRadius: 4,
-                borderTop: '2px solid var(--g2)',
-              }}>
-                <p style={{
-                  fontFamily: 'var(--fd)', fontSize: 'clamp(0.95rem, 1.3vw, 1.1rem)',
-                  fontStyle: 'italic', color: 'var(--cream)', lineHeight: 1.7, marginBottom: 20,
-                }}>
-                  {q.text}
-                </p>
-                <footer>
-                  <div style={{ fontSize: 'var(--nano)', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--g1)', fontWeight: 600 }}>
-                    {q.subject}
-                  </div>
-                  <div style={{ fontSize: 'var(--nano)', color: 'var(--dim)', marginTop: 4 }}>
-                    {q.author} · {q.location} · <strong style={{ color: 'var(--g1)' }}>Passed</strong>
-                  </div>
-                </footer>
-              </blockquote>
+            <ScrollReveal key={i} variant="slide-up" delay={0.1 + i * 0.12}>
+              <TiltCard
+                className="holo-card"
+                maxTilt={6}
+                glare={0.1}
+                style={{
+                  padding: '28px 24px',
+                  borderTop: '2px solid var(--g2)',
+                  height: '100%',
+                }}
+              >
+                <blockquote style={{ position: 'relative', zIndex: 1 }}>
+                  <p style={{
+                    fontFamily: 'var(--fd)', fontSize: 'clamp(0.95rem, 1.3vw, 1.1rem)',
+                    fontStyle: 'italic', color: 'var(--cream)', lineHeight: 1.7, marginBottom: 20,
+                  }}>
+                    {q.text}
+                  </p>
+                  <footer>
+                    <div style={{
+                      fontSize: 'var(--nano)', letterSpacing: '.2em', textTransform: 'uppercase',
+                      fontWeight: 600,
+                    }}>
+                      <span className="gradient-text">{q.subject}</span>
+                    </div>
+                    <div style={{ fontSize: 'var(--nano)', color: 'var(--dim)', marginTop: 4 }}>
+                      {q.author} · {q.location} · <strong style={{ color: 'var(--g1)' }}>Passed</strong>
+                    </div>
+                  </footer>
+                </blockquote>
+              </TiltCard>
             </ScrollReveal>
           ))}
         </div>
