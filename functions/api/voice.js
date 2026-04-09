@@ -12,21 +12,30 @@
  * Model: @cf/openai/whisper — free on Workers AI
  */
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': 'https://www.thencahub.com',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
-};
+const ALLOWED_ORIGINS = new Set([
+  'https://www.thencahub.com',
+  'https://thencahub.com',
+]);
 
-function jsonResponse(body, status = 200) {
+function getCorsHeaders(request) {
+  const origin = request?.headers?.get('Origin') || '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.has(origin) ? origin : 'https://www.thencahub.com',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin'
+  };
+}
+
+function jsonResponse(body, status = 200, request) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
+    headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
   });
 }
 
-export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+export async function onRequestOptions(context) {
+  return new Response(null, { status: 204, headers: getCorsHeaders(context.request) });
 }
 
 /* ── Simple in-process rate limiter ── */
@@ -45,14 +54,14 @@ export async function onRequestPost(context) {
 
   /* ── Validate AI binding ── */
   if (!env.AI) {
-    return jsonResponse({ error: 'AI binding not configured' }, 500);
+    return jsonResponse({ error: 'AI binding not configured' }, 500, request);
   }
 
   /* ── Rate limit ── */
   const ip = request.headers.get('CF-Connecting-IP') ||
              request.headers.get('X-Forwarded-For') || 'unknown';
   if (isRateLimited(ip)) {
-    return jsonResponse({ error: 'Too many requests' }, 429);
+    return jsonResponse({ error: 'Too many requests' }, 429, request);
   }
 
   /* ── Parse multipart form ── */
@@ -60,22 +69,22 @@ export async function onRequestPost(context) {
   try {
     formData = await request.formData();
   } catch (_) {
-    return jsonResponse({ error: 'Invalid form data' }, 400);
+    return jsonResponse({ error: 'Invalid form data' }, 400, request);
   }
 
   const audioFile = formData.get('audio');
   if (!audioFile || typeof audioFile.arrayBuffer !== 'function') {
-    return jsonResponse({ error: 'No audio file provided (field: "audio")' }, 400);
+    return jsonResponse({ error: 'No audio file provided (field: "audio")' }, 400, request);
   }
 
   /* ── Size limit: 25 MB ── */
   const MAX_BYTES = 25 * 1024 * 1024;
   const buffer = await audioFile.arrayBuffer();
   if (buffer.byteLength === 0) {
-    return jsonResponse({ error: 'Empty audio file' }, 400);
+    return jsonResponse({ error: 'Empty audio file' }, 400, request);
   }
   if (buffer.byteLength > MAX_BYTES) {
-    return jsonResponse({ error: 'Audio too large (max 25 MB)' }, 413);
+    return jsonResponse({ error: 'Audio too large (max 25 MB)' }, 413, request);
   }
 
   /* ── Transcribe with Whisper ── */
@@ -89,12 +98,12 @@ export async function onRequestPost(context) {
     console.log(`VOICE: Transcribed: "${text.slice(0, 100)}"`);
 
     if (!text) {
-      return jsonResponse({ text: '', error: 'No speech detected' });
+      return jsonResponse({ text: '', error: 'No speech detected' }, 200, request);
     }
 
-    return jsonResponse({ text });
+    return jsonResponse({ text }, 200, request);
   } catch (err) {
     console.error('VOICE: Whisper error:', err.message || String(err));
-    return jsonResponse({ error: 'Transcription failed. Please try again.' }, 502);
+    return jsonResponse({ error: 'Transcription failed. Please try again.' }, 502, request);
   }
 }
