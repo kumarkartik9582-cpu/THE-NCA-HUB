@@ -50,6 +50,7 @@
   "preferGlobal": true,
   "type": "commonjs",
   "dependencies": {
-    "motion": "^12.38.0"
+    "motion": "^12.38.0",
+    "openclaw": "latest"
   }
 }
