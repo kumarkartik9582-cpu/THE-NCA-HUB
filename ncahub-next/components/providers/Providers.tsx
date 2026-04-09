@@ -88,7 +88,33 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       spotlightRafId = requestAnimationFrame(lerp)
     }
 
+    // Scroll-linked section background color transitions
+    // Each section subtly shifts the background warmth
+    const sectionColors: Record<string, string> = {
+      hero: '#020204',        // void — pure dark
+      philosophy: '#040408',  // slightly warmer
+      method: '#050508',      // abyss
+      subjects: '#020204',    // back to void
+      stats: '#050508',       // abyss
+      pricing: '#0D0D18',     // dark — warmest
+      faq: '#020204',         // void
+    }
+    const ctx = gsap.context(() => {
+      Object.entries(sectionColors).forEach(([id, color]) => {
+        const el = document.getElementById(id)
+        if (!el) return
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 60%',
+          end: 'top 20%',
+          onEnter: () => gsap.to('body', { backgroundColor: color, duration: 0.8, ease: 'power2.inOut' }),
+          onEnterBack: () => gsap.to('body', { backgroundColor: color, duration: 0.8, ease: 'power2.inOut' }),
+        })
+      })
+    })
+
     return () => {
+      ctx.revert()
       gsap.ticker.remove(lenisRaf)
       lenis.destroy()
       window.removeEventListener('scroll', onScroll)
