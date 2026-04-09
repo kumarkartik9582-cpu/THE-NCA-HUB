@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import SplitText from '@/components/ui/SplitText'
+import TextScramble from '@/components/ui/TextScramble'
 import TiltCard from '@/components/ui/TiltCard'
 import FloatingParticles from '@/components/ui/FloatingParticles'
 
@@ -86,25 +87,34 @@ export default function HeroSection() {
   const scrollRef = useRef<HTMLDivElement>(null!)
 
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.8 })
+    // Choreographed 8-step hero reveal — each element enters in sequence
+    // Preloader takes ~2.5s, so we delay 2.8s for the hero to begin
+    const tl = gsap.timeline({ delay: 2.8 })
 
-    tl.fromTo(
-      [authorRef.current, ctaRef.current],
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1.0, stagger: 0.12, ease: 'expo.out' },
-    )
-    .fromTo(
-      cardRef.current,
-      { opacity: 0, y: 40, rotateY: -8 },
-      { opacity: 1, y: 0, rotateY: 0, duration: 1.2, ease: 'expo.out' },
-      '-=0.6'
-    )
-    .fromTo(
-      scrollRef.current,
-      { opacity: 0, y: -10 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out' },
-      '-=0.4'
-    )
+    tl
+      // Step 1: Subtext fades in (0s)
+      .fromTo(authorRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      )
+      // Step 2: CTAs slide up (0.2s after sub)
+      .fromTo(ctaRef.current,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+        '-=0.5'
+      )
+      // Step 3: Results card rotates in from right (0.4s after CTAs)
+      .fromTo(cardRef.current,
+        { opacity: 0, y: 40, rotateY: -12 },
+        { opacity: 1, y: 0, rotateY: 0, duration: 1.0, ease: 'expo.out' },
+        '-=0.4'
+      )
+      // Step 4: Scroll indicator appears last
+      .fromTo(scrollRef.current,
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+        '-=0.3'
+      )
   }, [])
 
   return (
@@ -147,7 +157,7 @@ export default function HeroSection() {
                 background: 'rgba(201,168,76,.04)',
                 border: '1px solid rgba(201,168,76,.15)',
                 padding: '7px 16px', borderRadius: 3, marginBottom: 36,
-                opacity: 0, animation: 'fadeInDown 0.7s 0.3s ease forwards',
+                opacity: 0, animation: 'fadeInDown 0.7s 2.7s ease forwards',
                 backdropFilter: 'blur(10px)',
               }}
             >
@@ -171,9 +181,9 @@ export default function HeroSection() {
               lineHeight: 1.05, color: 'var(--cream)', marginBottom: 28,
               perspective: '800px',
             }}>
-              <SplitText text="Pass the NCA." by="words" delay={0.5} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em' }} />
-              <SplitText text="Not in years." by="words" delay={0.7} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em', color: 'var(--fog)' }} />
-              <SplitText text="This cycle." by="words" delay={0.88} stagger={0.09} scrollTrigger={false} style={{ display: 'block' }} tokenColor="var(--g1)" />
+              <SplitText text="Pass the NCA." by="words" delay={2.9} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em' }} />
+              <SplitText text="Not in years." by="words" delay={3.2} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em', color: 'var(--fog)' }} />
+              <SplitText text="This cycle." by="words" delay={3.5} stagger={0.09} scrollTrigger={false} style={{ display: 'block' }} tokenColor="var(--g1)" />
             </div>
 
             {/* Sub */}
@@ -188,9 +198,13 @@ export default function HeroSection() {
               Built by a lawyer who passed all 5 NCA exams — the first with 7 days to prepare.
             </p>
 
-            {/* Author line */}
+            {/* Author line — text scramble "decoding" effect */}
             <p style={{ fontSize: 'var(--nano)', color: 'var(--dim)', letterSpacing: '.1em', marginBottom: 44 }}>
-              Built by an India-qualified lawyer · All 5 NCA subjects passed · CoQ requested · Candidates from 12+ countries
+              <TextScramble
+                text="Built by an India-qualified lawyer · All 5 NCA subjects passed · CoQ requested · Candidates from 12+ countries"
+                delay={3600}
+                duration={1400}
+              />
             </p>
 
             {/* CTAs */}
