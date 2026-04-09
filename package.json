@@ -3,8 +3,6 @@
   "version": "4.3.0",
   "description": "SuperClaude Framework NPM wrapper - Official Node.js wrapper for the Python SuperClaude package. Enhances Claude Code with specialized commands and AI development tools.",
   "scripts": {
-    "postinstall": "node ./bin/install.js",
-    "update": "node ./bin/update.js",
     "lint": "eslint . --ext .js,.mjs,.cjs",
     "test": "echo \"No tests defined yet\" && exit 0"
   },
@@ -50,7 +48,6 @@
   "preferGlobal": true,
   "type": "commonjs",
   "dependencies": {
-    "motion": "^12.38.0",
     "openclaw": "latest"
   }
 }
