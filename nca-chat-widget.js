@@ -43,7 +43,7 @@
 #nca-chat-close:hover{color:#C9A84C;transform:scale(1.1);background:rgba(201,168,76,.08);}
 
 /* === Messages Area === */
-.nca-chat-msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 14px 8px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;min-height:0;}
+.nca-chat-msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 14px 8px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;min-height:160px;}
 .nca-chat-msgs::-webkit-scrollbar{width:5px;}
 .nca-chat-msgs::-webkit-scrollbar-track{background:transparent;}
 .nca-chat-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15);border-radius:3px;}
@@ -91,8 +91,8 @@
 .nca-welcome-sub{font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.5;}
 
 /* === Quick Actions / Chips === */
-.nca-chips{padding:4px 14px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;}
-.nca-chip{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.75);font-size:.68rem;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;letter-spacing:.02em;font-family:inherit;}
+.nca-chips{padding:4px 14px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;overflow:hidden;}
+.nca-chip{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.75);font-size:.68rem;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:normal;word-break:break-word;letter-spacing:.02em;font-family:inherit;max-width:100%;text-align:left;}
 .nca-chip:hover{background:rgba(201,168,76,.12);border-color:#C9A84C;color:#C9A84C;transform:translateY(-1px);box-shadow:0 2px 8px rgba(201,168,76,.15);}
 .nca-chip:active{transform:translateY(0);}
 
@@ -108,7 +108,7 @@
 #nca-chat-send svg{width:16px;height:16px;fill:rgba(201,168,76,.4);transition:fill .25s;}
 #nca-chat-send.active svg{fill:#02020A;}
 
-/* === Voice Button === */
+/* === Voice Input Button === */
 #nca-voice-btn{width:36px;height:36px;border-radius:10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s cubic-bezier(.4,0,.2,1);padding:0;}
 #nca-voice-btn:hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.5);}
 #nca-voice-btn svg{width:16px;height:16px;stroke:rgba(201,168,76,.7);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s;}
@@ -116,7 +116,26 @@
 #nca-voice-btn.nca-recording{background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.5);animation:nca-voice-pulse 1s infinite;}
 #nca-voice-btn.nca-recording svg{stroke:#f87171;}
 @keyframes nca-voice-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3);}50%{box-shadow:0 0 0 6px rgba(220,38,38,0);}}
-.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 0;text-align:center;flex-basis:100%;order:10;min-height:14px;transition:opacity .2s;}
+.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 4px;text-align:center;flex-shrink:0;min-height:14px;transition:color .2s;line-height:1.4;}
+.nca-voice-status.nca-voice-error{color:rgba(239,100,100,.85);}
+
+/* === Voice Conversation Mode Button (header) === */
+#nca-voice-mode-btn{width:30px;height:30px;border-radius:8px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s ease;padding:0;margin-right:2px;}
+#nca-voice-mode-btn svg{width:14px;height:14px;stroke:rgba(201,168,76,.45);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s;}
+#nca-voice-mode-btn:hover{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.4);}
+#nca-voice-mode-btn:hover svg{stroke:#C9A84C;}
+#nca-voice-mode-btn.nca-vm-active{background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.1));border-color:#C9A84C;box-shadow:0 0 10px rgba(201,168,76,.25),inset 0 0 6px rgba(201,168,76,.06);}
+#nca-voice-mode-btn.nca-vm-active svg{stroke:#C9A84C;}
+#nca-voice-mode-btn.nca-vm-speaking{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.5);}
+#nca-voice-mode-btn.nca-vm-speaking svg{stroke:#4ade80;animation:nca-speak-pulse 1.2s ease-in-out infinite;}
+@keyframes nca-speak-pulse{0%,100%{opacity:.6;}50%{opacity:1;transform:scale(1.1);}}
+
+/* === Voice Mode Status Bar === */
+.nca-vm-bar{font-size:.6rem;text-align:center;padding:0 14px 4px;flex-shrink:0;letter-spacing:.03em;line-height:1.3;transition:all .3s ease;overflow:hidden;max-height:0;opacity:0;}
+.nca-vm-bar.nca-vm-visible{max-height:20px;opacity:1;}
+.nca-vm-bar.nca-vm-listening{color:rgba(201,168,76,.8);}
+.nca-vm-bar.nca-vm-speaking{color:rgba(74,222,128,.8);}
+.nca-vm-bar.nca-vm-ready{color:rgba(201,168,76,.55);}
 
 /* === Footer === */
 .nca-chat-footer{text-align:center;padding:5px 0 7px;font-size:.58rem;color:rgba(255,255,255,.12);flex-shrink:0;letter-spacing:.03em;}
@@ -151,6 +170,9 @@
       <div class="nca-chat-name">NCA AI Assistant</div>
       <div class="nca-chat-status"><span class="nca-chat-dot"></span> Online now</div>
     </div>
+    <button id="nca-voice-mode-btn" aria-label="Turn on voice conversation mode" title="Voice conversation mode — speak and hear responses">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+    </button>
     <button id="nca-chat-close" aria-label="Close chat">&#x2715;</button>
   </div>
   <div class="nca-chat-msgs" id="nca-chat-msgs"></div>
@@ -165,6 +187,7 @@
     </button>
   </div>
   <div class="nca-voice-status" id="nca-voice-status"></div>
+  <div class="nca-vm-bar" id="nca-vm-bar"></div>
   <div class="nca-chat-footer">AI-powered &middot; Not official NCA advice</div>
 </div>`;
 
@@ -206,77 +229,376 @@
   var mediaRecorder = null;
   var audioChunks = [];
   var isRecording = false;
-  var voiceSupported = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  var speechRec = null; // Web Speech API instance
+
+  /* Support flags */
+  var speechApiSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  var mediaRecSupported  = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  var voiceSupported     = speechApiSupported || mediaRecSupported;
 
   if (!voiceSupported && voiceBtn) voiceBtn.style.display = 'none';
 
-  /* ── Voice: set status text ── */
-  function setVoiceStatus(text) {
-    if (voiceStatus) voiceStatus.textContent = text;
-  }
-
-  /* ── Voice: stop recording and send ── */
-  function stopRecording() {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-      mediaRecorder.stop();
+  /* ── Voice: set status text (isError adds red styling and longer display) ── */
+  function setVoiceStatus(text, isError) {
+    if (!voiceStatus) return;
+    voiceStatus.textContent = text;
+    if (isError) {
+      voiceStatus.classList.add('nca-voice-error');
+    } else {
+      voiceStatus.classList.remove('nca-voice-error');
     }
   }
 
-  /* ── Voice: start recording ── */
-  async function startRecording() {
-    if (isRecording) { stopRecording(); return; }
-    if (!voiceSupported) {
+  /* ── Voice: show mic-denied help message ── */
+  function showMicDenied() {
+    var ua  = navigator.userAgent;
+    var tip = ua.indexOf('Chrome') !== -1 || ua.indexOf('Edg') !== -1
+      ? 'Mic blocked \u2014 click the \uD83D\uDD12 icon in the address bar \u2192 Microphone \u2192 Allow, then refresh.'
+      : ua.indexOf('Safari') !== -1
+      ? 'Mic blocked \u2014 Safari Preferences \u2192 Websites \u2192 Microphone \u2192 Allow for this site.'
+      : 'Mic blocked \u2014 allow microphone access in your browser settings, then refresh.';
+    setVoiceStatus(tip, true);
+    if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+    isRecording = false;
+    /* Keep visible for 8 s so user can read it */
+    setTimeout(function () { setVoiceStatus(''); }, 8000);
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     VOICE CONVERSATION MODE  — TTS + auto-listen loop
+     Uses window.speechSynthesis (browser-native, free, no server)
+     Fallback-chain: Natural/Premium voice → en-US → any English
+     ════════════════════════════════════════════════════════════ */
+  var ttsSupported   = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+  var voiceConvoMode = false;
+  var isSpeaking     = false;
+  var vmBtn          = document.getElementById('nca-voice-mode-btn');
+  var vmBar          = document.getElementById('nca-vm-bar');
+  var _autoListenTimer = null;
+
+  function _vmBarSet(state, text) {
+    if (!vmBar) return;
+    vmBar.textContent = text || '';
+    vmBar.className   = 'nca-vm-bar' + (text ? ' nca-vm-visible nca-vm-' + state : '');
+  }
+
+  /* Strip markdown/HTML before speaking so Siri/Google doesn't read symbols */
+  function _plainForTTS(text) {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1')
+      .replace(/`([^`]+)`/g, '$1')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/<[^>]*>/g, '')
+      .replace(/^[-*]\s/gm, '').replace(/^\d+\.\s/gm, '')
+      .replace(/\n{2,}/g, '. ').replace(/\n/g, ' ')
+      .trim();
+  }
+
+  /* Pick the best available English voice */
+  function _bestVoice() {
+    var voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+    var pref   = ['Natural', 'Premium', 'Enhanced', 'Google US English', 'Samantha', 'Karen', 'Daniel', 'Moira'];
+    return voices.find(function (v) {
+             return v.lang.startsWith('en') && pref.some(function (p) { return v.name.indexOf(p) !== -1; });
+           })
+        || voices.find(function (v) { return v.lang === 'en-US'; })
+        || voices.find(function (v) { return v.lang.startsWith('en'); })
+        || (voices.length ? voices[0] : null);
+  }
+
+  /* Speak text aloud; when done, auto-listen if voice mode is still on */
+  function speakText(text) {
+    if (!ttsSupported || !voiceConvoMode) return;
+    window.speechSynthesis.cancel();
+    var plain = _plainForTTS(text);
+    if (!plain) { _autoListenAfterSpeak(); return; }
+
+    var utt  = new SpeechSynthesisUtterance(plain);
+    utt.lang   = 'en-US';
+    utt.rate   = 1.05;
+    utt.pitch  = 1.0;
+    utt.volume = 1.0;
+
+    /* Voices may load asynchronously — wait for them */
+    function doSpeak() {
+      var v = _bestVoice();
+      if (v) utt.voice = v;
+      isSpeaking = true;
+      if (vmBtn) vmBtn.classList.add('nca-vm-speaking');
+      _vmBarSet('speaking', '\uD83D\uDD0A Speaking\u2026');
+      window.speechSynthesis.speak(utt);
+    }
+
+    if (window.speechSynthesis.getVoices().length > 0) {
+      doSpeak();
+    } else {
+      window.speechSynthesis.onvoiceschanged = function () {
+        window.speechSynthesis.onvoiceschanged = null;
+        doSpeak();
+      };
+      /* Safety timeout — speak even if voices never load */
+      setTimeout(doSpeak, 400);
+    }
+
+    utt.onend = utt.onerror = function () {
+      isSpeaking = false;
+      if (vmBtn) { vmBtn.classList.remove('nca-vm-speaking'); if (voiceConvoMode) vmBtn.classList.add('nca-vm-active'); }
+      _autoListenAfterSpeak();
+    };
+  }
+
+  function _autoListenAfterSpeak() {
+    if (!voiceConvoMode) return;
+    _vmBarSet('ready', '\uD83C\uDFA4 Listening\u2026');
+    clearTimeout(_autoListenTimer);
+    _autoListenTimer = setTimeout(function () {
+      if (voiceConvoMode && !isRecording && !isSending) startRecording();
+    }, 700);
+  }
+
+  function _setVoiceConvoMode(on) {
+    voiceConvoMode = on;
+    if (!vmBtn) return;
+    if (on) {
+      vmBtn.classList.add('nca-vm-active');
+      vmBtn.classList.remove('nca-vm-speaking');
+      vmBtn.setAttribute('title', 'Voice mode ON \u2014 click to turn off');
+      vmBtn.setAttribute('aria-label', 'Turn off voice conversation mode');
+      _vmBarSet('ready', '\uD83C\uDFA4 Voice mode on \u2014 start speaking');
+      /* Kick off first listen */
+      clearTimeout(_autoListenTimer);
+      _autoListenTimer = setTimeout(function () {
+        if (voiceConvoMode && !isRecording) startRecording();
+      }, 500);
+    } else {
+      vmBtn.classList.remove('nca-vm-active', 'nca-vm-speaking');
+      vmBtn.setAttribute('title', 'Voice conversation mode \u2014 speak and hear responses');
+      vmBtn.setAttribute('aria-label', 'Turn on voice conversation mode');
+      _vmBarSet('', '');
+      clearTimeout(_autoListenTimer);
+      window.speechSynthesis && window.speechSynthesis.cancel();
+      isSpeaking = false;
+      if (isRecording) stopRecording();
+    }
+  }
+
+  if (vmBtn) {
+    vmBtn.addEventListener('click', function () { _setVoiceConvoMode(!voiceConvoMode); });
+    /* Hide if neither TTS nor STT is available */
+    if (!ttsSupported && !voiceSupported) vmBtn.style.display = 'none';
+  }
+
+  /* ── Voice: stop any active recording (also interrupts TTS in voice mode) ── */
+  function stopRecording() {
+    /* Cancel any ongoing TTS so user can speak immediately */
+    if (isSpeaking && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      isSpeaking = false;
+      if (vmBtn) vmBtn.classList.remove('nca-vm-speaking');
+    }
+    /* Web Speech API path */
+    if (speechRec) {
+      try { speechRec.stop(); } catch (_) {}
+      speechRec = null;
+    }
+    /* MediaRecorder path */
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+    }
+    isRecording = false;
+    if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+    setVoiceStatus('');
+  }
+
+  /* ── Voice: encode raw PCM samples to a WAV ArrayBuffer ── */
+  function _pcmToWav(int16Samples, sampleRate) {
+    var numSamples = int16Samples.length;
+    var buf = new ArrayBuffer(44 + numSamples * 2);
+    var dv  = new DataView(buf);
+    var wr  = function (off, s) { for (var i = 0; i < s.length; i++) dv.setUint8(off + i, s.charCodeAt(i)); };
+    wr(0,  'RIFF'); dv.setUint32(4,  36 + numSamples * 2, true); wr(8, 'WAVE');
+    wr(12, 'fmt '); dv.setUint32(16, 16, true);
+    dv.setUint16(20, 1, true);          // PCM
+    dv.setUint16(22, 1, true);          // mono
+    dv.setUint32(24, sampleRate, true);
+    dv.setUint32(28, sampleRate * 2, true);
+    dv.setUint16(32, 2, true);
+    dv.setUint16(34, 16, true);
+    wr(36, 'data'); dv.setUint32(40, numSamples * 2, true);
+    for (var i = 0; i < numSamples; i++) dv.setInt16(44 + i * 2, int16Samples[i], true);
+    return buf;
+  }
+
+  /* ── Voice: send audio blob to Cloudflare Whisper ── */
+  async function _whisperTranscribe(blob, filename) {
+    setVoiceStatus('Transcribing\u2026');
+    var formData = new FormData();
+    formData.append('audio', blob, filename || 'voice.webm');
+    try {
+      var res  = await fetch('/api/voice', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('http_' + res.status);
+      var data = await res.json();
+      if (data.text && data.text.trim()) {
+        setVoiceStatus('');
+        input.value = data.text.trim();
+        updateSendBtn();
+        sendMessage(data.text.trim());
+      } else {
+        setVoiceStatus('Could not transcribe \u2014 please try again.');
+        setTimeout(function () { setVoiceStatus(''); }, 3000);
+      }
+    } catch (_) {
+      setVoiceStatus('Voice API not active. Type your question below.');
+      setTimeout(function () { setVoiceStatus(''); }, 4000);
+    }
+  }
+
+  /* ── Voice: start via Web Speech API (primary — works in Chrome/Edge/Safari, no server needed) ── */
+  function _startSpeechApi() {
+    /* Always cancel TTS before listening so bot doesn't talk over mic */
+    if (isSpeaking && window.speechSynthesis) { window.speechSynthesis.cancel(); isSpeaking = false; }
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    speechRec = new SR();
+    speechRec.continuous      = false;
+    speechRec.interimResults  = true;
+    speechRec.lang            = 'en-US';
+    speechRec.maxAlternatives = 1;
+
+    speechRec.onstart = function () {
+      isRecording = true;
+      if (voiceBtn) voiceBtn.classList.add('nca-recording');
+      setVoiceStatus('Listening\u2026 click mic to stop.');
+      if (voiceConvoMode) _vmBarSet('listening', '\uD83C\uDFA4 Listening\u2026');
+    };
+
+    speechRec.onresult = function (e) {
+      var transcript = '';
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        transcript += e.results[i][0].transcript;
+      }
+      if (e.results[e.results.length - 1].isFinal && transcript.trim()) {
+        setVoiceStatus('');
+        speechRec = null;
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        input.value = transcript.trim();
+        updateSendBtn();
+        sendMessage(transcript.trim());
+      }
+    };
+
+    speechRec.onerror = function (e) {
+      speechRec = null;
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        showMicDenied();
+      } else if (e.error === 'no-speech') {
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        setVoiceStatus('No speech detected \u2014 please try again.');
+        setTimeout(function () { setVoiceStatus(''); }, 3000);
+      } else {
+        /* Any other speech-API error: fall back to MediaRecorder */
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        _startMediaRecorder();
+      }
+    };
+
+    speechRec.onend = function () {
+      isRecording = false;
+      speechRec = null;
+      if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+      if (voiceStatus && voiceStatus.textContent === 'Listening\u2026 click mic to stop.') {
+        setVoiceStatus('');
+      }
+      /* In voice mode, bar goes back to "ready" if not processing a message */
+      if (voiceConvoMode && !isSending) _vmBarSet('ready', '\uD83C\uDFA4 Say something\u2026');
+    };
+
+    try {
+      speechRec.start();
+    } catch (e) {
+      speechRec = null;
+      /* Speech API unavailable — fall back to MediaRecorder */
+      _startMediaRecorder();
+    }
+  }
+
+  /* ── Voice: start via MediaRecorder + AudioWorklet PCM (fallback) ── */
+  async function _startMediaRecorder() {
+    if (!mediaRecSupported) {
       setVoiceStatus('Voice not supported in this browser.');
       return;
     }
     try {
-      var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      var stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
       audioChunks = [];
-      // Prefer webm/opus, fall back to whatever the browser supports
+
+      /* Try AudioWorklet PCM→WAV path first (higher Whisper accuracy) */
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext && window.AudioWorklet) {
+        try {
+          var ctx    = new AudioContext({ sampleRate: 16000 });
+          var src    = ctx.createMediaStreamSource(stream);
+          var pcmBuf = [];
+
+          await ctx.audioWorklet.addModule('/pcmWorkletProcessor.js');
+          var worklet = new AudioWorkletNode(ctx, 'pcm-worklet-processor');
+
+          worklet.port.onmessage = function (ev) {
+            pcmBuf.push(new Int16Array(ev.data));
+          };
+
+          src.connect(worklet);
+          worklet.connect(ctx.destination);
+
+          isRecording = true;
+          if (voiceBtn) voiceBtn.classList.add('nca-recording');
+          setVoiceStatus('Listening\u2026 click mic to stop.');
+
+          /* Store cleanup fn so stopRecording can call it */
+          mediaRecorder = {
+            state: 'recording',
+            stop: function () {
+              worklet.disconnect();
+              src.disconnect();
+              ctx.close();
+              stream.getTracks().forEach(function (t) { t.stop(); });
+              var totalLen = pcmBuf.reduce(function (a, b) { return a + b.length; }, 0);
+              var merged   = new Int16Array(totalLen);
+              var offset   = 0;
+              pcmBuf.forEach(function (c) { merged.set(c, offset); offset += c.length; });
+              if (merged.length === 0) { setVoiceStatus(''); return; }
+              var wavBuf  = _pcmToWav(merged, 16000);
+              var wavBlob = new Blob([wavBuf], { type: 'audio/wav' });
+              _whisperTranscribe(wavBlob, 'voice.wav');
+            }
+          };
+          return; /* ← exits; UI triggered by worklet path */
+        } catch (_) {
+          /* AudioWorklet load failed — fall through to plain MediaRecorder */
+        }
+      }
+
+      /* Plain MediaRecorder path */
       var mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
         ? 'audio/webm;codecs=opus'
-        : MediaRecorder.isTypeSupported('audio/webm')
-          ? 'audio/webm'
-          : '';
-      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+        : MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
+      mediaRecorder = mimeType
+        ? new MediaRecorder(stream, { mimeType: mimeType })
+        : new MediaRecorder(stream);
 
       mediaRecorder.addEventListener('dataavailable', function (e) {
         if (e.data && e.data.size > 0) audioChunks.push(e.data);
       });
-
-      mediaRecorder.addEventListener('stop', async function () {
+      mediaRecorder.addEventListener('stop', function () {
         isRecording = false;
         if (voiceBtn) voiceBtn.classList.remove('nca-recording');
         stream.getTracks().forEach(function (t) { t.stop(); });
-
         if (audioChunks.length === 0) { setVoiceStatus(''); return; }
-
         var blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
         audioChunks = [];
-
-        setVoiceStatus('Transcribing\u2026');
-        var formData = new FormData();
-        formData.append('audio', blob, 'voice.webm');
-
-        try {
-          var res = await fetch('/api/voice', { method: 'POST', body: formData });
-          if (!res.ok) throw new Error('voice_api_' + res.status);
-          var data = await res.json();
-          if (data.text && data.text.trim()) {
-            setVoiceStatus('');
-            // Put transcribed text into the input and auto-send
-            input.value = data.text.trim();
-            updateSendBtn();
-            sendMessage(data.text.trim());
-          } else {
-            setVoiceStatus('Could not transcribe — please try again.');
-            setTimeout(function () { setVoiceStatus(''); }, 3000);
-          }
-        } catch (err) {
-          // Voice API not yet deployed — fall back to showing helpful message
-          setVoiceStatus('Voice API not active. Type your question below.');
-          setTimeout(function () { setVoiceStatus(''); }, 4000);
-        }
+        _whisperTranscribe(blob, 'voice.webm');
       });
 
       mediaRecorder.start();
@@ -284,12 +606,41 @@
       if (voiceBtn) voiceBtn.classList.add('nca-recording');
       setVoiceStatus('Listening\u2026 click mic to stop.');
     } catch (err) {
-      if (err.name === 'NotAllowedError') {
-        setVoiceStatus('Microphone access denied.');
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        showMicDenied();
       } else {
-        setVoiceStatus('Could not access microphone.');
+        setVoiceStatus('Could not access microphone.', true);
+        setTimeout(function () { setVoiceStatus(''); }, 4000);
       }
-      setTimeout(function () { setVoiceStatus(''); }, 3000);
+    }
+  }
+
+  /* ── Voice: unified start ── */
+  function startRecording() {
+    if (isRecording) { stopRecording(); return; }
+    if (!voiceSupported) { setVoiceStatus('Voice not supported in this browser.'); return; }
+
+    /* Pre-check mic permission (Permissions API — Chrome/Edge/Firefox) */
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: 'microphone' }).then(function (result) {
+        if (result.state === 'denied') {
+          showMicDenied();
+        } else if (speechApiSupported) {
+          _startSpeechApi();
+        } else {
+          _startMediaRecorder();
+        }
+      }).catch(function () {
+        /* Permissions API not supported — try directly */
+        if (speechApiSupported) { _startSpeechApi(); } else { _startMediaRecorder(); }
+      });
+      return;
+    }
+
+    if (speechApiSupported) {
+      _startSpeechApi();
+    } else {
+      _startMediaRecorder();
     }
   }
 
@@ -565,6 +916,8 @@
     }
     // Fix 6: clear inactivity timer when chat is closed
     if (inactivityTimeout) { clearTimeout(inactivityTimeout); inactivityTimeout = null; }
+    // Stop voice conversation mode cleanly when chat is closed
+    if (voiceConvoMode) _setVoiceConvoMode(false);
   }
 
   /* ── Update send button state ── */
@@ -791,6 +1144,9 @@
         messages.push({ role: 'assistant', content: fullText });
         saveSession();
 
+        /* Speak the response aloud in voice conversation mode */
+        speakText(final.body);
+
         /* Show follow-up chips */
         if (final.followUps.length > 0) {
           showFollowUpChips(final.followUps);
@@ -823,6 +1179,8 @@
           addMsg('bot', parsedReply.body);
           messages.push({ role: 'assistant', content: data.reply });
           saveSession();
+          /* Speak the response aloud in voice conversation mode */
+          speakText(parsedReply.body);
           if (parsedReply.followUps.length > 0) {
             showFollowUpChips(parsedReply.followUps);
           }

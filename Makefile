@@ -1,4 +1,4 @@
-.PHONY: install test test-plugin doctor verify clean lint format build-plugin sync-plugin-repo uninstall-legacy help
+.PHONY: install test test-plugin doctor verify clean lint format build-plugin sync-plugin-repo uninstall-legacy help audit audit-fix test-website test-seo test-articles test-links test-freshness test-a11y test-schema test-perf
 
 # Installation (local source, editable) - RECOMMENDED
 install:
@@ -104,6 +104,51 @@ translate:
 	@echo "✅ Translation complete!"
 	@echo "📝 Files updated: README-zh.md, README-ja.md"
 
+# ── Website Quality Gates ──
+
+# Run full website audit (report only)
+audit:
+	@echo "Running NCA Hub site audit..."
+	uv run python scripts/site_audit.py
+
+# Run audit with auto-fix for safe issues
+audit-fix:
+	@echo "Running NCA Hub site audit with auto-fix..."
+	uv run python scripts/site_audit.py --fix --verbose
+
+# Run all website quality tests
+test-website:
+	@echo "Running website quality tests..."
+	uv run pytest tests/website/ -v --tb=short
+
+# Run individual test suites
+test-seo:
+	uv run pytest tests/website/test_seo.py -v --tb=short
+
+test-articles:
+	uv run pytest tests/website/test_articles.py -v --tb=short
+
+test-links:
+	uv run pytest tests/website/test_links.py -v --tb=short
+
+test-freshness:
+	uv run pytest tests/website/test_content_freshness.py -v --tb=short
+
+test-a11y:
+	uv run pytest tests/website/test_accessibility.py -v --tb=short
+
+test-schema:
+	uv run pytest tests/website/test_schema.py -v --tb=short
+
+test-perf:
+	uv run pytest tests/website/test_performance.py -v --tb=short
+
+# Full quality gate: framework tests + website tests + audit
+quality:
+	@echo "Running full quality gate..."
+	uv run pytest tests/ -v --tb=short
+	uv run python scripts/site_audit.py
+
 # Show help
 help:
 	@echo "SuperClaude Framework - Available commands:"
@@ -126,6 +171,19 @@ help:
 	@echo ""
 	@echo "📚 Documentation:"
 	@echo "  make translate       - Translate README to Chinese and Japanese"
+	@echo ""
+	@echo "🌐 Website Quality:"
+	@echo "  make test-website    - Run all website quality tests"
+	@echo "  make test-seo        - SEO validation (titles, meta, canonical)"
+	@echo "  make test-articles   - Article quality (frontmatter, structure)"
+	@echo "  make test-links      - Internal link validation"
+	@echo "  make test-freshness  - Content freshness (dates, prices)"
+	@echo "  make test-a11y       - Accessibility checks"
+	@echo "  make test-schema     - JSON-LD schema validation"
+	@echo "  make test-perf       - Performance & asset checks"
+	@echo "  make audit           - Full site audit (report)"
+	@echo "  make audit-fix       - Site audit + auto-fix safe issues"
+	@echo "  make quality         - Full quality gate (all tests + audit)"
 	@echo ""
 	@echo "🧹 Cleanup:"
 	@echo "  make uninstall-legacy - Remove old SuperClaude files from ~/.claude"
