@@ -91,8 +91,8 @@
 .nca-welcome-sub{font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.5;}
 
 /* === Quick Actions / Chips === */
-.nca-chips{padding:4px 14px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;}
-.nca-chip{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.75);font-size:.68rem;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;letter-spacing:.02em;font-family:inherit;}
+.nca-chips{padding:4px 14px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;overflow:hidden;}
+.nca-chip{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.75);font-size:.68rem;padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:normal;word-break:break-word;letter-spacing:.02em;font-family:inherit;max-width:100%;text-align:left;}
 .nca-chip:hover{background:rgba(201,168,76,.12);border-color:#C9A84C;color:#C9A84C;transform:translateY(-1px);box-shadow:0 2px 8px rgba(201,168,76,.15);}
 .nca-chip:active{transform:translateY(0);}
 
@@ -116,7 +116,8 @@
 #nca-voice-btn.nca-recording{background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.5);animation:nca-voice-pulse 1s infinite;}
 #nca-voice-btn.nca-recording svg{stroke:#f87171;}
 @keyframes nca-voice-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3);}50%{box-shadow:0 0 0 6px rgba(220,38,38,0);}}
-.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 0;text-align:center;flex-shrink:0;min-height:14px;transition:opacity .2s;}
+.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 4px;text-align:center;flex-shrink:0;min-height:14px;transition:color .2s;line-height:1.4;}
+.nca-voice-status.nca-voice-error{color:rgba(239,100,100,.85);}
 
 /* === Footer === */
 .nca-chat-footer{text-align:center;padding:5px 0 7px;font-size:.58rem;color:rgba(255,255,255,.12);flex-shrink:0;letter-spacing:.03em;}
@@ -215,9 +216,30 @@
 
   if (!voiceSupported && voiceBtn) voiceBtn.style.display = 'none';
 
-  /* ── Voice: set status text ── */
-  function setVoiceStatus(text) {
-    if (voiceStatus) voiceStatus.textContent = text;
+  /* ── Voice: set status text (isError adds red styling and longer display) ── */
+  function setVoiceStatus(text, isError) {
+    if (!voiceStatus) return;
+    voiceStatus.textContent = text;
+    if (isError) {
+      voiceStatus.classList.add('nca-voice-error');
+    } else {
+      voiceStatus.classList.remove('nca-voice-error');
+    }
+  }
+
+  /* ── Voice: show mic-denied help message ── */
+  function showMicDenied() {
+    var ua  = navigator.userAgent;
+    var tip = ua.indexOf('Chrome') !== -1 || ua.indexOf('Edg') !== -1
+      ? 'Mic blocked \u2014 click the \uD83D\uDD12 icon in the address bar \u2192 Microphone \u2192 Allow, then refresh.'
+      : ua.indexOf('Safari') !== -1
+      ? 'Mic blocked \u2014 Safari Preferences \u2192 Websites \u2192 Microphone \u2192 Allow for this site.'
+      : 'Mic blocked \u2014 allow microphone access in your browser settings, then refresh.';
+    setVoiceStatus(tip, true);
+    if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+    isRecording = false;
+    /* Keep visible for 8 s so user can read it */
+    setTimeout(function () { setVoiceStatus(''); }, 8000);
   }
 
   /* ── Voice: stop any active recording ── */
@@ -311,14 +333,20 @@
     };
 
     speechRec.onerror = function (e) {
-      var msg = e.error === 'not-allowed'
-        ? 'Microphone access denied.'
-        : 'Voice recognition error. Please type instead.';
-      setVoiceStatus(msg);
-      isRecording = false;
       speechRec = null;
-      if (voiceBtn) voiceBtn.classList.remove('nca-recording');
-      setTimeout(function () { setVoiceStatus(''); }, 3500);
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        showMicDenied();
+      } else if (e.error === 'no-speech') {
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        setVoiceStatus('No speech detected \u2014 please try again.');
+        setTimeout(function () { setVoiceStatus(''); }, 3000);
+      } else {
+        /* Any other speech-API error: fall back to MediaRecorder */
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        _startMediaRecorder();
+      }
     };
 
     speechRec.onend = function () {
@@ -421,11 +449,12 @@
       if (voiceBtn) voiceBtn.classList.add('nca-recording');
       setVoiceStatus('Listening\u2026 click mic to stop.');
     } catch (err) {
-      var msg = (err.name === 'NotAllowedError')
-        ? 'Microphone access denied.'
-        : 'Could not access microphone.';
-      setVoiceStatus(msg);
-      setTimeout(function () { setVoiceStatus(''); }, 3000);
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        showMicDenied();
+      } else {
+        setVoiceStatus('Could not access microphone.', true);
+        setTimeout(function () { setVoiceStatus(''); }, 4000);
+      }
     }
   }
 
@@ -433,6 +462,24 @@
   function startRecording() {
     if (isRecording) { stopRecording(); return; }
     if (!voiceSupported) { setVoiceStatus('Voice not supported in this browser.'); return; }
+
+    /* Pre-check mic permission (Permissions API — Chrome/Edge/Firefox) */
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: 'microphone' }).then(function (result) {
+        if (result.state === 'denied') {
+          showMicDenied();
+        } else if (speechApiSupported) {
+          _startSpeechApi();
+        } else {
+          _startMediaRecorder();
+        }
+      }).catch(function () {
+        /* Permissions API not supported — try directly */
+        if (speechApiSupported) { _startSpeechApi(); } else { _startMediaRecorder(); }
+      });
+      return;
+    }
+
     if (speechApiSupported) {
       _startSpeechApi();
     } else {
