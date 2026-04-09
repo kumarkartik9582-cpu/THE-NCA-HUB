@@ -418,11 +418,97 @@ ul { list-style: none }
   100% { transform: translateY(-10vh) translateX(5px) scale(0); opacity: 0 }
 }
 
-/* ─── Section & wrapper ──────────────────────────────────────────────────── */
-.sec { padding: clamp(80px,12vh,140px) 0; position: relative; z-index: 1 }
-.w   { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px,5vw,72px) }
+/* ─── CSS @property — animated gold gradients (compositor-friendly) ──────── */
+@property --gold-a {
+  syntax: "<color>";
+  initial-value: #C9A84C;
+  inherits: false;
+}
+@property --gold-b {
+  syntax: "<color>";
+  initial-value: #9E7B30;
+  inherits: false;
+}
+.gold-animate {
+  background: linear-gradient(135deg, var(--gold-a), var(--gold-b));
+  animation: gold-breathe 4s ease-in-out infinite alternate;
+}
+@keyframes gold-breathe {
+  to { --gold-a: #F0D878; --gold-b: #C9A84C }
+}
 
-/* ─── Eyebrow label ──────────────────────────────────────────────────────── */
+/* ─── 3D text depth shadows (restored from nca-premium-v3.css) ──────────── */
+.text-depth {
+  text-shadow:
+    0 1px 0 rgba(158,123,48,0.4),
+    0 2px 0 rgba(158,123,48,0.3),
+    0 3px 0 rgba(158,123,48,0.2),
+    0 4px 8px rgba(0,0,0,0.4),
+    0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* ─── Card breathing animation (restored — subtle ambient life) ─────────── */
+.breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1) }
+  50%      { transform: scale(1.008) }
+}
+
+/* ─── Gold stat glow (restored — filter glow on stat numbers) ────────────── */
+.stat-glow {
+  filter: drop-shadow(0 0 10px rgba(201,168,76,0.5)) drop-shadow(0 0 20px rgba(201,168,76,0.15));
+}
+
+/* ─── Gradient section divider (restored from original) ─────────────────── */
+.sec-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.06) 15%, rgba(201,168,76,0.18) 50%, rgba(201,168,76,0.06) 85%, transparent 100%);
+}
+
+/* ─── CSS scroll-driven animations (compositor-only, zero JS) ────────────── */
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: css-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+  @keyframes css-reveal {
+    to { opacity: 1; transform: translateY(0) }
+  }
+
+  .scroll-reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: css-reveal-scale linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+  @keyframes css-reveal-scale {
+    to { opacity: 1; transform: scale(1) }
+  }
+}
+
+/* ─── Section & wrapper ──────────────────────────────────────────────────── */
+.sec {
+  padding: clamp(80px,12vh,140px) 0;
+  position: relative;
+  z-index: 1;
+  /* Browser skips rendering off-screen sections entirely */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+.w { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px,5vw,72px) }
+
+/* ─── CSS containment on cards (isolate layout/paint per card) ──────────── */
+.holo-card, .glass {
+  contain: layout style paint;
+}
+
+/* ─── Eyebrow label — gold shimmer animation (restored from original) ────── */
 .ey {
   display: inline-block;
   font-size: var(--nano);
@@ -432,6 +518,15 @@ ul { list-style: none }
   font-family: var(--fb);
   font-weight: 600;
   margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--g2) 0%, var(--g0) 40%, var(--g1) 60%, var(--g2) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gold-shimmer-text 4s linear infinite;
+}
+@keyframes gold-shimmer-text {
+  to { background-position: 200% center }
 }
 
 /* ─── Buttons ────────────────────────────────────────────────────────────── */
@@ -446,8 +541,14 @@ ul { list-style: none }
   will-change: transform;
 }
 
-/* Primary gold */
+/* Primary gold — with shine sweep (restored from original nca-premium-v3.css) */
 .bp { background: var(--g1); color: var(--void) }
+.bp::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  transition: left 0.65s cubic-bezier(.25,.46,.45,.94);
+}
+.bp:hover::before { left: 150% }
 .bp::after {
   content: ''; position: absolute; inset: 0;
   background: radial-gradient(circle at var(--bx,50%) var(--by,50%), rgba(255,255,255,.25) 0%, transparent 60%);
@@ -457,8 +558,14 @@ ul { list-style: none }
 .bp:hover::after { opacity: 1 }
 .bp:active { transform: scale(0.97) }
 
-/* Outline ghost */
+/* Outline ghost — with shine sweep */
 .nc { background: rgba(201,168,76,.07); color: var(--g1); border: 1px solid rgba(201,168,76,.28) }
+.nc::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(201,168,76,0.15) 50%, transparent 100%);
+  transition: left 0.65s cubic-bezier(.25,.46,.45,.94);
+}
+.nc:hover::before { left: 150% }
 .nc:hover { background: rgba(201,168,76,.14); box-shadow: 0 0 24px rgba(201,168,76,.22); border-color: rgba(201,168,76,.5) }
 .nc:active { transform: scale(0.97) }
 
@@ -483,14 +590,14 @@ ul { list-style: none }
 .td2 { width: 1px; background: rgba(201,168,76,.14); align-self: center; height: 10px }
 @keyframes ticker-scroll { 0% { transform:translateX(0) } 100% { transform:translateX(-50%) } }
 
-/* ─── Scroll progress bar ────────────────────────────────────────────────── */
+/* ─── Scroll progress bar (uses scaleX for compositor-only updates) ──────── */
 #prog {
-  position: fixed; top: 0; left: 0; height: 1px;
+  position: fixed; top: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, var(--g3), var(--g1), var(--g0));
-  z-index: 9050; width: 0;
+  z-index: 9050;
+  transform: scaleX(0);
   transform-origin: left;
-  /* GPU composited */
-  will-change: transform, width;
+  will-change: transform;
 }
 
 /* ─── Discovery / announcement bar ──────────────────────────────────────── */

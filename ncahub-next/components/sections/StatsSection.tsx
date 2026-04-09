@@ -8,8 +8,6 @@ import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import TiltCard from '@/components/ui/TiltCard'
-import AuroraBackground from '@/components/ui/AuroraBackground'
-import FloatingParticles from '@/components/ui/FloatingParticles'
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger)
 
@@ -76,12 +74,6 @@ export default function StatsSection() {
         overflow: 'hidden',
       }}
     >
-      {/* Aurora backdrop */}
-      <AuroraBackground intensity={0.5} />
-
-      {/* Floating particles */}
-      <FloatingParticles count={14} opacity={0.3} />
-
       {/* Glow line at top */}
       <div className="glow-line" style={{
         position: 'absolute', top: 0, left: '15%', right: '15%', zIndex: 5,

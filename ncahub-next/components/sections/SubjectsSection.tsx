@@ -9,8 +9,6 @@ import { useEffect, useRef, memo } from 'react'
 import Link from 'next/link'
 import { gsap } from '@/lib/gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import FloatingParticles from '@/components/ui/FloatingParticles'
-
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger)
 
 const SUBJECTS = [
@@ -120,14 +118,6 @@ export default function SubjectsSection() {
         position: 'relative',
       }}
     >
-      {/* Grid background */}
-      <div className="grid-bg" aria-hidden="true" style={{
-        position: 'absolute', inset: 0, opacity: 0.2, pointerEvents: 'none',
-      }} />
-
-      {/* Floating particles */}
-      <FloatingParticles count={18} opacity={0.35} />
-
       {/* Glow line at top */}
       <div className="glow-line" style={{
         position: 'absolute', top: 0, left: '10%', right: '10%', zIndex: 5,

@@ -2,7 +2,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import TiltCard from '@/components/ui/TiltCard'
-import FloatingParticles from '@/components/ui/FloatingParticles'
 
 const PLANS = [
   {
@@ -51,14 +50,6 @@ export default function PricingSection() {
         borderTop: '1px solid rgba(201,168,76,.06)',
         position: 'relative', overflow: 'hidden',
       }}>
-      {/* Grid background */}
-      <div className="grid-bg-fine" aria-hidden="true" style={{
-        position: 'absolute', inset: 0, opacity: 0.2, pointerEvents: 'none',
-      }} />
-
-      {/* Floating particles */}
-      <FloatingParticles count={12} opacity={0.25} />
-
       {/* Glow line at top */}
       <div className="glow-line" style={{
         position: 'absolute', top: 0, left: '20%', right: '20%', zIndex: 5,

@@ -1,7 +1,6 @@
 'use client'
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import FloatingParticles from '@/components/ui/FloatingParticles'
 
 const FAQS = [
   {
@@ -96,14 +95,6 @@ export default function FAQSection() {
   return (
     <section className="sec" id="faq" aria-label="Frequently asked questions" ref={ref}
       style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* Grid background */}
-      <div className="grid-bg" aria-hidden="true" style={{
-        position: 'absolute', inset: 0, opacity: 0.15, pointerEvents: 'none',
-      }} />
-
-      {/* Floating particles */}
-      <FloatingParticles count={8} opacity={0.2} />
-
       {/* Glow line at top */}
       <div className="glow-line" style={{
         position: 'absolute', top: 0, left: '20%', right: '20%', zIndex: 5,
@@ -131,13 +122,6 @@ export default function FAQSection() {
               <a href="mailto:thencahub@gmail.com" style={{ color: 'var(--g1)', textDecoration: 'underline', textDecorationColor: 'rgba(201,168,76,0.3)', textUnderlineOffset: '3px' }}>Email us</a>.
             </motion.p>
 
-            {/* Decorative orb */}
-            <div className="float-orb morph-blob" aria-hidden="true" style={{
-              width: 200, height: 200,
-              background: 'radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)',
-              top: '60%', left: '-20%',
-              filter: 'blur(40px)',
-            }} />
           </div>
 
           <motion.div

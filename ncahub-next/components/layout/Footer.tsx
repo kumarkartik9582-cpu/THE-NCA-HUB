@@ -30,22 +30,9 @@ export default function Footer() {
       position: 'relative', zIndex: 1,
       overflow: 'hidden',
     }}>
-      {/* Grid background pattern */}
-      <div className="grid-bg-fine" aria-hidden="true" style={{
-        position: 'absolute', inset: 0, opacity: 0.15, pointerEvents: 'none',
-      }} />
-
       {/* Glow line at top */}
       <div className="glow-line" style={{
         position: 'absolute', top: 0, left: '10%', right: '10%',
-      }} />
-
-      {/* Aurora orb in bottom corner */}
-      <div className="float-orb" aria-hidden="true" style={{
-        width: 400, height: 400,
-        bottom: '-30%', right: '-10%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%)',
-        filter: 'blur(80px)',
       }} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 2 }}>
