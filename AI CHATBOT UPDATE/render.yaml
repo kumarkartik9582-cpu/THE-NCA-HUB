@@ -1,0 +1,27 @@
+# Render.com deployment config for NCA Hub Real-Time Voice Chat
+# https://render.com — use a Standard instance ($25/mo) for enough RAM
+# NOTE: GPU instances not available on Render; TTS/STT will run on CPU (slower)
+#
+# Deploy steps:
+#   1. Connect GitHub repo to Render
+#   2. Create new "Web Service"
+#   3. Set Root Directory: "AI CHATBOT UPDATE/code"
+#   4. Set Docker build context and add env vars below
+
+services:
+  - type: web
+    name: nca-voice-chat
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    rootDir: AI CHATBOT UPDATE/code
+    plan: standard
+    envVars:
+      - key: MAX_AUDIO_QUEUE_SIZE
+        value: "30"
+      - key: LLM_PROVIDER
+        value: openai
+      - key: OPENAI_API_KEY
+        sync: false   # set manually in Render dashboard
+      - key: PORT
+        value: "8000"
+    healthCheckPath: /health
