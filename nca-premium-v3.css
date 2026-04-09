@@ -498,6 +498,11 @@ h1:hover, h2:hover, .split-heading:hover {
   background-size: 120px 120px;
 }
 
+/* ─── CSS containment for rendering isolation ─────────────── */
+.pod-card, .sc2, .mc, .pc, .tool-card, .cg-card, .art-card {
+  contain: layout style paint;
+}
+
 /* ─── Reduce motion overrides for new animations ──────────── */
 @media (prefers-reduced-motion: reduce) {
   .hcard:not(:hover), .bp, .ey { animation: none !important; }

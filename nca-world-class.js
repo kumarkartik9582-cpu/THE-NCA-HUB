@@ -20,6 +20,8 @@
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var IS_MOBILE = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth <= 768;
   var IS_SAFARI = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  var TAB_VISIBLE = true;
+  document.addEventListener('visibilitychange', function() { TAB_VISIBLE = !document.hidden; });
 
   /* ═══════════════════════════════════════════════════════════
      1. AMBIENT-CV — Deep-space nebula: star-field + volumetric
@@ -89,6 +91,7 @@
     document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
 
     function drawAmbient() {
+      if (!TAB_VISIBLE) { requestAnimationFrame(drawAmbient); return; }
       cx.clearRect(0, 0, W, H);
 
       /* Star field */
@@ -213,6 +216,7 @@
     }, { passive: true });
 
     function drawTrail() {
+      if (!TAB_VISIBLE) { requestAnimationFrame(drawTrail); return; }
       cx.clearRect(0, 0, cv.width, cv.height);
 
       /* Rings */
