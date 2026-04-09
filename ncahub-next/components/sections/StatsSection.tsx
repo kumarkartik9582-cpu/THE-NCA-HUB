@@ -96,7 +96,7 @@ export default function StatsSection() {
                   fontSize: '4rem', opacity: 0.04, color: 'var(--g1)',
                   fontFamily: 'var(--fd)',
                 }}>{s.icon}</span>
-                <div className="neon-text" style={{
+                <div className="neon-text stat-glow" style={{
                   fontFamily: 'var(--fd)',
                   fontSize: 'clamp(3rem, 6vw, 5.5rem)',
                   fontWeight: 300, lineHeight: 1,
