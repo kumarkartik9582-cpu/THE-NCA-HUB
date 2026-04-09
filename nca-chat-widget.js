@@ -43,7 +43,7 @@
 #nca-chat-close:hover{color:#C9A84C;transform:scale(1.1);background:rgba(201,168,76,.08);}
 
 /* === Messages Area === */
-.nca-chat-msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 14px 8px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;min-height:0;}
+.nca-chat-msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 14px 8px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;min-height:160px;}
 .nca-chat-msgs::-webkit-scrollbar{width:5px;}
 .nca-chat-msgs::-webkit-scrollbar-track{background:transparent;}
 .nca-chat-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15);border-radius:3px;}
@@ -116,7 +116,7 @@
 #nca-voice-btn.nca-recording{background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.5);animation:nca-voice-pulse 1s infinite;}
 #nca-voice-btn.nca-recording svg{stroke:#f87171;}
 @keyframes nca-voice-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3);}50%{box-shadow:0 0 0 6px rgba(220,38,38,0);}}
-.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 0;text-align:center;flex-basis:100%;order:10;min-height:14px;transition:opacity .2s;}
+.nca-voice-status{font-size:.62rem;color:rgba(201,168,76,.6);padding:3px 14px 0;text-align:center;flex-shrink:0;min-height:14px;transition:opacity .2s;}
 
 /* === Footer === */
 .nca-chat-footer{text-align:center;padding:5px 0 7px;font-size:.58rem;color:rgba(255,255,255,.12);flex-shrink:0;letter-spacing:.03em;}
@@ -206,7 +206,12 @@
   var mediaRecorder = null;
   var audioChunks = [];
   var isRecording = false;
-  var voiceSupported = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  var speechRec = null; // Web Speech API instance
+
+  /* Support flags */
+  var speechApiSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  var mediaRecSupported  = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  var voiceSupported     = speechApiSupported || mediaRecSupported;
 
   if (!voiceSupported && voiceBtn) voiceBtn.style.display = 'none';
 
@@ -215,68 +220,200 @@
     if (voiceStatus) voiceStatus.textContent = text;
   }
 
-  /* ── Voice: stop recording and send ── */
+  /* ── Voice: stop any active recording ── */
   function stopRecording() {
+    /* Web Speech API path */
+    if (speechRec) {
+      try { speechRec.stop(); } catch (_) {}
+      speechRec = null;
+    }
+    /* MediaRecorder path */
     if (mediaRecorder && mediaRecorder.state !== 'inactive') {
       mediaRecorder.stop();
     }
+    isRecording = false;
+    if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+    setVoiceStatus('');
   }
 
-  /* ── Voice: start recording ── */
-  async function startRecording() {
-    if (isRecording) { stopRecording(); return; }
-    if (!voiceSupported) {
+  /* ── Voice: encode raw PCM samples to a WAV ArrayBuffer ── */
+  function _pcmToWav(int16Samples, sampleRate) {
+    var numSamples = int16Samples.length;
+    var buf = new ArrayBuffer(44 + numSamples * 2);
+    var dv  = new DataView(buf);
+    var wr  = function (off, s) { for (var i = 0; i < s.length; i++) dv.setUint8(off + i, s.charCodeAt(i)); };
+    wr(0,  'RIFF'); dv.setUint32(4,  36 + numSamples * 2, true); wr(8, 'WAVE');
+    wr(12, 'fmt '); dv.setUint32(16, 16, true);
+    dv.setUint16(20, 1, true);          // PCM
+    dv.setUint16(22, 1, true);          // mono
+    dv.setUint32(24, sampleRate, true);
+    dv.setUint32(28, sampleRate * 2, true);
+    dv.setUint16(32, 2, true);
+    dv.setUint16(34, 16, true);
+    wr(36, 'data'); dv.setUint32(40, numSamples * 2, true);
+    for (var i = 0; i < numSamples; i++) dv.setInt16(44 + i * 2, int16Samples[i], true);
+    return buf;
+  }
+
+  /* ── Voice: send audio blob to Cloudflare Whisper ── */
+  async function _whisperTranscribe(blob, filename) {
+    setVoiceStatus('Transcribing\u2026');
+    var formData = new FormData();
+    formData.append('audio', blob, filename || 'voice.webm');
+    try {
+      var res  = await fetch('/api/voice', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('http_' + res.status);
+      var data = await res.json();
+      if (data.text && data.text.trim()) {
+        setVoiceStatus('');
+        input.value = data.text.trim();
+        updateSendBtn();
+        sendMessage(data.text.trim());
+      } else {
+        setVoiceStatus('Could not transcribe \u2014 please try again.');
+        setTimeout(function () { setVoiceStatus(''); }, 3000);
+      }
+    } catch (_) {
+      setVoiceStatus('Voice API not active. Type your question below.');
+      setTimeout(function () { setVoiceStatus(''); }, 4000);
+    }
+  }
+
+  /* ── Voice: start via Web Speech API (primary — works in Chrome/Edge/Safari, no server needed) ── */
+  function _startSpeechApi() {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    speechRec = new SR();
+    speechRec.continuous      = false;
+    speechRec.interimResults  = true;
+    speechRec.lang            = 'en-US';
+    speechRec.maxAlternatives = 1;
+
+    speechRec.onstart = function () {
+      isRecording = true;
+      if (voiceBtn) voiceBtn.classList.add('nca-recording');
+      setVoiceStatus('Listening\u2026 click mic to stop.');
+    };
+
+    speechRec.onresult = function (e) {
+      var transcript = '';
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        transcript += e.results[i][0].transcript;
+      }
+      if (e.results[e.results.length - 1].isFinal && transcript.trim()) {
+        setVoiceStatus('');
+        speechRec = null;
+        isRecording = false;
+        if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+        input.value = transcript.trim();
+        updateSendBtn();
+        sendMessage(transcript.trim());
+      }
+    };
+
+    speechRec.onerror = function (e) {
+      var msg = e.error === 'not-allowed'
+        ? 'Microphone access denied.'
+        : 'Voice recognition error. Please type instead.';
+      setVoiceStatus(msg);
+      isRecording = false;
+      speechRec = null;
+      if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+      setTimeout(function () { setVoiceStatus(''); }, 3500);
+    };
+
+    speechRec.onend = function () {
+      isRecording = false;
+      speechRec = null;
+      if (voiceBtn) voiceBtn.classList.remove('nca-recording');
+      if (voiceStatus && voiceStatus.textContent === 'Listening\u2026 click mic to stop.') {
+        setVoiceStatus('');
+      }
+    };
+
+    try {
+      speechRec.start();
+    } catch (e) {
+      speechRec = null;
+      /* Speech API unavailable — fall back to MediaRecorder */
+      _startMediaRecorder();
+    }
+  }
+
+  /* ── Voice: start via MediaRecorder + AudioWorklet PCM (fallback) ── */
+  async function _startMediaRecorder() {
+    if (!mediaRecSupported) {
       setVoiceStatus('Voice not supported in this browser.');
       return;
     }
     try {
-      var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      var stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
       audioChunks = [];
-      // Prefer webm/opus, fall back to whatever the browser supports
+
+      /* Try AudioWorklet PCM→WAV path first (higher Whisper accuracy) */
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext && window.AudioWorklet) {
+        try {
+          var ctx    = new AudioContext({ sampleRate: 16000 });
+          var src    = ctx.createMediaStreamSource(stream);
+          var pcmBuf = [];
+
+          await ctx.audioWorklet.addModule('/pcmWorkletProcessor.js');
+          var worklet = new AudioWorkletNode(ctx, 'pcm-worklet-processor');
+
+          worklet.port.onmessage = function (ev) {
+            pcmBuf.push(new Int16Array(ev.data));
+          };
+
+          src.connect(worklet);
+          worklet.connect(ctx.destination);
+
+          isRecording = true;
+          if (voiceBtn) voiceBtn.classList.add('nca-recording');
+          setVoiceStatus('Listening\u2026 click mic to stop.');
+
+          /* Store cleanup fn so stopRecording can call it */
+          mediaRecorder = {
+            state: 'recording',
+            stop: function () {
+              worklet.disconnect();
+              src.disconnect();
+              ctx.close();
+              stream.getTracks().forEach(function (t) { t.stop(); });
+              var totalLen = pcmBuf.reduce(function (a, b) { return a + b.length; }, 0);
+              var merged   = new Int16Array(totalLen);
+              var offset   = 0;
+              pcmBuf.forEach(function (c) { merged.set(c, offset); offset += c.length; });
+              if (merged.length === 0) { setVoiceStatus(''); return; }
+              var wavBuf  = _pcmToWav(merged, 16000);
+              var wavBlob = new Blob([wavBuf], { type: 'audio/wav' });
+              _whisperTranscribe(wavBlob, 'voice.wav');
+            }
+          };
+          return; /* ← exits; UI triggered by worklet path */
+        } catch (_) {
+          /* AudioWorklet load failed — fall through to plain MediaRecorder */
+        }
+      }
+
+      /* Plain MediaRecorder path */
       var mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
         ? 'audio/webm;codecs=opus'
-        : MediaRecorder.isTypeSupported('audio/webm')
-          ? 'audio/webm'
-          : '';
-      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+        : MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : '';
+      mediaRecorder = mimeType
+        ? new MediaRecorder(stream, { mimeType: mimeType })
+        : new MediaRecorder(stream);
 
       mediaRecorder.addEventListener('dataavailable', function (e) {
         if (e.data && e.data.size > 0) audioChunks.push(e.data);
       });
-
-      mediaRecorder.addEventListener('stop', async function () {
+      mediaRecorder.addEventListener('stop', function () {
         isRecording = false;
         if (voiceBtn) voiceBtn.classList.remove('nca-recording');
         stream.getTracks().forEach(function (t) { t.stop(); });
-
         if (audioChunks.length === 0) { setVoiceStatus(''); return; }
-
         var blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
         audioChunks = [];
-
-        setVoiceStatus('Transcribing\u2026');
-        var formData = new FormData();
-        formData.append('audio', blob, 'voice.webm');
-
-        try {
-          var res = await fetch('/api/voice', { method: 'POST', body: formData });
-          if (!res.ok) throw new Error('voice_api_' + res.status);
-          var data = await res.json();
-          if (data.text && data.text.trim()) {
-            setVoiceStatus('');
-            // Put transcribed text into the input and auto-send
-            input.value = data.text.trim();
-            updateSendBtn();
-            sendMessage(data.text.trim());
-          } else {
-            setVoiceStatus('Could not transcribe — please try again.');
-            setTimeout(function () { setVoiceStatus(''); }, 3000);
-          }
-        } catch (err) {
-          // Voice API not yet deployed — fall back to showing helpful message
-          setVoiceStatus('Voice API not active. Type your question below.');
-          setTimeout(function () { setVoiceStatus(''); }, 4000);
-        }
+        _whisperTranscribe(blob, 'voice.webm');
       });
 
       mediaRecorder.start();
@@ -284,12 +421,22 @@
       if (voiceBtn) voiceBtn.classList.add('nca-recording');
       setVoiceStatus('Listening\u2026 click mic to stop.');
     } catch (err) {
-      if (err.name === 'NotAllowedError') {
-        setVoiceStatus('Microphone access denied.');
-      } else {
-        setVoiceStatus('Could not access microphone.');
-      }
+      var msg = (err.name === 'NotAllowedError')
+        ? 'Microphone access denied.'
+        : 'Could not access microphone.';
+      setVoiceStatus(msg);
       setTimeout(function () { setVoiceStatus(''); }, 3000);
+    }
+  }
+
+  /* ── Voice: unified start ── */
+  function startRecording() {
+    if (isRecording) { stopRecording(); return; }
+    if (!voiceSupported) { setVoiceStatus('Voice not supported in this browser.'); return; }
+    if (speechApiSupported) {
+      _startSpeechApi();
+    } else {
+      _startMediaRecorder();
     }
   }
 
