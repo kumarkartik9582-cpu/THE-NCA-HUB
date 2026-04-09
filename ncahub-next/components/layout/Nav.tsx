@@ -27,7 +27,7 @@ export default function Nav() {
   return (
     <>
       <nav
-        className="scan-lines"
+        className=""
         style={{
           position: 'fixed', top: '28px', inset: '0 0 auto 0', zIndex: 9040,
           padding: '16px 48px',

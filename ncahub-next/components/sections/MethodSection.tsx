@@ -2,7 +2,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import TiltCard from '@/components/ui/TiltCard'
-import FloatingParticles from '@/components/ui/FloatingParticles'
 
 const STEPS = [
   {
@@ -42,14 +41,6 @@ export default function MethodSection() {
         borderTop: '1px solid rgba(201,168,76,.06)',
         position: 'relative', overflow: 'hidden',
       }}>
-      {/* Grid pattern background */}
-      <div className="grid-bg-fine" aria-hidden="true" style={{
-        position: 'absolute', inset: 0, opacity: 0.25, pointerEvents: 'none',
-      }} />
-
-      {/* Floating particles */}
-      <FloatingParticles count={10} opacity={0.3} />
-
       {/* Glow line at top */}
       <div className="glow-line" style={{
         position: 'absolute', top: 0, left: '15%', right: '15%',

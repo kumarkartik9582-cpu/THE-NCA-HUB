@@ -35,7 +35,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     const onScroll = () => {
       const s = window.scrollY
       const t = document.documentElement.scrollHeight - window.innerHeight
-      if (prog && t > 0) prog.style.width = (s / t * 100).toFixed(2) + '%'
+      if (prog && t > 0) prog.style.transform = `scaleX(${(s / t).toFixed(4)})`
       if (bar) bar.classList.toggle('hidden', s > 100)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
