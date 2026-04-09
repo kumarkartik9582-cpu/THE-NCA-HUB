@@ -1,0 +1,24 @@
+# Railway deployment config for NCA Hub Real-Time Voice Chat
+# https://railway.app — requires a GPU-enabled plan for real-time STT/TTS
+# Deploy steps:
+#   1. Create new Railway project → "Deploy from GitHub repo"
+#   2. Set the Root Directory to "AI CHATBOT UPDATE/code"
+#   3. Add environment variables below in Railway dashboard
+#   4. For GPU: upgrade to a GPU instance in Railway settings
+
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "python server.py"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# Environment variables to set in Railway dashboard:
+# MAX_AUDIO_QUEUE_SIZE=50
+# LLM_PROVIDER=openai          # use "openai" for cloud LLM (no GPU needed)
+# OPENAI_API_KEY=sk-...        # your OpenAI key (if using openai provider)
+# PORT=8000                    # Railway auto-sets this, but server.py needs it

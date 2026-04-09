@@ -154,6 +154,11 @@ app.add_middleware(
 # Mount static files with no cache
 app.mount("/static", NoCacheStaticFiles(directory="static"), name="static")
 
+@app.get("/health")
+async def health():
+    """Health-check endpoint required by Railway / Render / Fly.io."""
+    return {"status": "ok"}
+
 @app.get("/favicon.ico")
 async def favicon():
     """
@@ -943,8 +948,9 @@ if __name__ == "__main__":
 
     # Run the server without SSL
     if not USE_SSL:
-        logger.info("🖥️▶️ Starting server without SSL.")
-        uvicorn.run("server:app", host="0.0.0.0", port=8000, log_config=None)
+        port = int(os.getenv("PORT", 8000))  # Railway/Render inject PORT
+        logger.info(f"🖥️▶️ Starting server without SSL on port {port}.")
+        uvicorn.run("server:app", host="0.0.0.0", port=port, log_config=None)
 
     else:
         logger.info("🖥️🔒 Attempting to start server with SSL.")
