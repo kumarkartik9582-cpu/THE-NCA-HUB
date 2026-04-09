@@ -3316,7 +3316,10 @@ function getDaysToNextExam(subject){
     'Criminal Law':[new Date('2026-05-12'),new Date('2026-08-10')],
     'Constitutional Law':[new Date('2026-04-01'),new Date('2026-07-07')],
     'Professional Responsibility':[new Date('2026-05-04'),new Date('2026-08-04')],
-    'Foundations of Canadian Law':[new Date('2026-04-07'),new Date('2026-07-14')]
+    'Foundations of Canadian Law':[new Date('2026-04-07'),new Date('2026-07-14')],
+    'Contract Law':[new Date('2026-05-19'),new Date('2026-08-18')],
+    'Family Law':[new Date('2026-06-09'),new Date('2026-09-08')],
+    'Evidence Law':[new Date('2026-05-26'),new Date('2026-08-25')]
   };
   var dates=examDates[subject];
   if(!dates)return null;
@@ -3447,6 +3450,28 @@ function rqReset(){
   /* Retake */
   var retake=document.getElementById('rq-retake-btn');
   if(retake) retake.addEventListener('click',rqReset);
+})();
+
+/* AUTO-START from ?subj= URL param (redirected from /readiness/) */
+(function(){
+  /* URL format: /#readiness?subj=contract — the ?subj= is part of the hash */
+  var hash=window.location.hash;
+  var m=hash.match(/[?&]subj=([a-zA-Z]+)/);
+  if(!m){var sm=window.location.search.match(/[?&]subj=([a-zA-Z]+)/);if(sm)m=sm;}
+  if(!m)return;
+  var subj=m[1];
+  if(!rqKnowledgeQ[subj])return;
+  /* Wait for preloader to finish (safety net fires at 3s), then preselect subject and begin quiz */
+  setTimeout(function(){
+    rqState.subject=subj;
+    document.querySelectorAll('.subj-btn').forEach(function(b){
+      b.classList.toggle('selected',b.getAttribute('data-subj')===subj);
+    });
+    var nextBtn=document.getElementById('rq-btn-subj-next');
+    if(nextBtn) nextBtn.classList.add('rq-show');
+    /* Small extra delay so user sees subject highlighted before quiz advances */
+    setTimeout(function(){ rqGoToStep(1); },400);
+  },3300);
 })();
 
 /* PRELOADER */
