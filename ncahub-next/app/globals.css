@@ -12,8 +12,8 @@
   --color-dark:  #0D0D18;
   --color-surf:  #121220;
   --color-cream: #EDE5CE;
-  --color-fog:   #998E7C;
-  --color-dim:   #6B6257;
+  --color-fog:   #B8A89B;
+  --color-dim:   #9A8A7B;
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -22,7 +22,7 @@
   --void:#020204; --abyss:#050508; --deep:#080810; --dark:#0D0D18; --surf:#121220;
   --g0:#F0D878;   --g1:#C9A84C;   --g2:#9E7B30;   --g3:#4E3A14;
   --glow:rgba(201,168,76,.11);    --glow3:rgba(201,168,76,.025);
-  --cream:#EDE5CE; --fog:#998E7C; --dim:#6B6257;
+  --cream:#EDE5CE; --fog:#B8A89B; --dim:#9A8A7B;
 
   /* Neon accent palette */
   --neon-gold: rgba(240,216,120,0.7);
