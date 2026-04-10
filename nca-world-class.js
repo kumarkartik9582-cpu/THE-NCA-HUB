@@ -1045,12 +1045,17 @@
         document.querySelectorAll(AUTO_SELECTORS).forEach(function (el, i) {
           if (el.dataset.fadeHooked) return;
           el.dataset.fadeHooked = '1';
-          el.classList.add('nca-fade');
-          /* Only add stagger delay for elements clearly below the fold */
           var rect = el.getBoundingClientRect();
           var belowFold = rect.top > window.innerHeight;
-          el.style.transitionDelay = belowFold ? (Math.min(i % 6, 5) * 0.08) + 's' : '0s';
-          obs.observe(el);
+          el.classList.add('nca-fade');
+          if (!belowFold) {
+            /* Already in viewport — reveal immediately to prevent invisible flash */
+            el.classList.add('nca-visible');
+          } else {
+            /* Only stagger elements that are clearly below the fold */
+            el.style.transitionDelay = (Math.min(i % 6, 5) * 0.08) + 's';
+            obs.observe(el);
+          }
         });
       } catch (err) {}
     }

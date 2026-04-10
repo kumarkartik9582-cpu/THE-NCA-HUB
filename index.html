@@ -1442,7 +1442,7 @@ select:focus-visible {
 
 <!-- NAV -->
 <nav id="nav" role="navigation" aria-label="Main navigation">
-  <a href="#" class="nl" aria-label="The NCA Hub — home">THE NCA HUB</a>
+  <a href="/" class="nl" aria-label="The NCA Hub — home">THE NCA HUB</a>
   <div class="nav-links">
     <a href="#method">Method<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
     <a href="#story">Story<svg class="nav-underline" aria-hidden="true"><path d="M0 2 Q50 0.5 100 2"/></svg></a>
@@ -3180,7 +3180,6 @@ function rqGoToStep(stepNum){
     var s4=document.getElementById('rq-step-4'); if(s4) s4.style.display='block';
     rqRenderKnowledgeQ(2,'rq-opts-4','rq-fb-4','rq-qtext-4','rq-btn-next-4',true);
   }
-  (function(){var rEl=document.getElementById('readiness');if(!rEl)return;if(typeof lenis!=='undefined'&&lenis){lenis.scrollTo(rEl,{offset:-80,duration:1.2});}else{window.scrollTo({top:rEl.offsetTop-80,behavior:'smooth'});}})();
 }
 
 /* ── CALCULATE SCORE ── */
@@ -3304,7 +3303,7 @@ function rqShowResults(){
   rqUpdateProgress(6);
   try{sessionStorage.setItem('ncahub_readiness_score',score);}catch(e){}
   showFollowThrough(score, subjName);
-  (function(){var rEl=document.getElementById('readiness');if(!rEl)return;if(typeof lenis!=='undefined'&&lenis){lenis.scrollTo(rEl,{offset:-80,duration:1.2});}else{window.scrollTo({top:rEl.offsetTop-80,behavior:'smooth'});}})();
+  (function(){var rEl=document.getElementById('rq-result-panel');if(!rEl)rEl=document.getElementById('readiness');if(!rEl)return;if(typeof lenis!=='undefined'&&lenis){lenis.scrollTo(rEl,{offset:-80,duration:1.2});}else{window.scrollTo({top:rEl.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'});}})();
 }
 
 

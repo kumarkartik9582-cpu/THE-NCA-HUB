@@ -49,11 +49,21 @@
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
     s.onload = function(){
-      fetch('/search-index.json').then(function(r){ return r.json(); }).then(function(data){
-        fuse = new Fuse(data, {keys:['title','desc','h1'],threshold:0.35,minMatchCharLength:2});
-        indexLoaded = true;
-        if(input.value) doSearch(input.value);
-      });
+      fetch('/search-index.json')
+        .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function(data){
+          fuse = new Fuse(data, {keys:['title','desc','h1'],threshold:0.35,minMatchCharLength:2});
+          indexLoaded = true;
+          if(input.value) doSearch(input.value);
+        })
+        .catch(function(err){
+          console.warn('Search index unavailable:', err.message);
+          if(modeEl) modeEl.textContent = '';
+        });
+    };
+    s.onerror = function(){
+      console.warn('Fuse.js failed to load — keyword search unavailable');
+      if(modeEl) modeEl.textContent = '';
     };
     document.head.appendChild(s);
   }
