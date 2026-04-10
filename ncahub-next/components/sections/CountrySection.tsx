@@ -41,19 +41,27 @@ export default function CountrySection() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
           {GUIDES.map((g, i) => (
             <motion.div key={g.href}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.07 }}>
+              transition={{ duration: 0.55, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            >
               <Link href={g.href} className="cg-card"
                 style={{
                   display: 'flex', flexDirection: 'column', gap: 12, padding: '24px 20px',
                   background: 'rgba(201,168,76,.02)', border: '1px solid rgba(201,168,76,.08)',
-                  transition: 'border-color .3s, background .3s',
+                  transition: 'border-color .3s, background .3s', height: '100%',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(201,168,76,.2)'; e.currentTarget.style.background = 'rgba(201,168,76,.04)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(201,168,76,.25)'; e.currentTarget.style.background = 'rgba(201,168,76,.05)' }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(201,168,76,.08)'; e.currentTarget.style.background = 'rgba(201,168,76,.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>{g.flag}</span>
+                  <motion.span
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ fontSize: '1.5rem', lineHeight: 1, display: 'inline-block' }}
+                  >
+                    {g.flag}
+                  </motion.span>
                   <span style={{ fontSize: '.85rem', fontWeight: 600, color: 'var(--cream)', letterSpacing: '.04em' }}>{g.country}</span>
                 </div>
                 <p style={{ fontSize: 'var(--sm)', color: 'var(--dim)', lineHeight: 1.65 }}>{g.desc}</p>

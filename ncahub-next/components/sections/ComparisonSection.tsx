@@ -96,7 +96,13 @@ export default function ComparisonSection() {
             </thead>
             <tbody>
               {FEATURES.map((f, i) => (
-                <tr key={f.name} style={{ borderBottom: '1px solid rgba(201,168,76,0.06)' }}>
+                <motion.tr
+                  key={f.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.55 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ borderBottom: '1px solid rgba(201,168,76,0.06)' }}
+                >
                   <td style={{ padding: '14px 12px', fontWeight: 500, color: 'var(--cream)' }}>{f.name}</td>
                   {[f.us, f.c1, f.c2, f.c3].map((val, j) => (
                     <td key={j} style={{
@@ -113,7 +119,7 @@ export default function ComparisonSection() {
                       )}
                     </td>
                   ))}
-                </tr>
+                </motion.tr>
               ))}
             </tbody>
           </table>

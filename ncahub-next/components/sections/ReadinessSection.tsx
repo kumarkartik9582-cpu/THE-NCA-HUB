@@ -1,6 +1,8 @@
 'use client'
-import { useState, useRef } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
+import { motion, useInView, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion'
+
+const EXPO = [0.16, 1, 0.3, 1] as const
 
 const QUESTIONS = [
   {
@@ -65,6 +67,29 @@ function getResult(score: number) {
   return { label: 'Early Stage', color: '#f87171', msg: 'Begin with the core frameworks for your subject. The NCA Hub notes will give you the exam-targeted structure you need.' }
 }
 
+/** Animated count-up for the final score */
+function ScoreDisplay({ pct, result }: { pct: number; result: ReturnType<typeof getResult> }) {
+  const motionVal = useMotionValue(0)
+  const display = useTransform(motionVal, (v) => Math.round(v).toString())
+
+  useEffect(() => {
+    const controls = animate(motionVal, pct, { duration: 1.2, ease: 'easeOut', delay: 0.3 })
+    return controls.stop
+  }, [pct, motionVal])
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 8 }}>
+      <motion.span style={{
+        fontFamily: 'var(--fd)', fontSize: '4rem', fontWeight: 300,
+        color: result.color, lineHeight: 1,
+      }}>
+        {display}
+      </motion.span>
+      <span style={{ fontSize: 'var(--sm)', color: 'var(--fog)' }}>/ 100</span>
+    </div>
+  )
+}
+
 export default function ReadinessSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-10%' })
@@ -96,7 +121,7 @@ export default function ReadinessSection() {
         </motion.span>
         <motion.h2
           initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.1, ease: EXPO }}
           style={{ fontFamily: 'var(--fd)', fontSize: 'var(--h1)', fontWeight: 400, lineHeight: 1.1, marginBottom: 16 }}
         >
           Know exactly where you stand.<br /><em>Before you sit.</em>
@@ -119,14 +144,22 @@ export default function ReadinessSection() {
               transition={{ duration: 0.4 }}
               style={{ maxWidth: 640 }}
             >
-              {/* Progress */}
+              {/* Progress dots */}
               <div style={{ display: 'flex', gap: 6, marginBottom: 32 }}>
                 {QUESTIONS.map((_, i) => (
-                  <div key={i} style={{
-                    flex: 1, height: 2,
-                    background: i < current ? 'var(--g1)' : i === current ? 'rgba(201,168,76,.4)' : 'rgba(255,255,255,.06)',
-                    transition: 'background .3s',
-                  }} />
+                  <motion.div
+                    key={i}
+                    animate={{
+                      background: i < current
+                        ? 'var(--g1)'
+                        : i === current
+                          ? 'rgba(201,168,76,.4)'
+                          : 'rgba(255,255,255,.06)',
+                      scaleX: i === current ? 1.15 : 1,
+                    }}
+                    transition={{ duration: 0.35 }}
+                    style={{ flex: 1, height: 2 }}
+                  />
                 ))}
               </div>
 
@@ -136,22 +169,27 @@ export default function ReadinessSection() {
               <p style={{ fontFamily: 'var(--fd)', fontSize: '1.5rem', color: 'var(--cream)', marginBottom: 28 }}>
                 {QUESTIONS[current].q}
               </p>
+
+              {/* Answer options — staggered */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {QUESTIONS[current].options.map((opt, i) => (
-                  <button
+                  <motion.button
                     key={i}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 + i * 0.07, ease: EXPO }}
+                    whileHover={{ x: 4, borderColor: 'rgba(201,168,76,.4)', background: 'rgba(201,168,76,.08)' }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => handleAnswer(i)}
                     style={{
                       padding: '16px 20px', textAlign: 'left', cursor: 'pointer',
                       background: 'rgba(201,168,76,.04)', border: '1px solid rgba(201,168,76,.15)',
                       color: 'var(--cream)', fontFamily: 'var(--fb)', fontSize: 'var(--sm)',
-                      transition: 'all .2s', borderRadius: 3,
+                      transition: 'background .2s, border-color .2s', borderRadius: 3,
                     }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(201,168,76,.1)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,.4)' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(201,168,76,.04)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,.15)' }}
                   >
                     {opt.label}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </motion.div>
@@ -163,16 +201,40 @@ export default function ReadinessSection() {
               transition={{ duration: 0.6 }}
               style={{ maxWidth: 640 }}
             >
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 8 }}>
-                <span style={{ fontFamily: 'var(--fd)', fontSize: '4rem', fontWeight: 300, color: result.color, lineHeight: 1 }}>{pct}</span>
-                <span style={{ fontSize: 'var(--sm)', color: 'var(--fog)' }}>/ 100</span>
-              </div>
-              <div style={{ fontFamily: 'var(--fd)', fontSize: '1.5rem', color: 'var(--cream)', marginBottom: 16 }}>{result.label}</div>
-              <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.75, marginBottom: 28 }}>{result.msg}</p>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer" className="bp"><span>Get Study Notes →</span></a>
-                <button className="nc" onClick={() => { setAnswers([]); setComplete(false) }}><span>Retake</span></button>
-              </div>
+              {/* Animated score count-up */}
+              <ScoreDisplay pct={pct} result={result} />
+
+              <motion.div
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: EXPO }}
+                style={{ fontFamily: 'var(--fd)', fontSize: '1.5rem', color: 'var(--cream)', marginBottom: 16 }}
+              >
+                {result.label}
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.75, marginBottom: 28 }}
+              >
+                {result.msg}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.85, ease: EXPO }}
+                style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}
+              >
+                <a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer" className="bp">
+                  <span>Get Study Notes →</span>
+                </a>
+                <button className="nc" onClick={() => { setAnswers([]); setComplete(false) }}>
+                  <span>Retake</span>
+                </button>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
