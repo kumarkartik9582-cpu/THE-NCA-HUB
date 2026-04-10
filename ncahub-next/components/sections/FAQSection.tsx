@@ -48,20 +48,21 @@ function FAQItem({ faq, idx }: { faq: { q: string; a: string }; idx: number }) {
           cursor: 'pointer', background: 'none', border: 'none', color: 'var(--cream)',
         }}
       >
-        <span style={{
-          fontFamily: 'var(--fd)', fontSize: '1.05rem', lineHeight: 1.4, fontWeight: 400,
-          transition: 'color 0.3s ease',
-          color: open ? 'var(--g1)' : 'var(--cream)',
-        }}>
+        <motion.span
+          animate={{ color: open ? 'var(--g1)' : 'var(--cream)' }}
+          transition={{ duration: 0.25 }}
+          style={{ fontFamily: 'var(--fd)', fontSize: '1.05rem', lineHeight: 1.4, fontWeight: 400 }}
+        >
           {faq.q}
-        </span>
-        <span style={{
-          color: 'var(--g1)', fontSize: '1.2rem', flexShrink: 0, lineHeight: 1,
-          transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
-          transition: 'transform .3s cubic-bezier(.16,1,.3,1)',
-          display: 'block', marginTop: 4,
-          textShadow: open ? '0 0 8px rgba(201,168,76,0.4)' : 'none',
-        }}>+</span>
+        </motion.span>
+        <motion.span
+          animate={{
+            rotate: open ? 45 : 0,
+            textShadow: open ? '0 0 10px rgba(201,168,76,0.5)' : '0 0 0px rgba(201,168,76,0)',
+          }}
+          transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+          style={{ color: 'var(--g1)', fontSize: '1.2rem', flexShrink: 0, lineHeight: 1, display: 'block', marginTop: 4 }}
+        >+</motion.span>
       </button>
       <AnimatePresence>
         {open && (
