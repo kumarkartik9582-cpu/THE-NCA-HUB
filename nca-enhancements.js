@@ -224,7 +224,8 @@
     var alreadyVoted = localStorage.getItem(VOTE_KEY);
 
     if (alreadyVoted) {
-      widget.querySelector('.nca-helpful-btns').style.display = 'none';
+      var btns0 = widget.querySelector('.nca-helpful-btns');
+      if (btns0) btns0.style.display = 'none';
       var msg = widget.querySelector('.nca-helpful-thankyou');
       if (msg) { msg.hidden = false; msg.textContent = 'Thanks for your feedback! You voted: ' + alreadyVoted + '.'; }
       return;
@@ -235,7 +236,8 @@
         var vote = btn.dataset.vote;
         try { localStorage.setItem(VOTE_KEY, vote); } catch (e) {}
         fire('helpful_vote', { vote: vote, page: window.location.pathname });
-        widget.querySelector('.nca-helpful-btns').style.display = 'none';
+        var btns1 = widget.querySelector('.nca-helpful-btns');
+        if (btns1) btns1.style.display = 'none';
         var thankyou = widget.querySelector('.nca-helpful-thankyou');
         if (thankyou) { thankyou.hidden = false; thankyou.textContent = vote === 'yes' ? 'Glad it helped! Good luck with your NCA exams.' : 'Thanks for the feedback — we\'ll keep improving.'; }
       });
