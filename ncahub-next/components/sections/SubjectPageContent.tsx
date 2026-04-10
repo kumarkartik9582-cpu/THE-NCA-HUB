@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 
 const EXPO = [0.16, 1, 0.3, 1] as const
 
@@ -50,6 +51,7 @@ export default function SubjectPageContent({ s, subject }: { s: SubjectData; sub
 
   return (
     <main>
+      <ScrollProgress />
       {/* Hero */}
       <section ref={heroRef} style={{ background: 'var(--void)', padding: '160px 0 80px', borderBottom: '1px solid rgba(201,168,76,.07)' }}>
         <div className="w">

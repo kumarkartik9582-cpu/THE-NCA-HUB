@@ -42,9 +42,11 @@ export default function BlogSection() {
         <div id="blog-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
           {FEATURED_POSTS.map((post, i) => (
             <motion.div key={post.slug}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}>
+              transition={{ duration: 0.55, delay: 0.1 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.22 } }}
+            >
               <Link href={`/blog/${post.slug}/`} className="art-card"
                 style={{
                   display: 'block', padding: '28px 24px',
