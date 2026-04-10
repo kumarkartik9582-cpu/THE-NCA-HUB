@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import BlogPostContent from '@/components/sections/BlogPostContent'
 
 const POSTS: Record<string, {
   title: string
@@ -131,91 +131,5 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = POSTS[slug]
   if (!post) notFound()
 
-  return (
-    <main>
-      {/* Hero */}
-      <section style={{ background: 'var(--void)', padding: '160px 0 60px', borderBottom: '1px solid rgba(201,168,76,.07)' }}>
-        <div className="w" style={{ maxWidth: 800 }}>
-          <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 24 }}>
-            <Link href="/blog/" style={{ fontSize: 'var(--nano)', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--dim)' }}>
-              ← All Articles
-            </Link>
-            <span style={{ color: 'var(--dim)' }}>·</span>
-            <span style={{ fontSize: 'var(--nano)', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--g2)', fontWeight: 600 }}>{post.cat}</span>
-          </div>
-          <h1 style={{ fontFamily: 'var(--fd)', fontSize: 'clamp(2rem, 4.5vw, 3.8rem)', fontWeight: 400, lineHeight: 1.1, color: 'var(--cream)', marginBottom: 24 }}>
-            {post.title}
-          </h1>
-          <p style={{ fontSize: 'var(--lead)', color: 'var(--fog)', lineHeight: 1.7, marginBottom: 24 }}>{post.excerpt}</p>
-          <div style={{ display: 'flex', gap: 20, fontSize: 'var(--nano)', color: 'var(--dim)', letterSpacing: '.15em', textTransform: 'uppercase' }}>
-            <span>{post.date}</span>
-            <span>·</span>
-            <span>{post.readTime}</span>
-            <span>·</span>
-            <span>The NCA Hub</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Body */}
-      <section style={{ background: 'var(--void)', padding: '60px 0 120px' }}>
-        <div className="w" style={{ maxWidth: 800 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: 64, alignItems: 'start' }}>
-            {/* Article content */}
-            <article>
-              {post.body.map((block, i) => {
-                if (block.startsWith('## ')) {
-                  return (
-                    <h2 key={i} style={{ fontFamily: 'var(--fd)', fontSize: '1.5rem', fontWeight: 400, color: 'var(--cream)', marginTop: 48, marginBottom: 20, lineHeight: 1.3 }}>
-                      {block.slice(3)}
-                    </h2>
-                  )
-                }
-                return (
-                  <p key={i} style={{ fontSize: '.95rem', color: 'var(--fog)', lineHeight: 1.85, marginBottom: 24 }}>
-                    {block}
-                  </p>
-                )
-              })}
-            </article>
-
-            {/* Sidebar */}
-            <aside style={{ position: 'sticky', top: 100 }}>
-              <div style={{ background: 'rgba(201,168,76,.04)', border: '1px solid rgba(201,168,76,.12)', padding: 24, marginBottom: 16 }}>
-                <div style={{ fontSize: 'var(--nano)', letterSpacing: '.25em', textTransform: 'uppercase', color: 'var(--g1)', marginBottom: 16, fontWeight: 600 }}>
-                  Free Chapter
-                </div>
-                <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.65, marginBottom: 20 }}>
-                  Get a free chapter from the notes for any subject — no credit card required.
-                </p>
-                <Link href="/#free-chapter" className="bp" style={{ display: 'flex', justifyContent: 'center', width: '100%', fontSize: '.68rem' }}>
-                  <span>Get Free Chapter →</span>
-                </Link>
-              </div>
-              <div style={{ background: 'rgba(201,168,76,.02)', border: '1px solid rgba(201,168,76,.08)', padding: 24 }}>
-                <div style={{ fontSize: 'var(--nano)', letterSpacing: '.25em', textTransform: 'uppercase', color: 'var(--g1)', marginBottom: 16, fontWeight: 600 }}>
-                  All 5 Subjects
-                </div>
-                <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.65, marginBottom: 20 }}>
-                  Complete Bundle — under 80 pages per subject, answer templates included.
-                </p>
-                <Link href="/#pricing" className="nc" style={{ display: 'flex', justifyContent: 'center', width: '100%', fontSize: '.68rem' }}>
-                  <span>View Pricing →</span>
-                </Link>
-              </div>
-            </aside>
-          </div>
-
-          {/* Back link */}
-          <div style={{ marginTop: 80, paddingTop: 40, borderTop: '1px solid rgba(201,168,76,.08)' }}>
-            <Link href="/blog/" style={{ fontSize: 'var(--sm)', color: 'var(--g1)', letterSpacing: '.15em', textTransform: 'uppercase' }}>
-              ← Back to All Articles
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <style>{`@media(max-width:768px){article+aside{display:none!important}}`}</style>
-    </main>
-  )
+  return <BlogPostContent post={post} slug={slug} />
 }

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const LINKS = [
   { href: '/#method', label: 'Method' },
@@ -11,6 +12,8 @@ const LINKS = [
   { href: '/notes/', label: 'Notes', gold: true },
   { href: '/blog/', label: 'Articles' },
 ]
+
+const EXPO = [0.16, 1, 0.3, 1] as const
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
@@ -27,7 +30,6 @@ export default function Nav() {
   return (
     <>
       <nav
-        className=""
         style={{
           position: 'fixed', top: '28px', inset: '0 0 auto 0', zIndex: 9040,
           padding: '16px 48px',
@@ -97,6 +99,7 @@ export default function Nav() {
           </a>
         </div>
 
+        {/* Animated hamburger */}
         <button
           onClick={() => setOpen(!open)}
           className="nav-burger"
@@ -108,67 +111,82 @@ export default function Nav() {
             alignItems: 'center', justifyContent: 'center',
           }}
         >
-          <span style={{
-            display: 'block', width: 22, height: 1, background: 'var(--g1)',
-            transform: open ? 'rotate(45deg) translate(3px, 3px)' : 'none',
-            transition: 'transform 0.3s var(--expo)',
-          }} />
-          <span style={{
-            display: 'block', width: 22, height: 1, background: 'var(--g1)',
-            opacity: open ? 0 : 1,
-            transition: 'opacity 0.2s ease',
-          }} />
-          <span style={{
-            display: 'block', width: 22, height: 1, background: 'var(--g1)',
-            transform: open ? 'rotate(-45deg) translate(3px, -3px)' : 'none',
-            transition: 'transform 0.3s var(--expo)',
-          }} />
+          <motion.span
+            animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }}
+            transition={{ duration: 0.3, ease: EXPO }}
+            style={{ display: 'block', width: 22, height: 1, background: 'var(--g1)' }}
+          />
+          <motion.span
+            animate={{ opacity: open ? 0 : 1, scaleX: open ? 0 : 1 }}
+            transition={{ duration: 0.2 }}
+            style={{ display: 'block', width: 22, height: 1, background: 'var(--g1)' }}
+          />
+          <motion.span
+            animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }}
+            transition={{ duration: 0.3, ease: EXPO }}
+            style={{ display: 'block', width: 22, height: 1, background: 'var(--g1)' }}
+          />
         </button>
       </nav>
 
-      {/* Mobile overlay menu */}
-      {open && (
-        <div
-          onClick={() => setOpen(false)}
-          style={{
-            position: 'fixed', inset: 0, zIndex: 9035,
-            background: 'rgba(2,2,4,0.97)',
-            backdropFilter: 'blur(30px)',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center', gap: 32,
-          }}
-        >
-          {/* Grid pattern overlay */}
-          <div className="grid-bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, opacity: 0.3 }} />
+      {/* Mobile overlay menu — AnimatePresence for smooth enter/exit */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.55, ease: EXPO }}
+            onClick={() => setOpen(false)}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 9035,
+              background: 'rgba(2,2,4,0.97)',
+              backdropFilter: 'blur(30px)',
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: 32,
+            }}
+          >
+            {/* Grid pattern overlay */}
+            <div className="grid-bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, opacity: 0.3 }} />
 
-          {LINKS.map((l, i) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              style={{
-                fontFamily: 'var(--fd)', fontSize: '2rem', color: 'var(--cream)',
-                opacity: 0,
-                animation: `fadeInUp 0.5s ${0.1 + i * 0.06}s ease forwards`,
-                position: 'relative',
-              }}
+            {LINKS.map((l, i) => (
+              <motion.div
+                key={l.href}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.12 + i * 0.07, ease: EXPO }}
+                style={{ position: 'relative', zIndex: 1 }}
+              >
+                <Link
+                  href={l.href}
+                  style={{
+                    fontFamily: 'var(--fd)',
+                    fontSize: '2rem',
+                    color: l.gold ? 'var(--g1)' : 'var(--cream)',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {l.label}
+                </Link>
+              </motion.div>
+            ))}
+
+            <motion.a
+              href="/#pricing"
+              className="bp"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.12 + LINKS.length * 0.07, ease: EXPO }}
+              style={{ marginTop: 16, position: 'relative', zIndex: 1 }}
             >
-              {l.label}
-            </Link>
-          ))}
-          <a href="/#pricing" className="bp" style={{
-            marginTop: 16, opacity: 0,
-            animation: `fadeInUp 0.5s ${0.1 + LINKS.length * 0.06}s ease forwards`,
-          }}>
-            <span>Get Notes →</span>
-          </a>
-        </div>
-      )}
+              <span>Get Notes →</span>
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
-        @keyframes fadeInUp {
-          from { opacity:0; transform:translateY(20px); }
-          to   { opacity:1; transform:translateY(0); }
-        }
         nav a:hover { color: var(--g1) !important }
         @media(max-width:768px){.nav-desktop{display:none!important}.nav-burger{display:flex!important}}
         @media(min-width:769px){.nav-burger{display:none!important}}
