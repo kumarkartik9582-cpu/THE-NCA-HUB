@@ -1,5 +1,6 @@
 ---
 title: "NCA for Nigerian Lawyers: The Complete Canada Qualification Guide (2026)"
+slug: /nca-for-nigerian-lawyers
 description: "Nigerian lawyers qualifying in Canada through the NCA face specific challenges and advantages. This complete guide covers your NCA assessment, likely subjects, timeline, and strategy — written for Nigerian-qualified lawyers."
 date: "2026-03-09"
 lastModified: "2026-03-09"

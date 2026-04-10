@@ -55,7 +55,7 @@ Anxiety comes from uncertainty. These checklists give you certainty — clear da
 
 **2 Weeks Before:**
 - [ ] Full mock exam completed under exam conditions
-- [ ] Technical setup tested (ProProctor system check)
+- [ ] Technical setup tested (MonitorEDU system check)
 - [ ] All materials tabbed and organized
 - [ ] Weak areas from mock exam addressed
 
@@ -76,7 +76,7 @@ Anxiety comes from uncertainty. These checklists give you certainty — clear da
 - [ ] Alarm set with 30-minute buffer
 - [ ] Breakfast (light, protein)
 - [ ] Arrived at desk/room 15 minutes early
-- [ ] Logged in to ProProctor
+- [ ] Logged in to MonitorEDU
 - [ ] 5-minute reading phase before writing
 - [ ] Time checks every 45 minutes
 

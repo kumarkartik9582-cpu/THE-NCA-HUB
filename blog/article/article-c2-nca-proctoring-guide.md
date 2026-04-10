@@ -7,7 +7,7 @@ cta_primary: "Download Proctoring Checklist →"
 cta_secondary: "See Exam Format Guide"
 ---
 
-The NCA uses ProProctor for online proctoring. Technical failures are the most preventable cause of exam disqualification — and the most anxiety-inducing. This guide eliminates that anxiety by giving you the exact technical setup that works.
+The NCA uses MonitorEDU for online proctoring. Technical failures are the most preventable cause of exam disqualification — and the most anxiety-inducing. This guide eliminates that anxiety by giving you the exact technical setup that works.
 
 ## The Device Setup
 
@@ -16,14 +16,14 @@ The NCA uses ProProctor for online proctoring. Technical failures are the most p
 - **Browser:** Chrome or Firefox (latest versions — update the day before)
 - **Webcam:** 720p minimum (most laptops are fine)
 - **Microphone:** Required for proctor communication
-- **Internet:** Stable connection, minimum 3–5 Mbps upload and download recommended for ProProctor. Test your speed at speedtest.net before exam day. If below 3 Mbps, use a wired (ethernet) connection rather than WiFi — video proctoring requires simultaneous HD webcam feed and screen sharing, which 1 Mbps will not reliably support.
+- **Internet:** Stable connection, minimum 3–5 Mbps upload and download recommended for MonitorEDU. Test your speed at speedtest.net before exam day. If below 3 Mbps, use a wired (ethernet) connection rather than WiFi — video proctoring requires simultaneous HD webcam feed and screen sharing, which 1 Mbps will not reliably support.
 
-**Test your system:** Do the ProProctor system test 48 hours before your exam. Do not skip this.
+**Test your system:** Do the MonitorEDU system test 48 hours before your exam. Do not skip this.
 
 ### What to Close
 - All applications except your browser
 - VPNs (disable completely)
-- Firewalls (temporarily disable or allow ProProctor)
+- Firewalls (temporarily disable or allow MonitorEDU)
 - Browser extensions (disable ad blockers, grammar checkers, etc.)
 
 ## The Phone Setup (Critical)
@@ -34,11 +34,11 @@ Your phone is your second camera. This is where most technical failures occur.
 1. **Airplane Mode: ON**
 2. **WiFi: ON** (connects to proctor)
 3. **Bluetooth: OFF**
-4. **Do Not Disturb: ON** — this suppresses all notifications and interruptions during the exam. The ProProctor app functions normally regardless of DND status.
+4. **Do Not Disturb: ON** — this suppresses all notifications and interruptions during the exam. The MonitorEDU app functions normally regardless of DND status.
 5. **Battery: 100%** before starting
 6. **Charging cable:** Plugged in throughout exam
 
-### The ProProctor App
+### The MonitorEDU App
 - Download from App Store (iOS) or Play Store (Android) **before exam day**
 - Test the app during your system test
 - Do not update the app on exam day (use the version you tested)
@@ -74,11 +74,11 @@ You cannot leave the room during the exam. Prepare accordingly:
 ### 30 Minutes Before
 - Final system check
 - Close all unnecessary applications
-- Open browser, navigate to ProProctor login
+- Open browser, navigate to MonitorEDU login
 - Have ID ready (government-issued photo ID)
 
 ### Login Process
-1. Log in to ProProctor 15 minutes early
+1. Log in to MonitorEDU 15 minutes early
 2. Complete identity verification (photo ID, face scan)
 3. Wait for proctor to connect (can take 5–10 minutes)
 4. Proctor will ask you to:
@@ -107,7 +107,7 @@ You cannot leave the room during the exam. Prepare accordingly:
 
 ### Software Crashes
 - Reopen browser immediately
-- Re-log in to ProProctor
+- Re-log in to MonitorEDU
 - The exam timer continues running — do not waste time panicking
 - Contact NCA after exam to report
 
@@ -122,7 +122,7 @@ If your exam is disqualified due to technical issues:
 ## The Night-Before Checklist
 
 - [ ] System test completed successfully
-- [ ] ProProctor app downloaded and tested
+- [ ] MonitorEDU app downloaded and tested
 - [ ] Phone charged to 100%
 - [ ] Phone stand/positioning tested
 - [ ] Room cleared of unauthorised items
