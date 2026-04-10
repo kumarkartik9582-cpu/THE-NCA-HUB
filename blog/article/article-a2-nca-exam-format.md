@@ -95,7 +95,7 @@ NCA questions fall into three broad categories. Identifying which type you are f
 
 ## The Online Proctored Setup — Exactly What You Need
 
-The NCA uses ProProctor for remote proctoring. Here is your complete setup checklist:
+The NCA uses MonitorEDU for remote proctoring. Here is your complete setup checklist:
 
 ### Device Requirements
 
@@ -118,7 +118,7 @@ The NCA uses ProProctor for remote proctoring. Here is your complete setup check
 
 This is the part that causes the most anxiety. Here is how it works:
 
-1. You install the ProProctor app on your smartphone
+1. You install the MonitorEDU app on your smartphone
 2. At exam start, you position the phone to show your face, hands, and screen
 3. The phone remains connected throughout the exam
 4. The proctor monitors via this camera feed
@@ -127,13 +127,13 @@ This is the part that causes the most anxiety. Here is how it works:
 
 - **Airplane mode ON** — this prevents calls and notifications
 - **WiFi ON** — the app needs internet to connect to proctor
-- **Do Not Disturb: ON** — this suppresses all notifications and calls during the exam. The ProProctor app runs independently of DND status.
+- **Do Not Disturb: ON** — this suppresses all notifications and calls during the exam. The MonitorEDU app runs independently of DND status.
 - **Battery:** Charge to 100% before starting
 - **Position:** Use a phone stand or stack of books — do not hold it
 
 **What happens if a call comes through:**
 
-With airplane mode on and WiFi on, calls cannot reach you. This is the correct setup. The ProProctor app functions normally regardless of Do Not Disturb status.
+With airplane mode on and WiFi on, calls cannot reach you. This is the correct setup. The MonitorEDU app functions normally regardless of Do Not Disturb status.
 
 ## Time Allocation — The Formula That Works
 
@@ -204,7 +204,7 @@ Here is what to do:
 
 ### Before the Exam
 
-- **System test:** Do the ProProctor system test at least 48 hours before
+- **System test:** Do the MonitorEDU system test at least 48 hours before
 - **Backup plan:** Have a second device ready (charged, app installed)
 - **Contact info:** Save the NCA technical support contact (see nca.legal/contact for current information)
 - **Documentation:** Know how to screenshot/record if issues arise

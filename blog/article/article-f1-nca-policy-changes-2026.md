@@ -1,5 +1,6 @@
 ---
 title: "NCA Policy Changes 2026: What Every Applicant Must Know (Effective March 1)"
+slug: /nca-policy-changes-2026
 description: "Three major NCA policy changes took effect March 1, 2026: mandatory Indigenous Law competency, language screening before assessment, and tightening in-person rules from 2029. Here is exactly what changed and what to do."
 date: "2026-03-09"
 lastModified: "2026-03-09"

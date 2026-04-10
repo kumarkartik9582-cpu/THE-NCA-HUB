@@ -1,5 +1,6 @@
 ---
 title: "NCA for Philippine Lawyers: The Hybrid Jurisdiction Guide to Canadian Qualification (2026)"
+slug: /nca-for-philippine-lawyers
 description: "Philippine lawyers face unique NCA rules because the Philippines is a hybrid jurisdiction — civil law and common law. This guide covers your assessment profile, likely subject assignment, and the specific strategies that apply to Philippine-qualified candidates."
 date: "2026-03-09"
 lastModified: "2026-03-09"
