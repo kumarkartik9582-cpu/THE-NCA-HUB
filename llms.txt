@@ -110,7 +110,7 @@ NCA Glossary: https://www.thencahub.com/nca-glossary/
 
 ## Search
 Site search is available at all pages — press / or click the search icon in the nav.
-Search index: https://www.thencahub.com/search-index.json (57 entries)
+Search index: https://www.thencahub.com/search-index.json (78 entries)
 
 ## New in Sprint G (March 2026)
 - GDPR-compliant cookie consent with GA4 consent mode (analytics_storage: denied by default)
