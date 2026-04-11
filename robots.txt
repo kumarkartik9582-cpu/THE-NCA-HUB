@@ -27,11 +27,11 @@ Allow: /nca-for-indian-lawyers/
 Allow: /nca-for-uk-lawyers/
 Allow: /nca-for-nigerian-lawyers/
 Allow: /
-Disallow: /free-chapters/
+Disallow: /free-chapter.html
 Disallow: /notes/
 
 User-agent: CCBot
-Disallow: /free-chapters/
+Disallow: /free-chapter.html
 Disallow: /notes/
 
 User-agent: OAI-SearchBot
