@@ -136,6 +136,25 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <div id="analysis-content"></div>
   </div>
 
+  <div style="border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:1.5rem;margin-top:40px;background:rgba(14,14,26,.5)">
+    <h3 style="font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:8px">Get a reminder 30 days before your exam</h3>
+    <p style="font-size:.78rem;color:var(--fog);margin-bottom:16px">Enter your email and your next exam date. We will send you one reminder 30 days before — nothing else.</p>
+    <form action="https://formspree.io/f/mkoqgvqd" method="POST" style="display:flex;flex-direction:column;gap:10px;max-width:400px">
+      <input type="email" name="email" placeholder="Your email address" required style="padding:10px 14px;border:1px solid rgba(201,168,76,.2);border-radius:4px;font-size:.85rem;background:rgba(201,168,76,.04);color:var(--cream);font-family:var(--fb);outline:none">
+      <select name="exam_subject" style="padding:10px 14px;border:1px solid rgba(201,168,76,.2);border-radius:4px;font-size:.85rem;background:rgba(201,168,76,.04);color:var(--cream);font-family:var(--fb);outline:none">
+        <option value="">Select your next exam subject</option>
+        <option value="admin_jun2">Administrative Law — Jun 2, 2026</option>
+        <option value="con_jul7">Constitutional Law — Jul 7, 2026</option>
+        <option value="crim_aug10">Criminal Law — Aug 10, 2026</option>
+        <option value="pr_aug4">Professional Responsibility — Aug 4, 2026</option>
+        <option value="fcl_jul14">Foundations of Canadian Law — Jul 14, 2026</option>
+      </select>
+      <button type="submit" style="padding:10px 20px;background:var(--g1);color:var(--void);border:none;border-radius:4px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:var(--fb);letter-spacing:.1em;text-transform:uppercase">Set My Reminder</button>
+      <input type="hidden" name="_subject" value="NCA Exam Reminder Signup">
+    </form>
+    <p style="font-size:.65rem;color:var(--dim);margin-top:8px">One email only. No spam. Unsubscribe any time.</p>
+  </div>
+
   <p style="font-size:.72rem;color:var(--dim);margin-top:40px;border-left:2px solid rgba(201,168,76,.3);padding-left:14px;">Exam dates sourced from the official 2026 NCA Examination Schedule (issued October 9, 2025). Always verify at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer" style="color:var(--g1);">nca.legal</a> before registering. Registration deadlines are official per the published schedule. Pass rate figures are community-estimated — the NCA does not publish official subject-level pass rates.</p>
 
   <div style="margin-top:60px;">

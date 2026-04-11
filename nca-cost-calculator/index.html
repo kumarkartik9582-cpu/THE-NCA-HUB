@@ -447,6 +447,15 @@ body{cursor:none;}
       </div>
       <span class="calc-val" id="val-bar">—</span>
     </div>
+    <div style="margin-top:16px;padding:16px 20px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1)">
+      <p style="font-size:.75rem;color:var(--fog);margin-bottom:10px;font-weight:500">See the complete qualification process for your province:</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="/become-a-lawyer-in-ontario/" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g1);font-weight:600;padding:8px 16px;border:1px solid rgba(201,168,76,.25);transition:background .2s" onmouseover="this.style.background='rgba(201,168,76,.1)'" onmouseout="this.style.background='transparent'">Ontario →</a>
+        <a href="/become-a-lawyer-in-bc/" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g1);font-weight:600;padding:8px 16px;border:1px solid rgba(201,168,76,.25);transition:background .2s" onmouseover="this.style.background='rgba(201,168,76,.1)'" onmouseout="this.style.background='transparent'">British Columbia →</a>
+        <a href="/become-a-lawyer-in-alberta/" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g1);font-weight:600;padding:8px 16px;border:1px solid rgba(201,168,76,.25);transition:background .2s" onmouseover="this.style.background='rgba(201,168,76,.1)'" onmouseout="this.style.background='transparent'">Alberta →</a>
+        <a href="/become-a-lawyer-in-quebec/" style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g1);font-weight:600;padding:8px 16px;border:1px solid rgba(201,168,76,.25);transition:background .2s" onmouseover="this.style.background='rgba(201,168,76,.1)'" onmouseout="this.style.background='transparent'">Quebec →</a>
+      </div>
+    </div>
   </div>
 
   <!-- RESULT -->
@@ -500,11 +509,32 @@ body{cursor:none;}
 
 <!-- CTA -->
 <section class="page-cta">
+  <div id="dynamic-cta" style="background:rgba(225,245,238,.06);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem">
+    <p style="font-size:14px;color:var(--g1);font-weight:500;margin-bottom:8px">One avoided resit covers the cost of your notes — three times over.</p>
+    <p style="font-size:13px;color:var(--fog);margin-bottom:16px" id="cta-text">At $175 per subject, preparing properly costs less than a single failed attempt ($500 + 3-month delay). For <span id="cta-n">5</span> subjects, the Complete System costs $<span id="cta-cost">875</span> — less than two resits.</p>
+    <a href="/notes/" class="hub-btn" id="cta-btn">Browse All <span id="cta-n2">5</span> Subjects →</a>
+  </div>
   <p class="page-cta-eyelet">Reduce the cost of re-sits</p>
   <h2 class="page-cta-title">Notes that pay for themselves — if they help you pass first time.</h2>
   <p class="page-cta-sub">At $175–$279 per subject, The NCA Hub Notes cost less than one failed re-sit ($500). Precision study notes, answer templates, and issue-spotting frameworks — built to clear NCA exams on the first attempt.</p>
   <a href="/notes/" class="hub-btn">Browse My Notes →</a>
 </section>
+<script>
+(function(){
+  var slider=document.getElementById('num-subjects');
+  if(!slider)return;
+  function updateCta(){
+    var n=parseInt(slider.value)||5;
+    var cost=n*175;
+    document.getElementById('cta-n').textContent=n;
+    document.getElementById('cta-n2').textContent=n;
+    document.getElementById('cta-cost').textContent=cost.toLocaleString();
+  }
+  slider.addEventListener('input',updateCta);
+  slider.addEventListener('change',updateCta);
+  updateCta();
+})();
+</script>
 
 <footer>
   <div class="ftg">
