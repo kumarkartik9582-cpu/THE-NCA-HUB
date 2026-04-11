@@ -4,7 +4,7 @@
    • HTML       → network-first  (always get fresh page with updated asset URLs)
    • CSS / JS   → stale-while-revalidate  (serve from cache for instant paint,
                   fetch fresh in background; HTML versioned URLs bust this
-                  automatically when deploying nca-premium-v4.css etc.)
+                  automatically when deploying nca-premium-v4.css etc. — update CACHE_NAME when CSS version bumps)
    • Images     → cache-first   (long-lived, content-addressed filenames)
    • Other      → stale-while-revalidate with cache fallback
 

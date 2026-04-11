@@ -30,7 +30,7 @@ The NCA (National Committee on Accreditation) is part of the Federation of Law S
 
 The process:
 
-1. **Apply to the NCA** with your academic transcripts, law degree certificate, and proof of legal qualification in Nigeria. The application fee is currently $500 CAD.
+1. **Apply to the NCA** with your academic transcripts, law degree certificate, and proof of legal qualification in Nigeria. The application fee is currently $400 CAD (effective March 1, 2024).
 2. **Receive your assessment letter** listing the NCA subjects you must complete.
 3. **Complete all assigned subjects** by passing NCA challenge exams (open-book, 3-hour written exams).
 4. **Complete the Indigenous Law and Peoples competency** (mandatory from March 2026 — see below).

@@ -29,7 +29,7 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 
 **Timeline:** 8–12 weeks from complete application
 
-**Cost:** ~$450 CAD assessment fee + ~$500 per subject exam fee
+**Cost:** $400 CAD assessment fee + ~$500 per subject exam fee
 
 **Decision point:** If assigned 9+ subjects, consider whether to challenge any assignments (requires additional evidence of equivalency).
 
@@ -143,7 +143,7 @@ Total timeline from assessment to Call: **Typically 2–3 years**
 ## Financial Planning
 
 **Estimated costs (excluding living expenses):**
-- NCA Assessment: ~$450 CAD
+- NCA Assessment: $400 CAD
 - 5 NCA exam fees: ~$2,500 CAD (~$500/subject)
 - Additional NCA subjects (if assigned): ~$500 each
 - NCA prep materials: ~$800–$1,500
