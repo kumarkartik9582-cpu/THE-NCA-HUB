@@ -687,12 +687,15 @@ nav.disc-gone{top:0}
 .pri{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:80px;align-items:center;position:relative;z-index:1}
 @media(max-width:900px){.pri{grid-template-columns:1fr;gap:48px}.prf{padding:80px 24px}}
 .prq{font-family:var(--fd);font-size:clamp(1.9rem,3.8vw,3.5rem);font-weight:400;font-style:italic;line-height:1.2;color:var(--void);word-spacing:0.25em}
-.prq .pw{display:inline;color:rgba(2,2,4,.25);transition:color .4s,text-shadow .4s;}
+.prq .pw{display:inline;color:rgba(2,2,4,.92);transition:color .4s,text-shadow .4s;}
 .prq .pw.lit{color:rgba(2,2,4,1)}
 .prq-underline{display:block;width:0;height:2px;background:rgba(2,2,4,0.35);margin-top:12px;transition:width 1.2s var(--expo);}
 .prq-underline.on{width:100%}
-.prw{font-size:var(--sm);letter-spacing:.18em;text-transform:uppercase;color:rgba(2,2,4,.5);font-weight:600;margin-top:28px;display:flex;align-items:center;gap:14px}
-.prw::before{content:'';width:20px;height:1px;background:rgba(2,2,4,.4)}
+.prw{font-size:var(--sm);letter-spacing:.18em;text-transform:uppercase;color:rgba(2,2,4,.85);font-weight:600;margin-top:28px;display:flex;align-items:center;gap:14px}
+.prw::before{content:'';width:20px;height:1px;background:rgba(2,2,4,.6)}
+@keyframes testimonial-reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.prf .pri{opacity:1;}
+.prf.testimonial-in .prq,.prf.testimonial-in .prw{animation:testimonial-reveal .7s ease forwards}
 .psg{display:grid;grid-template-columns:1fr 1fr;gap:3px;min-width:210px}
 .ps{background:rgba(2,2,4,.1);padding:22px 20px;text-align:center}
 .psn{font-family:var(--fd);font-size:2.4rem;font-weight:400;color:var(--void);line-height:1;display:block;margin-bottom:4px}
@@ -1370,8 +1373,13 @@ select:focus-visible {
 .mf-step{opacity:1!important;transform:none!important;}
 .mf-arrow{opacity:1!important;}
 .bs{opacity:1!important;transform:none!important;}
+.bsn{opacity:1!important;color:var(--g1)!important;}
+.bsl{opacity:1!important;color:var(--fog)!important;}
 .sc2{opacity:1!important;transform:none!important;}
 .pc{opacity:1!important;transform:none!important;}
+/* Scrub section lines — keep readable even before scroll activation */
+.scrub-line{color:var(--cream)!important;opacity:.85;}
+.scrub-line.active{opacity:1!important;}
 
 /* Hero elements */
 .hsub{opacity:1!important;transform:none!important;}
@@ -1385,6 +1393,20 @@ select:focus-visible {
 
 /* GSAP / ScrollTrigger can still add .on / .vis for transitions —
    those classes layer extra effects but are never required for visibility */
+
+/* Mask wrappers must never clip their content — headings always visible */
+.sh-mask-wrap{overflow:visible!important;}
+.sh-mask-inner{transform:none!important;opacity:1!important;}
+
+/* Section-lead paragraphs — always readable against any background */
+.sl{color:var(--fog)!important;opacity:1!important;}
+
+/* Story chapter text blocks (the "Three UK law firms" section) */
+.story-ch-head,.story-ch-right,.story-ch-right p{opacity:1!important;color:var(--cream)!important;}
+.story-ch-right em,.story-ch-head em{color:var(--g1)!important;}
+
+/* Timeline / journey chapter body text (one-week-to-prepare, certificate) */
+.story-ch-body,.story-ch-body p,.story-ch p{opacity:1!important;color:var(--fog)!important;}
 </style>
 </head>
 <body>
@@ -2026,7 +2048,7 @@ select:focus-visible {
         <span class="pw">"I</span> <span class="pw">passed</span> <span class="pw">on</span> <span class="pw">my</span> <span class="pw">4th</span> <span class="pw">and</span> <span class="pw">final</span> <span class="pw">attempt.</span> <span class="pw">This</span> <span class="pw">is</span> <span class="pw">the</span> <span class="pw">only</span> <span class="pw">method</span> <span class="pw">that</span> <span class="pw">worked</span> <span class="pw">for</span> <span class="pw">me."</span>
         <span class="prq-underline" id="PRQ_LINE"></span>
       </blockquote>
-      <p class="prw">Anum, who passed Constitutional Law on her 4th and final attempt</p>
+      <p class="prw">Anum · Constitutional Law · 4th attempt</p>
     </div>
     <div class="psg">
       <div class="ps"><span class="psn">7</span><span class="psl">Days of prep<br>for exam one</span></div>
@@ -2086,35 +2108,36 @@ select:focus-visible {
       <p class="sl">All NCA exam subjects, from live materials to those in development. Each complete system includes: notes, videos, templates, and practice questions. Get notified when new subjects launch.</p>
     </div>
     <div class="ht" id="HT" role="list">
+      <!-- Cards ordered by soonest upcoming exam (sorted 2026-04-11) — available subjects first, blurred last -->
       <div class="sc2 sm tilt-card" id="SC1" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">01</span>
-        <div class="sctg">Administrative Law</div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.62"></div></div></div>
-        <h3 class="scti split-heading">Admin Law</h3>
-        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: applying Dunsmuir after Vavilov replaced it. Examiners see this every sitting.</p>
-        <p class="scb">The subject most candidates sit first. Built under one week of genuine time pressure. Battle-tested and proven from the very beginning.</p>
+        <div class="sctg">Professional Responsibility <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · May 4</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
+        <h3 class="scti split-heading">PR Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: saying a lawyer "must" disclose when the Model Code says "may." The mandatory vs permissive distinction is tested directly.</p>
+        <p class="scb">Ethics, conduct and professional obligations. The exam tests your ability to spot conflicts, duties and breaches. Our templates structure every scenario.</p>
         <ul class="scl">
-          <li>Judicial review — grounds and scope</li><li>Standards of review: the Vavilov framework</li><li>Procedural fairness</li><li>Statutory interpretation</li><li>Remedies in administrative law</li>
+          <li>Lawyer-client relationship and duties</li><li>Confidentiality and privilege</li><li>Conflicts of interest — the Bright Line rule</li><li>CBA Model Code of Professional Conduct</li><li>Access to justice and withdrawal</li>
         </ul>
-        <a href="blog/article-a3-administrative-law-nca/" class="sc-link">Read My Guide →</a>
-        <a href="/notes/administrative-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
+        <a href="blog/article-b3-professional-responsibility-nca/" class="sc-link">Read My Guide →</a>
+        <a href="/notes/professional-responsibility/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC2" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">02</span>
-        <div class="sctg">Constitutional Law</div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.88"></div></div></div>
-        <h3 class="scti split-heading">Con Law</h3>
-        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: writing a section 1 Oakes analysis without the correct burden and proportionality structure. Most candidates skip steps.</p>
-        <p class="scb">The subject where Anum passed her 4th and final attempt using these exact materials. The method that works when everything else has failed.</p>
+        <div class="sctg">Contract Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · May 11</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.74"></div></div></div>
+        <h3 class="scti split-heading">Contract Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: classifying an innominate term as a condition and applying termination when only damages are available. The Hong Kong Fir distinction is tested directly.</p>
+        <p class="scb">Formation, breach, exclusion clauses, and remedies — with answer templates for problem questions combining multiple issues.</p>
         <ul class="scl">
-          <li>Division of powers — ss. 91 and 92</li><li>Pith and substance doctrine</li><li>Charter of Rights — full framework</li><li>Section 1 Oakes test</li><li>Aboriginal rights and s.35</li>
+          <li>Formation — offer, acceptance, consideration, certainty</li><li>Terms — conditions, warranties, innominate terms</li><li>Breach and termination — repudiation test</li><li>Remedies — expectation, reliance, restitution</li><li>Remoteness (Hadley v Baxendale) and mitigation</li>
         </ul>
-        <a href="blog/article-b1-constitutional-law-nca/" class="sc-link">Read My Guide →</a>
-        <a href="/notes/constitutional-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
+        <a href="/notes/contract-law/" class="sc-link" style="color:var(--g0);margin-left:0">Get Notes →</a>
+        <a href="https://payhip.com/b/aiXLF" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
       <div class="sc2 sm tilt-card" id="SC3" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">03</span>
-        <div class="sctg">Criminal Law</div>
+        <div class="sctg">Criminal Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · May 12</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.75"></div></div></div>
         <h3 class="scti split-heading">Criminal Law</h3>
         <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: confusing general intent and specific intent offences. Intoxication as a defence turns on this distinction alone.</p>
@@ -2127,7 +2150,46 @@ select:focus-visible {
       </div>
       <div class="sc2 sm tilt-card" id="SC4" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">04</span>
-        <div class="sctg">Foundations of Canadian Law</div>
+        <div class="sctg">Property Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · Jun 1</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.78"></div></div></div>
+        <h3 class="scti split-heading">Property Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: conflating legal and equitable interests when applying the Torrens indefeasibility rule. The exam tests the exceptions — not the principle.</p>
+        <p class="scb">Estates and interests in land, the Torrens system, co-ownership, leases, mortgages, easements, covenants, and priorities — with answer templates for every scenario.</p>
+        <ul class="scl">
+          <li>Estates and interests in land</li><li>Personal property and the Torrens system</li><li>Co-ownership, leases, and mortgages</li><li>Easements and restrictive covenants</li><li>Priorities between competing interests</li>
+        </ul>
+        <a href="/notes/property/" class="sc-link" style="color:var(--g0);margin-left:0">Get Notes →</a>
+        <a href="https://payhip.com/THENCAHUB" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC5" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">05</span>
+        <div class="sctg">Administrative Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · Jun 2</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.62"></div></div></div>
+        <h3 class="scti split-heading">Admin Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: applying Dunsmuir after Vavilov replaced it. Examiners see this every sitting.</p>
+        <p class="scb">The subject most candidates sit first. Built under one week of genuine time pressure. Battle-tested and proven from the very beginning.</p>
+        <ul class="scl">
+          <li>Judicial review — grounds and scope</li><li>Standards of review: the Vavilov framework</li><li>Procedural fairness</li><li>Statutory interpretation</li><li>Remedies in administrative law</li>
+        </ul>
+        <a href="blog/article-a3-administrative-law-nca/" class="sc-link">Read My Guide →</a>
+        <a href="/notes/administrative-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC6" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">06</span>
+        <div class="sctg">Constitutional Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · Jul 7</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.88"></div></div></div>
+        <h3 class="scti split-heading">Con Law</h3>
+        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: writing a section 1 Oakes analysis without the correct burden and proportionality structure. Most candidates skip steps.</p>
+        <p class="scb">The subject where Anum passed her 4th and final attempt using these exact materials. The method that works when everything else has failed.</p>
+        <ul class="scl">
+          <li>Division of powers — ss. 91 and 92</li><li>Pith and substance doctrine</li><li>Charter of Rights — full framework</li><li>Section 1 Oakes test</li><li>Aboriginal rights and s.35</li>
+        </ul>
+        <a href="blog/article-b1-constitutional-law-nca/" class="sc-link">Read My Guide →</a>
+        <a href="/notes/constitutional-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
+      </div>
+      <div class="sc2 sm tilt-card" id="SC7" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">07</span>
+        <div class="sctg">Foundations of Canadian Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · Jul 14</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.55"></div></div></div>
         <h3 class="scti split-heading">Foundations</h3>
         <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: using IRAC on an essay question. FCL uses three distinct answer formats — candidates who misread the format fail on structure alone.</p>
@@ -2138,48 +2200,9 @@ select:focus-visible {
         <a href="blog/article-b4-foundations-canadian-law-nca/" class="sc-link">Read My Guide →</a>
         <a href="/notes/foundations-of-canadian-law/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
       </div>
-      <div class="sc2 sm tilt-card" id="SC5" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">05</span>
-        <div class="sctg">Professional Responsibility</div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
-        <h3 class="scti split-heading">PR Law</h3>
-        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: saying a lawyer "must" disclose when the Model Code says "may." The mandatory vs permissive distinction is tested directly.</p>
-        <p class="scb">Ethics, conduct and professional obligations. The exam tests your ability to spot conflicts, duties and breaches. Our templates structure every scenario.</p>
-        <ul class="scl">
-          <li>Lawyer-client relationship and duties</li><li>Confidentiality and privilege</li><li>Conflicts of interest — the Bright Line rule</li><li>CBA Model Code of Professional Conduct</li><li>Access to justice and withdrawal</li>
-        </ul>
-        <a href="blog/article-b3-professional-responsibility-nca/" class="sc-link">Read My Guide →</a>
-        <a href="/notes/professional-responsibility/" class="sc-link" style="color:var(--g0);margin-left:20px">Get Notes →</a>
-      </div>
-      <div class="sc2 sm lrw-card tilt-card" id="SC6" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">06</span>
-        <div class="sctg">Legal Research &amp; Writing <span class="sctg-badge">CPLED Course</span></div>
-        <div class="diff-bar"><div class="diff-label">Complexity</div><div class="diff-track"><div class="diff-fill" style="--dw:0.6"></div></div></div>
-        <h3 class="scti split-heading">LRW</h3>
-        <p class="scb">The Legal Research &amp; Writing course is a mandatory CPLED requirement (not an NCA exam). We guide you through it so nothing blindsides you on the path to qualification.</p>
-        <ul class="scl">
-          <li>Legal research methodology and databases</li><li>Case reading and synthesis</li><li>Memo writing and opinion letters</li><li>Statutory interpretation in practice</li><li>CPLED submission structure and style</li>
-        </ul>
-      </div>
-      <!-- Coming Soon Subjects -->
-      <div class="sc2 sm coming-soon tilt-card" id="SC7" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">07</span>
-        <div class="sctg">Business Organisations <span class="sctg-badge">Coming Soon</span></div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.72"></div></div></div>
-        <h3 class="scti split-heading">Business Orgs</h3>
-        <p class="scb">Corporate law, partnerships, and business structures in Canada. Essential for commercial practice.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Business Organisations');">
-            <input type="email" class="coming-soon-input" placeholder="Your email" required autocomplete="email">
-            <button type="submit" class="coming-soon-btn">Notify Me</button>
-          </form>
-        </div>
-      </div>
       <div class="sc2 sm tilt-card" id="SC8" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">08</span>
-        <div class="sctg">Family Law</div>
+        <div class="sctg">Family Law <span class="sctg-badge" style="background:rgba(201,168,76,.15);color:var(--g1)">Next exam · Nov 2</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.68"></div></div></div>
         <h3 class="scti split-heading">Family Law</h3>
         <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: conflating the Divorce Act (federal) with provincial property legislation. The exam tests both — and they are different regimes with different rules.</p>
@@ -2190,51 +2213,8 @@ select:focus-visible {
         <a href="/notes/family-law/" class="sc-link" style="color:var(--g0);margin-left:0">Get Notes →</a>
         <a href="https://payhip.com/b/K17CE" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
-      <div class="sc2 sm coming-soon tilt-card" id="SC9" role="listitem">
+      <div class="sc2 sm tilt-card" id="SC9" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">09</span>
-        <div class="sctg">Property Law <span class="sctg-badge">Coming Soon</span></div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.78"></div></div></div>
-        <h3 class="scti split-heading">Property Law</h3>
-        <p class="scb">Real property, land titles, estates, and interests in land under Canadian property law.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Property Law');">
-            <input type="email" class="coming-soon-input" placeholder="Your email" required autocomplete="email">
-            <button type="submit" class="coming-soon-btn">Notify Me</button>
-          </form>
-        </div>
-      </div>
-      <div class="sc2 sm coming-soon tilt-card" id="SC10" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">10</span>
-        <div class="sctg">Torts <span class="sctg-badge">Coming Soon</span></div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
-        <h3 class="scti split-heading">Torts</h3>
-        <p class="scb">Negligence, intentional torts, and strict liability under Canadian tort law principles.</p>
-        <div class="coming-soon-overlay">
-          <p class="coming-soon-text">Coming Soon</p>
-          <p class="coming-soon-desc">Materials in development</p>
-          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Torts');">
-            <input type="email" class="coming-soon-input" placeholder="Your email" required autocomplete="email">
-            <button type="submit" class="coming-soon-btn">Notify Me</button>
-          </form>
-        </div>
-      </div>
-      <div class="sc2 sm tilt-card" id="SC11" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">11</span>
-        <div class="sctg">Contract Law</div>
-        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.74"></div></div></div>
-        <h3 class="scti split-heading">Contract Law</h3>
-        <p class="scb" style="color:rgba(201,168,76,.7);font-size:var(--sm);margin-bottom:6px;font-style:italic;">The trap: classifying an innominate term as a condition and applying termination when only damages are available. The Hong Kong Fir distinction is tested directly.</p>
-        <p class="scb">Formation, breach, exclusion clauses, and remedies — with answer templates for problem questions combining multiple issues.</p>
-        <ul class="scl">
-          <li>Formation — offer, acceptance, consideration, certainty</li><li>Terms — conditions, warranties, innominate terms</li><li>Breach and termination — repudiation test</li><li>Remedies — expectation, reliance, restitution</li><li>Remoteness (Hadley v Baxendale) and mitigation</li>
-        </ul>
-        <a href="/notes/contract-law/" class="sc-link" style="color:var(--g0);margin-left:0">Get Notes →</a>
-        <a href="https://payhip.com/b/aiXLF" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
-      </div>
-      <div class="sc2 sm tilt-card" id="SC11b" role="listitem">
-        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">12</span>
         <div class="sctg">Evidence Law</div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.77"></div></div></div>
         <h3 class="scti split-heading">Evidence Law</h3>
@@ -2246,7 +2226,48 @@ select:focus-visible {
         <a href="/notes/evidence-law/" class="sc-link" style="color:var(--g0);margin-left:0">Get Notes →</a>
         <a href="https://payhip.com/b/3mnxi" class="sc-link" style="color:var(--g1);margin-left:20px" target="_blank" rel="noopener noreferrer">Buy Now →</a>
       </div>
+      <div class="sc2 sm lrw-card tilt-card" id="SC10" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">10</span>
+        <div class="sctg">Legal Research &amp; Writing <span class="sctg-badge">CPLED Course</span></div>
+        <div class="diff-bar"><div class="diff-label">Complexity</div><div class="diff-track"><div class="diff-fill" style="--dw:0.6"></div></div></div>
+        <h3 class="scti split-heading">LRW</h3>
+        <p class="scb">The Legal Research &amp; Writing course is a mandatory CPLED requirement (not an NCA exam). We guide you through it so nothing blindsides you on the path to qualification.</p>
+        <ul class="scl">
+          <li>Legal research methodology and databases</li><li>Case reading and synthesis</li><li>Memo writing and opinion letters</li><li>Statutory interpretation in practice</li><li>CPLED submission structure and style</li>
+        </ul>
+      </div>
+      <!-- Coming Soon Subjects (no notes yet — shown last, visually locked) -->
+      <div class="sc2 sm coming-soon tilt-card" id="SC11" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">11</span>
+        <div class="sctg">Business Organisations <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.72"></div></div></div>
+        <h3 class="scti split-heading">Business Orgs</h3>
+        <p class="scb">Corporate law, partnerships, and business structures in Canada. Essential for commercial practice.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Notes launching soon</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Business Organisations');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required autocomplete="email">
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
       <div class="sc2 sm coming-soon tilt-card" id="SC12" role="listitem">
+        <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">12</span>
+        <div class="sctg">Torts <span class="sctg-badge">Coming Soon</span></div>
+        <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.7"></div></div></div>
+        <h3 class="scti split-heading">Torts</h3>
+        <p class="scb">Negligence, intentional torts, and strict liability under Canadian tort law principles.</p>
+        <div class="coming-soon-overlay">
+          <p class="coming-soon-text">Coming Soon</p>
+          <p class="coming-soon-desc">Notes launching soon</p>
+          <form class="coming-soon-form" onsubmit="event.preventDefault(); notifyComingSoon(this, 'Torts');">
+            <input type="email" class="coming-soon-input" placeholder="Your email" required autocomplete="email">
+            <button type="submit" class="coming-soon-btn">Notify Me</button>
+          </form>
+        </div>
+      </div>
+      <div class="sc2 sm coming-soon tilt-card" id="SC13" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">13</span>
         <div class="sctg">Civil Procedure <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.76"></div></div></div>
@@ -2261,7 +2282,7 @@ select:focus-visible {
           </form>
         </div>
       </div>
-      <div class="sc2 sm coming-soon tilt-card" id="SC13" role="listitem">
+      <div class="sc2 sm coming-soon tilt-card" id="SC14" role="listitem">
         <div class="sc2-highlight"></div><span class="scnum" aria-hidden="true">14</span>
         <div class="sctg">Remedies <span class="sctg-badge">Coming Soon</span></div>
         <div class="diff-bar"><div class="diff-label">Difficulty</div><div class="diff-track"><div class="diff-fill" style="--dw:0.73"></div></div></div>
@@ -2704,7 +2725,6 @@ function makeWordSpan(word){
   ws.className='word';
   ws.style.display='inline-block';
   ws.style.overflow='visible';
-  ws.style.marginRight='0.25em';
   word.split('').forEach(function(ch){
     var s=document.createElement('span');
     s.className='char';
@@ -2718,8 +2738,14 @@ function makeWordSpan(word){
 function splitTextInto(nodes, container){
   nodes.forEach(function(node){
     if(node.nodeType===3){
-      node.textContent.split(' ').forEach(function(w){
-        if(w) container.appendChild(makeWordSpan(w));
+      var parts=node.textContent.split(/(\s+)/);
+      parts.forEach(function(p){
+        if(!p) return;
+        if(/^\s+$/.test(p)){
+          container.appendChild(document.createTextNode(' '));
+        } else {
+          container.appendChild(makeWordSpan(p));
+        }
       });
     } else if(node.nodeName==='BR'){
       container.appendChild(document.createElement('br'));
@@ -3738,6 +3764,24 @@ function revealHero(){
 
 /* SVG divider ornaments removed */
 
+/* PRQ TESTIMONIAL REVEAL — fade + translateY when it enters viewport */
+(function(){
+  var prf=document.querySelector('.prf');
+  if(!prf) return;
+  if(!('IntersectionObserver' in window) || REDUCED){
+    prf.classList.add('testimonial-in');
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ prf.classList.add('testimonial-in'); io.disconnect(); }
+    });
+  },{threshold:0.15});
+  io.observe(prf);
+  /* Fallback — always reveal after 2s even if observer never fires */
+  setTimeout(function(){ prf.classList.add('testimonial-in'); }, 2000);
+})();
+
 /* PRQ TESTIMONIAL WORD LIGHT-UP ANIMATION */
 (function(){
   if(REDUCED) return;
@@ -4568,7 +4612,6 @@ if('serviceWorker' in navigator){
   input.addEventListener('input', function(){ doSearch(this.value.trim()); });
 })();
 </script>
-  } // end prefers-reduced-motion
 
 <script src="/nca-chat-widget.js" defer></script>
 <script src="/nca-enhancements.js?v=20260330" defer></script>
