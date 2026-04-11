@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NCA Session Planner — Optimal Subject Sequencing for 2026 | The NCA Hub</title>
+<meta name="description" content="Plan the optimal order and session pairing for your NCA subjects. Avoid scheduling conflicts, respect results wait times, and finish your NCA process as fast as possible.">
+<link rel="canonical" href="https://www.thencahub.com/nca-session-planner/">
+<meta property="og:title" content="NCA Session Planner — Optimal Subject Sequencing for 2026 | The NCA Hub">
+<meta property="og:description" content="Plan the optimal order and session pairing for your NCA subjects.">
+<meta property="og:url" content="https://www.thencahub.com/nca-session-planner/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#020204;--abyss:#050508;--dark:#0D0D18;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--nano:.57rem;--sm:.8rem;--body:.93rem;--lead:1.08rem;--expo:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}::selection{background:rgba(201,168,76,.3);color:#fff}
+nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1)}.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}.nav-links{display:flex;gap:44px}.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s}.nav-links a:hover,.nav-links a.active{color:var(--cream)}.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;display:inline-block;transition:transform .3s var(--expo),background .3s;margin-left:20px}.nc:hover{transform:translateY(-2px);background:var(--g0)}@media(max-width:960px){.nav-links,.nc{display:none!important}nav{padding:18px 24px}}.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:9200;flex-shrink:0}@media(max-width:960px){.nh{display:flex}}.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .4s ease,opacity .3s,background .3s}.nh span:nth-child(2){width:16px}.nh.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--g1)}.nh.open span:nth-child(2){opacity:0}.nh.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--g1)}
+#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:9100;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto}#mob-overlay.open{display:flex}#mob-overlay a{display:block;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.07);transition:color .3s}#mob-overlay a.mob-cta-link{color:var(--g1)}#mob-overlay a:hover{color:var(--cream)}.mob-shop-btn{display:inline-flex!important;align-items:center;margin-top:28px;background:var(--g1)!important;color:var(--void)!important;padding:14px 36px;font-family:var(--fb)!important;font-size:.82rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;align-self:flex-start;border:none!important}#mob-close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--g1);font-size:1.3rem;cursor:pointer;padding:8px;z-index:1}
+footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px}@media(max-width:640px){footer{padding:60px 24px 40px}}.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:60px}@media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}.flog{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--g1);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}.ftag{font-size:var(--sm);color:var(--dim);line-height:1.7;max-width:280px}.fct{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:20px}.fls{list-style:none}.fls li{margin-bottom:12px}.fls a{font-size:var(--sm);color:var(--fog);transition:color .3s}.fls a:hover{color:var(--cream)}.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px}.fcl{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--dim)}.fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}.f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;max-width:800px}.f-disc strong{color:rgba(107,98,87,.7)}.f-disc a{color:rgba(107,98,87,.6)}
+
+h1{font-family:var(--fd);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--g1);line-height:1.15;margin-bottom:16px}
+h2{font-family:var(--fd);font-size:clamp(1.3rem,3vw,1.8rem);font-weight:300;color:var(--cream);margin-bottom:16px;margin-top:48px}
+.intro{color:var(--fog);font-size:var(--body);line-height:1.75;margin-bottom:32px}
+
+.sp-form{margin-bottom:32px}
+.sp-checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+@media(max-width:500px){.sp-checks{grid-template-columns:1fr}}
+.sp-checks label{display:flex;align-items:center;gap:8px;font-size:var(--body);color:var(--fog);cursor:pointer;padding:8px 12px;border:1px solid rgba(201,168,76,.1);border-radius:8px;transition:border-color .3s}
+.sp-checks label:has(input:checked){border-color:var(--g1);color:var(--cream)}
+.sp-checks input{accent-color:var(--g1)}
+.sp-row{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.sp-row label{font-size:var(--sm);color:var(--fog);font-weight:500}
+.sp-row select{width:100%;max-width:340px;padding:10px 14px;background:var(--abyss);border:1px solid rgba(201,168,76,.15);border-radius:8px;color:var(--cream);font-family:var(--fb);font-size:var(--body)}
+.sp-row select option{background:var(--dark);color:var(--cream)}
+.sp-btn{padding:12px 28px;background:var(--g1);color:var(--void);border:none;border-radius:8px;font-family:var(--fb);font-size:var(--body);font-weight:600;cursor:pointer;letter-spacing:.06em;transition:background .3s,transform .3s var(--expo);margin-top:8px}
+.sp-btn:hover{background:var(--g0);transform:translateY(-2px)}
+
+.session-card{background:var(--abyss);border:1px solid rgba(201,168,76,.12);border-radius:12px;padding:24px;margin-bottom:20px}
+.session-label{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:8px}
+.session-title{font-family:var(--fd);font-size:1.2rem;color:var(--cream);margin-bottom:12px}
+.session-subjects{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.session-subj-tag{padding:6px 14px;border-radius:20px;font-size:var(--sm);font-weight:500;color:var(--void)}
+.session-meta{font-size:var(--sm);color:var(--fog);line-height:1.8}
+.session-meta strong{color:var(--cream);font-weight:500}
+.diff-bar{display:inline-block;height:6px;border-radius:3px;vertical-align:middle;margin-left:6px}
+
+.rec-box{background:var(--dark);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:24px;margin-top:32px}
+.rec-box h3{font-family:var(--fd);font-size:1.1rem;color:var(--g1);margin-bottom:12px}
+.rec-box ul{list-style:none;padding:0}
+.rec-box li{padding:8px 0;border-bottom:1px solid rgba(201,168,76,.05);font-size:var(--body);color:var(--fog);line-height:1.7}
+.rec-box li:last-child{border-bottom:none}
+.rec-box li::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--g1);margin-right:10px;vertical-align:middle}
+
+.disc{font-size:.72rem;color:var(--dim);line-height:1.7;margin-top:40px;padding-top:20px;border-top:1px solid rgba(201,168,76,.07)}
+</style>
+</head>
+<body>
+<nav aria-label="Site navigation">
+  <a href="/" class="nl">The NCA <span style="color:var(--cream)">Hub</span></a>
+  <div class="nav-links"><a href="/#method">Method</a><a href="/#subjects">Subjects</a><a href="/#pricing">Pricing</a><a href="/blog/">Articles</a><a href="/nca-exam-planner/">Exam Planner</a><a href="/faq/">FAQ</a></div>
+  <a href="/notes/" class="nc">Get Notes</a>
+  <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<main style="padding-top:120px;padding-bottom:80px">
+<div style="max-width:780px;margin:0 auto;padding:0 24px">
+
+<h1>NCA Session Sequence Planner</h1>
+<p class="intro">Writing NCA subjects in the wrong order can cost you months. Some subjects are naturally sequential — Administrative Law before Constitutional Law makes sense conceptually. Others are governed by exam window availability: you cannot write Criminal Law in June because it does not appear in June. This planner optimises your sequence based on the 2026 schedule, difficulty pairing rules, and registration deadlines.</p>
+
+<div class="sp-form">
+  <div class="sp-row">
+    <label>Select your assigned subjects:</label>
+  </div>
+  <div class="sp-checks" id="sp-subjects">
+    <label><input type="checkbox" value="admin" checked> Administrative Law</label>
+    <label><input type="checkbox" value="con" checked> Constitutional Law</label>
+    <label><input type="checkbox" value="crim" checked> Criminal Law</label>
+    <label><input type="checkbox" value="pr" checked> Professional Responsibility</label>
+    <label><input type="checkbox" value="fcl" checked> Foundations of Canadian Law</label>
+    <label><input type="checkbox" value="contracts"> Contracts</label>
+    <label><input type="checkbox" value="prop"> Property</label>
+    <label><input type="checkbox" value="torts"> Torts</label>
+    <label><input type="checkbox" value="biz"> Business Organizations</label>
+  </div>
+  <div class="sp-row">
+    <label>Target completion</label>
+    <select id="sp-target">
+      <option value="fastest">Fastest possible</option>
+      <option value="6">Within 6 months</option>
+      <option value="12" selected>Within 1 year</option>
+      <option value="18">Within 18 months</option>
+    </select>
+  </div>
+  <div class="sp-row">
+    <label>Subjects per session</label>
+    <select id="sp-per">
+      <option value="1">1 per session</option>
+      <option value="2" selected>2 per session</option>
+      <option value="3">3 per session</option>
+    </select>
+  </div>
+  <button class="sp-btn" id="sp-generate">Plan My Sequence</button>
+</div>
+
+<div id="sp-output"></div>
+
+<p class="disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource and is not affiliated with, endorsed by, or connected to the National Committee on Accreditation (NCA), the Federation of Law Societies of Canada, or any provincial law society. All information should be verified at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer" style="color:var(--fog)">nca.legal</a>. Pass rate figures are community-estimated.</p>
+
+</div>
+</main>
+
+<div id="mob-overlay" aria-hidden="true" role="dialog"><button id="mob-close" aria-label="Close menu">&#x2715;</button><a href="/#method">Method</a><a href="/#subjects">Subjects</a><a href="/notes/" class="mob-cta-link">Notes</a><a href="/#pricing">Pricing</a><a href="/blog/">Articles</a><a href="/nca-exam-planner/">Exam Planner</a><a href="/nca-cost-calculator/">Cost Calculator</a><a href="/faq/">FAQ</a><a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now &rarr;</a></div>
+
+<footer><div style="max-width:1100px;margin:0 auto;padding:0 72px"><div class="ftg"><div><div class="flog">The NCA Hub</div><p class="ftag">Strategic NCA exam preparation for internationally trained lawyers qualifying in Canada. Founded 2025.</p></div><div><div class="fct">Navigate</div><ul class="fls"><li><a href="/#method">Method</a></li><li><a href="/notes/">Notes</a></li><li><a href="/blog/">Articles</a></li><li><a href="/nca-exam-dates-2026/">Exam Dates 2026</a></li><li><a href="/nca-cost-calculator/">Cost Calculator</a></li><li><a href="/faq/">FAQ</a></li></ul></div><div><div class="fct">Contact</div><ul class="fls"><li><a href="mailto:thencahub@gmail.com">thencahub@gmail.com</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer">Shop Now</a></li><li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li></ul><div class="fct" style="margin-top:24px">Legal</div><ul class="fls"><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li></ul></div></div><div class="fb2"><p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p><p class="fleg">&copy; 2026 The NCA Hub. All rights reserved.</p></div><p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource. Always verify at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer">nca.legal</a>.</p></div></footer>
+
+<script>
+(function(){var b=document.getElementById('nh'),o=document.getElementById('mob-overlay'),c=document.getElementById('mob-close');if(!b||!o)return;function op(){o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden'}function cl(){o.classList.remove('open');b.classList.remove('open');document.body.style.overflow=''}b.addEventListener('click',function(e){e.stopPropagation();o.classList.contains('open')?cl():op()});if(c)c.addEventListener('click',cl);document.addEventListener('keydown',function(e){if(e.key==='Escape')cl()});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))cl()})})})();
+</script>
+<script>
+(function(){
+  var TODAY=new Date(2026,3,11);
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var monthsFull=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  var SUBS={
+    admin:{name:'Administrative Law',short:'Admin Law',diff:4,diffLabel:'Complex',passRate:58,recHours:100,color:'#185FA5',notesUrl:'/notes/administrative-law/',
+      sessions:[{s:new Date(2026,5,2),r:new Date(2026,4,7),label:'June 2026'},{s:new Date(2026,7,31),r:new Date(2026,7,6),label:'Aug/Sep 2026'},{s:new Date(2026,10,17),r:new Date(2026,9,22),label:'Nov 2026'}]},
+    con:{name:'Constitutional Law',short:'Con Law',diff:5,diffLabel:'Most Complex',passRate:52,recHours:100,color:'#534AB7',notesUrl:'/notes/constitutional-law/',
+      sessions:[{s:new Date(2026,6,7),r:new Date(2026,5,11),label:'July 2026'},{s:new Date(2026,9,5),r:new Date(2026,8,10),label:'Oct 2026'}]},
+    crim:{name:'Criminal Law',short:'Crim Law',diff:3,diffLabel:'Challenging',passRate:61,recHours:80,color:'#1D9E75',notesUrl:'/notes/criminal-law/',
+      sessions:[{s:new Date(2026,4,12),r:new Date(2026,3,2),label:'May 2026',closed:true},{s:new Date(2026,7,10),r:new Date(2026,6,9),label:'Aug 2026'},{s:new Date(2026,10,9),r:new Date(2026,9,1),label:'Nov 2026'}]},
+    pr:{name:'Professional Responsibility',short:'Prof Resp',diff:3,diffLabel:'Challenging',passRate:65,recHours:60,color:'#3B6D11',notesUrl:'/notes/professional-responsibility/',
+      sessions:[{s:new Date(2026,4,4),r:new Date(2026,3,2),label:'May 2026',closed:true},{s:new Date(2026,7,4),r:new Date(2026,6,9),label:'Aug 2026'},{s:new Date(2026,10,3),r:new Date(2026,9,1),label:'Nov 2026'}]},
+    fcl:{name:'Foundations of Canadian Law',short:'FCL',diff:4,diffLabel:'Complex',passRate:55,recHours:100,color:'#BA7517',notesUrl:'/notes/foundations-of-canadian-law/',
+      sessions:[{s:new Date(2026,6,14),r:new Date(2026,5,11),label:'July 2026'},{s:new Date(2026,9,13),r:new Date(2026,8,10),label:'Oct 2026'}]},
+    contracts:{name:'Contracts',short:'Contracts',diff:3,recHours:65,color:'#888780',
+      sessions:[{s:new Date(2026,4,11),r:new Date(2026,3,2),label:'May 2026',closed:true},{s:new Date(2026,8,8),r:new Date(2026,7,6),label:'Sep 2026'}]},
+    prop:{name:'Property',short:'Property',diff:3,recHours:70,color:'#888780',
+      sessions:[{s:new Date(2026,5,1),r:new Date(2026,4,7),label:'June 2026'},{s:new Date(2026,9,20),r:new Date(2026,8,10),label:'Oct 2026'}]},
+    torts:{name:'Torts',short:'Torts',diff:3,recHours:65,color:'#888780',
+      sessions:[{s:new Date(2026,6,13),r:new Date(2026,5,11),label:'July 2026'},{s:new Date(2026,10,16),r:new Date(2026,9,1),label:'Nov 2026'}]},
+    biz:{name:'Business Organizations',short:'Biz Org',diff:3,recHours:60,color:'#888780',
+      sessions:[{s:new Date(2026,7,17),r:new Date(2026,6,9),label:'Aug 2026'}]}
+  };
+
+  function fmtDate(d){return months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()}
+  function daysBetween(a,b){return Math.round((b-a)/(1000*60*60*24))}
+
+  // Get next open session for a subject
+  function getOpenSessions(sub){
+    return sub.sessions.filter(function(sess){return !sess.closed && sess.r>=TODAY});
+  }
+
+  document.getElementById('sp-generate').addEventListener('click',function(){
+    var checked=[];
+    document.querySelectorAll('#sp-subjects input:checked').forEach(function(cb){checked.push(cb.value)});
+    if(checked.length===0){document.getElementById('sp-output').innerHTML='<p style="color:var(--g1)">Please select at least one subject.</p>';return}
+
+    var perSession=parseInt(document.getElementById('sp-per').value);
+
+    // Build subject list with their available sessions
+    var subjects=checked.map(function(id){
+      var s=SUBS[id];
+      var open=getOpenSessions(s);
+      return {id:id,name:s.name,short:s.short,diff:s.diff,color:s.color,recHours:s.recHours,notesUrl:s.notesUrl,sessions:open,diffLabel:s.diffLabel||'Challenging',passRate:s.passRate};
+    });
+
+    // Sort by earliest available session, then by difficulty desc (harder first when possible)
+    subjects.sort(function(a,b){
+      var aFirst=a.sessions.length?a.sessions[0].s.getTime():Infinity;
+      var bFirst=b.sessions.length?b.sessions[0].s.getTime():Infinity;
+      if(aFirst!==bFirst) return aFirst-bFirst;
+      return b.diff-a.diff;
+    });
+
+    // Greedy session assignment
+    var assigned=[];// [{label, date, regClose, subjects:[]}]
+    var remaining=subjects.slice();
+
+    while(remaining.length>0){
+      // Find the earliest available session across all remaining subjects
+      var earliest=null;
+      remaining.forEach(function(sub){
+        sub.sessions.forEach(function(sess){
+          if(!earliest||sess.s<earliest.s) earliest={s:sess.s,r:sess.r,label:sess.label};
+        });
+      });
+      if(!earliest) break;
+
+      // Which subjects can go in this session window (same month)?
+      var sessionMonth=earliest.s.getMonth();
+      var sessionYear=earliest.s.getFullYear();
+      var candidates=[];
+      remaining.forEach(function(sub){
+        sub.sessions.forEach(function(sess){
+          if(sess.s.getMonth()===sessionMonth&&sess.s.getFullYear()===sessionYear){
+            candidates.push({sub:sub,sess:sess});
+          }
+        });
+      });
+
+      // Apply rules: never two difficulty-5 subjects same session
+      // Sort candidates: lower difficulty first to fill, but put diff-5 in limited slots
+      candidates.sort(function(a,b){return a.sub.diff-b.sub.diff});
+
+      var picked=[];
+      var hasDiff5=false;
+      for(var i=0;i<candidates.length&&picked.length<perSession;i++){
+        var c=candidates[i];
+        if(c.sub.diff===5){
+          if(hasDiff5) continue;
+          hasDiff5=true;
+        }
+        picked.push(c);
+      }
+
+      if(picked.length===0){
+        // Skip this session for these subjects — remove the session from remaining
+        remaining.forEach(function(sub){
+          sub.sessions=sub.sessions.filter(function(sess){return !(sess.s.getMonth()===sessionMonth&&sess.s.getFullYear()===sessionYear)});
+        });
+        continue;
+      }
+
+      var sessionEntry={label:earliest.label,date:earliest.s,regClose:earliest.r,subjects:[]};
+      picked.forEach(function(p){
+        sessionEntry.subjects.push({name:p.sub.name,short:p.sub.short,diff:p.sub.diff,color:p.sub.color,recHours:p.sub.recHours,examDate:p.sess.s,regDate:p.sess.r,notesUrl:p.sub.notesUrl,diffLabel:p.sub.diffLabel,passRate:p.sub.passRate});
+        // Remove from remaining
+        remaining=remaining.filter(function(s){return s.id!==p.sub.id});
+      });
+      assigned.push(sessionEntry);
+    }
+
+    // Render
+    var html='';
+    if(assigned.length===0){
+      html='<p style="color:var(--g1)">No available sessions found for the selected subjects from today (April 11, 2026). Registration may have closed. Check the full schedule.</p>';
+    } else {
+      for(var si=0;si<assigned.length;si++){
+        var sess=assigned[si];
+        var totalDiff=0;
+        sess.subjects.forEach(function(s){totalDiff+=s.diff});
+        var diffColor=totalDiff<=4?'#1D9E75':totalDiff<=7?'#BA7517':'#C0392B';
+
+        html+='<div class="session-card">';
+        html+='<div class="session-label">Session '+(si+1)+'</div>';
+        html+='<div class="session-title">'+sess.label+'</div>';
+        html+='<div class="session-subjects">';
+        sess.subjects.forEach(function(s){
+          html+='<span class="session-subj-tag" style="background:'+s.color+'">'+s.short+'</span>';
+        });
+        html+='</div>';
+        html+='<div class="session-meta">';
+        sess.subjects.forEach(function(s){
+          var days=daysBetween(TODAY,s.examDate);
+          html+='<div><strong>'+s.name+'</strong> — '+fmtDate(s.examDate)+' ('+days+' days) | '+s.recHours+' hrs recommended</div>';
+        });
+        html+='<div style="margin-top:8px"><strong>Registration closes:</strong> '+fmtDate(sess.regClose)+'</div>';
+        html+='<div><strong>Combined difficulty:</strong> '+totalDiff+'/'+sess.subjects.length*5+' <span class="diff-bar" style="width:'+Math.min(totalDiff*12,80)+'px;background:'+diffColor+'"></span></div>';
+        html+='<div><strong>Results expected:</strong> ~'+fmtDate(new Date(sess.date.getTime()+10*7*24*60*60*1000))+'</div>';
+        html+='</div></div>';
+      }
+
+      // Recommendations
+      html+='<div class="rec-box"><h3>Recommendations</h3><ul>';
+
+      // Find if PR is in the list
+      var hasPR=checked.indexOf('pr')!==-1;
+      var hasCon=checked.indexOf('con')!==-1;
+      var hasAdmin=checked.indexOf('admin')!==-1;
+
+      if(hasPR){
+        html+='<li>Professional Responsibility has the highest community pass rate (~65%) among mandatory subjects. Writing it in your first available session builds confidence and reduces your subject count early.</li>';
+      }
+      if(hasCon&&hasAdmin){
+        html+='<li>Constitutional Law and Administrative Law share overlapping legal frameworks (Oakes test, Vavilov). Scheduling them within one session of each other lets you leverage shared study material.</li>';
+      }
+      if(checked.length>3){
+        html+='<li>With '+checked.length+' subjects, spreading them across '+assigned.length+' sessions gives you adequate preparation time. Rushing all subjects into fewer sessions significantly increases failure risk and potential resit costs ($500 per attempt).</li>';
+      }
+      html+='</ul></div>';
+
+      // CTA
+      html+='<div style="margin-top:40px;display:flex;flex-wrap:wrap;gap:12px">';
+      html+='<a href="/nca-exam-planner/" style="padding:12px 28px;background:var(--g1);color:var(--void);border-radius:8px;font-weight:600;font-size:var(--body);display:inline-block;transition:transform .3s">See Your Countdown &rarr;</a>';
+      html+='<a href="/notes/" style="padding:12px 28px;background:transparent;border:1px solid var(--g1);color:var(--g1);border-radius:8px;font-weight:600;font-size:var(--body);display:inline-block">Get Notes for Your First Session &rarr;</a>';
+      html+='</div>';
+    }
+
+    document.getElementById('sp-output').innerHTML=html;
+    document.getElementById('sp-output').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+})();
+</script>
+</body>
+</html>

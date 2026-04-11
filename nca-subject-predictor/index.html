@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NCA Subject Assignment Predictor — What Exams Will You Need? | The NCA Hub</title>
+<meta name="description" content="Based on your country of qualification and degree type, predict which NCA subjects you will likely be assigned before you receive your assessment letter.">
+<link rel="canonical" href="https://www.thencahub.com/nca-subject-predictor/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.thencahub.com/nca-subject-predictor/">
+<meta property="og:title" content="NCA Subject Assignment Predictor | The NCA Hub">
+<meta property="og:description" content="Predict which NCA subjects you will likely be assigned based on your country and degree.">
+<meta property="og:site_name" content="The NCA Hub">
+<meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#020204;--abyss:#050508;--dark:#0D0D18;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--nano:.57rem;--sm:.8rem;--body:.93rem;--lead:1.08rem;--expo:cubic-bezier(.16,1,.3,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}::selection{background:rgba(201,168,76,.3);color:#fff}
+nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1)}.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}.nav-links{display:flex;gap:44px}.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s}.nav-links a:hover,.nav-links a.active{color:var(--cream)}.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;display:inline-block;transition:transform .3s var(--expo),background .3s;margin-left:20px}.nc:hover{transform:translateY(-2px);background:var(--g0)}@media(max-width:960px){.nav-links,.nc{display:none!important}nav{padding:18px 24px}}.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:9200;flex-shrink:0}@media(max-width:960px){.nh{display:flex}}.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .4s ease,opacity .3s,background .3s}.nh span:nth-child(2){width:16px}.nh.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--g1)}.nh.open span:nth-child(2){opacity:0}.nh.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--g1)}
+#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:9100;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto}#mob-overlay.open{display:flex}#mob-overlay a{display:block;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.07);transition:color .3s}#mob-overlay a.mob-cta-link{color:var(--g1)}#mob-overlay a:hover{color:var(--cream)}.mob-shop-btn{display:inline-flex!important;align-items:center;margin-top:28px;background:var(--g1)!important;color:var(--void)!important;padding:14px 36px;font-family:var(--fb)!important;font-size:.82rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;align-self:flex-start;border:none!important}#mob-close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--g1);font-size:1.3rem;cursor:pointer;padding:8px;z-index:1}
+footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px}@media(max-width:640px){footer{padding:60px 24px 40px}}.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:60px}@media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}.flog{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--g1);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}.ftag{font-size:var(--sm);color:var(--dim);line-height:1.7;max-width:280px}.fct{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:20px}.fls{list-style:none}.fls li{margin-bottom:12px}.fls a{font-size:var(--sm);color:var(--fog);transition:color .3s}.fls a:hover{color:var(--cream)}.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px}.fcl{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--dim)}.fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}.f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;max-width:800px}.f-disc strong{color:rgba(107,98,87,.7)}.f-disc a{color:rgba(107,98,87,.6)}
+.step{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.12);padding:28px;margin-bottom:16px}
+.step-label{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:12px}
+select,input[type=range]{width:100%;font-family:var(--fb);font-size:var(--body);padding:12px 16px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.2);color:var(--cream);outline:none}
+select:focus{border-color:var(--g1)}
+input[type=range]{-webkit-appearance:none;height:6px;padding:0;border:none;background:rgba(201,168,76,.15);border-radius:3px;margin-top:8px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--g1);border-radius:50%;cursor:pointer}
+.result-card{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.12);padding:16px 20px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.badge{display:inline-block;padding:4px 12px;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;border-radius:2px}
+.badge-mandatory{background:rgba(29,158,117,.15);color:#1D9E75}
+.badge-likely{background:rgba(186,117,23,.15);color:#BA7517}
+.badge-possible{background:rgba(107,98,87,.15);color:var(--fog)}
+</style>
+</head>
+<body>
+<nav aria-label="Site navigation">
+  <a href="/" class="nl">The NCA <span style="color:var(--cream)">Hub</span></a>
+  <div class="nav-links"><a href="/#method">Method</a><a href="/#subjects">Subjects</a><a href="/#pricing">Pricing</a><a href="/blog/">Articles</a><a href="/nca-exam-planner/">Exam Planner</a><a href="/faq/">FAQ</a></div>
+  <a href="/notes/" class="nc">Get Notes</a>
+  <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<main style="padding-top:120px;padding-bottom:80px">
+<div style="max-width:780px;margin:0 auto;padding:0 24px">
+  <h1 style="font-family:var(--fd);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--g1);line-height:1.15;margin-bottom:16px">NCA Subject Assignment Predictor</h1>
+  <p style="color:var(--fog);font-size:var(--lead);line-height:1.75;margin-bottom:40px">The NCA assigns subjects individually after reviewing your transcripts and syllabi. This tool predicts your likely subject assignment based on patterns across thousands of NCA assessments. It is not a guarantee — only the NCA assessment letter is definitive — but it gives you a working plan while you wait.</p>
+
+  <div class="step">
+    <div class="step-label">Step 1 — Country of qualification</div>
+    <select id="country" onchange="updateDegrees();predict()">
+      <option value="">Select country...</option>
+      <option value="india">India</option><option value="uk">United Kingdom</option><option value="nigeria">Nigeria</option><option value="philippines">Philippines</option><option value="pakistan">Pakistan</option><option value="jamaica">Jamaica</option><option value="south-africa">South Africa</option><option value="ireland">Ireland</option><option value="usa">United States</option><option value="common-law">Other Common Law</option><option value="civil-law">Other Civil Law</option>
+    </select>
+  </div>
+  <div class="step">
+    <div class="step-label">Step 2 — Degree type</div>
+    <select id="degree" onchange="predict()"><option value="">Select country first...</option></select>
+  </div>
+  <div class="step">
+    <div class="step-label">Step 3 — Years of legal practice: <span id="yrs-val" style="color:var(--g1)">0</span></div>
+    <input type="range" id="years" min="0" max="20" value="0" oninput="document.getElementById('yrs-val').textContent=this.value;predict()">
+  </div>
+
+  <div id="results" style="margin-top:32px"></div>
+
+  <div style="margin-top:60px">
+    <h2 style="font-family:var(--fd);font-size:clamp(1.3rem,3vw,1.8rem);font-weight:300;color:var(--cream);margin-bottom:16px">Why knowing your subjects early matters</h2>
+    <ul style="color:var(--fog);font-size:var(--body);list-style:none;padding:0">
+      <li style="padding:8px 0;border-bottom:1px solid rgba(201,168,76,.06)">Start preparing before your assessment letter arrives — gain weeks of study time</li>
+      <li style="padding:8px 0;border-bottom:1px solid rgba(201,168,76,.06)">Register for upcoming exam sessions before deadlines pass</li>
+      <li style="padding:8px 0">Budget accurately for exam fees ($500 CAD per subject plus taxes)</li>
+    </ul>
+    <a href="/nca-exam-dates-2026/" style="display:inline-block;margin-top:20px;padding:12px 28px;background:var(--g1);color:var(--void);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;font-weight:700">See the Full 2026 Schedule →</a>
+  </div>
+</div>
+</main>
+<div id="mob-overlay" aria-hidden="true" role="dialog"><button id="mob-close" aria-label="Close menu">&#x2715;</button><a href="/#method">Method</a><a href="/#subjects">Subjects</a><a href="/notes/" class="mob-cta-link">Notes</a><a href="/#pricing">Pricing</a><a href="/blog/">Articles</a><a href="/nca-exam-planner/">Exam Planner</a><a href="/nca-cost-calculator/">Cost Calculator</a><a href="/faq/">FAQ</a><a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now →</a></div>
+<footer><div style="max-width:1100px;margin:0 auto;padding:0 72px"><div class="ftg"><div><div class="flog">The NCA Hub</div><p class="ftag">Strategic NCA exam preparation for internationally trained lawyers qualifying in Canada. Founded 2025.</p></div><div><div class="fct">Navigate</div><ul class="fls"><li><a href="/#method">Method</a></li><li><a href="/notes/">Notes</a></li><li><a href="/blog/">Articles</a></li><li><a href="/nca-exam-dates-2026/">Exam Dates 2026</a></li><li><a href="/nca-cost-calculator/">Cost Calculator</a></li><li><a href="/faq/">FAQ</a></li></ul></div><div><div class="fct">Contact</div><ul class="fls"><li><a href="mailto:thencahub@gmail.com">thencahub@gmail.com</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer">Shop Now</a></li><li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li></ul><div class="fct" style="margin-top:24px">Legal</div><ul class="fls"><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li></ul></div></div><div class="fb2"><p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p><p class="fleg">© 2026 The NCA Hub. All rights reserved.</p></div><p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource. Always verify at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer">nca.legal</a>.</p></div></footer>
+<script>
+(function(){var b=document.getElementById('nh'),o=document.getElementById('mob-overlay'),c=document.getElementById('mob-close');if(!b||!o)return;function op(){o.classList.add('open');o.setAttribute('aria-hidden','false');b.classList.add('open');b.setAttribute('aria-expanded','true');document.body.style.overflow='hidden'}function cl(){o.classList.remove('open');o.setAttribute('aria-hidden','true');b.classList.remove('open');b.setAttribute('aria-expanded','false');document.body.style.overflow=''}b.addEventListener('click',function(e){e.stopPropagation();o.classList.contains('open')?cl():op()});if(c)c.addEventListener('click',cl);document.addEventListener('keydown',function(e){if(e.key==='Escape')cl()});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))cl()})})})();
+</script>
+<script>
+var DEGREES={
+  india:['LLB (3-year)','BA LLB / 5-year integrated','LLM only'],
+  uk:['LLB / Qualifying Law Degree','GDL/CPE Conversion','LLM only'],
+  nigeria:['LLB'],philippines:['LLB'],pakistan:['LLB'],jamaica:['LLB'],
+  'south-africa':['LLB'],ireland:['BCL/LLB'],usa:['JD'],
+  'common-law':['LLB equivalent'],'civil-law':['Law degree']
+};
+var MANDATORY=[
+  {name:'Administrative Law',url:'/notes/administrative-law/',days:52,date:'Jun 2, 2026'},
+  {name:'Constitutional Law',url:'/notes/constitutional-law/',days:87,date:'Jul 7, 2026'},
+  {name:'Criminal Law',url:'/notes/criminal-law/',days:31,date:'May 12, 2026'},
+  {name:'Professional Responsibility',url:'/notes/professional-responsibility/',days:23,date:'May 4, 2026'},
+  {name:'Foundations of Canadian Law',url:'/notes/foundations-of-canadian-law/',days:94,date:'Jul 14, 2026'}
+];
+function updateDegrees(){
+  var c=document.getElementById('country').value;var d=document.getElementById('degree');
+  d.innerHTML='<option value="">Select degree...</option>';
+  if(DEGREES[c])DEGREES[c].forEach(function(deg){d.innerHTML+='<option value="'+deg+'">'+deg+'</option>';});
+}
+function predict(){
+  var c=document.getElementById('country').value;var d=document.getElementById('degree').value;var y=parseInt(document.getElementById('years').value);
+  if(!c||!d){document.getElementById('results').innerHTML='';return;}
+  var electives=[];var note='';
+  if(c==='india'&&d==='LLM only'){document.getElementById('results').innerHTML='<div class="step" style="border-left:3px solid #BA7517"><p style="color:var(--cream);font-weight:500">Non-standard pathway</p><p style="color:var(--fog);font-size:var(--sm);margin-top:8px">An LLM without an underlying LLB is assessed individually by the NCA. Contact the NCA directly at <a href="https://nca.legal" style="color:var(--g1)">nca.legal</a> for guidance on your specific situation.</p></div>';return;}
+  if(c==='uk'&&d==='LLM only'){document.getElementById('results').innerHTML='<div class="step" style="border-left:3px solid #BA7517"><p style="color:var(--cream);font-weight:500">Non-standard pathway</p><p style="color:var(--fog);font-size:var(--sm);margin-top:8px">An LLM without an underlying qualifying law degree is assessed individually by the NCA. Contact <a href="https://nca.legal" style="color:var(--g1)">nca.legal</a>.</p></div>';return;}
+  if(c==='india'&&d.indexOf('3-year')!==-1){electives=[{name:'Property',badge:'Likely'},{name:'Contracts',badge:'Likely'}];}
+  else if(c==='india'){electives=[{name:'Property',badge:'Possible'},{name:'Contracts',badge:'Possible'}];}
+  else if(c==='uk'&&d.indexOf('GDL')!==-1){electives=[{name:'Property',badge:'Likely'},{name:'Contracts',badge:'Likely'}];}
+  else if(c==='uk'){electives=[{name:'Property',badge:'Possible'}];}
+  else if(c==='nigeria'){electives=[{name:'Property',badge:'Likely'},{name:'Contracts',badge:'Possible'}];}
+  else if(c==='philippines'){electives=[{name:'Property',badge:'Likely'}];}
+  else if(c==='pakistan'){electives=[{name:'Property',badge:'Possible'}];}
+  else if(c==='south-africa'){electives=[{name:'Contracts',badge:'Possible'}];}
+  else if(c==='civil-law'){electives=[{name:'Property',badge:'Likely'},{name:'Contracts',badge:'Likely'},{name:'Torts',badge:'Likely'},{name:'Business Organizations',badge:'Possible'}];}
+  else if(c==='common-law'){electives=[{name:'Property',badge:'Possible'},{name:'Contracts',badge:'Possible'}];}
+  var total=5+electives.length;
+  var html='<div style="font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:16px">Predicted Assignment: '+total+' subjects</div>';
+  MANDATORY.forEach(function(m){
+    html+='<div class="result-card"><div><div style="color:var(--cream);font-weight:500">'+m.name+'</div><div style="font-size:.72rem;color:var(--dim);margin-top:2px">'+m.days+' days · '+m.date+'</div></div><div style="display:flex;align-items:center;gap:10px"><span class="badge badge-mandatory">Mandatory</span><a href="'+m.url+'" style="font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g1);font-weight:600">Get Notes →</a></div></div>';
+  });
+  electives.forEach(function(e){
+    var cls=e.badge==='Likely'?'badge-likely':'badge-possible';
+    html+='<div class="result-card"><div style="color:var(--cream);font-weight:500">'+e.name+'</div><span class="badge '+cls+'">'+e.badge+'</span></div>';
+  });
+  if(y>=5)html+='<div style="margin-top:16px;padding:14px 18px;border-left:2px solid rgba(201,168,76,.3);background:rgba(201,168,76,.04);font-size:var(--sm);color:var(--fog)">With '+y+' years of practice in a common law jurisdiction, the NCA may reduce your elective requirements. This is assessed individually.</div>';
+  html+='<p style="font-size:.72rem;color:var(--dim);margin-top:24px;border-left:2px solid rgba(201,168,76,.3);padding-left:14px">This prediction is based on historical NCA assessment patterns and is not a guarantee. The only authoritative source is your NCA assessment letter. Always verify at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer" style="color:var(--g1)">nca.legal</a>.</p>';
+  document.getElementById('results').innerHTML=html;
+}
+</script>
+</body>
+</html>

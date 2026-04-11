@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NCA Study Hours Calculator — How Long Do You Need to Prepare? | The NCA Hub</title>
+<meta name="description" content="Enter your available study hours per day and the subjects you need to write. Get a personalised week-by-week study plan and which exam session you can realistically target.">
+<link rel="canonical" href="https://www.thencahub.com/nca-study-calculator/">
+<meta property="og:type" content="website"><meta property="og:url" content="https://www.thencahub.com/nca-study-calculator/"><meta property="og:title" content="NCA Study Hours Calculator | The NCA Hub"><meta property="og:description" content="Calculate how long you need to prepare for NCA exams based on your available study time."><meta property="og:site_name" content="The NCA Hub"><meta property="og:image" content="https://www.thencahub.com/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="robots" content="index, follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+:root{--void:#020204;--abyss:#050508;--dark:#0D0D18;--g0:#F0D878;--g1:#C9A84C;--g2:#9E7B30;--g3:#4E3A14;--cream:#EDE5CE;--fog:#998E7C;--dim:#6B6257;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Bricolage Grotesque','Helvetica Neue',sans-serif;--nano:.57rem;--sm:.8rem;--body:.93rem;--lead:1.08rem;--expo:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{background:var(--void);color:var(--cream);font-family:var(--fb);font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}::selection{background:rgba(201,168,76,.3);color:#fff}
+nav{position:fixed;top:0;inset-x:0;z-index:800;padding:22px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);border-bottom:1px solid rgba(201,168,76,.1)}.nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);line-height:1;margin-right:48px}.nav-links{display:flex;gap:44px}.nav-links a{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--fog);font-weight:500;transition:color .3s}.nav-links a:hover,.nav-links a.active{color:var(--cream)}.nc{font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--void);background:var(--g1);padding:11px 26px;display:inline-block;transition:transform .3s var(--expo),background .3s;margin-left:20px}.nc:hover{transform:translateY(-2px);background:var(--g0)}@media(max-width:960px){.nav-links,.nc{display:none!important}nav{padding:18px 24px}}.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:9200;flex-shrink:0}@media(max-width:960px){.nh{display:flex}}.nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .4s ease,opacity .3s,background .3s}.nh span:nth-child(2){width:16px}.nh.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--g1)}.nh.open span:nth-child(2){opacity:0}.nh.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--g1)}
+#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:9100;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto}#mob-overlay.open{display:flex}#mob-overlay a{display:block;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.07);transition:color .3s}#mob-overlay a.mob-cta-link{color:var(--g1)}#mob-overlay a:hover{color:var(--cream)}.mob-shop-btn{display:inline-flex!important;align-items:center;margin-top:28px;background:var(--g1)!important;color:var(--void)!important;padding:14px 36px;font-family:var(--fb)!important;font-size:.82rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;align-self:flex-start;border:none!important}#mob-close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--g1);font-size:1.3rem;cursor:pointer;padding:8px;z-index:1}
+footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px}@media(max-width:640px){footer{padding:60px 24px 40px}}.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:60px}@media(max-width:768px){.ftg{grid-template-columns:1fr;gap:36px}}.flog{font-family:var(--fd);font-size:1.4rem;font-weight:400;color:var(--g1);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}.ftag{font-size:var(--sm);color:var(--dim);line-height:1.7;max-width:280px}.fct{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:20px}.fls{list-style:none}.fls li{margin-bottom:12px}.fls a{font-size:var(--sm);color:var(--fog);transition:color .3s}.fls a:hover{color:var(--cream)}.fb2{border-top:1px solid rgba(201,168,76,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px}.fcl{font-family:var(--fd);font-style:italic;font-size:.95rem;color:var(--dim)}.fleg{font-size:var(--nano);color:var(--dim);letter-spacing:.08em}.f-disc{font-size:.6rem;color:rgba(107,98,87,.5);line-height:1.7;max-width:800px}.f-disc strong{color:rgba(107,98,87,.7)}.f-disc a{color:rgba(107,98,87,.6)}
+.ctrl{background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.12);padding:24px;margin-bottom:16px}
+.ctrl-label{font-size:var(--nano);letter-spacing:.28em;text-transform:uppercase;color:var(--g2);font-weight:600;margin-bottom:10px}
+input[type=range]{width:100%;-webkit-appearance:none;height:6px;background:rgba(201,168,76,.15);border-radius:3px;outline:none;margin-top:8px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--g1);border-radius:50%;cursor:pointer}
+.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:12px}
+.subj-label{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);cursor:pointer;font-size:var(--sm);transition:all .2s}
+.subj-label:hover{border-color:var(--g1)}
+.subj-label input{accent-color:var(--g1)}
+.result-table{width:100%;border-collapse:collapse;margin-top:24px}
+.result-table th{text-align:left;padding:12px 10px;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--g2);font-weight:600;border-bottom:1px solid rgba(201,168,76,.15)}
+.result-table td{padding:12px 10px;border-bottom:1px solid rgba(201,168,76,.06);font-size:var(--sm);color:var(--fog)}
+.indicator{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+</style>
+</head>
+<body>
+<nav aria-label="Site navigation">
+  <a href="/" class="nl">The NCA <span style="color:var(--cream)">Hub</span></a>
+  <div class="nav-links"><a href="/#method">Method</a><a href="/#subjects">Subjects</a><a href="/#pricing">Pricing</a><a href="/blog/">Articles</a><a href="/nca-exam-planner/">Exam Planner</a><a href="/faq/">FAQ</a></div>
+  <a href="/notes/" class="nc">Get Notes</a>
+  <button class="nh" id="nh" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<main style="padding-top:120px;padding-bottom:80px">
+<div style="max-width:820px;margin:0 auto;padding:0 24px">
+  <h1 style="font-family:var(--fd);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--g1);line-height:1.15;margin-bottom:16px">NCA Study Hours Calculator</h1>
+  <p style="color:var(--fog);font-size:var(--lead);line-height:1.75;margin-bottom:40px">Enter your available study time and select your subjects. See how many weeks you need and which exam session to target.</p>
+
+  <div class="ctrl">
+    <div class="ctrl-label">Study hours per day: <span id="v-hrs" style="color:var(--g1)">2.0</span></div>
+    <input type="range" id="hrs" min="0.5" max="8" step="0.5" value="2" oninput="document.getElementById('v-hrs').textContent=parseFloat(this.value).toFixed(1);calc()">
+  </div>
+  <div class="ctrl">
+    <div class="ctrl-label">Days per week: <span id="v-days" style="color:var(--g1)">5</span></div>
+    <input type="range" id="dpw" min="1" max="7" step="1" value="5" oninput="document.getElementById('v-days').textContent=this.value;calc()">
+  </div>
+  <div class="ctrl">
+    <div class="ctrl-label">Subjects</div>
+    <div class="subj-grid" id="subj-grid"></div>
+  </div>
+
+  <div id="summary" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:24px"></div>
+  <div style="overflow-x:auto"><table class="result-table" id="result-table"><thead><tr><th>Subject</th><th>Hours</th><th>Weeks</th><th>Target Session</th><th>Status</th></tr></thead><tbody id="result-body"></tbody></table></div>
+
+  <div style="margin-top:48px;padding:24px;background:rgba(201,168,76,.05);border-left:3px solid var(--g1)">
+    <p style="color:var(--fog);font-size:var(--body);line-height:1.75">These estimates assume focused, structured study using exam-ready materials. Open-book exams reward speed and structure over volume — which is why our notes are under 80 pages per subject.</p>
+    <a href="/notes/" style="display:inline-block;margin-top:16px;padding:12px 28px;background:var(--g1);color:var(--void);font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;font-weight:700">Get the Notes →</a>
+  </div>
+</div>
+</main>
+<div id="mob-overlay" aria-hidden="true" role="dialog"><button id="mob-close" aria-label="Close menu">&#x2715;</button><a href="/#method">Method</a><a href="/#subjects">Subjects</a><a href="/notes/" class="mob-cta-link">Notes</a><a href="/#pricing">Pricing</a><a href="/blog/">Articles</a><a href="/nca-exam-planner/">Exam Planner</a><a href="/nca-cost-calculator/">Cost Calculator</a><a href="/faq/">FAQ</a><a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now →</a></div>
+<footer><div style="max-width:1100px;margin:0 auto;padding:0 72px"><div class="ftg"><div><div class="flog">The NCA Hub</div><p class="ftag">Strategic NCA exam preparation for internationally trained lawyers qualifying in Canada. Founded 2025.</p></div><div><div class="fct">Navigate</div><ul class="fls"><li><a href="/#method">Method</a></li><li><a href="/notes/">Notes</a></li><li><a href="/blog/">Articles</a></li><li><a href="/nca-exam-dates-2026/">Exam Dates 2026</a></li><li><a href="/nca-cost-calculator/">Cost Calculator</a></li><li><a href="/faq/">FAQ</a></li></ul></div><div><div class="fct">Contact</div><ul class="fls"><li><a href="mailto:thencahub@gmail.com">thencahub@gmail.com</a></li><li><a href="https://payhip.com/THENCAHUB" target="_blank" rel="noopener noreferrer">Shop Now</a></li><li><a href="https://www.linkedin.com/company/thencahub" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://www.instagram.com/thencahub/" target="_blank" rel="noopener noreferrer">Instagram</a></li></ul><div class="fct" style="margin-top:24px">Legal</div><ul class="fls"><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms of Use</a></li></ul></div></div><div class="fb2"><p class="fcl">"Built for the lawyers who had to start over. And refused to stop."</p><p class="fleg">© 2026 The NCA Hub. All rights reserved.</p></div><p class="f-disc"><strong>NOT AFFILIATED WITH THE NCA.</strong> The NCA Hub is an independent educational resource. Always verify at <a href="https://nca.legal" target="_blank" rel="noopener noreferrer">nca.legal</a>.</p></div></footer>
+<script>
+(function(){var b=document.getElementById('nh'),o=document.getElementById('mob-overlay'),c=document.getElementById('mob-close');if(!b||!o)return;function op(){o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden'}function cl(){o.classList.remove('open');b.classList.remove('open');document.body.style.overflow=''}b.addEventListener('click',function(e){e.stopPropagation();o.classList.contains('open')?cl():op()});if(c)c.addEventListener('click',cl);document.addEventListener('keydown',function(e){if(e.key==='Escape')cl()});o.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!a.href.includes('payhip'))cl()})})})();
+</script>
+<script>
+var TODAY=new Date(2026,3,11);
+var SUBS=[
+  {id:'admin',name:'Administrative Law',hours:100,mandatory:true,sessions:[{s:new Date(2026,5,2),r:new Date(2026,4,7)},{s:new Date(2026,7,31),r:new Date(2026,7,6)},{s:new Date(2026,10,17),r:new Date(2026,9,22)}]},
+  {id:'con',name:'Constitutional Law',hours:100,mandatory:true,sessions:[{s:new Date(2026,6,7),r:new Date(2026,5,11)},{s:new Date(2026,9,5),r:new Date(2026,8,10)}]},
+  {id:'crim',name:'Criminal Law',hours:80,mandatory:true,sessions:[{s:new Date(2026,4,12),r:new Date(2026,3,2)},{s:new Date(2026,7,10),r:new Date(2026,6,9)},{s:new Date(2026,10,9),r:new Date(2026,9,1)}]},
+  {id:'pr',name:'Professional Responsibility',hours:60,mandatory:true,sessions:[{s:new Date(2026,4,4),r:new Date(2026,3,2)},{s:new Date(2026,7,4),r:new Date(2026,6,9)},{s:new Date(2026,10,3),r:new Date(2026,9,1)}]},
+  {id:'fcl',name:'Foundations of Canadian Law',hours:100,mandatory:true,sessions:[{s:new Date(2026,6,14),r:new Date(2026,5,11)},{s:new Date(2026,9,13),r:new Date(2026,8,10)}]},
+  {id:'contracts',name:'Contracts',hours:65,mandatory:false,sessions:[{s:new Date(2026,4,11),r:new Date(2026,3,2)},{s:new Date(2026,8,8),r:new Date(2026,7,6)}]},
+  {id:'prop',name:'Property',hours:70,mandatory:false,sessions:[{s:new Date(2026,5,1),r:new Date(2026,4,7)},{s:new Date(2026,9,20),r:new Date(2026,8,10)}]},
+  {id:'torts',name:'Torts',hours:65,mandatory:false,sessions:[{s:new Date(2026,6,13),r:new Date(2026,5,11)},{s:new Date(2026,10,16),r:new Date(2026,9,1)}]},
+  {id:'biz',name:'Business Organizations',hours:60,mandatory:false,sessions:[{s:new Date(2026,7,17),r:new Date(2026,6,9)}]}
+];
+function fmt(d){return d.toLocaleDateString('en-CA',{month:'short',day:'numeric'});}
+function weeksTo(d){return Math.max(0,Math.ceil((d-TODAY)/(7*24*60*60*1000)));}
+function init(){
+  var html='';SUBS.forEach(function(s){
+    html+='<label class="subj-label"><input type="checkbox" value="'+s.id+'" '+(s.mandatory?'checked':'')+' onchange="calc()"><span>'+s.name+' ('+s.hours+'h)</span></label>';
+  });document.getElementById('subj-grid').innerHTML=html;calc();
+}
+function calc(){
+  var hpd=parseFloat(document.getElementById('hrs').value);
+  var dpw=parseInt(document.getElementById('dpw').value);
+  var hpw=hpd*dpw;
+  var checks=document.querySelectorAll('#subj-grid input:checked');
+  var sel=[];checks.forEach(function(c){SUBS.forEach(function(s){if(s.id===c.value)sel.push(s)});});
+  var totalH=0;sel.forEach(function(s){totalH+=s.hours});
+  var totalW=Math.ceil(totalH/Math.max(hpw,0.5));
+  document.getElementById('summary').innerHTML=
+    '<div style="background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.12);padding:20px;text-align:center"><div style="font-family:var(--fd);font-size:2.5rem;font-weight:300;color:var(--g1)">'+totalH+'</div><div style="font-size:.7rem;color:var(--dim)">total hours</div></div>'+
+    '<div style="background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.12);padding:20px;text-align:center"><div style="font-family:var(--fd);font-size:2.5rem;font-weight:300;color:var(--cream)">'+hpw.toFixed(1)+'</div><div style="font-size:.7rem;color:var(--dim)">hours/week</div></div>'+
+    '<div style="background:rgba(14,14,26,.7);border:1px solid rgba(201,168,76,.12);padding:20px;text-align:center"><div style="font-family:var(--fd);font-size:2.5rem;font-weight:300;color:var(--cream)">'+totalW+'</div><div style="font-size:.7rem;color:var(--dim)">weeks needed</div></div>';
+  var tbody='';
+  sel.forEach(function(s){
+    var wksNeeded=Math.ceil(s.hours/Math.max(hpw,0.5));
+    var target=null;
+    for(var i=0;i<s.sessions.length;i++){
+      var wksAvail=weeksTo(s.sessions[i].s);
+      if(wksAvail>=wksNeeded&&s.sessions[i].r>=TODAY){target=s.sessions[i];break;}
+    }
+    if(!target){for(var i=0;i<s.sessions.length;i++){var w=weeksTo(s.sessions[i].s);if(w>=wksNeeded){target=s.sessions[i];break;}}}
+    if(!target)target=s.sessions[s.sessions.length-1];
+    var wksAvail=weeksTo(target.s);var regOpen=target.r>=TODAY;
+    var color=wksAvail>=wksNeeded+2?'#1D9E75':wksAvail>=wksNeeded?'#BA7517':'#dc5050';
+    var label=wksAvail>=wksNeeded+2?'Comfortable':wksAvail>=wksNeeded?'Tight':'Too soon';
+    tbody+='<tr><td style="color:var(--cream);font-weight:500">'+s.name+'</td><td>'+s.hours+'</td><td>'+wksNeeded+'</td><td>'+fmt(target.s)+(!regOpen?' <span style="color:#dc5050;font-size:.65rem">(REG CLOSED)</span>':'')+'</td><td><span class="indicator" style="background:'+color+'"></span><span style="color:'+color+'">'+label+'</span></td></tr>';
+  });
+  document.getElementById('result-body').innerHTML=tbody;
+}
+init();
+</script>
+</body>
+</html>
