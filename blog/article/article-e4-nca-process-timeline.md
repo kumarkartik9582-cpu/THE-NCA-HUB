@@ -26,11 +26,11 @@ How long does it actually take? Here is the realistic timeline from sending your
 
 **The math:**
 - 5 subjects minimum
-- 3 exam sittings per year (January, May, August)
-- 2 subjects per sitting (realistic maximum while working)
+- 4 exam sessions in 2026 (January, April, June, November)
+- 1–2 subjects per sitting (realistic maximum while working)
 
-**Fast track:** 3 sittings = 12 months
-**Typical:** 4–5 sittings = 16–20 months
+**Fast track:** 3 sittings = ~9 months
+**Typical:** 4–5 sittings = 12–18 months
 **With failures:** Add 3–4 months per failure
 
 ## Stage 3: Legal Research and Writing (6–10 months)
