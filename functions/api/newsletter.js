@@ -57,9 +57,13 @@ export async function onRequestPost(context) {
         }
       );
       if (!mcRes.ok) {
-        const err = await mcRes.json();
+        let errTitle = '';
+        try {
+          const err = await mcRes.json();
+          errTitle = err.title || '';
+        } catch (_) { /* non-JSON error body (5xx HTML pages etc.) */ }
         // 400 "Member Exists" is still a success from user perspective
-        if (err.title !== 'Member Exists') {
+        if (errTitle !== 'Member Exists') {
           return new Response(JSON.stringify({ error: 'Could not subscribe. Please try again.' }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', ...CORS_HEADERS }
