@@ -1,5 +1,6 @@
 # Cloudflare Pages Redirects — URL normalisation
 # Force HTTPS + www canonical
 
-http://thencahub.com/*   https://www.thencahub.com/:splat   301
-https://thencahub.com/*  https://www.thencahub.com/:splat   301
+http://thencahub.com/*       https://www.thencahub.com/:splat   301
+http://www.thencahub.com/*   https://www.thencahub.com/:splat   301
+https://thencahub.com/*      https://www.thencahub.com/:splat   301
