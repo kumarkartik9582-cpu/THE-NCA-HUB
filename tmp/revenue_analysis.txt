@@ -1,0 +1,21 @@
+NCA Hub Revenue Analysis — April 2026
+======================================
+
+Current Month (Apr 1-12):
+- Revenue: CAD $875
+- Customers: 4 unique
+- AOV: $175
+- Run rate: ~$2,187/month (~$26,250/year)
+
+Checkout funnel:
+- 527 Payhip views → 75 checkout starts (14.2%) → 5 completions (6.7%)
+- Abandonment: 93.3%
+- Lost revenue estimate: 70 abandoned × $175 = $12,250
+
+Revenue projections (conservative):
+- CTR fixes only: ~$1,050/month
+- Checkout fixes only: ~$1,750/month
+- Both: ~$2,500/month
+- All optimisations: ~$4,000-5,000/month
+
+Key insight: Fixing checkout abandonment from 6.7% to 15% doubles revenue with zero new traffic.
