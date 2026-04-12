@@ -342,6 +342,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.thencahub.com/tools/</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Phase 1: AI Study Assistant -->
   <url>
     <loc>https://www.thencahub.com/nca-ai-assistant/</loc>
