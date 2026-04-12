@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="ai-content-declaration" content="human-authored">
-<title>Foundations of Canadian Law NCA Notes 2026 — Under 80 Pages | The NCA Hub</title>
+<title>NCA Foundations of Canadian Law Notes 2026 — Driedger, Indigenous Law & Answer Templates</title>
 <meta name="description" content="Concise FCL exam notes covering sources of law, Indigenous legal orders, statutory interpretation, and stare decisis. Answer templates included. Under 80 pages.">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#C9A84C">
@@ -23,13 +23,13 @@
 <link rel="alternate" hreflang="x-default" href="https://www.thencahub.com/notes/foundations-of-canadian-law/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.thencahub.com/notes/foundations-of-canadian-law/">
-<meta property="og:title" content="Foundations of Canadian Law NCA Notes 2026 — Under 80 Pages | The NCA Hub">
+<meta property="og:title" content="NCA Foundations of Canadian Law Notes 2026 — Driedger, Indigenous Law & Answer Templates">
 <meta property="og:description" content="Concise FCL exam notes covering sources of law, Indigenous legal orders, statutory interpretation, and stare decisis. Answer templates included. Under 80 pages.">
 <meta property="og:site_name" content="The NCA Hub">
 <meta property="og:image" content="https://www.thencahub.com/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://www.thencahub.com/notes/foundations-of-canadian-law/">
-<meta name="twitter:title" content="Foundations of Canadian Law NCA Notes 2026 — Under 80 Pages | The NCA Hub">
+<meta name="twitter:title" content="NCA Foundations of Canadian Law Notes 2026 — Driedger, Indigenous Law & Answer Templates">
 <meta name="twitter:description" content="Concise FCL exam notes covering sources of law, Indigenous legal orders, statutory interpretation, and stare decisis. Answer templates included. Under 80 pages.">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <script type="application/ld+json">
@@ -766,5 +766,38 @@ if('serviceWorker' in navigator){
 }
 </script>
 <script src="/nca-world-class.js?v=20260330" defer></script>
+<script>
+(function(){
+  var shown = false;
+  var SUBJECTS = {
+    'administrative-law': {name:'Admin Law', date:'Jun 2, 2026', days:52},
+    'constitutional-law': {name:'Con Law', date:'Jul 7, 2026', days:87},
+    'criminal-law': {name:'Criminal Law', date:'May 12, 2026', days:31},
+    'foundations-of-canadian-law': {name:'Foundations', date:'Jul 14, 2026', days:94},
+    'professional-responsibility': {name:'Prof Resp', date:'May 4, 2026', days:23},
+    'property': {name:'Property Law', date:'Jun 1, 2026', days:51}
+  };
+  var slug = window.location.pathname.replace(/\//g,'').split('notes').pop().replace(/\//g,'');
+  var s = SUBJECTS[slug] || SUBJECTS['foundations-of-canadian-law'];
+
+  function showPopup(){
+    if(shown) return; shown = true;
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+    overlay.innerHTML = '<div style="background:#fff;border-radius:12px;padding:28px 24px;max-width:400px;width:100%;text-align:center">' +
+      '<p style="font-size:13px;color:#888;margin-bottom:8px">Before you go —</p>' +
+      '<h2 style="font-size:20px;font-weight:500;margin-bottom:10px;color:#111">Your '+s.name+' exam is in '+s.days+' days</h2>' +
+      '<p style="font-size:13px;color:#555;margin-bottom:20px">The notes that cleared this exam in 3 months. Under 80 pages. Answer templates included.</p>' +
+      '<a href="https://payhip.com/THENCAHUB" style="display:block;background:#185FA5;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;margin-bottom:10px">Get Complete System — $175 CAD</a>' +
+      '<button onclick="this.closest(\'div\').parentElement.remove()" style="background:none;border:none;color:#999;font-size:12px;cursor:pointer;font-family:inherit">No thanks, I\'ll risk the $500 resit</button>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function(e){ if(e.target===overlay) overlay.remove(); });
+  }
+
+  document.addEventListener('mouseleave', function(e){ if(e.clientY < 50) showPopup(); });
+  setTimeout(function(){ if(!shown) showPopup(); }, 45000);
+})();
+</script>
 </body>
 </html>
