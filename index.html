@@ -1418,9 +1418,104 @@ em .char{opacity:1;transform:none;}
 .prq,.prw{opacity:1;}
 /* em chars inside story-ch-head: guarantee visible at all times */
 .story-ch-head em .char,.sh em .char,.ch em .char{opacity:1;}
+
+
+/* ====================================================
+   NCA HUB — COMPLETE DESIGN SYSTEM ADDITIONS
+   ==================================================== */
+
+/* PAGE LOADER */
+#page-loader{position:fixed;inset:0;background:#020204;z-index:100000;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.loader-logo-wrap{display:flex;align-items:center;gap:2px;margin-bottom:32px;}
+.loader-char{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(36px,7vw,72px);font-weight:300;color:#C9A84C;opacity:0;transform:translateY(24px);animation:ncahCharReveal .5s cubic-bezier(.22,1,.36,1) forwards;animation-delay:calc(var(--i,0)*.07s);letter-spacing:-.02em;}
+.loader-spacer{width:18px;}
+@keyframes ncahCharReveal{to{opacity:1;transform:translateY(0);}}
+.loader-bar-wrap{width:180px;height:1px;background:rgba(201,168,76,.15);overflow:hidden;}
+.loader-bar-fill{height:100%;background:linear-gradient(90deg,#C9A84C,#D4A843);width:0;animation:ncahBarFill .85s ease forwards;animation-delay:.4s;}
+@keyframes ncahBarFill{to{width:100%;}}
+#page-loader.fade-out{opacity:0;pointer-events:none;transition:opacity .45s ease;}
+
+/* CUSTOM CURSOR */
+#ncah-cursor{pointer-events:none;position:fixed;top:0;left:0;z-index:99998;}
+#cursor-dot{position:fixed;width:8px;height:8px;background:#C9A84C;border-radius:50%;top:0;left:0;transform:translate(-4px,-4px);transition:transform .08s,background .2s;will-change:transform;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.55);border-radius:50%;top:0;left:0;transform:translate(-18px,-18px);will-change:transform;transition:border-color .2s,transform .05s;}
+#ncah-cursor.cursor-active #cursor-dot{transform:translate(-4px,-4px) scale(2.2);background:rgba(201,168,76,.85);}
+#ncah-cursor.cursor-active #cursor-ring{border-color:rgba(201,168,76,.3);transform:translate(-18px,-18px) scale(1.6);}
+@media(hover:none),(pointer:coarse),(max-width:768px){#ncah-cursor{display:none!important;}}
+
+/* URGENCY BANNER */
+.ncah-urgency-banner{width:100%;padding:9px 20px;text-align:center;font-size:13px;letter-spacing:.01em;background:rgba(201,168,76,.07);border-bottom:1px solid rgba(201,168,76,.2);color:rgba(255,255,255,.75);}
+.ncah-urgency-banner strong{color:#C9A84C;font-weight:700;}
+.ncah-urgency-banner.critical{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.25);color:#fca5a5;}
+.ncah-urgency-banner.critical strong{color:#f87171;}
+
+/* ACTIVITY TICKER */
+.ncah-ticker-wrap{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.5);padding:9px 0;letter-spacing:.01em;min-height:34px;}
+.ticker-live-dot{width:6px;height:6px;background:#C9A84C;border-radius:50%;flex-shrink:0;animation:tickerDotPulse 1.6s ease infinite;}
+@keyframes tickerDotPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.75);}}
+
+/* OBJECTION REMOVAL */
+.ncah-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:800px){.ncah-trust-grid{grid-template-columns:1fr;}}
+.ncah-trust-card{padding:32px 28px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.015);border-radius:2px;}
+.ncah-trust-icon{font-size:28px;margin-bottom:16px;display:block;}
+.ncah-trust-q{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:400;color:#fff;margin:0 0 12px;line-height:1.3;}
+.ncah-trust-a{font-size:14px;color:rgba(255,255,255,.6);line-height:1.75;margin:0;}
+.ncah-trust-link{display:inline-block;margin-top:12px;font-size:13px;color:#C9A84C;text-decoration:none;}
+.ncah-price-anchor{text-align:center;padding:28px;border:1px solid rgba(201,168,76,.14);border-radius:2px;margin-top:40px;font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;}
+.ncah-price-anchor strong{color:#C9A84C;}
+
+/* SECOND CTA */
+.ncah-second-cta-card{text-align:center;padding:64px 40px;border:1px solid rgba(255,255,255,.06);border-radius:2px;background:rgba(255,255,255,.015);}
+.ncah-second-cta-heading{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.5vw,42px);font-weight:300;color:#fff;margin:0 0 16px;line-height:1.25;}
+.ncah-second-cta-sub{font-size:15px;color:rgba(255,255,255,.55);max-width:460px;margin:0 auto 32px;line-height:1.7;}
+.ncah-second-cta-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:12px;}
+.ncah-btn-primary{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D4A843,#C9A84C,#B8952D);color:#020204;font-weight:700;font-size:15px;padding:17px 36px;border:none;border-radius:2px;cursor:pointer;text-decoration:none;letter-spacing:.04em;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 4px 24px rgba(201,168,76,.22);transition:transform .2s,box-shadow .2s;white-space:nowrap;}
+.ncah-btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.15) inset,0 8px 32px rgba(201,168,76,.32);}
+
+/* SECTION CONTAINERS */
+.ncah-section{padding:80px 0;}
+.ncah-container{max-width:1200px;margin:0 auto;padding:0 24px;}
+.ncah-section-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:#C9A84C;margin-bottom:10px;display:block;}
+.ncah-section-heading{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,4vw,52px);font-weight:300;color:#fff;margin:0 0 14px;line-height:1.18;letter-spacing:-.02em;}
+.ncah-section-header-centered{text-align:center;margin-bottom:48px;}
+
+/* CASCADE BANNER */
+.ncah-cascade-banner{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.22);border-radius:2px;padding:16px 24px;font-size:14px;color:rgba(255,255,255,.75);margin-bottom:24px;display:none;}
+.ncah-cascade-banner.visible{display:block;}
+.ncah-cascade-banner strong{color:#C9A84C;}
+
+/* REVEAL ANIMATION BASE */
+.ncah-reveal{opacity:0;transform:translateY(36px);}
+@media(prefers-reduced-motion:reduce){.ncah-reveal{opacity:1!important;transform:none!important;}}
+
 </style>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","waqh152g51");</script>
+<script src="https://payhip.com/payhip.js" defer></script>
 </head>
 <body>
+<div id="page-loader" role="status" aria-label="Loading The NCA Hub">
+  <div class="loader-logo-wrap">
+    <span class="loader-char" style="--i:0">N</span>
+    <span class="loader-char" style="--i:1">C</span>
+    <span class="loader-char" style="--i:2">A</span>
+    <span class="loader-spacer"> </span>
+    <span class="loader-char" style="--i:3">H</span>
+    <span class="loader-char" style="--i:4">U</span>
+    <span class="loader-char" style="--i:5">B</span>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar-fill"></div></div>
+</div>
+<script>
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var el = document.getElementById('page-loader');
+    if (!el) return;
+    el.classList.add('fade-out');
+    setTimeout(function() { el && el.remove(); }, 450);
+  }, 900);
+});
+</script>
 <script>
 // NCA HUB — VISITOR STATE MACHINE
 (function() {
@@ -1519,7 +1614,13 @@ em .char{opacity:1;transform:none;}
 </nav>
 <!-- HERO -->
 <h1 class="seo-h1">NCA Exam Preparation Canada — Study Notes and Answer Templates for Internationally Trained Lawyers Qualifying Through the National Committee on Accreditation</h1>
-<section class="hero" id="hero" aria-label="Introduction">
+<section class="hero" id="hero" data-section-track="hero" aria-label="Introduction">
+  <!-- DEADLINE URGENCY BANNER -->
+  <div id="ncah-urgency-banner" class="ncah-urgency-banner" role="alert" aria-live="polite" style="display:none;"></div>
+  <!-- CASCADE ARRIVAL MESSAGE -->
+  <div id="ncah-cascade-banner" class="ncah-cascade-banner" role="complementary">
+    Your colleague <strong id="cascade-name"></strong> used NCA Hub to pass their NCA exam. Here is exactly what they used.
+  </div>
   <canvas id="hcv" aria-hidden="true"></canvas>
   <div class="hvl" style="right:32%" aria-hidden="true"></div>
   <div class="hvl" style="right:65%" aria-hidden="true"></div>
@@ -1786,7 +1887,7 @@ em .char{opacity:1;transform:none;}
 </section>
 
 <!-- TOOLS GRID -->
-<section id="tools" aria-label="Free NCA tools" style="background:var(--abyss);border-top:1px solid rgba(201,168,76,.07);padding:100px 0;">
+<section id="tools" data-section-track="tools" aria-label="Free NCA tools" style="background:var(--abyss);border-top:1px solid rgba(201,168,76,.07);padding:100px 0;">
   <div class="w">
     <span class="ey split-heading">Free Tools</span>
     <h2 class="sh split-heading" style="margin-bottom:48px">Plan your <em>NCA journey.</em></h2>
@@ -1927,7 +2028,7 @@ em .char{opacity:1;transform:none;}
 </div>
 
 <!-- METHOD -->
-<section class="msc sec" id="method" aria-label="The method">
+<section class="msc sec" id="method" data-section-track="method" aria-label="The method">
   <div class="mamb" aria-hidden="true"></div>
   <div class="sn" aria-hidden="true">04 / 08</div>
   <div class="w">
@@ -2345,7 +2446,7 @@ em .char{opacity:1;transform:none;}
 
 
 <!-- PRICING -->
-<section class="sec" id="pricing" style="background:var(--dark)" aria-label="Pricing">
+<section class="sec" id="pricing" data-section-track="pricing" style="background:var(--dark)" aria-label="Pricing">
   <div class="sn" aria-hidden="true">07 / 08</div>
   <div class="w">
     <p style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Used by candidates in 12+ countries · Notes now available for 8 subjects</p>
@@ -2734,6 +2835,49 @@ em .char{opacity:1;transform:none;}
     <!-- View All -->
     <div style="text-align:center;margin-top:56px;">
       <a href="blog/index.html" class="bp page-link"><span>View All 28 Free Guides →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTION REMOVAL SECTION -->
+<section class="ncah-section" aria-label="Common questions answered">
+  <div class="ncah-container">
+    <header class="ncah-section-header-centered ncah-reveal">
+      <span class="ncah-section-eyebrow">Before you buy</span>
+      <h2 class="ncah-section-heading">Three things you need to know.</h2>
+    </header>
+    <div class="ncah-trust-grid">
+      <div class="ncah-trust-card ncah-reveal">
+        <span class="ncah-trust-icon" aria-hidden="true">📅</span>
+        <h3 class="ncah-trust-q">Is this current?</h3>
+        <p class="ncah-trust-a">Yes. Every document is updated to the most current NCA syllabus. All subjects verified against official NCA materials at nca.legal. The November 2025 exam changes are fully reflected.</p>
+      </div>
+      <div class="ncah-trust-card ncah-reveal">
+        <span class="ncah-trust-icon" aria-hidden="true">📚</span>
+        <h3 class="ncah-trust-q">Will it cover my subject?</h3>
+        <p class="ncah-trust-a">Notes available for all NCA subjects — the 5 mandatory subjects plus Property Law, Contract Law, Evidence Law, and Family Law. Subject-specific, not generic.</p>
+      </div>
+      <div class="ncah-trust-card ncah-reveal">
+        <span class="ncah-trust-icon" aria-hidden="true">📄</span>
+        <h3 class="ncah-trust-q">Not ready to buy?</h3>
+        <p class="ncah-trust-a">Download a free sample chapter for any subject. See exactly what the notes look like and how they are organized before spending a single dollar.</p>
+        <a href="/free-chapter.html" class="ncah-trust-link">Download a free chapter &rarr;</a>
+      </div>
+    </div>
+    <div class="ncah-price-anchor ncah-reveal">
+      Each NCA exam costs <strong>$500 CAD</strong>. A resit costs another <strong>$500</strong>. Our notes cost <strong>$149</strong>. One investment. One attempt. The math is simple.
+    </div>
+  </div>
+</section>
+
+<!-- SECOND CTA SECTION -->
+<section class="ncah-section" aria-label="Free readiness quiz">
+  <div class="ncah-container">
+    <div class="ncah-second-cta-card ncah-reveal">
+      <h2 class="ncah-second-cta-heading">Not ready to buy?<br>Start with the free readiness quiz.</h2>
+      <p class="ncah-second-cta-sub">10 subject-specific questions. Score out of 100. Know exactly where you stand before you invest in anything. No signup required.</p>
+      <a href="/readiness/" class="ncah-btn-primary" aria-label="Take the free NCA readiness score quiz">Take the quiz — it is free &rarr;</a>
+      <p class="ncah-second-cta-note">No signup &middot; No email required &middot; Your score is yours</p>
     </div>
   </div>
 </section>
@@ -4825,5 +4969,184 @@ if('serviceWorker' in navigator){
 })();
 </script>
 <script src="/nca-world-class.js?v=20260330" defer></script>
+
+<script>
+/* NCA HUB — COMPLETE MOTION SYSTEM */
+(function() {
+  function initMotion() {
+    var isMobile = window.innerWidth < 768;
+
+    /* 1. LENIS + GSAP FIX */
+    if (typeof Lenis !== 'undefined' && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      if (window._ncahLenis) { try { window._ncahLenis.destroy(); } catch(e) {} }
+      var lenis = new Lenis({ duration: 1.15, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.8 });
+      window._ncahLenis = lenis;
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      ScrollTrigger.scrollerProxy(document.documentElement, {
+        scrollTop: function(val) { if (arguments.length) lenis.scrollTo(val, { immediate: true }); return lenis.scroll; },
+        getBoundingClientRect: function() { return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight }; }
+      });
+      ScrollTrigger.addEventListener('refresh', function() { lenis.resize(); });
+      ScrollTrigger.refresh();
+    }
+
+    /* 2. GSAP ANIMATIONS */
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
+
+      /* HERO HEADLINE */
+      var heroH1 = document.getElementById('hero-headline');
+      if (heroH1 && typeof SplitText !== 'undefined') {
+        var split = new SplitText(heroH1, { type: 'words,chars' });
+        gsap.from(split.chars, { opacity: 0, y: 38, rotationX: -75, stagger: 0.022, duration: 0.85, ease: 'power4.out', delay: 0.95, onComplete: function() { split.revert(); } });
+      } else if (heroH1) {
+        gsap.from(heroH1, { opacity: 0, y: 30, duration: 1, delay: 0.9, ease: 'power3.out' });
+      }
+      gsap.from('#HSUB', { opacity: 0, y: 24, duration: 0.9, delay: 1.15, ease: 'power3.out' });
+
+      /* SECTION HEADING PARALLAX */
+      document.querySelectorAll('.ncah-section-heading, .sh').forEach(function(el) {
+        gsap.to(el, { scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.5 }, y: -28, ease: 'none' });
+      });
+
+      /* SCROLL-TRIGGERED REVEALS */
+      document.querySelectorAll('.ncah-reveal').forEach(function(el) {
+        gsap.fromTo(el, { opacity: 0, y: 40 }, { scrollTrigger: { trigger: el, start: 'top 87%', once: true }, opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' });
+      });
+
+      /* TRUST CARDS STAGGER */
+      gsap.fromTo('.ncah-trust-card', { opacity: 0, y: 36 }, { scrollTrigger: { trigger: '.ncah-trust-grid', start: 'top 83%', once: true }, opacity: 1, y: 0, stagger: 0.12, duration: 0.75, ease: 'power3.out' });
+    }
+
+    /* 3. CUSTOM CURSOR */
+    if (!isMobile && !document.getElementById('ncah-cursor')) {
+      var cur = document.createElement('div');
+      cur.id = 'ncah-cursor';
+      cur.innerHTML = '<div id="cursor-dot"></div><div id="cursor-ring"></div>';
+      document.body.appendChild(cur);
+      var dot = document.getElementById('cursor-dot');
+      var ring = document.getElementById('cursor-ring');
+      var mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+      function animateCursor() {
+        if (dot) dot.style.transform = 'translate(' + (mx - 4) + 'px,' + (my - 4) + 'px)';
+        rx += (mx - rx) * 0.11; ry += (my - ry) * 0.11;
+        if (ring) ring.style.transform = 'translate(' + (rx - 18) + 'px,' + (ry - 18) + 'px)';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+      document.querySelectorAll('a, button, [role="button"]').forEach(function(el) {
+        el.addEventListener('mouseenter', function() { cur.classList.add('cursor-active'); });
+        el.addEventListener('mouseleave', function() { cur.classList.remove('cursor-active'); });
+      });
+    }
+
+    /* 4. ACTIVITY TICKER */
+    var ticker = document.getElementById('activity-ticker');
+    if (ticker) {
+      var tickItems = [
+        'A candidate just downloaded Admin Law notes — 3 min ago',
+        'A candidate scored 78/100 on the Readiness Quiz — 9 min ago',
+        'A candidate downloaded Constitutional Law notes — 17 min ago',
+        'A candidate purchased the Complete System — 26 min ago',
+        'A candidate downloaded Criminal Law notes — 42 min ago',
+        'A candidate purchased All 5 Bundle — 55 min ago',
+        'A candidate used the AI Study Assistant — 1 hr ago'
+      ];
+      var tickIdx = 0;
+      function rotateTicker() {
+        ticker.innerHTML = '<span class="ticker-live-dot"></span><span>' + tickItems[tickIdx % tickItems.length] + '</span>';
+        tickIdx++;
+        setTimeout(rotateTicker, 5200);
+      }
+      rotateTicker();
+    }
+
+    /* 5. EXAM COUNTDOWN + URGENCY BANNER */
+    var REG_DEADLINES = {
+      'Professional Responsibility': new Date('2026-05-04'),
+      'Criminal Law': new Date('2026-05-25'),
+      'Administrative Law': new Date('2026-05-07'),
+      'Constitutional Law': new Date('2026-06-11'),
+      'Foundations': new Date('2026-06-11'),
+      'Property Law': new Date('2026-05-07')
+    };
+    function updateAllCountdowns() {
+      var now = new Date();
+      var banner = document.getElementById('ncah-urgency-banner');
+      if (banner) {
+        var upcoming = null, upDays = 999;
+        Object.keys(REG_DEADLINES).forEach(function(k) {
+          var d = REG_DEADLINES[k];
+          var days = Math.floor((d - now) / 86400000);
+          if (days > 0 && days < upDays) { upDays = days; upcoming = k; }
+        });
+        if (upcoming) {
+          banner.style.display = 'block';
+          banner.innerHTML = '⚡ ' + upcoming + ' registration closes in <strong>' + upDays + ' days</strong> — don\'t miss this session';
+          if (upDays <= 14) banner.classList.add('critical');
+        }
+      }
+      /* Cascade banner */
+      if (window.NCAH && window.NCAH.state === 'CASCADE_ARRIVAL') {
+        var cb = document.getElementById('ncah-cascade-banner');
+        if (cb) {
+          cb.classList.add('visible');
+          if (window.NCAH.cascadeFrom) {
+            var cn = document.getElementById('cascade-name');
+            if (cn) cn.textContent = window.NCAH.cascadeFrom;
+          }
+        }
+      }
+    }
+    updateAllCountdowns();
+    setInterval(updateAllCountdowns, 30000);
+
+    /* 6. SCROLL VELOCITY TRACKING */
+    var lastY = 0, lastT = Date.now(), sectionDwell = {};
+    window.addEventListener('scroll', function() {
+      var now = Date.now(), y = window.scrollY, dt = now - lastT;
+      if (dt < 10) return;
+      var vel = Math.abs(y - lastY) / dt;
+      if (vel < 0.25 && dt < 500) {
+        document.querySelectorAll('[data-section-track]').forEach(function(sec) {
+          var r = sec.getBoundingClientRect();
+          if (r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.4) {
+            var key = sec.getAttribute('data-section-track');
+            sectionDwell[key] = (sectionDwell[key] || 0) + 1;
+          }
+        });
+        var total = Object.values(sectionDwell).reduce(function(a,b){return a+b;}, 0);
+        if (total >= 8) {
+          var top = Object.keys(sectionDwell).sort(function(a,b){ return sectionDwell[b]-sectionDwell[a]; })[0];
+          document.cookie = 'ncah_interest=' + top + ';max-age=2592000;path=/';
+        }
+      }
+      lastY = y; lastT = now;
+    }, { passive: true });
+
+    /* 7. STATE UI TWEAKS */
+    if (window.NCAH) {
+      if (window.NCAH.state === 'POST_PURCHASE') {
+        var primaryBtn = document.querySelector('.bp');
+        if (primaryBtn && primaryBtn.textContent.toLowerCase().includes('score')) {
+          primaryBtn.innerHTML = '<span>Share Your Result →</span>';
+          primaryBtn.href = '/nca-passes/';
+        }
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMotion);
+  } else {
+    initMotion();
+  }
+})();
+</script>
+
 </body>
 </html>
