@@ -1,0 +1,252 @@
+[
+  {
+    "name": "Pace Law Firm",
+    "city": "Toronto",
+    "practiceAreas": ["immigration", "family", "real-estate", "wills-estates"],
+    "size": "medium",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Hindi", "Urdu", "Punjabi"],
+    "website": "https://www.pacelawfirm.com",
+    "careersUrl": "https://www.pacelawfirm.com/careers"
+  },
+  {
+    "name": "Desloges Law Group",
+    "city": "Toronto",
+    "practiceAreas": ["immigration"],
+    "size": "medium",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French", "Spanish", "Portuguese", "Mandarin"],
+    "website": "https://www.desloges.ca",
+    "careersUrl": "https://www.desloges.ca/careers"
+  },
+  {
+    "name": "Battiston Law",
+    "city": "Toronto",
+    "practiceAreas": ["immigration"],
+    "size": "medium",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Italian", "Spanish", "Tagalog"],
+    "website": "https://www.battistonlaw.com",
+    "careersUrl": "https://www.battistonlaw.com/careers"
+  },
+  {
+    "name": "Green and Spiegel LLP",
+    "city": "Toronto",
+    "practiceAreas": ["immigration", "corporate"],
+    "size": "medium",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French", "Mandarin", "Cantonese", "Korean"],
+    "website": "https://www.gands.com",
+    "careersUrl": "https://www.gands.com/careers"
+  },
+  {
+    "name": "Sharma Law Office",
+    "city": "Brampton",
+    "practiceAreas": ["immigration", "family", "real-estate"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Hindi", "Punjabi"],
+    "website": "https://www.sharmalawoffice.ca",
+    "careersUrl": "https://www.sharmalawoffice.ca/careers"
+  },
+  {
+    "name": "Topmarké Attorneys",
+    "city": "Toronto",
+    "practiceAreas": ["immigration", "corporate", "real-estate"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Yoruba", "Igbo", "French"],
+    "website": "https://www.topmarke.ca",
+    "careersUrl": "https://www.topmarke.ca/contact"
+  },
+  {
+    "name": "Omoluabi Law",
+    "city": "Toronto",
+    "practiceAreas": ["immigration", "family", "corporate"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Yoruba"],
+    "website": "https://www.omoluabilaw.com",
+    "careersUrl": "https://www.omoluabilaw.com/contact"
+  },
+  {
+    "name": "Borden Ladner Gervais LLP",
+    "city": "Toronto",
+    "practiceAreas": ["corporate", "litigation", "employment", "immigration"],
+    "size": "large",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French"],
+    "website": "https://www.blg.com",
+    "careersUrl": "https://www.blg.com/en/careers"
+  },
+  {
+    "name": "Dentons Canada LLP",
+    "city": "Toronto",
+    "practiceAreas": ["corporate", "litigation", "immigration", "employment"],
+    "size": "large",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French", "Mandarin", "Hindi"],
+    "website": "https://www.dentons.com",
+    "careersUrl": "https://www.dentons.com/en/careers"
+  },
+  {
+    "name": "Gardiner Roberts LLP",
+    "city": "Toronto",
+    "practiceAreas": ["corporate", "litigation", "real-estate", "wills-estates"],
+    "size": "large",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French", "Mandarin"],
+    "website": "https://www.gardiner-roberts.com",
+    "careersUrl": "https://www.gardiner-roberts.com/careers"
+  },
+  {
+    "name": "Ravi Jain & Associates",
+    "city": "Toronto",
+    "practiceAreas": ["immigration"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Hindi", "Gujarati"],
+    "website": "https://www.rjalaw.ca",
+    "careersUrl": "https://www.rjalaw.ca/contact"
+  },
+  {
+    "name": "Williams Legal",
+    "city": "Toronto",
+    "practiceAreas": ["criminal", "family", "immigration"],
+    "size": "small",
+    "itlHireHistory": "unknown",
+    "languages": ["English", "Patois", "French"],
+    "website": "https://www.williamslegal.ca",
+    "careersUrl": "https://www.williamslegal.ca/careers"
+  },
+  {
+    "name": "Prouse Dash Crouch LLP",
+    "city": "Ottawa",
+    "practiceAreas": ["family", "litigation", "real-estate", "wills-estates"],
+    "size": "medium",
+    "itlHireHistory": "unknown",
+    "languages": ["English", "French"],
+    "website": "https://www.prousedashcrouch.com",
+    "careersUrl": "https://www.prousedashcrouch.com/careers"
+  },
+  {
+    "name": "Kitchener Legal Services",
+    "city": "Kitchener",
+    "practiceAreas": ["family", "criminal", "real-estate", "general"],
+    "size": "small",
+    "itlHireHistory": "unknown",
+    "languages": ["English", "Arabic", "Urdu"],
+    "website": "https://www.kitchenerlegalservices.ca",
+    "careersUrl": "https://www.kitchenerlegalservices.ca/contact"
+  },
+  {
+    "name": "Malik & Associates",
+    "city": "Mississauga",
+    "practiceAreas": ["immigration", "real-estate", "family"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Urdu", "Hindi", "Punjabi"],
+    "website": "https://www.maliklaw.ca",
+    "careersUrl": "https://www.maliklaw.ca/contact"
+  },
+  {
+    "name": "Niren & Associates",
+    "city": "Toronto",
+    "practiceAreas": ["immigration"],
+    "size": "medium",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Hindi", "Tagalog", "Spanish"],
+    "website": "https://www.nirenlaw.com",
+    "careersUrl": "https://www.nirenlaw.com/careers"
+  },
+  {
+    "name": "Hamilton Family Law Group",
+    "city": "Hamilton",
+    "practiceAreas": ["family", "general"],
+    "size": "small",
+    "itlHireHistory": "unknown",
+    "languages": ["English", "Arabic"],
+    "website": "https://www.hamiltonfamilylawgroup.ca",
+    "careersUrl": "https://www.hamiltonfamilylawgroup.ca/contact"
+  },
+  {
+    "name": "Gerami Law PC",
+    "city": "Ottawa",
+    "practiceAreas": ["immigration", "litigation"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French", "Farsi", "Arabic"],
+    "website": "https://www.geramilaw.com",
+    "careersUrl": "https://www.geramilaw.com/careers"
+  },
+  {
+    "name": "Lakeshore Law LLP",
+    "city": "Toronto",
+    "practiceAreas": ["personal-injury", "litigation", "employment"],
+    "size": "medium",
+    "itlHireHistory": "unknown",
+    "languages": ["English", "Hindi", "Tamil"],
+    "website": "https://www.lakeshorelaw.ca",
+    "careersUrl": "https://www.lakeshorelaw.ca/contact"
+  },
+  {
+    "name": "Nanda & Associate Lawyers",
+    "city": "Mississauga",
+    "practiceAreas": ["real-estate", "corporate", "immigration", "family"],
+    "size": "medium",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Hindi", "Punjabi", "Urdu"],
+    "website": "https://www.nandalaw.com",
+    "careersUrl": "https://www.nandalaw.com/careers"
+  },
+  {
+    "name": "Edwards & Company",
+    "city": "London",
+    "practiceAreas": ["criminal", "family", "litigation"],
+    "size": "small",
+    "itlHireHistory": "unknown",
+    "languages": ["English"],
+    "website": "https://www.edwardsandco.ca",
+    "careersUrl": "https://www.edwardsandco.ca/careers"
+  },
+  {
+    "name": "Patel Law Professional Corporation",
+    "city": "Toronto",
+    "practiceAreas": ["real-estate", "corporate", "wills-estates"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Hindi", "Gujarati"],
+    "website": "https://www.patellaw.ca",
+    "careersUrl": "https://www.patellaw.ca/contact"
+  },
+  {
+    "name": "Warda Legal",
+    "city": "Windsor",
+    "practiceAreas": ["immigration", "family", "real-estate"],
+    "size": "small",
+    "itlHireHistory": "unknown",
+    "languages": ["English", "Arabic", "French"],
+    "website": "https://www.wardalegal.ca",
+    "careersUrl": "https://www.wardalegal.ca/contact"
+  },
+  {
+    "name": "Caribbean Legal Solutions",
+    "city": "Toronto",
+    "practiceAreas": ["immigration", "family", "criminal"],
+    "size": "small",
+    "itlHireHistory": "yes",
+    "languages": ["English", "Patois", "French", "Spanish"],
+    "website": "https://www.caribbeanlegal.ca",
+    "careersUrl": "https://www.caribbeanlegal.ca/contact"
+  },
+  {
+    "name": "Dickinson Wright LLP",
+    "city": "Toronto",
+    "practiceAreas": ["corporate", "litigation", "employment", "real-estate"],
+    "size": "large",
+    "itlHireHistory": "yes",
+    "languages": ["English", "French"],
+    "website": "https://www.dickinsonwright.com",
+    "careersUrl": "https://www.dickinsonwright.com/careers"
+  }
+]
