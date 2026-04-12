@@ -1361,6 +1361,10 @@ select:focus-visible {
 
 /* Split-heading characters — always readable; animation is additive */
 .char{opacity:1;transform:none;}
+/* Characters inside em (italic) elements in split headings — force visible.
+   GSAP stagger can delay em chars; this CSS baseline prevents them showing blurred. */
+em .char{opacity:1;transform:none;}
+.sh em,.story-ch-head em,.ch em,.hh1 em{color:var(--g1);font-style:italic;}
 /* Word overflow must be visible so no char is ever clipped */
 .word{overflow:visible!important;}
 
@@ -1407,6 +1411,11 @@ select:focus-visible {
 
 /* Timeline / journey chapter body text (one-week-to-prepare, certificate) */
 .story-ch-body,.story-ch-body p,.story-ch p{opacity:1!important;color:var(--fog)!important;}
+
+/* Testimonial section — text is dark on gold background, must always be readable */
+.prq,.prw{opacity:1;}
+/* em chars inside story-ch-head: guarantee visible at all times */
+.story-ch-head em .char,.sh em .char,.ch em .char{opacity:1;}
 </style>
 </head>
 <body>
@@ -2778,31 +2787,31 @@ if(!REDUCED && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefine
     var chars = heading.querySelectorAll('.char');
     if(chars.length === 0) return;
 
-    /* Animate from slightly faded/shifted to fully visible — chars start readable */
+    /* Animate from invisible to fully visible — stagger is tiny so em chars aren't delayed */
     ScrollTrigger.create({
       trigger: heading,
       start: 'top 95%',
       once: true,
       onEnter: function(){
         gsap.fromTo(chars,
-          {y:'8%', opacity:0.15},
-          {y:'0%', opacity:1, duration:0.9, stagger:0.015, ease:'power3.out'}
+          {y:'6%', opacity:0},
+          {y:'0%', opacity:1, duration:0.7, stagger:0.004, ease:'power3.out'}
         );
       }
     });
   });
 
-  /* Safety net: any char still below full opacity 1.5s after load reveals instantly */
+  /* Safety net: any char still invisible 900ms after load reveals instantly */
   setTimeout(function(){
     document.querySelectorAll('.char').forEach(function(c){
       var op = parseFloat(window.getComputedStyle(c).opacity);
-      if(op < 0.5){
-        c.style.transition = 'opacity 0.4s, transform 0.4s';
+      if(op < 0.9){
+        c.style.transition = 'opacity 0.3s, transform 0.3s';
         c.style.transform = 'none';
         c.style.opacity = '1';
       }
     });
-  }, 1500);
+  }, 900);
 }
 
 /* ═══════════════════════════════════════════════
