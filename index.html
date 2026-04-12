@@ -1645,6 +1645,10 @@ em .char{opacity:1;transform:none;}
             <span class="subj-name">Evidence Law</span>
             <span class="subj-hint">Admissibility, hearsay principled approach, Charter exclusion (s.24(2))</span>
           </button>
+          <button class="subj-btn" data-subj="property">
+            <span class="subj-name">Property Law</span>
+            <span class="subj-hint">Torrens system, estates in land, co-ownership, easements, mortgages, priorities</span>
+          </button>
         </div>
         <div class="rq-nav" style="margin-top:20px;">
           <button class="btn-rq-next" id="rq-btn-subj-next">Continue →</button>
@@ -3080,10 +3084,39 @@ var rqKnowledgeQ={
         {label:'The evidence is admissible to test credibility, as prior convictions are always available for cross-examination',pts:5,fb:'Prior convictions can be used in cross-examination to challenge credibility (Canada Evidence Act s.12), but only if the accused testifies. This question concerns Crown evidence in chief before any testimony. The credibility use is distinct from the propensity use, and neither applies in the case-in-chief without the accused testifying.',tag:'Character evidence — credibility vs propensity'}
       ]
     }
+  ],
+  property:[
+    {
+      q:'A purchaser buys a house registered under the Torrens system. After settlement, a third party emerges claiming an unregistered equitable interest. Under the principle of indefeasibility, the purchaser\'s title is:',
+      opts:[
+        {label:'Automatically void — the third party\'s prior equitable interest takes priority over any subsequent registered interest',pts:0,fb:'Incorrect. The Torrens system exists specifically to protect registered title holders. Under indefeasibility, the registered proprietor\'s title is not automatically defeated by prior unregistered interests. The whole purpose of the system is to make the register conclusive.',tag:'Torrens indefeasibility'},
+        {label:'Protected under indefeasibility — the registered proprietor holds title free from unregistered interests, subject only to statutory exceptions such as fraud',pts:20,fb:'Correct. The Torrens system provides that registration confers indefeasible title. The registered proprietor takes free from prior unregistered equitable interests unless a statutory exception applies — most importantly, actual fraud by the registered proprietor. This is the foundational principle that distinguishes Torrens from the common law deed registration system.',tag:'Torrens indefeasibility'},
+        {label:'Subject to the nemo dat rule — the purchaser cannot acquire better title than the vendor had',pts:5,fb:'The nemo dat rule applies in unregistered land systems. The Torrens system deliberately overrides nemo dat through indefeasibility — that is the system\'s central innovation. A registered purchaser can acquire better title than the vendor had, which is what makes the register conclusive.',tag:'Torrens indefeasibility vs nemo dat'},
+        {label:'Dependent on whether the purchaser conducted a title search — due diligence determines priority',pts:0,fb:'Incorrect. Under the Torrens system, the register itself is conclusive. While a title search is prudent, indefeasibility does not depend on due diligence. The registered proprietor\'s title is protected by the fact of registration, not by the quality of their pre-purchase investigation.',tag:'Torrens indefeasibility'}
+      ]
+    },
+    {
+      q:'Two sisters own a property as joint tenants. One sister, without the other\'s knowledge, sells her interest to a third party. The effect on the co-ownership is:',
+      opts:[
+        {label:'The sale is void — a joint tenant cannot unilaterally dispose of their interest without the other joint tenant\'s consent',pts:0,fb:'Incorrect. A joint tenant can unilaterally alienate their interest. This is one of the key differences between joint tenancy and other forms of co-ownership. The right of alienation exists even though it destroys the joint tenancy.',tag:'Co-ownership — severance by alienation'},
+        {label:'The sale severs the joint tenancy — the third-party purchaser holds as tenant in common with the remaining sister, and the right of survivorship no longer applies between them',pts:20,fb:'Correct. Under Williams v Hensman, a unilateral sale of a joint tenant\'s interest severs the joint tenancy. The purchaser becomes a tenant in common with the remaining sister. The four unities (time, title, interest, possession) are broken, destroying the right of survivorship. This is one of the three methods of severance from Williams v Hensman: acting on one\'s own share.',tag:'Co-ownership — severance by alienation'},
+        {label:'The joint tenancy continues — the purchaser steps into the selling sister\'s position as joint tenant with all the same rights including survivorship',pts:0,fb:'Incorrect. A purchaser from a joint tenant does not become a joint tenant. The unities of time and title are broken because the purchaser acquired their interest at a different time and through a different instrument than the original joint tenancy. The result is a tenancy in common.',tag:'Co-ownership — four unities'},
+        {label:'The sale triggers an automatic partition — the court divides the property into separate lots',pts:0,fb:'Incorrect. Severance and partition are different concepts. Severance converts joint tenancy to tenancy in common, but the co-owners continue to hold the whole property together. Partition requires a court order or agreement and results in physical or notional division of the property itself.',tag:'Co-ownership — severance vs partition'}
+      ]
+    },
+    {
+      q:'A landowner grants a neighbour "the right to cross my field to reach the river." The neighbour claims this creates an easement. For the right to qualify as an easement, the four requirements from Re Ellenborough Park are:',
+      opts:[
+        {label:'The right must be in writing, registered, for a fixed term, and supported by consideration',pts:0,fb:'Incorrect. These are requirements for certain types of contracts or interests in land, not the characteristics of an easement. Re Ellenborough Park established four substantive characteristics that define what can be an easement — they are about the nature of the right, not formalities of creation.',tag:'Easements — Re Ellenborough Park'},
+        {label:'There must be a dominant and servient tenement, the right must accommodate the dominant tenement, the dominant and servient owners must be different persons, and the right must be capable of forming the subject matter of a grant',pts:20,fb:'Correct. Re Ellenborough Park [1956] established these four characteristics. All four must be satisfied. The requirement that the right "accommodate" the dominant tenement means it must benefit the land itself, not merely the current owner personally. The "capable of grant" requirement excludes vague or purely personal rights.',tag:'Easements — Re Ellenborough Park'},
+        {label:'The right must benefit both properties, be exercised continuously, have been used for 20 years, and be necessary for the enjoyment of the dominant tenement',pts:5,fb:'This conflates the characteristics of an easement with the requirements for prescriptive easements. The 20-year period and continuous use relate to acquisition by prescription, not to the definition of an easement. An easement can be expressly granted without any prior use.',tag:'Easements — characteristics vs prescription'},
+        {label:'The parties must intend to create an easement, the right must be negative in nature, the servient land must be adjacent, and the right must be permanent',pts:0,fb:'Incorrect. Easements can be positive (right to cross land) or negative (right to light). Adjacency is not required — the dominant and servient tenements need not be physically touching, though they must be sufficiently proximate for the right to accommodate the dominant tenement. An easement need not be permanent; it can be for a fixed term.',tag:'Easements — Re Ellenborough Park'}
+      ]
+    }
   ]
 };
 
-var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility',contract:'Contract Law',family:'Family Law',evidence:'Evidence Law'};
+var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility',contract:'Contract Law',family:'Family Law',evidence:'Evidence Law',property:'Property Law'};
 
 /* ── PROGRESS HELPER ── */
 function rqUpdateProgress(stepNum){
@@ -3358,7 +3391,8 @@ function getDaysToNextExam(subject){
     'Foundations of Canadian Law':[new Date('2026-04-07'),new Date('2026-07-14')],
     'Contract Law':[new Date('2026-05-19'),new Date('2026-08-18')],
     'Family Law':[new Date('2026-06-09'),new Date('2026-09-08')],
-    'Evidence Law':[new Date('2026-05-26'),new Date('2026-08-25')]
+    'Evidence Law':[new Date('2026-05-26'),new Date('2026-08-25')],
+    'Property Law':[new Date('2026-06-01'),new Date('2026-08-31')]
   };
   var dates=examDates[subject];
   if(!dates)return null;
@@ -3393,7 +3427,8 @@ function showFollowThrough(score, subject){
     'Constitutional Law':'/notes/constitutional-law/',
     'Criminal Law':'/notes/criminal-law/',
     'Foundations of Canadian Law':'/notes/foundations-of-canadian-law/',
-    'Professional Responsibility':'/notes/professional-responsibility/'
+    'Professional Responsibility':'/notes/professional-responsibility/',
+    'Property Law':'/notes/property/'
   };
   var noteUrl=subjectSlugMap[subject]||'/notes/';
   var headline, links;

@@ -135,6 +135,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:40px 72px;display:flex;
           <button class="subj-btn" data-subj="contract"><span class="subj-name">Contract Law</span><span class="subj-hint">Formation, terms, breach, remedies, Hong Kong Fir distinction</span></button>
           <button class="subj-btn" data-subj="family"><span class="subj-name">Family Law</span><span class="subj-hint">Divorce Act, spousal support (SSAG), child support, property division</span></button>
           <button class="subj-btn" data-subj="evidence"><span class="subj-name">Evidence Law</span><span class="subj-hint">Admissibility, hearsay principled approach, Charter exclusion (s.24(2))</span></button>
+          <button class="subj-btn" data-subj="property"><span class="subj-name">Property Law</span><span class="subj-hint">Torrens system, estates in land, co-ownership, easements, mortgages, priorities</span></button>
         </div>
         <div style="margin-top:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
           <button class="btn-rq-next" id="rq-btn-subj-next" disabled style="opacity:.4;cursor:not-allowed">Begin Assessment →</button>
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var NAMES = {
     admin:'Administrative Law', crim:'Criminal Law',
     con:'Constitutional Law', fcl:'Foundations of Canadian Law', pr:'Professional Responsibility',
-    contract:'Contract Law', family:'Family Law', evidence:'Evidence Law'
+    contract:'Contract Law', family:'Family Law', evidence:'Evidence Law', property:'Property Law'
   };
 
   function selectSubj(btn) {
