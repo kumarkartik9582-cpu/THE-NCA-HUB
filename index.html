@@ -245,6 +245,8 @@
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="dns-prefetch" href="https://payhip.com">
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://formspree.io">
 <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -1419,6 +1421,30 @@ em .char{opacity:1;transform:none;}
 </style>
 </head>
 <body>
+<script>
+// NCA HUB — VISITOR STATE MACHINE
+(function() {
+  var cookie = function(name) { return (document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)') || []).pop() || ''; };
+  var params = new URLSearchParams(window.location.search);
+  var visitCount = parseInt(cookie('ncah_visits') || '0') + 1;
+  var hasEmail = cookie('ncah_email') === '1';
+  var hasPurchased = cookie('ncah_purchased') === '1';
+  var examDaysOut = parseInt(cookie('ncah_exam_days') || params.get('days') || '90');
+  var isCascadeReferral = params.get('ref') === 'share' || params.get('utm_source') === 'cascade';
+  var cascadeFrom = params.get('from') || '';
+  var quizScore = parseInt(cookie('ncah_quiz_score') || '0');
+  var visitorState;
+  if (hasPurchased) { visitorState = 'POST_PURCHASE'; }
+  else if (isCascadeReferral) { visitorState = 'CASCADE_ARRIVAL'; }
+  else if (examDaysOut <= 30 || quizScore > 0) { visitorState = 'NEAR_DEADLINE'; }
+  else if (visitCount > 1 || hasEmail) { visitorState = 'RESEARCH_MODE'; }
+  else { visitorState = 'NEWCOMER'; }
+  document.cookie = 'ncah_visits=' + visitCount + ';max-age=31536000;path=/';
+  if (params.get('days')) { document.cookie = 'ncah_exam_days=' + params.get('days') + ';max-age=2592000;path=/'; }
+  window.NCAH = { state: visitorState, examDays: examDaysOut, quizScore: quizScore, cascadeFrom: cascadeFrom, visitCount: visitCount, isMobile: window.innerWidth < 768 };
+  document.documentElement.setAttribute('data-visitor-state', visitorState.toLowerCase().replace('_', '-'));
+})();
+</script>
 <a href="#main-content" class="nca-skip-nav">Skip to main content</a>
 
 <!-- AI Crawler Context — invisible to visitors, read by ChatGPT/Claude/Perplexity/Gemini -->
@@ -4729,6 +4755,74 @@ if('serviceWorker' in navigator){
     }
   });
 }
+</script>
+<!-- SCROLL PROGRESS BAR -->
+<div id="scroll-progress" style="position:fixed;top:0;left:0;height:2px;background:#C9A84C;z-index:9999;width:0%;transition:width 0.1s;pointer-events:none;"></div>
+
+<!-- MOBILE STICKY BUY BAR -->
+<div id="mobile-buy-bar" role="complementary" aria-label="Quick purchase">
+  <div style="display:flex;align-items:center;justify-content:space-between;max-width:500px;margin:0 auto;">
+    <div>
+      <span style="display:block;font-size:14px;color:#fff;">NCA Notes</span>
+      <span style="display:block;font-size:12px;color:#C9A84C;">from $149 CAD</span>
+    </div>
+    <a href="/notes/" style="display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D4A843,#C9A84C,#B8952D);color:#020204;font-weight:700;font-size:13px;padding:10px 20px;text-decoration:none;letter-spacing:.03em;">Get Notes &rarr;</a>
+  </div>
+</div>
+<style>
+#mobile-buy-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(2,2,4,.97);border-top:1px solid rgba(201,168,76,.3);padding:12px 20px;z-index:990;transform:translateY(100%);transition:transform .3s ease;}
+#mobile-buy-bar.visible{transform:translateY(0);}
+@media(max-width:768px){#mobile-buy-bar{display:block;}}
+</style>
+
+<script>
+// SCROLL PROGRESS + MOBILE BUY BAR
+(function(){
+  function onScroll(){
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    var bar = document.getElementById('scroll-progress');
+    if(bar) bar.style.width = progress + '%';
+    var buyBar = document.getElementById('mobile-buy-bar');
+    if(buyBar) buyBar.classList.toggle('visible', progress > 50);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+
+// STATE-ADAPTIVE HEADLINE VARIANTS
+(function(){
+  var headlines = {
+    NEWCOMER: {
+      h1: '<span class="lm"><span class="li">Pass the NCA.</span></span><span class="lm"><span class="li">Not in <em>years.</em></span></span><span class="lm"><span class="li">This <em>cycle.</em></span></span>',
+      sub: 'Under 80 pages per subject. Answer templates. Practice questions. Built by a lawyer who passed all 5 NCA exams \u2014 the first with 7 days to prepare.'
+    },
+    RESEARCH_MODE: {
+      h1: '<span class="lm"><span class="li">Still deciding?</span></span><span class="lm"><span class="li">Here\u2019s what <em>changed</em></span></span><span class="lm"><span class="li">for candidates who <em>passed.</em></span></span>',
+      sub: 'You\u2019ve visited before. The candidates who pass their NCA exams study with structure. Under 80 pages. Answer templates. A system that works in an open-book exam.'
+    },
+    NEAR_DEADLINE: {
+      h1: '<span class="lm"><span class="li">Your exam is <em>close.</em></span></span><span class="lm"><span class="li">Here\u2019s exactly</span></span><span class="lm"><span class="li">what you need. <em>Now.</em></span></span>',
+      sub: 'Under 30 days is enough time if you use the right structure. Instant download. Open and start immediately. Answer templates ready for exam day.'
+    },
+    CASCADE_ARRIVAL: {
+      h1: '<span class="lm"><span class="li">Your colleague</span></span><span class="lm"><span class="li">used this to <em>pass.</em></span></span><span class="lm"><span class="li">Here\u2019s what they <em>used.</em></span></span>',
+      sub: 'They passed their NCA exam using these notes. The same structured approach, the same answer templates, the same system. Now it\u2019s your turn.'
+    },
+    POST_PURCHASE: {
+      h1: '<span class="lm"><span class="li">Welcome to the</span></span><span class="lm"><span class="li">NCA Hub <em>community.</em></span></span><span class="lm"><span class="li">Share your <em>result.</em></span></span>',
+      sub: 'You are now studying with the notes that have helped candidates across 12+ countries. When you pass your exam, submit your result to the success wall.'
+    }
+  };
+  var state = window.NCAH && window.NCAH.state;
+  if(!state || state === 'NEWCOMER') return; // Default headline already shown
+  var variant = headlines[state];
+  if(!variant) return;
+  var h1 = document.getElementById('hero-headline');
+  var sub = document.getElementById('HSUB');
+  if(h1 && variant.h1) h1.innerHTML = variant.h1;
+  if(sub && variant.sub) sub.textContent = variant.sub;
+})();
 </script>
 <script src="/nca-world-class.js?v=20260330" defer></script>
 </body>
