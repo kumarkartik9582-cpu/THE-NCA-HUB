@@ -423,7 +423,7 @@ function buildHTML({ slug, title, description, cluster, clusterLabel, readTime, 
         "name": "Kartik Kumar",
         "url": "https://www.thencahub.com/about/",
         "jobTitle": "Founder, The NCA Hub",
-        "description": "Indian-qualified lawyer who built his career at UK law firms DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects and completed CPLED LRW — 4 subjects cleared in under 3 months, with one week to prepare for the first. Certificate of Qualification requested."
+        "description": "Indian-qualified lawyer who built his career at UK law firms DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects and completed CPLED LRW — 4 subjects cleared in under 3 months, with one week to prepare for the first. Certificate of Qualification — received."
       },
       "publisher": {
         "@type": "Organization",

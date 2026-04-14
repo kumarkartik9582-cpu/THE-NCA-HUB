@@ -67,7 +67,7 @@
     "@type": "Person",
     "name": "Kartik Kumar",
     "jobTitle": "Founder",
-    "description": "India-qualified lawyer. Career at UK law firms: DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects — 4 cleared in under 3 months. Certificate of Qualification requested.",
+    "description": "India-qualified lawyer. Career at UK law firms: DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects — 4 cleared in under 3 months. Certificate of Qualification — received.",
     "alumniOf": [
       { "@type": "Organization", "name": "DWF" },
       { "@type": "Organization", "name": "Eversheds Sutherland" },
@@ -169,7 +169,7 @@
   "name": "Kartik Kumar",
   "url": "https://www.thencahub.com/about/",
   "jobTitle": "Founder, The NCA Hub",
-  "description": "India-qualified lawyer with a UK law firm career at DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects and completed CPLED LRW. Passed 4 NCA subjects in under 3 months — one week to prepare for the first. Certificate of Qualification requested. Founder of The NCA Hub.",
+  "description": "India-qualified lawyer with a UK law firm career at DWF, Eversheds Sutherland, and Keoghs. Passed all 5 NCA subjects and completed CPLED LRW. Passed 4 NCA subjects in under 3 months — one week to prepare for the first. Certificate of Qualification — received. Founder of The NCA Hub.",
   "knowsAbout": [
     "NCA Exam Preparation",
     "Canadian Law",
@@ -308,9 +308,15 @@ body{
 
 /* Split text character spans */
 .char{display:inline-block;will-change:transform,opacity;transform-origin:center bottom;}
-.word{display:inline-block;overflow:hidden;}
-.line{display:block;overflow:hidden;}
+.word{display:inline-block;overflow:visible;}
+.line{display:block;overflow:visible;}
 
+/* Global heading overflow safety — no heading may be clipped */
+h1,h2,h3,h4,h5,h6{overflow:visible!important;clip-path:none!important;}
+/* Sections must not clip their heading children */
+section,.sec,.story-chapter,.msc,.pods-sec,.csc,.subsc,.sampl,.fqsc,.readiness-sec{overflow:visible;}
+/* Only clip things that are meant to scroll or are visual effects */
+.tb,.ticker-container,.overflow-scroll{overflow:hidden;}
 h1,h2,h3{font-family:var(--fd)}
 a{text-decoration:none;color:inherit}
 button{font-family:var(--fb);border:none;background:none;cursor:pointer}
@@ -321,7 +327,7 @@ ul{list-style:none}
 .seo-h1{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;font-size:1px;color:transparent;}
 
 /* DISCOVERY BAR */
-#discovery-bar{position:fixed;top:0;inset-x:0;z-index:9050;height:28px;background:rgba(4,3,6,0.96);border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:center;justify-content:center;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);transition:transform .5s var(--expo);}
+#discovery-bar{position:fixed;top:0;inset-x:0;z-index:90;height:28px;background:rgba(4,3,6,0.96);border-bottom:1px solid rgba(201,168,76,0.07);display:flex;align-items:center;justify-content:center;font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);transition:transform .5s var(--expo);}
 #discovery-bar span{color:rgba(201,168,76,.45)}
 #discovery-bar.hidden{transform:translateY(-100%)}
 
@@ -330,17 +336,17 @@ ul{list-style:none}
 #vignette{position:fixed;inset:0;pointer-events:none;z-index:996;background:radial-gradient(ellipse 70% 60% at 50% 40%,transparent 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.5) 100%);opacity:0;}
 #pg-border{position:fixed;inset:4px;border:1px solid rgba(201,168,76,0);pointer-events:none;z-index:995;}
 #ambient-cv{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:1;}
-#trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996;}
-#ink-cv{position:fixed;inset:0;pointer-events:none;z-index:9995;opacity:0.8;}
+#trail-cv{position:fixed;inset:0;pointer-events:none;z-index:10;}
+#ink-cv{position:fixed;inset:0;pointer-events:none;z-index:10;opacity:0.8;}
 #exam-clock{position:fixed;top:50%;right:28px;transform:translateY(-50%);font-size:.46rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,168,76,.18);font-family:var(--fb);font-weight:400;writing-mode:vertical-rl;pointer-events:none;z-index:800;opacity:0;transition:opacity 1s;}
 #reading-time{position:fixed;bottom:26px;right:28px;z-index:800;font-size:.46rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:400;opacity:0;transition:opacity 1s;}
 
 /* PROGRESS */
-#prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:9050;width:0;transform-origin:left}
+#prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g0));z-index:50;width:0;transform-origin:left}
 
 /* CURSOR */
-#cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
-#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
+#cd{position:fixed;width:5px;height:5px;background:var(--g1);border-radius:50%;pointer-events:none;z-index:300;transform:translate(-50%,-50%);transition:transform .12s,opacity .2s}
+#cr{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.38);border-radius:50%;pointer-events:none;z-index:300;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;transition:width .4s var(--expo),height .4s var(--expo),border-color .3s,background .3s}
 #cl{font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g1);opacity:0;white-space:nowrap;transition:opacity .2s;font-family:var(--fb);font-weight:700}
 #cr.h{width:78px;height:78px;border-color:var(--g1);background:rgba(201,168,76,.04)}
 #cr.h #cl{opacity:1}
@@ -352,13 +358,13 @@ ul{list-style:none}
 
 
 /* CINEMATIC LETTERBOX */
-.letterbox{position:fixed;left:0;right:0;height:0;background:#000;z-index:9000;pointer-events:none;transition:height .6s var(--expo);}
+.letterbox{position:fixed;left:0;right:0;height:0;background:#000;z-index:150;pointer-events:none;transition:height .6s var(--expo);}
 .letterbox.top{top:0;}
 .letterbox.bottom{bottom:0;}
 .letterbox.active{height:40px;}
 
 /* PRELOADER */
-#pre{position:fixed;inset:0;z-index:9999;pointer-events:all}
+#pre{position:fixed;inset:0;z-index:400;pointer-events:all}
 .pre-half{position:absolute;left:0;right:0;background:var(--void);z-index:2}
 .pre-half.top{top:0;height:50%}.pre-half.bot{bottom:0;height:50%}
 .pre-content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
@@ -369,21 +375,21 @@ ul{list-style:none}
 .pre-s{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:var(--dim);opacity:0}
 
 /* NAV */
-.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:9200;flex-shrink:0;}
+.nh{position:relative;width:44px;height:44px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px;z-index:150;flex-shrink:0;}
 @media(max-width:960px){.nh{display:flex;}}
 .nh span{display:block;width:24px;height:1.5px;background:var(--cream);transform-origin:center;transition:transform .4s ease,opacity .3s,background .3s;}
 .nh span:nth-child(2){width:16px;}
 .nh.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--g1);}
 .nh.open span:nth-child(2){opacity:0;}
 .nh.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--g1);}
-#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:9100;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto;}
+#mob-overlay{position:fixed;inset:0;background:rgba(2,2,4,.97);z-index:200;display:none;flex-direction:column;justify-content:center;padding:70px 48px 48px;overflow-y:auto;}
 #mob-overlay.open{display:flex;}
 #mob-overlay a{display:block;font-family:var(--fd);font-size:clamp(1.4rem,5vw,2rem);font-weight:300;color:var(--fog);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.07);transition:color .3s;}
 #mob-overlay a.mob-cta-link{color:var(--g1);}
 #mob-overlay a:hover{color:var(--cream);}
 .mob-shop-btn{display:inline-flex!important;align-items:center;margin-top:28px;background:var(--g1)!important;color:var(--void)!important;padding:14px 36px;font-family:var(--fb)!important;font-size:.82rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;align-self:flex-start;border:none!important;}
 #mob-close{position:absolute;top:22px;right:24px;background:none;border:none;color:var(--g1);font-size:1.3rem;cursor:pointer;padding:8px;z-index:1;}
-nav{position:fixed;top:28px;inset-x:0;z-index:800;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
+nav{position:fixed;top:28px;inset-x:0;z-index:100;padding:32px 72px;display:flex;align-items:center;justify-content:space-between;transition:padding .5s var(--expo),background .5s,border-color .5s,top .4s;border-bottom:1px solid transparent}
 nav.sc{background:rgba(2,2,4,.94);backdrop-filter:blur(40px) saturate(180%);padding:14px 72px;border-color:rgba(201,168,76,.1)}
 nav.disc-gone{top:0}
 .nl{font-family:var(--fd);font-size:1.1rem;font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:var(--g1);line-height:1;flex-shrink:0;margin-right:auto}
@@ -905,7 +911,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .f-disc strong{color:rgba(201,168,76,.4);font-style:normal;font-family:var(--fb);font-weight:400;letter-spacing:.1em}
 
 /* EXIT PANEL */
-#ep{position:fixed;bottom:-120%;left:50%;transform:translateX(-50%);width:min(520px,90vw);background:var(--surf);border:1px solid rgba(201,168,76,.2);border-bottom:none;padding:40px 48px;z-index:9000;transition:bottom .65s var(--expo);box-shadow:0 -24px 80px rgba(0,0,0,.7)}
+#ep{position:fixed;bottom:-120%;left:50%;transform:translateX(-50%);width:min(520px,90vw);background:var(--surf);border:1px solid rgba(201,168,76,.2);border-bottom:none;padding:40px 48px;z-index:175;transition:bottom .65s var(--expo);box-shadow:0 -24px 80px rgba(0,0,0,.7)}
 @media(max-width:960px){#ep{display:none!important;}}
 #ep.on{bottom:0}
 #ep::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent)}
@@ -944,7 +950,7 @@ footer{background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:
 .morph-orb{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;transition:transform .8s cubic-bezier(.16,1,.3,1),width .8s,height .8s}
 
 /* GOLD FLASH on preloader complete */
-.gold-flash{position:fixed;inset:0;background:var(--g1);pointer-events:none;z-index:9990;animation:goldFlash .8s ease-out forwards}
+.gold-flash{position:fixed;inset:0;background:var(--g1);pointer-events:none;z-index:350;animation:goldFlash .8s ease-out forwards}
 
 /* SECTION UNDERLINE DRAW */
 .draw-line{width:0;height:1px;background:linear-gradient(90deg,var(--g1),transparent);transition:width 1.4s cubic-bezier(.16,1,.3,1)}
@@ -1323,7 +1329,7 @@ select:focus-visible {
 #srch-btn{background:none;border:none;cursor:pointer;color:var(--fog);padding:6px;display:flex;align-items:center;transition:color .2s;margin-left:8px;}
 #srch-btn:hover{color:var(--cream);}
 #srch-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
-#srch-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(5,5,8,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:80px 24px 24px;overflow-y:auto;}
+#srch-overlay{display:none;position:fixed;inset:0;z-index:250;background:rgba(5,5,8,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:80px 24px 24px;overflow-y:auto;}
 #srch-overlay.open{display:block;}
 #srch-box{max-width:640px;margin:0 auto;}
 #srch-wrap{position:relative;margin-bottom:24px;}
@@ -1339,7 +1345,7 @@ select:focus-visible {
 #srch-empty{text-align:center;color:var(--dim);font-size:.82rem;padding:32px;display:none;}
 #srch-hint{font-size:.7rem;color:var(--dim);letter-spacing:.1em;text-align:center;margin-top:20px;}
 
-.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:99999;transition:top .1s}
+.nca-skip-nav{position:absolute;top:-100%;left:16px;background:#C9A84C;color:#02020A;padding:8px 16px;border-radius:0 0 6px 6px;font-size:.8rem;font-weight:600;text-decoration:none;z-index:250;transition:top .1s}
 .nca-skip-nav:focus{top:0}
 </style>
 
@@ -1414,8 +1420,8 @@ em .char{opacity:1;transform:none;}
 /* Timeline / journey chapter body text (one-week-to-prepare, certificate) */
 .story-ch-body,.story-ch-body p,.story-ch p{opacity:1!important;color:var(--fog)!important;}
 
-/* Testimonial section — text is dark on gold background, must always be readable */
-.prq,.prw{opacity:1;}
+/* Testimonial section — starts hidden, revealed by IntersectionObserver */
+.prq,.prw{opacity:0;}
 /* em chars inside story-ch-head: guarantee visible at all times */
 .story-ch-head em .char,.sh em .char,.ch em .char{opacity:1;}
 
@@ -1425,7 +1431,7 @@ em .char{opacity:1;transform:none;}
    ==================================================== */
 
 /* PAGE LOADER */
-#page-loader{position:fixed;inset:0;background:#020204;z-index:100000;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+#page-loader{position:fixed;inset:0;background:#020204;z-index:400;display:flex;align-items:center;justify-content:center;flex-direction:column;}
 .loader-logo-wrap{display:flex;align-items:center;gap:2px;margin-bottom:32px;}
 .loader-char{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(36px,7vw,72px);font-weight:300;color:#C9A84C;opacity:0;transform:translateY(24px);animation:ncahCharReveal .5s cubic-bezier(.22,1,.36,1) forwards;animation-delay:calc(var(--i,0)*.07s);letter-spacing:-.02em;}
 .loader-spacer{width:18px;}
@@ -1436,7 +1442,7 @@ em .char{opacity:1;transform:none;}
 #page-loader.fade-out{opacity:0;pointer-events:none;transition:opacity .45s ease;}
 
 /* CUSTOM CURSOR */
-#ncah-cursor{pointer-events:none;position:fixed;top:0;left:0;z-index:99998;}
+#ncah-cursor{pointer-events:none;position:fixed;top:0;left:0;z-index:300;}
 #cursor-dot{position:fixed;width:8px;height:8px;background:#C9A84C;border-radius:50%;top:0;left:0;transform:translate(-4px,-4px);transition:transform .08s,background .2s;will-change:transform;}
 #cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.55);border-radius:50%;top:0;left:0;transform:translate(-18px,-18px);will-change:transform;transition:border-color .2s,transform .05s;}
 #ncah-cursor.cursor-active #cursor-dot{transform:translate(-4px,-4px) scale(2.2);background:rgba(201,168,76,.85);}
@@ -1444,10 +1450,14 @@ em .char{opacity:1;transform:none;}
 @media(hover:none),(pointer:coarse),(max-width:768px){#ncah-cursor{display:none!important;}}
 
 /* URGENCY BANNER */
-.ncah-urgency-banner{width:100%;padding:9px 20px;text-align:center;font-size:13px;letter-spacing:.01em;background:rgba(201,168,76,.07);border-bottom:1px solid rgba(201,168,76,.2);color:rgba(255,255,255,.75);}
-.ncah-urgency-banner strong{color:#C9A84C;font-weight:700;}
-.ncah-urgency-banner.critical{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.25);color:#fca5a5;}
-.ncah-urgency-banner.critical strong{color:#f87171;}
+.ncah-urgency-banner{display:none;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;border-left:3px solid #C9A84C;background:rgba(10,14,26,.95);border-radius:0;margin-bottom:24px;opacity:0;animation:urgencyFadeIn .3s ease .2s forwards;}
+.urgency-subject{font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem;color:#C9A84C;font-weight:500;}
+.urgency-msg{font-size:.78rem;color:rgba(255,255,255,.8);font-family:'Bricolage Grotesque','Helvetica Neue',sans-serif;letter-spacing:.03em;}
+.urgency-msg strong{color:#C9A84C;font-weight:600;}
+.ncah-urgency-banner.critical{border-left-color:#ef4444;}
+.ncah-urgency-banner.critical .urgency-subject{color:#ef4444;}
+.ncah-urgency-banner.critical .urgency-msg strong{color:#ef4444;}
+@keyframes urgencyFadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 
 /* ACTIVITY TICKER */
 .ncah-ticker-wrap{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.5);padding:9px 0;letter-spacing:.01em;min-height:34px;}
@@ -1548,7 +1558,7 @@ window.addEventListener('load', function() {
     <h2>The NCA Hub — NCA Exam Preparation for Internationally Trained Lawyers in Canada</h2>
     <p>The NCA Hub provides concise study notes, answer templates, a readiness assessment, and preparation guidance for the National Committee on Accreditation (NCA) challenge examinations in Canada. Required for internationally trained lawyers — including those with Indian LLB degrees, UK law degrees, Nigerian law degrees, and qualifications from other jurisdictions — who wish to practise law in Canada.</p>
     <p>Materials cover all five core NCA subjects: Administrative Law, Constitutional Law, Criminal Law, Foundations of Canadian Law, and Professional Responsibility. CPLED Legal Research and Writing (LRW) guidance also provided.</p>
-    <p>Created by Kartik Kumar — India-qualified lawyer, UK law firm career (DWF, Eversheds Sutherland, Keoghs). Passed all 5 NCA subjects. 4 cleared in under 3 months. First exam prepared in 7 days. NCA Certificate of Qualification applied for.</p>
+    <p>Created by Kartik Kumar — India-qualified lawyer, UK law firm career (DWF, Eversheds Sutherland, Keoghs). Passed all 5 NCA subjects. 4 cleared in under 3 months. First exam prepared in 7 days. NCA Certificate of Qualification — received.</p>
     <p>Notes are under 80 pages per subject vs 169–304 pages from competitors. Prices from $175–$279 CAD per subject. Used by candidates in Canada, India, UK, Nigeria, Jamaica, and 12+ countries.</p>
     <p>Unique feature: the only NCA Readiness Score assessment — a free 6-question subject-specific quiz.</p>
     <p>Contact: thencahub@gmail.com | https://www.thencahub.com</p>
@@ -1634,7 +1644,7 @@ window.addEventListener('load', function() {
         <span class="lm"><span class="li">This <em>cycle.</em></span></span>
       </h2>
       <p class="hsub" id="HSUB">Under 80 pages per subject. Answer templates. Practice questions. Built by a lawyer who passed all 5 NCA exams — the first with 7 days to prepare.</p>
-      <div class="h-auth" id="HAUTH">Built by an India-qualified lawyer · All 5 NCA subjects passed · CoQ requested · Candidates from India, UK, Nigeria, Pakistan, Philippines &amp; Jamaica</div>
+      <div class="h-auth" id="HAUTH">Built by an India-qualified lawyer · All 5 NCA subjects passed · Certificate of Qualification — received · Candidates from India, UK, Nigeria, Pakistan, Philippines &amp; Jamaica</div>
       <div class="hact" id="HACT">
         <a href="#readiness" class="bp" data-cur="Score"><span>Get My Readiness Score →</span></a>
       </div>
@@ -1987,12 +1997,12 @@ window.addEventListener('load', function() {
         <div class="spn" aria-hidden="true">03</div>
         <div class="story-ch-label">Chapter 03 / 04</div>
         <div class="story-ch-eye">The Method</div>
-        <h2 class="story-ch-head split-heading">All five subjects passed.<br><em>Certificate of Qualification requested.</em></h2>
+        <h2 class="story-ch-head split-heading">All five subjects passed.<br><em>Certificate of Qualification — received.</em></h2>
       </div>
       <div class="story-ch-right">
         <div class="story-ch-body">
           <p>Administrative Law (first exam, one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed in under three months.</p>
-          <p>Foundations of Canadian Law was disqualified due to a remote proctoring technical failure mid-session — not a knowledge failure. Retook at the first available sitting in January 2026. Passed. CPLED LRW completed early. Total: all 5 NCA subjects complete · LRW fulfilled · Certificate of Qualification requested.</p>
+          <p>Foundations of Canadian Law was disqualified due to a remote proctoring technical failure mid-session — not a knowledge failure. Retook at the first available sitting in January 2026. Passed. CPLED LRW completed early. Total: all 5 NCA subjects complete · LRW fulfilled · Certificate of Qualification — received.</p>
         </div>
       </div>
     </div>
@@ -2709,37 +2719,37 @@ window.addEventListener('load', function() {
     <p class="sl" style="margin-bottom:64px;max-width:560px">Every jurisdiction brings different gaps. Find the dedicated guide written for your specific legal background.</p>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
       <a href="/nca-for-indian-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇮🇳</div>
+        <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:700;font-family:var(--fb);margin-bottom:12px;border:1px solid rgba(201,168,76,.3);display:inline-block;padding:3px 10px;">IN</div>
         <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Indian Lawyers</h3>
         <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">5 mandatory subjects for all candidates + electives assigned per your degree</p>
         <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read My Guide →</span>
       </a>
       <a href="/nca-for-uk-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇬🇧</div>
+        <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:700;font-family:var(--fb);margin-bottom:12px;border:1px solid rgba(201,168,76,.3);display:inline-block;padding:3px 10px;">UK</div>
         <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">UK Lawyers</h3>
         <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">5 mandatory subjects for all candidates + electives assigned per your degree</p>
         <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read My Guide →</span>
       </a>
       <a href="/nca-for-nigerian-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇳🇬</div>
+        <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:700;font-family:var(--fb);margin-bottom:12px;border:1px solid rgba(201,168,76,.3);display:inline-block;padding:3px 10px;">NG</div>
         <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Nigerian Lawyers</h3>
         <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">5 mandatory subjects for all candidates + electives assigned per your degree</p>
         <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read My Guide →</span>
       </a>
       <a href="/nca-for-philippine-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇵🇭</div>
+        <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:700;font-family:var(--fb);margin-bottom:12px;border:1px solid rgba(201,168,76,.3);display:inline-block;padding:3px 10px;">PH</div>
         <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Philippine Lawyers</h3>
         <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">5 mandatory subjects for all candidates + electives assigned per your degree</p>
         <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read My Guide →</span>
       </a>
       <a href="/nca-for-pakistani-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇵🇰</div>
+        <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:700;font-family:var(--fb);margin-bottom:12px;border:1px solid rgba(201,168,76,.3);display:inline-block;padding:3px 10px;">PK</div>
         <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Pakistani Lawyers</h3>
         <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">5 mandatory subjects for all candidates + electives assigned per your degree</p>
         <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read My Guide →</span>
       </a>
       <a href="/nca-for-jamaican-lawyers/" style="display:block;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);padding:32px 28px;text-decoration:none;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.08)'">
-        <div style="font-size:2rem;margin-bottom:12px;">🇯🇲</div>
+        <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);font-weight:700;font-family:var(--fb);margin-bottom:12px;border:1px solid rgba(201,168,76,.3);display:inline-block;padding:3px 10px;">JM</div>
         <h3 style="font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:8px;">Jamaican Lawyers</h3>
         <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:16px">5 mandatory subjects for all candidates + electives assigned per your degree</p>
         <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1)">Read My Guide →</span>
@@ -2754,7 +2764,7 @@ window.addEventListener('load', function() {
     <div class="sh-mask-wrap">
       <h2 class="sh split-heading">Everything you need<br><em>to pass. Free.</em></h2>
     </div>
-    <p class="sl" style="margin-top:24px;max-width:620px;">Written by someone who passed all 5 NCA subjects and has requested the Certificate of Qualification — with one week to prepare for the first exam. No filler.</p>
+    <p class="sl" style="margin-top:24px;max-width:620px;">Written by someone who passed all 5 NCA subjects and received the Certificate of Qualification — with one week to prepare for the first exam. No filler.</p>
 
     <!-- Featured Article -->
     <a href="blog/article-pass-nca-90-days/" class="blog-featured page-link" style="margin-top:48px;">
@@ -2848,17 +2858,17 @@ window.addEventListener('load', function() {
     </header>
     <div class="ncah-trust-grid">
       <div class="ncah-trust-card ncah-reveal">
-        <span class="ncah-trust-icon" aria-hidden="true">📅</span>
+        <span class="ncah-trust-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
         <h3 class="ncah-trust-q">Is this current?</h3>
         <p class="ncah-trust-a">Yes. Every document is updated to the most current NCA syllabus. All subjects verified against official NCA materials at nca.legal. The November 2025 exam changes are fully reflected.</p>
       </div>
       <div class="ncah-trust-card ncah-reveal">
-        <span class="ncah-trust-icon" aria-hidden="true">📚</span>
+        <span class="ncah-trust-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
         <h3 class="ncah-trust-q">Will it cover my subject?</h3>
         <p class="ncah-trust-a">Notes available for all NCA subjects — the 5 mandatory subjects plus Property Law, Contract Law, Evidence Law, and Family Law. Subject-specific, not generic.</p>
       </div>
       <div class="ncah-trust-card ncah-reveal">
-        <span class="ncah-trust-icon" aria-hidden="true">📄</span>
+        <span class="ncah-trust-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
         <h3 class="ncah-trust-q">Not ready to buy?</h3>
         <p class="ncah-trust-a">Download a free sample chapter for any subject. See exactly what the notes look like and how they are organized before spending a single dollar.</p>
         <a href="/free-chapter.html" class="ncah-trust-link">Download a free chapter &rarr;</a>
@@ -2887,8 +2897,8 @@ window.addEventListener('load', function() {
   <div class="ftg">
     <div><div class="flog">NCA <span class="hub">Hub</span></div><p class="ftag">Strategic preparation for lawyers who had to start over. And refused to stop.</p></div>
     <div>
-      <div class="fct">Navigate</div>
-      <ul class="fls"><li><a href="#method">The Method</a></li><li><a href="#story">The Story</a></li><li><a href="#pods">Performance Pods</a></li><li><a href="#subjects">Subjects</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#sample">Free Sample</a></li></ul>
+            <div class="fct">Navigate</div>
+      <ul class="fls"><li><a href="/#method">The Method</a></li><li><a href="/#story">The Story</a></li><li><a href="/#pods">Performance Pods</a></li><li><a href="/#subjects">Subjects</a></li><li><a href="/#pricing">Pricing</a></li><li><a href="/#sample">Free Sample</a></li></ul>
     </div>
     <div>
       <div class="fct">Candidate Guides</div>
@@ -3024,7 +3034,7 @@ if(!REDUCED && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefine
     /* Animate from invisible to fully visible — stagger is tiny so em chars aren't delayed */
     ScrollTrigger.create({
       trigger: heading,
-      start: 'top 95%',
+      start: 'top 80%',
       once: true,
       onEnter: function(){
         gsap.fromTo(chars,
@@ -4050,10 +4060,10 @@ function revealHero(){
     entries.forEach(function(e){
       if(e.isIntersecting){ prf.classList.add('testimonial-in'); io.disconnect(); }
     });
-  },{threshold:0.15});
+  },{threshold:0.1,rootMargin:'0px 0px -10% 0px'});
   io.observe(prf);
-  /* Fallback — always reveal after 2s even if observer never fires */
-  setTimeout(function(){ prf.classList.add('testimonial-in'); }, 2000);
+  /* Fallback — always reveal after 1.5s even if observer never fires */
+  setTimeout(function(){ prf.classList.add('testimonial-in'); }, 1500);
 })();
 
 /* PRQ TESTIMONIAL WORD LIGHT-UP ANIMATION */
@@ -4701,7 +4711,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 })();
 </script>
 
-<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9500;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
+<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:160;background:rgba(5,5,8,.97);border:1px solid rgba(201,168,76,.22);padding:22px 28px;max-width:540px;width:calc(100% - 48px);backdrop-filter:blur(20px);font-family:var(--fb)">
   <p style="font-size:.78rem;color:var(--fog);line-height:1.6;margin:0 0 16px">We use cookies to measure traffic and improve your experience. See our <a href="/privacy.html" style="color:var(--g1)">Privacy Policy</a>.</p>
   <div style="display:flex;gap:10px;flex-wrap:wrap;">
     <button id="ck-necessary" style="background:transparent;color:var(--fog);border:1px solid rgba(201,168,76,.25);padding:9px 20px;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:var(--fb)">Necessary only</button>
@@ -4734,14 +4744,17 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 <!-- ═══ PREMIUM MOBILE MENU ═══ -->
 <div id="mob-overlay" aria-hidden="true" aria-label="Navigation" role="dialog">
   <button id="mob-close" aria-label="Close navigation menu">&#x2715;</button>
-  <a href="https://www.thencahub.com/#method">Method</a>
-  <a href="https://www.thencahub.com/#subjects">Subjects</a>
-  <a href="https://www.thencahub.com/notes/" class="mob-cta-link">Notes</a>
-  <a href="https://www.thencahub.com/#pricing">Pricing</a>
-  <a href="https://www.thencahub.com/blog/">Articles</a>
-  <a href="https://www.thencahub.com/nca-exam-planner/">Exam Planner</a>
-  <a href="https://www.thencahub.com/nca-cost-calculator/">Cost Calculator</a>
-  <a href="https://www.thencahub.com/faq/">FAQ</a>
+  <a href="/#method">Method</a>
+  <a href="/#story">Story</a>
+  <a href="/#pods">Pods</a>
+  <a href="/#subjects">Subjects</a>
+  <a href="/notes/" class="mob-cta-link">Notes</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/blog/">Articles</a>
+  <a href="/#sample">Free Chapter</a>
+  <a href="/tools/">Tools</a>
+  <a href="/nca-cost-calculator/">Cost Calculator</a>
+  <a href="/faq/">FAQ</a>
   <a href="https://payhip.com/THENCAHUB" class="mob-shop-btn" target="_blank" rel="noopener noreferrer">Shop Now &rarr;</a>
 </div><script>
 if('serviceWorker' in navigator){
@@ -4901,7 +4914,7 @@ if('serviceWorker' in navigator){
 }
 </script>
 <!-- SCROLL PROGRESS BAR -->
-<div id="scroll-progress" style="position:fixed;top:0;left:0;height:2px;background:#C9A84C;z-index:9999;width:0%;transition:width 0.1s;pointer-events:none;"></div>
+<div id="scroll-progress" style="position:fixed;top:0;left:0;height:2px;background:#C9A84C;z-index:50;width:0%;transition:width 0.1s linear;pointer-events:none;"></div>
 
 <!-- MOBILE STICKY BUY BAR -->
 <div id="mobile-buy-bar" role="complementary" aria-label="Quick purchase">
@@ -4922,7 +4935,9 @@ if('serviceWorker' in navigator){
 <script>
 // SCROLL PROGRESS + MOBILE BUY BAR
 (function(){
-  function onScroll(){
+  var rafPending = false;
+  function updateProgress(){
+    rafPending = false;
     var scrollTop = window.scrollY || document.documentElement.scrollTop;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
@@ -4930,6 +4945,9 @@ if('serviceWorker' in navigator){
     if(bar) bar.style.width = progress + '%';
     var buyBar = document.getElementById('mobile-buy-bar');
     if(buyBar) buyBar.classList.toggle('visible', progress > 50);
+  }
+  function onScroll(){
+    if(!rafPending){ rafPending = true; requestAnimationFrame(updateProgress); }
   }
   window.addEventListener('scroll', onScroll, {passive:true});
 })();
@@ -4971,31 +4989,13 @@ if('serviceWorker' in navigator){
 <script src="/nca-world-class.js?v=20260330" defer></script>
 
 <script>
-/* NCA HUB — COMPLETE MOTION SYSTEM */
+/* NCA HUB — SUPPLEMENTAL MOTION (cursor, ticker, countdown) */
 (function() {
   function initMotion() {
     var isMobile = window.innerWidth < 768;
 
-    /* 1. LENIS + GSAP FIX */
-    if (typeof Lenis !== 'undefined' && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      if (window._ncahLenis) { try { window._ncahLenis.destroy(); } catch(e) {} }
-      var lenis = new Lenis({ duration: 1.15, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.8 });
-      window._ncahLenis = lenis;
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
-      gsap.ticker.lagSmoothing(0);
-      ScrollTrigger.scrollerProxy(document.documentElement, {
-        scrollTop: function(val) { if (arguments.length) lenis.scrollTo(val, { immediate: true }); return lenis.scroll; },
-        getBoundingClientRect: function() { return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight }; }
-      });
-      ScrollTrigger.addEventListener('refresh', function() { lenis.resize(); });
-      ScrollTrigger.refresh();
-    }
-
-    /* 2. GSAP ANIMATIONS */
+    /* GSAP SUPPLEMENTAL ANIMATIONS */
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-      if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
 
       /* HERO HEADLINE */
       var heroH1 = document.getElementById('hero-headline');
@@ -5007,14 +5007,16 @@ if('serviceWorker' in navigator){
       }
       gsap.from('#HSUB', { opacity: 0, y: 24, duration: 0.9, delay: 1.15, ease: 'power3.out' });
 
-      /* SECTION HEADING PARALLAX */
-      document.querySelectorAll('.ncah-section-heading, .sh').forEach(function(el) {
-        gsap.to(el, { scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.5 }, y: -28, ease: 'none' });
-      });
+      /* SECTION HEADING PARALLAX — desktop only to avoid clipping on small viewports */
+      if (!isMobile) {
+        document.querySelectorAll('.ncah-section-heading, .sh').forEach(function(el) {
+          gsap.to(el, { scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 1.5 }, y: -20, ease: 'none' });
+        });
+      }
 
       /* SCROLL-TRIGGERED REVEALS */
       document.querySelectorAll('.ncah-reveal').forEach(function(el) {
-        gsap.fromTo(el, { opacity: 0, y: 40 }, { scrollTrigger: { trigger: el, start: 'top 87%', once: true }, opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' });
+        gsap.fromTo(el, { opacity: 0, y: 40 }, { scrollTrigger: { trigger: el, start: 'top 80%', once: true }, opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' });
       });
 
       /* TRUST CARDS STAGGER */
@@ -5085,8 +5087,9 @@ if('serviceWorker' in navigator){
           if (days > 0 && days < upDays) { upDays = days; upcoming = k; }
         });
         if (upcoming) {
-          banner.style.display = 'block';
-          banner.innerHTML = '⚡ ' + upcoming + ' registration closes in <strong>' + upDays + ' days</strong> — don\'t miss this session';
+          banner.style.display = 'flex';
+          var msg = upDays <= 45 ? 'Registration closes in <strong>' + upDays + ' days</strong>' : 'Registration open';
+          banner.innerHTML = '<span class="urgency-subject">' + upcoming + '</span><span class="urgency-msg">' + msg + '</span>';
           if (upDays <= 14) banner.classList.add('critical');
         }
       }
