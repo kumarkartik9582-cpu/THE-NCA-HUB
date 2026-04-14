@@ -32,7 +32,7 @@ const STEPS = [
 
 export default function MethodSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <section className="sec" id="method" aria-label="The method" ref={ref}

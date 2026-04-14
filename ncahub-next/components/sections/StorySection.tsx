@@ -57,7 +57,7 @@ const CHAPTERS = [
 
 function StoryChapter({ chapter, index }: { chapter: typeof CHAPTERS[0]; index: number }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-15%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <div

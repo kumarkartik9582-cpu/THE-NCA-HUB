@@ -25,7 +25,7 @@ function Section({ children, bg = 'var(--void)', borderBottom = true }: {
   borderBottom?: boolean
 }) {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-8%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
   return (
     <section
       ref={ref}
@@ -41,13 +41,13 @@ export default function SubjectPageContent({ s, subject }: { s: SubjectData; sub
   const heroRef = useRef<HTMLElement>(null)
   const heroInView = useInView(heroRef, { once: true })
   const whatRef = useRef<HTMLElement>(null)
-  const whatInView = useInView(whatRef, { once: true, margin: '-8%' })
+  const whatInView = useInView(whatRef, { once: true, margin: '0px' })
   const casesRef = useRef<HTMLElement>(null)
-  const casesInView = useInView(casesRef, { once: true, margin: '-8%' })
+  const casesInView = useInView(casesRef, { once: true, margin: '0px' })
   const fwRef = useRef<HTMLElement>(null)
-  const fwInView = useInView(fwRef, { once: true, margin: '-8%' })
+  const fwInView = useInView(fwRef, { once: true, margin: '0px' })
   const ctaRef = useRef<HTMLElement>(null)
-  const ctaInView = useInView(ctaRef, { once: true, margin: '-8%' })
+  const ctaInView = useInView(ctaRef, { once: true, margin: '0px' })
 
   return (
     <main>

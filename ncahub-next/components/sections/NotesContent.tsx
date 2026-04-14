@@ -52,9 +52,9 @@ export default function NotesContent() {
   const heroRef = useRef<HTMLElement>(null)
   const heroInView = useInView(heroRef, { once: true })
   const listRef = useRef<HTMLElement>(null)
-  const listInView = useInView(listRef, { once: true, margin: '-8%' })
+  const listInView = useInView(listRef, { once: true, margin: '0px' })
   const bundleRef = useRef<HTMLDivElement>(null)
-  const bundleInView = useInView(bundleRef, { once: true, margin: '-8%' })
+  const bundleInView = useInView(bundleRef, { once: true, margin: '0px' })
 
   return (
     <main>

@@ -14,7 +14,7 @@ const GUIDES = [
 
 export default function CountrySection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <section id="country-guides" aria-label="Candidate guides by country" ref={ref}

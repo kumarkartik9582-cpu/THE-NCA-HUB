@@ -141,7 +141,7 @@ function FAQItem({ q, a, groupInView, delay }: { q: string; a: string; groupInVi
 
 function FAQGroup({ group, items, index }: { group: string; items: { q: string; a: string }[]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <div
@@ -168,7 +168,7 @@ export default function FAQPage() {
   const heroRef = useRef<HTMLElement>(null)
   const heroInView = useInView(heroRef, { once: true })
   const ctaRef = useRef<HTMLDivElement>(null)
-  const ctaInView = useInView(ctaRef, { once: true, margin: '-8%' })
+  const ctaInView = useInView(ctaRef, { once: true, margin: '0px' })
 
   return (
     <main>

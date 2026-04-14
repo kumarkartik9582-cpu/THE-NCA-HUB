@@ -14,7 +14,7 @@ const SUBJECTS = [
 
 export default function FreeChapterSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
   const [step, setStep] = useState<'subject' | 'email' | 'done'>('subject')
   const [subject, setSubject] = useState('')
   const [email, setEmail] = useState('')

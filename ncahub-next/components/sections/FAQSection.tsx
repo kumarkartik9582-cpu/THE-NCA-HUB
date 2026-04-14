@@ -90,7 +90,7 @@ function FAQItem({ faq, idx }: { faq: { q: string; a: string }; idx: number }) {
 
 export default function FAQSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <section className="sec" id="faq" aria-label="Frequently asked questions" ref={ref}

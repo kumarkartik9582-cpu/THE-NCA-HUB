@@ -27,7 +27,7 @@ export default function ContactPage() {
   const heroRef = useRef<HTMLElement>(null)
   const heroInView = useInView(heroRef, { once: true })
   const bodyRef = useRef<HTMLElement>(null)
-  const bodyInView = useInView(bodyRef, { once: true, margin: '-5%' })
+  const bodyInView = useInView(bodyRef, { once: true, margin: '0px' })
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()

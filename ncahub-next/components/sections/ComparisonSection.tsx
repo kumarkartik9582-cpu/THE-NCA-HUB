@@ -20,7 +20,7 @@ const COLS = ['The NCA Hub', 'NCA Mentor', 'NCA Tutor', 'Exam Guru']
 
 export default function ComparisonSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <section className="sec" id="compare" aria-label="Comparison" ref={ref}
