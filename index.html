@@ -437,7 +437,10 @@ nav.disc-gone{top:0}
 #hcv.on{opacity:1}
 .hvl{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(201,168,76,.12) 50%,transparent);pointer-events:none}
 .hi{max-width:1300px;width:100%;margin:0 auto;padding-top:130px;padding-bottom:80px;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;position:relative;z-index:2}
-@media(max-width:1040px){.hi{grid-template-columns:1fr}.hero{padding:0 24px}}
+@media(max-width:1040px){
+  .hi{grid-template-columns:1fr;padding-top:90px;padding-bottom:48px;gap:40px}
+  .hero{padding:0 24px;overflow-x:hidden;overflow-y:visible;min-height:auto}
+}
 .heb{display:inline-flex;align-items:center;gap:16px;font-size:var(--nano);letter-spacing:.42em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:32px;overflow:hidden}
 .hel{width:0;height:1px;background:var(--g1);transition:width 1.2s var(--expo)}
 .hh1{font-family:var(--fd);font-weight:300;line-height:.92;letter-spacing:-.028em;color:var(--cream);margin-bottom:40px}
@@ -709,8 +712,8 @@ nav.disc-gone{top:0}
 .psn{font-family:var(--fd);font-size:2.4rem;font-weight:400;color:var(--void);line-height:1;display:block;margin-bottom:4px}
 .psl{font-size:.67rem;color:rgba(2,2,4,.55);line-height:1.3}
 
-/* TEXT SCRUB */
-.scrub-wrap{height:180vh;position:relative}
+/* TEXT SCRUB — hidden (content duplicated by big-stats section below it) */
+.scrub-wrap{display:none}
 .scrub-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--void);overflow:hidden;}
 .scrub-bg-text{position:absolute;font-family:var(--fd);font-size:clamp(8rem,20vw,18rem);font-weight:300;color:rgba(201,168,76,.025);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;letter-spacing:-.04em;}
 .scrub-inner{text-align:center;max-width:900px;padding:0 48px;position:relative;z-index:2;}
@@ -1372,7 +1375,7 @@ select:focus-visible {
 /* Characters inside em (italic) elements in split headings — force visible.
    GSAP stagger can delay em chars; this CSS baseline prevents them showing blurred. */
 em .char{opacity:1;transform:none;}
-.sh em,.story-ch-head em,.ch em,.hh1 em{color:var(--g1);font-style:italic;}
+.sh em,.story-ch-head em,.ch em,.hh1 em{color:var(--g1)!important;font-style:italic;-webkit-text-fill-color:var(--g1)!important;}
 /* Word overflow must be visible so no char is ever clipped */
 .word{overflow:visible!important;}
 
@@ -1385,7 +1388,7 @@ em .char{opacity:1;transform:none;}
 .mf-step{opacity:1!important;transform:none!important;}
 .mf-arrow{opacity:1!important;}
 .bs{opacity:1!important;transform:none!important;}
-.bsn{opacity:1!important;color:var(--g1)!important;}
+.bsn{opacity:1!important;color:var(--g1)!important;-webkit-text-fill-color:var(--g1)!important;}
 .bsl{opacity:1!important;color:var(--fog)!important;}
 .sc2{opacity:1!important;transform:none!important;}
 .pc{opacity:1!important;transform:none!important;}
@@ -1401,7 +1404,10 @@ em .char{opacity:1;transform:none;}
 
 /* Philosophy typewriter text */
 #PHT{opacity:1!important;}
+.pht{opacity:1!important;}
 .pha{opacity:1!important;}
+/* Philosophy divider line — show immediately; JS .on class adds transition */
+.phl{width:56px!important;}
 
 /* GSAP / ScrollTrigger can still add .on / .vis for transitions —
    those classes layer extra effects but are never required for visibility */
@@ -1410,20 +1416,32 @@ em .char{opacity:1;transform:none;}
 .sh-mask-wrap{overflow:visible!important;}
 .sh-mask-inner{transform:none!important;opacity:1!important;}
 
+/* Objection-removal trust cards and general reveal elements */
+.ncah-reveal{opacity:1!important;transform:none!important;}
+/* Subject card list items */
+.scl li{opacity:1!important;transform:translateX(0)!important;}
+
 /* Section-lead paragraphs — always readable against any background */
 .sl{color:var(--fog)!important;opacity:1!important;}
 
 /* Story chapter text blocks (the "Three UK law firms" section) */
 .story-ch-head,.story-ch-right,.story-ch-right p{opacity:1!important;color:var(--cream)!important;}
-.story-ch-right em,.story-ch-head em{color:var(--g1)!important;}
+.story-ch-right em,.story-ch-head em{color:var(--g1)!important;-webkit-text-fill-color:var(--g1)!important;}
 
 /* Timeline / journey chapter body text (one-week-to-prepare, certificate) */
 .story-ch-body,.story-ch-body p,.story-ch p{opacity:1!important;color:var(--fog)!important;}
 
-/* Testimonial section — starts hidden, revealed by IntersectionObserver */
-.prq,.prw{opacity:0;}
-/* em chars inside story-ch-head: guarantee visible at all times */
-.story-ch-head em .char,.sh em .char,.ch em .char{opacity:1;}
+/* Testimonial section — visible by default; JS animation is additive */
+.prq,.prw{opacity:1!important;}
+/* Proof stats on gold background: gradient-on-gold = invisible; force dark */
+.prf .psn{-webkit-text-fill-color:rgba(2,2,4,.9)!important;background:none!important;color:rgba(2,2,4,.9)!important;}
+/* em chars inside split headings: guarantee visible — background-clip:text fails on
+   inline-block spans, so force the gold fill colour directly on each char */
+.story-ch-head em .char,.sh em .char,.ch em .char,.hh1 em .char{
+  opacity:1;
+  color:var(--g1)!important;
+  -webkit-text-fill-color:var(--g1)!important;
+}
 
 
 /* ====================================================
@@ -4334,7 +4352,7 @@ if(CD&&CR){
   if(typeof ScrollTrigger !== 'undefined'){
     ScrollTrigger.create({
       trigger: el,
-      start: 'top 90%',
+      start: 'top 95%',
       once: true,
       onEnter: function(){
         gsap.to(el,{opacity:1,x:0,duration:0.8,delay:i*0.05,ease:'power3.out'});
