@@ -1527,14 +1527,49 @@ em .char{opacity:1;transform:none;}
 
   /* ── ROOT OVERFLOW LOCK ─────────────────────────────────────
      iOS Safari ignores overflow-x:hidden on body when fixed
-     elements exist. This double-lock prevents horizontal scroll. */
-  html{overflow-x:hidden!important;max-width:100vw!important;}
-  body{overflow-x:hidden!important;max-width:100vw!important;width:100%!important;}
+     elements exist. overflow:clip is the modern fix that actually
+     prevents scrolling. Fallback to hidden for older browsers. */
+  html{
+    overflow-x:hidden!important;
+    overflow-x:clip!important;
+    max-width:100vw!important;
+    width:100%!important;
+  }
+  body{
+    overflow-x:hidden!important;
+    overflow-x:clip!important;
+    max-width:100vw!important;
+    width:100%!important;
+    position:relative!important;
+  }
 
   /* ── HERO TEXT SCALE ────────────────────────────────────────
      --td base min is 4.5rem (72px) — too large for 390px.
      Reduce to 2.5rem (40px) minimum on mobile. */
-  :root{--td:clamp(2.5rem,10vw,10.5rem);}
+  :root{
+    --td:clamp(2.5rem,10vw,10.5rem);
+    --h1:clamp(2rem,5.5vw,6.5rem);
+  }
+
+  /* ── CSS-CLASS GRID COLLAPSE (CRITICAL) ────────────────────
+     These grids rely on 960-1040px breakpoints. If anything
+     expands the layout viewport, those breakpoints fail.
+     Redundant 768px overrides guarantee collapse. */
+  .hi{grid-template-columns:1fr!important;gap:32px!important;padding-top:80px;padding-bottom:40px;}
+  .story-chapter-inner{grid-template-columns:1fr!important;gap:32px!important;padding:80px 24px!important;}
+  .mhd{grid-template-columns:1fr!important;gap:24px!important;}
+  .mg{grid-template-columns:1fr!important;}
+  .pods-grid{grid-template-columns:1fr!important;}
+  .subi{grid-template-columns:1fr!important;gap:24px!important;}
+  .pri{grid-template-columns:1fr!important;gap:32px!important;}
+  .sgrid{grid-template-columns:1fr!important;gap:32px!important;}
+  .pintro{grid-template-columns:1fr!important;gap:24px!important;}
+  .ftg{grid-template-columns:1fr!important;gap:28px!important;}
+  #blog-grid{grid-template-columns:1fr!important;}
+  .pgrid{grid-template-columns:1fr!important;max-width:100%;}
+  .bss{grid-template-columns:1fr!important;}
+  .psg{grid-template-columns:1fr 1fr!important;}
+  .ncah-trust-grid{grid-template-columns:1fr!important;}
 
   /* ── INLINE GRID NUCLEAR OVERRIDE ──────────────────────────
      Many grids are set via inline style="" and cannot be reached
@@ -1563,33 +1598,38 @@ em .char{opacity:1;transform:none;}
 
   /* ── SECTION OVERFLOW CONTAINMENT ──────────────────────────
      Every section and landmark must clip horizontal overflow
-     to prevent ANY child from widening the page. */
+     to prevent ANY child from widening the page.
+     overflow:clip is preferred (no scroll container created). */
   section,main,article,aside,footer,header,
   .sec,.hero,.phil,.fcta,.prf,.msc,.csc,.subsc,.readiness-sec,
-  .pods-sec,.sampl,.fqsc,
+  .pods-sec,.sampl,.fqsc,.tb,
   [id="story"],[id="tools"],[id="tools-hub"],
   [id="country-guides"],[id="blog"]{
     overflow-x:hidden!important;
+    overflow-x:clip!important;
     max-width:100vw!important;
   }
 
-  /* ── CSS-CLASS GRIDS (already have classes) ─────────────── */
-  #blog-grid{grid-template-columns:1fr!important;}
-  .pgrid{grid-template-columns:1fr!important;max-width:100%;}
-  .bss{grid-template-columns:1fr!important;}
+  /* ── TICKER — force width constraint ───────────────────────
+     The ticker .tt is inline-flex + white-space:nowrap = very wide.
+     Parent .tb must explicitly constrain its width. */
+  .tb{width:100vw!important;max-width:100%!important;}
 
   /* ── SECTIONS WITH 72px CSS PADDING (no inline) ─────────── */
   .pods-sec{padding:80px 24px!important;}
   .phil{padding:80px 24px!important;}
   .fcta{padding:80px 24px!important;}
+  .prf{padding:80px 24px!important;}
 
   /* ── HERO ───────────────────────────────────────────────── */
   .hero{padding:0 20px!important;min-height:auto!important;}
-  .hi{gap:32px;padding-top:80px;padding-bottom:40px;}
   .hact{flex-direction:column;align-items:stretch;gap:16px;}
   .hact .bp{width:100%;text-align:center;justify-content:center;}
   .hact .bg{text-align:center;align-self:center;}
   .hcard{padding:32px 24px;max-width:100%!important;box-sizing:border-box!important;}
+
+  /* ── NAV — force mobile padding ────────────────────────── */
+  nav,nav.sc{padding:14px 20px!important;}
 
   /* ── BLOG ───────────────────────────────────────────────── */
   .blog-featured{padding:32px 24px;}
@@ -1606,32 +1646,42 @@ em .char{opacity:1;transform:none;}
 
   /* ── SUBJECT CARDS TRACK ─────────────────────────────────── */
   .ht{max-width:100vw;}
-  .sc2{flex:0 0 300px;}
+  .sc2{flex:0 0 280px;}
 
   /* ── METHOD FLOW ────────────────────────────────────────── */
   .method-flow{padding:24px 16px;}
 
   /* ── SAMPLE / FORM ──────────────────────────────────────── */
-  .sgrid{gap:32px;}
   .sf2{padding:32px 24px;}
 
   /* ── FINAL CTA HEADING ──────────────────────────────────── */
   .ch{font-size:clamp(2.8rem,9vw,9rem);}
 
   /* ── FOOTER ─────────────────────────────────────────────── */
+  footer{padding:52px 24px!important;}
   .fb2{flex-direction:column;align-items:flex-start;gap:20px;}
   .fleg{text-align:left;}
 
   /* ── FIXED/STICKY ELEMENTS — hide decorative ones ───────── */
   .story-ch-progress{display:none!important;}
   #exam-clock,#reading-time{display:none!important;}
+  .sn{right:24px;font-size:.4rem;}
+  .scr-ind{display:none!important;}
 
   /* ── MISC ───────────────────────────────────────────────── */
   .ncah-price-anchor{padding:20px 16px;}
-  .sn{right:24px;}
   .ncah-container{padding:0 20px;}
   .strategic-pull{max-width:100%!important;}
   .proof-rows{gap:10px 16px;}
+  .w{padding:0 20px!important;}
+
+  /* ── PAGE WRAP ─────────────────────────────────────────── */
+  #page-wrap{
+    width:100%!important;
+    max-width:100vw!important;
+    overflow-x:hidden!important;
+    overflow-x:clip!important;
+  }
 }
 
 /* ── EXTRA-SMALL SCREENS (≤420px) — iPhone SE / small Android ── */
