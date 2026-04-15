@@ -2,7 +2,20 @@
 <html lang="en-CA" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<script>
+// Mobile detection via screen.width — cannot be tricked by layout viewport expansion.
+// CSS media queries fail when an element forces the layout viewport wider than the screen.
+// This script detects actual device width and adds a class so CSS can target it reliably.
+(function(){
+  var w=Math.min(screen.width,screen.height);// portrait width
+  if(w<=768)document.documentElement.classList.add('mob');
+  window.addEventListener('resize',function(){
+    var w2=window.innerWidth;
+    document.documentElement.classList.toggle('mob',w2<=768);
+  });
+})();
+</script>
 <title>NCA Exam Prep Canada 2026 | Study Notes for Internationally Trained Lawyers | The NCA Hub</title>
 <meta name="description" content="Indian, UK, or foreign-trained lawyer qualifying in Canada? Concise NCA notes (under 80 pages), answer templates &amp; free readiness score. Built by someone who passed all 5 NCA subjects — starting with 7 days to prepare. Try a free chapter today.">
 <meta name="keywords" content="NCA exam Canada, NCA prep notes, NCA study materials, internationally trained lawyer Canada, Indian LLB Canada, foreign lawyer NCA, NCA administrative law notes, NCA constitutional law notes, NCA criminal law notes, NCA professional responsibility notes, NCA foundations of Canadian law, NCA certificate of qualification, CPLED LRW, NCA challenge exam 2026, pass NCA exam, National Committee on Accreditation">
@@ -1527,14 +1540,49 @@ em .char{opacity:1;transform:none;}
 
   /* ── ROOT OVERFLOW LOCK ─────────────────────────────────────
      iOS Safari ignores overflow-x:hidden on body when fixed
-     elements exist. This double-lock prevents horizontal scroll. */
-  html{overflow-x:hidden!important;max-width:100vw!important;}
-  body{overflow-x:hidden!important;max-width:100vw!important;width:100%!important;}
+     elements exist. overflow:clip is the modern fix that actually
+     prevents scrolling. Fallback to hidden for older browsers. */
+  html{
+    overflow-x:hidden!important;
+    overflow-x:clip!important;
+    max-width:100vw!important;
+    width:100%!important;
+  }
+  body{
+    overflow-x:hidden!important;
+    overflow-x:clip!important;
+    max-width:100vw!important;
+    width:100%!important;
+    position:relative!important;
+  }
 
   /* ── HERO TEXT SCALE ────────────────────────────────────────
      --td base min is 4.5rem (72px) — too large for 390px.
      Reduce to 2.5rem (40px) minimum on mobile. */
-  :root{--td:clamp(2.5rem,10vw,10.5rem);}
+  :root{
+    --td:clamp(2.5rem,10vw,10.5rem);
+    --h1:clamp(2rem,5.5vw,6.5rem);
+  }
+
+  /* ── CSS-CLASS GRID COLLAPSE (CRITICAL) ────────────────────
+     These grids rely on 960-1040px breakpoints. If anything
+     expands the layout viewport, those breakpoints fail.
+     Redundant 768px overrides guarantee collapse. */
+  .hi{grid-template-columns:1fr!important;gap:32px!important;padding-top:80px;padding-bottom:40px;}
+  .story-chapter-inner{grid-template-columns:1fr!important;gap:32px!important;padding:80px 24px!important;}
+  .mhd{grid-template-columns:1fr!important;gap:24px!important;}
+  .mg{grid-template-columns:1fr!important;}
+  .pods-grid{grid-template-columns:1fr!important;}
+  .subi{grid-template-columns:1fr!important;gap:24px!important;}
+  .pri{grid-template-columns:1fr!important;gap:32px!important;}
+  .sgrid{grid-template-columns:1fr!important;gap:32px!important;}
+  .pintro{grid-template-columns:1fr!important;gap:24px!important;}
+  .ftg{grid-template-columns:1fr!important;gap:28px!important;}
+  #blog-grid{grid-template-columns:1fr!important;}
+  .pgrid{grid-template-columns:1fr!important;max-width:100%;}
+  .bss{grid-template-columns:1fr!important;}
+  .psg{grid-template-columns:1fr 1fr!important;}
+  .ncah-trust-grid{grid-template-columns:1fr!important;}
 
   /* ── INLINE GRID NUCLEAR OVERRIDE ──────────────────────────
      Many grids are set via inline style="" and cannot be reached
@@ -1563,33 +1611,38 @@ em .char{opacity:1;transform:none;}
 
   /* ── SECTION OVERFLOW CONTAINMENT ──────────────────────────
      Every section and landmark must clip horizontal overflow
-     to prevent ANY child from widening the page. */
+     to prevent ANY child from widening the page.
+     overflow:clip is preferred (no scroll container created). */
   section,main,article,aside,footer,header,
   .sec,.hero,.phil,.fcta,.prf,.msc,.csc,.subsc,.readiness-sec,
-  .pods-sec,.sampl,.fqsc,
+  .pods-sec,.sampl,.fqsc,.tb,
   [id="story"],[id="tools"],[id="tools-hub"],
   [id="country-guides"],[id="blog"]{
     overflow-x:hidden!important;
+    overflow-x:clip!important;
     max-width:100vw!important;
   }
 
-  /* ── CSS-CLASS GRIDS (already have classes) ─────────────── */
-  #blog-grid{grid-template-columns:1fr!important;}
-  .pgrid{grid-template-columns:1fr!important;max-width:100%;}
-  .bss{grid-template-columns:1fr!important;}
+  /* ── TICKER — force width constraint ───────────────────────
+     The ticker .tt is inline-flex + white-space:nowrap = very wide.
+     Parent .tb must explicitly constrain its width. */
+  .tb{width:100vw!important;max-width:100%!important;}
 
   /* ── SECTIONS WITH 72px CSS PADDING (no inline) ─────────── */
   .pods-sec{padding:80px 24px!important;}
   .phil{padding:80px 24px!important;}
   .fcta{padding:80px 24px!important;}
+  .prf{padding:80px 24px!important;}
 
   /* ── HERO ───────────────────────────────────────────────── */
   .hero{padding:0 20px!important;min-height:auto!important;}
-  .hi{gap:32px;padding-top:80px;padding-bottom:40px;}
   .hact{flex-direction:column;align-items:stretch;gap:16px;}
   .hact .bp{width:100%;text-align:center;justify-content:center;}
   .hact .bg{text-align:center;align-self:center;}
   .hcard{padding:32px 24px;max-width:100%!important;box-sizing:border-box!important;}
+
+  /* ── NAV — force mobile padding ────────────────────────── */
+  nav,nav.sc{padding:14px 20px!important;}
 
   /* ── BLOG ───────────────────────────────────────────────── */
   .blog-featured{padding:32px 24px;}
@@ -1606,32 +1659,42 @@ em .char{opacity:1;transform:none;}
 
   /* ── SUBJECT CARDS TRACK ─────────────────────────────────── */
   .ht{max-width:100vw;}
-  .sc2{flex:0 0 300px;}
+  .sc2{flex:0 0 280px;}
 
   /* ── METHOD FLOW ────────────────────────────────────────── */
   .method-flow{padding:24px 16px;}
 
   /* ── SAMPLE / FORM ──────────────────────────────────────── */
-  .sgrid{gap:32px;}
   .sf2{padding:32px 24px;}
 
   /* ── FINAL CTA HEADING ──────────────────────────────────── */
   .ch{font-size:clamp(2.8rem,9vw,9rem);}
 
   /* ── FOOTER ─────────────────────────────────────────────── */
+  footer{padding:52px 24px!important;}
   .fb2{flex-direction:column;align-items:flex-start;gap:20px;}
   .fleg{text-align:left;}
 
   /* ── FIXED/STICKY ELEMENTS — hide decorative ones ───────── */
   .story-ch-progress{display:none!important;}
   #exam-clock,#reading-time{display:none!important;}
+  .sn{right:24px;font-size:.4rem;}
+  .scr-ind{display:none!important;}
 
   /* ── MISC ───────────────────────────────────────────────── */
   .ncah-price-anchor{padding:20px 16px;}
-  .sn{right:24px;}
   .ncah-container{padding:0 20px;}
   .strategic-pull{max-width:100%!important;}
   .proof-rows{gap:10px 16px;}
+  .w{padding:0 20px!important;}
+
+  /* ── PAGE WRAP ─────────────────────────────────────────── */
+  #page-wrap{
+    width:100%!important;
+    max-width:100vw!important;
+    overflow-x:hidden!important;
+    overflow-x:clip!important;
+  }
 }
 
 /* ── EXTRA-SMALL SCREENS (≤420px) — iPhone SE / small Android ── */
@@ -1649,6 +1712,94 @@ em .char{opacity:1;transform:none;}
   [style*="padding:32px 28px"]{padding:24px 16px!important;}
   [style*="padding:24px 20px"]{padding:20px 14px!important;}
 }
+
+/* ══════════════════════════════════════════════════════════════
+   JS-BASED MOBILE FIX — html.mob class set by <script> in <head>
+   Uses screen.width which CANNOT be tricked by layout viewport
+   expansion. This is the bulletproof fallback when CSS media
+   queries fail due to an element forcing the page wider.
+   ══════════════════════════════════════════════════════════════ */
+html.mob,
+html.mob body{
+  overflow-x:hidden!important;
+  overflow-x:clip!important;
+  max-width:100vw!important;
+  width:100%!important;
+}
+html.mob body{position:relative!important;}
+html.mob #page-wrap{overflow-x:hidden!important;overflow-x:clip!important;max-width:100vw!important;}
+html.mob :root{--td:clamp(2.5rem,10vw,10.5rem);--h1:clamp(2rem,5.5vw,6.5rem);}
+
+/* Grid collapse — every grid forced to single column */
+html.mob .hi{grid-template-columns:1fr!important;gap:32px!important;padding:80px 0 40px!important;}
+html.mob .story-chapter-inner{grid-template-columns:1fr!important;gap:32px!important;padding:80px 24px!important;}
+html.mob .mhd{grid-template-columns:1fr!important;gap:24px!important;}
+html.mob .mg{grid-template-columns:1fr!important;}
+html.mob .pods-grid{grid-template-columns:1fr!important;}
+html.mob .subi{grid-template-columns:1fr!important;gap:24px!important;}
+html.mob .pri{grid-template-columns:1fr!important;gap:32px!important;}
+html.mob .sgrid{grid-template-columns:1fr!important;gap:32px!important;}
+html.mob .pintro{grid-template-columns:1fr!important;gap:24px!important;}
+html.mob .ftg{grid-template-columns:1fr!important;gap:28px!important;}
+html.mob .pgrid{grid-template-columns:1fr!important;}
+html.mob .bss{grid-template-columns:1fr!important;}
+html.mob .ncah-trust-grid{grid-template-columns:1fr!important;}
+html.mob #blog-grid{grid-template-columns:1fr!important;}
+
+/* Inline grid override via attribute selectors */
+html.mob [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
+html.mob [style*="grid-template-columns:repeat(4"]{grid-template-columns:1fr!important;}
+html.mob [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+html.mob [style*="grid-template-columns:repeat(auto-fill"]{grid-template-columns:1fr!important;}
+
+/* Gaps, white-space, padding */
+html.mob [style*="gap:60px"]{gap:24px!important;}
+html.mob [style*="gap:80px"]{gap:24px!important;}
+html.mob [style*="white-space:nowrap"]{white-space:normal!important;}
+html.mob [style*="padding:140px 0"]{padding:80px 0!important;}
+html.mob [style*="padding:100px 0"]{padding:60px 0!important;}
+
+/* Section containment */
+html.mob section,html.mob footer,html.mob .sec,html.mob .hero,
+html.mob .phil,html.mob .fcta,html.mob .prf,html.mob .msc,
+html.mob .csc,html.mob .subsc,html.mob .tb{
+  overflow-x:hidden!important;overflow-x:clip!important;max-width:100vw!important;
+}
+
+/* Hero */
+html.mob .hero{padding:0 20px!important;min-height:auto!important;}
+html.mob .hact{flex-direction:column;align-items:stretch;gap:16px;}
+html.mob .hact .bp{width:100%;text-align:center;justify-content:center;}
+html.mob .hcard{padding:32px 20px;max-width:100%!important;}
+
+/* Section padding */
+html.mob .pods-sec{padding:80px 24px!important;}
+html.mob .phil{padding:80px 24px!important;}
+html.mob .fcta{padding:80px 24px!important;}
+html.mob .prf{padding:80px 24px!important;}
+html.mob footer{padding:52px 24px!important;}
+html.mob .w{padding:0 20px!important;}
+html.mob nav,html.mob nav.sc{padding:14px 20px!important;}
+
+/* Typography */
+html.mob .ch{font-size:clamp(2.8rem,9vw,9rem)!important;}
+html.mob .pht{font-size:clamp(2rem,5.5vw,5.6rem)!important;}
+
+/* Hide decorative fixed elements */
+html.mob .story-ch-progress{display:none!important;}
+html.mob #exam-clock,html.mob #reading-time{display:none!important;}
+html.mob .scr-ind{display:none!important;}
+
+/* Ticker */
+html.mob .tb{width:100%!important;max-width:100vw!important;}
+
+/* Blog + cards */
+html.mob .blog-featured{padding:32px 20px;}
+html.mob .sf2{padding:32px 20px;}
+html.mob .method-flow{padding:24px 16px;}
+html.mob .sc2{flex:0 0 280px;}
+html.mob .fb2{flex-direction:column;align-items:flex-start;gap:20px;}
+html.mob .proof-rows{gap:10px 16px;}
 
 </style>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","waqh152g51");</script>
