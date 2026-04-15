@@ -1518,93 +1518,136 @@ em .char{opacity:1;transform:none;}
 @media(prefers-reduced-motion:reduce){.ncah-reveal{opacity:1!important;transform:none!important;}}
 
 /* ══════════════════════════════════════════════════════════════
-   MOBILE RESPONSIVE FIXES — ≤768px (iPhone 14 = 390px)
-   Fixes: horizontal overflow, hero text scale, section padding,
-   grid stacking, CTA sizing, and fixed-element containment.
+   MOBILE RESPONSIVE FIXES v2 — ≤768px (iPhone 14 = 390px)
+   Root cause: inline style="" attributes on HTML elements are
+   IMMUNE to CSS class-based media queries. This block uses
+   CSS attribute selectors + !important to override them.
    ══════════════════════════════════════════════════════════════ */
 @media(max-width:768px){
-  /* PROBLEM 2 — Prevent horizontal overflow at root level */
-  html,body{overflow-x:hidden;max-width:100vw;}
 
-  /* PROBLEM 3 — Hero heading: reduce display title for mobile readability */
+  /* ── ROOT OVERFLOW LOCK ─────────────────────────────────────
+     iOS Safari ignores overflow-x:hidden on body when fixed
+     elements exist. This double-lock prevents horizontal scroll. */
+  html{overflow-x:hidden!important;max-width:100vw!important;}
+  body{overflow-x:hidden!important;max-width:100vw!important;width:100%!important;}
+
+  /* ── HERO TEXT SCALE ────────────────────────────────────────
+     --td base min is 4.5rem (72px) — too large for 390px.
+     Reduce to 2.5rem (40px) minimum on mobile. */
   :root{--td:clamp(2.5rem,10vw,10.5rem);}
 
-  /* PROBLEM 1/2 — Sections with 72px side-padding lacking mobile overrides */
-  .pods-sec{padding:80px 24px;}
-  .phil{padding:80px 24px;}
-  .fcta{padding:80px 24px;}
+  /* ── INLINE GRID NUCLEAR OVERRIDE ──────────────────────────
+     Many grids are set via inline style="" and cannot be reached
+     by class selectors. Attribute selectors match the inline
+     style string and override with !important. */
+  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns:repeat(4"]{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns:repeat(auto-fill"]{grid-template-columns:1fr!important;}
 
-  /* Hero: ensure full-width, reasonable padding */
-  .hero{padding:0 20px;}
+  /* ── INLINE GAP OVERRIDE ───────────────────────────────────
+     60-80px gaps between grid/flex items crush columns on mobile. */
+  [style*="gap:60px"]{gap:24px!important;}
+  [style*="gap:80px"]{gap:24px!important;}
+
+  /* ── INLINE WHITE-SPACE OVERRIDE ───────────────────────────
+     Prevents buttons/links from forcing single-line overflow. */
+  [style*="white-space:nowrap"]{white-space:normal!important;}
+
+  /* ── INLINE PADDING OVERRIDE ───────────────────────────────
+     Sections with inline padding:140px 0 need mobile reduction.
+     Buttons/links with wide inline padding need tightening. */
+  [style*="padding:140px 0"]{padding:80px 0!important;}
+  [style*="padding:100px 0"]{padding:60px 0!important;}
+  [style*="padding:28px 36px"]{padding:20px 16px!important;}
+
+  /* ── SECTION OVERFLOW CONTAINMENT ──────────────────────────
+     Every section and landmark must clip horizontal overflow
+     to prevent ANY child from widening the page. */
+  section,main,article,aside,footer,header,
+  .sec,.hero,.phil,.fcta,.prf,.msc,.csc,.subsc,.readiness-sec,
+  .pods-sec,.sampl,.fqsc,
+  [id="story"],[id="tools"],[id="tools-hub"],
+  [id="country-guides"],[id="blog"]{
+    overflow-x:hidden!important;
+    max-width:100vw!important;
+  }
+
+  /* ── CSS-CLASS GRIDS (already have classes) ─────────────── */
+  #blog-grid{grid-template-columns:1fr!important;}
+  .pgrid{grid-template-columns:1fr!important;max-width:100%;}
+  .bss{grid-template-columns:1fr!important;}
+
+  /* ── SECTIONS WITH 72px CSS PADDING (no inline) ─────────── */
+  .pods-sec{padding:80px 24px!important;}
+  .phil{padding:80px 24px!important;}
+  .fcta{padding:80px 24px!important;}
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero{padding:0 20px!important;min-height:auto!important;}
   .hi{gap:32px;padding-top:80px;padding-bottom:40px;}
-
-  /* Hero CTA buttons: stack and center on mobile */
   .hact{flex-direction:column;align-items:stretch;gap:16px;}
   .hact .bp{width:100%;text-align:center;justify-content:center;}
   .hact .bg{text-align:center;align-self:center;}
+  .hcard{padding:32px 24px;max-width:100%!important;box-sizing:border-box!important;}
 
-  /* Hero card: constrain width */
-  .hcard{padding:32px 24px;}
-
-  /* Blog grid: stack to single column (inline style override) */
-  #blog-grid{grid-template-columns:1fr!important;}
-
-  /* Blog featured card: reduce padding */
+  /* ── BLOG ───────────────────────────────────────────────── */
   .blog-featured{padding:32px 24px;}
 
-  /* Pricing grid: center cards */
-  .pgrid{max-width:100%;}
+  /* ── DECORATIVE ELEMENTS — clip/shrink to prevent overflow  */
+  .prd{font-size:10rem;left:0;overflow:hidden;max-width:100vw;}
+  .porb,.porb2,.mamb,.corb,.morph-orb{max-width:100vw;overflow:hidden;}
+  .scrub-bg-text{max-width:100vw;overflow:hidden;}
+  .spn{overflow:hidden;max-width:100vw;}
 
-  /* Decorative proof text: prevent overflow */
-  .prd{font-size:10rem;left:0;overflow:hidden;}
-
-  /* Orbs and ambient elements: prevent overflow from large absolute elements */
-  .porb,.porb2,.mamb,.corb{max-width:100vw;overflow:hidden;}
-
-  /* Comparison table wrapper: already scrollable, just ensure it */
+  /* ── TABLE — already scrollable via .ctw ─────────────────── */
   .ctw{max-width:100vw;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .ct{min-width:500px;}
 
-  /* Subject cards horizontal track: ensure scrollability */
+  /* ── SUBJECT CARDS TRACK ─────────────────────────────────── */
   .ht{max-width:100vw;}
+  .sc2{flex:0 0 300px;}
 
-  /* Method flow: ensure vertical stacking */
+  /* ── METHOD FLOW ────────────────────────────────────────── */
   .method-flow{padding:24px 16px;}
 
-  /* Sample form grid: reduce gap */
+  /* ── SAMPLE / FORM ──────────────────────────────────────── */
   .sgrid{gap:32px;}
   .sf2{padding:32px 24px;}
 
-  /* Final CTA heading: cap size for readability */
+  /* ── FINAL CTA HEADING ──────────────────────────────────── */
   .ch{font-size:clamp(2.8rem,9vw,9rem);}
 
-  /* Footer: ensure proper stacking */
+  /* ── FOOTER ─────────────────────────────────────────────── */
   .fb2{flex-direction:column;align-items:flex-start;gap:20px;}
   .fleg{text-align:left;}
 
-  /* Fixed story progress dots: hide on mobile */
-  .story-ch-progress{display:none;}
+  /* ── FIXED/STICKY ELEMENTS — hide decorative ones ───────── */
+  .story-ch-progress{display:none!important;}
+  #exam-clock,#reading-time{display:none!important;}
 
-  /* Exam clock and reading time: hide on narrow screens */
-  #exam-clock,#reading-time{display:none;}
-
-  /* Price objection reframe box: reduce padding */
+  /* ── MISC ───────────────────────────────────────────────── */
   .ncah-price-anchor{padding:20px 16px;}
-
-  /* Section number headers: reduce right positioning */
   .sn{right:24px;}
-
-  /* ncah containers: constrain */
   .ncah-container{padding:0 20px;}
+  .strategic-pull{max-width:100%!important;}
+  .proof-rows{gap:10px 16px;}
 }
 
-/* Extra-small screens (≤420px) — tighten further for iPhone SE / small Android */
+/* ── EXTRA-SMALL SCREENS (≤420px) — iPhone SE / small Android ── */
 @media(max-width:420px){
   :root{--td:clamp(2.2rem,9vw,10.5rem);}
-  .w{padding:0 18px;}
-  .hero{padding:0 16px;}
+  .w{padding:0 16px;}
+  .hero{padding:0 14px!important;}
   nav,nav.sc{padding:14px 16px;}
   .ch{font-size:clamp(2.4rem,8vw,9rem);}
   .pht{font-size:clamp(2rem,5.5vw,5.6rem);}
+  .hcard{padding:24px 16px;}
+  .sf2{padding:24px 16px;}
+  .q-card{padding:20px 16px;}
+  .blog-featured{padding:24px 16px;}
+  [style*="padding:32px 28px"]{padding:24px 16px!important;}
+  [style*="padding:24px 20px"]{padding:20px 14px!important;}
 }
 
 </style>
@@ -1612,6 +1655,7 @@ em .char{opacity:1;transform:none;}
 <script src="https://payhip.com/payhip.js" defer></script>
 </head>
 <body>
+<div id="page-wrap" style="width:100%;overflow-x:hidden;position:relative;">
 <div id="page-loader" role="status" aria-label="Loading The NCA Hub">
   <div class="loader-logo-wrap">
     <span class="loader-char" style="--i:0">N</span>
@@ -5259,5 +5303,6 @@ if('serviceWorker' in navigator){
 })();
 </script>
 
+</div><!-- /page-wrap -->
 </body>
 </html>
