@@ -1517,6 +1517,96 @@ em .char{opacity:1;transform:none;}
 .ncah-reveal{opacity:0;transform:translateY(36px);}
 @media(prefers-reduced-motion:reduce){.ncah-reveal{opacity:1!important;transform:none!important;}}
 
+/* ══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE FIXES — ≤768px (iPhone 14 = 390px)
+   Fixes: horizontal overflow, hero text scale, section padding,
+   grid stacking, CTA sizing, and fixed-element containment.
+   ══════════════════════════════════════════════════════════════ */
+@media(max-width:768px){
+  /* PROBLEM 2 — Prevent horizontal overflow at root level */
+  html,body{overflow-x:hidden;max-width:100vw;}
+
+  /* PROBLEM 3 — Hero heading: reduce display title for mobile readability */
+  :root{--td:clamp(2.5rem,10vw,10.5rem);}
+
+  /* PROBLEM 1/2 — Sections with 72px side-padding lacking mobile overrides */
+  .pods-sec{padding:80px 24px;}
+  .phil{padding:80px 24px;}
+  .fcta{padding:80px 24px;}
+
+  /* Hero: ensure full-width, reasonable padding */
+  .hero{padding:0 20px;}
+  .hi{gap:32px;padding-top:80px;padding-bottom:40px;}
+
+  /* Hero CTA buttons: stack and center on mobile */
+  .hact{flex-direction:column;align-items:stretch;gap:16px;}
+  .hact .bp{width:100%;text-align:center;justify-content:center;}
+  .hact .bg{text-align:center;align-self:center;}
+
+  /* Hero card: constrain width */
+  .hcard{padding:32px 24px;}
+
+  /* Blog grid: stack to single column (inline style override) */
+  #blog-grid{grid-template-columns:1fr!important;}
+
+  /* Blog featured card: reduce padding */
+  .blog-featured{padding:32px 24px;}
+
+  /* Pricing grid: center cards */
+  .pgrid{max-width:100%;}
+
+  /* Decorative proof text: prevent overflow */
+  .prd{font-size:10rem;left:0;overflow:hidden;}
+
+  /* Orbs and ambient elements: prevent overflow from large absolute elements */
+  .porb,.porb2,.mamb,.corb{max-width:100vw;overflow:hidden;}
+
+  /* Comparison table wrapper: already scrollable, just ensure it */
+  .ctw{max-width:100vw;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* Subject cards horizontal track: ensure scrollability */
+  .ht{max-width:100vw;}
+
+  /* Method flow: ensure vertical stacking */
+  .method-flow{padding:24px 16px;}
+
+  /* Sample form grid: reduce gap */
+  .sgrid{gap:32px;}
+  .sf2{padding:32px 24px;}
+
+  /* Final CTA heading: cap size for readability */
+  .ch{font-size:clamp(2.8rem,9vw,9rem);}
+
+  /* Footer: ensure proper stacking */
+  .fb2{flex-direction:column;align-items:flex-start;gap:20px;}
+  .fleg{text-align:left;}
+
+  /* Fixed story progress dots: hide on mobile */
+  .story-ch-progress{display:none;}
+
+  /* Exam clock and reading time: hide on narrow screens */
+  #exam-clock,#reading-time{display:none;}
+
+  /* Price objection reframe box: reduce padding */
+  .ncah-price-anchor{padding:20px 16px;}
+
+  /* Section number headers: reduce right positioning */
+  .sn{right:24px;}
+
+  /* ncah containers: constrain */
+  .ncah-container{padding:0 20px;}
+}
+
+/* Extra-small screens (≤420px) — tighten further for iPhone SE / small Android */
+@media(max-width:420px){
+  :root{--td:clamp(2.2rem,9vw,10.5rem);}
+  .w{padding:0 18px;}
+  .hero{padding:0 16px;}
+  nav,nav.sc{padding:14px 16px;}
+  .ch{font-size:clamp(2.4rem,8vw,9rem);}
+  .pht{font-size:clamp(2rem,5.5vw,5.6rem);}
+}
+
 </style>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","waqh152g51");</script>
 <script src="https://payhip.com/payhip.js" defer></script>
