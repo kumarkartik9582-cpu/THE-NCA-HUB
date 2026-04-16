@@ -5,55 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <script>
 (function(){
-  var w=Math.min(screen.width,screen.height);
-  if(w<=768){
-    document.documentElement.classList.add('mob');
-    // Kill horizontal scroll entirely
-    document.addEventListener('scroll',function(){if(window.scrollX!==0)window.scrollTo(0,window.scrollY);},{passive:false});
-    // Inject nuclear mobile CSS immediately — before any render
-    var s=document.createElement('style');
-    s.id='mob-nuclear';
-    s.textContent=
-      'html.mob,html.mob body{overflow-x:clip!important;overflow-x:hidden!important;width:100%!important;max-width:100vw!important;position:relative!important;}'+
-      'html.mob #page-wrap{overflow-x:clip!important;overflow-x:hidden!important;width:100%!important;max-width:100vw!important;}'+
-      'html.mob *:not(script):not(style):not(meta):not(link){max-width:100vw!important;box-sizing:border-box!important;}'+
-      'html.mob .hi{grid-template-columns:1fr!important;gap:24px!important;}'+
-      'html.mob .story-chapter-inner{grid-template-columns:1fr!important;gap:24px!important;padding:60px 20px!important;}'+
-      'html.mob .mhd,html.mob .subi,html.mob .pintro,html.mob .pri,html.mob .sgrid{grid-template-columns:1fr!important;gap:20px!important;}'+
-      'html.mob .mg,html.mob .pods-grid,html.mob .ftg,html.mob .pgrid,html.mob .bss,html.mob .ncah-trust-grid,html.mob #blog-grid{grid-template-columns:1fr!important;}'+
-      'html.mob [style*="grid-template-columns:repeat("]{grid-template-columns:1fr!important;}'+
-      'html.mob [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}'+
-      'html.mob [style*="grid-template-columns:repeat(auto"]{grid-template-columns:1fr!important;}'+
-      'html.mob [style*="gap:60px"]{gap:20px!important;}'+
-      'html.mob [style*="gap:80px"]{gap:20px!important;}'+
-      'html.mob [style*="white-space:nowrap"]{white-space:normal!important;}'+
-      'html.mob [style*="padding:140px"]{padding:60px 0!important;}'+
-      'html.mob [style*="padding:100px"]{padding:50px 0!important;}'+
-      'html.mob .hero{padding:0 16px!important;min-height:auto!important;}'+
-      'html.mob .hi{padding:70px 0 30px!important;}'+
-      'html.mob .hcard{padding:24px 16px!important;}'+
-      'html.mob .hact{flex-direction:column!important;align-items:stretch!important;gap:14px!important;}'+
-      'html.mob .hact .bp{width:100%!important;text-align:center!important;justify-content:center!important;}'+
-      'html.mob .w{padding:0 16px!important;}'+
-      'html.mob nav,html.mob nav.sc{padding:12px 16px!important;}'+
-      'html.mob .pods-sec,html.mob .phil,html.mob .fcta,html.mob .prf{padding:60px 16px!important;}'+
-      'html.mob footer{padding:40px 16px!important;}'+
-      'html.mob .tb{width:100%!important;max-width:100vw!important;overflow:hidden!important;}'+
-      'html.mob .tt{max-width:none;}'+
-      'html.mob section,html.mob [id]{overflow-x:clip!important;overflow-x:hidden!important;}'+
-      'html.mob .story-ch-progress,html.mob #exam-clock,html.mob #reading-time,html.mob .scr-ind{display:none!important;}'+
-      'html.mob :root{--td:clamp(2.2rem,9vw,10.5rem)!important;--h1:clamp(1.8rem,5vw,6.5rem)!important;}'+
-      'html.mob .ch{font-size:clamp(2.4rem,8vw,9rem)!important;}'+
-      'html.mob .pht{font-size:clamp(1.8rem,5vw,5.6rem)!important;}'+
-      'html.mob .blog-featured,html.mob .sf2{padding:24px 16px!important;}'+
-      'html.mob .method-flow{padding:20px 12px!important;}'+
-      'html.mob .sc2{flex:0 0 260px!important;}'+
-      'html.mob .fb2{flex-direction:column!important;align-items:flex-start!important;}'+
-      'html.mob .prd{display:none!important;}'+
-      'html.mob .porb,.porb2,.mamb,.corb,.morph-orb{display:none!important;}'+
-      'html.mob .ct{min-width:auto!important;}';
-    document.head.appendChild(s);
+  var sw=Math.min(screen.width,screen.height);// actual device width in px
+  if(sw>768)return;
+  document.documentElement.classList.add('mob');
+  // Set CSS variable to REAL screen width (not 100vw which expands with layout viewport)
+  document.documentElement.style.setProperty('--sw',sw+'px');
+  // Inject CSS using pixel width — cannot be tricked
+  var s=document.createElement('style');
+  s.id='mob-fix';
+  s.textContent=[
+    'html.mob,html.mob body{width:'+sw+'px!important;max-width:'+sw+'px!important;overflow-x:hidden!important;position:relative!important;}',
+    'html.mob #page-wrap{width:'+sw+'px!important;max-width:'+sw+'px!important;overflow:hidden!important;}',
+    'html.mob *:not(script):not(style):not(meta):not(link):not([style*="position:fixed"]):not([style*="position: fixed"]){max-width:'+sw+'px!important;box-sizing:border-box!important;}',
+    'html.mob .hi{grid-template-columns:1fr!important;gap:24px!important;padding:70px 0 30px!important;}',
+    'html.mob .story-chapter-inner{grid-template-columns:1fr!important;gap:24px!important;padding:60px 20px!important;}',
+    'html.mob .mhd,html.mob .subi,html.mob .pintro,html.mob .pri,html.mob .sgrid{grid-template-columns:1fr!important;gap:20px!important;}',
+    'html.mob .mg,html.mob .pods-grid,html.mob .ftg,html.mob .pgrid,html.mob .bss,html.mob .ncah-trust-grid,html.mob #blog-grid{grid-template-columns:1fr!important;}',
+    'html.mob [style*="grid-template-columns:"]{grid-template-columns:1fr!important;}',
+    'html.mob [style*="gap:60px"],[style*="gap:80px"]{gap:20px!important;}',
+    'html.mob [style*="white-space:nowrap"]{white-space:normal!important;}',
+    'html.mob [style*="padding:140px"]{padding:60px 0!important;}',
+    'html.mob [style*="padding:100px 0"]{padding:50px 0!important;}',
+    'html.mob .hero{padding:0 16px!important;min-height:auto!important;}',
+    'html.mob .hcard{padding:24px 16px!important;max-width:100%!important;}',
+    'html.mob .hact{flex-direction:column!important;align-items:stretch!important;gap:14px!important;}',
+    'html.mob .hact .bp{width:100%!important;text-align:center!important;justify-content:center!important;}',
+    'html.mob .w{padding:0 16px!important;}',
+    'html.mob nav,html.mob nav.sc{padding:12px 16px!important;}',
+    'html.mob .pods-sec,html.mob .phil,html.mob .fcta,html.mob .prf{padding:60px 16px!important;}',
+    'html.mob footer{padding:40px 16px!important;}',
+    'html.mob .tb{width:'+sw+'px!important;overflow:hidden!important;}',
+    'html.mob section,html.mob div[id]{overflow-x:hidden!important;}',
+    'html.mob .story-ch-progress,html.mob #exam-clock,html.mob #reading-time,html.mob .scr-ind{display:none!important;}',
+    'html.mob :root{--td:clamp(2.2rem,9vw,10.5rem)!important;--h1:clamp(1.8rem,5vw,6.5rem)!important;}',
+    'html.mob .ch{font-size:clamp(2.4rem,8vw,9rem)!important;}',
+    'html.mob .pht{font-size:clamp(1.8rem,5vw,5.6rem)!important;}',
+    'html.mob .blog-featured,html.mob .sf2{padding:24px 16px!important;}',
+    'html.mob .method-flow{padding:20px 12px!important;}',
+    'html.mob .sc2{flex:0 0 260px!important;}',
+    'html.mob .fb2{flex-direction:column!important;align-items:flex-start!important;}',
+    'html.mob .prd,.porb,.porb2,.mamb,.corb,.morph-orb,.scrub-bg-text{display:none!important;}',
+    'html.mob .ct{min-width:auto!important;}'
+  ].join('');
+  document.head.appendChild(s);
+  // After DOM loads: find+fix any remaining overflowing element, lock scroll
+  function lockMobile(){
+    document.documentElement.style.width=sw+'px';
+    document.documentElement.style.maxWidth=sw+'px';
+    document.documentElement.style.overflowX='hidden';
+    document.body.style.width=sw+'px';
+    document.body.style.maxWidth=sw+'px';
+    document.body.style.overflowX='hidden';
+    var wrap=document.getElementById('page-wrap');
+    if(wrap){wrap.style.width=sw+'px';wrap.style.maxWidth=sw+'px';wrap.style.overflowX='hidden';}
+    // Find and fix every element wider than the screen
+    var all=document.querySelectorAll('body *');
+    for(var i=0;i<all.length;i++){
+      if(all[i].scrollWidth>sw){
+        all[i].style.maxWidth=sw+'px';
+        all[i].style.overflowX='hidden';
+      }
+    }
+    window.scrollTo(0,window.scrollY);
   }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',lockMobile);}else{lockMobile();}
+  window.addEventListener('load',lockMobile);
+  // Kill horizontal scroll
+  document.addEventListener('scroll',function(){if(window.scrollX!==0)window.scrollTo(0,window.scrollY);},{passive:false});
 })();
 </script>
 <title>NCA Exam Prep Canada 2026 | Study Notes for Internationally Trained Lawyers | The NCA Hub</title>
