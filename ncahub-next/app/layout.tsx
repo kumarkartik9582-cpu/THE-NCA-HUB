@@ -3,10 +3,8 @@ import Providers from '@/components/providers/Providers'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import Cursor from '@/components/ui/Cursor'
-import CursorTrail from '@/components/ui/CursorTrail'
 import ChatWidget from '@/components/ui/ChatWidget'
 import SearchModal from '@/components/ui/SearchModal'
-import SoundSystem from '@/components/ui/SoundSystem'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -58,10 +56,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span>Internationally qualified lawyers qualifying in Canada</span>
           </div>
           <Cursor />
-          <CursorTrail />
           <SearchModal />
           <ChatWidget />
-          <SoundSystem />
           <Nav />
           <main>{children}</main>
           <Footer />

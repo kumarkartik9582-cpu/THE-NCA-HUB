@@ -1,12 +1,9 @@
 'use client'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
-import Preloader from '@/components/ui/Preloader'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [preloaderDone, setPreloaderDone] = useState(false)
-  const onPreloaderComplete = useCallback(() => setPreloaderDone(true), [])
   useEffect(() => {
     // Low-end device detection
     const conn = (navigator as any).connection
@@ -124,10 +121,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  return (
-    <>
-      {!preloaderDone && <Preloader onComplete={onPreloaderComplete} />}
-      {children}
-    </>
-  )
+  return <>{children}</>
 }

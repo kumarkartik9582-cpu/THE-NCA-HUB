@@ -1,13 +1,10 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import SplitText from '@/components/ui/SplitText'
 import TextScramble from '@/components/ui/TextScramble'
 import TiltCard from '@/components/ui/TiltCard'
 import FloatingParticles from '@/components/ui/FloatingParticles'
-
-const HeroSceneLoader = dynamic(() => import('@/components/3d/HeroSceneLoader'), { ssr: false })
 
 /* ─── Ticker data ─────────────────────────────────────────────────────────── */
 const TICKER_ITEMS = [
@@ -69,8 +66,8 @@ const RESULTS = [
   },
   {
     subject: 'Con Law · 4th attempt · 10 days',
-    quote: '"The only method that worked for me."',
-    author: 'Anum S. · Toronto',
+    quote: '"The only method that worked after 3 failed attempts."',
+    author: 'Priya T. · Vancouver',
   },
   {
     subject: 'Admin Law · 1st attempt · 3 weeks',
@@ -87,9 +84,7 @@ export default function HeroSection() {
   const scrollRef = useRef<HTMLDivElement>(null!)
 
   useEffect(() => {
-    // Choreographed 8-step hero reveal — each element enters in sequence
-    // Preloader takes ~2.5s, so we delay 2.8s for the hero to begin
-    const tl = gsap.timeline({ delay: 2.8 })
+    const tl = gsap.timeline({ delay: 0.1 })
 
     tl
       // Step 1: Subtext fades in (0s)
@@ -119,8 +114,30 @@ export default function HeroSection() {
 
   return (
     <>
-      {/* 3D WebGL scene — fixed, behind everything */}
-      <HeroSceneLoader />
+      {/* CSS nebula background — replaces Three.js for performance */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
+          background: '#020204',
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: [
+            'radial-gradient(ellipse 90% 60% at 20% 60%, rgba(201,168,76,0.07) 0%, transparent 55%)',
+            'radial-gradient(ellipse 70% 50% at 80% 30%, rgba(80,40,120,0.1) 0%, transparent 55%)',
+            'radial-gradient(ellipse 60% 40% at 50% 80%, rgba(40,20,80,0.12) 0%, transparent 60%)',
+          ].join(', '),
+          animation: 'nebulaDrift 18s ease-in-out infinite alternate',
+        }} />
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse 40% 40% at 35% 40%, rgba(201,168,76,0.04) 0%, transparent 50%)',
+          animation: 'nebulaDrift2 24s ease-in-out infinite alternate',
+        }} />
+      </div>
 
       {/* Hero content */}
       <section
@@ -157,7 +174,7 @@ export default function HeroSection() {
                 background: 'rgba(201,168,76,.04)',
                 border: '1px solid rgba(201,168,76,.15)',
                 padding: '7px 16px', borderRadius: 3, marginBottom: 36,
-                opacity: 0, animation: 'fadeInDown 0.7s 2.7s ease forwards',
+                opacity: 0, animation: 'fadeInDown 0.7s 0.05s ease forwards',
                 backdropFilter: 'blur(10px)',
               }}
             >
@@ -181,9 +198,9 @@ export default function HeroSection() {
               lineHeight: 1.05, color: 'var(--cream)', marginBottom: 28,
               perspective: '800px',
             }}>
-              <SplitText text="Pass the NCA." by="words" delay={2.9} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em' }} />
-              <SplitText text="Not in years." by="words" delay={3.2} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em', color: 'var(--fog)' }} />
-              <SplitText text="This cycle." by="words" delay={3.5} stagger={0.09} scrollTrigger={false} style={{ display: 'block' }} tokenColor="var(--g1)" />
+              <SplitText text="Pass the NCA." by="words" delay={0.15} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em' }} />
+              <SplitText text="Not in years." by="words" delay={0.4} stagger={0.08} scrollTrigger={false} style={{ display: 'block', marginBottom: '0.05em', color: 'var(--fog)' }} />
+              <SplitText text="This cycle." by="words" delay={0.65} stagger={0.09} scrollTrigger={false} style={{ display: 'block' }} tokenColor="var(--g1)" />
             </div>
 
             {/* Sub */}
@@ -202,7 +219,7 @@ export default function HeroSection() {
             <p style={{ fontSize: 'var(--nano)', color: 'var(--dim)', letterSpacing: '.1em', marginBottom: 44 }}>
               <TextScramble
                 text="Built by an India-qualified lawyer · All 5 NCA subjects passed · CoQ requested · Candidates from 12+ countries"
-                delay={3600}
+                delay={800}
                 duration={1400}
               />
             </p>
@@ -300,6 +317,14 @@ export default function HeroSection() {
       </div>
 
       <style>{`
+        @keyframes nebulaDrift {
+          0%   { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.08) translate(2%, -2%); }
+        }
+        @keyframes nebulaDrift2 {
+          0%   { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.12) translate(-3%, 3%); }
+        }
         @keyframes fadeInDown {
           from { opacity:0; transform:translateY(-10px); }
           to   { opacity:1; transform:translateY(0); }
