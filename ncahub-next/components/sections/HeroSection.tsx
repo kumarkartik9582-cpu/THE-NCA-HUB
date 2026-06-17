@@ -57,21 +57,21 @@ function MagneticBtn({
   )
 }
 
-/* ─── Result card ─────────────────────────────────────────────────────────── */
+/* ─── Proof card data ─────────────────────────────────────────────────────── */
 const RESULTS = [
   {
     subject: 'Admin Law · 1st attempt · 10 days',
-    quote: '"Kartik\'s Vavilov framework was clearer than any textbook."',
+    quote: '"Kartik\'s Vavilov framework was clearer than any textbook I had read."',
     author: 'Anum S. · Toronto',
   },
   {
     subject: 'Con Law · 4th attempt · 10 days',
-    quote: '"The only method that worked after 3 failed attempts."',
-    author: 'Priya T. · Vancouver',
+    quote: '"I had failed this three times. This is the only method that worked."',
+    author: 'Anum S. · Toronto',
   },
   {
     subject: 'Admin Law · 1st attempt · 3 weeks',
-    quote: '"Passed first attempt."',
+    quote: '"Passed first attempt. The answer templates alone are worth the price."',
     author: 'M.B. · Toronto',
   },
 ]
@@ -211,28 +211,28 @@ export default function HeroSection() {
                 maxWidth: 520, marginBottom: 14, opacity: 0,
               }}
             >
-              Under 80 pages per subject. Answer templates. Practice questions.
-              Built by a lawyer who passed all 5 NCA exams — the first with 7 days to prepare.
+              Notes under 80 pages. Answer templates. Practice questions.
+              Built by an internationally trained lawyer who passed all 5 NCA exams — the first with 7 days to prepare.
             </p>
 
-            {/* Author line — text scramble "decoding" effect */}
-            <p style={{ fontSize: 'var(--nano)', color: 'var(--dim)', letterSpacing: '.1em', marginBottom: 44 }}>
-              <TextScramble
-                text="Built by an India-qualified lawyer · All 5 NCA subjects passed · CoQ requested · Candidates from 12+ countries"
-                delay={800}
-                duration={1400}
-              />
+            {/* Trust line */}
+            <p style={{ fontSize: 'var(--nano)', color: 'var(--dim)', letterSpacing: '.1em', marginBottom: 36 }}>
+              Used by candidates from India, UK, Nigeria, Pakistan, Philippines + 7 more countries
             </p>
 
             {/* CTAs */}
-            <div ref={ctaRef} style={{ display: 'flex', gap: 14, flexWrap: 'wrap', opacity: 0 }}>
-              <MagneticBtn href="#readiness" className="bp" data-cur="Score" style={{ borderRadius: '4px' }}>
-                <span>Get My Readiness Score →</span>
+            <div ref={ctaRef} style={{ display: 'flex', gap: 14, flexWrap: 'wrap', opacity: 0, alignItems: 'center' }}>
+              <MagneticBtn href="https://payhip.com/THENCAHUB" className="bp" data-cur="Buy" style={{ borderRadius: '4px' }}>
+                <span>Get the Notes →</span>
               </MagneticBtn>
               <MagneticBtn href="#pricing" className="nc" data-cur="View" style={{ borderRadius: '4px' }}>
-                <span>See the Notes</span>
+                <span>See what&apos;s inside</span>
               </MagneticBtn>
             </div>
+            {/* Price anchor */}
+            <p style={{ fontSize: 'var(--nano)', color: 'var(--dim)', marginTop: 14, letterSpacing: '.05em' }}>
+              CA$175 per subject · CA$199 all five · Instant PDF download · Pay once
+            </p>
           </div>
 
           {/* ── Right: results card with 3D tilt ── */}

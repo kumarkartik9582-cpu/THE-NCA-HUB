@@ -1,64 +1,33 @@
 'use client'
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import TiltCard from '@/components/ui/TiltCard'
 
 const EXPO = [0.16, 1, 0.3, 1] as const
 
-const PLANS = [
-  {
-    name: 'Single Subject',
-    price: 'CA$49',
-    period: 'per subject',
-    desc: 'Everything you need for one NCA subject.',
-    features: [
-      'Strategic notes (under 80 pages)',
-      'Answer templates',
-      'Practice questions',
-      'Readiness Score access',
-    ],
-    cta: 'Get Single Subject',
-    href: 'https://payhip.com/THENCAHUB',
-    highlight: false,
-  },
-  {
-    name: 'Complete Bundle',
-    price: 'CA$199',
-    period: 'all 5 subjects',
-    desc: 'All five NCA subjects. One price. Video lectures included when released.',
-    features: [
-      'All 5 subject notes',
-      'All answer templates',
-      'All practice question sets',
-      'Video lectures (when released)',
-      'Priority support',
-      'Readiness Score — all subjects',
-    ],
-    cta: 'Get Complete Bundle',
-    href: 'https://payhip.com/THENCAHUB',
-    highlight: true,
-    badge: 'Most Popular',
-  },
+const BUNDLE_FEATURES = [
+  'Notes for all 5 NCA subjects (330+ pages)',
+  'Answer templates for every question type',
+  'Practice questions per subject',
+  'Instant PDF download',
+  'Lifetime access — no subscription',
+  'Video lectures at no extra cost when released',
 ]
 
-/** Animated SVG checkmark that draws in when inView */
-function AnimatedCheck({ delay, highlight }: { delay: number; highlight: boolean }) {
+const SINGLE_FEATURES = [
+  'Notes for one NCA subject (under 80 pages)',
+  'Answer templates for that subject',
+  'Practice questions',
+  'Instant PDF download',
+  'Lifetime access',
+]
+
+function Check() {
   return (
-    <svg
-      width="14" height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      style={{ flexShrink: 0, marginTop: 2 }}
-    >
-      <motion.path
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 3 }}>
+      <path
         d="M2 7 L5.5 10.5 L12 3.5"
-        stroke={highlight ? 'var(--g0)' : 'var(--g1)'}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+        stroke="var(--g1)" strokeWidth="1.5"
+        strokeLinecap="round" strokeLinejoin="round"
       />
     </svg>
   )
@@ -69,151 +38,177 @@ export default function PricingSection() {
   const inView = useInView(ref, { once: true, margin: '-10%' })
 
   return (
-    <section className="sec" id="pricing" aria-label="Pricing" ref={ref}
+    <section
+      className="sec"
+      id="pricing"
+      aria-label="Pricing"
+      ref={ref}
       style={{
         background: 'var(--dark)',
         borderTop: '1px solid rgba(201,168,76,.06)',
         position: 'relative', overflow: 'hidden',
-      }}>
-      {/* Glow line at top */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : {}}
-        transition={{ duration: 1.1, ease: EXPO }}
-        style={{
-          position: 'absolute', top: 0, left: '20%', right: '20%', height: 1, zIndex: 5,
-          background: 'linear-gradient(90deg, transparent, rgba(201,168,76,.4), transparent)',
-          transformOrigin: 'center',
-        }}
-      />
+      }}
+    >
+      <div className="glow-line" style={{ position: 'absolute', top: 0, left: '20%', right: '20%', zIndex: 5 }} />
 
       <div className="w" style={{ position: 'relative', zIndex: 2 }}>
-        <motion.span className="ey"
+
+        {/* Header */}
+        <motion.span
+          className="ey"
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}>
+          transition={{ duration: 0.6 }}
+        >
           Pricing
         </motion.span>
         <motion.h2
-          initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1, ease: EXPO }}
-          style={{ fontFamily: 'var(--fd)', fontSize: 'var(--h1)', fontWeight: 400, lineHeight: 1.1, marginBottom: 16 }}>
-          Simple pricing.<br /><em className="gradient-text">No surprises.</em>
+          style={{
+            fontFamily: 'var(--fd)', fontSize: 'clamp(2rem,4vw,3.2rem)',
+            fontWeight: 400, lineHeight: 1.1, marginBottom: 12,
+          }}
+        >
+          Pay once.<br /><em className="gradient-text">Own it forever.</em>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          style={{ fontSize: 'var(--lead)', color: 'var(--fog)', maxWidth: 560, marginBottom: 56 }}>
-          Pay once. Study at your own pace. Payment plans available — email before purchasing.
+          transition={{ duration: 0.7, delay: 0.25 }}
+          style={{ fontSize: 'var(--lead)', color: 'var(--fog)', maxWidth: 520, marginBottom: 56 }}
+        >
+          Failing one NCA exam costs CA$500+ to resit — plus another 3 months of your life.
+          The complete bundle is CA$199.
         </motion.p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, maxWidth: 860 }}>
-          {PLANS.map((plan, i) => (
-            <motion.div key={plan.name}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.75, delay: 0.2 + i * 0.15, ease: EXPO }}
+        {/* Plans */}
+        <div className="pricing-grid" style={{
+          display: 'grid', gridTemplateColumns: '1fr 1.3fr',
+          gap: 20, maxWidth: 880,
+        }}>
+
+          {/* Single subject */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: EXPO }}
+            style={{
+              padding: '36px 32px',
+              background: 'rgba(201,168,76,0.02)',
+              border: '1px solid rgba(201,168,76,0.1)',
+              borderRadius: 10,
+            }}
+          >
+            <div style={{
+              fontSize: 'var(--nano)', letterSpacing: '.3em',
+              textTransform: 'uppercase', color: 'var(--g2)',
+              fontWeight: 600, marginBottom: 16,
+            }}>
+              Single Subject
+            </div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+              <span className="gradient-text" style={{
+                fontFamily: 'var(--fd)', fontSize: '2.8rem', fontWeight: 300, lineHeight: 1,
+              }}>
+                CA$175
+              </span>
+              <span style={{ fontSize: 'var(--sm)', color: 'var(--dim)' }}>per subject</span>
+            </div>
+            <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.65, marginBottom: 28 }}>
+              Everything for one NCA subject. Notes, answer templates, and practice questions.
+            </p>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
+              {SINGLE_FEATURES.map((f, i) => (
+                <li key={i} style={{ display: 'flex', gap: 10, fontSize: 'var(--sm)', color: 'var(--fog)', alignItems: 'flex-start' }}>
+                  <Check />{f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="https://payhip.com/THENCAHUB"
+              target="_blank" rel="noopener noreferrer"
+              className="nc"
+              style={{ width: '100%', justifyContent: 'center', display: 'flex', borderRadius: 4 }}
             >
-              <TiltCard
-                className={plan.highlight ? 'holo-card' : ''}
-                maxTilt={plan.highlight ? 6 : 4}
-                glare={plan.highlight ? 0.12 : 0.06}
-                style={{
-                  padding: '40px 36px',
-                  background: plan.highlight
-                    ? 'linear-gradient(145deg, rgba(201,168,76,0.08) 0%, rgba(8,8,16,0.9) 40%, rgba(201,168,76,0.04) 100%)'
-                    : 'linear-gradient(145deg, rgba(201,168,76,0.03) 0%, rgba(8,8,16,0.8) 50%)',
-                  border: plan.highlight
-                    ? '1px solid rgba(201,168,76,.25)'
-                    : '1px solid rgba(201,168,76,.08)',
-                  borderRadius: '12px',
-                  position: 'relative',
-                  height: '100%',
-                }}
-              >
-                {plan.badge && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.5, ease: EXPO }}
-                    style={{
-                      position: 'absolute', top: -1, right: 28,
-                      background: 'linear-gradient(135deg, var(--g0), var(--g1))',
-                      color: 'var(--void)',
-                      fontSize: 'var(--nano)', letterSpacing: '.2em', textTransform: 'uppercase',
-                      fontWeight: 700, padding: '5px 14px',
-                      borderRadius: '0 0 6px 6px',
-                      boxShadow: '0 4px 12px rgba(201,168,76,0.3)',
-                    }}>
-                    {plan.badge}
-                  </motion.div>
-                )}
+              <span>Choose a Subject →</span>
+            </a>
+          </motion.div>
 
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                  <div style={{ marginBottom: 24 }}>
-                    <div style={{
-                      fontSize: 'var(--nano)', letterSpacing: '.3em', textTransform: 'uppercase',
-                      color: 'var(--g2)', fontWeight: 600, marginBottom: 12,
-                    }}>
-                      {plan.name}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-                      <span className={plan.highlight ? 'neon-text' : ''} style={{
-                        fontFamily: 'var(--fd)', fontSize: '2.8rem', fontWeight: 300,
-                        lineHeight: 1,
-                      }}>
-                        <span className="gradient-text">{plan.price}</span>
-                      </span>
-                      <span style={{ fontSize: 'var(--sm)', color: 'var(--dim)' }}>{plan.period}</span>
-                    </div>
-                    <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.65 }}>{plan.desc}</p>
-                  </div>
+          {/* Bundle */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.35, ease: EXPO }}
+            style={{
+              padding: '36px 32px',
+              background: 'linear-gradient(145deg, rgba(201,168,76,0.08) 0%, rgba(8,8,16,0.9) 50%, rgba(201,168,76,0.04) 100%)',
+              border: '1px solid rgba(201,168,76,0.25)',
+              borderRadius: 10, position: 'relative',
+            }}
+          >
+            {/* Badge */}
+            <div style={{
+              position: 'absolute', top: -1, right: 28,
+              background: 'linear-gradient(135deg, var(--g0), var(--g1))',
+              color: 'var(--void)',
+              fontSize: 'var(--nano)', letterSpacing: '.2em',
+              textTransform: 'uppercase', fontWeight: 700,
+              padding: '5px 14px', borderRadius: '0 0 6px 6px',
+              boxShadow: '0 4px 12px rgba(201,168,76,0.3)',
+            }}>
+              Best Value
+            </div>
 
-                  {/* Feature list with animated SVG checkmarks */}
-                  <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
-                    {plan.features.map((f, fi) => (
-                      <motion.li
-                        key={f}
-                        initial={{ opacity: 0, x: -12 }}
-                        animate={inView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.45, delay: 0.45 + i * 0.15 + fi * 0.07, ease: EXPO }}
-                        style={{
-                          display: 'flex', gap: 10, fontSize: 'var(--sm)',
-                          color: 'var(--fog)', alignItems: 'flex-start',
-                        }}
-                      >
-                        {inView && (
-                          <AnimatedCheck
-                            delay={0.5 + i * 0.15 + fi * 0.07}
-                            highlight={plan.highlight}
-                          />
-                        )}
-                        {f}
-                      </motion.li>
-                    ))}
-                  </ul>
+            <div style={{
+              fontSize: 'var(--nano)', letterSpacing: '.3em',
+              textTransform: 'uppercase', color: 'var(--g2)',
+              fontWeight: 600, marginBottom: 16,
+            }}>
+              Complete Bundle
+            </div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+              <span className="gradient-text" style={{
+                fontFamily: 'var(--fd)', fontSize: '2.8rem', fontWeight: 300, lineHeight: 1,
+              }}>
+                CA$199
+              </span>
+              <span style={{ fontSize: 'var(--sm)', color: 'var(--dim)' }}>all 5 subjects</span>
+            </div>
+            <p style={{ fontSize: 'var(--sm)', color: 'var(--fog)', lineHeight: 1.65, marginBottom: 28 }}>
+              Every NCA subject covered. Notes, answer templates, and practice questions for all five.
+            </p>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
+              {BUNDLE_FEATURES.map((f, i) => (
+                <li key={i} style={{ display: 'flex', gap: 10, fontSize: 'var(--sm)', color: 'var(--fog)', alignItems: 'flex-start' }}>
+                  <Check />{f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="https://payhip.com/THENCAHUB"
+              target="_blank" rel="noopener noreferrer"
+              className="bp"
+              style={{ width: '100%', justifyContent: 'center', display: 'flex', borderRadius: 4 }}
+            >
+              <span>Get All 5 Subjects — CA$199 →</span>
+            </a>
+          </motion.div>
 
-                  <a href={plan.href} target="_blank" rel="noopener noreferrer"
-                    className={plan.highlight ? 'bp' : 'nc'}
-                    style={{
-                      width: '100%', justifyContent: 'center', display: 'flex',
-                      borderRadius: '4px',
-                    }}>
-                    <span>{plan.cta} →</span>
-                  </a>
-                </div>
-              </TiltCard>
-            </motion.div>
-          ))}
         </div>
 
+        {/* Trust note */}
         <motion.p
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.6 }}
-          style={{ fontSize: 'var(--sm)', color: 'var(--dim)', marginTop: 28, maxWidth: 860 }}>
-          Payment plans available. Email <a href="mailto:thencahub@gmail.com" style={{ color: 'var(--g2)' }}>thencahub@gmail.com</a> before purchasing to arrange a schedule.
+          style={{ fontSize: 'var(--sm)', color: 'var(--dim)', marginTop: 24, maxWidth: 880 }}
+        >
+          Payment plans available — email{' '}
+          <a href="mailto:thencahub@gmail.com" style={{ color: 'var(--g2)', textDecoration: 'underline', textDecorationColor: 'rgba(201,168,76,0.3)', textUnderlineOffset: 3 }}>
+            thencahub@gmail.com
+          </a>{' '}
+          before purchasing to arrange a schedule.
         </motion.p>
+
       </div>
-      <style>{`@media(max-width:640px){#pricing .w > div:nth-child(3){grid-template-columns:1fr!important}}`}</style>
+
+      <style>{`@media(max-width:700px){#pricing .pricing-grid{grid-template-columns:1fr!important}}`}</style>
     </section>
   )
 }
