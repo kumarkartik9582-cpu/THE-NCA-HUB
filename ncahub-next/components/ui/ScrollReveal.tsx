@@ -75,7 +75,7 @@ export default function ScrollReveal({
   delay = 0,
   duration = 0.9,
   distance,
-  threshold = 'top 88%',
+  threshold = 'top 95%',
   once = true,
   className,
   style,
@@ -90,6 +90,12 @@ export default function ScrollReveal({
 
     const { from, to } = DEFAULTS[variant]
 
+    // prefers-reduced-motion: skip animation, show element immediately
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(el, to)
+      return
+    }
+
     // Override default distance if provided
     const fromFinal = { ...from }
     if (distance !== undefined) {
@@ -99,6 +105,9 @@ export default function ScrollReveal({
 
     // Optionally stagger direct children
     const targets = stagger > 0 ? Array.from(el.children) : el
+
+    // Safety: if ScrollTrigger never fires (mobile threshold missed), reveal after 2s
+    const safetyTimer = setTimeout(() => { gsap.set(targets, to) }, 2000)
 
     const tween = gsap.fromTo(targets, fromFinal, {
       ...to,
@@ -110,10 +119,11 @@ export default function ScrollReveal({
         trigger: el,
         start: threshold,
         toggleActions: once ? 'play none none none' : 'play reverse play reverse',
+        onEnter: () => clearTimeout(safetyTimer),
       },
     })
 
-    return () => { tween.kill() }
+    return () => { tween.kill(); clearTimeout(safetyTimer) }
   }, [variant, delay, duration, threshold, once, stagger, distance])
 
   return (

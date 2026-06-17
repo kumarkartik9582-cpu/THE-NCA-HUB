@@ -92,7 +92,7 @@ function ScoreDisplay({ pct, result }: { pct: number; result: ReturnType<typeof 
 
 export default function ReadinessSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
   const [answers, setAnswers] = useState<number[]>([])
   const [complete, setComplete] = useState(false)
 

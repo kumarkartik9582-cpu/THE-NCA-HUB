@@ -39,7 +39,7 @@ const SOCIALS = [
 
 export default function Footer() {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-5%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <footer

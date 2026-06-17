@@ -17,7 +17,7 @@ export type PostData = {
 
 function ArticleBlock({ block, index }: { block: string; index: number }) {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-5%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   if (block.startsWith('## ')) {
     return (
@@ -155,7 +155,7 @@ export default function BlogPostContent({ post, slug }: { post: PostData; slug: 
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.05 }}
             transition={{ duration: 0.6 }}
             style={{ marginTop: 80, paddingTop: 40, borderTop: '1px solid rgba(201,168,76,.08)' }}
           >

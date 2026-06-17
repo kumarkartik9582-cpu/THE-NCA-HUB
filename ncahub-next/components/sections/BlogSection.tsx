@@ -14,7 +14,7 @@ const FEATURED_POSTS = [
 
 export default function BlogSection() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
 
   return (
     <section id="blog" aria-label="Free Guides" ref={ref}

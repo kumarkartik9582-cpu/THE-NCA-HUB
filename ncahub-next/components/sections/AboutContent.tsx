@@ -36,7 +36,7 @@ function parseVal(raw: string) {
 
 function CountStat({ value, label, delay }: { value: string; label: string; delay: number }) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-10%' })
+  const inView = useInView(ref, { once: true, margin: '0px' })
   const { prefix, num, suffix } = parseVal(value)
   const motionVal = useMotionValue(0)
   const display = useTransform(motionVal, (v) => `${prefix}${Math.round(v)}${suffix}`)

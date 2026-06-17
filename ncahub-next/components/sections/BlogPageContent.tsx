@@ -27,7 +27,7 @@ export default function BlogPageContent() {
   const heroRef = useRef<HTMLElement>(null)
   const heroInView = useInView(heroRef, { once: true })
   const gridRef = useRef<HTMLElement>(null)
-  const gridInView = useInView(gridRef, { once: true, margin: '-5%' })
+  const gridInView = useInView(gridRef, { once: true, margin: '0px' })
 
   return (
     <main>

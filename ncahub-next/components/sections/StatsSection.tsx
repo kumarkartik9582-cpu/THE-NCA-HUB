@@ -40,6 +40,12 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
   useEffect(() => {
     const el = elRef.current
     if (!el) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    // Safety: if ScrollTrigger never fires (aggressive mobile), show final value
+    const safetyTimer = setTimeout(() => { el.textContent = target + suffix }, 3000)
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         obj.current,
@@ -48,17 +54,26 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
           val: target,
           duration: 2.0,
           ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 95%',
+            toggleActions: 'play none none none',
+            onEnter: () => clearTimeout(safetyTimer),
+          },
           onUpdate() {
             el.textContent = Math.round(obj.current.val) + suffix
+          },
+          onComplete() {
+            el.textContent = target + suffix
           },
         }
       )
     })
-    return () => ctx.revert()
+    return () => { ctx.revert(); clearTimeout(safetyTimer) }
   }, [target, suffix])
 
-  return <span ref={elRef}>0{suffix}</span>
+  // Render final value immediately — visible without JS/GSAP firing
+  return <span ref={elRef}>{target}{suffix}</span>
 }
 
 export default function StatsSection() {
@@ -169,6 +184,12 @@ export default function StatsSection() {
         @media(max-width:900px){
           .stats-grid  { grid-template-columns: repeat(2,1fr)!important; }
           .quotes-grid { grid-template-columns: 1fr!important; }
+        }
+        @media(max-width:768px){
+          #stats .stats-grid > div,
+          #stats .quotes-grid > div { opacity:1!important; transform:none!important; clip-path:none!important; }
+          #stats .gradient-text-animated,
+          #stats .gradient-text { -webkit-text-fill-color:#C9A84C!important; background:none!important; animation:none!important; color:#C9A84C!important; }
         }
       `}</style>
     </section>
