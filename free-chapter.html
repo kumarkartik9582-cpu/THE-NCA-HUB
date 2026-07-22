@@ -100,7 +100,7 @@
     and EXAM TRAP warnings for every high-yield issue on the NCA syllabus.
     Under 80 pages. No filler.
   </p>
-  <a href="https://payhip.com/THENCAHUB" class="upsell-btn" id="upsell-link" target="_blank" rel="noopener noreferrer">
+  <a href="/notes/" class="upsell-btn" id="upsell-link">
     Get the Full Notes →
   </a>
 </div>
@@ -128,9 +128,9 @@ var SUBJECT_MAP = {
   'contract law':                   { file: 'contract_free_chapter.pdf',  label: 'Contract Law',                payhip: 'https://payhip.com/b/aiXLF' },
   'family law':                     { file: 'family_free_chapter.pdf',    label: 'Family Law',                  payhip: 'https://payhip.com/b/K17CE' },
   'evidence law':                   { file: 'evidence_free_chapter.pdf',  label: 'Evidence Law',                payhip: 'https://payhip.com/b/3mnxi' },
-  'property law':                   { file: 'property_free_chapter.pdf',  label: 'Property Law',                payhip: 'https://payhip.com/THENCAHUB' },
-  'legal research & writing (lrw)': { file: 'admin_free_chapter.pdf',     label: 'Administrative Law (closest match)', payhip: 'https://payhip.com/THENCAHUB' },
-  'multiple subjects':              { file: 'admin_free_chapter.pdf',     label: 'Administrative Law (sample)',  payhip: 'https://payhip.com/THENCAHUB' },
+  'property law':                   { file: 'property_free_chapter.pdf',  label: 'Property Law',                payhip: '/notes/' },
+  'legal research & writing (lrw)': { file: 'admin_free_chapter.pdf',     label: 'Administrative Law (closest match)', payhip: '/notes/' },
+  'multiple subjects':              { file: 'admin_free_chapter.pdf',     label: 'Administrative Law (sample)',  payhip: '/notes/' },
 };
 
 function getSubjectFromUrl() {
@@ -144,7 +144,7 @@ function init() {
 
   // Fallback: admin law sample for unknown or notify-me subjects
   if (!data) {
-    data = { file: 'admin_free_chapter.pdf', label: 'Administrative Law (sample)', payhip: 'https://payhip.com/THENCAHUB' };
+    data = { file: 'admin_free_chapter.pdf', label: 'Administrative Law (sample)', payhip: '/notes/' };
   }
 
   var badge  = document.getElementById('subject-badge');
