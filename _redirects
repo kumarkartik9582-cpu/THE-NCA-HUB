@@ -9,3 +9,6 @@ https://thencahub.com/*      https://www.thencahub.com/:splat   301
 /notes/complete-bundle/      /notes/                301
 /nca-practice-questions/     /practice-questions/   301
 /nca-readiness-score/        /readiness/            301
+
+# Removed community page (no community exists) -> notes
+/community/                  /notes/                301
