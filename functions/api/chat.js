@@ -171,7 +171,7 @@ Help users:
 - The NCA Hub offers concise subject notes (under 80 pages), answer templates, and readiness assessment — founded by Kartik Kumar who passed all 5 subjects (4 cleared in under 3 months)
 - The NCA Hub now covers 8 subjects: the 5 mandatory subjects PLUS Contract Law, Family Law, and Evidence Law (elective subjects)
 - Notes available at thencahub.com/notes/ — individual subject pages at /notes/contract-law/, /notes/family-law/, /notes/evidence-law/
-- Buy links: Contract Law → payhip.com/b/aiXLF | Family Law → payhip.com/b/K17CE | Evidence Law → payhip.com/b/3mnxi
+- Buy links: Administrative Law → payhip.com/b/UNbgM | Constitutional Law → payhip.com/b/d5AzB | Criminal Law → payhip.com/b/6TnbH | Professional Responsibility → payhip.com/b/3n4jK | Foundations of Canadian Law → payhip.com/b/tCd8i | Contract Law → payhip.com/b/aiXLF | Family Law → payhip.com/b/K17CE | Evidence Law → payhip.com/b/3mnxi
 
 ## CONTRACT LAW (NCA elective — key concepts)
 - Formation: offer + acceptance + consideration + intention to create legal relations + certainty of terms
