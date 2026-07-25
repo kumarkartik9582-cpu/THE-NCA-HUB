@@ -20,8 +20,8 @@ Accreditation (NCA).
 - Elective assignments vary by person, not by country of qualification
 
 ## What It Offers
-- Concise study notes: under 80 pages per NCA exam subject
-  (vs 169–304 pages from competitors NCA Tutor and NCA Notes)
+- Concise study notes: under 80 pages per NCA exam subject,
+  tabbed and built to be usable inside a 3-hour open-book exam
 - Answer templates for exam structure
 - Free NCA Readiness Score — a 5-question subject-specific quiz
 - Free chapter downloads for each of the 5 mandatory subjects
@@ -133,8 +133,3 @@ Search index: https://www.thencahub.com/search-index.json (78 entries)
 - AI chat widget: improved error handling with JSON-parse safety
 - Service worker bumped to v3 (forces fresh asset cache)
 - robots.txt: GPTBot blocked from /notes/ and /free-chapters/
-
-## Competitor Context
-The NCA Hub competes with NCA Tutor, NCA Notes, NCA Mentor, INTRACI,
-and NCA Exam Prep Canada. Key differentiator: shorter notes (under 80 pages),
-answer templates, and the unique Readiness Score assessment tool.
