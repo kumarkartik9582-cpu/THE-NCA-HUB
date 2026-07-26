@@ -12,6 +12,3 @@ https://thencahub.com/*      https://www.thencahub.com/:splat   301
 
 # Removed community page (no community exists) -> notes
 /community/                  /notes/                301
-
-# Removed named-competitor comparison page -> notes
-/nca-hub-vs-nca-mentor/      /notes/                301
