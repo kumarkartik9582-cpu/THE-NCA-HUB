@@ -16,6 +16,9 @@
 /nca-enhancements.js
   Cache-Control: no-cache, must-revalidate
 
+/nca-world-class.js
+  Cache-Control: no-cache, must-revalidate
+
 /*.js
   Cache-Control: public, max-age=86400
 
