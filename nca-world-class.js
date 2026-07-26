@@ -1280,7 +1280,21 @@
   var DISMISS_KEY = 'ncah_regional_offer_dismissed';
   try { if (sessionStorage.getItem(DISMISS_KEY) === '1') return; } catch(e){}
 
+  function pick(cc){
+    var offer = TIER1.indexOf(cc) > -1 ? OFFERS.T1
+              : (TIER2.indexOf(cc) > -1 ? OFFERS.T2 : null);
+    if (offer) render(offer);   /* non-target country -> no banner, full price */
+  }
+
   function detect(){
+    /* MANUAL TEST OVERRIDE: append ?test_country=IN (or NG, ZA, CA, AE, ...) to
+       any URL to simulate a visitor country without a VPN. Only fires when the
+       parameter is present, so it is safe to leave in production. */
+    try {
+      var tc = new URLSearchParams(window.location.search).get('test_country');
+      if (tc) { pick(tc.trim().toUpperCase()); return; }
+    } catch(e){}
+
     var settled = false;
     var ctrl = ('AbortController' in window) ? new AbortController() : null;
     var timer = setTimeout(function(){ settled = true; if (ctrl) ctrl.abort(); }, 3000);
@@ -1291,11 +1305,7 @@
         clearTimeout(timer);
         var m = txt.match(/(?:^|\n)loc=([A-Z]{2})/);
         if (!m) return;                                  /* no country -> no banner */
-        var cc = m[1];
-        var offer = TIER1.indexOf(cc) > -1 ? OFFERS.T1
-                  : (TIER2.indexOf(cc) > -1 ? OFFERS.T2 : null);
-        if (!offer) return;                              /* not a target country -> full price */
-        render(offer);
+        pick(m[1]);
       })
       .catch(function(){ clearTimeout(timer); /* fail-safe: no banner */ });
   }
