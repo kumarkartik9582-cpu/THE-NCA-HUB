@@ -442,7 +442,7 @@ body{cursor:none;}
   <div class="w">
     <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:24px;font-family:var(--fb);">NCA Exam Dates · 2026 Schedule</p>
     <h1 style="font-family:var(--fd);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:300;color:var(--cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px;">NCA Exam Dates 2026: Complete Official Schedule</h1>
-    <p style="font-size:var(--lead);color:var(--fog);max-width:680px;line-height:1.9;font-family:var(--fb);font-weight:300;">The NCA offers four exam sessions in 2026: January, April, June, and November. Below you will find exact dates, registration deadlines, results timelines, and a calculator showing how many days until your next session.</p>
+    <p style="font-size:var(--lead);color:var(--fog);max-width:680px;line-height:1.9;font-family:var(--fb);font-weight:300;">The NCA offers four exam sessions in 2026: January, April, June, and November. Below you will find exact dates, registration deadlines, results timelines, and an interactive planner showing your personalised countdown per subject, calendar view, and study load analysis.</p>
   </div>
 </section>
 
@@ -521,16 +521,298 @@ body{cursor:none;}
   <p style="font-size:.7rem;color:var(--dim);margin-top:16px;line-height:1.6;">A dash (&#8212;) indicates the subject is not offered in that session. Registration typically closes 6 weeks before the exam date. See individual session cards below for registration deadlines.</p>
 </div>
 
-<!-- NEXT EXAM CALCULATOR -->
+<!-- EXAM PLANNER WIDGET -->
 <div class="next-exam-box">
-  <div class="neb-inner">
-    <p class="neb-eyelet">Next Upcoming Session</p>
-    <p class="neb-title">How many days until the next NCA exam session?</p>
-    <div id="next-exam-output">
-      <span id="days-countdown">—</span>
-      <span id="next-exam-label">Calculating...</span>
-    </div>
+  <div class="neb-inner" style="padding-bottom:24px;">
+    <p class="neb-eyelet">Interactive Exam Planner</p>
+    <p class="neb-title">Personalise your countdown per subject, calendar view, and study load analysis</p>
   </div>
+</div>
+<div style="max-width:860px;margin:0 auto;padding:0 64px 40px;">
+<style>
+.pl{padding:1rem 0;width:100%;font-family:var(--font-sans,Arial,sans-serif)}
+.lbl{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:.5px solid #ccc;cursor:pointer;font-size:12px;color:#666;background:#fff;user-select:none;transition:all .12s}
+.chip.on{background:#E6F1FB;border-color:#185FA5;color:#185FA5}
+.chip .dd{display:flex;gap:2px;align-items:center}
+.chip .d{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.chip .d.e{opacity:.2}
+.chip .prpct{font-size:10px;opacity:.65;margin-left:2px}
+.elec-hdr{display:flex;align-items:center;gap:8px;margin:10px 0 6px;cursor:pointer}
+.elec-hdr-ln{flex:1;height:.5px;background:#e0e0e0}
+.elec-hdr-t{font-size:11px;color:#999;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}
+.stat{background:#f5f5f5;border-radius:8px;padding:10px 12px}
+.stat-n{font-size:20px;font-weight:500;color:#111;line-height:1}
+.stat-l{font-size:11px;color:#666;margin-top:3px}
+.tabbar{display:flex;border-bottom:.5px solid #ddd;margin-bottom:14px}
+.tb{font-size:13px;padding:7px 14px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;color:#666;margin-bottom:-.5px;font-family:inherit}
+.tb.on{color:#185FA5;border-bottom-color:#185FA5;font-weight:500}
+.tab{display:none}.tab.on{display:block}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card{background:#fff;border:.5px solid #e0e0e0;border-radius:12px;padding:14px 16px;display:flex;gap:14px;align-items:center;transition:border-color .12s}
+.card:hover{border-color:#bbb}
+.card-body{flex:1;min-width:0}
+.card-h{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+.card-title{font-size:14px;font-weight:500;color:#111}
+.bdg{font-size:10px;padding:2px 6px;border-radius:8px;font-weight:500}
+.b-blue{background:#E6F1FB;color:#185FA5}
+.b-red{background:#FCEBEB;color:#A32D2D}
+.b-amb{background:#FAEEDA;color:#854F0B}
+.b-teal{background:#E1F5EE;color:#0F6E56}
+.b-gray{background:#f0f0f0;color:#666}
+.card-diff{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.diff-dots{display:flex;gap:2px}
+.diff-dot{width:6px;height:6px;border-radius:50%}
+.card-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12px;color:#666;margin-bottom:6px}
+.card-meta strong{color:#111}
+.reg-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
+.int-bar{margin-top:6px}
+.int-lbl{font-size:11px;color:#999;margin-bottom:3px}
+.int-track{height:3px;border-radius:2px;background:#f0f0f0}
+.int-fill{height:100%;border-radius:2px}
+.card-acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.btn-p{font-size:12px;font-weight:500;padding:5px 12px;border-radius:8px;border:.5px solid #185FA5;color:#185FA5;background:transparent;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-p:hover{background:#E6F1FB}
+.btn-g{font-size:12px;padding:5px 12px;border-radius:8px;border:.5px solid #ccc;color:#999;background:transparent}
+.ring-box{flex-shrink:0;position:relative;width:74px;height:74px}
+.ring-box svg{position:absolute;top:0;left:0}
+.ring-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-n{font-size:17px;font-weight:500;line-height:1}
+.ring-u{font-size:9px;color:#999;margin-top:2px}
+.gantt-scroll{overflow-x:auto;padding-bottom:4px}
+.gantt-inner{min-width:460px}
+.gantt-hdr{position:relative;height:18px;margin-left:86px;margin-bottom:4px}
+.gantt-row{display:flex;align-items:center;margin-bottom:5px}
+.gantt-lbl{width:86px;font-size:11px;color:#666;padding-right:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex-shrink:0}
+.gantt-track{flex:1;height:22px;background:#f5f5f5;border-radius:4px;position:relative;overflow:visible}
+.g-today{position:absolute;left:0;top:0;bottom:0;width:1.5px;background:#185FA5;opacity:.5;z-index:3;border-radius:1px}
+.g-grid{position:absolute;top:0;bottom:0;width:.5px;background:#e0e0e0;z-index:0}
+.g-win{position:absolute;top:3px;bottom:3px;border-radius:2px;z-index:1}
+.g-reg{position:absolute;top:0;bottom:0;width:1px;z-index:2}
+.g-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;z-index:4;cursor:pointer}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+.leg-i{display:flex;align-items:center;gap:5px;font-size:10px;color:#999}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.leg-line{width:10px;height:1px;flex-shrink:0}
+.leg-rect{width:12px;height:7px;border-radius:2px;flex-shrink:0}
+.ana-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ana-card{background:#fff;border:.5px solid #e0e0e0;border-radius:12px;padding:13px 15px}
+.ana-h{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:#999;margin-bottom:11px}
+.ready-n{font-size:34px;font-weight:500;line-height:1;margin-bottom:2px}
+.ready-l{font-size:12px;color:#666;margin-bottom:11px}
+.factor{display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:.5px solid #f0f0f0;color:#666}
+.factor:last-child{border-bottom:none}
+.factor strong{color:#111}
+.sb-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.sb-lbl{font-size:10px;color:#666;width:24px;text-align:right;flex-shrink:0}
+.sb-track{flex:1;height:13px;background:#f0f0f0;border-radius:3px;overflow:hidden}
+.sb-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:4px}
+.sb-vl{font-size:9px;font-weight:500;color:white}
+.sb-ext{font-size:10px;color:#999;width:36px;text-align:right;flex-shrink:0}
+.cf-row{display:flex;gap:7px;padding:5px 0;border-bottom:.5px solid #f0f0f0;font-size:11px;color:#666;align-items:flex-start}
+.cf-row:last-child{border-bottom:none}
+.sf-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:.5px solid #f0f0f0;font-size:11px;gap:6px}
+.sf-row:last-child{border-bottom:none}
+.sf-name{color:#666;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.empty{padding:2rem;text-align:center;color:#999;font-size:13px;border:.5px dashed #ccc;border-radius:12px}
+@media(max-width:520px){.stats{grid-template-columns:1fr 1fr}.ana-grid{grid-template-columns:1fr}.card{flex-direction:column-reverse;align-items:flex-start}.ring-box{align-self:flex-end}}
+.nca-planner-wrap .pl{font-family:var(--fb,'Bricolage Grotesque',sans-serif)}
+.nca-planner-wrap .lbl{color:rgba(201,168,76,.55);letter-spacing:.18em}
+.nca-planner-wrap .chip{background:rgba(255,255,255,.03);border-color:rgba(201,168,76,.2);color:var(--fog);font-family:var(--fb)}
+.nca-planner-wrap .chip.on{background:rgba(201,168,76,.1);border-color:#C9A84C;color:#C9A84C}
+.nca-planner-wrap .chip:hover{border-color:rgba(201,168,76,.4)}
+.nca-planner-wrap .chip .prpct{opacity:.55}
+.nca-planner-wrap .elec-hdr-t{color:rgba(201,168,76,.4)}
+.nca-planner-wrap .elec-hdr-ln{background:rgba(201,168,76,.12)}
+.nca-planner-wrap .stat{background:rgba(255,255,255,.03);border:.5px solid rgba(201,168,76,.12)}
+.nca-planner-wrap .stat-n{color:#EDE5CE}
+.nca-planner-wrap .stat-l{color:#6B6257}
+.nca-planner-wrap .tabbar{border-bottom-color:rgba(201,168,76,.15)}
+.nca-planner-wrap .tb{color:#6B6257;font-family:var(--fb)}
+.nca-planner-wrap .tb.on{color:#C9A84C;border-bottom-color:#C9A84C}
+.nca-planner-wrap .tb:hover{color:#998E7C}
+.nca-planner-wrap .card{background:rgba(255,255,255,.03);border-color:rgba(201,168,76,.12)}
+.nca-planner-wrap .card:hover{border-color:rgba(201,168,76,.3)}
+.nca-planner-wrap .card-title{color:#EDE5CE}
+.nca-planner-wrap .card-meta{color:#6B6257}
+.nca-planner-wrap .card-meta strong{color:#EDE5CE}
+.nca-planner-wrap .int-lbl{color:#6B6257}
+.nca-planner-wrap .int-track{background:rgba(255,255,255,.07)}
+.nca-planner-wrap .ring-u{color:#6B6257}
+.nca-planner-wrap .b-gray{background:rgba(255,255,255,.06);color:#6B6257}
+.nca-planner-wrap .b-blue{background:rgba(55,138,221,.15);color:#70A8E0}
+.nca-planner-wrap .btn-p{border-color:#C9A84C;color:#C9A84C}
+.nca-planner-wrap .btn-p:hover{background:rgba(201,168,76,.1);color:#F0D878}
+.nca-planner-wrap .btn-g{border-color:rgba(255,255,255,.08);color:#4a4040}
+.nca-planner-wrap .gantt-track{background:rgba(255,255,255,.05)}
+.nca-planner-wrap .gantt-lbl{color:#6B6257}
+.nca-planner-wrap .leg-i{color:#6B6257}
+.nca-planner-wrap .ana-card{background:rgba(255,255,255,.03);border-color:rgba(201,168,76,.12)}
+.nca-planner-wrap .ana-h{color:rgba(201,168,76,.55)}
+.nca-planner-wrap .factor{color:#6B6257;border-bottom-color:rgba(255,255,255,.05)}
+.nca-planner-wrap .factor strong{color:#EDE5CE}
+.nca-planner-wrap .sb-track{background:rgba(255,255,255,.07)}
+.nca-planner-wrap .cf-row{color:#6B6257;border-bottom-color:rgba(255,255,255,.05)}
+.nca-planner-wrap .cf-row strong{color:#EDE5CE}
+.nca-planner-wrap .sf-row{border-bottom-color:rgba(255,255,255,.05)}
+.nca-planner-wrap .sf-name{color:#6B6257}
+.nca-planner-wrap .ready-l{color:#6B6257}
+.nca-planner-wrap .empty{color:#6B6257;border-color:rgba(201,168,76,.12);background:rgba(255,255,255,.02)}
+</style>
+<div class="nca-planner-wrap">
+<div class="pl">
+  <div id="nca-selector"></div>
+  <div class="stats" id="nca-stats"></div>
+  <div class="tabbar">
+    <button class="tb on" onclick="ncaShowTab('countdown',this)">Countdown</button>
+    <button class="tb" onclick="ncaShowTab('calendar',this)">Calendar</button>
+    <button class="tb" onclick="ncaShowTab('analysis',this)">Analysis</button>
+  </div>
+  <div class="tab on" id="nca-tab-countdown"></div>
+  <div class="tab" id="nca-tab-calendar"></div>
+  <div class="tab" id="nca-tab-analysis"></div>
+</div>
+</div>
+<script>
+(function(){
+const TODAY=new Date(2026,3,11);
+const SUBS=[
+  {id:'admin',name:'Administrative Law',short:'Admin Law',m:1,notes:1,diff:4,pass:58,hrs:80,wks:6,color:'#185FA5',
+   sess:[{s:new Date(2026,5,2),e:new Date(2026,5,5),r:new Date(2026,4,7)},{s:new Date(2026,7,31),e:new Date(2026,8,3),r:new Date(2026,7,6)},{s:new Date(2026,10,17),e:new Date(2026,10,20),r:new Date(2026,9,22)}]},
+  {id:'con',name:'Constitutional Law',short:'Con Law',m:1,notes:1,diff:5,pass:52,hrs:100,wks:8,color:'#534AB7',
+   sess:[{s:new Date(2026,6,7),e:new Date(2026,6,10),r:new Date(2026,5,11)},{s:new Date(2026,9,5),e:new Date(2026,9,8),r:new Date(2026,8,10)}]},
+  {id:'crim',name:'Criminal Law',short:'Crim Law',m:1,notes:1,diff:3,pass:61,hrs:75,wks:5,color:'#1D9E75',
+   sess:[{s:new Date(2026,4,12),e:new Date(2026,4,15),r:new Date(2026,3,2)},{s:new Date(2026,7,10),e:new Date(2026,7,13),r:new Date(2026,6,9)},{s:new Date(2026,10,9),e:new Date(2026,10,13),r:new Date(2026,9,1)}]},
+  {id:'pr',name:'Professional Responsibility',short:'Prof Resp',m:1,notes:1,diff:3,pass:65,hrs:60,wks:4,color:'#3B6D11',
+   sess:[{s:new Date(2026,4,4),e:new Date(2026,4,7),r:new Date(2026,3,2)},{s:new Date(2026,7,4),e:new Date(2026,7,7),r:new Date(2026,6,9)},{s:new Date(2026,10,3),e:new Date(2026,10,6),r:new Date(2026,9,1)}]},
+  {id:'fcl',name:'Foundations of Canadian Law',short:'FCL',m:1,notes:1,diff:4,pass:55,hrs:85,wks:6,color:'#BA7517',
+   sess:[{s:new Date(2026,6,14),e:new Date(2026,6,17),r:new Date(2026,5,11)},{s:new Date(2026,9,13),e:new Date(2026,9,16),r:new Date(2026,8,10)}]},
+  {id:'contracts',name:'Contracts',short:'Contracts',m:0,notes:0,diff:3,pass:62,hrs:65,wks:4,color:'#888',
+   sess:[{s:new Date(2026,4,11),r:new Date(2026,3,2)},{s:new Date(2026,8,8),r:new Date(2026,7,6)}]},
+  {id:'prop',name:'Property',short:'Property',m:0,notes:0,diff:3,pass:60,hrs:70,wks:5,color:'#888',
+   sess:[{s:new Date(2026,5,1),r:new Date(2026,4,7)},{s:new Date(2026,9,20),r:new Date(2026,8,10)}]},
+  {id:'torts',name:'Torts',short:'Torts',m:0,notes:0,diff:3,pass:63,hrs:65,wks:4,color:'#888',
+   sess:[{s:new Date(2026,6,13),r:new Date(2026,5,11)},{s:new Date(2026,10,16),r:new Date(2026,9,1)}]},
+  {id:'biz',name:'Business Organizations',short:'Biz Org',m:0,notes:0,diff:3,pass:60,hrs:60,wks:4,color:'#888',
+   sess:[{s:new Date(2026,7,17),r:new Date(2026,6,9)}]},
+  {id:'fam',name:'Family Law',short:'Family Law',m:0,notes:0,diff:3,pass:62,hrs:55,wks:4,color:'#888',
+   sess:[{s:new Date(2026,3,13),r:new Date(2026,3,6)},{s:new Date(2026,10,2),r:new Date(2026,9,1)}]},
+  {id:'evi',name:'Evidence',short:'Evidence',m:0,notes:0,diff:3,pass:61,hrs:60,wks:4,color:'#888',
+   sess:[{s:new Date(2026,3,14),r:new Date(2026,3,6)},{s:new Date(2026,9,19),r:new Date(2026,8,10)}]},
+  {id:'civil',name:'Civil Procedure',short:'Civil Proc',m:0,notes:0,diff:3,pass:62,hrs:60,wks:4,color:'#888',
+   sess:[{s:new Date(2026,8,9),r:new Date(2026,7,6)}]},
+  {id:'rem',name:'Remedies',short:'Remedies',m:0,notes:0,diff:2,pass:65,hrs:45,wks:3,color:'#888',
+   sess:[{s:new Date(2026,7,18),r:new Date(2026,6,9)}]},
+  {id:'com',name:'Commercial Law',short:'Commercial',m:0,notes:0,diff:3,pass:61,hrs:60,wks:4,color:'#888',
+   sess:[{s:new Date(2026,6,6),r:new Date(2026,5,11)}]}
+];
+const sel=new Set(['admin','con','crim','pr','fcl']);
+let elecOpen=0;
+function dif(a,b){return Math.round((b-a)/864e5)}
+function nextS(sub){return sub.sess.find(s=>s.s>=TODAY)||null}
+function nextReg(sub){return sub.sess.find(s=>s.r>=TODAY&&s.s>=TODAY)||null}
+function fmt(d){return d.toLocaleDateString('en-CA',{month:'short',day:'numeric'})}
+function fmtY(d){return d.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'})}
+function urg(d){if(d<=21)return{bar:'#E24B4A',cls:'b-red',lbl:'Critical'};if(d<=45)return{bar:'#EF9F27',cls:'b-amb',lbl:'Urgent'};if(d<=90)return{bar:'#1D9E75',cls:'b-teal',lbl:'On track'};return{bar:'#378ADD',cls:'b-blue',lbl:'Plan ahead'}}
+function diffLabel(d){return['','Straightforward','Moderate','Challenging','Complex','Most Complex'][d]||''}
+function passClass(p){return p>=65?'b-teal':p>=58?'b-amb':'b-red'}
+function getA(){return SUBS.filter(s=>sel.has(s.id))}
+function toggle(id){sel.has(id)?sel.delete(id):sel.add(id);render()}
+function toggleE(){elecOpen=!elecOpen;render()}
+function ncaShowTab(id,el){
+  document.querySelectorAll('.pl .tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.pl .tb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('nca-tab-'+id).classList.add('on');
+  el.classList.add('on');
+}
+function renderSel(){
+  const mand=SUBS.filter(s=>s.m),elec=SUBS.filter(s=>!s.m);
+  let h='<p class="lbl">Select your assigned subjects</p><div class="chips">';
+  mand.forEach(s=>{
+    const on=sel.has(s.id);
+    const dots=Array.from({length:5},(_,i)=>`<span class="d${i<s.diff?'':' e'}"></span>`).join('');
+    h+=`<span class="chip${on?' on':''}" onclick="toggle('${s.id}')"><span class="dd">${dots}</span>${s.short}<span class="prpct">${s.pass}%</span></span>`;
+  });
+  h+='</div>';
+  h+=`<div class="elec-hdr" onclick="toggleE()"><div class="elec-hdr-ln"></div><span class="elec-hdr-t">Elective subjects ${elecOpen?'▲':'▼'}</span><div class="elec-hdr-ln"></div></div>`;
+  if(elecOpen){h+='<div class="chips">';elec.forEach(s=>{h+=`<span class="chip${sel.has(s.id)?' on':''}" onclick="toggle('${s.id}')">${s.short}</span>`;});h+='</div>';}
+  document.getElementById('nca-selector').innerHTML=h;
+}
+function renderStats(){
+  const a=getA(),totalH=a.reduce((t,s)=>t+s.hrs,0),exams=a.map(s=>({sub:s,nx:nextS(s)})).filter(x=>x.nx);
+  let clashes=0;
+  for(let i=0;i<exams.length;i++)for(let j=i+1;j<exams.length;j++)if(Math.abs(dif(exams[i].nx.s,exams[j].nx.s))<=7)clashes++;
+  const avgW=a.length?Math.round(a.reduce((t,s)=>t+s.wks,0)/a.length):0;
+  const near=exams.sort((a,b)=>a.nx.s-b.nx.s)[0],weeksLeft=near?dif(TODAY,near.nx.s)/7:0;
+  const rH=clashes>0||weeksLeft<avgW*0.6,rM=!rH&&weeksLeft<avgW;
+  const rCls=a.length===0?'b-gray':rH?'b-red':rM?'b-amb':'b-teal',rLbl=a.length===0?'—':rH?'High':rM?'Medium':'Low';
+  document.getElementById('nca-stats').innerHTML=`<div class="stat"><div class="stat-n">${a.length}</div><div class="stat-l">subjects selected</div></div><div class="stat"><div class="stat-n">${totalH}<span style="font-size:12px;font-weight:400"> hrs</span></div><div class="stat-l">total study hours needed</div></div><div class="stat"><div class="stat-n">${avgW||'—'}<span style="font-size:12px;font-weight:400">${avgW?' wks':''}</span></div><div class="stat-l">avg prep per subject</div></div><div class="stat"><div class="stat-n"><span class="bdg ${rCls}" style="font-size:12px;padding:3px 8px">${rLbl} risk</span></div><div class="stat-l">schedule risk level</div></div>`;
+}
+function renderCountdown(){
+  const a=getA(),el=document.getElementById('nca-tab-countdown');
+  if(!a.length){el.innerHTML='<div class="empty">Select subjects above to see your countdown.</div>';return}
+  const list=a.map(s=>({s,nx:nextS(s),nr:nextReg(s)})).sort((a,b)=>(!a.nx&&!b.nx)?0:!a.nx?1:!b.nx?-1:a.nx.s-b.nx.s);
+  const C=2*Math.PI*30;let h='<div class="cards">';
+  list.forEach(({s,nx,nr})=>{
+    if(!nx){h+=`<div class="card"><div class="card-body"><div class="card-h"><span class="card-title">${s.name}</span></div><p style="font-size:12px;color:#999;margin-top:4px">No further 2026 sessions. Check nca.legal for 2027.</p></div></div>`;return}
+    const d=dif(TODAY,nx.s),rd=dif(TODAY,nx.r),u=urg(d),offset=(C*(1-Math.min(1,Math.max(0,d/180)))).toFixed(1);
+    const dots=Array.from({length:5},(_,i)=>`<span class="diff-dot" style="background:${i<s.diff?s.color:'#ddd'}"></span>`).join('');
+    let regH='';
+    if(rd<0){const hF=nr&&nr.s!==nx.s;regH=`<span class="bdg b-red">Reg closed ${fmt(nx.r)}</span>`;if(hF)regH+=`<span class="bdg b-blue">Next registerable: ${fmt(nr.s)}</span>`;}
+    else if(rd<=7)regH=`<span class="bdg b-red">Reg closes in ${rd} day${rd===1?'':'s'} — act now!</span>`;
+    else if(rd<=21)regH=`<span class="bdg b-amb">Reg closes ${fmt(nx.r)}</span>`;
+    else regH=`<span class="bdg b-gray">Reg closes ${fmt(nx.r)}</span>`;
+    const hpd=d>0?(s.hrs/d).toFixed(1):'—',intensity=d>0?Math.min(100,Math.round((s.hrs/d)/3.5*100)):100;
+    const urgMsg=d<=0?'Exam day!':d<=21?'Critical — exam imminent':d<=45?'Urgent — begin immediately':d<=90?'On track — study daily':'Plan ahead — build your foundation';
+    h+=`<div class="card"><div class="card-body"><div class="card-h"><span class="card-title">${s.name}</span><span class="bdg ${s.m?'b-blue':'b-gray'}">${s.m?'mandatory':'elective'}</span><span class="bdg ${u.cls}">${u.lbl}</span></div><div class="card-diff"><div class="diff-dots">${dots}</div><span style="font-size:11px;color:#999">${diffLabel(s.diff)}</span><span class="bdg ${passClass(s.pass)}">~${s.pass}% pass</span></div><div class="card-meta"><span><strong>${fmtY(nx.s)}</strong> · exam date</span><span><strong>${s.hrs}h</strong> recommended</span><span><strong>${s.wks}–${s.wks+2} wks</strong> ideal</span></div><div class="reg-row">${regH}</div><div class="int-bar"><div class="int-lbl">${urgMsg} · <strong>${hpd} hrs/day</strong> minimum from today</div><div class="int-track"><div class="int-fill" style="width:${intensity}%;background:${u.bar}"></div></div></div><div class="card-acts">${s.notes?`<a class="btn-p" href="https://www.thencahub.com/notes/" target="_blank">Get ${s.short} notes →</a>`:`<span class="btn-g">No notes — elective</span>`}</div></div><div class="ring-box"><svg width="74" height="74" viewBox="0 0 74 74"><circle cx="37" cy="37" r="30" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="5"/><circle cx="37" cy="37" r="30" fill="none" stroke="${u.bar}" stroke-width="5" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${offset}" stroke-linecap="round" transform="rotate(-90 37 37)"/></svg><div class="ring-in"><span class="ring-n" style="color:${u.bar}">${d<=0?'!':d>999?'999+':d}</span><span class="ring-u">${d<=0?'today':'days left'}</span></div></div></div>`;
+  });
+  el.innerHTML=h+'</div>';
+}
+function renderCalendar(){
+  const el=document.getElementById('nca-tab-calendar'),a=getA();
+  if(!a.length){el.innerHTML='<div class="empty">Select subjects above to see the calendar view.</div>';return}
+  const END=new Date(2026,10,30),TOTAL=dif(TODAY,END);
+  function pct(d){return Math.min(100,Math.max(0,dif(TODAY,d)/TOTAL*100)).toFixed(2)}
+  const months=[{n:'May',d:new Date(2026,4,1)},{n:'Jun',d:new Date(2026,5,1)},{n:'Jul',d:new Date(2026,6,1)},{n:'Aug',d:new Date(2026,7,1)},{n:'Sep',d:new Date(2026,8,1)},{n:'Oct',d:new Date(2026,9,1)},{n:'Nov',d:new Date(2026,10,1)}].filter(m=>m.d>TODAY&&m.d<END);
+  let hdr='<div class="gantt-hdr">';
+  hdr+=`<span style="position:absolute;left:0;font-size:9px;font-weight:500;color:#185FA5;text-transform:uppercase">Today</span>`;
+  months.forEach(m=>{hdr+=`<span style="position:absolute;left:${pct(m.d)}%;transform:translateX(-50%);font-size:9px;font-weight:500;color:#999;text-transform:uppercase">${m.n}</span>`;});
+  hdr+='</div>';let rows='';
+  a.forEach(sub=>{
+    rows+=`<div class="gantt-row"><div class="gantt-lbl" title="${sub.name}">${sub.short}</div><div class="gantt-track"><div class="g-today"></div>`;
+    months.forEach(m=>{const p=pct(m.d);if(p>0&&p<100)rows+=`<div class="g-grid" style="left:${p}%"></div>`;});
+    sub.sess.forEach(sess=>{if(!sess.s||sess.s<TODAY)return;const ep=pct(sess.s),rOpen=sess.r>=TODAY,wp=rOpen?pct(sess.r):0;if(rOpen&&parseFloat(ep)>parseFloat(wp))rows+=`<div class="g-win" style="left:${wp}%;width:${(parseFloat(ep)-parseFloat(wp)).toFixed(2)}%;background:${sub.color}"></div>`;if(rOpen)rows+=`<div class="g-reg" style="left:${wp}%;background:${sub.color}"></div>`;rows+=`<div class="g-dot" style="left:${ep}%;background:${sub.color}" title="${sub.short}: ${fmt(sess.s)}"></div>`;});
+    rows+='</div></div>';
+  });
+  el.innerHTML=`<div class="gantt-scroll"><div class="gantt-inner">${hdr}${rows}</div></div><div class="legend"><div class="leg-i"><div class="leg-dot" style="background:#185FA5"></div>Exam date</div><div class="leg-i"><div class="leg-line" style="background:#888;height:1px"></div>Registration deadline</div><div class="leg-i"><div class="leg-rect" style="background:#185FA5;opacity:.4"></div>Study window</div><div class="leg-i"><div style="width:1.5px;height:10px;background:#185FA5;border-radius:1px"></div>Today</div></div>`;
+}
+function renderAnalysis(){
+  const el=document.getElementById('nca-tab-analysis'),a=getA();
+  if(!a.length){el.innerHTML='<div class="empty">Select subjects above to see your analysis.</div>';return}
+  const exams=a.map(s=>({sub:s,nx:nextS(s)})).filter(x=>x.nx),clashes=[];
+  for(let i=0;i<exams.length;i++)for(let j=i+1;j<exams.length;j++){const gap=Math.abs(dif(exams[i].nx.s,exams[j].nx.s));if(gap<=7)clashes.push({a:exams[i].sub,b:exams[j].sub,gap});}
+  const feasibility=a.map(sub=>{const nx=nextS(sub);if(!nx)return{sub,lbl:'No 2026 session',cls:'b-gray',note:''};const rd=dif(TODAY,nx.r),d=dif(TODAY,nx.s);if(rd<0){const nr=nextReg(sub);return{sub,lbl:nr?`Target ${fmt(nr.s)}`:'See 2027',cls:'b-amb',note:'Reg closed for next'};}if(d<sub.wks*5)return{sub,lbl:'Consider next session',cls:'b-amb',note:'Tight window'};return{sub,lbl:fmt(nx.s),cls:'b-teal',note:''};});
+  const mDates=[{n:'Apr',s:TODAY,e:new Date(2026,4,1)},{n:'May',s:new Date(2026,4,1),e:new Date(2026,5,1)},{n:'Jun',s:new Date(2026,5,1),e:new Date(2026,6,1)},{n:'Jul',s:new Date(2026,6,1),e:new Date(2026,7,1)},{n:'Aug',s:new Date(2026,7,1),e:new Date(2026,8,1)},{n:'Sep',s:new Date(2026,8,1),e:new Date(2026,9,1)},{n:'Oct',s:new Date(2026,9,1),e:new Date(2026,10,1)},{n:'Nov',s:new Date(2026,10,1),e:new Date(2026,11,1)}];
+  const loadData=mDates.map(m=>{let hrs=0;a.forEach(sub=>{const nx=nextS(sub);if(!nx)return;const examD=dif(TODAY,nx.s);if(examD<=0)return;const oS=new Date(Math.max(m.s.getTime(),TODAY.getTime())),oE=new Date(Math.min(m.e.getTime(),nx.s.getTime()));if(oE>oS)hrs+=(sub.hrs/examD)*dif(oS,oE);});return{n:m.n,hrs:Math.round(hrs)};});
+  const maxL=Math.max(...loadData.map(l=>l.hrs),1);
+  const scoreF=a.map(sub=>{const nx=nextS(sub);if(!nx)return 0;return Math.min(100,Math.round(dif(TODAY,nx.s)/(sub.wks*7)*100));});
+  const avgSc=scoreF.length?Math.round(scoreF.reduce((a,b)=>a+b,0)/scoreF.length):0,pen=clashes.length*12,readiness=Math.max(0,Math.min(100,avgSc-pen));
+  const rLbl=readiness>=70?'On Track':readiness>=40?'At Risk':'Critical',rCol=readiness>=70?'#1D9E75':readiness>=40?'#EF9F27':'#E24B4A';
+  const totalH=a.reduce((t,s)=>t+s.hrs,0),near2=exams.sort((a,b)=>a.nx.s-b.nx.s)[0],daysToFirst=near2?dif(TODAY,near2.nx.s):0,avH=Math.round(daysToFirst/7*14);
+  const lRisk=totalH>avH*1.3?'Overloaded':totalH>avH?'Stretched':'Manageable',lRCls=lRisk==='Overloaded'?'b-red':lRisk==='Stretched'?'b-amb':'b-teal';
+  const loadBars=loadData.map(({n,hrs})=>{const p=Math.round(hrs/maxL*100),c=hrs>25?'#E24B4A':hrs>14?'#EF9F27':'#378ADD';return`<div class="sb-row"><span class="sb-lbl">${n}</span><div class="sb-track"><div class="sb-fill" style="width:${p}%;background:${c}">${hrs>6?`<span class="sb-vl">${hrs}h</span>`:''}</div></div><span class="sb-ext">${hrs}h</span></div>`;}).join('');
+  const cfH=clashes.length===0?'<p style="font-size:11px;color:#999;padding:6px 0">No exam clashes detected. Clean schedule.</p>':clashes.map(c=>`<div class="cf-row"><span style="font-size:13px;flex-shrink:0">&#9888;</span><div><strong style="color:#111">${c.a.short} &amp; ${c.b.short}</strong> — exams ${c.gap===0?'same day':`${c.gap} day${c.gap===1?'':'s'} apart`}. Extreme pressure — consider spreading across sessions.</div></div>`).join('');
+  const sfH=feasibility.map(({sub,lbl,cls,note})=>`<div class="sf-row"><span class="sf-name">${sub.short}</span>${note?`<span style="font-size:9px;color:#999">${note}</span>`:''}<span class="bdg ${cls}">${lbl}</span></div>`).join('');
+  el.innerHTML=`<div class="ana-grid"><div class="ana-card"><div class="ana-h">Readiness Score</div><div class="ready-n" style="color:${rCol}">${readiness}<span style="font-size:14px;font-weight:400">/100</span></div><div class="ready-l">${rLbl}</div><div class="factor"><span>Time adequacy</span><strong>${avgSc}%</strong></div><div class="factor"><span>Clash penalty</span><strong style="color:${pen>0?'#E24B4A':'#1D9E75'}">${pen>0?'-'+pen:'None'}</strong></div><div class="factor"><span>Load feasibility</span><strong><span class="bdg ${lRCls}">${lRisk}</span></strong></div><div class="factor"><span>Subjects in plan</span><strong>${a.length}</strong></div><div class="factor"><span>Total hours required</span><strong>${totalH}h</strong></div></div><div class="ana-card"><div class="ana-h">Monthly Study Load</div>${loadBars}<p style="font-size:9px;color:#999;margin-top:8px">Hours distributed evenly from today to each exam date. Peaks = high-pressure months.</p></div><div class="ana-card"><div class="ana-h">Exam Clash Detection</div>${cfH}</div><div class="ana-card"><div class="ana-h">Session Feasibility</div>${sfH}</div></div>`;
+}
+function render(){renderSel();renderStats();renderCountdown();renderCalendar();renderAnalysis()}
+window.toggle=toggle;window.toggleE=toggleE;window.ncaShowTab=ncaShowTab;
+render();
+})();
+</script>
+<p style="font-size:.7rem;color:rgba(153,142,124,.4);line-height:1.8;font-family:var(--fb);margin-top:20px;border-top:1px solid rgba(201,168,76,.07);padding-top:16px;">Pass rate figures are community-estimated — the NCA does not publish official subject-level pass rates. Exam dates sourced from the official 2026 NCA schedule. Always verify at nca.legal before registering. Reference date: Apr 11, 2026.</p>
 </div>
 
 <!-- SESSION CARDS -->
@@ -803,21 +1085,6 @@ body{cursor:none;}
     if(nc) nc.classList.add('upcoming');
   }
 
-  // Update calculator
-  var countdown = document.getElementById('days-countdown');
-  var label = document.getElementById('next-exam-label');
-  if(countdown && label){
-    if(!nextSession){
-      countdown.textContent = '—';
-      label.textContent = 'No more sessions in 2026. Check nca.legal for 2027 dates.';
-    } else if(daysToNext === 0){
-      countdown.textContent = 'Now';
-      label.innerHTML = 'The <strong>' + nextSession.name + '</strong> session is currently in progress.';
-    } else {
-      countdown.textContent = daysToNext + ' days';
-      label.innerHTML = 'until the <strong>' + nextSession.name + '</strong> session opens (<strong>' + nextSession.start.toLocaleDateString('en-CA', {month:'long', day:'numeric', year:'numeric'}) + '</strong>).';
-    }
-  }
 })();
 </script>
 <script>
@@ -931,6 +1198,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <a href="/notes/" class="mob-cta-link">Notes</a>
   <a href="/#pricing">Pricing</a>
   <a href="/blog/">Articles</a>
+  <a href="/nca-exam-planner/" class="mob-cta-link">Exam Planner</a>
   <a href="/#sample">Free Chapter</a>
   <a href="/tools/">Tools</a>
   <a href="/nca-cost-calculator/">Cost Calculator</a>
