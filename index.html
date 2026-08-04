@@ -501,7 +501,7 @@ nav.disc-gone{top:0}
 #hcv{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 2.5s}
 #hcv.on{opacity:1}
 .hvl{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(201,168,76,.12) 50%,transparent);pointer-events:none}
-.hi{max-width:1300px;width:100%;margin:0 auto;padding-top:130px;padding-bottom:80px;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;position:relative;z-index:2}
+.hi{max-width:1300px;width:100%;margin:0 auto;padding-top:130px;padding-bottom:80px;display:grid;grid-template-columns:1fr;gap:80px;align-items:center;position:relative;z-index:2}
 @media(max-width:1040px){
   .hi{grid-template-columns:1fr;padding-top:90px;padding-bottom:48px;gap:40px}
   .hero{padding:0 24px;overflow-x:hidden;overflow-y:visible;min-height:auto}
@@ -517,6 +517,8 @@ nav.disc-gone{top:0}
 .lm:nth-child(3) .li{font-size:var(--td)}
 .hsub{font-size:var(--lead);color:var(--fog);line-height:1.9;max-width:520px;font-weight:300;opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s}
 .hact{display:flex;align-items:center;gap:32px;margin-top:48px;flex-wrap:wrap;opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.hero-sec{font-size:.82rem;color:var(--fog);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:2px;transition:color .3s,border-color .3s;font-family:var(--fb);font-weight:400}
+.hero-sec:hover{color:var(--g1);border-color:var(--g1)}
 .h-auth{margin-top:20px;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(154,142,126,.45);opacity:0;transition:opacity .9s .9s}
 .h-auth.on{opacity:1}
 .hcard{background:rgba(14,14,26,.8);border:1px solid rgba(201,168,76,.16);backdrop-filter:blur(40px) saturate(160%);padding:44px 40px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(201,168,76,.12);opacity:0;transform:translateX(40px);transition:opacity 1s,transform 1s;transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);}
@@ -1955,27 +1957,11 @@ window.addEventListener('load', function() {
         <span class="lm"><span class="li">Not in <em>years.</em></span></span>
         <span class="lm"><span class="li">This <em>cycle.</em></span></span>
       </h2>
-      <p class="hsub" id="HSUB">Under 80 pages per subject. Answer templates. Practice questions. Built by a lawyer who passed all 5 NCA exams — the first with 7 days to prepare.</p>
-      <div class="h-auth" id="HAUTH">Built by an India-qualified lawyer · All 5 NCA subjects passed · Certificate of Qualification — received · Candidates from India, UK, Nigeria, Pakistan, Philippines &amp; Jamaica</div>
+      <p class="hsub" id="HSUB">The NCA is not testing your legal knowledge. It is testing your exam technique. Under 80 pages per subject, with answer templates built for the 3-hour open-book exam.</p>
       <div class="hact" id="HACT">
-        <a href="#readiness" class="bp" data-cur="Score"><span>Get My Readiness Score →</span></a>
+        <a href="#subjects" class="bp" data-cur="Subjects"><span>Choose My Subject →</span></a>
+        <a href="/readiness/" class="hero-sec" data-cur="Score">Not sure yet? Take the free readiness score →</a>
       </div>
-    </div>
-    <div class="hcard sm hero-p4 tilt-card" id="HC" data-cur="Results">
-      <div class="hcl">Candidate Results</div>
-      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px;">
-        <div style="padding:14px 16px;background:rgba(201,168,76,.05);border-left:2px solid var(--g1);">
-          <div style="font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);margin-bottom:4px;">Admin Law · 1st attempt · 10 days</div>
-          <div style="font-size:var(--sm);color:var(--cream);font-family:var(--fd);font-style:italic;">"Kartik's Vavilov framework was clearer than any textbook."</div>
-          <div style="font-size:.6rem;color:var(--dim);font-family:var(--fb);margin-top:4px;">Anum S. · Toronto · <strong style="color:var(--g1)">Passed</strong></div>
-        </div>
-        <div style="padding:14px 16px;background:rgba(201,168,76,.05);border-left:2px solid rgba(201,168,76,.4);">
-          <div style="font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);margin-bottom:4px;">Con Law · 4th attempt · 10 days</div>
-          <div style="font-size:var(--sm);color:var(--cream);font-family:var(--fd);font-style:italic;">"The only method that worked for me."</div>
-          <div style="font-size:.6rem;color:var(--dim);font-family:var(--fb);margin-top:4px;">Anum S. · Toronto · <strong style="color:var(--g1)">Passed</strong></div>
-        </div>
-      </div>
-      <a href="#readiness" class="bp" style="width:100%;text-align:center;justify-content:center;font-size:.72rem;" data-cur="Assess"><span>Get My Readiness Score →</span></a>
     </div>
   </div>
   <div class="scr-ind" aria-hidden="true"><div class="st"><div class="stf"></div></div>Scroll to explore</div>
@@ -1988,14 +1974,13 @@ window.addEventListener('load', function() {
   </div>
 </div>
 
-<!-- PHILOSOPHY -->
-<section class="phil" id="philosophy" aria-label="Our belief">
-  <div class="porb" aria-hidden="true"></div><div class="porb2" aria-hidden="true"></div>
-  <div class="morph-orb" id="MORPH_ORB" aria-hidden="true"></div>
-  <div class="pi">
-    <div class="phl" id="PHL"></div>
-    <p class="pht" id="PHT">The NCA is not testing<br>your legal knowledge.<br><em>It's testing your exam technique.</em></p>
-    <p class="pha" style="transition-delay:.35s">The belief behind everything we build</p>
+<!-- PROOF STRIP (Section 2) -->
+<section id="proof" aria-label="Proof" style="background:var(--abyss);border-top:1px solid rgba(201,168,76,.07);border-bottom:1px solid rgba(201,168,76,.07);padding:110px 24px;position:relative;z-index:1;">
+  <div style="max-width:860px;margin:0 auto;text-align:center;">
+    <span style="font-size:var(--nano);letter-spacing:.4em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);">Proof</span>
+    <blockquote style="font-family:var(--fd);font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:300;font-style:italic;color:var(--cream);line-height:1.4;margin:26px auto 22px;max-width:760px;">"I passed on my 4th and final attempt. This is the only method that worked for me."</blockquote>
+    <p style="font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);">Anum &middot; Constitutional Law &middot; 4th attempt</p>
+    <p style="font-size:var(--sm);color:var(--fog);font-family:var(--fb);line-height:1.85;margin:44px auto 0;max-width:620px;">Used by candidates in India, the UK, Nigeria, Pakistan, the Philippines, Jamaica, and 12+ countries.</p>
   </div>
 </section>
 
@@ -2461,25 +2446,6 @@ window.addEventListener('load', function() {
   </div>
 </section>
 
-<!-- PROOF -->
-<div class="prf" id="proof">
-  <div class="prd" aria-hidden="true">"</div>
-  <div class="pri">
-    <div>
-      <blockquote class="prq" id="PRQ">
-        <span class="pw">"I</span> <span class="pw">passed</span> <span class="pw">on</span> <span class="pw">my</span> <span class="pw">4th</span> <span class="pw">and</span> <span class="pw">final</span> <span class="pw">attempt.</span> <span class="pw">This</span> <span class="pw">is</span> <span class="pw">the</span> <span class="pw">only</span> <span class="pw">method</span> <span class="pw">that</span> <span class="pw">worked</span> <span class="pw">for</span> <span class="pw">me."</span>
-        <span class="prq-underline" id="PRQ_LINE"></span>
-      </blockquote>
-      <p class="prw">Anum · Constitutional Law · 4th attempt</p>
-    </div>
-    <div class="psg">
-      <div class="ps"><span class="psn">7</span><span class="psl">Days of prep<br>for exam one</span></div>
-      <div class="ps"><span class="psn">8+</span><span class="psl">Hours per day<br>Anum's sprint</span></div>
-      <div class="ps"><span class="psn">4th</span><span class="psl">Attempt. Last chance.</span></div>
-      <div class="ps"><span class="psn">Pass</span><span class="psl">Constitutional Law</span></div>
-    </div>
-  </div>
-</div>
 
 <!-- TEXT SCRUB -->
 <div class="scrub-wrap" id="scrub-section" aria-label="Key results">
