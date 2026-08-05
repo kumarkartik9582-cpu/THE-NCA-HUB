@@ -2256,101 +2256,34 @@ window.addEventListener('load', function() {
   </div>
 </section>
 
-<!-- STORY -->
-<div id="story">
-  <!-- Fixed progress dots -->
-  <div class="story-ch-progress" id="STORY_PROG">
-    <div class="scp-dot on" data-ch="0"></div>
-    <div class="scp-dot" data-ch="1"></div>
-    <div class="scp-dot" data-ch="2"></div>
-    <div class="scp-dot" data-ch="3"></div>
+<!-- FOUNDER STORY TIMELINE (Section 4) -->
+<section id="story" aria-label="The founder's story" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:110px 24px;position:relative;z-index:1;">
+  <style>
+  .ftl{list-style:none;margin:0;padding:0;position:relative;}
+  .ftl::before{content:'';position:absolute;left:11px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,#1F3864 0%,#2E4E86 45%,#C9A84C 100%);}
+  .ftl-item{position:relative;padding:0 0 36px 46px;}
+  .ftl-item:last-child{padding-bottom:0;}
+  .ftl-node{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#1F3864;border:2px solid #C9A84C;box-shadow:0 0 0 5px rgba(31,56,100,.22);}
+  .ftl h3{font-family:var(--fd);font-size:1.22rem;font-weight:500;color:var(--g1);margin:0 0 6px;line-height:1.25;}
+  .ftl p{font-size:.95rem;color:var(--fog);line-height:1.8;font-family:var(--fb);margin:0;}
+  .ftl-cta{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;letter-spacing:.06em;color:var(--g1);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.35);padding-bottom:3px;font-family:var(--fb);}
+  .ftl-cta:hover{color:var(--g0);}
+  </style>
+  <div style="max-width:720px;margin:0 auto;">
+    <span style="font-size:var(--nano);letter-spacing:.4em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);display:block;text-align:center;margin-bottom:16px;">The Founder's Story</span>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.9rem,4vw,3rem);font-weight:300;color:var(--cream);line-height:1.15;text-align:center;margin-bottom:60px;">Built by someone who <em style="color:var(--g1);font-style:italic;">sat the same exams.</em></h2>
+    <ol class="ftl">
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>India-qualified lawyer</h3><p>Kartik Kumar qualified as a lawyer in India.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>A career at UK law firms</h3><p>He built his early career at UK law firms: DWF, Eversheds Sutherland, and Keoghs.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Hopcraft v Close Brothers, and a role lost</h3><p>Hired as a Legal Executive for motor-finance commission claims, his role ended when the Supreme Court judgment in Hopcraft v Close Brothers reshaped that field and the project wound down. His NCA assessment was already in hand.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>One week to build a system</h3><p>With one week to prepare for his first NCA exam, he found the standard materials too long and built his own: distilled notes and a framework for every question type.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>All five NCA subjects passed</h3><p>He passed all five NCA subjects, four of them in under three months.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Certificate of Qualification received</h3><p>He completed the CPLED Legal Research and Writing requirement and received the NCA Certificate of Qualification.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Ontario (LSO) Barrister licensing exam</h3><p>He passed the Ontario (LSO) Barrister licensing exam, one step in Ontario's lawyer-licensing process.</p></li>
+    </ol>
+    <div style="text-align:center;margin-top:52px;"><a href="/about/kartik-kumar/" class="ftl-cta">Read the full story &rarr;</a></div>
   </div>
-
-  <!-- Chapter 01 -->
-  <div class="story-chapter" id="SCH1">
-    <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
-    <div class="story-chapter-inner">
-      <div class="story-ch-left">
-        <div class="spn" aria-hidden="true">01</div>
-        <div class="story-ch-label">Chapter 01 / 04</div>
-        <div class="story-ch-eye">The Founder's Story</div>
-        <h2 class="story-ch-head split-heading">Three UK law firms.<br>A Supreme Court judgment.<br><em>Then nothing.</em></h2>
-      </div>
-      <div class="story-ch-right">
-        <div class="story-ch-body">
-          <p>Kartik Kumar qualified as a lawyer in India and built his career at UK law firms: DWF, Eversheds Sutherland, and Keoghs. He was hired as a Legal Executive at a newly established law firm for motor finance undisclosed commission claims.</p>
-          <p>A Supreme Court judgment (Hopcraft v Close Brothers) changed the motor finance landscape. The project wound down. Kartik was let go. No income, borrowed money from parents. He had already received his NCA assessment prior to the job loss.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Chapter 02 -->
-  <div class="story-chapter" id="SCH2">
-    <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
-    <div class="story-chapter-inner">
-      <div class="story-ch-left">
-        <div class="spn" aria-hidden="true">02</div>
-        <div class="story-ch-label">Chapter 02 / 04</div>
-        <div class="story-ch-eye">The Pivot</div>
-        <h2 class="story-ch-head split-heading">Sit the NCA. <br><em>One week to prepare.</em></h2>
-      </div>
-      <div class="story-ch-right">
-        <div class="story-ch-body">
-          <p>He purchased the industry-standard materials. He found them too dense and too long, built for candidates with months to spare, not one week.</p>
-          <p>So he built his own system: distilled notes, conversations with fellow candidates, and a strategic framework for every question type.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Chapter 03 -->
-  <div class="story-chapter" id="SCH3">
-    <div class="story-ambience"><div class="story-line-v" style="left:18%"></div><div class="story-line-v" style="right:22%"></div></div>
-    <div class="story-chapter-inner">
-      <div class="story-ch-left">
-        <div class="spn" aria-hidden="true">03</div>
-        <div class="story-ch-label">Chapter 03 / 04</div>
-        <div class="story-ch-eye">The Method</div>
-        <h2 class="story-ch-head split-heading">All five subjects passed.<br><em>Certificate of Qualification — received.</em></h2>
-      </div>
-      <div class="story-ch-right">
-        <div class="story-ch-body">
-          <p>Administrative Law (first exam, one week prep). Constitutional Law. Professional Responsibility. Criminal Law. All passed in under three months.</p>
-          <p>Foundations of Canadian Law was disqualified due to a remote proctoring technical failure mid-session — not a knowledge failure. Retook at the first available sitting in January 2026. Passed. CPLED LRW completed early. Total: all 5 NCA subjects complete · LRW fulfilled · Certificate of Qualification — received.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Chapter 04 -->
-  <div class="story-chapter" id="SCH4">
-    <div class="story-ambience"><div class="story-line-v" style="left:22%"></div><div class="story-line-v" style="right:18%"></div></div>
-    <div class="story-chapter-inner">
-      <div class="story-ch-left">
-        <div class="spn" aria-hidden="true">04</div>
-        <div class="story-ch-label">Chapter 04 / 04</div>
-        <div class="story-ch-eye">The Proof</div>
-        <h2 class="story-ch-head split-heading">The course that <br><em>built itself.</em></h2>
-      </div>
-      <div class="story-ch-right">
-        <div class="story-ch-body">
-          <p>LRW completed early signals system efficiency. The NCA Hub was born from necessity — built for everyone in the same position.</p>
-          <p>Anum had sat Constitutional Law three times before. On her 4th and final attempt, using The NCA Hub method, she passed.</p>
-          <p style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(201,168,76,.1);color:var(--cream);">The notes Kartik built to pass his own exams are the same notes you get. No revision, no dilution. The system that worked under pressure — available to every candidate in the same position.</p>
-        </div>
-        <div class="story-ch-quote">
-          <p>"I passed on my 4th and final attempt. This is the only method that worked for me." · Anum</p>
-        </div>
-        <div class="strategic-pull">
-          <p>Written for your specific path</p>
-          <a href="blog/article-d3-nca-indian-lawyers/">NCA for Indian-Qualified Lawyers →</a><br><br>
-          <a href="blog/article-d4-nca-uk-based-lawyers/">NCA for UK-Qualified Lawyers →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 
 <!-- METHOD -->
 <section class="msc sec" id="method" data-section-track="method" aria-label="The method">
@@ -2387,20 +2320,8 @@ window.addEventListener('load', function() {
         <span class="mtag">Pre-built frameworks</span>
       </div>
     </div>
-    <div class="method-flow" id="MF">
-      <div class="mf-step" id="MF1"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="9"/></svg></div><div class="mf-label">Notes</div><div class="mf-sub">Under 80 pages</div></div>
-      <div class="mf-arrow" id="MFA1" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
-      <div class="mf-step" id="MF2"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div><div class="mf-label">Videos</div><div class="mf-sub">8–12 min each</div></div>
-      <div class="mf-arrow" id="MFA2" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
-      <div class="mf-step" id="MF3"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><div class="mf-label">Templates</div><div class="mf-sub">Pre-built answers</div></div>
-      <div class="mf-arrow" id="MFA3" aria-hidden="true"><svg viewBox="0 0 60 8" overflow="visible"><path d="M0 4 L52 4 M46 0 L58 4 L46 8" stroke="currentColor" fill="none"/></svg></div>
-      <div class="mf-step" id="MF4"><div class="mf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="mf-label">Practice</div><div class="mf-sub">Model answers</div></div>
-    </div>
-    
-    <div class="strategic-pull" style="margin-top:80px;">
-      <p>If you're working out your timeline...</p>
-      <a href="blog/article-e3-nca-study-hours/">How Many Hours Should You Study for the NCA? →</a><br><br>
-      <a href="blog/article-e1-nca-study-schedule-working/">NCA Study Schedule for Working Professionals →</a>
+    <div style="text-align:center;margin-top:56px;">
+      <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">See the notes for your subject &rarr;</a>
     </div>
   </div>
 </section>
