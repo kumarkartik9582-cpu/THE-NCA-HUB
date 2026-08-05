@@ -715,12 +715,6 @@ nav.disc-gone{top:0}
 .mf-arrow.on path{stroke-dashoffset:0;transition:stroke-dashoffset 1s .4s ease;}
 @media(max-width:640px){.mf-arrow{transform:rotate(90deg)}}
 
-/* STRATEGIC PULL QUOTE */
-.strategic-pull{margin-top:48px;padding:32px;border-left:2px solid var(--g1);background:rgba(201,168,76,.03);max-width:600px;}
-.strategic-pull p{font-family:var(--fd);font-style:italic;font-size:1.1rem;color:var(--cream);line-height:1.7;margin-bottom:12px;}
-.strategic-pull a{font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;display:inline-flex;align-items:center;gap:8px;}
-.strategic-pull a:hover{gap:14px;}
-
 /* PERFORMANCE PODS */
 .pods-sec{background:var(--abyss);padding:130px 72px;}
 .pods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px;}
@@ -739,25 +733,6 @@ nav.disc-gone{top:0}
 .pod-avatar.you{background:var(--g1);color:var(--void)}
 .pod-avatar.peer{border-style:solid;border-color:rgba(201,168,76,.4);color:var(--fog)}
 .pod-avatar.mentor{border-style:dashed;border-color:var(--g2);color:var(--g2)}
-
-/* COMPARISON */
-.csc{background:var(--abyss);position:relative;overflow:hidden}
-.ctw{overflow-x:auto;margin-top:64px;-webkit-overflow-scrolling:touch;position:relative}
-.ctw-hint{display:none;text-align:center;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:10px 0 0;opacity:.7}
-@media(max-width:760px){.ctw-hint{display:block}}
-.ct{width:100%;min-width:700px;border-collapse:collapse;border:1px solid rgba(201,168,76,.07)}
-.ct th{padding:18px 24px;text-align:left;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;font-weight:600;font-family:var(--fb);border-bottom:1px solid rgba(201,168,76,.1)}
-.ct th:first-child{color:var(--fog)}
-.ct th.cu{background:var(--glow);color:var(--g1);border-left:1px solid rgba(201,168,76,.22);border-right:1px solid rgba(201,168,76,.22)}
-.ct th.cm{color:var(--dim)}
-.ct td{padding:16px 24px;border-bottom:1px solid rgba(201,168,76,.035);font-size:var(--body);color:var(--fog);vertical-align:middle;transition:background .3s}
-.ct tr:hover td{background:rgba(201,168,76,.013)}
-.ct td.ft{color:var(--cream);font-weight:400}
-.ct td.cu{background:var(--glow3);color:var(--cream);font-weight:500;border-left:1px solid rgba(201,168,76,.12);border-right:1px solid rgba(201,168,76,.12)}
-.ct tr:last-child td{border-bottom:none}
-.ck{color:var(--g1)}.cx{color:var(--dim)}
-.cbadge{display:inline-block;background:var(--g1);color:var(--void);font-size:.44rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:3px 8px;margin-left:8px;vertical-align:middle}
-.ct-disc{font-size:.58rem;color:var(--dim);font-style:italic;font-family:var(--fd);margin-top:18px;line-height:1.65;padding:0 2px}
 
 /* PROOF */
 .prf{background:linear-gradient(135deg,#A87820 0%,#C9A84C 45%,#D4B460 75%,#A87820 100%);padding:130px 72px;position:relative;overflow:hidden}
@@ -779,71 +754,10 @@ nav.disc-gone{top:0}
 .psn{font-family:var(--fd);font-size:2.4rem;font-weight:400;color:var(--void);line-height:1;display:block;margin-bottom:4px}
 .psl{font-size:.67rem;color:rgba(2,2,4,.55);line-height:1.3}
 
-/* TEXT SCRUB — hidden (content duplicated by big-stats section below it) */
-.scrub-wrap{display:none}
-.scrub-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--void);overflow:hidden;}
-.scrub-bg-text{position:absolute;font-family:var(--fd);font-size:clamp(8rem,20vw,18rem);font-weight:300;color:rgba(201,168,76,.025);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;letter-spacing:-.04em;}
-.scrub-inner{text-align:center;max-width:900px;padding:0 48px;position:relative;z-index:2;}
-.scrub-label{font-size:var(--nano);letter-spacing:.38em;text-transform:uppercase;color:rgba(201,168,76,.3);margin-bottom:40px;}
-.scrub-line{font-family:var(--fd);font-size:clamp(2rem,4.5vw,4.5rem);font-weight:300;line-height:1.1;letter-spacing:-.018em;color:rgba(201,168,76,.12);transition:color .5s;margin:0;display:block;}
-.scrub-line.active{color:var(--cream)}
-.scrub-dot{color:var(--g1);font-size:clamp(2rem,4.5vw,4.5rem);display:inline;opacity:.3;transition:opacity .4s;}
-.scrub-dot.active{opacity:1}
-
-/* BIG STATS */
-.bss{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.07);border-bottom:1px solid rgba(201,168,76,.07)}
-@media(max-width:768px){.bss{grid-template-columns:repeat(2,1fr)}}
-.bs{padding:60px 40px;border-right:1px solid rgba(201,168,76,.07);text-align:center;position:relative;overflow:hidden;transition:background .4s;opacity:0;transform:translateY(32px)}
-.bs.on{opacity:1;transform:translateY(0);transition:opacity .8s var(--expo),transform .8s var(--expo);}
-.bs:last-child{border-right:none}
-.bs:hover{background:rgba(201,168,76,.03)}
-.bs::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .5s var(--expo)}
-.bs:hover::after{transform:scaleX(1)}
-.ring-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:110px;height:110px;margin-bottom:16px}
-.ring-svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-.ring-bg{fill:none;stroke:rgba(201,168,76,.07);stroke-width:2}
-.ring-fg{fill:none;stroke:var(--g1);stroke-width:2;stroke-linecap:round}
-.bsn{font-family:var(--fd);font-size:clamp(3.6rem,5.2vw,5.5rem);font-weight:300;color:var(--g1);line-height:1;display:block}
-.bsl{font-size:var(--sm);color:var(--fog);line-height:1.55}
-
 /* SUBJECTS */
 .subsc{background:var(--dark);overflow:hidden;position:relative}
 .subi{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px}
 @media(max-width:900px){.subi{grid-template-columns:1fr;gap:28px}}
-.ht{display:flex;gap:2px;cursor:grab;user-select:none;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
-.ht::-webkit-scrollbar{display:none}
-.ht:active{cursor:grabbing}
-.sc2{flex:0 0 370px;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:48px 38px;position:relative;overflow:hidden;transition:border-color .4s;opacity:0;transform:translateX(40px);transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);animation:breathe 8s ease-in-out infinite;}
-.sc2.on{opacity:1;transform:translateX(0);transition:opacity .8s var(--expo),transform .8s var(--expo);}
-.sc2:hover{border-color:rgba(201,168,76,.28);animation-play-state:paused;}
-.sc2::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent);transform:scaleX(0);transition:transform .6s var(--expo)}
-.sc2:hover::after{transform:scaleX(1)}
-.sc2.lrw-card{border-color:rgba(201,168,76,.18);background:rgba(201,168,76,.03)}
-.sc2.lrw-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g1),transparent)}
-.sc2-highlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 80px at var(--hx,50%) var(--hy,0%),rgba(201,168,76,.06),transparent);opacity:0;transition:opacity .3s}
-.sc2:hover .sc2-highlight{opacity:1}
-.scnum{font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(201,168,76,.08);line-height:1;margin-bottom:16px;display:block;transition:color .4s}
-.sc2:hover .scnum{color:rgba(201,168,76,.25)}
-.sctg{font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:var(--g2);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.sctg-badge{background:rgba(201,168,76,.12);color:var(--g1);font-size:.45rem;padding:2px 8px;letter-spacing:.18em}
-.scti{font-family:var(--fd);font-size:1.5rem;font-weight:500;color:var(--cream);margin-bottom:14px}
-.scb{font-size:var(--body);color:var(--fog);line-height:1.8;margin-bottom:24px}
-.diff-bar{margin-bottom:20px}
-.diff-label{font-size:.45rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
-.diff-track{height:2px;background:rgba(201,168,76,.08);width:100%;overflow:hidden}
-.diff-fill{height:100%;background:linear-gradient(90deg,var(--g3),var(--g1));transform-origin:left;transform:scaleX(0);transition:transform 1s var(--expo)}
-.diff-fill.on{transform:scaleX(var(--dw))}
-.scl li{font-size:.78rem;color:var(--fog);display:flex;gap:12px;line-height:1.5;padding:5px 0;opacity:0;transform:translateX(-8px);transition:opacity .5s,transform .5s}
-.scl li.on{opacity:1;transform:translateX(0)}
-.scl li:nth-child(even){transform:translateX(8px)}
-.scl li:nth-child(even).on{transform:translateX(0)}
-.scl li::before{content:'—';color:var(--g1);flex-shrink:0}
-.sc-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:var(--nano);letter-spacing:.18em;text-transform:uppercase;color:var(--g1);font-weight:600;transition:gap .3s;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:2px;}
-.sc-link:hover{gap:14px;border-bottom-color:var(--g1);}
-.hh{display:flex;align-items:center;gap:12px;font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--dim);margin-top:28px}
-.ha{color:var(--g1);animation:nd 2.2s ease-in-out infinite}
-@keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
-
 /* BREATHING ANIMATION */
 @keyframes breathe {
   0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 40px 100px rgba(0,0,0,.8); }
@@ -855,9 +769,6 @@ nav.disc-gone{top:0}
 @media(max-width:768px){.pgrid{grid-template-columns:1fr;max-width:380px}}
 .pintro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:72px}
 @media(max-width:900px){.pintro{grid-template-columns:1fr;gap:32px}}
-.mp{background:var(--glow3);border:1px solid rgba(201,168,76,.12);border-left:3px solid var(--g1);padding:32px 34px;border-top:1px solid rgba(255,255,255,0.05);}
-.mpq{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--cream);line-height:1.7;margin-bottom:14px}
-.mpby{font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g1)}
 .pc{border:1px solid rgba(201,168,76,.11);padding:48px 40px;background:var(--glow3);position:relative;overflow:hidden;transition:transform .5s var(--expo),border-color .4s;opacity:0;transform:translateY(50px) scale(.98);transform-style:preserve-3d;perspective:1000px;border-top:1px solid rgba(255,255,255,0.05);animation:breathe 8s ease-in-out infinite 4s;}
 .pc.on{opacity:1;transform:translateY(0) scale(1)}
 .pc:hover{transform:translateY(-10px) rotateX(2deg);border-color:rgba(201,168,76,.35);animation-play-state:paused;}
@@ -1443,10 +1354,6 @@ em .char{opacity:1;transform:none;}
 .mc{opacity:1!important;transform:none!important;}
 .mf-step{opacity:1!important;transform:none!important;}
 .mf-arrow{opacity:1!important;}
-.bs{opacity:1!important;transform:none!important;}
-.bsn{opacity:1!important;color:var(--g1)!important;-webkit-text-fill-color:var(--g1)!important;}
-.bsl{opacity:1!important;color:var(--fog)!important;}
-.sc2{opacity:1!important;transform:none!important;}
 .pc{opacity:1!important;transform:none!important;}
 /* Scrub section lines — keep readable even before scroll activation */
 .scrub-line{color:var(--cream)!important;opacity:.85;}
@@ -1538,37 +1445,6 @@ em .char{opacity:1;transform:none;}
 .ticker-live-dot{width:6px;height:6px;background:#C9A84C;border-radius:50%;flex-shrink:0;animation:tickerDotPulse 1.6s ease infinite;}
 @keyframes tickerDotPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.75);}}
 
-/* OBJECTION REMOVAL */
-.ncah-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-@media(max-width:800px){.ncah-trust-grid{grid-template-columns:1fr;}}
-.ncah-trust-card{padding:32px 28px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.015);border-radius:2px;}
-.ncah-trust-icon{font-size:28px;margin-bottom:16px;display:block;}
-.ncah-trust-q{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:400;color:#fff;margin:0 0 12px;line-height:1.3;}
-.ncah-trust-a{font-size:14px;color:rgba(255,255,255,.6);line-height:1.75;margin:0;}
-.ncah-trust-link{display:inline-block;margin-top:12px;font-size:13px;color:#C9A84C;text-decoration:none;}
-.ncah-price-anchor{text-align:center;padding:28px;border:1px solid rgba(201,168,76,.14);border-radius:2px;margin-top:40px;font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;}
-.ncah-price-anchor strong{color:#C9A84C;}
-
-/* SECOND CTA */
-.ncah-second-cta-card{text-align:center;padding:64px 40px;border:1px solid rgba(255,255,255,.06);border-radius:2px;background:rgba(255,255,255,.015);}
-.ncah-second-cta-heading{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.5vw,42px);font-weight:300;color:#fff;margin:0 0 16px;line-height:1.25;}
-.ncah-second-cta-sub{font-size:15px;color:rgba(255,255,255,.55);max-width:460px;margin:0 auto 32px;line-height:1.7;}
-.ncah-second-cta-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:12px;}
-.ncah-btn-primary{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D4A843,#C9A84C,#B8952D);color:#020204;font-weight:700;font-size:15px;padding:17px 36px;border:none;border-radius:2px;cursor:pointer;text-decoration:none;letter-spacing:.04em;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 4px 24px rgba(201,168,76,.22);transition:transform .2s,box-shadow .2s;white-space:nowrap;}
-.ncah-btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.15) inset,0 8px 32px rgba(201,168,76,.32);}
-
-/* SECTION CONTAINERS */
-.ncah-section{padding:80px 0;}
-.ncah-container{max-width:1200px;margin:0 auto;padding:0 24px;}
-.ncah-section-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.22em;color:#C9A84C;margin-bottom:10px;display:block;}
-.ncah-section-heading{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,4vw,52px);font-weight:300;color:#fff;margin:0 0 14px;line-height:1.18;letter-spacing:-.02em;}
-.ncah-section-header-centered{text-align:center;margin-bottom:48px;}
-
-/* CASCADE BANNER */
-
-/* REVEAL ANIMATION BASE */
-.ncah-reveal{opacity:0;transform:translateY(36px);}
-@media(prefers-reduced-motion:reduce){.ncah-reveal{opacity:1!important;transform:none!important;}}
 
 /* ══════════════════════════════════════════════════════════════
    MOBILE RESPONSIVE FIXES v2 — ≤768px (iPhone 14 = 390px)
@@ -1656,8 +1532,7 @@ em .char{opacity:1;transform:none;}
   section,main,article,aside,footer,header,
   .sec,.hero,.phil,.fcta,.prf,.msc,.csc,.subsc,.readiness-sec,
   .pods-sec,.sampl,.fqsc,.tb,
-  [id="story"],[id="tools"],[id="tools-hub"],
-  [id="country-guides"],[id="blog"]{
+  [id="story"]{
     overflow-x:hidden!important;
     overflow-x:clip!important;
     max-width:100vw!important;
@@ -1984,43 +1859,277 @@ window.addEventListener('load', function() {
   </div>
 </section>
 
-<!-- NCA EXAM PLANNER TEASER -->
-<section style="background:var(--abyss);padding:80px 0;border-top:1px solid rgba(201,168,76,.07);position:relative;z-index:1;" aria-label="Exam Planner Teaser">
+
+<!-- METHOD -->
+<section class="msc sec" id="method" data-section-track="method" aria-label="The method">
+  <div class="mamb" aria-hidden="true"></div>
   <div class="w">
-    <p style="font-size:var(--nano);letter-spacing:.34em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:16px;font-family:var(--fb);">Exam Countdown · April 2026 Session</p>
-    <h2 style="font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);margin-bottom:12px;line-height:1.1;letter-spacing:-.01em;">When is your next NCA exam?</h2>
-    <p style="font-size:var(--sm);color:var(--fog);margin-bottom:32px;line-height:1.7;font-family:var(--fb);">Days remaining to your nearest session — select subjects and get your personalised countdown, calendar, and study load analysis.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;">
-      <span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:24px;background:rgba(239,159,39,.1);border:.5px solid rgba(239,159,39,.35);font-family:var(--fb);font-size:.8rem;">
-        <span style="font-weight:600;color:#EF9F27;">23 days</span>
-        <span style="color:var(--fog);">Prof Resp</span>
-        <span style="font-size:.68rem;background:rgba(239,159,39,.18);color:#EF9F27;padding:2px 8px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;">Urgent</span>
-      </span>
-      <span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:24px;background:rgba(239,159,39,.1);border:.5px solid rgba(239,159,39,.35);font-family:var(--fb);font-size:.8rem;">
-        <span style="font-weight:600;color:#EF9F27;">31 days</span>
-        <span style="color:var(--fog);">Crim Law</span>
-        <span style="font-size:.68rem;background:rgba(239,159,39,.18);color:#EF9F27;padding:2px 8px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;">Urgent</span>
-      </span>
-      <span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:24px;background:rgba(29,158,117,.08);border:.5px solid rgba(29,158,117,.3);font-family:var(--fb);font-size:.8rem;">
-        <span style="font-weight:600;color:#1D9E75;">52 days</span>
-        <span style="color:var(--fog);">Admin Law</span>
-        <span style="font-size:.68rem;background:rgba(29,158,117,.15);color:#1D9E75;padding:2px 8px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;">On track</span>
-      </span>
-      <span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:24px;background:rgba(29,158,117,.08);border:.5px solid rgba(29,158,117,.3);font-family:var(--fb);font-size:.8rem;">
-        <span style="font-weight:600;color:#1D9E75;">87 days</span>
-        <span style="color:var(--fog);">Con Law</span>
-        <span style="font-size:.68rem;background:rgba(29,158,117,.15);color:#1D9E75;padding:2px 8px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;">On track</span>
-      </span>
-      <span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:24px;background:rgba(55,138,221,.08);border:.5px solid rgba(55,138,221,.3);font-family:var(--fb);font-size:.8rem;">
-        <span style="font-weight:600;color:#378ADD;">94 days</span>
-        <span style="color:var(--fog);">FCL</span>
-        <span style="font-size:.68rem;background:rgba(55,138,221,.15);color:#378ADD;padding:2px 8px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;">Plan ahead</span>
-      </span>
+    <div class="mhd">
+      <div>
+        <span class="ey split-heading">The Method</span>
+        <h2 class="sh split-heading">Three things <br><em>nobody else does.</em></h2>
+      </div>
+      <p class="sl">Every decision came from experiencing what didn't work. Then building the exact opposite.</p>
     </div>
-    <a href="/nca-exam-planner/" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--fb);font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--g1);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:4px;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--g1)'" onmouseout="this.style.borderColor='rgba(201,168,76,.3)'">Personalise My Countdown →</a>
-    <p style="font-size:.62rem;color:var(--dim);margin-top:14px;font-family:var(--fb);">Days shown from reference date Apr 11, 2026 · Subject to change · Always confirm at nca.legal</p>
+    <div class="mg">
+      <div class="mc sm tilt-card" id="MC1">
+        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <span class="mn" aria-hidden="true">01</span>
+        <h3 class="mt split-heading">Short-Form Video Lectures</h3>
+        <p class="mb">8–12 minutes per topic. One concept, covered completely. No 2-hour recordings where attention collapses at minute 25. Microlearning is associated with significantly higher completion rates.</p>
+        <span class="mtag">Coming soon — free for note buyers on release</span>
+      </div>
+      <div class="mc sm tilt-card" id="MC2">
+        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <span class="mn" aria-hidden="true">02</span>
+        <h3 class="mt split-heading">Strategic Notes</h3>
+        <p class="mb">Under 80 pages per subject of distilled, exam-targeted material. Not a textbook. Every sentence earns its place by serving one purpose: your performance in the exam hall.</p>
+        <span class="mtag">Exam-focused only</span>
+      </div>
+      <div class="mc sm tilt-card" id="MC3">
+        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <span class="mn" aria-hidden="true">03</span>
+        <h3 class="mt split-heading">Answer Templates</h3>
+        <p class="mb">The NCA rewards specific analytical structures. Our templates give you the architecture before you see the question. Recognize the question type, and you already know the first four lines of your answer.</p>
+        <span class="mtag">Pre-built frameworks</span>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:56px;">
+      <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">See the notes for your subject &rarr;</a>
+    </div>
   </div>
 </section>
+
+<!-- FOUNDER STORY TIMELINE (Section 4) -->
+<section id="story" aria-label="The founder's story" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:110px 24px;position:relative;z-index:1;">
+  <style>
+  .ftl{list-style:none;margin:0;padding:0;position:relative;}
+  .ftl::before{content:'';position:absolute;left:11px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,#1F3864 0%,#2E4E86 45%,#C9A84C 100%);}
+  .ftl-item{position:relative;padding:0 0 36px 46px;}
+  .ftl-item:last-child{padding-bottom:0;}
+  .ftl-node{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#1F3864;border:2px solid #C9A84C;box-shadow:0 0 0 5px rgba(31,56,100,.22);}
+  .ftl h3{font-family:var(--fd);font-size:1.22rem;font-weight:500;color:var(--g1);margin:0 0 6px;line-height:1.25;}
+  .ftl p{font-size:.95rem;color:var(--fog);line-height:1.8;font-family:var(--fb);margin:0;}
+  .ftl-cta{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;letter-spacing:.06em;color:var(--g1);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.35);padding-bottom:3px;font-family:var(--fb);}
+  .ftl-cta:hover{color:var(--g0);}
+  </style>
+  <div style="max-width:720px;margin:0 auto;">
+    <span style="font-size:var(--nano);letter-spacing:.4em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);display:block;text-align:center;margin-bottom:16px;">The Founder's Story</span>
+    <h2 style="font-family:var(--fd);font-size:clamp(1.9rem,4vw,3rem);font-weight:300;color:var(--cream);line-height:1.15;text-align:center;margin-bottom:60px;">Built by someone who <em style="color:var(--g1);font-style:italic;">sat the same exams.</em></h2>
+    <ol class="ftl">
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>India-qualified lawyer</h3><p>Kartik Kumar qualified as a lawyer in India.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>A career at UK law firms</h3><p>He built his early career at UK law firms: DWF, Eversheds Sutherland, and Keoghs.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Hopcraft v Close Brothers, and a role lost</h3><p>Hired as a Legal Executive for motor-finance commission claims, his role ended when the Supreme Court judgment in Hopcraft v Close Brothers reshaped that field and the project wound down. His NCA assessment was already in hand.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>One week to build a system</h3><p>With one week to prepare for his first NCA exam, he found the standard materials too long and built his own: distilled notes and a framework for every question type.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>All five NCA subjects passed</h3><p>He passed all five NCA subjects, four of them in under three months.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Certificate of Qualification received</h3><p>He completed the CPLED Legal Research and Writing requirement and received the NCA Certificate of Qualification.</p></li>
+      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Ontario (LSO) Barrister licensing exam</h3><p>He passed the Ontario (LSO) Barrister licensing exam, one step in Ontario's lawyer-licensing process.</p></li>
+    </ol>
+    <div style="text-align:center;margin-top:52px;"><a href="/about/kartik-kumar/" class="ftl-cta">Read the full story &rarr;</a></div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<!-- SUBJECTS -->
+<section class="subsc sec" id="subjects" aria-label="NCA subjects covered">
+  <div class="w">
+    <div class="subi">
+      <div>
+        <span class="ey split-heading">Choose Your Subject</span>
+        <h2 class="sh split-heading">Notes for the exam<br><em>you are sitting.</em></h2>
+      </div>
+      <p class="sl">Pick the subject you were assigned. Each page shows you the notes, the answer templates, and a free readiness score before you decide. Under 80 pages, built for the 3-hour open-book exam.</p>
+    </div>
+    <div class="subject-tiles" role="list">
+      <a href="/notes/professional-responsibility/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Professional Responsibility</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; May 4 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/contract-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Contract Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; May 11 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/criminal-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Criminal Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; May 12 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/administrative-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Administrative Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; Jun 2 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/constitutional-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Constitutional Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; Jul 7 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/foundations-of-canadian-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Foundations of Canadian Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; Jul 14 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/family-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Family Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Next exam &middot; Nov 2 &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/evidence-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Evidence Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Notes and answer templates &middot; under 80 pages</span>
+      </a>
+      <a href="/notes/property/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Property Law</span><span class="stile-status soon">In preparation</span></span>
+        <span class="stile-meta">Next exam &middot; Jun 1 &middot; notes being finalised</span>
+      </a>
+      <a href="/notes/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Legal Research &amp; Writing</span><span class="stile-status soon">CPLED course</span></span>
+        <span class="stile-meta">A CPLED requirement, not an NCA exam &middot; guidance included</span>
+      </a>
+    </div>
+    <p class="subject-tiles-note">Property and Civil Procedure are being finalised. Everything else is available now at $175 per subject. Not sure which subjects you were assigned? <a href="/nca-subject-predictor/">Try the subject predictor &rarr;</a></p>
+  </div>
+  <style>
+    .subject-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:12px;}
+    @media(max-width:760px){.subject-tiles{grid-template-columns:1fr;}}
+    .stile{display:flex;flex-direction:column;gap:8px;padding:22px 26px;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);transition:background .25s,border-color .25s;}
+    .stile:hover{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.28);}
+    .stile-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+    .stile-name{font-family:var(--fd);font-size:1.15rem;font-weight:400;color:var(--cream);line-height:1.2;}
+    .stile:hover .stile-name{color:var(--g0);}
+    .stile-status{font-size:var(--nano);letter-spacing:.16em;text-transform:uppercase;font-weight:600;font-family:var(--fb);white-space:nowrap;}
+    .stile-status.av{color:var(--g1);}
+    .stile-status.soon{color:var(--dim);}
+    .stile-meta{font-size:var(--sm);color:var(--fog);font-family:var(--fb);}
+    .subject-tiles-note{font-size:var(--sm);color:var(--fog);line-height:1.8;margin-top:24px;max-width:680px;font-family:var(--fb);}
+    .subject-tiles-note a{color:var(--g1);}
+  </style>
+</section>
+
+
+
+<!-- PRICING -->
+<section class="sec" id="pricing" data-section-track="pricing" style="background:var(--dark)" aria-label="Pricing">
+  <div class="w">
+    <div class="pintro">
+      <div>
+        <span class="ey split-heading">Transparent Pricing</span>
+        <h2 class="sh split-heading">Invest once.<br><em>Own it forever.</em></h2>
+        <p class="sl" style="margin-top:24px">$175 per subject, paid once. No subscription, no recurring charge. Buy only the subjects you were assigned and own them forever. <a href="/nca-cost-calculator/" style="color:var(--g1)">Estimate your total NCA cost &rarr;</a></p>
+        <p style="margin-top:14px;font-size:var(--sm);color:rgba(201,168,76,.5);font-style:italic;font-family:var(--fd)">Founding price in effect while the video lecture series is in production. Payment plans available on request.</p>
+      </div>
+    </div>
+
+    <div class="pgrid">
+      <div class="pc sm tilt-card" id="PC1">
+        <div class="ptier">NCA Complete Notes Bundle</div><div class="pprice">$175</div><div class="pper">per subject (CAD) <span style="font-size:.65rem;color:rgba(201,168,76,.6);display:block;margin-top:4px;font-style:italic">vs $500 if you fail and resit</span></div>
+        <div class="pdiv"></div>
+        <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>Free readiness score before you buy</li><li>PDF: yours to keep forever</li></ul>
+        <a href="#subjects" class="pb" aria-label="Choose your subject to buy"><span>Choose Your Subject</span></a>
+        <p style="font-size:.72rem;color:var(--dim);margin-top:8px;text-align:center;font-family:var(--fb);">Pay in 2 instalments available at checkout</p>
+      </div>
+    </div>
+
+    <!-- RESIT REFRAME (single instance, folded from the old comparison section) -->
+    <div style="background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);padding:28px 32px;margin:40px auto 0;text-align:center;max-width:680px;">
+      <p style="font-family:var(--fd);font-size:1.25rem;color:var(--cream);line-height:1.6;margin-bottom:10px;">The real question is not whether you can afford $175.</p>
+      <p style="font-size:var(--sm);color:var(--fog);line-height:1.8;">A failed sitting costs $500 to resit, plus three months before you can write again. These notes cost about a third of one resit fee. If they prevent a single failed attempt, they have more than paid for themselves. And if you sit your exam using these notes and do not pass, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a> and we will send you the updated notes for your resit, free of charge.</p>
+    </div>
+
+    <!-- WILL IT COVER MY SUBJECT -->
+    <div style="max-width:680px;margin:32px auto 0;">
+      <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:12px;text-align:center;">Will it cover my subject?</div>
+      <p style="font-size:var(--sm);color:var(--fog);line-height:1.85;text-align:center;font-family:var(--fb);">Notes are available now for Administrative, Constitutional, Criminal, Contract, Professional Responsibility, Foundations of Canadian Law, Family, and Evidence. Property and Civil Procedure are being finalised. Not sure which subjects you were assigned? The <a href="/nca-subject-predictor/" style="color:var(--g1)">subject predictor</a> can help you work it out.</p>
+    </div>
+
+    <div class="proof-rows" aria-label="Student results" style="margin-top:32px;">
+      <div class="proof-row">Anum S. &middot; Constitutional Law &middot; 4th &amp; final attempt &middot; <strong style="color:var(--g1)">Passed</strong></div>
+    </div>
+    <p class="authority-line">Materials developed by a qualified lawyer &middot; Reviewed for accuracy against current NCA syllabi</p>
+
+    <div class="post-buy" id="POST_BUY">
+      <button class="post-buy-q" id="POST_BUY_BTN" aria-expanded="false" aria-controls="post-buy-body">
+        What happens after I buy?
+        <div class="post-buy-ico"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
+      </button>
+      <div class="post-buy-body" id="post-buy-body" role="region">
+        <p class="post-buy-inner">You will receive an email from Payhip with your download link immediately after purchase. Your PDF notes and templates are available for instant download. Video lectures are in production and will be added free to your Payhip library for any subject you own when they are released, at no extra charge. Everything is yours permanently, no expiry, no subscription. If your download link does not arrive within 5 minutes, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a> and it will be resolved within the hour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE FORM -->
+<section class="sampl sec" id="sample" aria-label="Get free chapter">
+  <div class="w">
+    <div class="sgrid">
+      <div>
+        <span class="ey split-heading">Try Before You Buy</span>
+        <h2 class="sh split-heading">One free chapter.<br><em>Your subject.</em></h2>
+        <p class="sl" style="margin-top:20px">Choose the subject you're preparing for. Enter your email. Get a free sample chapter from our strategic, exam-focused notes — instantly.</p>
+        <p style="margin-top:16px;font-size:var(--sm);color:var(--fog)">You'll also receive our weekly NCA Strategy email. Unsubscribe any time.</p>
+      </div>
+      <div class="sf2" id="SFORM">
+        <!-- Step 1: Subject selection -->
+        <div id="fc-step-subject">
+          <div style="font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:14px;">Step 1 — Choose your subject</div>
+          <div class="subj-grid" id="fc-subj-grid">
+            <button class="subj-btn" data-fc-subj="administrative law" data-fc-slug="administrative+law">
+              <span class="subj-name">Administrative Law</span>
+              <span class="subj-hint">Vavilov, Baker — judicial review &amp; procedural fairness</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="criminal law" data-fc-slug="criminal+law">
+              <span class="subj-name">Criminal Law</span>
+              <span class="subj-hint">Actus reus, mens rea, defences, Charter rights</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="constitutional law" data-fc-slug="constitutional+law">
+              <span class="subj-name">Constitutional Law</span>
+              <span class="subj-hint">Division of powers, Charter, Aboriginal title</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="foundations of canadian law" data-fc-slug="foundations+of+canadian+law">
+              <span class="subj-name">Foundations of Canadian Law</span>
+              <span class="subj-hint">Sources of law, Indigenous law, statutory interpretation</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="professional responsibility" data-fc-slug="professional+responsibility">
+              <span class="subj-name">Professional Responsibility</span>
+              <span class="subj-hint">Conflicts, confidentiality, duty of loyalty, Model Code</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="contract law" data-fc-slug="contract+law">
+              <span class="subj-name">Contract Law</span>
+              <span class="subj-hint">Formation, terms, breach, remedies, Hadley v Baxendale</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="family law" data-fc-slug="family+law">
+              <span class="subj-name">Family Law</span>
+              <span class="subj-hint">Divorce Act, SSAG, child support, property division (FLA)</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="evidence law" data-fc-slug="evidence+law">
+              <span class="subj-name">Evidence Law</span>
+              <span class="subj-hint">Hearsay principled approach, Grant test, character evidence</span>
+            </button>
+            <button class="subj-btn" data-fc-subj="property law" data-fc-slug="property+law">
+              <span class="subj-name">Property Law</span>
+              <span class="subj-hint">Torrens system, estates, co-ownership, easements, priorities</span>
+            </button>
+          </div>
+        </div>
+        <!-- Step 2: Email (revealed after subject chosen) -->
+        <div id="fc-step-email" style="display:none;margin-top:4px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+            <div style="font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--g1);font-weight:600;">Step 2 — Your email</div>
+            <button id="fc-back" style="background:none;border:none;color:var(--dim);font-family:var(--fb);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:2px 0;">← Change subject</button>
+          </div>
+          <div id="fc-selected-label" style="font-size:var(--sm);color:var(--fog);margin-bottom:14px;padding:10px 14px;background:rgba(201,168,76,.05);border-left:2px solid var(--g1);"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="email" id="SEML" name="email" placeholder="Your email address" required autocomplete="email" style="flex:1;min-width:220px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-right:none;color:var(--cream);padding:17px 20px;font-family:var(--fb);font-size:.9rem;outline:none;">
+            <button type="submit" id="FSB" style="background:var(--g1);color:var(--void);border:none;padding:17px 32px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .3s;" onmouseover="this.style.background='var(--g0)'" onmouseout="this.style.background='var(--g1)'"><span id="FSBT" aria-live="polite">Get My Free Chapter →</span></button>
+          </div>
+          <p style="font-size:.72rem;color:var(--dim);margin-top:12px;font-family:var(--fb);">Instant delivery · No payment · Unsubscribe anytime</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- READINESS SCORE SECTION -->
 <section class="readiness-sec sec" id="readiness" aria-label="Readiness Assessment">
@@ -2211,322 +2320,6 @@ window.addEventListener('load', function() {
   </div>
 </section>
 
-<!-- TOOLS GRID -->
-<section id="tools" data-section-track="tools" aria-label="Free NCA tools" style="background:var(--abyss);border-top:1px solid rgba(201,168,76,.07);padding:100px 0;">
-  <div class="w">
-    <span class="ey split-heading">Free Tools</span>
-    <h2 class="sh split-heading" style="margin-bottom:48px">Plan your <em>NCA journey.</em></h2>
-    <div id="tools-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:2px;">
-      <a href="/nca-cost-calculator/" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
-        <div style="width:40px;height:40px;border:1px solid rgba(201,168,76,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:rgba(201,168,76,.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg></div>
-        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">Cost Calculator</div>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">Model your total NCA cost — assessment, exams, LRW, resits.</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">Calculate now →</span>
-      </a>
-      <a href="/nca-exam-dates-2026/" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
-        <div style="width:40px;height:40px;border:1px solid rgba(201,168,76,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:rgba(201,168,76,.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">Exam Dates 2026</div>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">All NCA exam sittings and registration deadlines for 2026.</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">View schedule →</span>
-      </a>
-      <a href="/#readiness" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
-        <div style="width:40px;height:40px;border:1px solid rgba(201,168,76,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:rgba(201,168,76,.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
-        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">Readiness Score</div>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">5 questions. Get a subject-specific score and feedback on your real exam readiness.</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">Take the quiz →</span>
-      </a>
-      <a href="/nca-statistics/" style="display:block;background:rgba(201,168,76,.02);border:1px solid rgba(201,168,76,.09);padding:36px 28px;text-decoration:none;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(201,168,76,.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,.09)'">
-        <div style="width:40px;height:40px;border:1px solid rgba(201,168,76,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:rgba(201,168,76,.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
-        <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:8px;">NCA Statistics</div>
-        <p style="font-size:var(--sm);color:var(--fog);line-height:1.6;margin-bottom:14px;">Pass rates, exam volume, and official fee tables — official NCA data.</p>
-        <span style="font-size:var(--nano);letter-spacing:.2em;text-transform:uppercase;color:var(--g1);">See the data →</span>
-      </a>
-    </div>
-    <!-- Prep Checklist Featured Row -->
-    <a href="/nca-prep-checklist/" style="display:flex;align-items:center;justify-content:space-between;gap:24px;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.18);border-top:3px solid var(--g1);padding:28px 36px;text-decoration:none;transition:border-color .3s;flex-wrap:wrap;" onmouseover="this.style.borderColor='rgba(201,168,76,.4)'" onmouseout="this.style.borderColor='rgba(201,168,76,.18)'">
-      <div style="display:flex;align-items:center;gap:20px;">
-        <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:50%;flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
-        <div>
-          <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:4px;">NCA Prep Checklist — Free</div>
-          <p style="font-size:var(--sm);color:var(--fog);line-height:1.5;margin:0;">Everything you need to do before, during, and after your NCA exams. Printable PDF checklist for each subject sitting.</p>
-        </div>
-      </div>
-      <span style="font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g1);font-weight:700;white-space:nowrap;flex-shrink:0;">Download Free →</span>
-    </a>
-  </div>
-</section>
-
-<!-- FOUNDER STORY TIMELINE (Section 4) -->
-<section id="story" aria-label="The founder's story" style="background:var(--void);border-top:1px solid rgba(201,168,76,.07);padding:110px 24px;position:relative;z-index:1;">
-  <style>
-  .ftl{list-style:none;margin:0;padding:0;position:relative;}
-  .ftl::before{content:'';position:absolute;left:11px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,#1F3864 0%,#2E4E86 45%,#C9A84C 100%);}
-  .ftl-item{position:relative;padding:0 0 36px 46px;}
-  .ftl-item:last-child{padding-bottom:0;}
-  .ftl-node{position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#1F3864;border:2px solid #C9A84C;box-shadow:0 0 0 5px rgba(31,56,100,.22);}
-  .ftl h3{font-family:var(--fd);font-size:1.22rem;font-weight:500;color:var(--g1);margin:0 0 6px;line-height:1.25;}
-  .ftl p{font-size:.95rem;color:var(--fog);line-height:1.8;font-family:var(--fb);margin:0;}
-  .ftl-cta{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;letter-spacing:.06em;color:var(--g1);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.35);padding-bottom:3px;font-family:var(--fb);}
-  .ftl-cta:hover{color:var(--g0);}
-  </style>
-  <div style="max-width:720px;margin:0 auto;">
-    <span style="font-size:var(--nano);letter-spacing:.4em;text-transform:uppercase;color:var(--g1);font-weight:600;font-family:var(--fb);display:block;text-align:center;margin-bottom:16px;">The Founder's Story</span>
-    <h2 style="font-family:var(--fd);font-size:clamp(1.9rem,4vw,3rem);font-weight:300;color:var(--cream);line-height:1.15;text-align:center;margin-bottom:60px;">Built by someone who <em style="color:var(--g1);font-style:italic;">sat the same exams.</em></h2>
-    <ol class="ftl">
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>India-qualified lawyer</h3><p>Kartik Kumar qualified as a lawyer in India.</p></li>
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>A career at UK law firms</h3><p>He built his early career at UK law firms: DWF, Eversheds Sutherland, and Keoghs.</p></li>
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Hopcraft v Close Brothers, and a role lost</h3><p>Hired as a Legal Executive for motor-finance commission claims, his role ended when the Supreme Court judgment in Hopcraft v Close Brothers reshaped that field and the project wound down. His NCA assessment was already in hand.</p></li>
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>One week to build a system</h3><p>With one week to prepare for his first NCA exam, he found the standard materials too long and built his own: distilled notes and a framework for every question type.</p></li>
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>All five NCA subjects passed</h3><p>He passed all five NCA subjects, four of them in under three months.</p></li>
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Certificate of Qualification received</h3><p>He completed the CPLED Legal Research and Writing requirement and received the NCA Certificate of Qualification.</p></li>
-      <li class="ftl-item"><span class="ftl-node" aria-hidden="true"></span><h3>Ontario (LSO) Barrister licensing exam</h3><p>He passed the Ontario (LSO) Barrister licensing exam, one step in Ontario's lawyer-licensing process.</p></li>
-    </ol>
-    <div style="text-align:center;margin-top:52px;"><a href="/about/kartik-kumar/" class="ftl-cta">Read the full story &rarr;</a></div>
-  </div>
-</section>
-
-<!-- METHOD -->
-<section class="msc sec" id="method" data-section-track="method" aria-label="The method">
-  <div class="mamb" aria-hidden="true"></div>
-  <div class="sn" aria-hidden="true">04 / 08</div>
-  <div class="w">
-    <div class="mhd">
-      <div>
-        <span class="ey split-heading">The Method</span>
-        <h2 class="sh split-heading">Three things <br><em>nobody else does.</em></h2>
-      </div>
-      <p class="sl">Every decision came from experiencing what didn't work. Then building the exact opposite.</p>
-    </div>
-    <div class="mg">
-      <div class="mc sm tilt-card" id="MC1">
-        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-        <span class="mn" aria-hidden="true">01</span>
-        <h3 class="mt split-heading">Short-Form Video Lectures</h3>
-        <p class="mb">8–12 minutes per topic. One concept, covered completely. No 2-hour recordings where attention collapses at minute 25. Microlearning is associated with significantly higher completion rates.</p>
-        <span class="mtag">Coming soon — free for note buyers on release</span>
-      </div>
-      <div class="mc sm tilt-card" id="MC2">
-        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <span class="mn" aria-hidden="true">02</span>
-        <h3 class="mt split-heading">Strategic Notes</h3>
-        <p class="mb">Under 80 pages per subject of distilled, exam-targeted material. Not a textbook. Every sentence earns its place by serving one purpose: your performance in the exam hall.</p>
-        <span class="mtag">Exam-focused only</span>
-      </div>
-      <div class="mc sm tilt-card" id="MC3">
-        <div class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <span class="mn" aria-hidden="true">03</span>
-        <h3 class="mt split-heading">Answer Templates</h3>
-        <p class="mb">The NCA rewards specific analytical structures. Our templates give you the architecture before you see the question. Recognize the question type, and you already know the first four lines of your answer.</p>
-        <span class="mtag">Pre-built frameworks</span>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:56px;">
-      <a href="/notes/" style="display:inline-flex;align-items:center;gap:8px;background:var(--g1);color:var(--void);padding:16px 44px;font-family:var(--fb);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;">See the notes for your subject &rarr;</a>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-
-<!-- SUBJECTS -->
-<section class="subsc sec" id="subjects" aria-label="NCA subjects covered">
-  <div class="sn" aria-hidden="true">05 / 08</div>
-  <div class="w">
-    <div class="subi">
-      <div>
-        <span class="ey split-heading">Choose Your Subject</span>
-        <h2 class="sh split-heading">Notes for the exam<br><em>you are sitting.</em></h2>
-      </div>
-      <p class="sl">Pick the subject you were assigned. Each page shows you the notes, the answer templates, and a free readiness score before you decide. Under 80 pages, built for the 3-hour open-book exam.</p>
-    </div>
-    <div class="subject-tiles" role="list">
-      <a href="/notes/professional-responsibility/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Professional Responsibility</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; May 4 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/contract-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Contract Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; May 11 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/criminal-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Criminal Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; May 12 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/administrative-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Administrative Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; Jun 2 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/constitutional-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Constitutional Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; Jul 7 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/foundations-of-canadian-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Foundations of Canadian Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; Jul 14 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/family-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Family Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Next exam &middot; Nov 2 &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/evidence-law/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Evidence Law</span><span class="stile-status av">Available</span></span>
-        <span class="stile-meta">Notes and answer templates &middot; under 80 pages</span>
-      </a>
-      <a href="/notes/property/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Property Law</span><span class="stile-status soon">In preparation</span></span>
-        <span class="stile-meta">Next exam &middot; Jun 1 &middot; notes being finalised</span>
-      </a>
-      <a href="/notes/" class="stile" role="listitem">
-        <span class="stile-top"><span class="stile-name">Legal Research &amp; Writing</span><span class="stile-status soon">CPLED course</span></span>
-        <span class="stile-meta">A CPLED requirement, not an NCA exam &middot; guidance included</span>
-      </a>
-    </div>
-    <p class="subject-tiles-note">Property and Civil Procedure are being finalised. Everything else is available now at $175 per subject. Not sure which subjects you were assigned? <a href="/nca-subject-predictor/">Try the subject predictor &rarr;</a></p>
-  </div>
-  <style>
-    .subject-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:12px;}
-    @media(max-width:760px){.subject-tiles{grid-template-columns:1fr;}}
-    .stile{display:flex;flex-direction:column;gap:8px;padding:22px 26px;background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.08);transition:background .25s,border-color .25s;}
-    .stile:hover{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.28);}
-    .stile-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
-    .stile-name{font-family:var(--fd);font-size:1.15rem;font-weight:400;color:var(--cream);line-height:1.2;}
-    .stile:hover .stile-name{color:var(--g0);}
-    .stile-status{font-size:var(--nano);letter-spacing:.16em;text-transform:uppercase;font-weight:600;font-family:var(--fb);white-space:nowrap;}
-    .stile-status.av{color:var(--g1);}
-    .stile-status.soon{color:var(--dim);}
-    .stile-meta{font-size:var(--sm);color:var(--fog);font-family:var(--fb);}
-    .subject-tiles-note{font-size:var(--sm);color:var(--fog);line-height:1.8;margin-top:24px;max-width:680px;font-family:var(--fb);}
-    .subject-tiles-note a{color:var(--g1);}
-  </style>
-</section>
-
-
-
-<!-- PRICING -->
-<section class="sec" id="pricing" data-section-track="pricing" style="background:var(--dark)" aria-label="Pricing">
-  <div class="sn" aria-hidden="true">06 / 08</div>
-  <div class="w">
-    <div class="pintro">
-      <div>
-        <span class="ey split-heading">Transparent Pricing</span>
-        <h2 class="sh split-heading">Invest once.<br><em>Own it forever.</em></h2>
-        <p class="sl" style="margin-top:24px">$175 per subject, paid once. No subscription, no recurring charge. Buy only the subjects you were assigned and own them forever. <a href="/nca-cost-calculator/" style="color:var(--g1)">Estimate your total NCA cost &rarr;</a></p>
-        <p style="margin-top:14px;font-size:var(--sm);color:rgba(201,168,76,.5);font-style:italic;font-family:var(--fd)">Founding price in effect while the video lecture series is in production. Payment plans available on request.</p>
-      </div>
-    </div>
-
-    <div class="pgrid">
-      <div class="pc sm tilt-card" id="PC1">
-        <div class="ptier">NCA Complete Notes Bundle</div><div class="pprice">$175</div><div class="pper">per subject (CAD) <span style="font-size:.65rem;color:rgba(201,168,76,.6);display:block;margin-top:4px;font-style:italic">vs $500 if you fail and resit</span></div>
-        <div class="pdiv"></div>
-        <ul class="pfts"><li>Strategic notes: under 80 pages</li><li>Answer templates for every question type</li><li>Practice questions with model answers</li><li>Free readiness score before you buy</li><li>PDF: yours to keep forever</li></ul>
-        <a href="#subjects" class="pb" aria-label="Choose your subject to buy"><span>Choose Your Subject</span></a>
-        <p style="font-size:.72rem;color:var(--dim);margin-top:8px;text-align:center;font-family:var(--fb);">Pay in 2 instalments available at checkout</p>
-      </div>
-    </div>
-
-    <!-- RESIT REFRAME (single instance, folded from the old comparison section) -->
-    <div style="background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);padding:28px 32px;margin:40px auto 0;text-align:center;max-width:680px;">
-      <p style="font-family:var(--fd);font-size:1.25rem;color:var(--cream);line-height:1.6;margin-bottom:10px;">The real question is not whether you can afford $175.</p>
-      <p style="font-size:var(--sm);color:var(--fog);line-height:1.8;">A failed sitting costs $500 to resit, plus three months before you can write again. These notes cost about a third of one resit fee. If they prevent a single failed attempt, they have more than paid for themselves. And if you sit your exam using these notes and do not pass, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1);text-decoration:none;">thencahub@gmail.com</a> and we will send you the updated notes for your resit, free of charge.</p>
-    </div>
-
-    <!-- WILL IT COVER MY SUBJECT -->
-    <div style="max-width:680px;margin:32px auto 0;">
-      <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:12px;text-align:center;">Will it cover my subject?</div>
-      <p style="font-size:var(--sm);color:var(--fog);line-height:1.85;text-align:center;font-family:var(--fb);">Notes are available now for Administrative, Constitutional, Criminal, Contract, Professional Responsibility, Foundations of Canadian Law, Family, and Evidence. Property and Civil Procedure are being finalised. Not sure which subjects you were assigned? The <a href="/nca-subject-predictor/" style="color:var(--g1)">subject predictor</a> can help you work it out.</p>
-    </div>
-
-    <div class="proof-rows" aria-label="Student results" style="margin-top:32px;">
-      <div class="proof-row">Anum S. &middot; Constitutional Law &middot; 4th &amp; final attempt &middot; <strong style="color:var(--g1)">Passed</strong></div>
-    </div>
-    <p class="authority-line">Materials developed by a qualified lawyer &middot; Reviewed for accuracy against current NCA syllabi</p>
-
-    <div class="post-buy" id="POST_BUY">
-      <button class="post-buy-q" id="POST_BUY_BTN" aria-expanded="false" aria-controls="post-buy-body">
-        What happens after I buy?
-        <div class="post-buy-ico"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></div>
-      </button>
-      <div class="post-buy-body" id="post-buy-body" role="region">
-        <p class="post-buy-inner">You will receive an email from Payhip with your download link immediately after purchase. Your PDF notes and templates are available for instant download. Video lectures are in production and will be added free to your Payhip library for any subject you own when they are released, at no extra charge. Everything is yours permanently, no expiry, no subscription. If your download link does not arrive within 5 minutes, email <a href="mailto:thencahub@gmail.com" style="color:var(--g1)">thencahub@gmail.com</a> and it will be resolved within the hour.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SAMPLE FORM -->
-<section class="sampl sec" id="sample" aria-label="Get free chapter">
-  <div class="w">
-    <div class="sgrid">
-      <div>
-        <span class="ey split-heading">Try Before You Buy</span>
-        <h2 class="sh split-heading">One free chapter.<br><em>Your subject.</em></h2>
-        <p class="sl" style="margin-top:20px">Choose the subject you're preparing for. Enter your email. Get a free sample chapter from our strategic, exam-focused notes — instantly.</p>
-        <p style="margin-top:16px;font-size:var(--sm);color:var(--fog)">You'll also receive our weekly NCA Strategy email. Unsubscribe any time.</p>
-      </div>
-      <div class="sf2" id="SFORM">
-        <!-- Step 1: Subject selection -->
-        <div id="fc-step-subject">
-          <div style="font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--g1);font-weight:600;margin-bottom:14px;">Step 1 — Choose your subject</div>
-          <div class="subj-grid" id="fc-subj-grid">
-            <button class="subj-btn" data-fc-subj="administrative law" data-fc-slug="administrative+law">
-              <span class="subj-name">Administrative Law</span>
-              <span class="subj-hint">Vavilov, Baker — judicial review &amp; procedural fairness</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="criminal law" data-fc-slug="criminal+law">
-              <span class="subj-name">Criminal Law</span>
-              <span class="subj-hint">Actus reus, mens rea, defences, Charter rights</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="constitutional law" data-fc-slug="constitutional+law">
-              <span class="subj-name">Constitutional Law</span>
-              <span class="subj-hint">Division of powers, Charter, Aboriginal title</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="foundations of canadian law" data-fc-slug="foundations+of+canadian+law">
-              <span class="subj-name">Foundations of Canadian Law</span>
-              <span class="subj-hint">Sources of law, Indigenous law, statutory interpretation</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="professional responsibility" data-fc-slug="professional+responsibility">
-              <span class="subj-name">Professional Responsibility</span>
-              <span class="subj-hint">Conflicts, confidentiality, duty of loyalty, Model Code</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="contract law" data-fc-slug="contract+law">
-              <span class="subj-name">Contract Law</span>
-              <span class="subj-hint">Formation, terms, breach, remedies, Hadley v Baxendale</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="family law" data-fc-slug="family+law">
-              <span class="subj-name">Family Law</span>
-              <span class="subj-hint">Divorce Act, SSAG, child support, property division (FLA)</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="evidence law" data-fc-slug="evidence+law">
-              <span class="subj-name">Evidence Law</span>
-              <span class="subj-hint">Hearsay principled approach, Grant test, character evidence</span>
-            </button>
-            <button class="subj-btn" data-fc-subj="property law" data-fc-slug="property+law">
-              <span class="subj-name">Property Law</span>
-              <span class="subj-hint">Torrens system, estates, co-ownership, easements, priorities</span>
-            </button>
-          </div>
-        </div>
-        <!-- Step 2: Email (revealed after subject chosen) -->
-        <div id="fc-step-email" style="display:none;margin-top:4px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-            <div style="font-size:var(--nano);letter-spacing:.26em;text-transform:uppercase;color:var(--g1);font-weight:600;">Step 2 — Your email</div>
-            <button id="fc-back" style="background:none;border:none;color:var(--dim);font-family:var(--fb);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:2px 0;">← Change subject</button>
-          </div>
-          <div id="fc-selected-label" style="font-size:var(--sm);color:var(--fog);margin-bottom:14px;padding:10px 14px;background:rgba(201,168,76,.05);border-left:2px solid var(--g1);"></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <input type="email" id="SEML" name="email" placeholder="Your email address" required autocomplete="email" style="flex:1;min-width:220px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-right:none;color:var(--cream);padding:17px 20px;font-family:var(--fb);font-size:.9rem;outline:none;">
-            <button type="submit" id="FSB" style="background:var(--g1);color:var(--void);border:none;padding:17px 32px;font-family:var(--fb);font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .3s;" onmouseover="this.style.background='var(--g0)'" onmouseout="this.style.background='var(--g1)'"><span id="FSBT" aria-live="polite">Get My Free Chapter →</span></button>
-          </div>
-          <p style="font-size:.72rem;color:var(--dim);margin-top:12px;font-family:var(--fb);">Instant delivery · No payment · Unsubscribe anytime</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- FAQ -->
 <section class="fqsc sec" id="faq" aria-label="Frequently asked questions">
