@@ -410,9 +410,9 @@ body{cursor:none;}
           <input type="checkbox" id="ncahub" checked onchange="recalc()">
           The NCA Hub Notes (all 5 subjects)
         </label>
-        <small style="margin-left:28px;margin-top:4px;display:block">$175 per subject. <a href="/#pricing">See pricing →</a></small>
+        <small style="margin-left:28px;margin-top:4px;display:block">$100 per subject. <a href="/#pricing">See pricing →</a></small>
       </div>
-      <span class="calc-val" id="val-ncahub">$875</span>
+      <span class="calc-val" id="val-ncahub">$500</span>
     </div>
   </div>
 
@@ -472,9 +472,9 @@ body{cursor:none;}
     <li><strong>Challenge exam fees (~$500/subject/attempt):</strong> The largest cost for most candidates. With 5–7 subjects and potential re-sits, exam fees alone can reach $3,000–$5,000 CAD.</li>
     <li><strong>LRW (~$375):</strong> Legal Research and Writing requirement. Most internationally trained lawyers are assigned this. Completed online through CPLED (cpled.ca).</li>
     <li><strong>Indigenous Law competency (~$150–$400):</strong> Mandatory since March 1, 2026. Must be from an NCA-approved provider.</li>
-    <li><strong>Study materials:</strong> This is where candidates can make a significant difference. The NCA Hub Notes cost $175 per subject, a fraction of the cost of a single failed exam re-sit ($500). Notes are available now for all 5 mandatory subjects plus Contract, Evidence, Family, and Property Law. <a href="/notes/" style="color:var(--g1)">See all notes &rarr;</a></li>
+    <li><strong>Study materials:</strong> This is where candidates can make a significant difference. The NCA Hub Notes cost $100 per subject, a fraction of the cost of a single failed exam re-sit ($500). Notes are available now for all 5 mandatory subjects plus Contract, Evidence, Family, and Property Law. <a href="/notes/" style="color:var(--g1)">See all notes &rarr;</a></li>
   </ul>
-  <p><strong>The cost of a failed re-sit ($500) is often the best argument for investing in proper study materials upfront.</strong> If your notes cost $175 and help you pass on the first attempt, they pay for themselves three times over.</p>
+  <p><strong>The cost of a failed re-sit ($500) is often the best argument for investing in proper study materials upfront.</strong> If your notes cost $100 and help you pass on the first attempt, they pay for themselves five times over.</p>
   <p>See also: <a href="/nca-exam-dates-2026/">NCA Exam Dates 2026</a> — plan your sessions around the official schedule.</p>
 </div>
 
@@ -502,13 +502,13 @@ body{cursor:none;}
 <!-- CTA -->
 <section class="page-cta">
   <div id="dynamic-cta" style="background:rgba(225,245,238,.06);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem">
-    <p style="font-size:14px;color:var(--g1);font-weight:500;margin-bottom:8px">One avoided resit covers the cost of your notes — three times over.</p>
-    <p style="font-size:13px;color:var(--fog);margin-bottom:16px" id="cta-text">At $175 per subject, preparing properly costs less than a single failed attempt ($500 + 3-month delay). For <span id="cta-n">5</span> subjects, the NCA Complete Notes Bundle costs $<span id="cta-cost">875</span> — less than two resits.</p>
+    <p style="font-size:14px;color:var(--g1);font-weight:500;margin-bottom:8px">One avoided resit covers the cost of your notes — five times over.</p>
+    <p style="font-size:13px;color:var(--fog);margin-bottom:16px" id="cta-text">At $100 per subject, preparing properly costs less than a single failed attempt ($500 + 3-month delay). For <span id="cta-n">5</span> subjects, the NCA Complete Notes Bundle costs $<span id="cta-cost">500</span> — less than two resits.</p>
     <a href="/notes/" class="hub-btn" id="cta-btn">Browse All <span id="cta-n2">5</span> Subjects →</a>
   </div>
   <p class="page-cta-eyelet">Reduce the cost of re-sits</p>
   <h2 class="page-cta-title">Notes that pay for themselves — if they help you pass first time.</h2>
-  <p class="page-cta-sub">At $175 per subject, The NCA Hub Notes cost less than one failed re-sit ($500). Precision study notes, answer templates, and issue-spotting frameworks — built to clear NCA exams on the first attempt.</p>
+  <p class="page-cta-sub">At $100 per subject, The NCA Hub Notes cost less than one failed re-sit ($500). Precision study notes, answer templates, and issue-spotting frameworks — built to clear NCA exams on the first attempt.</p>
   <a href="/notes/" class="hub-btn">Browse My Notes →</a>
 </section>
 <script>
@@ -517,7 +517,7 @@ body{cursor:none;}
   if(!slider)return;
   function updateCta(){
     var n=parseInt(slider.value)||5;
-    var cost=n*175;
+    var cost=n*100;
     document.getElementById('cta-n').textContent=n;
     document.getElementById('cta-n2').textContent=n;
     document.getElementById('cta-cost').textContent=cost.toLocaleString();
@@ -578,7 +578,7 @@ var FEES = {
   cog: 0,
   lrw: 375,
   indig: 275,
-  ncahub: 875,
+  ncahub: 500,
   articling: 3000,
   bar: 1440
 };
@@ -846,6 +846,6 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
-<script src="/nca-world-class.js?v=20260727" defer></script>
+<script src="/nca-world-class.js?v=20260807" defer></script>
 </body>
 </html>
