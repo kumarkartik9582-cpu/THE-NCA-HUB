@@ -76,7 +76,7 @@ The NCA and the provincial bar exams are two different gates. Many candidates co
 
 | Item | NCA | Bar Exam (Ontario example) |
 |------|-----|---------------------------|
-| Exam fees | ~$175/subject | ~$1,500–$2,000 |
+| Exam fees | ~$100/subject | ~$1,500–$2,000 |
 | Prep materials | ~$800–$1,500 | ~$500–$1,000 |
 | Courses (optional) | Variable | ~$1,000–$3,000 |
 | **Total** | **~$3,000–$5,000** | **~$3,000–$6,000** |

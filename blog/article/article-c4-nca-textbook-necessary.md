@@ -73,7 +73,7 @@ During the exam:
 | Resource | Cost | Pages | Exam Utility |
 |----------|------|-------|--------------|
 | NCA Textbook | ~$150 CAD | 500+ | Low (too bulky) |
-| Strategic Notes | ~$175 CAD | 80 | High (tabbed, focused) |
+| Strategic Notes | ~$100 CAD | 80 | High (tabbed, focused) |
 | Self-made condensed notes | Free (your time) | 50–100 | High (if done correctly) |
 
 ## The Exception: Foundations of Canadian Law
