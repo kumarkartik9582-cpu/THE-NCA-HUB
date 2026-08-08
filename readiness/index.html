@@ -16,6 +16,32 @@
 <meta property="og:description" content="Know exactly where you stand before you sit. 5 questions. Subject-specific score. Actionable feedback.">
 <meta property="og:url" content="https://www.thencahub.com/readiness/">
 <meta property="og:site_name" content="The NCA Hub">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "NCA Readiness Score",
+      "url": "https://www.thencahub.com/readiness/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "description": "A free 5-question NCA readiness assessment that gives internationally trained lawyers a subject-specific score out of 100 and tells them whether they are ready to sit the NCA challenge exam.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CAD"},
+      "provider": {"@type": "Organization", "name": "The NCA Hub", "url": "https://www.thencahub.com"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Is the NCA Readiness Score free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It is five questions with an instant result. No login, no payment, and no email required."}},
+        {"@type": "Question", "name": "How is the NCA readiness score calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Your answers are mapped to the criteria the NCA exam actually rewards for your specific subject, combining exam technique with subject-specific knowledge. You receive a score out of 100 and a Ready, Approaching Ready, or Not Ready label."}},
+        {"@type": "Question", "name": "Which subjects does the readiness score cover?", "acceptedAnswer": {"@type": "Answer", "text": "All the main NCA subjects: the five mandatory subjects (Administrative, Constitutional, Criminal, Foundations of Canadian Law, and Professional Responsibility) plus Contract, Family, Evidence, Property, and Civil Procedure."}},
+        {"@type": "Question", "name": "Does a high readiness score guarantee I will pass the NCA exam?", "acceptedAnswer": {"@type": "Answer", "text": "No assessment can guarantee a result. The score reflects whether your technique and knowledge line up with what the exam rewards, so you can close the gaps before you sit."}}
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
@@ -134,7 +160,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:40px 72px;display:flex;
     <div class="rq-progress-wrap" id="rq-progress-wrap">
       <div class="rq-progress-meta">
         <span id="rq-prog-label">Select your subject</span>
-        <span id="rq-prog-frac">0 / 6</span>
+        <span id="rq-prog-frac">0 / 5</span>
       </div>
       <div class="rq-progress-bar"><div class="rq-progress-fill" id="rq-prog-fill"></div></div>
     </div>
@@ -177,6 +203,32 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:40px 72px;display:flex;
       <a href="/#sample" style="font-size:var(--nano);letter-spacing:.22em;text-transform:uppercase;color:var(--g1);font-weight:600;">Get My Free Chapter →</a>
     </div>
   </div>
+
+  <!-- FAQ -->
+  <section aria-label="Readiness score FAQ" style="padding:20px 0 110px;">
+    <div class="w" style="max-width:820px;">
+      <span class="ey" style="text-align:center;">Questions</span>
+      <h2 class="sh" style="font-size:clamp(1.8rem,3.5vw,2.8rem);text-align:center;margin-bottom:48px;">About the readiness score</h2>
+      <div style="border-top:1px solid rgba(201,168,76,.1);">
+        <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+          <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:10px;">Is the NCA Readiness Score free?</p>
+          <p style="font-size:var(--body);color:var(--fog);line-height:1.8;">Yes. It is five questions with an instant result. No login, no payment, and no email required.</p>
+        </div>
+        <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+          <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:10px;">How is the score calculated?</p>
+          <p style="font-size:var(--body);color:var(--fog);line-height:1.8;">Your answers are mapped to the criteria the NCA exam actually rewards for your specific subject, combining exam technique with subject-specific knowledge. You get a score out of 100 and a Ready, Approaching Ready, or Not Ready label.</p>
+        </div>
+        <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+          <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:10px;">Which subjects does it cover?</p>
+          <p style="font-size:var(--body);color:var(--fog);line-height:1.8;">All the main NCA subjects: the five mandatory subjects plus Contract, Family, Evidence, Property, and Civil Procedure.</p>
+        </div>
+        <div style="padding:24px 0;border-bottom:1px solid rgba(201,168,76,.1);">
+          <p style="font-family:var(--fd);font-size:1.15rem;color:var(--cream);margin-bottom:10px;">Does a high score guarantee I will pass?</p>
+          <p style="font-size:var(--body);color:var(--fog);line-height:1.8;">No assessment can guarantee a result. The score reflects whether your technique and knowledge line up with what the exam rewards, so you can close the gaps before you sit. When you are ready, the notes for every subject are $100.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
