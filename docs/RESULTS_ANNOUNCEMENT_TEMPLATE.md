@@ -446,7 +446,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
       <div class="art-notes-cta">
         <div class="art-notes-eyelet">Resit Preparation</div>
         <div class="art-notes-title">NCA [SUBJECT] — Complete System</div>
-        <p class="art-notes-sub">Under 80 pages of precision notes with answer templates for every question type. Built for 3-hour open-book exams. $175 CAD.</p>
+        <p class="art-notes-sub">Under 80 pages of precision notes with answer templates for every question type. Built for 3-hour open-book exams. $100 CAD.</p>
         <a href="[NOTES_PAGE_URL]" class="art-notes-btn">View the [SUBJECT] Notes</a>
       </div>
 

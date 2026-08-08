@@ -118,14 +118,14 @@ Let's talk about what happens if you don't pass on the first attempt.
 - Emotional cost: the frustration of watching other candidates progress
 
 **The cost of the notes:**
-- $175 CAD for the Complete System (notes + answer templates)
+- $100 CAD for the Complete System (notes + answer templates)
 - Instant PDF delivery
 - Free updated resit notes if you don't pass
 
 **The math:**
 One avoided resit pays for three sets of notes and still saves you $150.
 
-This isn't about whether you *can* pass without structured notes. Some candidates do. But the question is whether $175 is worth avoiding a $500 + 3-month setback.
+This isn't about whether you *can* pass without structured notes. Some candidates do. But the question is whether $100 is worth avoiding a $500 + 3-month setback.
 
 84% of NCA Hub users report feeling more prepared after using the notes (community survey, not official data).
 
@@ -233,7 +233,7 @@ If you answered "no" to any of these, you still have time — but the clock is r
 It takes 2 minutes and tells you exactly where you stand.
 
 **If you haven't bought notes yet:**
-The Complete System for [Subject] is $175 CAD. Instant PDF delivery. Under 80 pages. Answer templates for every major framework. Pay in 2 instalments if needed.
+The Complete System for [Subject] is $100 CAD. Instant PDF delivery. Under 80 pages. Answer templates for every major framework. Pay in 2 instalments if needed.
 
 thencahub.com[Subject Notes Page URL]
 

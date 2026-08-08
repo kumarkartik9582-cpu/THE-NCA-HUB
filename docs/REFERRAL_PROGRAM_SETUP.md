@@ -1,7 +1,7 @@
 # Payhip Referral/Affiliate Program Setup Guide
 
 **Time required:** 10 minutes
-**Expected impact:** $25 per referred sale, leveraging existing WhatsApp community
+**Expected impact:** $25 per referred sale on $100 notes, leveraging existing WhatsApp community
 
 ---
 
@@ -17,7 +17,7 @@
 
 - **Commission type:** Fixed amount
 - **Commission amount:** $25 CAD per sale
-- Alternatively: **Percentage** at ~14% (which equals ~$25 on a $175 sale)
+- Alternatively: **Percentage** at 25% (which equals $25 on a $100 sale)
 - **Cookie duration:** 30 days (recommended — gives referrers credit if the buyer returns within 30 days)
 - **Auto-approve affiliates:** ON (makes it easy for candidates to join)
 
@@ -70,8 +70,8 @@ Check these weekly:
 
 | Monthly Referrals | Commission | Revenue Impact |
 |-------------------|-----------|----------------|
-| 5 | $125 | Customer acquisition cost = $25 vs $175 revenue |
-| 10 | $250 | 10 new customers = $1,750 revenue, $250 commission |
-| 20 | $500 | 20 new customers = $3,500 revenue, $500 commission |
+| 5 | $125 | Customer acquisition cost = $25 vs $100 revenue |
+| 10 | $250 | 10 new customers = $1,000 revenue, $250 commission |
+| 20 | $500 | 20 new customers = $2,000 revenue, $500 commission |
 
-Net margin per referred sale: $175 - $25 commission = $150 (85.7% margin)
+Net margin per referred sale: $100 - $25 commission = $75 (75% margin on a zero-COGS digital product)

@@ -51,7 +51,7 @@ NCA exam study notes and tools for internationally trained lawyers qualifying in
 
 ### 10. Post-Verification
 Once verified:
-- Add **Products**: List each subject's notes as a product ($175 CAD each)
+- Add **Products**: List each subject's notes as a product ($100 CAD each)
 - Add **Posts**: Share exam date reminders, new articles
 - Enable **Messaging** if you want direct inquiries
 - Add a **Q&A** section with common NCA questions
