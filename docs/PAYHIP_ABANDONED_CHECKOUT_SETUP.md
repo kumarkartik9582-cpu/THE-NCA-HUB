@@ -1,7 +1,7 @@
 # Payhip Abandoned Checkout Email — Setup Guide
 
 **Time required:** 10 minutes
-**Expected revenue impact:** ~$1,750/month (15% recovery of 70 monthly abandonments at $175 avg)
+**Expected revenue impact:** ~$1,050/month (15% recovery of 70 monthly abandonments at $100 avg)
 
 ---
 
@@ -34,9 +34,9 @@ Hi {customer_name},
 
 You were just looking at NCA study notes on The NCA Hub — and you didn't finish checking out.
 
-Here's why that matters: a single failed NCA resit costs $500 and delays you by 3 months. The notes you were looking at cost $175 and are designed specifically for the open-book, 3-hour exam format.
+Here's why that matters: a single failed NCA resit costs $500 and delays you by 3 months. The notes you were looking at cost $100 and are designed specifically for the open-book, 3-hour exam format.
 
-The math is simple: $175 now vs $500 + 3 months later.
+The math is simple: $100 now vs $500 + 3 months later.
 
 Every set of notes is:
 - Under 80 pages (designed for speed, not bulk)
