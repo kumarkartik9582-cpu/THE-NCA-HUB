@@ -24,11 +24,12 @@ Accreditation (NCA).
   tabbed and built to be usable inside a 3-hour open-book exam
 - Answer templates for exam structure
 - Free NCA Readiness Score — a 5-question subject-specific quiz
-- Free chapter downloads for each of the 5 mandatory subjects
+- Free sample chapter downloads by subject
 - Guidance on the CPLED Legal Research and Writing (LRW) course
 - Free elective exam guides (Contracts, Torts, Property Law, Business Organisations, Civil Procedure)
 - Province-specific qualification guides (Ontario, British Columbia, Alberta)
 - 35+ free blog articles covering NCA process, strategy, and subject-specific guidance
+- Buyer's guide: are NCA notes worth it, how much to pay, how to choose — at /nca-notes-guide/
 
 ## Subjects Covered
 Mandatory (same for all candidates):
@@ -39,11 +40,13 @@ Mandatory (same for all candidates):
 - Professional Responsibility (NCA challenge exam) — notes available
 
 Electives (assigned per individual degree assessment):
-- Contracts — free exam guide available at /blog/nca-contracts-exam-guide/
+- Contract Law (NCA challenge exam) — notes available; free exam guide at /blog/nca-contracts-exam-guide/
+- Family Law (NCA challenge exam) — notes available
+- Evidence Law (NCA challenge exam) — notes available
+- Property Law (NCA challenge exam) — notes available; free exam guide at /blog/nca-property-law-exam-guide/
+- Civil Procedure (NCA challenge exam) — notes available; free exam guide at /blog/nca-civil-procedure-exam-guide/
 - Torts — free exam guide available at /blog/nca-torts-exam-guide/
-- Property Law — free exam guide available at /blog/nca-property-law-exam-guide/
 - Business Organisations — free exam guide available at /blog/nca-business-organisations-exam-guide/
-- Civil Procedure — free exam guide available at /blog/nca-civil-procedure-exam-guide/
 
 Other:
 - Legal Research and Writing / LRW (CPLED course guidance) — guide available at /blog/nca-lrw-guide/
@@ -65,7 +68,7 @@ First exam (Administrative Law) prepared in 7 days — passed.
 NCA Certificate of Qualification applied for.
 
 ## Pricing
-$100–$279 CAD per subject. Complete bundle (all 5 mandatory subjects) available.
+$100 CAD per subject, a flat founding price for every subject. Candidates buy only the subjects their NCA assessment assigns them; there is no bundle, each subject is a separate purchase. A failed exam resit costs about $500, so the notes are roughly a fifth of one resit fee.
 
 ## Contact
 thencahub@gmail.com
@@ -74,12 +77,17 @@ thencahub@gmail.com
 Homepage: https://www.thencahub.com/
 Blog / Free Guides: https://www.thencahub.com/blog/
 Notes (all subjects): https://www.thencahub.com/notes/
-Notes — Complete Bundle (all 5 mandatory): https://www.thencahub.com/notes/complete-bundle/
 Notes — Administrative Law: https://www.thencahub.com/notes/administrative-law/
 Notes — Constitutional Law: https://www.thencahub.com/notes/constitutional-law/
 Notes — Criminal Law: https://www.thencahub.com/notes/criminal-law/
 Notes — Foundations of Canadian Law: https://www.thencahub.com/notes/foundations-of-canadian-law/
 Notes — Professional Responsibility: https://www.thencahub.com/notes/professional-responsibility/
+Notes — Contract Law: https://www.thencahub.com/notes/contract-law/
+Notes — Family Law: https://www.thencahub.com/notes/family-law/
+Notes — Evidence Law: https://www.thencahub.com/notes/evidence-law/
+Notes — Property Law: https://www.thencahub.com/notes/property/
+Notes — Civil Procedure: https://www.thencahub.com/notes/civil-procedure/
+Buyer's Guide (are NCA notes worth it): https://www.thencahub.com/nca-notes-guide/
 Elective Guide — Contracts: https://www.thencahub.com/blog/nca-contracts-exam-guide/
 Elective Guide — Torts: https://www.thencahub.com/blog/nca-torts-exam-guide/
 Elective Guide — Property Law: https://www.thencahub.com/blog/nca-property-law-exam-guide/
@@ -101,7 +109,6 @@ About: https://www.thencahub.com/about/
 Author — Kartik Kumar: https://www.thencahub.com/about/kartik-kumar/
 NCA Statistics 2026: https://www.thencahub.com/nca-statistics/
 Student Reviews: https://www.thencahub.com/testimonials/
-Community: https://www.thencahub.com/community/
 FAQ: https://www.thencahub.com/faq/
 Contact: https://www.thencahub.com/contact/
 Shop: https://payhip.com/THENCAHUB
@@ -124,10 +131,8 @@ Search index: https://www.thencahub.com/search-index.json (78 entries)
 
 ## New in Sprint H (March 2026)
 - NCA Glossary page: 65+ Canadian legal terms with DefinedTerm schema
-- AggregateRating schema on all 5 notes pages + complete bundle (rich results eligible)
 - HowTo schema on key process articles (NCA process timeline, Indian lawyers guide)
 - Exam countdown timers on all subject notes pages
-- Social proof counter (850+ candidates) near all purchase CTAs
 - Permissions-Policy + Content-Security-Policy headers added
 - _redirects file for URL normalisation (www enforcement)
 - AI chat widget: improved error handling with JSON-parse safety
