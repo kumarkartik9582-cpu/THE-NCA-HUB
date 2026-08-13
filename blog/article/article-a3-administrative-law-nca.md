@@ -64,26 +64,28 @@ Since *Canada (Minister of Citizenship and Immigration) v Vavilov*, 2019 SCC 65,
 3. **Check for correctness exceptions** — Does the question fall into one of the categories where correctness applies?
 4. **Apply the appropriate standard** — Reasonableness or correctness.
 
-### When Correctness Applies — The Four Exceptions
+### When Correctness Applies — The Five Exceptions
 
-The Vavilov framework identifies four categories where correctness review applies:
+The Vavilov framework identifies five situations where the presumption of reasonableness is rebutted and correctness review applies. They fall into two groups: those that respect **legislative intent**, and those required by the **rule of law**.
 
-**Category 1: Constitutional Questions** (Vavilov para 69)
-- Division of powers (federalism)
-- Charter questions  
-- Other constitutional issues
+*Legislative intent:*
 
-**Category 2: Questions of General Importance to the Legal System as a Whole** (Vavilov para 58)
-- Questions whose resolution will have significant precedential value beyond the specific context
-- True questions of law that are "of central importance to the legal system"
+**Category 1: The Legislature Expressly Prescribes the Standard** (Vavilov paras 33–35)
+- Where the enabling statute itself states the standard of review the court must apply, that legislative choice governs.
 
-**Category 3: Questions Regarding Jurisdictional Lines Between Two or More Administrative Bodies** (Vavilov para 63)
-- Where the question concerns the boundary between the jurisdiction of two administrative decision-makers
-- These require a single correct answer binding on both bodies
+**Category 2: Statutory Appeal Mechanism** (Vavilov paras 36–52)
+- Where the legislature has provided a right of appeal to a court, the appellate standards from *Housen v Nikolaisen*, 2002 SCC 33 apply — correctness for questions of law, and palpable and overriding error for questions of fact and mixed fact and law.
 
-**Category 4: Statutory Appeal Mechanism** (Vavilov para 52)
-- Where the legislature has provided a right of appeal to a court on a question of law
-- This signals legislative intent toward correctness review
+*Rule of law:*
+
+**Category 3: Constitutional Questions** (Vavilov paras 55–57)
+- Division of powers (federalism), the constitutional validity of legislation (including a Charter challenge to a statute), section 35 Aboriginal and treaty rights, and other constitutional matters.
+
+**Category 4: General Questions of Law of Central Importance to the Legal System as a Whole** (Vavilov paras 58–62)
+- Questions whose resolution has significance beyond the specific context. Note: unlike the old Dunsmuir test, the question need **not** be outside the decision-maker's area of expertise — Vavilov removed that requirement.
+
+**Category 5: Jurisdictional Lines Between Two or More Administrative Bodies** (Vavilov paras 63–64)
+- Where the question concerns the boundary between the jurisdiction of two administrative decision-makers. These require a single correct answer binding on both bodies.
 
 > **Important:** Privative clauses — statutory provisions that limit or exclude judicial review — have the **opposite** effect. They signal that the legislature intended to protect the tribunal's decision from judicial intervention, and therefore **support reasonableness review**, not correctness. Do not confuse privative clauses with appeal mechanisms.
 
@@ -146,7 +148,7 @@ This is the structure for a standard Administrative Law question. Memorise it. U
 
 **2. STANDARD OF REVIEW**
 - Apply Vavilov presumption (reasonableness is the default)
-- Check for the four correctness exceptions
+- Check for the five correctness exceptions
 - State the applicable standard
 
 **3. APPLICABLE STANDARD ANALYSIS**
