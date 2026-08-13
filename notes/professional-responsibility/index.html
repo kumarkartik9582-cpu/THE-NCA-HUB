@@ -707,11 +707,14 @@ document.addEventListener('DOMContentLoaded',function(){
 (function(){
   var el=document.getElementById('notes-countdown');
   if(!el)return;
-  var next=new Date('2026-05-04');
-  var days=Math.ceil((next-new Date())/(864e5));
-  if(days>0&&days<=180){
-    el.innerHTML='<span style="color:var(--g1);font-weight:600;">'+days+' days</span> until the next Professional Responsibility exam &mdash; <strong style="color:var(--cream);">Next exam: May 4</strong> &middot; Registration closed &mdash; next session Aug 4 &mdash; <a href="/nca-exam-dates-2026/" style="color:var(--g1);text-decoration:none;">view full schedule &rarr;</a>';
-  }
+  var S=[{d:'2026-02-03',r:'2026-01-08'},{d:'2026-05-04',r:'2026-04-02'},{d:'2026-08-04',r:'2026-07-09'},{d:'2026-11-03',r:'2026-10-01'}];
+  var now=new Date();now.setHours(0,0,0,0);
+  var n=null;for(var i=0;i<S.length;i++){var dd=new Date(S[i].d+'T00:00:00');if(dd>=now){n=S[i];break;}}
+  if(!n){el.innerHTML='<a href="/nca-exam-dates-2026/" style="color:var(--g1);text-decoration:none;">See the 2026 NCA exam schedule &rarr;</a>';return;}
+  var d=new Date(n.d+'T00:00:00'),days=Math.ceil((d-now)/864e5);
+  var f=function(x){return new Date(x+'T00:00:00').toLocaleDateString('en-CA',{month:'short',day:'numeric'});};
+  var reg=new Date(n.r+'T23:59:59'),rt=now<=reg?'Registration closes '+f(n.r):'Registration closed';
+  el.innerHTML='<span style="color:var(--g1);font-weight:600;">'+days+' day'+(days===1?'':'s')+'</span> until the next Professional Responsibility exam &mdash; <strong style="color:var(--cream);">Next sitting: '+f(n.d)+'</strong> &middot; '+rt+' &mdash; <a href="/nca-exam-dates-2026/" style="color:var(--g1);text-decoration:none;">view full schedule &rarr;</a>';
 })();
 </script>
 <script src="/nca-search.js" defer></script>
