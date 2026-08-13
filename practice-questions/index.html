@@ -230,7 +230,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <!-- 1. Professional Responsibility -->
     <div class="pq-card">
       <div class="pq-card-header">
-        <p class="pq-exam-date">Next exam: May 4, 2026</p>
+        <p class="pq-exam-date">Next exam: Nov 3, 2026</p>
         <p class="pq-countdown">23 days away</p>
         <h2 class="pq-subject">Professional Responsibility</h2>
         <span class="pq-badge">Coming Soon</span>
@@ -258,7 +258,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <!-- 2. Criminal Law -->
     <div class="pq-card">
       <div class="pq-card-header">
-        <p class="pq-exam-date">Next exam: May 12, 2026</p>
+        <p class="pq-exam-date">Next exam: Nov 9, 2026</p>
         <p class="pq-countdown">31 days away</p>
         <h2 class="pq-subject">Criminal Law</h2>
         <span class="pq-badge">Coming Soon</span>
@@ -286,7 +286,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <!-- 3. Property Law -->
     <div class="pq-card">
       <div class="pq-card-header">
-        <p class="pq-exam-date">Next exam: Jun 1, 2026</p>
+        <p class="pq-exam-date">Next exam: Oct 20, 2026</p>
         <p class="pq-countdown">51 days away</p>
         <h2 class="pq-subject">Property Law</h2>
         <span class="pq-badge">Coming Soon</span>
@@ -314,7 +314,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <!-- 4. Administrative Law -->
     <div class="pq-card">
       <div class="pq-card-header">
-        <p class="pq-exam-date">Next exam: Jun 2, 2026</p>
+        <p class="pq-exam-date">Next exam: Aug 31, 2026</p>
         <p class="pq-countdown">52 days away</p>
         <h2 class="pq-subject">Administrative Law</h2>
         <span class="pq-badge">Coming Soon</span>
@@ -342,7 +342,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <!-- 5. Constitutional Law -->
     <div class="pq-card">
       <div class="pq-card-header">
-        <p class="pq-exam-date">Next exam: Jul 7, 2026</p>
+        <p class="pq-exam-date">Next exam: Oct 5, 2026</p>
         <p class="pq-countdown">87 days away</p>
         <h2 class="pq-subject">Constitutional Law</h2>
         <span class="pq-badge">Coming Soon</span>
@@ -370,7 +370,7 @@ footer{border-top:1px solid rgba(201,168,76,.07);padding:80px 72px 40px;margin-t
     <!-- 6. Foundations of Canadian Law -->
     <div class="pq-card">
       <div class="pq-card-header">
-        <p class="pq-exam-date">Next exam: Jul 14, 2026</p>
+        <p class="pq-exam-date">Next exam: Oct 13, 2026</p>
         <p class="pq-countdown">94 days away</p>
         <h2 class="pq-subject">Foundations of Canadian Law</h2>
         <span class="pq-badge">Coming Soon</span>
@@ -569,5 +569,28 @@ function handleNotify(form, successId) {
 
 <script src="/nca-chat-widget.js" defer></script>
 <script src="/nca-world-class.js?v=20260807" defer></script>
+<script>
+/* Auto-fill each subject card's next exam from the official NCA 2026 schedule */
+(function(){
+  var SCHED={
+    'Professional Responsibility':[['2026-02-03','2026-01-08'],['2026-05-04','2026-04-02'],['2026-08-04','2026-07-09'],['2026-11-03','2026-10-01']],
+    'Criminal Law':[['2026-02-10','2026-01-08'],['2026-05-12','2026-04-02'],['2026-08-10','2026-07-09'],['2026-11-09','2026-10-01']],
+    'Property Law':[['2026-02-09','2026-01-08'],['2026-06-01','2026-05-07'],['2026-10-20','2026-09-10']],
+    'Administrative Law':[['2026-03-03','2026-02-05'],['2026-06-02','2026-05-07'],['2026-08-31','2026-08-06'],['2026-11-17','2026-10-22']],
+    'Constitutional Law':[['2026-01-06','2025-12-11'],['2026-03-30','2026-03-05'],['2026-07-07','2026-06-11'],['2026-10-05','2026-09-10']],
+    'Foundations of Canadian Law':[['2026-01-13','2025-12-11'],['2026-04-07','2026-03-05'],['2026-07-14','2026-06-11'],['2026-10-13','2026-09-10']]
+  };
+  var now=new Date();now.setHours(0,0,0,0);
+  function fmt(x){return new Date(x+'T00:00:00').toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});}
+  document.querySelectorAll('.pq-card').forEach(function(card){
+    var subEl=card.querySelector('.pq-subject'), dateEl=card.querySelector('.pq-exam-date');
+    if(!subEl||!dateEl)return;
+    var s=SCHED[subEl.textContent.trim()];
+    if(!s){dateEl.style.display='none';return;}
+    var n=null;for(var i=0;i<s.length;i++){if(new Date(s[i][0]+'T00:00:00')>=now){n=s[i];break;}}
+    dateEl.textContent = n ? 'Next exam: '+fmt(n[0]) : 'See the 2026 exam schedule';
+  });
+})();
+</script>
 </body>
 </html>
