@@ -3141,26 +3141,70 @@ function rqShowResults(){
 
 
 /* Share + countdown (Sprint B) */
-function getDaysToNextExam(subject){
-  var now=new Date();
-  var examDates={
-    'Administrative Law':[new Date('2026-06-02'),new Date('2026-08-31')],
-    'Criminal Law':[new Date('2026-05-12'),new Date('2026-08-10')],
-    'Constitutional Law':[new Date('2026-04-01'),new Date('2026-07-07')],
-    'Professional Responsibility':[new Date('2026-05-04'),new Date('2026-08-04')],
-    'Foundations of Canadian Law':[new Date('2026-04-07'),new Date('2026-07-14')],
-    'Contract Law':[new Date('2026-05-19'),new Date('2026-08-18')],
-    'Family Law':[new Date('2026-06-09'),new Date('2026-09-08')],
-    'Evidence Law':[new Date('2026-05-26'),new Date('2026-08-25')],
-    'Property Law':[new Date('2026-06-01'),new Date('2026-08-31')]
-  };
-  var dates=examDates[subject];
-  if(!dates)return null;
-  for(var i=0;i<dates.length;i++){
-    var diff=Math.ceil((dates[i]-now)/(1000*60*60*24));
-    if(diff>0)return{days:diff,date:dates[i]};
+/* ── Canonical 2026 NCA exam schedule — single source of truth ──
+   Source: official NCA 2026 Examination Schedule (issued 9 Oct 2025).
+   d = first day of that subject's sitting window; reg = registration close date.
+   n:1 = The NCA Hub publishes notes for this subject. Kept in chronological order. */
+window.NCA_2026_SCHEDULE = window.NCA_2026_SCHEDULE || [
+  {s:'Commercial Law',d:'2026-01-05',reg:'2025-12-11'},
+  {s:'Constitutional Law',n:1,d:'2026-01-06',reg:'2025-12-11'},
+  {s:'Contract Law',n:1,d:'2026-01-12',reg:'2025-12-11'},
+  {s:'Foundations of Canadian Law',n:1,d:'2026-01-13',reg:'2025-12-11'},
+  {s:'Business Organizations',d:'2026-02-02',reg:'2026-01-08'},
+  {s:'Professional Responsibility',n:1,d:'2026-02-03',reg:'2026-01-08'},
+  {s:'Property Law',n:1,d:'2026-02-09',reg:'2026-01-08'},
+  {s:'Criminal Law',n:1,d:'2026-02-10',reg:'2026-01-08'},
+  {s:'Remedies',d:'2026-03-02',reg:'2026-02-05'},
+  {s:'Administrative Law',n:1,d:'2026-03-03',reg:'2026-02-05'},
+  {s:'Torts',d:'2026-03-09',reg:'2026-02-05'},
+  {s:'Civil Procedure',n:1,d:'2026-03-10',reg:'2026-02-05'},
+  {s:'Constitutional Law',n:1,d:'2026-03-30',reg:'2026-03-05'},
+  {s:'Foundations of Canadian Law',n:1,d:'2026-04-07',reg:'2026-03-05'},
+  {s:'Family Law',n:1,d:'2026-04-13',reg:'2026-03-05'},
+  {s:'Evidence Law',n:1,d:'2026-04-14',reg:'2026-03-05'},
+  {s:'Professional Responsibility',n:1,d:'2026-05-04',reg:'2026-04-02'},
+  {s:'Contract Law',n:1,d:'2026-05-11',reg:'2026-04-02'},
+  {s:'Criminal Law',n:1,d:'2026-05-12',reg:'2026-04-02'},
+  {s:'Property Law',n:1,d:'2026-06-01',reg:'2026-05-07'},
+  {s:'Administrative Law',n:1,d:'2026-06-02',reg:'2026-05-07'},
+  {s:'Commercial Law',d:'2026-07-06',reg:'2026-06-11'},
+  {s:'Constitutional Law',n:1,d:'2026-07-07',reg:'2026-06-11'},
+  {s:'Torts',d:'2026-07-13',reg:'2026-06-11'},
+  {s:'Foundations of Canadian Law',n:1,d:'2026-07-14',reg:'2026-06-11'},
+  {s:'Professional Responsibility',n:1,d:'2026-08-04',reg:'2026-07-09'},
+  {s:'Criminal Law',n:1,d:'2026-08-10',reg:'2026-07-09'},
+  {s:'Business Organizations',d:'2026-08-17',reg:'2026-07-09'},
+  {s:'Remedies',d:'2026-08-18',reg:'2026-07-09'},
+  {s:'Administrative Law',n:1,d:'2026-08-31',reg:'2026-08-06'},
+  {s:'Contract Law',n:1,d:'2026-09-08',reg:'2026-08-06'},
+  {s:'Civil Procedure',n:1,d:'2026-09-09',reg:'2026-08-06'},
+  {s:'Constitutional Law',n:1,d:'2026-10-05',reg:'2026-09-10'},
+  {s:'Foundations of Canadian Law',n:1,d:'2026-10-13',reg:'2026-09-10'},
+  {s:'Evidence Law',n:1,d:'2026-10-19',reg:'2026-09-10'},
+  {s:'Property Law',n:1,d:'2026-10-20',reg:'2026-09-10'},
+  {s:'Family Law',n:1,d:'2026-11-02',reg:'2026-10-01'},
+  {s:'Professional Responsibility',n:1,d:'2026-11-03',reg:'2026-10-01'},
+  {s:'Criminal Law',n:1,d:'2026-11-09',reg:'2026-10-01'},
+  {s:'Torts',d:'2026-11-16',reg:'2026-10-22'},
+  {s:'Administrative Law',n:1,d:'2026-11-17',reg:'2026-10-22'}
+];
+/* Next upcoming sitting from today. subject = filter to one subject; notedOnly = only subjects we cover. */
+window.ncaNextExam = function(subject, notedOnly){
+  var now = new Date(); now.setHours(0,0,0,0);
+  var list = window.NCA_2026_SCHEDULE || [];
+  for (var i=0;i<list.length;i++){
+    var e = list[i];
+    if (subject && e.s !== subject) continue;
+    if (notedOnly && !e.n) continue;
+    var ed = new Date(e.d + 'T00:00:00');
+    if (ed >= now) return { subject:e.s, date:ed, reg:new Date(e.reg + 'T23:59:59'),
+                            days:Math.ceil((ed - now)/86400000) };
   }
   return null;
+};
+function getDaysToNextExam(subject){
+  var n = window.ncaNextExam(subject);
+  return n ? { days:n.days, date:n.date } : null;
 }
 (function(){
   function showShareButtons(subjectName,scoreValue,verdict){
@@ -4538,32 +4582,23 @@ if('serviceWorker' in navigator){
 
     /* Activity ticker removed: it fabricated live purchases/downloads/scores. */
 
-    /* 5. EXAM COUNTDOWN + URGENCY BANNER */
-    var REG_DEADLINES = {
-      'Professional Responsibility': new Date('2026-05-04'),
-      'Criminal Law': new Date('2026-05-25'),
-      'Administrative Law': new Date('2026-05-07'),
-      'Constitutional Law': new Date('2026-06-11'),
-      'Foundations': new Date('2026-06-11'),
-      'Property Law': new Date('2026-05-07')
-    };
+    /* 5. EXAM COUNTDOWN + URGENCY BANNER — next NCA exam, auto-computed from the schedule */
     function updateAllCountdowns() {
-      var now = new Date();
       var banner = document.getElementById('ncah-urgency-banner');
-      if (banner) {
-        var upcoming = null, upDays = 999;
-        Object.keys(REG_DEADLINES).forEach(function(k) {
-          var d = REG_DEADLINES[k];
-          var days = Math.floor((d - now) / 86400000);
-          if (days > 0 && days < upDays) { upDays = days; upcoming = k; }
-        });
-        if (upcoming) {
-          banner.style.display = 'flex';
-          var msg = upDays <= 45 ? 'Registration closes in <strong>' + upDays + ' days</strong>' : 'Registration open';
-          banner.innerHTML = '<span class="urgency-subject">' + upcoming + '</span><span class="urgency-msg">' + msg + '</span>';
-          if (upDays <= 14) banner.classList.add('critical');
-        }
-      }
+      if (!banner || !window.ncaNextExam) return;
+      var next = window.ncaNextExam(null, true); /* next sitting in a subject we cover */
+      if (!next) { banner.style.display = 'none'; return; }
+      var now = new Date();
+      var mon = next.date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
+      var regOpen = now <= next.reg;
+      var rdays = Math.max(0, Math.ceil((next.reg - now) / 86400000));
+      var msg = regOpen
+        ? 'Registration closes in <strong>' + rdays + ' day' + (rdays === 1 ? '' : 's') + '</strong> &middot; exam ' + mon
+        : 'Sits in <strong>' + next.days + ' day' + (next.days === 1 ? '' : 's') + '</strong> &middot; ' + mon;
+      banner.style.display = 'flex';
+      banner.innerHTML = '<span class="urgency-subject">Next NCA exam: ' + next.subject + '</span><span class="urgency-msg">' + msg + '</span>';
+      banner.classList.remove('critical');
+      if (regOpen && rdays <= 21) banner.classList.add('critical');
     }
     updateAllCountdowns();
     setInterval(updateAllCountdowns, 30000);
