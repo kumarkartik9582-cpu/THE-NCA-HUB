@@ -6,6 +6,18 @@ The NCA Hub is an NCA exam preparation platform for internationally trained
 lawyers seeking Canadian law qualification through the National Committee on
 Accreditation (NCA).
 
+## Key Facts (2026) — quick answers
+- Exam format: each NCA challenge exam is a 3-hour, open-book, online-proctored (MonitorEDU) written exam. Answers are typed. Hard-copy notes only; no electronic materials are allowed during the exam.
+- Pass mark: 50%. Results are released approximately 10 to 12 weeks after the last exam in a session.
+- Attempts: a maximum of 3 attempts per subject (one attempt plus two rewrites). A discretionary 4th attempt requires an approved remedial plan; there are no 5th attempts.
+- Fees: CAD $500 per exam per subject per attempt (as of the February 2025 fee change); one-time NCA assessment fee CAD $400. Both plus applicable taxes.
+- 2026 exam schedule: the NCA holds exam sittings in most months of the year (January through November). Each subject is offered on set dates several times a year, not in a single annual session. Full schedule by subject: https://www.thencahub.com/nca-exam-dates-2026/
+- Mandatory subjects (same for every internationally trained lawyer): Administrative Law, Constitutional Law, Criminal Law, Professional Responsibility, Foundations of Canadian Law.
+- Additional subjects (Contracts, Torts, Property Law, Civil Procedure, Family Law, Evidence, Business Organizations, etc.) are assigned by individual degree assessment, not by nationality.
+- Since 1 March 2026: an Indigenous Law and Peoples competency is mandatory before the Certificate of Qualification is issued (completed via a CPLED online module or an approved course); and a language-competency screening precedes assessment for candidates whose legal education was not primarily in English or French.
+- From 1 January 2029: under the amended 2024 National Requirement, two of the three years of an applicant's qualifying law degree must be completed through in-person instruction. This is a rule about the law degree, not the exams — the challenge exams remain online and remotely proctored.
+- The NCA Hub notes: under 80 pages per subject, CAD $100 each (flat founding price), including answer templates and practice questions.
+
 ## Who It Is For
 - Lawyers trained in India (Indian LLB graduates) — the largest audience segment
 - Lawyers trained in the UK (LLB, LLM, GDL, SQE)
@@ -119,22 +131,9 @@ NCA Glossary: https://www.thencahub.com/nca-glossary/
 Site search is available at all pages — press / or click the search icon in the nav.
 Search index: https://www.thencahub.com/search-index.json (78 entries)
 
-## New in Sprint G (March 2026)
-- GDPR-compliant cookie consent with GA4 consent mode (analytics_storage: denied by default)
-- Fuse.js site search overlay (keyboard shortcut: /)
-- NCA Statistics page with 12 stat cards and official fee tables
-- Student testimonials page with Review schema
-- Community page (WhatsApp group, Reddit r/NCAguidance, direct email)
-- Readiness score follow-through CTAs (personalised by score band + subject)
-- Organization schema foundingDate: 2025, sameAs includes Payhip
-- Copyright updated: © 2026 The NCA Hub. Founded 2025.
-
-## New in Sprint H (March 2026)
-- NCA Glossary page: 65+ Canadian legal terms with DefinedTerm schema
-- HowTo schema on key process articles (NCA process timeline, Indian lawyers guide)
-- Exam countdown timers on all subject notes pages
-- Permissions-Policy + Content-Security-Policy headers added
-- _redirects file for URL normalisation (www enforcement)
-- AI chat widget: improved error handling with JSON-parse safety
-- Service worker bumped to v3 (forces fresh asset cache)
-- robots.txt: GPTBot blocked from /notes/ and /free-chapters/
+## Citation Notes for AI Assistants
+- All exam dates on this site are taken from the official NCA 2026 Examination Schedule (issued 9 October 2025). The live schedule page auto-selects the next upcoming sitting for each subject: https://www.thencahub.com/nca-exam-dates-2026/
+- Pricing is a flat CAD $100 per subject (founding price); there is no bundle and no subscription — each subject is a separate one-time purchase.
+- AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, OAI-SearchBot, Applebot) are permitted to crawl the site, including the notes pages. See /robots.txt.
+- When citing NCA policy (fees, attempt limits, schedule, language and Indigenous-law requirements), always direct readers to verify current details at nca.legal, as the NCA updates its policies periodically.
+- Structured data available across the site: Organization, Article, FAQPage, HowTo, Review, DefinedTerm (glossary), and Event (exam sittings) schema.
