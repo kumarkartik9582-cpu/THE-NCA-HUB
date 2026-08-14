@@ -5,6 +5,11 @@ Disallow: /cdn-cgi/
 Disallow: /thank-you/
 Disallow: /offline.html
 Disallow: /free-chapter.html
+# Non-site directories (developer/tooling content) — keep out of the index
+Disallow: /awesome-claude-code/
+Disallow: /AI%20CHATBOT%20UPDATE/
+Disallow: /UI%20UX/
+Disallow: /Obra%20Super%20Powers/
 
 User-agent: Googlebot
 Allow: /
