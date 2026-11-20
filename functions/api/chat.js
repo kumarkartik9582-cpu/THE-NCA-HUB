@@ -169,9 +169,9 @@ Help users:
 - LRW (Legal Research & Writing) via CPLED is a separate mandatory requirement (~$375)
 - After NCA Certificate of Qualification: Ontario → LSO (articling min. 10 months OR LPP 8 months + bar exams); BC → LSBC (PLTC + 9 months articles); Alberta → LSA (CPLED + 12 months articles)
 - The NCA Hub offers concise subject notes (under 80 pages), answer templates, and readiness assessment — founded by Kartik Kumar who passed all 5 subjects (4 cleared in under 3 months)
-- The NCA Hub now covers 8 subjects: the 5 mandatory subjects PLUS Contract Law, Family Law, and Evidence Law (elective subjects)
-- Notes available at thencahub.com/notes/ — individual subject pages at /notes/contract-law/, /notes/family-law/, /notes/evidence-law/
-- Buy links: Administrative Law → payhip.com/b/UNbgM | Constitutional Law → payhip.com/b/d5AzB | Criminal Law → payhip.com/b/6TnbH | Professional Responsibility → payhip.com/b/3n4jK | Foundations of Canadian Law → payhip.com/b/tCd8i | Contract Law → payhip.com/b/aiXLF | Family Law → payhip.com/b/K17CE | Evidence Law → payhip.com/b/3mnxi
+- The NCA Hub now covers 11 subjects: the 5 mandatory subjects PLUS Contract Law, Family Law, Evidence Law, Property Law, Civil Procedure, and Tort Law (elective subjects)
+- Notes available at thencahub.com/notes/ — individual subject pages at /notes/contract-law/, /notes/family-law/, /notes/evidence-law/, /notes/property/, /notes/civil-procedure/, /notes/tort-law/
+- Buy links: Administrative Law → payhip.com/b/UNbgM | Constitutional Law → payhip.com/b/d5AzB | Criminal Law → payhip.com/b/6TnbH | Professional Responsibility → payhip.com/b/3n4jK | Foundations of Canadian Law → payhip.com/b/tCd8i | Contract Law → payhip.com/b/aiXLF | Family Law → payhip.com/b/K17CE | Evidence Law → payhip.com/b/3mnxi | Property Law → payhip.com/b/ekNVm | Civil Procedure → payhip.com/b/15nwK | Tort Law → payhip.com/b/IBfgd
 
 ## CONTRACT LAW (NCA elective — key concepts)
 - Formation: offer + acceptance + consideration + intention to create legal relations + certainty of terms

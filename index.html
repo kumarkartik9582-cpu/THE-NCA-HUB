@@ -1915,6 +1915,10 @@ window.addEventListener('load', function() {
         <span class="stile-top"><span class="stile-name">Civil Procedure</span><span class="stile-status av">Available</span></span>
         <span class="stile-meta">Discovery, summary judgment, appeals &middot; under 80 pages</span>
       </a>
+      <a href="/notes/tort-law/" class="stile" role="listitem">
+        <span class="stile-top"><span class="stile-name">Tort Law</span><span class="stile-status av">Available</span></span>
+        <span class="stile-meta">Negligence, duty of care, causation &middot; under 80 pages</span>
+      </a>
       <a href="/notes/" class="stile" role="listitem">
         <span class="stile-top"><span class="stile-name">Legal Research &amp; Writing</span><span class="stile-status soon">CPLED course</span></span>
         <span class="stile-meta">A CPLED requirement, not an NCA exam &middot; guidance included</span>
@@ -1987,7 +1991,7 @@ window.addEventListener('load', function() {
     <!-- WILL IT COVER MY SUBJECT -->
     <div style="max-width:680px;margin:32px auto 0;">
       <div style="font-size:var(--nano);letter-spacing:.24em;text-transform:uppercase;color:var(--g1);font-family:var(--fb);font-weight:600;margin-bottom:12px;text-align:center;">Will it cover my subject?</div>
-      <p style="font-size:var(--sm);color:var(--fog);line-height:1.85;text-align:center;font-family:var(--fb);">Notes are available now for every NCA subject: the 5 mandatory subjects plus Contract, Family, Evidence, Property, and Civil Procedure. Not sure which subjects you were assigned? The <a href="/nca-subject-predictor/" style="color:var(--g1)">subject predictor</a> can help you work it out.</p>
+      <p style="font-size:var(--sm);color:var(--fog);line-height:1.85;text-align:center;font-family:var(--fb);">Notes are available now for every NCA subject: the 5 mandatory subjects plus Contract, Family, Evidence, Property, Civil Procedure, and Torts. Not sure which subjects you were assigned? The <a href="/nca-subject-predictor/" style="color:var(--g1)">subject predictor</a> can help you work it out.</p>
     </div>
 
     <div class="proof-rows" aria-label="Student results" style="margin-top:32px;">
@@ -2228,6 +2232,10 @@ window.addEventListener('load', function() {
           <button class="subj-btn" data-subj="property">
             <span class="subj-name">Property Law</span>
             <span class="subj-hint">Torrens system, estates in land, co-ownership, easements, mortgages, priorities</span>
+          </button>
+          <button class="subj-btn" data-subj="torts">
+            <span class="subj-name">Tort Law</span>
+            <span class="subj-hint">Anns/Cooper duty of care, standard of care, causation, remoteness, defences</span>
           </button>
         </div>
         <div class="rq-nav" style="margin-top:20px;">
@@ -2877,10 +2885,39 @@ var rqKnowledgeQ={
         {label:'The parties must intend to create an easement, the right must be negative in nature, the servient land must be adjacent, and the right must be permanent',pts:0,fb:'Incorrect. Easements can be positive (right to cross land) or negative (right to light). Adjacency is not required — the dominant and servient tenements need not be physically touching, though they must be sufficiently proximate for the right to accommodate the dominant tenement. An easement need not be permanent; it can be for a fixed term.',tag:'Easements — Re Ellenborough Park'}
       ]
     }
+  ],
+  torts:[
+    {
+      q:'A plaintiff sues a regulator for negligently failing to supervise a mortgage broker who defrauded investors. No court has previously recognised a duty of care in this situation. The court should determine whether a duty exists by applying:',
+      opts:[
+        {label:'The neighbour principle alone — if harm to the plaintiff was reasonably foreseeable, a duty of care automatically arises',pts:5,fb:'Foreseeability is necessary but not sufficient. Canadian law requires more than Donoghue v Stevenson foreseeability for a novel duty. Under Cooper v Hobart, the court must also find proximity at the first stage and then consider residual policy concerns at the second stage.',tag:'Duty of care (Anns/Cooper)'},
+        {label:'The Anns/Cooper test — reasonable foreseeability and proximity establish a prima facie duty, which may then be negated by residual policy considerations',pts:20,fb:'Correct. Cooper v Hobart, 2001 SCC 79 (the very facts here) refined the Anns test for Canada. Stage one asks whether harm was reasonably foreseeable and whether the relationship was sufficiently proximate. Stage two asks whether residual policy considerations, such as indeterminate liability or the regulator\'s duty to the public at large, negate the duty. In Cooper, the duty failed at stage one for want of proximity.',tag:'Duty of care (Anns/Cooper)'},
+        {label:'The Caparo three-stage test — foreseeability, proximity, and whether it is fair, just and reasonable to impose a duty',pts:5,fb:'Caparo is the English approach. Canadian courts apply the Anns/Cooper framework instead. The elements overlap, but citing Caparo as the governing Canadian test will cost marks on the NCA exam.',tag:'Duty of care (Anns/Cooper)'},
+        {label:'No test — public authorities are immune from negligence liability in Canada',pts:0,fb:'Incorrect. Public authorities can be liable in negligence. Only core policy decisions are immune (Nelson (City) v Marchi, 2021 SCC 41). Operational decisions attract ordinary negligence principles.',tag:'Duty of care (Anns/Cooper)'}
+      ]
+    },
+    {
+      q:'A plaintiff finds a dead fly in a sealed bottle of water and develops a severe, debilitating phobia. He proves the bottler was negligent. Following Mustapha v Culligan, his claim for psychiatric injury most likely:',
+      opts:[
+        {label:'Succeeds — once negligence is proven, the defendant takes the plaintiff as found and is liable for all resulting harm',pts:5,fb:'The thin skull rule applies only once the type of harm is reasonably foreseeable. It does not make an unforeseeable type of injury compensable. Mustapha v Culligan, 2008 SCC 27 failed at the remoteness stage before the thin skull rule could operate.',tag:'Remoteness and mental injury'},
+        {label:'Fails on remoteness — it was not reasonably foreseeable that a person of ordinary fortitude would suffer serious psychiatric injury from seeing the fly',pts:20,fb:'Correct. In Mustapha v Culligan, the Supreme Court found duty, breach and factual causation, but the harm was too remote. Psychiatric injury is foreseeable only if it would occur in a person of ordinary fortitude. The plaintiff\'s particular sensitivity was not foreseeable, so the claim failed.',tag:'Remoteness and mental injury'},
+        {label:'Fails because psychiatric injury is only recoverable if the plaintiff has a diagnosed psychiatric illness',pts:5,fb:'Saadati v Moorhead, 2017 SCC 28 held that a recognised psychiatric diagnosis is not required. The plaintiff must show serious and prolonged mental injury, not merely a diagnosis. Mustapha failed on remoteness, not on the absence of a diagnosis.',tag:'Remoteness and mental injury'},
+        {label:'Fails because there is no duty of care between a manufacturer and a consumer',pts:0,fb:'Incorrect. The manufacturer-consumer relationship is a well-established duty category dating back to Donoghue v Stevenson. In Mustapha, duty was not in issue.',tag:'Remoteness and mental injury'}
+      ]
+    },
+    {
+      q:'A patient suffers a stroke after a doctor delays ordering a scan. Expert evidence cannot say whether earlier treatment would have prevented the stroke, but the delay increased the risk. Under Clements v Clements, the plaintiff must prove causation by:',
+      opts:[
+        {label:'The material contribution to risk test, because scientific proof of but-for causation is impossible',pts:5,fb:'Not quite. Clements v Clements, 2012 SCC 32 confines material contribution to risk to exceptional cases with multiple tortfeasors where each can point to the other. Scientific uncertainty alone does not displace the but-for test.',tag:'Causation'},
+        {label:'The but-for test, applied robustly and pragmatically — the trier of fact may draw an inference of causation without scientific certainty',pts:20,fb:'Correct. The but-for test remains the general rule (Clements v Clements). Snell v Farrell allows the court to infer causation from the evidence on a balance of probabilities, applying common sense, even where expert evidence cannot give scientific certainty.',tag:'Causation'},
+        {label:'Showing that the doctor\'s delay was the sole cause of the stroke',pts:0,fb:'Incorrect. Athey v Leonati confirms the defendant need not be the sole cause. It is enough that the negligence was a cause of the injury beyond the de minimis range.',tag:'Causation'},
+        {label:'Showing a loss of chance — damages are awarded in proportion to the chance of avoiding the stroke',pts:0,fb:'Incorrect. Canadian courts have not adopted loss of chance for personal injury in medical negligence (Laferrière v Lawson). The plaintiff must prove causation on a balance of probabilities.',tag:'Causation'}
+      ]
+    }
   ]
 };
 
-var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility',contract:'Contract Law',family:'Family Law',evidence:'Evidence Law',property:'Property Law'};
+var rqSubjectNames={admin:'Administrative Law',crim:'Criminal Law',con:'Constitutional Law',fcl:'Foundations of Canadian Law',pr:'Professional Responsibility',contract:'Contract Law',family:'Family Law',evidence:'Evidence Law',property:'Property Law',torts:'Tort Law'};
 
 /* ── PROGRESS HELPER ── */
 function rqUpdateProgress(stepNum){
@@ -3237,7 +3274,8 @@ function showFollowThrough(score, subject){
     'Criminal Law':'/notes/criminal-law/',
     'Foundations of Canadian Law':'/notes/foundations-of-canadian-law/',
     'Professional Responsibility':'/notes/professional-responsibility/',
-    'Property Law':'/notes/property/'
+    'Property Law':'/notes/property/',
+    'Tort Law':'/notes/tort-law/'
   };
   var noteUrl=subjectSlugMap[subject]||'/notes/';
   var headline, links;
