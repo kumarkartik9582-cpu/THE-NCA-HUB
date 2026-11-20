@@ -57,7 +57,7 @@ Electives (assigned per individual degree assessment):
 - Evidence Law (NCA challenge exam) — notes available
 - Property Law (NCA challenge exam) — notes available; free exam guide at /blog/nca-property-law-exam-guide/
 - Civil Procedure (NCA challenge exam) — notes available; free exam guide at /blog/nca-civil-procedure-exam-guide/
-- Torts — free exam guide available at /blog/nca-torts-exam-guide/
+- Torts (NCA challenge exam) — notes available; free exam guide at /blog/nca-torts-exam-guide/
 - Business Organisations — free exam guide available at /blog/nca-business-organisations-exam-guide/
 
 Other:
@@ -99,6 +99,7 @@ Notes — Family Law: https://www.thencahub.com/notes/family-law/
 Notes — Evidence Law: https://www.thencahub.com/notes/evidence-law/
 Notes — Property Law: https://www.thencahub.com/notes/property/
 Notes — Civil Procedure: https://www.thencahub.com/notes/civil-procedure/
+Notes — Tort Law: https://www.thencahub.com/notes/tort-law/
 Buyer's Guide (are NCA notes worth it): https://www.thencahub.com/nca-notes-guide/
 Elective Guide — Contracts: https://www.thencahub.com/blog/nca-contracts-exam-guide/
 Elective Guide — Torts: https://www.thencahub.com/blog/nca-torts-exam-guide/

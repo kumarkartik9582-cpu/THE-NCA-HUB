@@ -940,6 +940,7 @@ function build() {
     { loc: `${BASE_URL}/notes/contract-law/`,      priority: '0.8', changefreq: 'monthly', lastmod: today },
     { loc: `${BASE_URL}/notes/family-law/`,        priority: '0.8', changefreq: 'monthly', lastmod: today },
     { loc: `${BASE_URL}/notes/evidence-law/`,      priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { loc: `${BASE_URL}/notes/tort-law/`,          priority: '0.8', changefreq: 'monthly', lastmod: today },
     { loc: `${BASE_URL}/privacy.html`,             priority: '0.3', changefreq: 'yearly',  lastmod: today },
     { loc: `${BASE_URL}/terms.html`,               priority: '0.3', changefreq: 'yearly',  lastmod: today },
     { loc: `${BASE_URL}/refund.html`,              priority: '0.3', changefreq: 'yearly',  lastmod: today },
